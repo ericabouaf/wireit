@@ -148,4 +148,3 @@ var WireIt = {
 
 // Set the function SetCanvasRegion depending on the browser
 WireIt.SetCanvasRegion = WireIt.ua.isIE ? WireIt.SetCanvasRegionIE : ( (WireIt.ua.isSafari||WireIt.ua.isOpera) ? WireIt.SetCanvasRegionSafari :  WireIt.SetCanvasRegionDefault);
-
