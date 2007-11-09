@@ -1,0 +1,330 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+<head>
+<title>
+WireIt Overview
+</title>
+<link rel ="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+<script>
+function asd() {
+	
+		parent.document.title="Wire.js Overview";
+	
+}
+</script>
+</head>
+<body bgcolor="white" onload="asd();">
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> 	<font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top">
+<em>
+<b>WireIt</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<center>
+	
+	   <h2>Wire.js</h2>
+	
+</center>
+
+	
+
+
+<h4>Summary</h4>
+<p>
+	
+		Contains the class WireIt.Wire that wraps a canvas tag to create wires<BR/><BR/>
+	
+</p>
+
+<hr>
+
+
+    <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+    <td colspan=2><font size="+2">
+    
+        <b>Class Summary</b>
+    
+    </font></td>
+    </tr>
+    
+    <tr bgcolor="white" class="TableRowColor">
+    <td width="15%"><b><a href="WireIt/Wire.html">WireIt.Wire</a></b></td>
+    <td>WireIt.Wire
+ </td>
+    </tr>
+    
+    </table>
+    <hr/> 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<!-- ========== END METHOD SUMMARY =========== -->
+
+
+        <pre class="sourceview"><span class="comment">/**
+ * <span class="attrib">@fileoverview</span> 
+ * Contains the class WireIt.Wire that wraps a canvas tag to create wires
+ * 
+ */</span>
+<span class="comment">/**
+ * <span class="attrib">@class</span> WireIt.Wire
+ * <span class="attrib">@constructor</span>
+ *
+ * <span class="attrib">@params</span>  {WireIt.Terminal}    terminal1   Source terminal
+ * <span class="attrib">@params</span>  {WireIt.Terminal}    terminal2   Target terminal
+ * <span class="attrib">@params</span>  {DomEl}              parentEl    Container of the CANVAS tag
+ * <span class="attrib">@params</span>  {Obj}                config      Styling configuration
+ */</span>
+WireIt.Wire = <span class="reserved">function</span>( terminal1, terminal2, parentEl, config) {
+   
+   <span class="comment">/**
+    * Reference to the parent dom element
+    */</span>
+   <span class="reserved">this</span>.parentEl = parentEl;
+   
+   <span class="comment">// Render the wire</span>
+   <span class="reserved">this</span>.render();
+   
+   <span class="comment">/**
+    * Reference to the first terminal
+    */</span>
+   <span class="reserved">this</span>.terminal1 = terminal1;
+   
+   <span class="comment">/**
+    * Reference to the second terminal
+    */</span>
+   <span class="reserved">this</span>.terminal2 = terminal2;
+   
+   <span class="comment">// Call addWire on both terminals</span>
+   <span class="reserved">this</span>.terminal1.addWire(<span class="reserved">this</span>);
+   <span class="reserved">this</span>.terminal2.addWire(<span class="reserved">this</span>);
+   
+   <span class="comment">/**
+    * Wire styling
+    */</span>
+   <span class="reserved">this</span>.config = config || {};
+   <span class="reserved">this</span>.config.cap = <span class="reserved">this</span>.config.cap || <span class="literal">'round'</span>;
+   <span class="reserved">this</span>.config.bordercap = <span class="reserved">this</span>.config.bordercap || <span class="literal">'round'</span>;
+   <span class="reserved">this</span>.config.width = <span class="reserved">this</span>.config.width || 3;
+   <span class="reserved">this</span>.config.borderwidth = <span class="reserved">this</span>.config.borderwidth || 1;
+   <span class="reserved">this</span>.config.color = <span class="reserved">this</span>.config.color || <span class="literal">'#0000ff'</span>;
+   <span class="reserved">this</span>.config.bordercolor = <span class="reserved">this</span>.config.bordercolor || <span class="literal">'#000000'</span>;
+   
+};
+
+
+<span class="comment">/**
+ * Render the canvas tag
+ */</span>
+WireIt.Wire.<span class="reserved">prototype</span>.render = <span class="reserved">function</span>() {
+   
+   <span class="comment">// Create the canvas element</span>
+   <span class="reserved">this</span>.el = WireIt.cn(<span class="literal">"canvas"</span>, {className: <span class="literal">"WireIt-Wire"</span>});
+   
+   <span class="reserved">this</span>.parentEl.appendChild(<span class="reserved">this</span>.el);
+   
+   <span class="comment">// extcanvas.js:</span>
+   <span class="reserved">if</span>(typeof (G_vmlCanvasManager)!=<span class="literal">"undefined"</span>){
+      G_vmlCanvasManager.initElement(<span class="reserved">this</span>.el);
+   }
+   
+   <span class="reserved">if</span>(<span class="reserved">this</span>.el.getContext){
+      <span class="reserved">this</span>.ctxt=<span class="reserved">this</span>.el.getContext(<span class="literal">"2d"</span>);
+   }
+};
+
+<span class="comment">/**
+ * Remove a Wire from the Dom
+ */</span>
+WireIt.Wire.<span class="reserved">prototype</span>.remove = <span class="reserved">function</span>() {
+   <span class="reserved">this</span>.parentEl.removeChild(<span class="reserved">this</span>.el);
+   
+   <span class="reserved">this</span>.terminal1.removeWire(<span class="reserved">this</span>);
+   <span class="reserved">this</span>.terminal2.removeWire(<span class="reserved">this</span>);
+};
+
+<span class="comment">/**
+ * Redraw the Wire
+ */</span>
+WireIt.Wire.<span class="reserved">prototype</span>.redraw = <span class="reserved">function</span>() {
+   
+   <span class="comment">// Get the positions of the terminals</span>
+   var p1 = <span class="reserved">this</span>.terminal1.getXYWire();
+   var p2 = <span class="reserved">this</span>.terminal2.getXYWire();
+   
+   <span class="comment">// Coefficient multiplicateur de direction</span>
+   <span class="comment">// 100 par défaut, si distance(p1,p2) &lt; 100, on passe en distance/2</span>
+   var coeffMulDirection=100;
+   var distance=Math.sqrt(Math.pow(p1[0]-p2[0],2)+Math.pow(p1[1]-p2[1],2));
+   <span class="reserved">if</span>(distance&lt;coeffMulDirection){
+      coeffMulDirection=distance/2;
+   }
+   
+   <span class="comment">// Calcul des vecteurs directeurs d1 et d2 :</span>
+   var d1=[<span class="reserved">this</span>.terminal1.terminalConfig.direction[0]*coeffMulDirection,<span class="reserved">this</span>.terminal1.terminalConfig.direction[1]*coeffMulDirection];
+   var d2=[<span class="reserved">this</span>.terminal2.terminalConfig.direction[0]*coeffMulDirection,<span class="reserved">this</span>.terminal2.terminalConfig.direction[1]*coeffMulDirection];
+   
+   var bezierPoints=[];
+   bezierPoints[0]=p1;
+   bezierPoints[1]=[p1[0]+d1[0],p1[1]+d1[1]];
+   bezierPoints[2]=[p2[0]+d2[0],p2[1]+d2[1]];
+   bezierPoints[3]=p2;
+   var min=[p1[0],p1[1]];
+   var max=[p1[0],p1[1]];
+   <span class="reserved">for</span>(var i=1;i&lt;bezierPoints.length;i++){
+      var p=bezierPoints[i];
+      <span class="reserved">if</span>(p[0]&lt;min[0]){
+         min[0]=p[0];
+      }
+      <span class="reserved">if</span>(p[1]&lt;min[1]){
+         min[1]=p[1];
+      }
+      <span class="reserved">if</span>(p[0]&gt;max[0]){
+         max[0]=p[0];
+      }
+      <span class="reserved">if</span>(p[1]&gt;max[1]){
+         max[1]=p[1];
+      }
+   }
+   <span class="comment">// Redimensionnement du canvas</span>
+   var _115=[4,4];
+   min[0]=min[0]-_115[0];
+   min[1]=min[1]-_115[1];
+   max[0]=max[0]+_115[0];
+   max[1]=max[1]+_115[1];
+   var lw=Math.abs(max[0]-min[0]);
+   var lh=Math.abs(max[1]-min[1]);
+   <span class="reserved">this</span>.el=WireIt.SetCanvasRegion(<span class="reserved">this</span>.el,min[0],min[1],lw,lh);
+   var ctxt=<span class="reserved">this</span>.el.getContext(<span class="literal">"2d"</span>);
+   <span class="reserved">for</span>(var i=0;i&lt;bezierPoints.length;i++){
+      bezierPoints[i][0]=bezierPoints[i][0]-min[0];
+      bezierPoints[i][1]=bezierPoints[i][1]-min[1];
+   }
+   
+   <span class="comment">// Drawing method</span>
+   
+   ctxt.lineCap=<span class="reserved">this</span>.config.bordercap;
+   ctxt.strokeStyle=<span class="reserved">this</span>.config.bordercolor;
+   ctxt.lineWidth=<span class="reserved">this</span>.config.width+<span class="reserved">this</span>.config.borderwidth*2;
+   ctxt.beginPath();
+   ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
+   ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]);
+   ctxt.stroke();
+   
+   ctxt.lineCap=<span class="reserved">this</span>.config.cap;
+   ctxt.strokeStyle=<span class="reserved">this</span>.config.color;
+   ctxt.lineWidth=<span class="reserved">this</span>.config.width;
+   ctxt.beginPath();
+   ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
+   ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]);
+   ctxt.stroke();
+   
+};</pre>
+	<hr>
+
+
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> <font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top"><em>
+<b>WireIt</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<font size="-1">
+
+</font>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Fri Nov  9 17:40:13 2007</div>
+</body>
+</html>

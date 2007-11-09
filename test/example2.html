@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+ <head>
+  <title>WireIt exemple</title>
+  
+<!-- YUI -->
+<link rel="stylesheet" type="text/css" href="../lib/yui/fonts/fonts-min.css" /> 
+<link rel="stylesheet" type="text/css" href="../lib/yui/reset/reset-min.css" />
+
+<script type="text/javascript" src="../lib/yui/yahoo/yahoo-min.js"></script> 
+<script type="text/javascript" src="../lib/yui/dom/dom-min.js"></script> 
+<script type="text/javascript" src="../lib/yui/event/event-min.js"></script>  
+<script type="text/javascript" src="../lib/yui/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="../lib/yui/animation/animation-min.js"></script>
+
+<!-- Excanvas -->
+<script type="text/javascript" src="../lib/excanvas.js"></script>
+
+<!-- WireIt -->
+<script type="text/javascript" src="../js/WireIt.js"></script>
+<script type="text/javascript" src="../js/Wire.js"></script>
+<script type="text/javascript" src="../js/Terminal.js"></script>
+<script type="text/javascript" src="../js/util/Anim.js"></script>
+<script type="text/javascript" src="../js/util/DD.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../css/WireIt.css" />
+
+<style>
+
+div.blockBox {
+	/* WireIt */
+	position: absolute;
+	z-index: 5;
+	opacity: 0.8;
+	
+	/* Others */
+	width: 100px;
+	height: 100px;
+	background-color: rgb(255,200,200);
+	cursor: move;
+}
+
+</style>
+
+<script>
+window.onload = function() {
+	
+	var block1 = WireIt.cn('div', {className: "blockBox"}, {left: "300px", top: "100px"}, 'Move Me !');
+	document.body.appendChild(block1);
+	var terminals1 = [new WireIt.Terminal(block1), new WireIt.Terminal(block1)];
+	new WireIt.util.DD(terminals1,block1); 
+	
+	var block2 = WireIt.cn('div', {className: "blockBox"}, {left: "500px", top: "200px"}, 'Move Me');
+	document.body.appendChild(block2);
+	var terminals2 = [new WireIt.Terminal(block2), new WireIt.Terminal(block2)];
+	new WireIt.util.DD(terminals2,block2);
+	
+	var w = new WireIt.Wire(terminals1[0], terminals2[0], document.body);
+	w.redraw();
+	
+	var myAnim1 = new WireIt.util.Anim(terminals1, block1, {  left: { to: 500 }, top: {to: 150} }, 2, YAHOO.util.Easing.easeOut);
+	var myAnim2 = new WireIt.util.Anim(terminals2, block2, {  left: { to: 100 } }, 1, YAHOO.util.Easing.easeOut);
+	YAHOO.util.Event.addListener('animButton','click', function() {
+		myAnim1.animate();
+		myAnim2.animate();
+	})
+};
+
+
+</script>
+
+ </head>
+ <body>
+	Demonstration des classes WireIt.Terminal, WireIt.Wire, WireIt.DD et WireIt.Anim<br />
+	
+	<button id='animButton'>Click to animate !</button>
+ </body>
+</html>

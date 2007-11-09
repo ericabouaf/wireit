@@ -1,0 +1,307 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+<head>
+<title>
+WireIt Overview
+</title>
+<link rel ="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+<script>
+function asd() {
+	
+		parent.document.title="WireIt.js Overview";
+	
+}
+</script>
+</head>
+<body bgcolor="white" onload="asd();">
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> 	<font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top">
+<em>
+<b>WireIt</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<center>
+	
+	   <h2>WireIt.js</h2>
+	
+</center>
+
+	
+
+
+<h4>Summary</h4>
+<p>
+	
+		Set the WireIt namespace ; DOM and Canvas helpers<BR/><BR/>
+	
+</p>
+
+<hr>
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<!-- ========== END METHOD SUMMARY =========== -->
+
+
+        <pre class="sourceview"><span class="comment">/**
+ * <span class="attrib">@fileoverview</span> Set the WireIt namespace ; DOM and Canvas helpers
+ */</span>
+
+var WireIt = {
+   
+   <span class="comment">// WireIt.util namespace </span>
+   util: {},
+   
+   <span class="comment">/**
+    * Get the User Agent
+    */</span>
+   ua: {
+      isGecko:/Gecko/.test(navigator.userAgent),
+      isIE:/MSIE/.test(navigator.userAgent),
+      isKHTML:/Konqueror|Safari|KHTML/.test(navigator.userAgent),
+      isOpera:/Opera/.test(navigator.userAgent),
+      isSafari:/AppleWebKit/.test(navigator.appVersion),
+      myUA:<span class="reserved">function</span>(){
+         <span class="reserved">if</span>(<span class="reserved">this</span>.isIE){
+            <span class="reserved">return</span> <span class="literal">"IE"</span>;
+         }
+         <span class="reserved">if</span>(<span class="reserved">this</span>.isSafari){
+            <span class="reserved">return</span> <span class="literal">"Safari"</span>;
+         }
+         <span class="reserved">if</span>(<span class="reserved">this</span>.isGecko){
+            <span class="reserved">return</span> <span class="literal">"Gecko"</span>;
+         }
+         <span class="reserved">if</span>(<span class="reserved">this</span>.isKHTML){
+            <span class="reserved">return</span> <span class="literal">"KHTML"</span>;
+         }
+         <span class="reserved">if</span>(<span class="reserved">this</span>.isOpera){
+            <span class="reserved">return</span> <span class="literal">"Opera"</span>;
+         }
+         <span class="reserved">return</span> <span class="literal">"undefined"</span>;
+      }
+   },
+   
+   
+   <span class="comment">/**
+    * Functions used to create nodes
+    * and set node attributes
+    */</span>
+   sn: <span class="reserved">function</span>(el,domAttributes,styleAttributes){
+       <span class="reserved">if</span>(!el){
+          <span class="reserved">return</span>;
+       }
+       <span class="reserved">if</span>(domAttributes){
+          <span class="reserved">for</span>(var i in domAttributes){
+             var domAttribute = domAttributes[i];
+             <span class="reserved">if</span>(typeof (domAttribute)==<span class="literal">"function"</span>){
+                continue;
+             }
+             <span class="reserved">if</span>(WireIt.ua.isIE&amp;&amp;i==<span class="literal">"type"</span>&amp;&amp;(el.tagName==<span class="literal">"INPUT"</span>||el.tagName==<span class="literal">"SELECT"</span>)){
+                continue;
+             }
+             <span class="reserved">if</span>(i==<span class="literal">"className"</span>){
+                i=<span class="literal">"class"</span>;
+                el.className=domAttribute;
+             }
+             <span class="reserved">if</span>(domAttribute!==el.getAttribute(i)){
+                try{
+                   <span class="reserved">if</span>(domAttribute===false){
+                      el.removeAttribute(i);
+                   }<span class="reserved">else</span>{
+                      el.setAttribute(i,domAttribute);
+                   }
+                }
+                catch(err){
+                   console.log(<span class="literal">"WARNING: Couldnt sn for "</span>+el.tagName+<span class="literal">", attr "</span>+i+<span class="literal">", val "</span>+domAttribute);
+                }
+             }
+          }
+       }
+       <span class="reserved">if</span>(styleAttributes){
+          <span class="reserved">for</span>(var i in styleAttributes){
+             <span class="reserved">if</span>(typeof (styleAttributes[i])==<span class="literal">"function"</span>){
+                continue;
+             }
+             <span class="reserved">if</span>(el.style[i]!=styleAttributes[i]){
+                el.style[i]=styleAttributes[i];
+             }
+          }
+       }
+    },
+
+   <span class="comment">/**
+    * Create Node
+    */</span>
+   cn: <span class="reserved">function</span>(tag, domAttributes, styleAttributes, innerHTML){
+      var el=document.createElement(tag);
+      <span class="reserved">this</span>.sn(el,domAttributes,styleAttributes);
+      <span class="reserved">if</span>(innerHTML){
+         el.innerHTML = innerHTML;
+      }
+      <span class="reserved">return</span> el;
+   },
+   
+   
+   <span class="comment">/**
+    * Canvas functions
+    */</span> 
+   SetCanvasRegionIE: <span class="reserved">function</span>(_67,_68,top,lw,lh){
+      sn(_67,null,{left:_68+<span class="literal">"px"</span>,top:top+<span class="literal">"px"</span>,width:lw+<span class="literal">"px"</span>,height:lh+<span class="literal">"px"</span>});
+      _67.getContext(<span class="literal">"2d"</span>).clearRect(0,0,lw,lh);
+      <span class="reserved">return</span> _67;
+   },
+
+   SetCanvasRegionSafari: <span class="reserved">function</span>(_6c,_6d,top,lw,lh){
+      var _71=_6c.className;
+      <span class="reserved">if</span>(!_71){
+         _71=_6c.getAttribute(<span class="literal">"class"</span>);
+      }
+      var _72=cn(<span class="literal">"canvas"</span>,{className:_71,width:lw,height:lh},{left:_6d+<span class="literal">"px"</span>,top:top+<span class="literal">"px"</span>});
+      var _73=YAHOO.util.Event.getListeners(_6c);
+      <span class="reserved">for</span>(var _74 in _73){
+         var l=_73[_74];
+         YAHOO.util.Event.addListener(_72,l.type,l.fn,l.obj,l.adjust);
+      }
+      YAHOO.util.Event.purgeElement(_6c);
+      _6c.parentNode.replaceChild(_72,_6c);
+      <span class="reserved">return</span> _72;
+   },
+
+   SetCanvasRegionDefault: <span class="reserved">function</span>(_76,_77,top,lw,lh){
+      <span class="reserved">this</span>.sn(_76,{width:lw,height:lh},{left:_77+<span class="literal">"px"</span>,top:top+<span class="literal">"px"</span>});
+      <span class="reserved">return</span> _76;
+   },
+   
+   SetCanvasRegion: WireIt.ua.isIE ? WireIt.SetCanvasRegionIE : 
+               ( (WireIt.ua.isSafari||WireIt.ua.isOpera) ? WireIt.SetCanvasRegionSafari :  SetCanvasRegionDefault),
+
+   SetCanvasSize: <span class="reserved">function</span>(_7b,lw,lh){
+      <span class="reserved">if</span>(WireIt.ua.isSafari||WireIt.ua.isOpera){
+         var _7e=_7b.className;
+         <span class="reserved">if</span>(!_7e){
+            _7e=_7b.getAttribute(<span class="literal">"class"</span>);
+         }
+         var _7f=<span class="reserved">this</span>.cn(<span class="literal">"canvas"</span>,{className:_7e,width:lw,height:lh});
+         _7b.parentNode.replaceChild(_7f,_7b);
+         <span class="reserved">return</span> _7f;
+      }
+      sn(_7b,{width:lw,height:lh},{width:lw+<span class="literal">"px"</span>,height:lh+<span class="literal">"px"</span>});
+      <span class="reserved">if</span>(_7b.getContext){
+         _7b.getContext(<span class="literal">"2d"</span>).clearRect(0,0,lw,lh);
+      }
+      <span class="reserved">return</span> _7b;
+   }
+   
+};
+
+
+
+</pre>
+	<hr>
+
+
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> <font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top"><em>
+<b>WireIt</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<font size="-1">
+
+</font>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Fri Nov  9 17:40:13 2007</div>
+</body>
+</html>

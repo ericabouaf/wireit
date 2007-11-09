@@ -1,0 +1,6 @@
+<p>WireIt is a library that allows you to create "wired" applications.</p>
+
+<p>It is strongly inspired from <a href="http://pipes.yahoo.com/">Yahoo! Pipes</a>, but aims to widen the use
+of "wired" capabilities.</p>
+
+<p>It is built on top of the <img src="http://developer.yahoo.com/favicon.ico"/> <a href="http://developer.yahoo.com/yui/">Yahoo! User Interface library</a>. (version 2.3.1)</p>
