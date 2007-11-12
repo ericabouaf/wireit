@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+ <head>
+  <title>WireIt: Example 6</title>
+  
+<!-- YUI -->
+<link rel="stylesheet" type="text/css" href="../lib/yui/fonts/fonts-min.css" /> 
+<link rel="stylesheet" type="text/css" href="../lib/yui/reset/reset-min.css" />
+
+<script type="text/javascript" src="../lib/yui/yahoo/yahoo-min.js"></script> 
+<script type="text/javascript" src="../lib/yui/dom/dom-min.js"></script> 
+<script type="text/javascript" src="../lib/yui/event/event-min.js"></script>  
+<script type="text/javascript" src="../lib/yui/dragdrop/dragdrop-min.js"></script>
+
+<!-- Excanvas -->
+<script type="text/javascript" src="../lib/excanvas.js"></script>
+
+<!-- WireIt -->
+<script type="text/javascript" src="../js/WireIt.js"></script>
+<script type="text/javascript" src="../js/Wire.js"></script>
+<script type="text/javascript" src="../js/Terminal.js"></script>
+<script type="text/javascript" src="../js/util/DD.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../css/WireIt.css" />
+
+<style>
+
+div.textbox {
+	width: 300px;
+	height: 280px;
+	position: absolute;
+	z-index: 5;
+	/*opacity: 0.8;*/
+	cursor: move;
+	border: 1px solid black;
+	background-color: white;
+}
+
+div.textbox textarea {
+	z-index: 12;
+	bottom: 0;
+	opacity: 1;
+}
+
+div.textbox div.WireIt-Terminal {
+	position: absolute;
+}
+
+</style>
+
+<script>
+
+var TextBox = function(id, position) {
+	this.id = id;
+	
+	// Create the main bubble div
+	this.el = WireIt.cn('div', {id: this.id, className: "textbox"});
+	
+	var handle = WireIt.cn('div', {}, {width: "300px", height: "20px", backgroundColor: "red"});
+	this.el.appendChild(handle);
+	
+	var div = WireIt.cn('div', null, {position: 'relative', display: 'block'});
+	div.appendChild( WireIt.cn('input', {type: 'text', value: "Ici du texte !"} ) );
+	this.el.appendChild(div);
+	
+	document.body.appendChild(this.el);
+	
+	// Create the 4 terminals
+	this.terminals = [];
+	var terminalConfigs = [{direction: [-1,-1], offsetPosition: [-5,-5]},
+								  {direction: [1,-1], offsetPosition: [20,-5]},
+								  {direction: [-1,1], offsetPosition: [-5,20]},
+								  {direction: [1,1], offsetPosition: [20,20]}];
+	for(i = 0 ; i < 4 ; i++) {
+		this.terminals[i] = new WireIt.Terminal(this.el, terminalConfigs[i]);
+	}					
+	
+	// Make Drag/drop !
+	var dd = new WireIt.util.DD(this.terminals,this.el);
+	dd.setHandleElId(handle);
+	console.log(dd);
+	
+	// Position the bubble
+	if(position) {
+		YAHOO.util.Dom.setXY(this.el, position);
+	}
+};
+
+
+var Nbubbles = 0;
+function createBubble(position) {
+	return new TextBox('bubble'+(Nbubbles++), position);
+};
+
+window.onload = function() {	
+	var b1 = createBubble([335,60]);
+	var b2 = createBubble([280,150]);
+	var b3 = createBubble([380,150]);
+	var bubbles = [b1,b2,b3];
+	
+	var wires = [ [[0,3],[2,0]] , [[0,2],[1,1]] , [[1,3],[2,2]] , [[0,0],[1,0]], [[1,2],[2,3]] , [[0,1],[2,1]] ];
+	
+	for(var i = 0 ; i < wires.length ; i++) {
+		var wire = wires[i];
+		var src = wire[0];
+		var tgt = wire[1];
+		var w = new WireIt.Wire( bubbles[src[0]].terminals[src[1]] , bubbles[tgt[0]].terminals[tgt[1]], document.body);
+		w.redraw();
+	}
+	
+};
+
+</script>
+ </head>
+ <body>
+	
+	<p style="margin: 15px;">Terminal directions can be changed !</p>
+	
+	<button style="margin: 15px;" onclick='createBubble();'>Add a Bubble</button>
+	
+ </body>
+</html>

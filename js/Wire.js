@@ -37,9 +37,12 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, config) {
    this.terminal2.addWire(this);
    
    /**
-    * Wire styling
+    * Wire styling, and properties
     */
    this.config = config || {};
+   this.config.coeffMulDirection = this.config.coeffMulDirection || 100;
+   
+   // Syling
    this.config.cap = this.config.cap || 'round';
    this.config.bordercap = this.config.bordercap || 'round';
    this.config.width = this.config.width || 3;
@@ -91,9 +94,9 @@ WireIt.Wire.prototype.redraw = function() {
    
    // Coefficient multiplicateur de direction
    // 100 par défaut, si distance(p1,p2) < 100, on passe en distance/2
-   var coeffMulDirection=100;
+   var coeffMulDirection=this.config.coeffMulDirection;
    var distance=Math.sqrt(Math.pow(p1[0]-p2[0],2)+Math.pow(p1[1]-p2[1],2));
-   if(distance<coeffMulDirection){
+   if(distance < coeffMulDirection){
       coeffMulDirection=distance/2;
    }
    

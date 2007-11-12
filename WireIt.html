@@ -1,33 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html>
  <head>
-  <title>WireIt</title>
+  <title>WireIt - Wiring Javascript Library</title>
+  <style>
+body {
+	background-color: #ccc;
+}
+
+/* Main div */
+#mainBox {
+	width: 768px;
+	padding: 10px;
+	background-color: black;
+	margin: auto;
+}
+
+/* Header Bar */
+#header {
+	background-color: black;
+	color: white;
+}
+
+/* WireIt*/
+#title {
+	font-size: 35pt;
+}
+
+/* a Wiring Javascript Library */
+#subTitle {
+	font-size: 15pt;
+	color: #ccc;
+}
+
+/* content container */
+#content {
+	background-color: white;
+	padding: 20px;
+}
+
+/* Each div paragraph */
+div.paragraph {
+	
+}
+
+/* Footer */
+#footer {
+	text-align: right;
+	background-color: black;
+	color: white;
+}
+  </style>
+
  </head>
 
  <body>
 
-<h1>WireIt</h1>
-
-<u>TODO :</u>
-<ul>
-	<li>Rendre les Terminals avec plusieurs wires !</li>
-	<li>TerminalIO: inputs 1 wire max, outputs no max</li>
-	<li>Faire un wire régit par une autre équation !</li>
-	<li>Faire un logo</li>
-	<li>Faire une vraie application en exemple</li>
-	<li>Mettre la licence</li>
-</ul>
-
-<h1><a href="doc/js_docs_out/index.html">API Documentation</a></h1>
-
-<u>Examples :</u>
-<ul>
-	<li><a href="test/example1.html">Exemple 1</a></li>
-	<li><a href="test/example2.html">Exemple 2</a></li>
-	<li><a href="test/example3.html">Exemple 3</a></li>
-	<li><a href="test/example4.html">Exemple 4</a></li>
-</ul>
+<div id='mainBox'>
 	
+ <!-- Header -->
+ <div id='header'>
+   <span id='title'>WireIt</span> <span id='subTitle'>a Wiring Javascript Library</span>
+ </div>
+
+ <!-- Content -->
+ <div id='content'>
+	
+ <div class="paragraph">
+	<h2>TODO :</h2>
+	<ul>
+		<li>Créer des terminaux "typés" qui ne peuvent se connecter qu'au même type.</li>
+		<li>Ajouter des events sur BoxIO comme : "inputConnected", "inputDisconnected","allInputsConnected", "allOutputsConnected", ...</li>
+		<li>Rendre les Terminals avec plusieurs wires !</li>
+		<li>TerminalIO: inputs 1 wire max, outputs no max</li>
+		<li>Faire un wire régit par une autre équation !</li>
+		<li>Faire un logo</li>
+		<li>Faire une vraie application en exemple</li>
+		<li>Mettre la licence</li>
+		<li>Modèle physique</li>
+	</ul>
+  </div>
+
+
+ <div class="paragraph">
+	<h2>Documentation :</h2>
+	<p><a href="doc/js_docs_out/index.html">API Documentation</a> built with JSDoc</p>
+ </div>
+
+
+ <div class="paragraph">
+	<h2>Examples :</h2>	
+	<ul>
+		<li><a href="test/example1.html">Exemple 1</a></li>
+		<li><a href="test/example2.html">Exemple 2</a></li>
+		<li><a href="test/example3.html">Exemple 3</a></li>
+		<li><a href="test/example4.html">Exemple 4</a></li>
+		<li><a href="test/example5.html">Exemple 5</a></li>
+		<li><a href="test/example6.html">Exemple 6</a></li>
+	</ul>
+ </div>
+
+  </div>
+	
+  <!-- Footer -->
+  <div id='footer'>
+   <span>Website by Eric Abouaf</span>
+  </div>
+
+</div>
 
  </body>
 </html>

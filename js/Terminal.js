@@ -15,13 +15,20 @@ WireIt.Terminal = function(parentEl, terminalConfig) {
     */
    this.terminalParent = parentEl;
    
-   // Config :
+   /**
+    * Terminal configuration:
+    * TODO: description of all the parameters !
+    */
    this.terminalConfig = terminalConfig || {};
    this.terminalConfig.direction = this.terminalConfig.direction || [0,1];
    this.terminalConfig.fakeDirection = this.terminalConfig.fakeDirection || [-this.terminalConfig.direction[0],-this.terminalConfig.direction[1]];
    
    // Render
-   this.terminalEl = WireIt.cn('div', {className: "WireIt-Terminal"});
+   this.terminalEl = WireIt.cn('div', {className: "WireIt-Terminal"} );
+   if(this.terminalConfig.offsetPosition) {
+      this.terminalEl.style.left = this.terminalConfig.offsetPosition[0]+"px";
+      this.terminalEl.style.top = this.terminalConfig.offsetPosition[1]+"px";
+   }
    this.terminalParent.appendChild(this.terminalEl);
    
    // Init the DDProxy
