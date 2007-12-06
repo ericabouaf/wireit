@@ -1,0 +1,56 @@
+
+
+/**
+ * Wires :
+ */
+
+canvas.WireIt-Wire {
+   position: absolute;
+   border: 0;
+   z-index: 0;
+}
+
+canvas.WireIt-Wire-editing {
+   z-index: 10;
+}
+
+div.WireIt-Wire-scissors {
+   border: 0;
+   position: absolute;
+   z-index: 5;
+   width: 26px;
+   height: 19px;
+   background-color: transparent;
+   background-image: url(../images/mod_cut_1.png);
+   cursor: pointer;
+}
+
+/**
+ * Terminals :
+ */
+
+div.WireIt-Terminal {
+   width: 30px;
+   height: 30px;
+   cursor: pointer;   
+   background-image: url(../images/term-blank.png);
+   position: absolute;
+}
+
+div.WireIt-Terminal-connected {
+   background-image: url(../images/term-connected.png);
+}
+
+div.WireIt-Terminal-dropinvite {
+   background-image: url(../images/term-dropinvite.png);
+}
+
+/**
+ * BoxIO
+ */
+div.WireIt-BoxIO {
+	position: absolute;
+	z-index: 5;
+	opacity: 0.8;
+	cursor: move;
+}

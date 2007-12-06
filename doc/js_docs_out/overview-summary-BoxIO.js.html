@@ -1,0 +1,239 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+<head>
+<title>
+WireIt Overview
+</title>
+<link rel ="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+<script>
+function asd() {
+	
+		parent.document.title="BoxIO.js Overview";
+	
+}
+</script>
+</head>
+<body bgcolor="white" onload="asd();">
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> 	<font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top">
+<em>
+<b>WireIt</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<center>
+	
+	   <h2>BoxIO.js</h2>
+	
+</center>
+
+	
+
+
+<h4>Summary</h4>
+<p>
+	
+		Contains an helpful classe to create Input/Output boxes
+
+  TODO: add a Prevent Loop ?
+        -config is weird beacause we don't pass the data...<BR/><BR/>
+	
+</p>
+
+<hr>
+
+
+    <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+    <td colspan=2><font size="+2">
+    
+        <b>Class Summary</b>
+    
+    </font></td>
+    </tr>
+    
+    <tr bgcolor="white" class="TableRowColor">
+    <td width="15%"><b><a href="WireIt/util/BoxIO.html">WireIt.util.BoxIO</a></b></td>
+    <td>WireIt.util.BoxIO
+ </td>
+    </tr>
+    
+    </table>
+    <hr/> 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<!-- ========== END METHOD SUMMARY =========== -->
+
+
+        <pre class="sourceview"><span class="comment">/**
+ * <span class="attrib">@fileoverview</span> Contains an helpful classe to create Input/Output boxes
+ *
+ *  TODO: add a Prevent Loop ?
+ *        -config is weird beacause we don't pass the data...
+ */</span>
+<span class="comment">/**
+ * Box that contains input and output terminals
+ * <span class="attrib">@class</span> WireIt.util.BoxIO
+ * <span class="attrib">@constructor</span>
+ * <span class="attrib">@param</span> {String} id Id of the created DIV element
+ * <span class="attrib">@param</span> {Object} terminals {inputs: [...], outputs: [...] } Object that contains 2 list of TerminalsIO configs
+ */</span>
+WireIt.util.BoxIO = <span class="reserved">function</span>(id, terminals) {
+   
+   <span class="comment">/**
+    * Id of the created DIV element
+    */</span>
+   <span class="reserved">this</span>.id = id;
+   
+   <span class="reserved">this</span>.render();
+   
+   <span class="comment">// Calculate the width</span>
+   var widthStr = YAHOO.util.Dom.getStyle(<span class="reserved">this</span>.el, <span class="literal">'width'</span>);
+   var width = parseInt( widthStr.substr(0,widthStr.length-2), 10);
+   
+   <span class="comment">/**
+    * List of all the associated terminals
+    */</span>
+   <span class="reserved">this</span>.terminals = [];
+   <span class="reserved">if</span>(terminals.inputs) {
+      var inputsIntervall = Math.floor(width/(terminals.inputs.length+1));
+      <span class="reserved">for</span>(var i = 0 ; i &lt; terminals.inputs.length ; i++) {
+         var term = new WireIt.util.TerminalInput(<span class="reserved">this</span>.el, terminals.inputs[i]);
+         <span class="reserved">this</span>.terminals[<span class="reserved">this</span>.terminals.length] = term;
+         WireIt.sn(term.el, null, {position: <span class="literal">"absolute"</span>, top: <span class="literal">"-15px"</span>, left: (inputsIntervall*(i+1))-15+<span class="literal">"px"</span>});
+      }
+   }
+   <span class="reserved">if</span>(terminals.outputs) {
+      var outputsIntervall = Math.floor(width/(terminals.outputs.length+1));
+      <span class="reserved">for</span>(var i = 0 ; i &lt; terminals.outputs.length ; i++) {
+         var term = new WireIt.util.TerminalOutput(<span class="reserved">this</span>.el, terminals.outputs[i]);
+         <span class="reserved">this</span>.terminals[<span class="reserved">this</span>.terminals.length] = term;
+         WireIt.sn(term.el, null, {position: <span class="literal">"absolute"</span>, bottom: <span class="literal">"-15px"</span>, left: (outputsIntervall*(i+1))-15+<span class="literal">"px"</span>});
+      }
+   }
+   
+	new WireIt.util.DD(<span class="reserved">this</span>.terminals,<span class="reserved">this</span>.el);
+	
+};
+
+<span class="comment">/**
+ * Render the BoxIO
+ */</span>
+WireIt.util.BoxIO.<span class="reserved">prototype</span>.render = <span class="reserved">function</span>() {
+   
+   <span class="comment">/**
+    * Reference to the created DIV element
+    */</span>
+	<span class="reserved">this</span>.el = WireIt.cn(<span class="literal">'div'</span>, {id: <span class="reserved">this</span>.id, className: <span class="literal">"WireIt-BoxIO"</span>});
+	document.body.appendChild(<span class="reserved">this</span>.el);
+	
+};
+
+</pre>
+	<hr>
+
+
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> <font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top"><em>
+<b>WireIt</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<font size="-1">
+
+</font>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Thu Dec  6 11:30:22 2007</div>
+</body>
+</html>

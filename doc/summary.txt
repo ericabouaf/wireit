@@ -1,0 +1,31 @@
+<p>WireIt is a library that allows you to create "wired" applications.</p>
+
+<p>It is strongly inspired from <a href="http://pipes.yahoo.com/">Yahoo! Pipes</a>, but aims to widen the use
+of "wired" capabilities.</p>
+
+<p>It is built on top of the <img src="http://developer.yahoo.com/favicon.ico"/> <a href="http://developer.yahoo.com/yui/">Yahoo! User Interface library</a>. (version 2.3.1)</p>
+
+<h4>Class Hierarchy</h4>
+
+<b>TODO:</b> A nice and bug diagram to show Class Hierarchy
+
+
+<h4>Dependencies</h4>
+
+<pre>
+
+The minimum:
+&lt;script type="text/javascript" src="../lib/yui/yahoo-dom-event/yahoo-dom-event.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="../js/WireIt.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="../js/Wire.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="../js/Terminal.js"&gt;&lt;/script&gt;
+
+To use the dragdrop:
+&lt;script type="text/javascript" src="../lib/yui/dragdrop/dragdrop-min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="../js/util/DD.js"&gt;&lt;/script&gt;
+
+To use the animation:
+&lt;script type="text/javascript" src="../lib/yui/animation/animation-min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="../js/util/Anim.js"&gt;&lt;/script&gt;
+
+</pre>

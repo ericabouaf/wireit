@@ -1,0 +1,13 @@
+
+To check the latest version, please visit http://javascript.neyric.com/wireit
+
+
+Version 0.1
+december 6, 2007
+
+Changeset:
+  - First version of the library
+  - Implements wires in all major browser
+  - Terminals
+  - BoxIO
+  - wrappers for YAHOO.util.Anim et YAHOO.util.DD
