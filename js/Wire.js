@@ -40,8 +40,8 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, config) {
    this.config.bordercap = this.config.bordercap || 'round';
    this.config.width = this.config.width || 3;
    this.config.borderwidth = this.config.borderwidth || 1;
-   this.config.color = this.config.color || '#0000ff';
-   this.config.bordercolor = this.config.bordercolor || '#000000';
+   this.config.color = this.config.color || 'rgb(173, 216, 230)';
+   this.config.bordercolor = this.config.bordercolor || '#0000ff';
    
    
    // Render the wire
@@ -142,11 +142,11 @@ WireIt.Wire.prototype.redraw = function() {
       }
    }
    // Redimensionnement du canvas
-   var _115=[4,4];
-   min[0]=min[0]-_115[0];
-   min[1]=min[1]-_115[1];
-   max[0]=max[0]+_115[0];
-   max[1]=max[1]+_115[1];
+   var margin=[4,4];
+   min[0]=min[0]-margin[0];
+   min[1]=min[1]-margin[1];
+   max[0]=max[0]+margin[0];
+   max[1]=max[1]+margin[1];
    var lw=Math.abs(max[0]-min[0]);
    var lh=Math.abs(max[1]-min[1]);
    

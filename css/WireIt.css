@@ -18,10 +18,10 @@ div.WireIt-Wire-scissors {
    border: 0;
    position: absolute;
    z-index: 5;
-   width: 26px;
-   height: 19px;
+   width: 16px;
+   height: 16px;
    background-color: transparent;
-   background-image: url(../images/mod_cut_1.png);
+   background-image: url(../images/cut.png);
    cursor: pointer;
 }
 

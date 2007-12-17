@@ -102,51 +102,46 @@ var WireIt = {
     */ 
    SetCanvasRegionIE: function(el,left,top,lw,lh){
       this.sn(el,null,{left:left+"px",top:top+"px",width:lw+"px",height:lh+"px"});
-      //if( el.getContext ) {
-         el.getContext("2d").clearRect(0,0,lw,lh);
-      /*}
-      else {
-         //console.log(el);
-      }*/
+      el.getContext("2d").clearRect(0,0,lw,lh);
       return el;
    },
 
-   SetCanvasRegionSafari: function(_6c,_6d,top,lw,lh){
-      var _71=_6c.className;
-      if(!_71){
-         _71=_6c.getAttribute("class");
+   SetCanvasRegionSafari: function(canvasEl,left,top,lw,lh){
+      var canvasClass=canvasEl.className;
+      if(!canvasClass){
+         canvasClass=canvasEl.getAttribute("class");
       }
-      var _72=this.cn("canvas",{className:_71,width:lw,height:lh},{left:_6d+"px",top:top+"px"});
-      var _73=YAHOO.util.Event.getListeners(_6c);
-      for(var _74 in _73){
-         var l=_73[_74];
-         YAHOO.util.Event.addListener(_72,l.type,l.fn,l.obj,l.adjust);
+      var newCanvas=this.cn("canvas",{className:canvasClass,width:lw,height:lh},{left:left+"px",top:top+"px"});
+      var listeners=YAHOO.util.Event.getListeners(canvasEl);
+      for(var listener in listeners){
+         var l=listeners[listener];
+         YAHOO.util.Event.addListener(newCanvas,l.type,l.fn,l.obj,l.adjust);
       }
-      YAHOO.util.Event.purgeElement(_6c);
-      _6c.parentNode.replaceChild(_72,_6c);
-      return _72;
+      YAHOO.util.Event.purgeElement(canvasEl);
+      canvasEl.parentNode.replaceChild(newCanvas,canvasEl);
+      return newCanvas;
    },
 
-   SetCanvasRegionDefault: function(_76,_77,top,lw,lh){
-      this.sn(_76,{width:lw,height:lh},{left:_77+"px",top:top+"px"});
-      return _76;
+   SetCanvasRegionDefault: function(canvasEl,left,top,lw,lh){
+      this.sn(canvasEl,{width:lw,height:lh},{left:left+"px",top:top+"px"});
+      return canvasEl;
    },
 
-   SetCanvasSize: function(_7b,lw,lh){
+   SetCanvasSize: function(canvasEl,lw,lh){
       if(WireIt.ua.isSafari||WireIt.ua.isOpera){
-         var _7e=_7b.className;
-         if(!_7e){
-            _7e=_7b.getAttribute("class");
+         var canvasClass=canvasEl.className;
+         if(!canvasClass){
+            canvasClass=canvasEl.getAttribute("class");
          }
-         var _7f=this.cn("canvas",{className:_7e,width:lw,height:lh});
-         _7b.parentNode.replaceChild(_7f,_7b);
-         return _7f;
+         var newCanvas=this.cn("canvas",{className:canvasClass,width:lw,height:lh});
+         canvasEl.parentNode.replaceChild(newCanvas,canvasEl);
+         return newCanvas;
       }
-      sn(_7b,{width:lw,height:lh},{width:lw+"px",height:lh+"px"});
-      if(_7b.getContext){
-         _7b.getContext("2d").clearRect(0,0,lw,lh);
+      sn(canvasEl,{width:lw,height:lh},{width:lw+"px",height:lh+"px"});
+      if(canvasEl.getContext){
+         canvasEl.getContext("2d").clearRect(0,0,lw,lh);
       }
-      return _7b;
+      return canvasEl;
    }
       
 };
