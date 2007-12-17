@@ -2,6 +2,16 @@
 To check the latest version, please visit http://javascript.neyric.com/wireit
 
 
+-----------------------------------------------------
+
+Version 0.1.1
+december 17, 2007
+
+Changeset:
+  - Fixing images copyright
+
+-----------------------------------------------------
+
 Version 0.1
 december 6, 2007
 
