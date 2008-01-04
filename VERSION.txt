@@ -3,7 +3,7 @@ To get the latest version, please visit http://javascript.neyric.com/wireit
 -----------------------------------------------------
 
 Version 0.2.0
-january 3, 2008
+january 4, 2008
 
 Changeset:
   - Added YUI custom events for terminal interactions
