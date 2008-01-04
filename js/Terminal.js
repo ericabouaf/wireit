@@ -1,15 +1,15 @@
 /**
  * @fileoverview Terminals represent the end points of the "wires"
  */
-
- /**
-  * This class is used for wire edition
-  *
-  * @class WireIt.DDTerminal
-  * @extends YAHOO.util.DDProxy
-  * @constructor
-  * @params {Object} terminal Parent terminal
-  */
+/**
+ * This class is used for wire edition. It inherits from YAHOO.util.DDProxy and acts as a "temporary" Terminal.
+ *
+ * @class WireIt.DDTerminal
+ * @extends YAHOO.util.DDProxy
+ * @constructor
+ * @param {WireIt.Terminal} terminal Parent terminal
+ * @param {Object} config Configuration object (see in properties for details)
+ */
 WireIt.DDTerminal = function(terminal, config) {
    
    /**
@@ -20,11 +20,11 @@ WireIt.DDTerminal = function(terminal, config) {
    /**
     * Object containing the configuration object
     * <ul>
-    *   <li>type : 'type' of this terminal. If no "allowedTypes" is specified in the config, 
-    *             the terminal will only connect to the same type of terminal</li>
+    *   <li>type: 'type' of this terminal. If no "allowedTypes" is specified in the config, the terminal will only connect to the same type of terminal</li>
     *   <li>allowedTypes: list of all the allowed types that we can connect to.</li>
     * </ul>
     */
+   // WARNING: the object config cannot be called "config" because YAHOO.util.DDProxy already has a "config" property
    this.termConfig = config || {};
    
    // Init the DDProxy
@@ -50,10 +50,10 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
       var that = this;
       this.terminalTimeout = setTimeout(function() {
          if(that.scissor) {
-            document.body.removeChild(that.scissor);
+            that.terminal.parentEl.parentNode.removeChild(that.scissor);
             that.scissor = undefined;
          }
-      }, 300);
+      }, 500);
    },
    
    scissorClick: function() {
@@ -61,7 +61,7 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
          this.terminal.wires[0].remove();
       }
       if(this.scissor) {
-         document.body.removeChild(this.scissor);
+         this.terminal.parentEl.parentNode.removeChild(this.scissor);
          this.scissor = undefined;
       }
    },
@@ -73,7 +73,7 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
    
       // Display the cut button
       this.scissor = WireIt.cn('div', {className: "WireIt-Wire-scissors"}, {left: position[0]+"px",top: position[1]+"px"} );
-      document.body.appendChild(this.scissor);
+      this.terminal.parentEl.parentNode.appendChild(this.scissor);
       
       // Ajoute un listener sur le scissor:
       YAHOO.util.Event.addListener(this.scissor, "mouseover", this.scissorOver, this, true);
@@ -96,7 +96,7 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
          var that = this;
          this.terminalTimeout = setTimeout(function() {
             if(that.scissor) {
-               document.body.removeChild(that.scissor);
+               that.terminal.parentEl.parentNode.removeChild(that.scissor);
                that.scissor = undefined;
             }
          }, 300);
@@ -114,12 +114,16 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
          return;
       }
       
-      this.fakeTerminal = this.fakeTerminal || {
+      this.fakeTerminal = {
          config: {direction: this.terminal.config.fakeDirection},
-         pos: [200,200],
+         pos: [200,200], 
+         offset: [this.terminal.parentEl.parentNode.offsetLeft-this.terminal.parentEl.parentNode.scrollLeft, 
+                  this.terminal.parentEl.parentNode.offsetTop-this.terminal.parentEl.parentNode.scrollTop],
          addWire: function() {},
          removeWire: function() {},
-         getXY: function() { return this.pos; }
+         getXY: function() { 
+            return [this.pos[0]-this.offset[0], this.pos[1]-this.offset[1] ]; 
+         }
       };
       
       this.editingWire = new WireIt.Wire(this.terminal, this.fakeTerminal, this.terminal.parentEl.parentNode, this.terminal.config.editingWireConfig);
@@ -139,7 +143,7 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
    onDragEnter: function(e,ddTargets) {
       for(var i = 0 ; i < ddTargets.length ; i++) {
          if( this.isValidWireTerminal(ddTargets[i]) ) {
-            YAHOO.util.Dom.addClass(ddTargets[i].terminal.el, 'WireIt-Terminal-dropinvite');
+            ddTargets[i].terminal.setDropInvitation(true);
          }
       }
    },
@@ -147,7 +151,7 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
    onDragOut: function(e,ddTargets) { 
       for(var i = 0 ; i < ddTargets.length ; i++) {
          if( this.isValidWireTerminal(ddTargets[i]) ) {
-            YAHOO.util.Dom.removeClass(ddTargets[i].terminal.el, 'WireIt-Terminal-dropinvite');
+            ddTargets[i].terminal.setDropInvitation(false);
          }
       }
    },
@@ -155,21 +159,28 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
    onDragDrop: function(e,ddTargets) {
       this.onDragOut(e,ddTargets);
       
+      var targetDDTerminal = null;
+      for(var i = 0 ; i < ddTargets.length ; i++) {
+         if( ddTargets[i].isWireItTerminal ) {
+            targetDDTerminal =  ddTargets[i];
+         }
+      }
+      
       // Connect to the FIRST target terminal
-      if( ddTargets.length > 0 ) {
-         if( this.isValidWireTerminal(ddTargets[0]) ) { 
-            
+      if( targetDDTerminal ) {
+         if( this.isValidWireTerminal(targetDDTerminal) ) { 
+               
             // Don't create the wire if it already exists between the 2 terminals !!
             var termAlreadyConnected = false;
             for(var i = 0 ; i < this.terminal.wires.length ; i++) {
                if(this.terminal.wires[i].terminal1 == this.terminal) {
-                  if( this.terminal.wires[i].terminal2 == ddTargets[0].terminal) {
+                  if( this.terminal.wires[i].terminal2 == targetDDTerminal.terminal) {
                      termAlreadyConnected = true;
                      break;
                   }
                }
                else if(this.terminal.wires[i].terminal2 == this.terminal) {
-                  if( this.terminal.wires[i].terminal1 == ddTargets[0].terminal) {
+                  if( this.terminal.wires[i].terminal1 == targetDDTerminal.terminal) {
                      termAlreadyConnected = true;
                      break;
                   }
@@ -179,15 +190,15 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
             // Create the wire only if the terminals aren't connected yet
             if(!termAlreadyConnected) {
                // Check the number of wires for this terminal
-               if( ddTargets[0].terminal.config.nMaxWires == 1) {
-                  if(ddTargets[0].terminal.wires.length > 0) {
-                     ddTargets[0].terminal.wires[0].remove();
+               if( targetDDTerminal.terminal.config.nMaxWires == 1) {
+                  if(targetDDTerminal.terminal.wires.length > 0) {
+                     targetDDTerminal.terminal.wires[0].remove();
                   }
-                  var w = new WireIt.Wire(this.terminal, ddTargets[0].terminal, this.terminal.parentEl.parentNode, this.terminal.config.wireConfig);
+                  var w = new WireIt.Wire(this.terminal, targetDDTerminal.terminal, this.terminal.parentEl.parentNode, this.terminal.config.wireConfig);
                   w.redraw();
                }
-               else if(ddTargets[0].terminal.wires.length < ddTargets[0].terminal.config.nMaxWires) {
-                  var w = new WireIt.Wire(this.terminal, ddTargets[0].terminal, this.terminal.parentEl.parentNode, this.terminal.config.wireConfig);
+               else if(targetDDTerminal.terminal.wires.length < targetDDTerminal.terminal.config.nMaxWires) {
+                  var w = new WireIt.Wire(this.terminal, targetDDTerminal.terminal, this.terminal.parentEl.parentNode, this.terminal.config.wireConfig);
                   w.redraw();
                }
                else {
@@ -250,15 +261,21 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
 /**
  * @class WireIt.Terminal
  * @constructor
- * @param {String} parentEl Element that will contain the terminal
+ * @param {DomEl} parentEl Element that will contain the terminal
  * @param {Object} config Configuration object
+ * @param {WireIt.Container} container (Optional) Container containing this terminal
  */
-WireIt.Terminal = function(parentEl, config) {
+WireIt.Terminal = function(parentEl, config, container) {
    
    /**
     * DOM parent element
     */
    this.parentEl = parentEl;
+   
+   /**
+    * Container (optional). Parent container of this terminal
+    */
+   this.container = container;
    
    /**
     * List of the associated wires
@@ -275,29 +292,39 @@ WireIt.Terminal = function(parentEl, config) {
     *   <li><b>nMaxWires</b>: maximum number of wires for this terminal (default to Infinity)</li>
     *   <li><b>offsetPosition</b>: offset position from the parentEl position (default to [0,0])</li>
     *   <li><b>ddConfig</b>: configuration of the WireIt.DDTerminal object (only if editable)</li>
+    *   <li><b>className</b>: CSS class name of the terminal (default to "WireIt-Terminal")</li>
+    *   <li><b>connectedClassName</b>: CSS class added to the terminal when it is connected (default to "WireIt-Terminal-connected")</li>
+    *   <li><b>dropinviteClassName</b>: CSS class added for drop invitation (default to "WireIt-Terminal-dropinvite")</li>
     * </ul>
     */  
    this.config = config || {};
-   
-   // Directions of the terminal and the fakeDirection associated (when editing a wire)
    this.config.direction = this.config.direction || [0,1];
    this.config.fakeDirection = this.config.fakeDirection || [-this.config.direction[0],-this.config.direction[1]];
-   
-   // Is the terminal editable ? default true
+   this.config.className = this.config.className || 'WireIt-Terminal';
+   this.config.connectedClassName = this.config.connectedClassName || 'WireIt-Terminal-connected';
+   this.config.dropinviteClassName = this.config.dropinviteClassName || 'WireIt-Terminal-dropinvite';
    this.config.editable = YAHOO.lang.isUndefined(this.config.editable) ? true : this.config.editable;
-   
-   // Maximum number of wires that can be connected
    this.config.nMaxWires = this.config.nMaxWires || Infinity;
+   
+   /**
+    * Event that is fired when a wire is added
+    * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+    */
+   this.eventAddWire = new YAHOO.util.CustomEvent("eventAddWire");
+   
+   /**
+    * Event that is fired when a wire is removed
+    * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+    */
+   this.eventRemoveWire = new YAHOO.util.CustomEvent("eventConnected");
    
    /**
     * DIV dom element that will display the Terminal
     */
-   this.el = WireIt.cn('div', {className: "WireIt-Terminal"} );
-   if(this.config.offsetPosition) {
-      this.el.style.left = this.config.offsetPosition[0]+"px";
-      this.el.style.top = this.config.offsetPosition[1]+"px";
-   }
-   this.parentEl.appendChild(this.el);
+   this.el = null;
+   
+   
+   this.render();
    
    // Create the DDTerminal object to make the terminal editable
    if(this.config.editable) {
@@ -305,18 +332,57 @@ WireIt.Terminal = function(parentEl, config) {
    }
 };
 
+/**
+ * Show or hide the drop invitation. (by adding/removing this.config.dropinviteClassName CSS class)
+ * @param {Boolean} display Show the invitation if true, hide it otherwise
+ */
+WireIt.Terminal.prototype.setDropInvitation = function(display) {
+   if(display) {
+      YAHOO.util.Dom.addClass(this.el, this.config.dropinviteClassName);
+   }
+   else {
+      YAHOO.util.Dom.removeClass(this.el, this.config.dropinviteClassName);
+   }
+};
+
+/**
+ * Render the DOM of the terminal
+ */
+WireIt.Terminal.prototype.render = function() {
+   
+   // Create the DIV element
+   this.el = WireIt.cn('div', {className: this.config.className} );
+   
+   // Set the offset position
+   if(this.config.offsetPosition) {
+      this.el.style.left = this.config.offsetPosition[0]+"px";
+      this.el.style.top = this.config.offsetPosition[1]+"px";
+   }
+   
+   // Append the element to the parent
+   this.parentEl.appendChild(this.el);
+};
 
 
 /**
- * Add a wire to this terminal
+ * Add a wire to this terminal.
+ * @param {WireIt.Wire} wire Wire instance to add
  */
 WireIt.Terminal.prototype.addWire = function(wire) {
+   
+   // Adds this wire to the list of connected wires :
    this.wires.push(wire);
-   YAHOO.util.Dom.addClass(this.el, 'WireIt-Terminal-connected');
+   
+   // Set class indicating that the wire is connected
+   YAHOO.util.Dom.addClass(this.el, this.config.connectedClassName);
+   
+   // Fire the event
+   this.eventAddWire.fire(wire);
 };
 
 /**
  * Remove a wire
+ * @param {WireIt.Wire} wire Wire instance to remove
  */
 WireIt.Terminal.prototype.removeWire = function(wire) {
 
@@ -335,37 +401,53 @@ WireIt.Terminal.prototype.removeWire = function(wire) {
       
       // Remove the connected class if it has no more wires:
       if(this.wires.length == 0) {
-         YAHOO.util.Dom.removeClass(this.el, 'WireIt-Terminal-connected');
+         YAHOO.util.Dom.removeClass(this.el, this.config.connectedClassName);
       }
+      
+      // Fire the event
+      this.eventRemoveWire.fire(wire);
    }
 };
 
-
-
 /**
  * get the absolute position of the terminal. (Used by the Wire to redraw itself)
- * @returns {Array} [x,y]: Absolute position of the terminal
+ * @returns {Array} pos [x,y] Absolute position of the terminal
  */
 WireIt.Terminal.prototype.getXY = function() {
     var pos = YAHOO.util.Dom.getXY(this.el);
-    pos[0] += 15;
-    pos[1] += 15;
+    pos[0] += 15-this.el.parentNode.parentNode.offsetLeft+this.el.parentNode.parentNode.scrollLeft;
+    pos[1] += 15-this.el.parentNode.parentNode.offsetTop+this.el.parentNode.parentNode.scrollTop;
     return pos;
 };
 
 
 /**
- * Remove
+ * Remove the terminal from the DOM
  */
 WireIt.Terminal.prototype.remove = function() {
-   if(this.wires) {
-      for(var i = 0 ; i < this.wires.length ; i++) {
-         this.wires[i].remove();
-      }
+   // This isn't very nice but...
+   // the method Wire.remove calls Terminal.removeWire to remove the reference
+   while(this.wires.length > 0) {
+      this.wires[0].remove();
    }
    this.parentEl.removeChild(this.el);
 };
 
+
+
+/**
+ * Returns a list of all the terminals connecter to this terminal through its wires.
+ * @return  {Array}  List of all connected terminals
+ */
+WireIt.Terminal.prototype.getConnectedTerminals = function() {
+   var terminalList = [];
+   if(this.wires) {
+      for(var i = 0 ; i < this.wires.length ; i++) {
+         terminalList.push(this.wires[i].getOtherTerminal());
+      }
+   }
+   return terminalList;
+};
 
 
 

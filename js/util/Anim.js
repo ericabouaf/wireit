@@ -11,6 +11,8 @@
  * @params {String} sGroup Parameter of YAHOO.util.Anim
  * @params {Object} config Parameter of YAHOO.util.Anim
  */
+if(YAHOO.util.Anim) { 
+ 
 WireIt.util.Anim = function( terminals, el, attributes, duration, method) {
    if(!terminals) {
       throw new Error("WireIt.util.Anim needs at least terminals and id");
@@ -49,4 +51,4 @@ WireIt.util.Anim.prototype.setTerminals = function(terminals) {
    this._WireItTerminals = terminals;
 };
 
-
+}

@@ -46,11 +46,50 @@ div.WireIt-Terminal-dropinvite {
 }
 
 /**
- * BoxIO
+ * Containers
  */
-div.WireIt-BoxIO {
-	position: absolute;
-	z-index: 5;
-	opacity: 0.8;
-	cursor: move;
+div.WireIt-Container {
+   position: absolute;
+ 	z-index: 5;
+ 	opacity: 0.8;
+ 	border: 2px solid black;
+ 	background-color: #aaffaa;
+}
+
+div.WireIt-Container-ddhandle {
+   width: 100%;
+   height: 20px;
+   background-color: #33ff33;
+ 	cursor: move;
+} 
+
+div.WireIt-Container-resizehandle {
+   position: absolute;
+   bottom: 0;
+   right: 0;
+   width: 10px;
+   height: 10px;
+   cursor: se-resize;
+}
+
+div.WireIt-Container-closebutton {
+   background-image: url(../images/close.png);
+   width: 25px;
+   height: 15px;
+   position: absolute;
+   top: 3px;
+   right: 3px;
+   cursor: pointer;
+}
+ 
+/**
+ * Layers
+ */
+div.WireIt-Layer {
+   border: 1px solid green;
+   width: 90%;
+   height: 80%;
+   overflow: scroll;
+   margin: auto;
+   position: relative;
 }

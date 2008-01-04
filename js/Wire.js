@@ -5,10 +5,10 @@
  * @class WireIt.Wire
  * @constructor
  *
- * @params  {WireIt.Terminal}    terminal1   Source terminal
- * @params  {WireIt.Terminal}    terminal2   Target terminal
- * @params  {DomEl}              parentEl    Container of the CANVAS tag
- * @params  {Obj}                config      Styling configuration
+ * @param  {WireIt.Terminal}    terminal1   Source terminal
+ * @param  {WireIt.Terminal}    terminal2   Target terminal
+ * @param  {DomEl}              parentEl    Container of the CANVAS tag
+ * @param  {Obj}                config      Styling configuration
  */
 WireIt.Wire = function( terminal1, terminal2, parentEl, config) {
    
@@ -28,11 +28,20 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, config) {
    this.terminal2 = terminal2;
    
    /**
-    * Wire styling, and properties
+    * Wire styling, and properties:
+    * <ul>
+    *   <li>className: CSS class name of the canvas element (default 'WireIt-Wire')</li>
+    *   <li>coeffMulDirection: Parameter for bezier style</li>
+    *   <li>cap: default 'round'</li>
+    *   <li>bordercap: default 'round'</li>
+    *   <li>width: Wire width (default to 3)</li>
+    *   <li>borderwidth: Border Width (default to 1)</li>
+    *   <li>color: Wire color (default to rgb(173, 216, 230) )</li>
+    *   <li>bordercolor: Border color (default to #0000ff )</li>
+    * </ul>
     */
    this.config = config || {};
-   
-   // Parameter for bezier style
+   this.config.className = this.config.className || 'WireIt-Wire';
    this.config.coeffMulDirection = YAHOO.lang.isUndefined(this.config.coeffMulDirection) ? 100 : this.config.coeffMulDirection;
    
    // Syling
@@ -59,7 +68,7 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, config) {
 WireIt.Wire.prototype.render = function() {
    
    // Create the canvas element
-   this.el = WireIt.cn("canvas", {className: "WireIt-Wire"});
+   this.el = WireIt.cn("canvas", {className: this.config.className});
    
    // Append the canvas to the parent element
    this.parentEl.appendChild(this.el);
@@ -75,13 +84,8 @@ WireIt.Wire.prototype.render = function() {
  */
 WireIt.Wire.prototype.remove = function() {
    
-   try {
-      // Remove the canvas from the dom
-      this.parentEl.removeChild(this.el);
-   }
-   catch(ex) {
-      
-   }
+   // Remove the canvas from the dom
+   this.parentEl.removeChild(this.el);
    
    // Remove the wire reference from the connected terminals
    if(this.terminal1 && this.terminal1.removeWire) {
@@ -176,4 +180,14 @@ WireIt.Wire.prototype.redraw = function() {
    ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]);
    ctxt.stroke();
    
+};
+
+
+/**
+ * This function returns terminal1 if the first argument is terminal2 and vice-versa
+ * @param   {WireIt.Terminal} terminal    
+ * @return  {WireIt.Terminal} terminal    the terminal that is NOT passed as argument
+ */
+WireIt.Wire.prototype.getOtherTerminal = function(terminal) {
+   return (terminal == this.terminal1) ? this.terminal2 : this.terminal1;
 };

@@ -1,6 +1,21 @@
 
-To check the latest version, please visit http://javascript.neyric.com/wireit
+To get the latest version, please visit http://javascript.neyric.com/wireit
+-----------------------------------------------------
 
+Version 0.2.0
+january 3, 2008
+
+Changeset:
+  - Added YUI custom events for terminal interactions
+  - new method Wire.getOtherTerminal(terminal)
+  - new method Terminal.getConnectedTerminals()
+  - new class WireIt.Container
+  - new class WireIt.Layer
+  - new class WireIt.util.DDResize (helper for WireIt.Container)
+  - customable CSS class names
+  - minified version (18k)
+  - WireIt.BoxIO has been removed (use WireIt.Container instead)
+  - use YUI 2.4.1
 
 -----------------------------------------------------
 

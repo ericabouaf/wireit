@@ -6,29 +6,27 @@
 <!-- YUI -->
 <link rel="stylesheet" type="text/css" href="../../lib/yui/fonts/fonts-min.css" /> 
 <link rel="stylesheet" type="text/css" href="../../lib/yui/reset/reset-min.css" />
-
 <script type="text/javascript" src="../../lib/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
 <script type="text/javascript" src="../../lib/yui/dragdrop/dragdrop-min.js"></script>
 
 <!-- Excanvas -->
-<script type="text/javascript" src="../../lib/excanvas.js"></script>
+<!--[if IE]><script type="text/javascript" src="../../lib/excanvas.js"></script><![endif]-->
 
 <!-- WireIt -->
-<script type="text/javascript" src="../../js/WireIt.js"></script>
-<script type="text/javascript" src="../../js/Wire.js"></script>
-<script type="text/javascript" src="../../js/Terminal.js"></script>
-<script type="text/javascript" src="../../js/util/DD.js"></script>
+
+<script type="text/javascript" src="../../build/wireit-min.js"></script>
 <link rel="stylesheet" type="text/css" href="../../css/WireIt.css" />
 
 <!-- jsBox -->
 <script type="text/javascript" src="jsBox.js"></script>
-<link rel="stylesheet" type="text/css" href="jsBox.css" />
 
  </head>
  <body>
 	
-	<button style="margin: 15px;" onclick='addJsBox();'>Add box !</button>
-	<button style="margin: 15px;" onclick='run();'>Run !</button>
+	<p style="margin: 10px;">This application is an example of the <a href="http://javascript.neyric.com/wireit">WireIt library</a>.<br />Each box contains a javascript function. The number of input terminals is automatically updated when you edit the function.<br />When you press 'Run', all the functions without input parameters are exectued. Then, the other modules are executed sequentially.</p>
+	
+	<button style="margin: 10px;" onclick='jsBox.addModule();'>Add box</button>
+	<button style="margin: 10px;" onclick='jsBox.run();'>Run !</button>
 	
  </body>
 </html>

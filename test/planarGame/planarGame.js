@@ -31,31 +31,20 @@ var Bubble = function(position, nTerminals) {
 
 Bubble.prototype.onMouseDown = function() {
    for(var i = 0 ; i < this.terminals.length ; i++) {
-      var element = null;
-      if(this.terminals[i].wires[0]) {
-         if(this.terminals[i].wires[0].terminal1 == this.terminals[i]) {
-            element = this.terminals[i].wires[0].terminal2._bubble.el;
-         }
-         else {
-            element = this.terminals[i].wires[0].terminal1._bubble.el;
-         }
-         YAHOO.util.Dom.addClass(element, 'redBubble');
+      var term = this.terminals[i];
+      if(term.wires[0]) {
+         var otherTerm = term.wires[0].getOtherTerminal(term);
+         YAHOO.util.Dom.addClass(otherTerm._bubble.el, 'redBubble');
       }
    }
 };
 
 Bubble.prototype.onMouseUp = function() {
    for(var i = 0 ; i < this.terminals.length ; i++) {
-      var element = null;
-      
-      if(this.terminals[i].wires[0]) {
-         if(this.terminals[i].wires[0].terminal1 == this.terminals[i]) {
-            element = this.terminals[i].wires[0].terminal2._bubble.el;
-         }
-         else {
-            element = this.terminals[i].wires[0].terminal1._bubble.el;
-         }
-         YAHOO.util.Dom.removeClass(element, 'redBubble');
+      var term = this.terminals[i];
+      if(term.wires[0]) {
+         var otherTerm = term.wires[0].getOtherTerminal(term);
+         YAHOO.util.Dom.removeClass(otherTerm._bubble.el, 'redBubble');
       }
    }
 };
