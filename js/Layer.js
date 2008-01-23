@@ -78,6 +78,7 @@ WireIt.Layer.prototype.initWires = function() {
 /**
  * Instanciate a wire given its "xtype" (default to WireIt.Wire)
  * @param {Object} wireConfig  Wire configuration object (see WireIt.Wire class for details)
+ * @return {WireIt.Wire} Wire instance build from the xtype
  */
 WireIt.Layer.prototype.addWire = function(wireConfig) {
    var type = wireConfig.xtype || WireIt.Wire;
@@ -90,11 +91,14 @@ WireIt.Layer.prototype.addWire = function(wireConfig) {
    
    var wire = new type( terminal1, terminal2, this.el);
    wire.redraw();
+   
+   return wire;
 };
 
 /**
  * Instanciate a container given its "xtype": WireIt.Container (default) or a subclass of it.
  * @param {Object} containerConfig  Container configuration object (see WireIt.Container class for details)
+ * @return {WireIt.Container} Container instance build from the xtype
  */
 WireIt.Layer.prototype.addContainer = function(containerConfig) {
    
@@ -106,6 +110,8 @@ WireIt.Layer.prototype.addContainer = function(containerConfig) {
    // Event listeners
    container.eventAddWire.subscribe(this.onAddWire, this, true);
    container.eventRemoveWire.subscribe(this.onRemoveWire, this, true);
+   
+   return container;
 };
 
 /**
