@@ -26,7 +26,8 @@ YAHOO.extend(jsBox, WireIt.Container, {
    buildTextArea: function(codeText) {
 
       this.textarea = WireIt.cn('textarea', null, {width: "100%", height: "70px", border: "0", padding: "5px"}, codeText);
-      this.el.appendChild(this.textarea);
+      //this.el.appendChild(this.textarea);
+      this.setBody(this.textarea);
 
       YAHOO.util.Event.addListener(this.textarea, 'change', function() {
          var nParams = this.getNbrInputs();

@@ -20,7 +20,7 @@ WireIt.Container = function(config, layer) {
     *    <li>ddHandleClassName: CSS class name for the drag'n drop handle (default 'WireIt-Container-ddhandle')</li>
     *    <li>resizable: boolean that makes the container resizable (default true)</li>
     *    <li>resizeHandleClassName: CSS class name for the resize handle (default 'WireIt-Container-resizehandle')</li>
-    *    <li>width: initial width of the container (default 140)</li>
+    *    <li>width: initial width of the container (no default so it autoadjusts to the content)</li>
     *    <li>height: initial height of the container (default 100)</li>
     *    <li>close: display a button to close the container (default true)</li>
     *    <li>closeButtonClassName: CSS class name for the close button (default "WireIt-Container-closebutton")</li>
@@ -38,7 +38,7 @@ WireIt.Container = function(config, layer) {
    this.config.resizable = (typeof this.config.resizable == "undefined") ? true : this.config.resizable;
    this.config.resizeHandleClassName = this.config.resizeHandleClassName || "WireIt-Container-resizehandle";
    
-   this.config.width = this.config.width || 140;
+   this.config.width = this.config.width; // no default
    this.config.height = this.config.height || 100;
    
    this.config.close = (typeof this.config.close == "undefined") ? true : this.config.close;
@@ -65,6 +65,11 @@ WireIt.Container = function(config, layer) {
    this.el = null;
    
    /**
+    * Body element
+    */
+   this.bodyEl = null;
+   
+   /**
     * Event that is fired when a wire is added
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     */
@@ -74,7 +79,7 @@ WireIt.Container = function(config, layer) {
     * Event that is fired when a wire is removed
     * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     */
-   this.eventRemoveWire = new YAHOO.util.CustomEvent("eventConnected");
+   this.eventRemoveWire = new YAHOO.util.CustomEvent("eventRemoveWire");
    
    // Render the div object
    this.render();
@@ -130,6 +135,10 @@ WireIt.Container.prototype.render = function() {
    	this.el.appendChild(this.ddHandle);
    }
    
+   // Create the body element
+   this.bodyEl = WireIt.cn('div', {className: "body"});
+   this.el.appendChild(this.bodyEl);
+   
    if(this.config.resizable) {
       // Create the resize handle
    	this.ddResizeHandle = WireIt.cn('div', {className: this.config.resizeHandleClassName} );
@@ -151,6 +160,19 @@ WireIt.Container.prototype.render = function() {
 	this.el.style.top = this.config.position[1]+"px";
 };
 
+/**
+ * Sets the content of the body element
+ * @param {String or DomEl} content
+ */
+WireIt.Container.prototype.setBody = function(content) {
+   if(typeof content == "string") {
+      this.bodyEl.innerHTML = content;
+   }
+   else {
+      this.bodyEl.innerHTML = "";
+      this.bodyEl.appendChild(content);
+   }
+};
 
 /**
  * Called when the user clicked on the close button
@@ -227,7 +249,7 @@ WireIt.Container.prototype.onRemoveWire = function(event, args) {
    var wire = args[0];
    var index = this.wires.indexOf(wire);
    if( index != -1 ) {
-      this.eventRemoveWire.fire(wire[index]);
+      this.eventRemoveWire.fire(wire);
       this.wires[index] = null;
    }
    this.wires = this.wires.compact();
@@ -244,14 +266,10 @@ WireIt.Container.prototype.removeAllTerminals = function() {
 };
 
 /**
- * Redraw all the wires connected to the terminals
+ * Redraw all the wires connected to the terminals of this container
  */
 WireIt.Container.prototype.redrawAllWires = function() {
    for(var i = 0 ; i < this.terminals.length ; i++) {
-      if(this.terminals[i].wires) {
-         for(var k = 0 ; k < this.terminals[i].wires.length ; k++) {
-            this.terminals[i].wires[k].redraw();
-         }
-      }
+      this.terminals[i].redrawAllWires();
    }
 };

@@ -38,6 +38,20 @@ WireIt.Layer = function(config) {
     */
    this.el = null;
    
+   
+   /**
+    * Event that is fired when a wire is added
+    * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+    */
+   this.eventAddWire = new YAHOO.util.CustomEvent("eventAddWire");
+   
+   /**
+    * Event that is fired when a wire is removed
+    * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+    */
+   this.eventRemoveWire = new YAHOO.util.CustomEvent("eventRemoveWire");
+   
+   
    this.render();
    
    this.initContainers();
@@ -157,3 +171,11 @@ WireIt.Layer.prototype.onRemoveWire = function(event, args) {
    }
 };
 
+/**
+ * Remove all the containers in this layer
+ */
+WireIt.Layer.prototype.removeAllContainers = function() {
+   for(var i = this.containers.length-1 ; i >= 0 ; i--) {
+      this.removeContainer(this.containers[i]);
+   }
+};

@@ -316,7 +316,7 @@ WireIt.Terminal = function(parentEl, config, container) {
     * Event that is fired when a wire is removed
     * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     */
-   this.eventRemoveWire = new YAHOO.util.CustomEvent("eventConnected");
+   this.eventRemoveWire = new YAHOO.util.CustomEvent("eventRemoveWire");
    
    /**
     * DIV dom element that will display the Terminal
@@ -447,6 +447,18 @@ WireIt.Terminal.prototype.getConnectedTerminals = function() {
       }
    }
    return terminalList;
+};
+
+
+/**
+ * Redraw all the wires connected to this terminal
+ */
+WireIt.Terminal.prototype.redrawAllWires = function() {
+   if(this.wires) {
+      for(var i = 0 ; i < this.wires.length ; i++) {
+         this.wires[i].redraw();
+      }
+   }
 };
 
 
