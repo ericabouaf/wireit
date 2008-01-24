@@ -242,3 +242,16 @@ WireIt.Container.prototype.removeAllTerminals = function() {
    }
    this.terminals = [];
 };
+
+/**
+ * Redraw all the wires connected to the terminals
+ */
+WireIt.Container.prototype.redrawAllWires = function() {
+   for(var i = 0 ; i < this.terminals.length ; i++) {
+      if(this.terminals[i].wires) {
+         for(var k = 0 ; k < this.terminals[i].wires.length ; k++) {
+            this.terminals[i].wires[k].redraw();
+         }
+      }
+   }
+};
