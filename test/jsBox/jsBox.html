@@ -4,16 +4,19 @@
   <title>jsBox</title>
   
 <!-- YUI -->
-<link rel="stylesheet" type="text/css" href="../../lib/yui/fonts/fonts-min.css" /> 
-<link rel="stylesheet" type="text/css" href="../../lib/yui/reset/reset-min.css" />
-<script type="text/javascript" src="../../lib/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
-<script type="text/javascript" src="../../lib/yui/dragdrop/dragdrop-min.js"></script>
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.4.1/build/fonts/fonts-min.css" /> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.4.1/build/reset/reset-min.css" />
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.4.1/build/container/assets/container.css">
+
+<script type="text/javascript" src="http://yui.yahooapis.com/2.4.1/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.4.1/build/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.4.1/build/json/json-beta-min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.4.1/build/container/container-min.js"></script>
 
 <!-- Excanvas -->
 <!--[if IE]><script type="text/javascript" src="../../lib/excanvas.js"></script><![endif]-->
 
 <!-- WireIt -->
-
 <script type="text/javascript" src="../../build/wireit-min.js"></script>
 <link rel="stylesheet" type="text/css" href="../../css/WireIt.css" />
 
@@ -22,11 +25,6 @@
 
  </head>
  <body>
-	
-	<p style="margin: 10px;">This application is an example of the <a href="http://javascript.neyric.com/wireit">WireIt library</a>.<br />Each box contains a javascript function. The number of input terminals is automatically updated when you edit the function.<br />When you press 'Run', all the functions without input parameters are exectued. Then, the other modules are executed sequentially.</p>
-	
-	<button style="margin: 10px;" onclick='jsBox.addModule();'>Add box</button>
-	<button style="margin: 10px;" onclick='jsBox.run();'>Run !</button>
 	
  </body>
 </html>

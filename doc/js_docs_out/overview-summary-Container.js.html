@@ -131,7 +131,7 @@ WireIt.Container = <span class="reserved">function</span>(config, layer) {
     *    &lt;li&gt;ddHandleClassName: CSS class name for the drag'n drop handle (default 'WireIt-Container-ddhandle')&lt;/li&gt;
     *    &lt;li&gt;resizable: boolean that makes the container resizable (default true)&lt;/li&gt;
     *    &lt;li&gt;resizeHandleClassName: CSS class name for the resize handle (default 'WireIt-Container-resizehandle')&lt;/li&gt;
-    *    &lt;li&gt;width: initial width of the container (default 140)&lt;/li&gt;
+    *    &lt;li&gt;width: initial width of the container (no default so it autoadjusts to the content)&lt;/li&gt;
     *    &lt;li&gt;height: initial height of the container (default 100)&lt;/li&gt;
     *    &lt;li&gt;close: display a button to close the container (default true)&lt;/li&gt;
     *    &lt;li&gt;closeButtonClassName: CSS class name for the close button (default "WireIt-Container-closebutton")&lt;/li&gt;
@@ -149,7 +149,7 @@ WireIt.Container = <span class="reserved">function</span>(config, layer) {
    <span class="reserved">this</span>.config.resizable = (typeof <span class="reserved">this</span>.config.resizable == <span class="literal">"undefined"</span>) ? true : <span class="reserved">this</span>.config.resizable;
    <span class="reserved">this</span>.config.resizeHandleClassName = <span class="reserved">this</span>.config.resizeHandleClassName || <span class="literal">"WireIt-Container-resizehandle"</span>;
    
-   <span class="reserved">this</span>.config.width = <span class="reserved">this</span>.config.width || 140;
+   <span class="reserved">this</span>.config.width = <span class="reserved">this</span>.config.width; <span class="comment">// no default</span>
    <span class="reserved">this</span>.config.height = <span class="reserved">this</span>.config.height || 100;
    
    <span class="reserved">this</span>.config.close = (typeof <span class="reserved">this</span>.config.close == <span class="literal">"undefined"</span>) ? true : <span class="reserved">this</span>.config.close;
@@ -176,6 +176,11 @@ WireIt.Container = <span class="reserved">function</span>(config, layer) {
    <span class="reserved">this</span>.el = null;
    
    <span class="comment">/**
+    * Body element
+    */</span>
+   <span class="reserved">this</span>.bodyEl = null;
+   
+   <span class="comment">/**
     * Event that is fired when a wire is added
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     */</span>
@@ -185,7 +190,7 @@ WireIt.Container = <span class="reserved">function</span>(config, layer) {
     * Event that is fired when a wire is removed
     * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     */</span>
-   <span class="reserved">this</span>.eventRemoveWire = new YAHOO.util.CustomEvent(<span class="literal">"eventConnected"</span>);
+   <span class="reserved">this</span>.eventRemoveWire = new YAHOO.util.CustomEvent(<span class="literal">"eventRemoveWire"</span>);
    
    <span class="comment">// Render the div object</span>
    <span class="reserved">this</span>.render();
@@ -235,11 +240,18 @@ WireIt.Container.<span class="reserved">prototype</span>.render = <span class="r
    <span class="comment">// Create the element</span>
    <span class="reserved">this</span>.el = WireIt.cn(<span class="literal">'div'</span>, {className: <span class="reserved">this</span>.config.className}, {width: <span class="reserved">this</span>.config.width+<span class="literal">"px"</span>, height: <span class="reserved">this</span>.config.height+<span class="literal">"px"</span>});
    
+   <span class="comment">// Adds a handler for mousedown so we can notice the layer</span>
+   YAHOO.util.Event.addListener(<span class="reserved">this</span>.el, <span class="literal">"mousedown"</span>, <span class="reserved">this</span>.onMouseDown, <span class="reserved">this</span>, true);
+   
    <span class="reserved">if</span>(<span class="reserved">this</span>.config.ddHandle) {
       <span class="comment">// Create the drag/drop handle</span>
    	<span class="reserved">this</span>.ddHandle = WireIt.cn(<span class="literal">'div'</span>, {className: <span class="reserved">this</span>.config.ddHandleClassName});
    	<span class="reserved">this</span>.el.appendChild(<span class="reserved">this</span>.ddHandle);
    }
+   
+   <span class="comment">// Create the body element</span>
+   <span class="reserved">this</span>.bodyEl = WireIt.cn(<span class="literal">'div'</span>, {className: <span class="literal">"body"</span>});
+   <span class="reserved">this</span>.el.appendChild(<span class="reserved">this</span>.bodyEl);
    
    <span class="reserved">if</span>(<span class="reserved">this</span>.config.resizable) {
       <span class="comment">// Create the resize handle</span>
@@ -262,6 +274,47 @@ WireIt.Container.<span class="reserved">prototype</span>.render = <span class="r
 	<span class="reserved">this</span>.el.style.top = <span class="reserved">this</span>.config.position[1]+<span class="literal">"px"</span>;
 };
 
+<span class="comment">/**
+ * Sets the content of the body element
+ * <span class="attrib">@param</span> {String or DomEl} content
+ */</span>
+WireIt.Container.<span class="reserved">prototype</span>.setBody = <span class="reserved">function</span>(content) {
+   <span class="reserved">if</span>(typeof content == <span class="literal">"string"</span>) {
+      <span class="reserved">this</span>.bodyEl.innerHTML = content;
+   }
+   <span class="reserved">else</span> {
+      <span class="reserved">this</span>.bodyEl.innerHTML = <span class="literal">""</span>;
+      <span class="reserved">this</span>.bodyEl.appendChild(content);
+   }
+};
+
+
+<span class="comment">/**
+ * Called when the user made a mouse down on the container and sets the focus to this container (only if within a Layer)
+ */</span>
+WireIt.Container.<span class="reserved">prototype</span>.onMouseDown = <span class="reserved">function</span>() {
+   <span class="reserved">if</span>(<span class="reserved">this</span>.layer) {
+      <span class="reserved">if</span>(<span class="reserved">this</span>.layer.focusedContainer &amp;&amp; <span class="reserved">this</span>.layer.focusedContainer != <span class="reserved">this</span>) {
+         <span class="reserved">this</span>.layer.focusedContainer.removeFocus();
+      }
+      <span class="reserved">this</span>.setFocus();
+      <span class="reserved">this</span>.layer.focusedContainer = <span class="reserved">this</span>;
+   }
+};
+
+<span class="comment">/**
+ * Adds the class that shows the container as "focused"
+ */</span>
+WireIt.Container.<span class="reserved">prototype</span>.setFocus = <span class="reserved">function</span>() {
+   YAHOO.util.Dom.addClass(<span class="reserved">this</span>.el, <span class="literal">"WireIt-Container-focused"</span>);
+};
+
+<span class="comment">/**
+ * Remove the class that shows the container as "focused"
+ */</span>
+WireIt.Container.<span class="reserved">prototype</span>.removeFocus = <span class="reserved">function</span>() {
+   YAHOO.util.Dom.removeClass(<span class="reserved">this</span>.el, <span class="literal">"WireIt-Container-focused"</span>);
+};
 
 <span class="comment">/**
  * Called when the user clicked on the close button
@@ -300,7 +353,7 @@ WireIt.Container.<span class="reserved">prototype</span>.initTerminals = <span c
 WireIt.Container.<span class="reserved">prototype</span>.addTerminal = <span class="reserved">function</span>(terminalConfig) {
    
    <span class="comment">// Terminal type</span>
-   var type = terminalConfig.xtype || WireIt.Terminal;
+   var type = eval(terminalConfig.xtype || <span class="literal">"WireIt.Terminal"</span>);
    
    <span class="comment">// Instanciate the terminal</span>
    var term = new type(<span class="reserved">this</span>.el, terminalConfig, <span class="reserved">this</span>);
@@ -338,7 +391,7 @@ WireIt.Container.<span class="reserved">prototype</span>.onRemoveWire = <span cl
    var wire = args[0];
    var index = <span class="reserved">this</span>.wires.indexOf(wire);
    <span class="reserved">if</span>( index != -1 ) {
-      <span class="reserved">this</span>.eventRemoveWire.fire(wire[index]);
+      <span class="reserved">this</span>.eventRemoveWire.fire(wire);
       <span class="reserved">this</span>.wires[index] = null;
    }
    <span class="reserved">this</span>.wires = <span class="reserved">this</span>.wires.compact();
@@ -352,6 +405,44 @@ WireIt.Container.<span class="reserved">prototype</span>.removeAllTerminals = <s
       <span class="reserved">this</span>.terminals[i].remove();
    }
    <span class="reserved">this</span>.terminals = [];
+};
+
+<span class="comment">/**
+ * Redraw all the wires connected to the terminals of this container
+ */</span>
+WireIt.Container.<span class="reserved">prototype</span>.redrawAllWires = <span class="reserved">function</span>() {
+   <span class="reserved">for</span>(var i = 0 ; i &lt; <span class="reserved">this</span>.terminals.length ; i++) {
+      <span class="reserved">this</span>.terminals[i].redrawAllWires();
+   }
+};
+
+
+<span class="comment">/**
+ * Return the config of this container.
+ */</span>
+WireIt.Container.<span class="reserved">prototype</span>.getConfig = <span class="reserved">function</span>() {
+   var obj = {};
+   
+   <span class="comment">// Position</span>
+   obj.position = YAHOO.util.Dom.getXY(<span class="reserved">this</span>.el);
+   <span class="reserved">if</span>(<span class="reserved">this</span>.layer) {
+      var layerPos = YAHOO.util.Dom.getXY(<span class="reserved">this</span>.layer.el);
+      obj.position[0] -= layerPos[0];
+      obj.position[1] -= layerPos[1];
+   }
+   
+   <span class="comment">// xtype</span>
+   <span class="reserved">if</span>(<span class="reserved">this</span>.config.xtype) {
+      obj.xtype = <span class="reserved">this</span>.config.xtype;
+   }
+   
+   <span class="comment">/*
+   obj.terminals = [];
+   for(var i = 0 ; i &lt; this.terminals.length ; i++) {
+      obj.terminals.push( this.terminals[i].getConfig() );
+   }*/</span>
+   
+   <span class="reserved">return</span> obj;
 };
 </pre>
 	<hr>
@@ -411,6 +502,6 @@ WireIt.Container.<span class="reserved">prototype</span>.removeAllTerminals = <s
 <font size="-1">
 
 </font>
-<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Fri Jan  4 23:21:43 2008</div>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sat Jan 26 15:17:14 2008</div>
 </body>
 </html>

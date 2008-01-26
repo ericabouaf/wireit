@@ -95,7 +95,7 @@ WireIt.Layer.prototype.initWires = function() {
  * @return {WireIt.Wire} Wire instance build from the xtype
  */
 WireIt.Layer.prototype.addWire = function(wireConfig) {
-   var type = wireConfig.xtype || WireIt.Wire;
+   var type = eval(wireConfig.xtype || "WireIt.Wire");
    
    var src = wireConfig.src;
    var tgt = wireConfig.tgt;
@@ -116,7 +116,7 @@ WireIt.Layer.prototype.addWire = function(wireConfig) {
  */
 WireIt.Layer.prototype.addContainer = function(containerConfig) {
    
-   var type = containerConfig.xtype || WireIt.Container;
+   var type = eval(containerConfig.xtype || "WireIt.Container");
    var container = new type(containerConfig, this);
    
    this.containers.push( container );
@@ -172,10 +172,38 @@ WireIt.Layer.prototype.onRemoveWire = function(event, args) {
 };
 
 /**
- * Remove all the containers in this layer
+ * Remove all the containers in this layer (and the associated terminals and wires)
  */
 WireIt.Layer.prototype.removeAllContainers = function() {
    for(var i = this.containers.length-1 ; i >= 0 ; i--) {
       this.removeContainer(this.containers[i]);
    }
+};
+
+
+
+/**
+ * Return an object that represent the state of the layer including the containers and the wires
+ * @return {Obj} layer configuration
+ */
+WireIt.Layer.prototype.getWiring = function() {
+   
+   var i;
+   var obj = {containers: [], wires: []};
+   
+   for( i = 0 ; i < this.containers.length ; i++) {
+      obj.containers.push( this.containers[i].getConfig() );
+   }
+   
+   for( i = 0 ; i < this.wires.length ; i++) {
+      var wire = this.wires[i];
+      
+      var wireObj = { 
+         src: {moduleId: this.containers.indexOf(wire.terminal1.container), terminalId: wire.terminal1.container.terminals.indexOf(wire.terminal1)}, 
+         tgt: {moduleId: this.containers.indexOf(wire.terminal2.container), terminalId: wire.terminal2.container.terminals.indexOf(wire.terminal2)} 
+      };
+      obj.wires.push(wireObj);
+   }
+   
+   return obj;
 };

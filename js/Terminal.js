@@ -470,8 +470,9 @@ WireIt.Terminal.prototype.redrawAllWires = function() {
   * @constructor
   * @param {DOMEl} parentEl Parent dom element
   * @param {Object} config configuration object
+  * @param {WireIt.Container} container (Optional) Container containing this terminal
   */
-WireIt.util.TerminalInput = function(parentEl, config) {
+WireIt.util.TerminalInput = function(parentEl, config, container) {
    if(!config) { var config = {}; }
    config.direction = [0,-1];
    config.fakeDirection = [0,1];
@@ -480,7 +481,7 @@ WireIt.util.TerminalInput = function(parentEl, config) {
       allowedTypes: ["output"]
    };
    config.nMaxWires = 1;
-   WireIt.util.TerminalInput.superclass.constructor.call(this,parentEl, config);
+   WireIt.util.TerminalInput.superclass.constructor.call(this,parentEl, config, container);
 };
 YAHOO.extend(WireIt.util.TerminalInput, WireIt.Terminal);
 
@@ -494,8 +495,9 @@ YAHOO.extend(WireIt.util.TerminalInput, WireIt.Terminal);
   * @constructor
   * @param {DOMEl} parentEl Parent dom element
   * @param {Object} config configuration object
+  * @param {WireIt.Container} container (Optional) Container containing this terminal
   */
-WireIt.util.TerminalOutput = function(parentEl, config) {
+WireIt.util.TerminalOutput = function(parentEl, config, container) {
   if(!config) { var config = {}; }
    config.direction = [0,1];
    config.fakeDirection = [0,-1];
@@ -503,7 +505,7 @@ WireIt.util.TerminalOutput = function(parentEl, config) {
       type: "output",
       allowedTypes: ["input"]
    };
-   WireIt.util.TerminalOutput.superclass.constructor.call(this,parentEl, config);
+   WireIt.util.TerminalOutput.superclass.constructor.call(this,parentEl, config, container);
 };
 YAHOO.extend(WireIt.util.TerminalOutput, WireIt.Terminal);
 

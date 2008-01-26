@@ -149,6 +149,20 @@ WireIt.Layer = <span class="reserved">function</span>(config) {
     */</span>
    <span class="reserved">this</span>.el = null;
    
+   
+   <span class="comment">/**
+    * Event that is fired when a wire is added
+    * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+    */</span>
+   <span class="reserved">this</span>.eventAddWire = new YAHOO.util.CustomEvent(<span class="literal">"eventAddWire"</span>);
+   
+   <span class="comment">/**
+    * Event that is fired when a wire is removed
+    * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+    */</span>
+   <span class="reserved">this</span>.eventRemoveWire = new YAHOO.util.CustomEvent(<span class="literal">"eventRemoveWire"</span>);
+   
+   
    <span class="reserved">this</span>.render();
    
    <span class="reserved">this</span>.initContainers();
@@ -189,9 +203,10 @@ WireIt.Layer.<span class="reserved">prototype</span>.initWires = <span class="re
 <span class="comment">/**
  * Instanciate a wire given its "xtype" (default to WireIt.Wire)
  * <span class="attrib">@param</span> {Object} wireConfig  Wire configuration object (see WireIt.Wire class for details)
+ * <span class="attrib">@return</span> {WireIt.Wire} Wire instance build from the xtype
  */</span>
 WireIt.Layer.<span class="reserved">prototype</span>.addWire = <span class="reserved">function</span>(wireConfig) {
-   var type = wireConfig.xtype || WireIt.Wire;
+   var type = eval(wireConfig.xtype || <span class="literal">"WireIt.Wire"</span>);
    
    var src = wireConfig.src;
    var tgt = wireConfig.tgt;
@@ -201,15 +216,18 @@ WireIt.Layer.<span class="reserved">prototype</span>.addWire = <span class="rese
    
    var wire = new type( terminal1, terminal2, <span class="reserved">this</span>.el);
    wire.redraw();
+   
+   <span class="reserved">return</span> wire;
 };
 
 <span class="comment">/**
  * Instanciate a container given its "xtype": WireIt.Container (default) or a subclass of it.
  * <span class="attrib">@param</span> {Object} containerConfig  Container configuration object (see WireIt.Container class for details)
+ * <span class="attrib">@return</span> {WireIt.Container} Container instance build from the xtype
  */</span>
 WireIt.Layer.<span class="reserved">prototype</span>.addContainer = <span class="reserved">function</span>(containerConfig) {
    
-   var type = containerConfig.xtype || WireIt.Container;
+   var type = eval(containerConfig.xtype || <span class="literal">"WireIt.Container"</span>);
    var container = new type(containerConfig, <span class="reserved">this</span>);
    
    <span class="reserved">this</span>.containers.push( container );
@@ -217,6 +235,8 @@ WireIt.Layer.<span class="reserved">prototype</span>.addContainer = <span class=
    <span class="comment">// Event listeners</span>
    container.eventAddWire.subscribe(<span class="reserved">this</span>.onAddWire, <span class="reserved">this</span>, true);
    container.eventRemoveWire.subscribe(<span class="reserved">this</span>.onRemoveWire, <span class="reserved">this</span>, true);
+   
+   <span class="reserved">return</span> container;
 };
 
 <span class="comment">/**
@@ -262,6 +282,42 @@ WireIt.Layer.<span class="reserved">prototype</span>.onRemoveWire = <span class=
    }
 };
 
+<span class="comment">/**
+ * Remove all the containers in this layer (and the associated terminals and wires)
+ */</span>
+WireIt.Layer.<span class="reserved">prototype</span>.removeAllContainers = <span class="reserved">function</span>() {
+   <span class="reserved">for</span>(var i = <span class="reserved">this</span>.containers.length-1 ; i &gt;= 0 ; i--) {
+      <span class="reserved">this</span>.removeContainer(<span class="reserved">this</span>.containers[i]);
+   }
+};
+
+
+
+<span class="comment">/**
+ * Return an object that represent the state of the layer including the containers and the wires
+ * <span class="attrib">@return</span> {Obj} layer configuration
+ */</span>
+WireIt.Layer.<span class="reserved">prototype</span>.getWiring = <span class="reserved">function</span>() {
+   
+   var i;
+   var obj = {containers: [], wires: []};
+   
+   <span class="reserved">for</span>( i = 0 ; i &lt; <span class="reserved">this</span>.containers.length ; i++) {
+      obj.containers.push( <span class="reserved">this</span>.containers[i].getConfig() );
+   }
+   
+   <span class="reserved">for</span>( i = 0 ; i &lt; <span class="reserved">this</span>.wires.length ; i++) {
+      var wire = <span class="reserved">this</span>.wires[i];
+      
+      var wireObj = { 
+         src: {moduleId: <span class="reserved">this</span>.containers.indexOf(wire.terminal1.container), terminalId: wire.terminal1.container.terminals.indexOf(wire.terminal1)}, 
+         tgt: {moduleId: <span class="reserved">this</span>.containers.indexOf(wire.terminal2.container), terminalId: wire.terminal2.container.terminals.indexOf(wire.terminal2)} 
+      };
+      obj.wires.push(wireObj);
+   }
+   
+   <span class="reserved">return</span> obj;
+};
 </pre>
 	<hr>
 
@@ -320,6 +376,6 @@ WireIt.Layer.<span class="reserved">prototype</span>.onRemoveWire = <span class=
 <font size="-1">
 
 </font>
-<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Fri Jan  4 23:21:43 2008</div>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sat Jan 26 15:17:14 2008</div>
 </body>
 </html>

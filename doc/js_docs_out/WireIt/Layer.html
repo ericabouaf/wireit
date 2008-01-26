@@ -144,6 +144,28 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TR BGCOLOR="white" CLASS="TableRowColor">
    <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
    <CODE>&nbsp;Object</CODE></FONT></TD>
+   <TD><CODE><B><A HREF="#eventAddWire">eventAddWire</A></B></CODE>
+   <BR>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Event that is fired when a wire is added
+ You can register this event with myTerminal.eventAddWire.subscribe(
+function(e,params) {}
+, scope);</TD>
+   </TR>
+   
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+   <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+   <CODE>&nbsp;Object</CODE></FONT></TD>
+   <TD><CODE><B><A HREF="#eventRemoveWire">eventRemoveWire</A></B></CODE>
+   <BR>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Event that is fired when a wire is removed
+ You can register this event with myTerminal.eventRemoveWire.subscribe(
+function(e,params) {}
+, scope);</TD>
+   </TR>
+   
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+   <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+   <CODE>&nbsp;Object</CODE></FONT></TD>
    <TD><CODE><B><A HREF="#wires">wires</A></B></CODE>
    <BR>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;List of all the WireIt.Wire (or subclass) instances in this layer</TD>
@@ -197,7 +219,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;void</CODE>
+	    <CODE>&nbsp;<a href="../WireIt/Container.html">WireIt.Container</a></CODE>
 	 </FONT>
       </TD>
       <TD>
@@ -214,7 +236,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;void</CODE>
+	    <CODE>&nbsp;<a href="../WireIt/Wire.html">WireIt.Wire</a></CODE>
 	 </FONT>
       </TD>
       <TD>
@@ -225,6 +247,23 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	 Instanciate a wire given its "xtype" (default to WireIt.Wire)
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Obj</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#getWiring">getWiring</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Return an object that represent the state of the layer including the containers and the wires
       </TD>
    </TR>
 
@@ -293,6 +332,23 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	 Update the wire list when a wire is removed
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#removeAllContainers">removeAllContainers</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Remove all the containers in this layer (and the associated terminals and wires)
       </TD>
    </TR>
 
@@ -382,6 +438,30 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    </UL>
    <HR>
    
+   <A NAME="eventAddWire"><!-- --></A>
+   <H3>eventAddWire</H3>
+   <PRE>Object&nbsp;<B>eventAddWire</B></PRE>
+   <UL>
+   Event that is fired when a wire is added
+ You can register this event with myTerminal.eventAddWire.subscribe(
+function(e,params) {}
+, scope);
+   
+   </UL>
+   <HR>
+   
+   <A NAME="eventRemoveWire"><!-- --></A>
+   <H3>eventRemoveWire</H3>
+   <PRE>Object&nbsp;<B>eventRemoveWire</B></PRE>
+   <UL>
+   Event that is fired when a wire is removed
+ You can register this event with myTerminal.eventRemoveWire.subscribe(
+function(e,params) {}
+, scope);
+   
+   </UL>
+   <HR>
+   
    <A NAME="wires"><!-- --></A>
    <H3>wires</H3>
    <PRE>Object&nbsp;<B>wires</B></PRE>
@@ -450,7 +530,7 @@ WireIt.Layer</H3>
 
    <A NAME="addContainer"><!-- --></A>
    <H3>addContainer</H3>
-   <PRE>void <B>addContainer</B>(&lt;Object&gt; containerConfig)</PRE>
+   <PRE><a href="../WireIt/Container.html">WireIt.Container</a> <B>addContainer</B>(&lt;Object&gt; containerConfig)</PRE>
    
       <UL>Instanciate a container given its "xtype": WireIt.Container (default) or a subclass of it.</UL>
    
@@ -460,13 +540,20 @@ WireIt.Layer</H3>
    <UL>
    <B>Parameters:</B>
    
-     <UL><CODE>containerConfig</CODE> -   Container configuration object (see WireIt.Container class for details)    
+     <UL><CODE>containerConfig</CODE> -   Container configuration object (see WireIt.Container class for details)  
       </UL> 
    
    </UL>
    
    <!-- METHOD PARAMETERS END -->
 
+   
+   <UL>
+   <B>Returns:</B>
+        <UL>
+         Container instance build from the xtype 
+        </UL>
+   </UL>
    
 
    <!-- ADDITIONAL ATTRIBUTES START -->
@@ -476,7 +563,7 @@ WireIt.Layer</H3>
 
    <A NAME="addWire"><!-- --></A>
    <H3>addWire</H3>
-   <PRE>void <B>addWire</B>(&lt;Object&gt; wireConfig)</PRE>
+   <PRE><a href="../WireIt/Wire.html">WireIt.Wire</a> <B>addWire</B>(&lt;Object&gt; wireConfig)</PRE>
    
       <UL>Instanciate a wire given its "xtype" (default to WireIt.Wire)</UL>
    
@@ -486,13 +573,45 @@ WireIt.Layer</H3>
    <UL>
    <B>Parameters:</B>
    
-     <UL><CODE>wireConfig</CODE> -   Wire configuration object (see WireIt.Wire class for details)    
+     <UL><CODE>wireConfig</CODE> -   Wire configuration object (see WireIt.Wire class for details)  
       </UL> 
    
    </UL>
    
    <!-- METHOD PARAMETERS END -->
 
+   
+   <UL>
+   <B>Returns:</B>
+        <UL>
+         Wire instance build from the xtype 
+        </UL>
+   </UL>
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="getWiring"><!-- --></A>
+   <H3>getWiring</H3>
+   <PRE>Obj <B>getWiring</B>()</PRE>
+   
+      <UL>Return an object that represent the state of the layer including the containers and the wires</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+   <UL>
+   <B>Returns:</B>
+        <UL>
+         layer configuration 
+        </UL>
+   </UL>
    
 
    <!-- ADDITIONAL ATTRIBUTES START -->
@@ -584,6 +703,24 @@ WireIt.Layer</H3>
       </UL> 
    
    </UL>
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="removeAllContainers"><!-- --></A>
+   <H3>removeAllContainers</H3>
+   <PRE>void <B>removeAllContainers</B>()</PRE>
+   
+      <UL>Remove all the containers in this layer (and the associated terminals and wires)</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
    
    <!-- METHOD PARAMETERS END -->
 
@@ -704,6 +841,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <FONT SIZE="-1">
 
 </FONT>
-<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Fri Jan  4 23:21:43 2008</div>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sat Jan 26 15:17:14 2008</div>
 </BODY>
 </HTML>

@@ -129,6 +129,9 @@ WireIt.Container.prototype.render = function() {
    // Create the element
    this.el = WireIt.cn('div', {className: this.config.className}, {width: this.config.width+"px", height: this.config.height+"px"});
    
+   // Adds a handler for mousedown so we can notice the layer
+   YAHOO.util.Event.addListener(this.el, "mousedown", this.onMouseDown, this, true);
+   
    if(this.config.ddHandle) {
       // Create the drag/drop handle
    	this.ddHandle = WireIt.cn('div', {className: this.config.ddHandleClassName});
@@ -174,6 +177,34 @@ WireIt.Container.prototype.setBody = function(content) {
    }
 };
 
+
+/**
+ * Called when the user made a mouse down on the container and sets the focus to this container (only if within a Layer)
+ */
+WireIt.Container.prototype.onMouseDown = function() {
+   if(this.layer) {
+      if(this.layer.focusedContainer && this.layer.focusedContainer != this) {
+         this.layer.focusedContainer.removeFocus();
+      }
+      this.setFocus();
+      this.layer.focusedContainer = this;
+   }
+};
+
+/**
+ * Adds the class that shows the container as "focused"
+ */
+WireIt.Container.prototype.setFocus = function() {
+   YAHOO.util.Dom.addClass(this.el, "WireIt-Container-focused");
+};
+
+/**
+ * Remove the class that shows the container as "focused"
+ */
+WireIt.Container.prototype.removeFocus = function() {
+   YAHOO.util.Dom.removeClass(this.el, "WireIt-Container-focused");
+};
+
 /**
  * Called when the user clicked on the close button
  */
@@ -211,7 +242,7 @@ WireIt.Container.prototype.initTerminals = function(terminalConfigs) {
 WireIt.Container.prototype.addTerminal = function(terminalConfig) {
    
    // Terminal type
-   var type = terminalConfig.xtype || WireIt.Terminal;
+   var type = eval(terminalConfig.xtype || "WireIt.Terminal");
    
    // Instanciate the terminal
    var term = new type(this.el, terminalConfig, this);
@@ -272,4 +303,33 @@ WireIt.Container.prototype.redrawAllWires = function() {
    for(var i = 0 ; i < this.terminals.length ; i++) {
       this.terminals[i].redrawAllWires();
    }
+};
+
+
+/**
+ * Return the config of this container.
+ */
+WireIt.Container.prototype.getConfig = function() {
+   var obj = {};
+   
+   // Position
+   obj.position = YAHOO.util.Dom.getXY(this.el);
+   if(this.layer) {
+      var layerPos = YAHOO.util.Dom.getXY(this.layer.el);
+      obj.position[0] -= layerPos[0];
+      obj.position[1] -= layerPos[1];
+   }
+   
+   // xtype
+   if(this.config.xtype) {
+      obj.xtype = this.config.xtype;
+   }
+   
+   /*
+   obj.terminals = [];
+   for(var i = 0 ; i < this.terminals.length ; i++) {
+      obj.terminals.push( this.terminals[i].getConfig() );
+   }*/
+   
+   return obj;
 };

@@ -114,6 +114,14 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TR BGCOLOR="white" CLASS="TableRowColor">
    <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
    <CODE>&nbsp;Object</CODE></FONT></TD>
+   <TD><CODE><B><A HREF="#bodyEl">bodyEl</A></B></CODE>
+   <BR>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Body element</TD>
+   </TR>
+   
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+   <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+   <CODE>&nbsp;Object</CODE></FONT></TD>
    <TD><CODE><B><A HREF="#config">config</A></B></CODE>
    <BR>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Main config object
@@ -126,7 +134,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
     <li>ddHandleClassName: CSS class name for the drag'n drop handle (default 'WireIt-Container-ddhandle')</li>
     <li>resizable: boolean that makes the container resizable (default true)</li>
     <li>resizeHandleClassName: CSS class name for the resize handle (default 'WireIt-Container-resizehandle')</li>
-    <li>width: initial width of the container (default 140)</li>
+    <li>width: initial width of the container (no default so it autoadjusts to the content)</li>
     <li>height: initial height of the container (default 100)</li>
     <li>close: display a button to close the container (default true)</li>
     <li>closeButtonClassName: CSS class name for the close button (default "WireIt-Container-closebutton")</li>
@@ -268,6 +276,23 @@ function(e,params) {}
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#getConfig">getConfig</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Return the config of this container.
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
 	    <CODE>&nbsp;void</CODE>
 	 </FONT>
       </TD>
@@ -325,6 +350,23 @@ function(e,params) {}
       <TD>
 	 <CODE>
 	    <B>
+	       <A HREF="#onMouseDown">onMouseDown</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Called when the user made a mouse down on the container and sets the focus to this container (only if within a Layer)
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
 	       <A HREF="#onRemoveWire">onRemoveWire</A></B>(&lt;Event&gt; event, &lt;<a href="../Array.html">Array</a>&gt; args)
 	 </CODE>
 	 <BR>
@@ -347,6 +389,23 @@ function(e,params) {}
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	 Function called when the container is being resized.
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#redrawAllWires">redrawAllWires</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Redraw all the wires connected to the terminals of this container
       </TD>
    </TR>
 
@@ -393,11 +452,62 @@ function(e,params) {}
       <TD>
 	 <CODE>
 	    <B>
+	       <A HREF="#removeFocus">removeFocus</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Remove the class that shows the container as "focused"
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
 	       <A HREF="#render">render</A></B>()
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	 Render the dom of the container
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#setBody">setBody</A></B>(content)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Sets the content of the body element
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#setFocus">setFocus</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Adds the class that shows the container as "focused"
       </TD>
    </TR>
 
@@ -420,6 +530,15 @@ function(e,params) {}
    </TABLE>
 
    
+   <A NAME="bodyEl"><!-- --></A>
+   <H3>bodyEl</H3>
+   <PRE>Object&nbsp;<B>bodyEl</B></PRE>
+   <UL>
+   Body element
+   
+   </UL>
+   <HR>
+   
    <A NAME="config"><!-- --></A>
    <H3>config</H3>
    <PRE>Object&nbsp;<B>config</B></PRE>
@@ -434,7 +553,7 @@ function(e,params) {}
     <li>ddHandleClassName: CSS class name for the drag'n drop handle (default 'WireIt-Container-ddhandle')</li>
     <li>resizable: boolean that makes the container resizable (default true)</li>
     <li>resizeHandleClassName: CSS class name for the resize handle (default 'WireIt-Container-resizehandle')</li>
-    <li>width: initial width of the container (default 140)</li>
+    <li>width: initial width of the container (no default so it autoadjusts to the content)</li>
     <li>height: initial height of the container (default 100)</li>
     <li>close: display a button to close the container (default true)</li>
     <li>closeButtonClassName: CSS class name for the close button (default "WireIt-Container-closebutton")</li>
@@ -606,6 +725,24 @@ WireIt.Container</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
+   <A NAME="getConfig"><!-- --></A>
+   <H3>getConfig</H3>
+   <PRE>Object <B>getConfig</B>()</PRE>
+   
+      <UL>Return the config of this container.</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
    <A NAME="initTerminals"><!-- --></A>
    <H3>initTerminals</H3>
    <PRE>void <B>initTerminals</B>(terminalConfigs)</PRE>
@@ -671,6 +808,24 @@ WireIt.Container</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
+   <A NAME="onMouseDown"><!-- --></A>
+   <H3>onMouseDown</H3>
+   <PRE>void <B>onMouseDown</B>()</PRE>
+   
+      <UL>Called when the user made a mouse down on the container and sets the focus to this container (only if within a Layer)</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
    <A NAME="onRemoveWire"><!-- --></A>
    <H3>onRemoveWire</H3>
    <PRE>void <B>onRemoveWire</B>(&lt;Event&gt; event, &lt;<a href="../Array.html">Array</a>&gt; args)</PRE>
@@ -706,6 +861,24 @@ WireIt.Container</H3>
    
       <UL>Function called when the container is being resized.
  It doesn't do anything, so please override it.</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="redrawAllWires"><!-- --></A>
+   <H3>redrawAllWires</H3>
+   <PRE>void <B>redrawAllWires</B>()</PRE>
+   
+      <UL>Redraw all the wires connected to the terminals of this container</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -755,11 +928,73 @@ WireIt.Container</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
+   <A NAME="removeFocus"><!-- --></A>
+   <H3>removeFocus</H3>
+   <PRE>void <B>removeFocus</B>()</PRE>
+   
+      <UL>Remove the class that shows the container as "focused"</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
    <A NAME="render"><!-- --></A>
    <H3>render</H3>
    <PRE>void <B>render</B>()</PRE>
    
       <UL>Render the dom of the container</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="setBody"><!-- --></A>
+   <H3>setBody</H3>
+   <PRE>void <B>setBody</B>(content)</PRE>
+   
+      <UL>Sets the content of the body element</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>String</CODE> -  or DomEl} content    
+      </UL> 
+   
+   </UL>
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="setFocus"><!-- --></A>
+   <H3>setFocus</H3>
+   <PRE>void <B>setFocus</B>()</PRE>
+   
+      <UL>Adds the class that shows the container as "focused"</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -839,6 +1074,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <FONT SIZE="-1">
 
 </FONT>
-<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Fri Jan  4 23:21:43 2008</div>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sat Jan 26 15:17:14 2008</div>
 </BODY>
 </HTML>

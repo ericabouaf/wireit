@@ -1,5 +1,3 @@
-
-
 /**
  * Wires :
  */
@@ -52,7 +50,7 @@ div.WireIt-Container {
    position: absolute;
  	z-index: 5;
  	opacity: 0.8;
- 	border: 2px solid black;
+ 	border: 0; /* When we put a border to the containers, it messes getXY and create a small offset in the wire connections */
  	background-color: #aaffaa;
 }
 
@@ -85,15 +83,25 @@ div.WireIt-Container-closebutton {
    right: 3px;
    cursor: pointer;
 }
+
+
+div.WireIt-Container-focused {
+   
+}
+
+div.WireIt-Container-focused div.WireIt-Container-ddhandle {
+   background-color: blue;
+}
  
 /**
  * Layers
  */
 div.WireIt-Layer {
-   border: 1px solid green;
-   width: 90%;
-   height: 80%;
+   border: 0; /* When we put a border to the layer, it messes getXY and create a small offset in the wire connections */
    overflow: scroll;
    margin: auto;
    position: relative;
+	height: 100%; 
+	width: 100%;
+	background-color: #ddddff;
 }

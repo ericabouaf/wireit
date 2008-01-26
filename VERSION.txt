@@ -2,6 +2,27 @@
 To get the latest version, please visit http://javascript.neyric.com/wireit
 -----------------------------------------------------
 
+Version 0.2.1
+january 26, 2008
+
+Changeset:
+
+  - new Layer.getWiring function to save the state of the wiring. It can be customized by overriding Container.getConfig
+  - jsBox updated to use the Layer.getWiring function
+  - no default width for containers so they can auto-adjust to the content
+
+  - Layer.addContainer and Layer.addWire now returns the created instance
+  - Added the method Container.redrawAllWires and Terminal.redrawAllWires
+  - Added Layer.removeAllContainers
+	
+  - adds a "body" div to the container
+  - CSS updates on Containers and Layers
+  - adds a focus CSS class on the last mousedown-ed container in the layer
+
+  - bugfixes (events "addWire" and "removeWire" added to WireIt.Layer, offset in the connections)
+
+-----------------------------------------------------
+
 Version 0.2.0
 january 4, 2008
 
