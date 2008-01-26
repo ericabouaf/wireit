@@ -179,10 +179,10 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
       var that = <span class="reserved">this</span>;
       <span class="reserved">this</span>.terminalTimeout = setTimeout(<span class="reserved">function</span>() {
          <span class="reserved">if</span>(that.scissor) {
-            that.terminal.parentEl.parentNode.removeChild(that.scissor);
+            that.scissor.parentNode.removeChild(that.scissor);
             that.scissor = undefined;
          }
-      }, 500);
+      }, 700);
    },
    
    scissorClick: <span class="reserved">function</span>() {
@@ -190,7 +190,7 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
          <span class="reserved">this</span>.terminal.wires[0].remove();
       }
       <span class="reserved">if</span>(<span class="reserved">this</span>.scissor) {
-         <span class="reserved">this</span>.terminal.parentEl.parentNode.removeChild(<span class="reserved">this</span>.scissor);
+         <span class="reserved">this</span>.scissor.parentNode.removeChild(<span class="reserved">this</span>.scissor);
          <span class="reserved">this</span>.scissor = undefined;
       }
    },
@@ -202,7 +202,12 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
    
       <span class="comment">// Display the cut button</span>
       <span class="reserved">this</span>.scissor = WireIt.cn(<span class="literal">'div'</span>, {className: <span class="literal">"WireIt-Wire-scissors"</span>}, {left: position[0]+<span class="literal">"px"</span>,top: position[1]+<span class="literal">"px"</span>} );
-      <span class="reserved">this</span>.terminal.parentEl.parentNode.appendChild(<span class="reserved">this</span>.scissor);
+      <span class="reserved">if</span>(<span class="reserved">this</span>.terminal.container) {
+         <span class="reserved">this</span>.terminal.container.layer.el.appendChild(<span class="reserved">this</span>.scissor);
+      }
+      <span class="reserved">else</span> {
+         <span class="reserved">this</span>.terminal.parentEl.parentNode.appendChild(<span class="reserved">this</span>.scissor);
+      }
       
       <span class="comment">// Ajoute un listener sur le scissor:</span>
       YAHOO.util.Event.addListener(<span class="reserved">this</span>.scissor, <span class="literal">"mouseover"</span>, <span class="reserved">this</span>.scissorOver, <span class="reserved">this</span>, true);
@@ -225,7 +230,7 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
          var that = <span class="reserved">this</span>;
          <span class="reserved">this</span>.terminalTimeout = setTimeout(<span class="reserved">function</span>() {
             <span class="reserved">if</span>(that.scissor) {
-               that.terminal.parentEl.parentNode.removeChild(that.scissor);
+               that.scissor.parentNode.removeChild(that.scissor);
                that.scissor = undefined;
             }
          }, 300);
@@ -246,21 +251,37 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
       <span class="reserved">this</span>.fakeTerminal = {
          config: {direction: <span class="reserved">this</span>.terminal.config.fakeDirection},
          pos: [200,200], 
-         offset: [<span class="reserved">this</span>.terminal.parentEl.parentNode.offsetLeft-<span class="reserved">this</span>.terminal.parentEl.parentNode.scrollLeft, 
-                  <span class="reserved">this</span>.terminal.parentEl.parentNode.offsetTop-<span class="reserved">this</span>.terminal.parentEl.parentNode.scrollTop],
          addWire: <span class="reserved">function</span>() {},
          removeWire: <span class="reserved">function</span>() {},
          getXY: <span class="reserved">function</span>() { 
-            <span class="reserved">return</span> [<span class="reserved">this</span>.pos[0]-<span class="reserved">this</span>.offset[0], <span class="reserved">this</span>.pos[1]-<span class="reserved">this</span>.offset[1] ]; 
+            <span class="reserved">return</span> <span class="reserved">this</span>.pos; 
          }
       };
       
-      <span class="reserved">this</span>.editingWire = new WireIt.Wire(<span class="reserved">this</span>.terminal, <span class="reserved">this</span>.fakeTerminal, <span class="reserved">this</span>.terminal.parentEl.parentNode, <span class="reserved">this</span>.terminal.config.editingWireConfig);
+      var parentEl = <span class="reserved">this</span>.terminal.parentEl.parentNode;
+      <span class="reserved">if</span>(<span class="reserved">this</span>.terminal.container) {
+         parentEl = <span class="reserved">this</span>.terminal.container.layer.el;
+      }
+      <span class="reserved">this</span>.editingWire = new WireIt.Wire(<span class="reserved">this</span>.terminal, <span class="reserved">this</span>.fakeTerminal, parentEl, <span class="reserved">this</span>.terminal.config.editingWireConfig);
       YAHOO.util.Dom.addClass(<span class="reserved">this</span>.editingWire.el, <span class="literal">'WireIt-Wire-editing'</span>);
    },
    
    onDrag: <span class="reserved">function</span>(e) {
-      <span class="reserved">this</span>.fakeTerminal.pos = [e.clientX, e.clientY];
+      <span class="reserved">if</span>(<span class="reserved">this</span>.terminal.container) {
+         var obj = <span class="reserved">this</span>.terminal.container.layer.el;
+         var curleft = curtop = 0;
+        	<span class="reserved">if</span> (obj.offsetParent) {
+        		do {
+        			curleft += obj.offsetLeft;
+        			curtop += obj.offsetTop;
+        			obj = obj.offsetParent ;
+        		} <span class="reserved">while</span> ( !!obj );
+        	}
+         <span class="reserved">this</span>.fakeTerminal.pos = [e.clientX-curleft, e.clientY-curtop];
+      }
+      <span class="reserved">else</span> {
+         <span class="reserved">this</span>.fakeTerminal.pos = [e.clientX, e.clientY];
+      }
       <span class="reserved">this</span>.editingWire.redraw();
    },
    
@@ -323,11 +344,21 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
                   <span class="reserved">if</span>(targetDDTerminal.terminal.wires.length &gt; 0) {
                      targetDDTerminal.terminal.wires[0].remove();
                   }
-                  var w = new WireIt.Wire(<span class="reserved">this</span>.terminal, targetDDTerminal.terminal, <span class="reserved">this</span>.terminal.parentEl.parentNode, <span class="reserved">this</span>.terminal.config.wireConfig);
+                  
+                  var parentEl = <span class="reserved">this</span>.terminal.parentEl.parentNode;
+                  <span class="reserved">if</span>(<span class="reserved">this</span>.terminal.container) {
+                     parentEl = <span class="reserved">this</span>.terminal.container.layer.el;
+                  }
+                  var w = new WireIt.Wire(<span class="reserved">this</span>.terminal, targetDDTerminal.terminal, parentEl, <span class="reserved">this</span>.terminal.config.wireConfig);
                   w.redraw();
                }
                <span class="reserved">else</span> <span class="reserved">if</span>(targetDDTerminal.terminal.wires.length &lt; targetDDTerminal.terminal.config.nMaxWires) {
-                  var w = new WireIt.Wire(<span class="reserved">this</span>.terminal, targetDDTerminal.terminal, <span class="reserved">this</span>.terminal.parentEl.parentNode, <span class="reserved">this</span>.terminal.config.wireConfig);
+                  
+                  var parentEl = <span class="reserved">this</span>.terminal.parentEl.parentNode;
+                  <span class="reserved">if</span>(<span class="reserved">this</span>.terminal.container) {
+                     parentEl = <span class="reserved">this</span>.terminal.container.layer.el;
+                  }
+                  var w = new WireIt.Wire(<span class="reserved">this</span>.terminal, targetDDTerminal.terminal, parentEl, <span class="reserved">this</span>.terminal.config.wireConfig);
                   w.redraw();
                }
                <span class="reserved">else</span> {
@@ -543,10 +574,19 @@ WireIt.Terminal.<span class="reserved">prototype</span>.removeWire = <span class
  * <span class="attrib">@returns</span> {Array} pos [x,y] Absolute position of the terminal
  */</span>
 WireIt.Terminal.<span class="reserved">prototype</span>.getXY = <span class="reserved">function</span>() {
-    var pos = YAHOO.util.Dom.getXY(<span class="reserved">this</span>.el);
-    pos[0] += 15-<span class="reserved">this</span>.el.parentNode.parentNode.offsetLeft+<span class="reserved">this</span>.el.parentNode.parentNode.scrollLeft;
-    pos[1] += 15-<span class="reserved">this</span>.el.parentNode.parentNode.offsetTop+<span class="reserved">this</span>.el.parentNode.parentNode.scrollTop;
-    <span class="reserved">return</span> pos;
+   
+    var layerEl = !!<span class="reserved">this</span>.container ? <span class="reserved">this</span>.container.layer.el : document.body;
+
+     var obj = <span class="reserved">this</span>.el;
+     var curleft = curtop = 0;
+  	<span class="reserved">if</span> (obj.offsetParent) {
+  		do {
+  			curleft += obj.offsetLeft;
+  			curtop += obj.offsetTop;
+  			obj = obj.offsetParent;
+  		} <span class="reserved">while</span> ( !!obj &amp;&amp; obj != layerEl);
+  	}
+  	<span class="reserved">return</span> [curleft+15,curtop+15];
 };
 
 
@@ -696,6 +736,6 @@ YAHOO.extend(WireIt.util.TerminalOutput, WireIt.Terminal);
 <font size="-1">
 
 </font>
-<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sat Jan 26 15:17:14 2008</div>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sat Jan 26 20:28:08 2008</div>
 </body>
 </html>
