@@ -19,6 +19,7 @@ WireIt.util.DDResize = function(container, config) {
     */
    // WARNING: the object config cannot be called "config" because YAHOO.util.DragDrop already has a "config" property
    this.myConf = config || {};
+   this.myConf.container = container;
    this.myConf.minWidth = this.myConf.minWidth || 50;
    this.myConf.minHeight = this.myConf.minHeight || 50;
    

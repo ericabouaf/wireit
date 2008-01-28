@@ -36,7 +36,7 @@ WireIt.sn = function(el,domAttributes,styleAttributes){
                }
             }
             catch(err){
-               console.log("WARNING: WireIt.sn failed for "+el.tagName+", attr "+i+", val "+domAttribute);
+               //console.log("WARNING: WireIt.sn failed for "+el.tagName+", attr "+i+", val "+domAttribute);
             }
          }
       }
@@ -396,10 +396,10 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
       var that = this;
       this.terminalTimeout = setTimeout(function() {
          if(that.scissor) {
-            that.terminal.parentEl.parentNode.removeChild(that.scissor);
+            that.scissor.parentNode.removeChild(that.scissor);
             that.scissor = undefined;
          }
-      }, 500);
+      }, 700);
    },
    
    scissorClick: function() {
@@ -407,7 +407,7 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
          this.terminal.wires[0].remove();
       }
       if(this.scissor) {
-         this.terminal.parentEl.parentNode.removeChild(this.scissor);
+         this.scissor.parentNode.removeChild(this.scissor);
          this.scissor = undefined;
       }
    },
@@ -419,7 +419,12 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
    
       // Display the cut button
       this.scissor = WireIt.cn('div', {className: "WireIt-Wire-scissors"}, {left: position[0]+"px",top: position[1]+"px"} );
-      this.terminal.parentEl.parentNode.appendChild(this.scissor);
+      if(this.terminal.container) {
+         this.terminal.container.layer.el.appendChild(this.scissor);
+      }
+      else {
+         this.terminal.parentEl.parentNode.appendChild(this.scissor);
+      }
       
       // Ajoute un listener sur le scissor:
       YAHOO.util.Event.addListener(this.scissor, "mouseover", this.scissorOver, this, true);
@@ -442,7 +447,7 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
          var that = this;
          this.terminalTimeout = setTimeout(function() {
             if(that.scissor) {
-               that.terminal.parentEl.parentNode.removeChild(that.scissor);
+               that.scissor.parentNode.removeChild(that.scissor);
                that.scissor = undefined;
             }
          }, 300);
@@ -463,21 +468,37 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
       this.fakeTerminal = {
          config: {direction: this.terminal.config.fakeDirection},
          pos: [200,200], 
-         offset: [this.terminal.parentEl.parentNode.offsetLeft-this.terminal.parentEl.parentNode.scrollLeft, 
-                  this.terminal.parentEl.parentNode.offsetTop-this.terminal.parentEl.parentNode.scrollTop],
          addWire: function() {},
          removeWire: function() {},
          getXY: function() { 
-            return [this.pos[0]-this.offset[0], this.pos[1]-this.offset[1] ]; 
+            return this.pos; 
          }
       };
       
-      this.editingWire = new WireIt.Wire(this.terminal, this.fakeTerminal, this.terminal.parentEl.parentNode, this.terminal.config.editingWireConfig);
+      var parentEl = this.terminal.parentEl.parentNode;
+      if(this.terminal.container) {
+         parentEl = this.terminal.container.layer.el;
+      }
+      this.editingWire = new WireIt.Wire(this.terminal, this.fakeTerminal, parentEl, this.terminal.config.editingWireConfig);
       YAHOO.util.Dom.addClass(this.editingWire.el, 'WireIt-Wire-editing');
    },
    
    onDrag: function(e) {
-      this.fakeTerminal.pos = [e.clientX, e.clientY];
+      if(this.terminal.container) {
+         var obj = this.terminal.container.layer.el;
+         var curleft = curtop = 0;
+        	if (obj.offsetParent) {
+        		do {
+        			curleft += obj.offsetLeft;
+        			curtop += obj.offsetTop;
+        			obj = obj.offsetParent ;
+        		} while ( !!obj );
+        	}
+         this.fakeTerminal.pos = [e.clientX-curleft, e.clientY-curtop];
+      }
+      else {
+         this.fakeTerminal.pos = [e.clientX, e.clientY];
+      }
       this.editingWire.redraw();
    },
    
@@ -540,11 +561,21 @@ YAHOO.extend(WireIt.DDTerminal,YAHOO.util.DDProxy,{
                   if(targetDDTerminal.terminal.wires.length > 0) {
                      targetDDTerminal.terminal.wires[0].remove();
                   }
-                  var w = new WireIt.Wire(this.terminal, targetDDTerminal.terminal, this.terminal.parentEl.parentNode, this.terminal.config.wireConfig);
+                  
+                  var parentEl = this.terminal.parentEl.parentNode;
+                  if(this.terminal.container) {
+                     parentEl = this.terminal.container.layer.el;
+                  }
+                  var w = new WireIt.Wire(this.terminal, targetDDTerminal.terminal, parentEl, this.terminal.config.wireConfig);
                   w.redraw();
                }
                else if(targetDDTerminal.terminal.wires.length < targetDDTerminal.terminal.config.nMaxWires) {
-                  var w = new WireIt.Wire(this.terminal, targetDDTerminal.terminal, this.terminal.parentEl.parentNode, this.terminal.config.wireConfig);
+                  
+                  var parentEl = this.terminal.parentEl.parentNode;
+                  if(this.terminal.container) {
+                     parentEl = this.terminal.container.layer.el;
+                  }
+                  var w = new WireIt.Wire(this.terminal, targetDDTerminal.terminal, parentEl, this.terminal.config.wireConfig);
                   w.redraw();
                }
                else {
@@ -760,10 +791,19 @@ WireIt.Terminal.prototype.removeWire = function(wire) {
  * @returns {Array} pos [x,y] Absolute position of the terminal
  */
 WireIt.Terminal.prototype.getXY = function() {
-    var pos = YAHOO.util.Dom.getXY(this.el);
-    pos[0] += 15-this.el.parentNode.parentNode.offsetLeft+this.el.parentNode.parentNode.scrollLeft;
-    pos[1] += 15-this.el.parentNode.parentNode.offsetTop+this.el.parentNode.parentNode.scrollTop;
-    return pos;
+   
+    var layerEl = !!this.container ? this.container.layer.el : document.body;
+
+     var obj = this.el;
+     var curleft = curtop = 0;
+  	if (obj.offsetParent) {
+  		do {
+  			curleft += obj.offsetLeft;
+  			curtop += obj.offsetTop;
+  			obj = obj.offsetParent;
+  		} while ( !!obj && obj != layerEl);
+  	}
+  	return [curleft+15,curtop+15];
 };
 
 
@@ -1294,12 +1334,6 @@ WireIt.Container.prototype.getConfig = function() {
    if(this.config.xtype) {
       obj.xtype = this.config.xtype;
    }
-   
-   /*
-   obj.terminals = [];
-   for(var i = 0 ; i < this.terminals.length ; i++) {
-      obj.terminals.push( this.terminals[i].getConfig() );
-   }*/
    
    return obj;
 };

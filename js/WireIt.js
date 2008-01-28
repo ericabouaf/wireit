@@ -36,7 +36,7 @@ WireIt.sn = function(el,domAttributes,styleAttributes){
                }
             }
             catch(err){
-               console.log("WARNING: WireIt.sn failed for "+el.tagName+", attr "+i+", val "+domAttribute);
+               //console.log("WARNING: WireIt.sn failed for "+el.tagName+", attr "+i+", val "+domAttribute);
             }
          }
       }

@@ -39,7 +39,7 @@ WireIt.Container = function(config, layer) {
    this.config.resizeHandleClassName = this.config.resizeHandleClassName || "WireIt-Container-resizehandle";
    
    this.config.width = this.config.width; // no default
-   this.config.height = this.config.height || 100;
+   this.config.height = this.config.height;// || 100;
    
    this.config.close = (typeof this.config.close == "undefined") ? true : this.config.close;
    this.config.closeButtonClassName = this.config.closeButtonClassName || "WireIt-Container-closebutton";
@@ -93,7 +93,7 @@ WireIt.Container = function(config, layer) {
 	   if(this.config.resizable) {
       	// Make resizeable   
       	this.ddResize = new WireIt.util.DDResize(this);
-      	this.ddResize.eventResize.subscribe(this.onResize, this);
+      	this.ddResize.eventResize.subscribe(this.onResize, this, true);
 	   }
 	   
 	   // Use the drag'n drop utility to make the container draggable
@@ -119,6 +119,7 @@ WireIt.Container = function(config, layer) {
  */
 WireIt.Container.prototype.onResize = function(event, args) {
    var size = args[0];
+   WireIt.sn(this.bodyEl, null, {width: (size[0]-10)+"px", height: (size[1]-44)+"px"});
 };
 
 /**
@@ -324,12 +325,6 @@ WireIt.Container.prototype.getConfig = function() {
    if(this.config.xtype) {
       obj.xtype = this.config.xtype;
    }
-   
-   /*
-   obj.terminals = [];
-   for(var i = 0 ; i < this.terminals.length ; i++) {
-      obj.terminals.push( this.terminals[i].getConfig() );
-   }*/
    
    return obj;
 };

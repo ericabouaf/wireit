@@ -138,11 +138,6 @@ YAHOO.extend(jsBox, WireIt.Container, {
    getConfig: function() {
       var obj = jsBox.superclass.getConfig.call(this);
       obj.codeText = this.textarea.value;
-      
-      // Correct the position beacause of the border
-      obj.position[0]++;
-      obj.position[1]++;
-      
       return obj;
    }
    
