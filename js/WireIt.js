@@ -141,7 +141,7 @@ if(!Array.prototype.compact) {
     * Compact
     */
    Array.prototype.compact = function() {
-      var n = []
+      var n = [];
       for(var i = 0 ; i < this.length ; i++) {
          if(this[i]) {
             n.push(this[i]);
