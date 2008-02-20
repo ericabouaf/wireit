@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+ <head>
+  <title>WireIt Example, Creating Terminals and Wires.</title>
+  
+
+<!-- YUI -->
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.4.1/build/fonts/fonts-min.css" /> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.4.1/build/reset/reset-min.css" />
+
+<script type="text/javascript" src="http://yui.yahooapis.com/2.4.1/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.4.1/build/dragdrop/dragdrop-min.js"></script>
+
+<!-- WireIt -->
+<script type="text/javascript" src="../../js/WireIt.js"></script>
+<script type="text/javascript" src="../../js/Wire.js"></script>
+<script type="text/javascript" src="../../js/Terminal.js"></script>
+
+<link rel="stylesheet" type="text/css" href="http://javascript.neyric.com/wireit/css/WireIt.css" />
+
+
+<link rel="stylesheet" type="text/css" href="sam.css" />
+
+
+<script>
+
+window.onload = function() {
+	
+	var tt = YAHOO.util.Dom.get('treated_task');
+	var tt1 = YAHOO.util.Dom.get('task_to_treat1');
+	var tt2 = YAHOO.util.Dom.get('task_to_treat2');
+	var tt3 = YAHOO.util.Dom.get('task_to_treat3');
+	
+	new WireIt.Terminal(tt, {direction: [0,1] /*, offsetPosition:[80,40]*/ });
+	new WireIt.Terminal(tt1, {direction: [-1,0] /*, offsetPosition:[0,40]*/ });
+	new WireIt.Terminal(tt2, {direction: [-1,0] /*, offsetPosition:[0,40]*/ });
+	new WireIt.Terminal(tt3, {direction: [-1,0] /*, offsetPosition:[0,40]*/ });
+
+	
+};
+</script>
+
+<div id="grid_container">
+	<div id="treated_task" class="task_to_treat"></div>
+</div>
+
+<div id="tasks_container" style="width:90%; margin-left:auto; margin-right:auto; height:100px; border:1px solid black; margin-top:10px;">
+	<div id="task_to_treat1" class="task_to_treat"></div>
+	<div id="task_to_treat2" class="task_to_treat"></div>
+	<div id="task_to_treat3" class="task_to_treat"></div>
+	
+</div>

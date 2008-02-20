@@ -1,0 +1,24 @@
+.timeline_el {
+	width:120px;
+	height:100px;
+}
+
+.task_to_treat {
+	width:100px;
+	height:80px;
+	background-color:orange;
+	margin:10px;
+	float:left;
+}
+
+#grid_container {
+	width:90%; 
+	margin-left:auto;
+	margin-right:auto; 
+	height:450px; 
+	border:1px solid black;
+}
+
+.dd-over {
+	background-color:#EFEFFF;
+}
