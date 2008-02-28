@@ -393,6 +393,10 @@ WireIt.Terminal.prototype.render = function() {
       this.el.style.top = this.config.offsetPosition[1]+"px";
    }
    
+   // For the test of new Wire position getXY
+   this.centerWire = [Math.floor(parseInt(YAHOO.util.Dom.getStyle(this.el, "width"))/2),
+  	                   Math.floor(parseInt(YAHOO.util.Dom.getStyle(this.el, "height"))/2)];
+   
    // Append the element to the parent
    this.parentEl.appendChild(this.el);
 };
@@ -446,6 +450,25 @@ WireIt.Terminal.prototype.removeWire = function(wire) {
 /**
  * get the absolute position of the terminal. (Used by the Wire to redraw itself)
  * @returns {Array} pos [x,y] Absolute position of the terminal
+ *
+WireIt.Terminal.prototype.getXY = function() {
+   
+   var layerEl = !!this.container ? this.container.layer.el : document.body;
+   var obj = this.el;
+   var curleft = curtop = 0;
+  	if (obj.offsetParent) {
+  		do {
+  			curleft += obj.offsetLeft;
+  			curtop += obj.offsetTop;
+  			obj = obj.offsetParent;
+  		} while ( !!obj && obj != layerEl);
+  	}
+  	return [curleft+15,curtop+15];
+};*/
+
+/**
+ * This function is a temporary test. I added the border width while traversing the DOM and
+ * I calculated the offset to center the wire in the terminal just after its creation
  */
 WireIt.Terminal.prototype.getXY = function() {
    
@@ -455,13 +478,15 @@ WireIt.Terminal.prototype.getXY = function() {
      var curleft = curtop = 0;
   	if (obj.offsetParent) {
   		do {
-  			curleft += obj.offsetLeft;
-  			curtop += obj.offsetTop;
+  			curleft += obj.offsetLeft+parseInt(YAHOO.util.Dom.getStyle(obj, "border-left-width"));
+  			curtop += obj.offsetTop+parseInt(YAHOO.util.Dom.getStyle(obj, "border-top-width"));
   			obj = obj.offsetParent;
   		} while ( !!obj && obj != layerEl);
   	}
-  	return [curleft+15,curtop+15];
+  	
+  	return [curleft+this.centerWire[0], curtop+this.centerWire[1]];
 };
+
 
 
 /**

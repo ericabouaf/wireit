@@ -2,6 +2,21 @@
 To get the latest version, please visit http://javascript.neyric.com/wireit
 -----------------------------------------------------
 
+Version 0.3.0
+soon
+
+TODO:
+
+ - for Wire and Terminal, we schould put every constructor param in config (ie containers and parentEL)
+ - other positionning issues
+ - Layer: a "clear" to clean all containers and wires and a "load" to load a bunch of containers and wires from a new definition
+
+Changeset:
+
+ - some positionning problems
+
+-----------------------------------------------------
+
 Version 0.2.1
 january 26, 2008
 
