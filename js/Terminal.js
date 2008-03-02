@@ -385,7 +385,8 @@ WireIt.Terminal.prototype.setDropInvitation = function(display) {
 WireIt.Terminal.prototype.render = function() {
    
    // Create the DIV element
-   this.el = WireIt.cn('div', {className: this.config.className, title: this.config.name} );
+   this.el = WireIt.cn('div', {className: this.config.className} );
+   if(this.config.name) { this.el.title = this.config.name; }
    
    // Set the offset position
    if(this.config.offsetPosition) {
