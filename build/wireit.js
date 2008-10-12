@@ -584,17 +584,13 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement,
       {
       
       initScissors: function() {
-         // Position of the scissor
-         var termPos = this._terminal.getXY();
-
+         
          // Display the cut button
          this.hideNow();
          this.addClass(CSS_PREFIX+"Wire-scissors");
-         this.setStyle("left", (termPos[0]+this._terminal.config.direction[0]*30-13)+"px");
-         this.setStyle("top", (termPos[1]+this._terminal.config.direction[1]*30-10)+"px");
          
          // Append to:
-         this.appendTo(this._terminal.container ? this._terminal.container : this._terminal.el.parentNode.parentNode);
+         this.appendTo(this._terminal.container ? this._terminal.container.el : this._terminal.el.parentNode.parentNode);
 
          // Ajoute un listener sur le scissor:
          this.on("mouseover", this.show, this, true);
@@ -619,6 +615,11 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement,
       },   
       
       show: function() {
+         // Position of the scissor
+         var termPos = this._terminal.getXY();
+         this.setStyle("left", (termPos[0]+this._terminal.config.direction[0]*30-13)+"px");
+         this.setStyle("top", (termPos[1]+this._terminal.config.direction[1]*30-10)+"px");
+         
          this.setStyle('display','');
          if(this.terminalTimeout) { this.terminalTimeout.cancel(); }
       },
@@ -1078,6 +1079,15 @@ WireIt.Terminal.prototype = {
          for(var i = 0 ; i < this.wires.length ; i++) {
             this.wires[i].redraw();
          }
+      }
+   },
+   
+   /** 
+    * Remove all wires
+    */
+   removeAllWires: function() {
+      while(this.wires.length > 0) {
+         this.wires[0].remove();
       }
    }
 
