@@ -32,8 +32,17 @@
          this.hideNow();
          this.addClass(CSS_PREFIX+"Wire-scissors");
          
-         // Append to:
-         this.appendTo(this._terminal.container ? this._terminal.container.el : this._terminal.el.parentNode.parentNode);
+         if(this._terminal.container) {
+            this.appendTo(this._terminal.el);
+            this.setStyle("left", (this._terminal.config.direction[0]*30)+"px");
+            this.setStyle("top", (this._terminal.config.direction[1]*30)+"px");
+         }
+         else {
+            var termPos = this._terminal.getXY();
+            this.appendTo(this._terminal.el.parentNode.parentNode);
+            this.setStyle("left", (termPos[0]+this._terminal.config.direction[0]*30-13)+"px");
+            this.setStyle("top", (termPos[1]+this._terminal.config.direction[1]*30-10)+"px");
+         }
 
          // Ajoute un listener sur le scissor:
          this.on("mouseover", this.show, this, true);
@@ -58,11 +67,6 @@
       },   
       
       show: function() {
-         // Position of the scissor
-         var termPos = this._terminal.getXY();
-         this.setStyle("left", (termPos[0]+this._terminal.config.direction[0]*30-13)+"px");
-         this.setStyle("top", (termPos[1]+this._terminal.config.direction[1]*30-10)+"px");
-         
          this.setStyle('display','');
          if(this.terminalTimeout) { this.terminalTimeout.cancel(); }
       },
@@ -442,7 +446,6 @@ WireIt.Terminal.prototype = {
     * @param {WireIt.Wire} wire Wire instance to remove
     */
    removeWire: function(wire) {
-
       var index = WireIt.indexOf(wire, this.wires);   
       if( index != -1 ) {
          this.wires[index] = null;
@@ -465,13 +468,12 @@ WireIt.Terminal.prototype = {
     */
    getXY: function() {
    
-       var layerEl = !!this.container ? this.container.layer.el : document.body;
+      var layerEl = this.container && this.container.layer ? this.container.layer.el : document.body;
 
-        var obj = this.el;
-        var curleft = curtop = 0;
+      var obj = this.el;
+      var curleft = curtop = 0;
      	if (obj.offsetParent) {
      		do {
-  		   
      			curleft += obj.offsetLeft;
      			curtop += obj.offsetTop;
      			obj = obj.offsetParent;

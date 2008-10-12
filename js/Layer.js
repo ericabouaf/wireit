@@ -212,9 +212,9 @@ WireIt.Layer.prototype = {
       var wire = args[0];
       var index = WireIt.indexOf(wire, this.wires);
       if( index != -1 ) {
-         this.eventRemoveWire.fire(wire);
          this.wires[index] = null;
          this.wires = WireIt.compact(this.wires);
+         this.eventRemoveWire.fire(wire);
       }
    },
 

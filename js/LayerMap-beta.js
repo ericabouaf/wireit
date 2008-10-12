@@ -80,7 +80,6 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement,
     * Redraw the layer map
     */
    draw: function() {
-      
       var ctxt=this.getContext();
       
       ctxt.clearRect(0,0,this.options.width,this.options.height);

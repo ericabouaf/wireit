@@ -93,11 +93,12 @@ WireIt.samples = [
 	{
 		innerHTML: '<p>Let\'s draw some arrows</p>',
 		init: function() {
+			var wireConfig = { drawingMethod: "arrows"};
 			this.terminals = [
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: { drawingMethod: "arrows"}, offsetPosition:[80,100] }),
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: { drawingMethod: "arrows"}, offsetPosition:[80,210] }),
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: { drawingMethod: "arrows"}, offsetPosition:[200,210] }),
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: { drawingMethod: "arrows"}, offsetPosition:[200,100] })
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,100] }),
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,210] }),
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,210] }),
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,100] })
 			];
 		},
 		unload: function() {
