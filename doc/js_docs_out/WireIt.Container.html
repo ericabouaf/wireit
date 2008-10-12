@@ -1,0 +1,1013 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>WireIt Documentation - WireIt.Container</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="JsDoc Toolkit 2.0.2" />
+<link href="css/reset-fonts-grids.css" type="text/css" rel="stylesheet" media="all" /> 
+<link href="css/dpSyntaxHighlighter.css" type="text/css" rel="stylesheet" media="all" />
+<link href="css/style.css" type="text/css" rel="stylesheet" media="all" />
+</head>
+<body>
+	
+	<div id="doc3" class="yui-t2">					
+		<div id="hd">
+			
+			
+			<p class='layoutTitle'>WireIt Documentation <span><a href="../../">Back to homepage</a></span></p> 
+			
+			
+			<h3>
+				<a href="./index.html">WireIt Documentation</a> &gt; WireIt.Container
+				<span class="subtitle">0.3.0</span>
+			</h3>
+		
+		</div>
+		<div id="bd">
+			<div id="yui-main">
+				<div class="yui-b">
+
+<!-- Class -->
+<h2>
+	Static Class <b>WireIt.Container</b>
+	
+</h2>
+
+<!--
+
+
+-->
+<!-- class description -->
+<div class="summary description">Visual module that contains terminals. The wires are updated when the module is dragged around.</div>
+
+
+<!-- Known subsclasses -->
+
+
+<!--
+
+<hr>
+-->
+
+
+<!-- ========= CONSTRUCTOR ======== -->
+
+<div class="section constructor details">
+	<h3 id="constructor">Constructor</h3>
+	<div class="content">
+		<div class="detail">
+			<a name="Container"> </a>
+			
+				<strong>WireIt.Container</strong>
+				<code>( config,layer )</code>
+				<ul>
+					
+					
+				</ul>
+	
+				<!-- CONSTRUCTOR PARAMETERS START -->
+				
+					<div class="description">
+						<dl>
+							<dt>Parameters:</dt>
+							
+								<dd>
+									<code>config<i>&nbsp;&lt;Object&gt;&nbsp;</i></code>
+									 - Configuration object (see properties) 
+								</dd>
+							
+								<dd>
+									<code>layer<i>&nbsp;&lt;WireIt.Layer&gt;&nbsp;</i></code>
+									 - The WireIt.Layer (or subclass) instance that contains this container 
+								</dd>
+							
+						</dl>
+					</div>		
+				
+				<!-- CONSTRUCTOR PARAMETERS END -->
+			
+			
+		</div>
+	</div>	
+</div>
+
+<!-- ========= CONSTRUCTOR END ======== -->
+
+
+
+
+<!-- ============ Properties START ========= -->
+
+<a name="field_detail"> </a> 
+<div class="section field details">
+	<h3 id="properties">Properties</h3>
+	<div class="content">
+		
+			<div>
+				
+				<h4>
+					
+					
+					<a name="bodyEl">bodyEl</a> 
+					<code>- Object</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						Body element
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					
+					<a name="config">config</a> 
+					<code>- Object</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						Main config object
+<ul>
+   <li>terminals: list of the terminals configuration</li>
+   <li>draggable: boolean that enables drag'n drop on this container (default: true)</li>
+   <li>className: CSS class name for the container element (default 'WireIt-Container')</li>
+   <li>position: initial position of the container</li>
+   <li>ddHandle: (only if draggable) boolean indicating we use a handle for drag'n drop (default true)</li>
+   <li>ddHandleClassName: CSS class name for the drag'n drop handle (default 'WireIt-Container-ddhandle')</li>
+   <li>resizable: boolean that makes the container resizable (default true)</li>
+   <li>resizeHandleClassName: CSS class name for the resize handle (default 'WireIt-Container-resizehandle')</li>
+   <li>width: initial width of the container (no default so it autoadjusts to the content)</li>
+   <li>height: initial height of the container (default 100)</li>
+   <li>close: display a button to close the container (default true)</li>
+   <li>closeButtonClassName: CSS class name for the close button (default "WireIt-Container-closebutton")</li>
+</ul>
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					
+					<a name="el">el</a> 
+					<code>- Object</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						Container DOM element
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					
+					<a name="eventAddWire">eventAddWire</a> 
+					<code>- Object</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						Event that is fired when a wire is added
+You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					
+					<a name="eventRemoveWire">eventRemoveWire</a> 
+					<code>- Object</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						Event that is fired when a wire is removed
+You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					
+					<a name="layer">layer</a> 
+					<code>- Object</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						the WireIt.Layer object that schould contain this container
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					
+					<a name="terminals">terminals</a> 
+					<code>- Object</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						List of the terminals
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					
+					<a name="wires">wires</a> 
+					<code>- Object</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						List of all the wires connected to this container terminals
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+	</div>
+</div>
+
+<!-- ============ Properties END ========== -->
+
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+	<a name="method_detail"> </a> 
+
+	<div class="section method details">
+		<h3 id="methods">Methods</h3>
+		<div class="content">
+
+		
+		
+			<div>
+				<h4><a name="method_addTerminal">addTerminal</a></h4>
+			
+				<div class="detail">
+					<code><i>&lt;WireIt.Terminal&gt;</i>&nbsp;<b>addTerminal</b>(terminalConfig)</code> 
+				</div>
+				
+				<div class="description">
+					
+					Instanciate the terminal from the class pointer "xtype" (default WireIt.Terminal)
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>terminalConfig</code>
+						 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+					<div class="description">
+					<b>Returns:</b>
+						<ul>
+							<code><i>&lt;WireIt.Terminal&gt;</i>&nbsp;</code>terminal Created terminal 
+						</ul>
+					
+					</div>
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_getConfig">getConfig</a></h4>
+			
+				<div class="detail">
+					<code><b>getConfig</b>()</code> 
+				</div>
+				
+				<div class="description">
+					
+					Return the config of this container.
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_initTerminals">initTerminals</a></h4>
+			
+				<div class="detail">
+					<code><b>initTerminals</b>(terminalConfigs)</code> 
+				</div>
+				
+				<div class="description">
+					
+					Call the addTerminal method for each terminal configuration.
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>terminalConfigs</code>
+						 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_onAddWire">onAddWire</a></h4>
+			
+				<div class="detail">
+					<code><b>onAddWire</b>(event,args)</code> 
+				</div>
+				
+				<div class="description">
+					
+					This method is called when a wire is added to one of the terminals
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>event&nbsp;<i>&lt;Event&gt;</i>&nbsp;</code>
+						 - The eventAddWire event fired by the terminal 
+					</ul>
+					
+					<ul>
+						<code>args&nbsp;<i>&lt;Array&gt;</i>&nbsp;</code>
+						 - This array contains a single element args[0] which is the added Wire instance 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_onCloseButton">onCloseButton</a></h4>
+			
+				<div class="detail">
+					<code><b>onCloseButton</b>(e,args)</code> 
+				</div>
+				
+				<div class="description">
+					
+					Called when the user clicked on the close button
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>e</code>
+						 
+					</ul>
+					
+					<ul>
+						<code>args</code>
+						 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_onMouseDown">onMouseDown</a></h4>
+			
+				<div class="detail">
+					<code><b>onMouseDown</b>()</code> 
+				</div>
+				
+				<div class="description">
+					
+					Called when the user made a mouse down on the container and sets the focus to this container (only if within a Layer)
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_onRemoveWire">onRemoveWire</a></h4>
+			
+				<div class="detail">
+					<code><b>onRemoveWire</b>(event,args)</code> 
+				</div>
+				
+				<div class="description">
+					
+					This method is called when a wire is removed from one of the terminals
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>event&nbsp;<i>&lt;Event&gt;</i>&nbsp;</code>
+						 - The eventRemoveWire event fired by the terminal 
+					</ul>
+					
+					<ul>
+						<code>args&nbsp;<i>&lt;Array&gt;</i>&nbsp;</code>
+						 - This array contains a single element args[0] which is the removed Wire instance 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_onResize">onResize</a></h4>
+			
+				<div class="detail">
+					<code><b>onResize</b>(event,args)</code> 
+				</div>
+				
+				<div class="description">
+					
+					Function called when the container is being resized.
+It doesn't do anything, so please override it.
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>event</code>
+						 
+					</ul>
+					
+					<ul>
+						<code>args</code>
+						 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_redrawAllWires">redrawAllWires</a></h4>
+			
+				<div class="detail">
+					<code><b>redrawAllWires</b>()</code> 
+				</div>
+				
+				<div class="description">
+					
+					Redraw all the wires connected to the terminals of this container
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_remove">remove</a></h4>
+			
+				<div class="detail">
+					<code><b>remove</b>()</code> 
+				</div>
+				
+				<div class="description">
+					
+					Remove this container from the dom
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_removeAllTerminals">removeAllTerminals</a></h4>
+			
+				<div class="detail">
+					<code><b>removeAllTerminals</b>()</code> 
+				</div>
+				
+				<div class="description">
+					
+					Remove all terminals
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_removeFocus">removeFocus</a></h4>
+			
+				<div class="detail">
+					<code><b>removeFocus</b>()</code> 
+				</div>
+				
+				<div class="description">
+					
+					Remove the class that shows the container as "focused"
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_render">render</a></h4>
+			
+				<div class="detail">
+					<code><b>render</b>()</code> 
+				</div>
+				
+				<div class="description">
+					
+					Render the dom of the container
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_setBody">setBody</a></h4>
+			
+				<div class="detail">
+					<code><b>setBody</b>(content)</code> 
+				</div>
+				
+				<div class="description">
+					
+					Sets the content of the body element
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>content&nbsp;<i>&lt;String or DomEl&gt;</i>&nbsp;</code>
+						 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_setFocus">setFocus</a></h4>
+			
+				<div class="detail">
+					<code><b>setFocus</b>()</code> 
+				</div>
+				
+				<div class="description">
+					
+					Adds the class that shows the container as "focused"
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+
+				</div>
+			</div>
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+
+	
+	
+	<br/>
+	
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+
+</div>
+			</div>
+			
+			<div class="yui-b">
+				<div class="nav">
+					
+					<div class="module">
+						<h4>Pages</h4>
+						<ul class="content">
+							
+								
+								<li>
+								<a href="index.html">Index</a></li>
+							
+								
+						</ul>
+					</div>
+					
+					<div class="module">
+						<h4>Classes <a href="treeview.html">(treeview)</a></h4>
+						<ul class="content">
+							
+								
+								<li>
+									<a href="WireIt.html">WireIt</a></li>
+							
+								
+								<li>
+									<a href="WireIt.CanvasElement.html">WireIt.CanvasElement</a></li>
+							
+								<li class="selected">
+								
+									<a href="WireIt.Container.html">WireIt.Container</a></li>
+							
+								
+								<li>
+									<a href="WireIt.Layer.html">WireIt.Layer</a></li>
+							
+								
+								<li>
+									<a href="WireIt.LayerMap.html">WireIt.LayerMap</a></li>
+							
+								
+								<li>
+									<a href="WireIt.Scissors.html">WireIt.Scissors</a></li>
+							
+								
+								<li>
+									<a href="WireIt.Terminal.html">WireIt.Terminal</a></li>
+							
+								
+								<li>
+									<a href="WireIt.TerminalProxy.html">WireIt.TerminalProxy</a></li>
+							
+								
+								<li>
+									<a href="WireIt.util.html">WireIt.util</a></li>
+							
+								
+								<li>
+									<a href="WireIt.util.Anim.html">WireIt.util.Anim</a></li>
+							
+								
+								<li>
+									<a href="WireIt.util.DD.html">WireIt.util.DD</a></li>
+							
+								
+								<li>
+									<a href="WireIt.util.DDResize.html">WireIt.util.DDResize</a></li>
+							
+								
+								<li>
+									<a href="WireIt.util.TerminalInput.html">WireIt.util.TerminalInput</a></li>
+							
+								
+								<li>
+									<a href="WireIt.util.TerminalOutput.html">WireIt.util.TerminalOutput</a></li>
+							
+								
+								<li>
+									<a href="WireIt.Wire.html">WireIt.Wire</a></li>
+							
+								
+						</ul>
+					</div>
+					
+					<div class="module">
+						<h4>Files</h4>
+						<ul class="content">
+							
+								
+								<li>
+								<a href="Anim.js.html">Anim.js</a></li>
+							
+								
+								<li>
+								<a href="CanvasElement.js.html">CanvasElement.js</a></li>
+							
+								
+								<li>
+								<a href="Container.js.html">Container.js</a></li>
+							
+								
+								<li>
+								<a href="DD.js.html">DD.js</a></li>
+							
+								
+								<li>
+								<a href="DDResize.js.html">DDResize.js</a></li>
+							
+								
+								<li>
+								<a href="Layer.js.html">Layer.js</a></li>
+							
+								
+								<li>
+								<a href="LayerMap-beta.js.html">LayerMap-beta.js</a></li>
+							
+								
+								<li>
+								<a href="Terminal.js.html">Terminal.js</a></li>
+							
+								
+								<li>
+								<a href="Wire.js.html">Wire.js</a></li>
+							
+								
+								<li>
+								<a href="WireIt.js.html">WireIt.js</a></li>
+							
+						</ul>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		
+		<div id="ft">
+			<hr/>
+			Copyright (c) 2007-2008 <a href='http://javascript.neyric.com' target='_new'>Eric Abouaf</a>. All rights reserved.<br />
+			Generated by <a href="http://jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Sun, 12 Oct 2008 17:01:52 GMT using <a href="http://code.google.com/p/neyricjslibs-template/" target="_blank">neyricjslibs-template</a>.
+		</div>
+		
+	</div>
+
+<script src="js/dpSyntaxHighlighter.js" type="text/javascript"></script>
+<script language="javascript"> 
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</body>
+</html>

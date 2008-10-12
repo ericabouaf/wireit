@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+ <head>
+  <title>WireIt - a Javascript Wiring Library</title>
+	<link rel="shortcut icon" type="images/x-icon" href="favicon.ico" />
+  <style>
+
+body {
+	background-color: white;
+	margin: 0;
+	padding: 0;
+	font-family:"Trebuchet MS",Helvetica,Arial,Verdana;
+	font-size: 13px;
+}
+
+p {
+	font-size: 13px;
+}
+ul li {
+	font-size: 13px;
+}
+
+#headbar {
+	background-image: url(logo-wireit.jpg);
+	height: 223px;
+	margin: 0;
+	padding: 0;
+}
+
+#navigation {
+	position: absolute;
+	margin: 6px 0 0 380px;
+}
+
+#navigation li {
+	margin: 0;
+	display: inline;
+	margin-right: 30px;
+}
+
+#navigation li a {
+	color: white;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+#navigation li a:hover {
+	color: #cccc33;
+	text-decoration: underline;
+}
+
+#layout {
+	width: 80%;
+}
+
+#layout td.left { width: 55%;}
+#layout td.right { width: 45%;}
+#layout td.left, #layout td.right {
+	padding: 15px 30px;
+	vertical-align: top;
+}
+
+p.title {
+	font-weight: bold;
+	font-size: 22px;
+}
+
+td.left ul {
+	list-style-image: url(star.png);
+}
+
+div.appBox {
+	width: 100%; 
+	height: 144px; 
+	position: relative; 
+	margin-top: 10px;
+}
+
+div.appBox p {
+   position: absolute; 
+	left: 160px; 
+	top: 10px; 
+	font-size: 18px; 
+	text-decoration: none;
+}
+
+div.appBox a {
+	text-decoration: none;
+}
+
+div.appBox p span {
+	color: #aaa;
+	font-size: 12pt;
+}
+
+
+div.appBox p span.big {
+	color: #ffb73e;
+	font-size: 20pt;
+	font-weight: bold;
+}
+
+  </style>
+
+ </head>
+
+ <body>
+	
+<div id='headbar'>
+		
+	<ul id="navigation">
+		<li><a href="http://javascript.neyric.com/wireit">Home</a></li>
+		<li><a href="http://code.google.com/p/wireit/downloads/list">Download</a></li>
+		<li><a href="http://code.google.com/p/wireit/">GoogleCode[SVN]</a></li>			
+		<li><a href="doc/js_docs_out/index.html">Documentation</a></li>			
+		<li><a href="http://groups.google.com/group/wireit/">Forums</a></li>
+	</ul>
+
+</div>
+	
+<center>
+<table id="layout">
+	<tr>
+		<td class="left">
+			
+		 <p class="title">About</p>
+		
+		 <p>&nbsp;&nbsp;&nbsp;WireIt is an open-source javascript library to create <b>web wirable interfaces</b> for <b>dataflow applications</b>, <b>visual programming languages</b> or <b>graphical modeling</b>.</p>
+		
+		 <p>It was inspired by <a href="http://pipes.yahoo.com/">Yahoo Pipes</a> and is used by <a href="http://tarpipe.com/">Tarpipe</a>. You can see it in action in <a href="test/planarGame/planarGame.html">the Planar Game</a>, in <a href="test/jsBox/jsBox.html">jsBox</a>, or in the examples below.</p>
+		 <p>&nbsp;&nbsp;&nbsp;It currently supports Firefox 1.5+, Safari 2.0+, IE 7.0, Opera 9+ and Chrome 0.2.x. Please report your issues with specific browsers in <a href="http://groups.google.com/group/wireit/">the forum</a>.</p>
+		 <p>&nbsp;&nbsp;&nbsp;It uses the <a href="http://developer.yahoo.com/yui/">YUI library</a> (2.6.0) for DOM and events manipulation, and <a href="http://excanvas.sourceforge.net/">excanvas</a> for IE support of the canvas tag.</p>
+
+		 <p class="title">Documentation</p>
+		 <p>&nbsp;&nbsp;&nbsp;WireIt comes with an exhaustive <a href="doc/js_docs_out/index.html">API documentation</a> built with <a href="http://jsdoctoolkit.org/">JsDoc Toolkit</a>,<br/> and the following <b>examples</b> :</p>
+			<ul>
+				
+				<li>New: <a href="presentation.html">WireIt interactive presentation</a></li>
+					
+				<li><a href="test/creating_terminals.html">Creating terminals and wires</a></li>
+				<li><a href="test/dd_and_animation.html">Move and Animate elements containing terminals</a></li>
+				<li><a href="test/changing_directions.html">Changing terminal direction</a></li>
+				<!--
+				<li><a href="test/using_layers.html">Using Layers</a></li>
+				-->
+			</ul>
+			
+		<p>WireIt also comes with 2 sample applications :</p>
+		<ul>
+			<li><a href="test/planarGame/planarGame.html">The planar game</li>
+			<li><a href="test/jsBox/jsBox.html">jsBox: have fun with javascript</a></li>
+		</ul>
+		
+		<!-- Updates changeset -->
+		<p class="title">Updates</p>
+		<p>
+			<ul>
+				<li><a href="http://wireit.googlecode.com/files/WireIt-0.3.0.zip">Version 0.3.0</a> (2008-10-12): Removing copyrighted images. New drawing methods. Layer.setWiring method. CanvasElement and Scissors class. LayerMap-beta (more details in <a href="VERSION.txt">this file</a>)</li>
+				<li>Version 0.2.1 (2008-01-26): Bugfixes. Added Layer.getWiring to save the wiring state and other methods on WireIt.Container and WireIt.Layer</li>
+				<li>Version 0.2.0 (2008-01-04): Added YUI custom events for wire interactions, the jsBox example, the Container class and the Layer class.</li>
+				<li>Version 0.1.1 (2007-12-17): Changed images and default wire color.</li>
+				<li>Version 0.1.0 (2007-12-06): Initial release.</li>
+			</ul>
+		</p>
+		</td>
+		
+		<!-- Right Column -->
+		<td class="right">
+			
+			<!-- License -->
+			<p class="title">License</p>
+			<p>&nbsp;&nbsp;&nbsp;WireIt is released under the <a href="license.txt">MIT License</a> and available for <a href="http://code.google.com/p/wireit/downloads/list">download</a> at <a href="http://code.google.com/p/wireit/">GoogleCode</a>.</p>
+			
+			<!-- Sponsoring -->
+			<center>
+				<p style="margin-bottom: 0;">Sponsored by</p>
+				<a href="http://tarpipe.com/"><img src="tarpipe-logo.png" border="0"/></a>
+			</center>
+			
+			
+			<p class="title">Applications</p>
+			
+			<!-- Planar Game -->
+			 <div class="appBox">
+				<a href="test/planarGame/planarGame.html">
+				<img src="planar.gif" class="reflect" border="0" alt="Click to play now !"/>
+				<p><span>Play the</span><br/><span class="big">Planar Game</span></p>
+				</a>
+			 </div>
+			
+			
+
+			<!-- jsBox -->
+			 <div class="appBox">
+				<a href="test/jsBox/jsBox.html">
+				<img src="jsBox.gif" class="reflect" border="0" alt="Click to try jsBox !"/>
+				<p><span>Try out</span><br/><span class="big">jsBox</span></p>
+				</a>
+			 </div>
+			
+
+			<!-- Delicious tags -->
+			<style>
+			#delicious-tags {
+				background-color: #EEEEEE;
+				width: 320px;
+				border-top: 1px solid #CCCCCC;
+				border-bottom: 1px solid #CCCCCC;
+				padding-bottom: 10px;
+			}
+			#delicious-tags p {
+				margin-left: 20px;
+				font-weight: bold;
+			}
+			#delicious-tags a {
+				margin: 10px;
+			}
+			</style>
+			<div id="delicious-tags" style="">
+				<p>Popular tags on <a href="http://del.icio.us/url/651a56650c753830645ecf46fb036db6">Del.icio.us</a></p>
+			</div>
+			<script type="text/javascript">
+			function displayURL(data) {
+				var urlinfo = data[0];
+			   if (!urlinfo.total_posts) return;
+			   var ct = document.getElementById('delicious-tags');
+			   for (tag in urlinfo.top_tags) {
+			   	var a = document.createElement('a');
+					var count = urlinfo.top_tags[tag];
+					var size = Math.floor(count*0.09)+10;
+			      a.setAttribute('href', 'http://del.icio.us/tag/'+tag);
+					a.style.fontSize = size+"px";
+			      a.appendChild(document.createTextNode(tag+" "));
+			      ct.appendChild(a);
+			   }
+			}
+			</script>
+			<script type="text/javascript" src="http://badges.del.icio.us/feeds/json/url/data?hash=651a56650c753830645ecf46fb036db6&callback=displayURL"></script>
+
+		</td>
+	</tr>
+</table>
+<p style="font-size: 8pt;">Copyright (c) 2007-2008 <a href="http://javascript.neyric.com/">Eric Abouaf</a></p>
+</center>
+ </body>
+</html>

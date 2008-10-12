@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>WireIt Documentation - DD.js</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="JsDoc Toolkit 2.0.2" />
+<link href="css/reset-fonts-grids.css" type="text/css" rel="stylesheet" media="all" /> 
+<link href="css/dpSyntaxHighlighter.css" type="text/css" rel="stylesheet" media="all" />
+<link href="css/style.css" type="text/css" rel="stylesheet" media="all" />
+</head>
+<body>
+	
+	<div id="doc3" class="yui-t2">					
+		<div id="hd">
+			
+			
+			<p class='layoutTitle'>WireIt Documentation <span><a href="../../">Back to homepage</a></span></p> 
+			
+			
+			<h3>
+				<a href="./index.html">WireIt Documentation</a> &gt; DD.js
+				<span class="subtitle">0.3.0</span>
+			</h3>
+		
+		</div>
+		<div id="bd">
+			<div id="yui-main">
+				<div class="yui-b">
+<div class="summary description">
+	<p>This is the source view for DD.js</p>
+</div>
+										
+<form>
+	<textarea name="code" class="JScript">/**
+ * @fileoverview Provide a wrapper around YAHOO.util.DD to drag/drop a block containing terminals and redraw the associated wires
+ */
+/**
+ * @class Wraper for YAHOO.util.DD, to redraw the wires associated with the given terminals
+ * @extends YAHOO.util.DD
+ * @constructor
+ * @param {Array} terminals List of WireIt.Terminal objects associated within the DragDrop element
+ * @param {String} id Parameter of YAHOO.util.DD
+ * @param {String} sGroup Parameter of YAHOO.util.DD
+ * @param {Object} config Parameter of YAHOO.util.DD
+ */
+WireIt.util.DD = function( terminals, id, sGroup, config) {
+   if(!terminals) {
+      throw new Error("WireIt.util.DD needs at least terminals and id");
+   }
+   /**
+    * List of the contained terminals
+    */
+   this._WireItTerminals = terminals;
+   WireIt.util.DD.superclass.constructor.call(this, id, sGroup, config);
+};
+
+YAHOO.extend(WireIt.util.DD, YAHOO.util.DD, 
+/**
+ * @scope WireIt.util.DD.prototype
+ */
+{
+
+   /**
+    * Override YAHOO.util.DD.prototype.onDrag to redraw the wires
+    */
+   onDrag: function(e) {
+      // Make sure terminalList is an array
+      var terminalList = YAHOO.lang.isArray(this._WireItTerminals) ? this._WireItTerminals : (this._WireItTerminals.isWireItTerminal ? [this._WireItTerminals] : []);
+      // Redraw all the wires
+      for(var i = 0 ; i < terminalList.length ; i++) {
+         if(terminalList[i].wires) {
+            for(var k = 0 ; k < terminalList[i].wires.length ; k++) {
+               terminalList[i].wires[k].redraw();
+            }
+         }
+      }
+   },
+
+   /**
+    * In case you change the terminals since you created the WireIt.util.DD:
+    */
+   setTerminals: function(terminals) {
+      this._WireItTerminals = terminals;
+   }
+   
+});
+</textarea>
+</form>
+					
+					
+					</div>
+			</div>
+			
+			<div class="yui-b">
+				<div class="nav">
+					
+					<div class="module">
+						<h4>Pages</h4>
+						<ul class="content">
+							
+								
+								<li>
+								<a href="index.html">Index</a></li>
+							
+								
+						</ul>
+					</div>
+					
+					<div class="module">
+						<h4>Classes <a href="treeview.html">(treeview)</a></h4>
+						<ul class="content">
+							
+								
+								<li>
+									<a href="WireIt.html">WireIt</a></li>
+							
+								
+								<li>
+									<a href="WireIt.CanvasElement.html">WireIt.CanvasElement</a></li>
+							
+								
+								<li>
+									<a href="WireIt.Container.html">WireIt.Container</a></li>
+							
+								
+								<li>
+									<a href="WireIt.Layer.html">WireIt.Layer</a></li>
+							
+								
+								<li>
+									<a href="WireIt.LayerMap.html">WireIt.LayerMap</a></li>
+							
+								
+								<li>
+									<a href="WireIt.Scissors.html">WireIt.Scissors</a></li>
+							
+								
+								<li>
+									<a href="WireIt.Terminal.html">WireIt.Terminal</a></li>
+							
+								
+								<li>
+									<a href="WireIt.TerminalProxy.html">WireIt.TerminalProxy</a></li>
+							
+								
+								<li>
+									<a href="WireIt.util.html">WireIt.util</a></li>
+							
+								
+								<li>
+									<a href="WireIt.util.Anim.html">WireIt.util.Anim</a></li>
+							
+								
+								<li>
+									<a href="WireIt.util.DD.html">WireIt.util.DD</a></li>
+							
+								
+								<li>
+									<a href="WireIt.util.DDResize.html">WireIt.util.DDResize</a></li>
+							
+								
+								<li>
+									<a href="WireIt.util.TerminalInput.html">WireIt.util.TerminalInput</a></li>
+							
+								
+								<li>
+									<a href="WireIt.util.TerminalOutput.html">WireIt.util.TerminalOutput</a></li>
+							
+								
+								<li>
+									<a href="WireIt.Wire.html">WireIt.Wire</a></li>
+							
+								
+						</ul>
+					</div>
+					
+					<div class="module">
+						<h4>Files</h4>
+						<ul class="content">
+							
+								
+								<li>
+								<a href="Anim.js.html">Anim.js</a></li>
+							
+								
+								<li>
+								<a href="CanvasElement.js.html">CanvasElement.js</a></li>
+							
+								
+								<li>
+								<a href="Container.js.html">Container.js</a></li>
+							
+								<li class="selected">
+								
+								<a href="DD.js.html">DD.js</a></li>
+							
+								
+								<li>
+								<a href="DDResize.js.html">DDResize.js</a></li>
+							
+								
+								<li>
+								<a href="Layer.js.html">Layer.js</a></li>
+							
+								
+								<li>
+								<a href="LayerMap-beta.js.html">LayerMap-beta.js</a></li>
+							
+								
+								<li>
+								<a href="Terminal.js.html">Terminal.js</a></li>
+							
+								
+								<li>
+								<a href="Wire.js.html">Wire.js</a></li>
+							
+								
+								<li>
+								<a href="WireIt.js.html">WireIt.js</a></li>
+							
+						</ul>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		
+		<div id="ft">
+			<hr/>
+			Copyright (c) 2007-2008 <a href='http://javascript.neyric.com' target='_new'>Eric Abouaf</a>. All rights reserved.<br />
+			Generated by <a href="http://jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Sun, 12 Oct 2008 17:01:52 GMT using <a href="http://code.google.com/p/neyricjslibs-template/" target="_blank">neyricjslibs-template</a>.
+		</div>
+		
+	</div>
+
+<script src="js/dpSyntaxHighlighter.js" type="text/javascript"></script>
+<script language="javascript"> 
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</body>
+</html>

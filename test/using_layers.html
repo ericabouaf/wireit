@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+ <head>
+  <title>WireIt Example, Using Layers</title>
+  
+<!-- YUI -->
+<link rel="stylesheet" type="text/css" href="../lib/yui/fonts/fonts-min.css" /> 
+<link rel="stylesheet" type="text/css" href="../lib/yui/reset/reset-min.css" />
+
+<script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
+
+<!-- Excanvas -->
+<!--[if IE]><script type="text/javascript" src="../lib/excanvas.js"></script><![endif]-->
+
+<!-- WireIt -->
+<script type="text/javascript" src="../js/WireIt.js"></script>
+<script type="text/javascript" src="../js/CanvasElement.js"></script>
+<script type="text/javascript" src="../js/Wire.js"></script>
+<script type="text/javascript" src="../js/Terminal.js"></script>
+<script type="text/javascript" src="../js/util/DD.js"></script>
+<script type="text/javascript" src="../js/util/DDResize.js"></script>
+
+<script type="text/javascript" src="../js/Container.js"></script>
+<script type="text/javascript" src="../js/Layer.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../css/WireIt.css" />
+
+<script>
+
+
+window.onload = function() {	
+	window.wireitLayer = new WireIt.Layer({
+		
+		className: "WireIt-Layer",
+		
+		parentEl: document.body,
+		
+		containers: [
+			{
+				xtype: WireIt.Container,
+				position: [0,20], 
+				terminals: [
+					{direction: [1,1], offsetPosition: [50,50]}
+				]
+			},
+			
+			{
+				ddHandle: false,
+				resizable: false,
+				position: [200, 100],
+				terminals: [
+					{direction: [-1,-1], offsetPosition: [50,50]},
+					{direction: [-1,-1], offsetPosition: [0,0], editable: false}
+				]
+			}
+		],
+		
+		wires: [
+			{
+				xtype: WireIt.Wire,
+				src: {moduleId: 0, terminalId: 0},
+				tgt: {moduleId: 1, terminalId: 0}
+			}
+		]
+		
+	});
+	
+	
+};
+
+</script>
+ </head>
+ <body>
+	
+	<p style="margin: 15px;"><a href="../index.html">&lt; Back</a></p>
+	
+ </body>
+</html>

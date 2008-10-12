@@ -1,0 +1,78 @@
+
+To get the latest version, please visit http://javascript.neyric.com/wireit
+-----------------------------------------------------
+
+Version 0.3.0
+october 12, 2008
+
+Changeset:
+
+ * Layer: added "clear" and "setWiring" methods
+ * "typed" terminals examples (see presentation)
+ * LayerMap (beta): a canvas minimap for the layer 
+ * Add new drawing methods for drawing wires (straight, arrows, bezier)
+ * indexOf and compact methods not extending Array.prototype anymore
+ * Create a CanvasElement class (wrap cross-browser issues for canvas tags, Wire will inherit it)
+ * Scissors class to handle the scissors widget
+ * Cleaner CSS
+ * Changed terminal images (copyright issues)
+ * Correct the positioning issues
+
+
+-----------------------------------------------------
+
+Version 0.2.1
+january 26, 2008
+
+Changeset:
+
+  - new Layer.getWiring function to save the state of the wiring. It can be customized by overriding Container.getConfig
+  - jsBox updated to use the Layer.getWiring function
+  - no default width for containers so they can auto-adjust to the content
+
+  - Layer.addContainer and Layer.addWire now returns the created instance
+  - Added the method Container.redrawAllWires and Terminal.redrawAllWires
+  - Added Layer.removeAllContainers
+	
+  - adds a "body" div to the container
+  - CSS updates on Containers and Layers
+  - adds a focus CSS class on the last mousedown-ed container in the layer
+
+  - bugfixes (events "addWire" and "removeWire" added to WireIt.Layer, offset in the connections)
+
+-----------------------------------------------------
+
+Version 0.2.0
+january 4, 2008
+
+Changeset:
+  - Added YUI custom events for terminal interactions
+  - new method Wire.getOtherTerminal(terminal)
+  - new method Terminal.getConnectedTerminals()
+  - new class WireIt.Container
+  - new class WireIt.Layer
+  - new class WireIt.util.DDResize (helper for WireIt.Container)
+  - customable CSS class names
+  - minified version (18k)
+  - WireIt.BoxIO has been removed (use WireIt.Container instead)
+  - use YUI 2.4.1
+
+-----------------------------------------------------
+
+Version 0.1.1
+december 17, 2007
+
+Changeset:
+  - Fixing images copyright
+
+-----------------------------------------------------
+
+Version 0.1
+december 6, 2007
+
+Changeset:
+  - First version of the library
+  - Implements wires in all major browser
+  - Terminals
+  - BoxIO
+  - wrappers for YAHOO.util.Anim et YAHOO.util.DD
