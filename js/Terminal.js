@@ -3,8 +3,7 @@
  */
 (function() {
 
-   var Event = YAHOO.util.Event, lang = YAHOO.lang;
-   var CSS_PREFIX = "WireIt-";
+   var Event = YAHOO.util.Event, lang = YAHOO.lang, Dom = YAHOO.util.Dom, CSS_PREFIX = "WireIt-";
 
 
    /**
@@ -32,17 +31,10 @@
          this.hideNow();
          this.addClass(CSS_PREFIX+"Wire-scissors");
          
-         if(this._terminal.container) {
-            this.appendTo(this._terminal.el);
-            this.setStyle("left", (this._terminal.config.direction[0]*30)+"px");
-            this.setStyle("top", (this._terminal.config.direction[1]*30)+"px");
-         }
-         else {
-            var termPos = this._terminal.getXY();
-            this.appendTo(this._terminal.el.parentNode.parentNode);
-            this.setStyle("left", (termPos[0]+this._terminal.config.direction[0]*30-13)+"px");
-            this.setStyle("top", (termPos[1]+this._terminal.config.direction[1]*30-10)+"px");
-         }
+         // The scissors are within the terminal element
+         this.appendTo(this._terminal.el);
+         this.setStyle("left", (this._terminal.config.direction[0]*30+8)+"px");
+         this.setStyle("top", (this._terminal.config.direction[1]*30+8)+"px");
 
          // Ajoute un listener sur le scissor:
          this.on("mouseover", this.show, this, true);
@@ -153,7 +145,7 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy,
          parentEl = this.terminal.container.layer.el;
       }
       this.editingWire = new WireIt.Wire(this.terminal, this.fakeTerminal, parentEl, this.terminal.config.editingWireConfig);
-      YAHOO.util.Dom.addClass(this.editingWire.el, 'WireIt-Wire-editing');
+      Dom.addClass(this.editingWire.element, CSS_PREFIX+'Wire-editing');
    },
    
    onDrag: function(e) {
@@ -355,9 +347,9 @@ WireIt.Terminal = function(parentEl, config, container) {
    this.config = config || {};
    this.config.direction = this.config.direction || [0,1];
    this.config.fakeDirection = this.config.fakeDirection || [-this.config.direction[0],-this.config.direction[1]];
-   this.config.className = this.config.className || 'WireIt-Terminal';
-   this.config.connectedClassName = this.config.connectedClassName || 'WireIt-Terminal-connected';
-   this.config.dropinviteClassName = this.config.dropinviteClassName || 'WireIt-Terminal-dropinvite';
+   this.config.className = this.config.className || CSS_PREFIX+'Terminal';
+   this.config.connectedClassName = this.config.connectedClassName || CSS_PREFIX+'Terminal-connected';
+   this.config.dropinviteClassName = this.config.dropinviteClassName || CSS_PREFIX+'Terminal-dropinvite';
    this.config.editable = YAHOO.lang.isUndefined(this.config.editable) ? true : this.config.editable;
    this.config.nMaxWires = this.config.nMaxWires || Infinity;
    this.config.wireConfig = this.config.wireConfig || {};
@@ -398,10 +390,10 @@ WireIt.Terminal.prototype = {
     */
    setDropInvitation: function(display) {
       if(display) {
-         YAHOO.util.Dom.addClass(this.el, this.config.dropinviteClassName);
+         Dom.addClass(this.el, this.config.dropinviteClassName);
       }
       else {
-         YAHOO.util.Dom.removeClass(this.el, this.config.dropinviteClassName);
+         Dom.removeClass(this.el, this.config.dropinviteClassName);
       }
    },
 
@@ -435,7 +427,7 @@ WireIt.Terminal.prototype = {
       this.wires.push(wire);
    
       // Set class indicating that the wire is connected
-      YAHOO.util.Dom.addClass(this.el, this.config.connectedClassName);
+      Dom.addClass(this.el, this.config.connectedClassName);
    
       // Fire the event
       this.eventAddWire.fire(wire);
@@ -453,7 +445,7 @@ WireIt.Terminal.prototype = {
       
          // Remove the connected class if it has no more wires:
          if(this.wires.length == 0) {
-            YAHOO.util.Dom.removeClass(this.el, this.config.connectedClassName);
+            Dom.removeClass(this.el, this.config.connectedClassName);
          }
       
          // Fire the event
@@ -496,7 +488,14 @@ WireIt.Terminal.prototype = {
       }
       this.parentEl.removeChild(this.el);
       
-      // TODO: remove this.scissors
+      // Remove all event listeners
+      Event.purgeElement(this.el);
+      
+      // Remove scissors widget
+      if(this.scissors) {
+         Event.purgeElement(this.scissors.get('element'));
+      }
+      
    },
 
 

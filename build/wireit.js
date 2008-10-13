@@ -560,8 +560,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement,
  */
 (function() {
 
-   var Event = YAHOO.util.Event, lang = YAHOO.lang;
-   var CSS_PREFIX = "WireIt-";
+   var Event = YAHOO.util.Event, lang = YAHOO.lang, Dom = YAHOO.util.Dom, CSS_PREFIX = "WireIt-";
 
 
    /**
@@ -589,17 +588,10 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement,
          this.hideNow();
          this.addClass(CSS_PREFIX+"Wire-scissors");
          
-         if(this._terminal.container) {
-            this.appendTo(this._terminal.el);
-            this.setStyle("left", (this._terminal.config.direction[0]*30)+"px");
-            this.setStyle("top", (this._terminal.config.direction[1]*30)+"px");
-         }
-         else {
-            var termPos = this._terminal.getXY();
-            this.appendTo(this._terminal.el.parentNode.parentNode);
-            this.setStyle("left", (termPos[0]+this._terminal.config.direction[0]*30-13)+"px");
-            this.setStyle("top", (termPos[1]+this._terminal.config.direction[1]*30-10)+"px");
-         }
+         // The scissors are within the terminal element
+         this.appendTo(this._terminal.el);
+         this.setStyle("left", (this._terminal.config.direction[0]*30+8)+"px");
+         this.setStyle("top", (this._terminal.config.direction[1]*30+8)+"px");
 
          // Ajoute un listener sur le scissor:
          this.on("mouseover", this.show, this, true);
@@ -710,7 +702,7 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy,
          parentEl = this.terminal.container.layer.el;
       }
       this.editingWire = new WireIt.Wire(this.terminal, this.fakeTerminal, parentEl, this.terminal.config.editingWireConfig);
-      YAHOO.util.Dom.addClass(this.editingWire.el, 'WireIt-Wire-editing');
+      Dom.addClass(this.editingWire.element, CSS_PREFIX+'Wire-editing');
    },
    
    onDrag: function(e) {
@@ -912,9 +904,9 @@ WireIt.Terminal = function(parentEl, config, container) {
    this.config = config || {};
    this.config.direction = this.config.direction || [0,1];
    this.config.fakeDirection = this.config.fakeDirection || [-this.config.direction[0],-this.config.direction[1]];
-   this.config.className = this.config.className || 'WireIt-Terminal';
-   this.config.connectedClassName = this.config.connectedClassName || 'WireIt-Terminal-connected';
-   this.config.dropinviteClassName = this.config.dropinviteClassName || 'WireIt-Terminal-dropinvite';
+   this.config.className = this.config.className || CSS_PREFIX+'Terminal';
+   this.config.connectedClassName = this.config.connectedClassName || CSS_PREFIX+'Terminal-connected';
+   this.config.dropinviteClassName = this.config.dropinviteClassName || CSS_PREFIX+'Terminal-dropinvite';
    this.config.editable = YAHOO.lang.isUndefined(this.config.editable) ? true : this.config.editable;
    this.config.nMaxWires = this.config.nMaxWires || Infinity;
    this.config.wireConfig = this.config.wireConfig || {};
@@ -955,10 +947,10 @@ WireIt.Terminal.prototype = {
     */
    setDropInvitation: function(display) {
       if(display) {
-         YAHOO.util.Dom.addClass(this.el, this.config.dropinviteClassName);
+         Dom.addClass(this.el, this.config.dropinviteClassName);
       }
       else {
-         YAHOO.util.Dom.removeClass(this.el, this.config.dropinviteClassName);
+         Dom.removeClass(this.el, this.config.dropinviteClassName);
       }
    },
 
@@ -992,7 +984,7 @@ WireIt.Terminal.prototype = {
       this.wires.push(wire);
    
       // Set class indicating that the wire is connected
-      YAHOO.util.Dom.addClass(this.el, this.config.connectedClassName);
+      Dom.addClass(this.el, this.config.connectedClassName);
    
       // Fire the event
       this.eventAddWire.fire(wire);
@@ -1010,7 +1002,7 @@ WireIt.Terminal.prototype = {
       
          // Remove the connected class if it has no more wires:
          if(this.wires.length == 0) {
-            YAHOO.util.Dom.removeClass(this.el, this.config.connectedClassName);
+            Dom.removeClass(this.el, this.config.connectedClassName);
          }
       
          // Fire the event
@@ -1053,7 +1045,14 @@ WireIt.Terminal.prototype = {
       }
       this.parentEl.removeChild(this.el);
       
-      // TODO: remove this.scissors
+      // Remove all event listeners
+      Event.purgeElement(this.el);
+      
+      // Remove scissors widget
+      if(this.scissors) {
+         Event.purgeElement(this.scissors.get('element'));
+      }
+      
    },
 
 
@@ -1268,7 +1267,7 @@ YAHOO.extend(WireIt.util.DDResize, YAHOO.util.DragDrop,
  */
 (function() {
    
-   var Dom = YAHOO.util.Dom;
+   var Dom = YAHOO.util.Dom, Event = YAHOO.util.Event, CSS_PREFIX = "WireIt-";
    
 /**
  * @class Visual module that contains terminals. The wires are updated when the module is dragged around.
@@ -1299,19 +1298,19 @@ WireIt.Container = function(config, layer) {
    this.config.terminals = this.config.terminals || [];
    this.config.draggable = (typeof this.config.draggable == "undefined") ? true : this.config.draggable ;
    this.config.position = this.config.position || [100,100];
-   this.config.className = this.config.className || 'WireIt-Container';
+   this.config.className = this.config.className || CSS_PREFIX+'Container';
    
    this.config.ddHandle = (typeof this.config.ddHandle == "undefined") ? true : this.config.ddHandle;
-   this.config.ddHandleClassName = this.config.ddHandleClassName || "WireIt-Container-ddhandle";
+   this.config.ddHandleClassName = this.config.ddHandleClassName || CSS_PREFIX+"Container-ddhandle";
    
    this.config.resizable = (typeof this.config.resizable == "undefined") ? true : this.config.resizable;
-   this.config.resizeHandleClassName = this.config.resizeHandleClassName || "WireIt-Container-resizehandle";
+   this.config.resizeHandleClassName = this.config.resizeHandleClassName || CSS_PREFIX+"Container-resizehandle";
    
    this.config.width = this.config.width; // no default
    this.config.height = this.config.height;// || 100;
    
    this.config.close = (typeof this.config.close == "undefined") ? true : this.config.close;
-   this.config.closeButtonClassName = this.config.closeButtonClassName || "WireIt-Container-closebutton";
+   this.config.closeButtonClassName = this.config.closeButtonClassName || CSS_PREFIX+"Container-closebutton";
    
    /**
     * the WireIt.Layer object that schould contain this container
@@ -1409,7 +1408,7 @@ WireIt.Container.prototype = {
       }
    
       // Adds a handler for mousedown so we can notice the layer
-      YAHOO.util.Event.addListener(this.el, "mousedown", this.onMouseDown, this, true);
+      Event.addListener(this.el, "mousedown", this.onMouseDown, this, true);
    
       if(this.config.ddHandle) {
          // Create the drag/drop handle
@@ -1431,7 +1430,7 @@ WireIt.Container.prototype = {
          // Close button
          this.closeButton = WireIt.cn('div', {className: this.config.closeButtonClassName} );
          this.el.appendChild(this.closeButton);
-         YAHOO.util.Event.addListener(this.closeButton, "click", this.onCloseButton, this, true);
+         Event.addListener(this.closeButton, "click", this.onCloseButton, this, true);
       }
    
       // Append to the layer element
@@ -1473,21 +1472,21 @@ WireIt.Container.prototype = {
     * Adds the class that shows the container as "focused"
     */
    setFocus: function() {
-      Dom.addClass(this.el, "WireIt-Container-focused");
+      Dom.addClass(this.el, CSS_PREFIX+"Container-focused");
    },
 
    /**
     * Remove the class that shows the container as "focused"
     */
    removeFocus: function() {
-      Dom.removeClass(this.el, "WireIt-Container-focused");
+      Dom.removeClass(this.el, CSS_PREFIX+"Container-focused");
    },
 
    /**
     * Called when the user clicked on the close button
     */
    onCloseButton: function(e, args) {
-      YAHOO.util.Event.stopEvent(e);
+      Event.stopEvent(e);
       this.layer.removeContainer(this);
    },
 
@@ -1501,6 +1500,9 @@ WireIt.Container.prototype = {
    
       // Remove from the dom
       this.layer.el.removeChild(this.el);
+      
+      // Remove all event listeners
+      Event.purgeElement(this.el);
    },
 
 

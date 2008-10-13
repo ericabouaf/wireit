@@ -3,7 +3,7 @@
  */
 (function() {
    
-   var Dom = YAHOO.util.Dom;
+   var Dom = YAHOO.util.Dom, Event = YAHOO.util.Event, CSS_PREFIX = "WireIt-";
    
 /**
  * @class Visual module that contains terminals. The wires are updated when the module is dragged around.
@@ -34,19 +34,19 @@ WireIt.Container = function(config, layer) {
    this.config.terminals = this.config.terminals || [];
    this.config.draggable = (typeof this.config.draggable == "undefined") ? true : this.config.draggable ;
    this.config.position = this.config.position || [100,100];
-   this.config.className = this.config.className || 'WireIt-Container';
+   this.config.className = this.config.className || CSS_PREFIX+'Container';
    
    this.config.ddHandle = (typeof this.config.ddHandle == "undefined") ? true : this.config.ddHandle;
-   this.config.ddHandleClassName = this.config.ddHandleClassName || "WireIt-Container-ddhandle";
+   this.config.ddHandleClassName = this.config.ddHandleClassName || CSS_PREFIX+"Container-ddhandle";
    
    this.config.resizable = (typeof this.config.resizable == "undefined") ? true : this.config.resizable;
-   this.config.resizeHandleClassName = this.config.resizeHandleClassName || "WireIt-Container-resizehandle";
+   this.config.resizeHandleClassName = this.config.resizeHandleClassName || CSS_PREFIX+"Container-resizehandle";
    
    this.config.width = this.config.width; // no default
    this.config.height = this.config.height;// || 100;
    
    this.config.close = (typeof this.config.close == "undefined") ? true : this.config.close;
-   this.config.closeButtonClassName = this.config.closeButtonClassName || "WireIt-Container-closebutton";
+   this.config.closeButtonClassName = this.config.closeButtonClassName || CSS_PREFIX+"Container-closebutton";
    
    /**
     * the WireIt.Layer object that schould contain this container
@@ -144,7 +144,7 @@ WireIt.Container.prototype = {
       }
    
       // Adds a handler for mousedown so we can notice the layer
-      YAHOO.util.Event.addListener(this.el, "mousedown", this.onMouseDown, this, true);
+      Event.addListener(this.el, "mousedown", this.onMouseDown, this, true);
    
       if(this.config.ddHandle) {
          // Create the drag/drop handle
@@ -166,7 +166,7 @@ WireIt.Container.prototype = {
          // Close button
          this.closeButton = WireIt.cn('div', {className: this.config.closeButtonClassName} );
          this.el.appendChild(this.closeButton);
-         YAHOO.util.Event.addListener(this.closeButton, "click", this.onCloseButton, this, true);
+         Event.addListener(this.closeButton, "click", this.onCloseButton, this, true);
       }
    
       // Append to the layer element
@@ -208,21 +208,21 @@ WireIt.Container.prototype = {
     * Adds the class that shows the container as "focused"
     */
    setFocus: function() {
-      Dom.addClass(this.el, "WireIt-Container-focused");
+      Dom.addClass(this.el, CSS_PREFIX+"Container-focused");
    },
 
    /**
     * Remove the class that shows the container as "focused"
     */
    removeFocus: function() {
-      Dom.removeClass(this.el, "WireIt-Container-focused");
+      Dom.removeClass(this.el, CSS_PREFIX+"Container-focused");
    },
 
    /**
     * Called when the user clicked on the close button
     */
    onCloseButton: function(e, args) {
-      YAHOO.util.Event.stopEvent(e);
+      Event.stopEvent(e);
       this.layer.removeContainer(this);
    },
 
@@ -236,6 +236,9 @@ WireIt.Container.prototype = {
    
       // Remove from the dom
       this.layer.el.removeChild(this.el);
+      
+      // Remove all event listeners
+      Event.purgeElement(this.el);
    },
 
 
