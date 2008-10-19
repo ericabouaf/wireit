@@ -53,14 +53,11 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, config) {
    this.config.color = this.config.color || 'rgb(173, 216, 230)';
    this.config.bordercolor = this.config.bordercolor || '#0000ff';
    
-   // Create the canvas element
-   WireIt.Wire.superclass.constructor.call(this);
+   // Create the canvas element and append it to parentEl
+   WireIt.Wire.superclass.constructor.call(this, this.parentEl);
    
-   this.element.className = this.config.className;
-   
-   // Append the canvas to the parent element
-   this.parentEl.appendChild(this.element);
-   
+   // CSS classname
+   YAHOO.util.Dom.addClass(this.element, this.config.className);
    
    // Call addWire on both terminals
    this.terminal1.addWire(this);
@@ -102,7 +99,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement,
       // Get the positions of the terminals
       var p1 = this.terminal1.getXY();
       var p2 = this.terminal2.getXY();
-   
+      
       // Coefficient multiplicateur de direction
       // 100 par défaut, si distance(p1,p2) < 100, on passe en distance/2
       var coeffMulDirection=this.config.coeffMulDirection;
@@ -188,6 +185,9 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement,
    },
    
    
+   /**
+    * Drawing methods for arrows
+    */
    drawArrows: function()
    {
    	var d = 7; // arrow width/2
@@ -310,30 +310,29 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement,
 
    },
    
+   /**
+    * Drawing method for arrows
+    */
    drawStraight: function()
    {
-   	var d = 7; // arrow width/2
-      var redim = d+3; //we have to make the canvas a little bigger because of arrows
-      var margin=[4+redim,4+redim];
+      var margin = [4,4];
 
       // Get the positions of the terminals
       var p1 = this.terminal1.getXY();
       var p2 = this.terminal2.getXY();
 
-      var distance=Math.sqrt(Math.pow(p1[0]-p2[0],2)+Math.pow(p1[1]-p2[1],2));
-
       var min=[ Math.min(p1[0],p2[0])-margin[0], Math.min(p1[1],p2[1])-margin[1]];
       var max=[ Math.max(p1[0],p2[0])+margin[0], Math.max(p1[1],p2[1])+margin[1]];
       
       // Redimensionnement du canvas
-      
-      var lw=Math.abs(max[0]-min[0])+redim;
-      var lh=Math.abs(max[1]-min[1])+redim;
+      var lw=Math.abs(max[0]-min[0]);
+      var lh=Math.abs(max[1]-min[1]);
 
-      p1[0]=p1[0]-min[0];
-      p1[1]=p1[1]-min[1];
-      p2[0]=p2[0]-min[0];
-      p2[1]=p2[1]-min[1];
+      // Convert points in canvas coordinates
+      p1[0] = p1[0]-min[0];
+      p1[1] = p1[1]-min[1];
+      p2[0] = p2[0]-min[0];
+      p2[1] = p2[1]-min[1];
 
       this.SetCanvasRegion(min[0],min[1],lw,lh);
 

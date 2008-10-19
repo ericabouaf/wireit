@@ -3,10 +3,11 @@
  * @constructor
  */
 var jsBox = function(config, layer) {
-   
+         
    jsBox.superclass.constructor.call(this, config, layer);
    
    this.buildTextArea(this.config.codeText || "function(e) {\n\n  return 0;\n}");
+   
    this.nParams = this.getNbrInputs();
    this.createTerminals();
    
@@ -64,20 +65,20 @@ YAHOO.extend(jsBox, WireIt.Container, {
    	var term = this.addTerminal({xtype: "WireIt.util.TerminalOutput"});      
       term.jsBox = this;
       WireIt.sn(term.el, null, {position: "absolute", bottom: "-15px"});
-
+   
       this.positionTerminals();
 
       // Declare the new terminals to the drag'n drop handler (so the wires are moved around with the container)
       this.dd.setTerminals(this.terminals);
+      
+      
    },
    
    /**
     * Reposition the terminals
     */
    positionTerminals: function() {
-      // Calculate the width
-      var widthStr = YAHOO.util.Dom.getStyle(this.el, 'width');
-      var width = parseInt( widthStr.substr(0,widthStr.length-2), 10);
+      var width = WireIt.getIntStyle(this.el, "width");
 
       var inputsIntervall = Math.floor(width/(this.nParams+1));
 
@@ -212,7 +213,6 @@ YAHOO.util.Event.addListener(window, "load", function() {
    jsBox.jsBoxLayer.el.appendChild(addBoxButton);
    jsBox.jsBoxLayer.el.appendChild(addRunButton);
    jsBox.jsBoxLayer.el.appendChild(addExportButton);
-   
    
    jsBox.jsBoxLayer.setWiring({"containers":[{"codeText":"function() {\n return 3;\n}","position":[280,140],"xtype":"jsBox"},{"codeText":"function() {\n return 6;\n}","position":[500,150],"xtype":"jsBox"},{"codeText":"function(a,b) {\n return a*b;\n}","position":[400,280],"xtype":"jsBox"},{"codeText":"function(result) {\n alert('the result is '+result);\n}","position":[450,440],"xtype":"jsBox"}],"wires":[{"src":{"moduleId":0,"terminalId":0},"tgt":{"moduleId":2,"terminalId":0}},{"src":{"moduleId":1,"terminalId":0},"tgt":{"moduleId":2,"terminalId":1}},{"src":{"moduleId":2,"terminalId":2},"tgt":{"moduleId":3,"terminalId":0}}]});
    

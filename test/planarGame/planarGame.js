@@ -153,7 +153,7 @@ var planarGame = {
 	      
 	      this.wires[nWires] = new WireIt.Wire( this.bubbles[src].terminals[ bubblesTerminals[src]++] ,
 			 											   this.bubbles[tgt].terminals[ bubblesTerminals[tgt]++], 
-														   document.body, {coeffMulDirection: 0, width: 1, bordercolor: "#b0b0b0"});
+														   document.body, {drawingMethod: 'straight', width: 1, bordercolor: "#b0b0b0"});
 		   this.wires[nWires].redraw();
 		   nWires++;
 	   }

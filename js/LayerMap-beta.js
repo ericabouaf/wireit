@@ -28,7 +28,7 @@ WireIt.LayerMap = function(options) {
    this.options.height = this.options.height || 150;
    
    // Create the canvas element
-   WireIt.LayerMap.superclass.constructor.call(this);
+   WireIt.LayerMap.superclass.constructor.call(this, this.layer.el);
    
    // Set the className
    this.element.className = this.options.className;
@@ -36,9 +36,6 @@ WireIt.LayerMap = function(options) {
    // Set size
    this.element.style.width = this.options.width+"px";
    this.element.style.height = this.options.height+"px";
-   
-   // Append the canvas to the layer
-   this.layer.el.appendChild(this.element);
    
    this.initEvents();
    

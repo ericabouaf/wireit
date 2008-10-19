@@ -15,7 +15,7 @@ canvas.WireIt-Wire-editing {
 div.WireIt-Wire-scissors {
    border: 0;
    position: absolute;
-   z-index: 5;
+   z-index: 7;
    width: 16px;
    height: 16px;
    background-color: transparent;
@@ -51,8 +51,8 @@ div.WireIt-Container {
    position: absolute;
  	z-index: 5;
  	opacity: 0.8;
+ 	filter: alpha(opacity = 80);
    border: 0; /* Changing this value causes positioning issues */
-   opacity: 0.8;
 }
 
 div.WireIt-Container div.body {
@@ -96,6 +96,7 @@ div.WireIt-Container-closebutton {
 div.WireIt-Container-focused {
    z-index: 6;
    opacity: 1;
+   filter: alpha(opacity = 100);
 }
  
 /**

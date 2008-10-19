@@ -148,7 +148,10 @@ WireIt.Layer.prototype = {
     */
    addContainer: function(containerConfig) {
    
-      var type = eval(containerConfig.xtype || "WireIt.Container");
+      var type = eval('('+(containerConfig.xtype || "WireIt.Container")+')');
+      if(!type) {
+         throw new Error("WireIt layer unable to add container: xtype '"+containerConfig.xtype+"' not found");
+      }
       var container = new type(containerConfig, this);
    
       this.containers.push( container );
@@ -260,13 +263,16 @@ WireIt.Layer.prototype = {
     */
    setWiring: function(wiring) {
       this.removeAllContainers();
-   
-      for(var i = 0 ; i < wiring.containers.length ; i++) {
-         this.addContainer(wiring.containers[i]);
+      
+      if(YAHOO.lang.isArray(wiring.containers)) {
+         for(var i = 0 ; i < wiring.containers.length ; i++) {
+            this.addContainer(wiring.containers[i]);
+         }
       }
-   
-      for(var i = 0 ; i < wiring.wires.length ; i++) {
-          this.addWire(wiring.wires[i]);
+      if(YAHOO.lang.isArray(wiring.wires)) {
+         for(var i = 0 ; i < wiring.wires.length ; i++) {
+            this.addWire(wiring.wires[i]);
+         }
        }
    },
 

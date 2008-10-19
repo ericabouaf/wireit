@@ -10,10 +10,13 @@
     * @class Create a canvas element and wrap cross-browser hacks to resize it
     * @constructor
     */
-   WireIt.CanvasElement = function() {
+   WireIt.CanvasElement = function(parentNode) {
       
       // Create the canvas element
       this.element = document.createElement('canvas');
+      
+      // Append to parentNode
+      parentNode.appendChild(this.element);
       
       // excanvas.js for dynamic canvas tags
       if(typeof (G_vmlCanvasManager)!="undefined"){
@@ -30,7 +33,7 @@
        * @return {CanvasContext} the context
        */
       getContext: function(mode) {
-      	return this.element.getContext(mode || "2d");
+       return this.element.getContext(mode || "2d");
       },
       
       /**
@@ -44,8 +47,10 @@
       SetCanvasRegion: UA.ie ? 
                // IE
                function(left,top,width,height){
-                  WireIt.sn(this.element,null,{left:left+"px",top:top+"px",width:width+"px",height:height+"px"});
-                  this.getContext().clearRect(0,0,width,height);
+                  var el = this.element;
+                  WireIt.sn(el,null,{left:left+"px",top:top+"px",width:width+"px",height:height+"px"});
+                  el.getContext("2d").clearRect(0,0,width,height);
+                  this.element = el;
                } : 
                ( (UA.webkit || UA.opera) ? 
                   // Webkit (Safari & Chrome) and Opera
