@@ -24,7 +24,8 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container,
       for(var i = 0 ; i < this.config.fields.length ; i++) {
          this.config.fields[i].inputParams.container = this;
       }
-      this.form = new YAHOO.inputEx.Group({parentEl: this.bodyEl, fields: this.config.fields, legend: this.config.legend});
+      var groupParams = {parentEl: this.bodyEl, fields: this.config.fields, legend: this.config.legend};
+      this.form = new YAHOO.inputEx.Group(groupParams);
    }
    
 });

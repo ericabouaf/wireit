@@ -28,11 +28,11 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
    /**
     * Adds a wirable option to every field
     */
-   setOptions: function() {
-      inputEx.Field.superclass.setOptions.call(this);
+   setOptions: function(options) {
+      inputEx.Field.superclass.setOptions.call(this, options);
       
-      this.options.wirable = lang.isUndefined(this.options.wirable) ? true : this.options.wirable;
-      // + this.options.container
+      this.options.wirable = lang.isUndefined(options.wirable) ? true : options.wirable;
+      this.options.container = options.container;
    },
    
    /**

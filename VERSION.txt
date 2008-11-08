@@ -4,12 +4,15 @@ To get the latest version, please visit http://javascript.neyric.com/wireit
 
 
 Version 0.3.1
-october 18, 2008
+october ?, 2008
 
 TODO: 
+ * scissors widgets for IE
 
- * Bugfix for internet explorer
+Changeset
+
  * inputEx wirable option
+ * Bugfix for internet explorer
 
 
 -----------------------------------------------------
