@@ -57,7 +57,7 @@ div.WireIt-Container {
 
 div.WireIt-Container div.body {
    padding: 5px;
-   overflow:auto;
+   /*overflow:auto;*/
  	border: 2px solid #3366CC;
  	background-color: #FFFFFF;
 }

@@ -28,6 +28,7 @@ WireIt.Container = function(config, layer) {
     *    <li>height: initial height of the container (default 100)</li>
     *    <li>close: display a button to close the container (default true)</li>
     *    <li>closeButtonClassName: CSS class name for the close button (default "WireIt-Container-closebutton")</li>
+    *    <li>title</li>
     * </ul>
     */
    this.config = config || {};
@@ -150,6 +151,11 @@ WireIt.Container.prototype = {
          // Create the drag/drop handle
       	this.ddHandle = WireIt.cn('div', {className: this.config.ddHandleClassName});
       	this.el.appendChild(this.ddHandle);
+      	
+         // Set title
+         if(this.config.title) {
+            this.ddHandle.appendChild( WireIt.cn('span', null, null, this.config.title) );
+         }
       }
    
       // Create the body element

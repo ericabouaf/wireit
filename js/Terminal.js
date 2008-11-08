@@ -32,9 +32,7 @@
          this.addClass(CSS_PREFIX+"Wire-scissors");
          
          // The scissors are within the terminal element
-         this.appendTo(this._terminal.el);
-         this.setStyle("left", (this._terminal.config.direction[0]*30+8)+"px");
-         this.setStyle("top", (this._terminal.config.direction[1]*30+8)+"px");
+         this.appendTo(this._terminal.container ? this._terminal.container.layer.el : this._terminal.el.parentNode.parentNode);
 
          // Ajoute un listener sur le scissor:
          this.on("mouseover", this.show, this, true);
@@ -44,6 +42,12 @@
          // On mouseover/mouseout to display/hide the scissors
          Event.addListener(this._terminal.el, "mouseover", this.mouseOver, this, true);
          Event.addListener(this._terminal.el, "mouseout", this.hide, this, true);
+      },
+      
+      setPosition: function() {
+         var pos = this._terminal.getXY();
+         this.setStyle("left", (pos[0]+this._terminal.config.direction[0]*30-8)+"px");
+         this.setStyle("top", (pos[1]+this._terminal.config.direction[1]*30-8)+"px");
       },
       
       mouseOver: function() {
@@ -59,6 +63,7 @@
       },   
       
       show: function() {
+         this.setPosition();
          this.setStyle('display','');
          if(this.terminalTimeout) { this.terminalTimeout.cancel(); }
       },

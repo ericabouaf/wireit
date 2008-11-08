@@ -100,7 +100,6 @@ var WireIt = {
                            }
                            return n;
                         }
-
 };
 
 
@@ -120,10 +119,13 @@ WireIt.util = {};
     * @class Create a canvas element and wrap cross-browser hacks to resize it
     * @constructor
     */
-   WireIt.CanvasElement = function() {
+   WireIt.CanvasElement = function(parentNode) {
       
       // Create the canvas element
       this.element = document.createElement('canvas');
+      
+      // Append to parentNode
+      parentNode.appendChild(this.element);
       
       // excanvas.js for dynamic canvas tags
       if(typeof (G_vmlCanvasManager)!="undefined"){
@@ -140,7 +142,7 @@ WireIt.util = {};
        * @return {CanvasContext} the context
        */
       getContext: function(mode) {
-      	return this.element.getContext(mode || "2d");
+       return this.element.getContext(mode || "2d");
       },
       
       /**
@@ -154,8 +156,10 @@ WireIt.util = {};
       SetCanvasRegion: UA.ie ? 
                // IE
                function(left,top,width,height){
-                  WireIt.sn(this.element,null,{left:left+"px",top:top+"px",width:width+"px",height:height+"px"});
-                  this.getContext().clearRect(0,0,width,height);
+                  var el = this.element;
+                  WireIt.sn(el,null,{left:left+"px",top:top+"px",width:width+"px",height:height+"px"});
+                  el.getContext("2d").clearRect(0,0,width,height);
+                  this.element = el;
                } : 
                ( (UA.webkit || UA.opera) ? 
                   // Webkit (Safari & Chrome) and Opera
@@ -232,14 +236,11 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, config) {
    this.config.color = this.config.color || 'rgb(173, 216, 230)';
    this.config.bordercolor = this.config.bordercolor || '#0000ff';
    
-   // Create the canvas element
-   WireIt.Wire.superclass.constructor.call(this);
+   // Create the canvas element and append it to parentEl
+   WireIt.Wire.superclass.constructor.call(this, this.parentEl);
    
-   this.element.className = this.config.className;
-   
-   // Append the canvas to the parent element
-   this.parentEl.appendChild(this.element);
-   
+   // CSS classname
+   YAHOO.util.Dom.addClass(this.element, this.config.className);
    
    // Call addWire on both terminals
    this.terminal1.addWire(this);
@@ -281,7 +282,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement,
       // Get the positions of the terminals
       var p1 = this.terminal1.getXY();
       var p2 = this.terminal2.getXY();
-   
+      
       // Coefficient multiplicateur de direction
       // 100 par défaut, si distance(p1,p2) < 100, on passe en distance/2
       var coeffMulDirection=this.config.coeffMulDirection;
@@ -367,6 +368,9 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement,
    },
    
    
+   /**
+    * Drawing methods for arrows
+    */
    drawArrows: function()
    {
    	var d = 7; // arrow width/2
@@ -489,30 +493,29 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement,
 
    },
    
+   /**
+    * Drawing method for arrows
+    */
    drawStraight: function()
    {
-   	var d = 7; // arrow width/2
-      var redim = d+3; //we have to make the canvas a little bigger because of arrows
-      var margin=[4+redim,4+redim];
+      var margin = [4,4];
 
       // Get the positions of the terminals
       var p1 = this.terminal1.getXY();
       var p2 = this.terminal2.getXY();
 
-      var distance=Math.sqrt(Math.pow(p1[0]-p2[0],2)+Math.pow(p1[1]-p2[1],2));
-
       var min=[ Math.min(p1[0],p2[0])-margin[0], Math.min(p1[1],p2[1])-margin[1]];
       var max=[ Math.max(p1[0],p2[0])+margin[0], Math.max(p1[1],p2[1])+margin[1]];
       
       // Redimensionnement du canvas
-      
-      var lw=Math.abs(max[0]-min[0])+redim;
-      var lh=Math.abs(max[1]-min[1])+redim;
+      var lw=Math.abs(max[0]-min[0]);
+      var lh=Math.abs(max[1]-min[1]);
 
-      p1[0]=p1[0]-min[0];
-      p1[1]=p1[1]-min[1];
-      p2[0]=p2[0]-min[0];
-      p2[1]=p2[1]-min[1];
+      // Convert points in canvas coordinates
+      p1[0] = p1[0]-min[0];
+      p1[1] = p1[1]-min[1];
+      p2[0] = p2[0]-min[0];
+      p2[1] = p2[1]-min[1];
 
       this.SetCanvasRegion(min[0],min[1],lw,lh);
 
@@ -589,9 +592,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement,
          this.addClass(CSS_PREFIX+"Wire-scissors");
          
          // The scissors are within the terminal element
-         this.appendTo(this._terminal.el);
-         this.setStyle("left", (this._terminal.config.direction[0]*30+8)+"px");
-         this.setStyle("top", (this._terminal.config.direction[1]*30+8)+"px");
+         this.appendTo(this._terminal.container ? this._terminal.container.layer.el : this._terminal.el.parentNode.parentNode);
 
          // Ajoute un listener sur le scissor:
          this.on("mouseover", this.show, this, true);
@@ -601,6 +602,12 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement,
          // On mouseover/mouseout to display/hide the scissors
          Event.addListener(this._terminal.el, "mouseover", this.mouseOver, this, true);
          Event.addListener(this._terminal.el, "mouseout", this.hide, this, true);
+      },
+      
+      setPosition: function() {
+         var pos = this._terminal.getXY();
+         this.setStyle("left", (pos[0]+this._terminal.config.direction[0]*30-8)+"px");
+         this.setStyle("top", (pos[1]+this._terminal.config.direction[1]*30-8)+"px");
       },
       
       mouseOver: function() {
@@ -616,6 +623,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement,
       },   
       
       show: function() {
+         this.setPosition();
          this.setStyle('display','');
          if(this.terminalTimeout) { this.terminalTimeout.cancel(); }
       },
@@ -716,12 +724,12 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy,
         			obj = obj.offsetParent ;
         		} while ( obj = obj.offsetParent );
         	}
-         
          this.fakeTerminal.pos = [e.clientX-curleft+this.terminal.container.layer.el.scrollLeft,
                                   e.clientY-curtop+this.terminal.container.layer.el.scrollTop];
       }
       else {
-         this.fakeTerminal.pos = [e.clientX+window.pageXOffset, e.clientY+window.pageYOffset];
+         this.fakeTerminal.pos = (YAHOO.env.ua.ie) ? [e.clientX, e.clientY] : [e.clientX+window.pageXOffset, e.clientY+window.pageYOffset];
+         //this.fakeTerminal.pos = [e.clientX, e.clientY];
       }
       this.editingWire.redraw();
    },
@@ -1292,6 +1300,7 @@ WireIt.Container = function(config, layer) {
     *    <li>height: initial height of the container (default 100)</li>
     *    <li>close: display a button to close the container (default true)</li>
     *    <li>closeButtonClassName: CSS class name for the close button (default "WireIt-Container-closebutton")</li>
+    *    <li>title</li>
     * </ul>
     */
    this.config = config || {};
@@ -1414,6 +1423,11 @@ WireIt.Container.prototype = {
          // Create the drag/drop handle
       	this.ddHandle = WireIt.cn('div', {className: this.config.ddHandleClassName});
       	this.el.appendChild(this.ddHandle);
+      	
+         // Set title
+         if(this.config.title) {
+            this.ddHandle.appendChild( WireIt.cn('span', null, null, this.config.title) );
+         }
       }
    
       // Create the body element
@@ -1760,7 +1774,10 @@ WireIt.Layer.prototype = {
     */
    addContainer: function(containerConfig) {
    
-      var type = eval(containerConfig.xtype || "WireIt.Container");
+      var type = eval('('+(containerConfig.xtype || "WireIt.Container")+')');
+      if(!type) {
+         throw new Error("WireIt layer unable to add container: xtype '"+containerConfig.xtype+"' not found");
+      }
       var container = new type(containerConfig, this);
    
       this.containers.push( container );
@@ -1872,13 +1889,16 @@ WireIt.Layer.prototype = {
     */
    setWiring: function(wiring) {
       this.removeAllContainers();
-   
-      for(var i = 0 ; i < wiring.containers.length ; i++) {
-         this.addContainer(wiring.containers[i]);
+      
+      if(YAHOO.lang.isArray(wiring.containers)) {
+         for(var i = 0 ; i < wiring.containers.length ; i++) {
+            this.addContainer(wiring.containers[i]);
+         }
       }
-   
-      for(var i = 0 ; i < wiring.wires.length ; i++) {
-          this.addWire(wiring.wires[i]);
+      if(YAHOO.lang.isArray(wiring.wires)) {
+         for(var i = 0 ; i < wiring.wires.length ; i++) {
+            this.addWire(wiring.wires[i]);
+         }
        }
    },
 
@@ -1947,5 +1967,41 @@ YAHOO.extend(WireIt.util.Anim, YAHOO.util.Anim,
    }
 
 });
+
+}
+
+
+if(WireIt.Layer) {
+/**
+ * Layer explosing animation
+ */
+WireIt.Layer.prototype.clearExplode = function(callback, bind) {
+
+   var center = [ Math.floor(YAHOO.util.Dom.getViewportWidth()/2),
+		            Math.floor(YAHOO.util.Dom.getViewportHeight()/2)];
+   var R = 1.2*Math.sqrt( Math.pow(center[0],2)+Math.pow(center[1],2));
+
+   for(var i = 0 ; i < this.containers.length ; i++) {
+       var left = parseInt(dbWire.layer.containers[i].el.style.left.substr(0,dbWire.layer.containers[i].el.style.left.length-2),10);
+	    var top = parseInt(dbWire.layer.containers[i].el.style.top.substr(0,dbWire.layer.containers[i].el.style.top.length-2),10);
+
+	    var d = Math.sqrt( Math.pow(left-center[0],2)+Math.pow(top-center[1],2) );
+
+	    var u = [ (left-center[0])/d, (top-center[1])/d];
+	    YAHOO.util.Dom.setStyle(this.containers[i].el, "opacity", "0.8");
+	
+	    var myAnim = new WireIt.util.Anim(this.containers[i].terminals, this.containers[i].el, {
+           left: { to: center[0]+R*u[0] },
+           top: { to: center[1]+R*u[1] },
+	        opacity: { to: 0, by: 0.05},
+	        duration: 3
+       });
+       if(i == this.containers.length-1) {
+          myAnim.onComplete.subscribe(function() { this.clear(); callback.call(bind);}, this, true); 
+       }
+	    myAnim.animate();
+   }
+
+};
 
 }
