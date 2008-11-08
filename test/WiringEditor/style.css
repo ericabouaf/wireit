@@ -1,0 +1,71 @@
+
+#top {
+	position: relative;
+}
+#top .topright {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+
+#top .logo {
+   font-family: cursive;
+   font-size: 39px;
+   font-weight: bold;
+   color:  #3366CC;
+   padding-left: 10px;
+   padding-top: 4px;
+}
+
+#left dl {
+	padding: 5px;
+}
+
+#left dt {
+	float: left;
+	clear: left;
+}
+
+#left dd {
+	float: left;
+	margin-left: 10px;
+}
+
+#center {
+	height: 100%;
+}
+
+#toolbar {
+   position: absolute;
+   top: 10px;
+   left: 200px;
+}
+
+
+#toolbar .yui-button {
+   margin: 5px;
+}
+#toolbar .yui-button button {
+   padding-left: 2em;
+   font-size: 92%;
+}
+
+#WiringEditor-saveButton button {
+ background:transparent url(icons/database_save.png) no-repeat scroll 10% 50%;
+
+}
+#WiringEditor-deleteButton button {
+ background:transparent url(icons/delete.png) no-repeat scroll 10% 50%;
+}
+
+#WiringEditor-newButton button {
+ background:transparent url(icons/add.png) no-repeat scroll 10% 50%;
+}
+
+#WiringEditor-loadButton button {
+ background:transparent url(icons/application_go.png) no-repeat scroll 10% 50%;
+}
+
+#WiringEditor-helpButton button {
+ background:transparent url(icons/help.png) no-repeat scroll 10% 50%;
+}

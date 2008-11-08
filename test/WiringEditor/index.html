@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>WireIt - WiringEditor</title>
+	<link rel="icon" href="../../favicon.ico" type="image/png" />
+  <link rel="SHORTCUT ICON" href="../../favicon.ico" type="image/png" />
+
+<style type="text/css">
+/*margin and padding on body element
+  can introduce errors in determining
+  element position and are not recommended;
+  we turn them off as a foundation for YUI
+  CSS treatments. */
+body {
+	margin:0;
+	padding:0;
+}
+</style>
+
+<!-- YUI -->
+<link rel="stylesheet" type="text/css" href="../../lib/yui/reset-fonts-grids/reset-fonts-grids.css" />
+<link rel="stylesheet" type="text/css" href="../../lib/yui/resize/assets/skins/sam/resize.css" />
+<link rel="stylesheet" type="text/css" href="../../lib/yui/layout/assets/skins/sam/layout.css" />
+<link rel="stylesheet" type="text/css" href="../../lib/yui/button/assets/skins/sam/button.css" />
+<link rel="stylesheet" type="text/css" href="../../lib/yui/button/assets/skins/sam/container.css" />
+
+<!-- InputEx CSS -->
+<link type='text/css' rel='stylesheet' href='../../lib/inputex/css/inputEx.css' />
+
+<!-- WireIt CSS -->
+<link rel="stylesheet" type="text/css" href="../../css/WireIt.css" />
+
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+<!-- YUI -->
+<script type="text/javascript" src="../../lib/yui/utilities/utilities.js"></script>
+<script type="text/javascript" src="../../lib/yui/resize/resize-min.js"></script>
+<script type="text/javascript" src="../../lib/yui/layout/layout-min.js"></script>
+<script type="text/javascript" src="../../lib/yui/container/container-min.js"></script>
+<script type="text/javascript" src="../../lib/yui/json/json-min.js"></script>
+<script type="text/javascript" src="../../lib/yui/button/button-min.js"></script>
+
+<!-- InputEx -->
+<script src="../../lib/inputex/js/inputex.js"  type='text/javascript'></script>
+<script src="../../lib/inputex/js/Field.js"  type='text/javascript'></script>
+
+<script type="text/javascript" src="../../js/util/inputex/WirableField-beta.js"></script>
+
+<script src="../../lib/inputex/js/Group.js"  type='text/javascript'></script>
+<script src="../../lib/inputex/js/fields/StringField.js"  type='text/javascript'></script>
+<script src="../../lib/inputex/js/fields/SelectField.js"  type='text/javascript'></script>
+<script src="../../lib/inputex/js/fields/EmailField.js"  type='text/javascript'></script>
+<script src="../../lib/inputex/js/fields/UrlField.js"  type='text/javascript'></script>
+<script src="../../lib/inputex/js/fields/ListField.js"  type='text/javascript'></script>
+<script src="../../lib/inputex/js/fields/CheckBox.js"  type='text/javascript'></script>
+
+<!-- WireIt -->
+<!--[if IE]><script type="text/javascript" src="../../lib/excanvas.js"></script><![endif]-->
+<script type="text/javascript" src="../../js/WireIt.js"></script>
+<script type="text/javascript" src="../../js/CanvasElement.js"></script>
+<script type="text/javascript" src="../../js/Wire.js"></script>
+<script type="text/javascript" src="../../js/Terminal.js"></script>
+<script type="text/javascript" src="../../js/util/DD.js"></script>
+<script type="text/javascript" src="../../js/util/DDResize.js"></script>
+<script type="text/javascript" src="../../js/Container.js"></script>
+<script type="text/javascript" src="../../js/Layer.js"></script>
+<script type="text/javascript" src="../../js/util/inputex/FormContainer-beta.js"></script>
+
+<script type="text/javascript" src="../../js/WiringEditor.js"></script>
+
+<script>
+YAHOO.util.Event.onDOMReady( function() {
+	WireIt.WiringEditor.init({
+		loadUrl: 'php/loadModules.php',
+		saveUrl: 'php/saveModule',
+		
+		propertiesForm: [/* inputEx field definitions */]
+	});
+}); 
+</script>
+
+<style>
+body {
+	font-size: 10px;
+}
+div.WireIt-Container {
+	width: 400px;
+	height: 100px;
+}
+div.WireIt-InputExTerminal {
+	float: left;
+	width: 21px;
+	height: 21px;
+	position: relative;
+}
+div.WireIt-InputExTerminal div.WireIt-Terminal {
+	top: -3px;
+	left: -7px;
+}
+div.inputEx-Group div.inputEx-label {
+	width:100px;
+}
+</style>
+
+
+</head>
+
+<body class="yui-skin-sam">
+
+	<div id="top">
+		<div class="logo">WireIt</a></div>
+		<div id="toolbar"></div>
+		<div class="topright">
+			<span>Hello there !</span> | 
+			<a href="../..">back to WireIt</a>
+		</div>
+	</div>
+
+
+	<div id="left">
+	</div>
+	
+
+	<div id="center">
+	</div>
+
+</body>
+</html>
