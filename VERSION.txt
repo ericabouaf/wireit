@@ -7,11 +7,26 @@ Version 0.3.1
 october ?, 2008
 
 TODO: 
- * scissors widgets for IE
+
+ terminals:
+ * nMaxWires (just check + example)
+ * clearable option (display scissors)
+ * drop target (wire seed)
+ * accept bidirectionnal
+ wires:
+ * directional
+ containers:
+ * Faire une classe BasContainer pour créer d'autres enfants
+ * Faire un formulaire inputEx pour définir les terminaux et containes
+ wireitEditor:
+ * right panel with container options, help and minimap
+ * module list en treeview 
+ * Php backend 
 
 Changeset
 
  * inputEx wirable option
+ * scissors widgets for IE
  * Bugfix for internet explorer
 
 

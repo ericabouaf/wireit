@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+ <head>
+  <title>WireIt Example, using ImageContainer</title>
+  
+<!-- YUI -->
+<link rel="stylesheet" type="text/css" href="../lib/yui/fonts/fonts-min.css" /> 
+<link rel="stylesheet" type="text/css" href="../lib/yui/reset/reset-min.css" />
+
+<script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
+
+<!-- Excanvas -->
+<!--[if IE]><script type="text/javascript" src="../lib/excanvas.js"></script><![endif]-->
+
+<!-- WireIt -->
+<script type="text/javascript" src="../js/WireIt.js"></script>
+<script type="text/javascript" src="../js/CanvasElement.js"></script>
+<script type="text/javascript" src="../js/Wire.js"></script>
+<script type="text/javascript" src="../js/Terminal.js"></script>
+<script type="text/javascript" src="../js/util/DD.js"></script>
+<script type="text/javascript" src="../js/util/DDResize.js"></script>
+<script type="text/javascript" src="../js/Container.js"></script>
+<script type="text/javascript" src="../js/Layer.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../css/WireIt.css" />
+
+<style>
+
+div.WireIt-Container {
+	width: 128px;
+	height: 70px;
+}
+div.WireIt-Container-ddhandle {
+	background-color: transparent;
+}
+div.WireIt-Container div.body {
+	background-color: transparent;
+	border: 0;
+}
+</style>
+
+<script>
+
+WireIt.ImageContainer = function(config, layer) {
+   WireIt.ImageContainer.superclass.constructor.call(this, config, layer);
+   YAHOO.util.Dom.setStyle(this.el, "background-image", "url("+config.image+")");
+};
+
+YAHOO.lang.extend(WireIt.ImageContainer, WireIt.Container);
+
+
+window.onload = function() {	
+	
+	 	var layer = new WireIt.Layer({}); 
+   layer.setWiring({
+		containers: [
+			{"position":[280,140],"xtype":"WireIt.ImageContainer", image: "images/gate_and.png",
+				terminals: [
+					{direction: [-1,0], offsetPosition: [-3,2]},
+					{direction: [-1,0], offsetPosition: [-3,37]},
+					{direction: [1,0], offsetPosition: [103,20]}
+				],
+				resizable: false
+			},
+			{"position":[280,230],"xtype":"WireIt.ImageContainer", image: "images/gate_or.png",
+				terminals: [
+					{direction: [-1,0], offsetPosition: [-3,2]},
+					{direction: [-1,0], offsetPosition: [-3,37]},
+					{direction: [1,0], offsetPosition: [103,20]}
+				]	,
+					resizable: false},
+			{"position":[480,140],"xtype":"WireIt.ImageContainer", image: "images/gate_not.png"	,
+					terminals: [
+						{direction: [-1,0], offsetPosition: [-12,23]},
+						{direction: [1,0], offsetPosition: [114,23]}
+					]	,
+						resizable: false},
+			{"position":[780,180],"xtype":"WireIt.ImageContainer", image: "images/gate_nand.png",
+				terminals: [
+					{direction: [-1,0], offsetPosition: [-3,2]},
+					{direction: [-1,0], offsetPosition: [-3,37]},
+					{direction: [1,0], offsetPosition: [103,20]}
+				]	,
+					resizable: false},
+			
+					{"position":[580,380],"xtype":"WireIt.ImageContainer", image: "images/gate_xor.png",
+						terminals: [
+							{direction: [-1,0], offsetPosition: [-3,2]},
+							{direction: [-1,0], offsetPosition: [-3,37]},
+							{direction: [1,0], offsetPosition: [103,20]}
+						]	,
+							resizable: false}
+	  ],
+		wires:[]
+	});	
+	
+};
+
+</script>
+ </head>
+ <body>
+	
+ </body>
+</html>
