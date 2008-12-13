@@ -55,7 +55,7 @@ body {
 <script type="text/javascript" src="../../js/Container.js"></script>
 <script type="text/javascript" src="../../js/Layer.js"></script>
 <script type="text/javascript" src="../../js/util/inputex/FormContainer-beta.js"></script>
-
+<script type="text/javascript" src="../../js/LayerMap-beta.js"></script>
 <script type="text/javascript" src="../../js/WiringEditor.js"></script>
 
 <script>
@@ -69,7 +69,25 @@ try {
 		loadUrl: 'php/loadModules.php',
 		saveUrl: 'php/saveModule',
 		
-		propertiesFields: [/* inputEx field definitions */]
+		propertiesFields: [/* inputEx field definitions */],
+		
+		// Add a right panel
+		layoutOptions: {
+	        units: [
+	          { position: 'top', height: 50, body: 'top'},
+	          { position: 'left', width: 200, resize: true, body: 'left', gutter: '5px', collapse: true, 
+	            collapseSize: 25, header: 'Modules', scroll: true, animate: true },
+	          { position: 'center', body: 'center', gutter: '5px' },
+	          { position: 'right', width: 266, resize: true, body: 'right', gutter: '5px', collapse: true, 
+	             collapseSize: 25, header: 'Properties', scroll: true, animate: true }
+	        ]
+	     },
+	
+		// Activate the layer map:
+		layerOptions: {
+			layerMap: true,
+			layerMapOptions: { parentEl: YAHOO.util.Dom.get('right') }
+		}
 	});
 }catch(ex){
 	console.log(ex);
@@ -118,6 +136,8 @@ div.inputEx-Group div.inputEx-label {
 	<div id="left">
 	</div>
 	
+	<div id="right">
+	</div>
 
 	<div id="center">
 	</div>

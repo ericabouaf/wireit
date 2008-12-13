@@ -4,14 +4,21 @@
  * @namespace WireIt
  * @extends WireIt.CanvasElement
  * @constructor
+ * @param {WireIt.Layer} layer the layer object it is attached to
  * @param  {Obj} options configuration object
  */
-WireIt.LayerMap = function(options) {
+WireIt.LayerMap = function(layer,options) {
    
-   this.setOptions(options);
+   /**
+    * @property layer
+    * @type {WireIt.Layer}
+    */
+   this.layer = layer;
+   
+   this.setOptions(options || {});
    
    // Create the canvas element
-   WireIt.LayerMap.superclass.constructor.call(this, this.layer.el);
+   WireIt.LayerMap.superclass.constructor.call(this, this.options.parentEl);
    
    // Set the className
    this.element.className = this.options.className;
@@ -35,7 +42,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       /**
        * Options:
        * <ul>
-       *    <li>layer: the layer object it is attached to</li>
+       *    <li>parentEl: parent element (defaut layer.el)</li>
        *    <li>className: default to "WireIt-LayerMap"</li>
        *    <li>style: display style, default to "rgba(0, 0, 200, 0.5)"</li>
        *    <li>ratio: (warning, this might get removed in futur versions)</li>
@@ -46,7 +53,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
        * @property options
        */
       this.options = {};
-      this.layer = options.layer;
+      this.options.parentEl = options.parentEl || this.layer.el;
       this.options.className = options.className || "WireIt-LayerMap";
       this.options.style = options.style || "rgba(0, 0, 200, 0.5)";
       this.options.ratio = options.ratio || 0.1;

@@ -24,7 +24,7 @@ WireIt.WiringEditor = function(options) {
      * @property layer
      * @type {WireIt.Layer}
      */
-    this.layer = new WireIt.Layer({parentEl: Dom.get('center')});
+    this.layer = new WireIt.Layer(this.options.layerOptions);
 
     // Render buttons
     this.renderButtons();
@@ -60,6 +60,12 @@ WireIt.WiringEditor.prototype = {
           { position: 'center', body: 'center', gutter: '5px' }
         ]
      };
+     
+    this.options.layerOptions = {};
+    var layerOptions = options.layerOptions || {};
+    this.options.layerOptions.parentEl = layerOptions.parentEl ? layerOptions.parentEl : Dom.get('center');
+    this.options.layerOptions.layerMap = YAHOO.lang.isUndefined(layerOptions.layerMap) ? false : layerOptions.layerMap;
+    this.options.layerOptions.layerMapOptions = layerOptions.layerMapOptions;
  },
  
  /**
@@ -145,7 +151,6 @@ WireIt.WiringEditor.prototype = {
   * @method loadModulesSuccess
   */
  loadModulesSuccess: function(o) {
-    // Evaluating http response
     try {
        /**
         * @property modules
@@ -233,81 +238,14 @@ WireIt.WiringEditor.prototype = {
   * @method onDelete
   */
  onDelete: function() {
-    /*var moduleToDelete = this.editingModuleInputName.value;
-    var m = dfly.ModuleModel.get(moduleToDelete);
-    if(m) {
-       m.destroy();
-    }
-    this.onNew();
-    dfly.addContainerWindow.removeModuleFromTree(moduleToDelete);*/
+    alert("not implemented");
  },
 
  /**
   * @method onSave
   */
  onSave: function() {
-
-    /*var moduleName = this.editingModuleInputName.value;
-
-    var wiring = this.getWiring();
-    var parameters = {inputs:[], outputs:[]};
-
-    // Generate the "parameters"
-    for(var i = 0 ; i < wiring.containers.length ; i++) {
-       var c = wiring.containers[i];
-
-       if(c.moduleName == moduleName) {
-          alert('We cannot run recursive modules (yet...). Please remove modules "'+moduleName+'" before saving.');
-          return;
-       }
-
-       // inputs
-       if(c.moduleName == '/system/input') {
-          var param = {};
-          param.label = c.formValue.name;
-          param.type = c.formValue.type.type;
-          param.inputParams = {};
-          if(c.formValue.type.typeOptions)
-          for(var key in c.formValue.type.typeOptions) {
-             if(c.formValue.type.typeOptions.hasOwnProperty(key)) {
-                param.inputParams[key] = c.formValue.type.typeOptions[key];
-             }
-          }
-          param.inputParams.name = c.formValue.name;
-          parameters.inputs.push(param);
-       }
-       // outputs
-       else if(c.moduleName == '/system/output') {
-          var param = {};
-
-          param.name = c.formValue.name;
-
-          parameters.outputs.push(param);
-       }
-    }
-
-    // Boolean to know if we need to rebuild the module treeView
-    var alreadyPresent = !!dfly.ModuleModel.get(moduleName);
-
-    if(alreadyPresent) {
-       var m = dfly.ModuleModel.get(moduleName);
-       m.definition = wiring;//YAHOO.lang.JSON.stringify(wiring);
-       m.parameters = parameters;//YAHOO.lang.JSON.stringify(parameters);
-       m.save();
-    }
-    else {
-       var newModule = new dfly.ModuleModel( {
-          path: moduleName,
-          definition: wiring,//YAHOO.lang.JSON.stringify(wiring),
-          parameters: parameters//YAHOO.lang.JSON.stringify(parameters)
-       });
-       newModule.save();
-    }
-
-    // Regenerate the treeview in the addContainerWindow if this is a new module
-    if(!alreadyPresent) {
-       dfly.addContainerWindow.refreshModuleList();
-    }*/
+    this.saveModule();
  },
 
  /**

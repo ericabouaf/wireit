@@ -82,7 +82,7 @@ WireIt.Layer = function(options) {
    this.initWires();
    
    if(this.options.layerMap) { 
-      new WireIt.LayerMap({layer: this});
+      new WireIt.LayerMap(this, this.options.layerMapOptions);
    }
    
 };
@@ -100,6 +100,8 @@ WireIt.Layer.prototype = {
        *   <li>parentEl: DOM element that schould contain the layer (default document.body)</li>
        *   <li>containers: array of container configuration objects</li>  
        *   <li>wires: array of wire configuration objects</li>
+       *   <li>layerMap: boolean</li>
+       *   <li>layerMapOptions: layer map options</li>
        * </ul>
        * @property options
        */
@@ -109,6 +111,7 @@ WireIt.Layer.prototype = {
       this.options.containers = options.containers || [];
       this.options.wires = options.wires || [];
       this.options.layerMap = YAHOO.lang.isUndefined(options.layerMap) ? false : options.layerMap;
+      this.options.layerMapOptions = options.layerMapOptions;
    },
 
    /**
