@@ -1,23 +1,21 @@
-/**
- * @fileoverview Class to make inputEx Fields "wirable"
- *
- * Rename the class inputEx.Field into inputEx.BaseField,
- * then re-create inputEx.Field making it inherits from inputEx.BaseField.
- *
- * This file should be placed between "inputEx/field.js"
- * 
- */
+// This file should be placed between "inputEx/field.js" and all other inputEx fields
+// see http://javascript.neyric.com/inputex
 (function() {
 
    var lang = YAHOO.lang;
 
 /**
- * @class Copy of the original inputEx.Field class that we're gonna overide
+ * Copy of the original inputEx.Field class that we're gonna override to extend it.
+ * @class BaseField
+ * @namespace inputEx
  */
 inputEx.BaseField = inputEx.Field;
 
 /**
- * @class Re-create inputEx.Field adding the wirable properties
+ * Class to make inputEx Fields "wirable".Re-create inputEx.Field adding the wirable properties
+ * @class Field
+ * @namespace inputEx
+ * @extends inputEx.BaseField
  */
 inputEx.Field = function(options) {
    inputEx.Field.superclass.constructor.call(this,options);
@@ -27,6 +25,7 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
 
    /**
     * Adds a wirable option to every field
+    * @method setOptions
     */
    setOptions: function(options) {
       inputEx.Field.superclass.setOptions.call(this, options);
@@ -37,6 +36,7 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
    
    /**
     * Adds a terminal to each field
+    * @method render
     */
    render: function() {
       inputEx.Field.superclass.render.call(this);
@@ -48,6 +48,7 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
    
    /**
     * Render the associated input terminal
+    * @method renderTerminal
     */
    renderTerminal: function() {
 
@@ -79,6 +80,7 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
 
     /**
      * Remove the input wired state on the 
+     * @method onAddWire
      */
     onAddWire: function(e, params) {
        this.options.container.onAddWire(e,params);
@@ -89,6 +91,7 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
 
     /**
      * Remove the input wired state on the 
+     * @method onRemoveWire
      */
     onRemoveWire: function(e, params) { 
        this.options.container.onRemoveWire(e,params);

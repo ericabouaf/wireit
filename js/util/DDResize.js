@@ -1,8 +1,7 @@
 /**
- * @fileoverview This class enable resizing on the containers
- */
-/**
- * @class Make a container resizable
+ * Make a container resizable
+ * @class DDResize
+ * @namespace WireIt.util
  * @extends YAHOO.util.DragDrop
  * @constructor
  * @param {WireIt.Container} container The container that is to be resizable
@@ -16,6 +15,7 @@ WireIt.util.DDResize = function(container, config) {
     *   <li>minWidth: minimum width (default 50)</li>
     *   <li>minHeight: minimum height (default 50)</li>
     * </ul>
+    * @property myConf
     */
    // WARNING: the object config cannot be called "config" because YAHOO.util.DragDrop already has a "config" property
    this.myConf = config || {};
@@ -31,16 +31,16 @@ WireIt.util.DDResize = function(container, config) {
    
    /**
     * The event fired when the container is resized
+    * @event eventResize
     */
    this.eventResize = new YAHOO.util.CustomEvent("eventResize");
 };
 
-YAHOO.extend(WireIt.util.DDResize, YAHOO.util.DragDrop, 
-/**
- * @scope WireIt.util.DDResize.prototype
- */
-{
+YAHOO.extend(WireIt.util.DDResize, YAHOO.util.DragDrop, {
 
+   /**
+    * @method onMouseDown
+    */
    onMouseDown: function(e) {
         var panel = this.getEl();
         this.startWidth = panel.offsetWidth;
@@ -49,6 +49,9 @@ YAHOO.extend(WireIt.util.DDResize, YAHOO.util.DragDrop,
         this.startPos = [YAHOO.util.Event.getPageX(e), YAHOO.util.Event.getPageY(e)];
     },
 
+    /**
+     * @method onDrag
+     */
     onDrag: function(e) {
         var newPos = [YAHOO.util.Event.getPageX(e),  YAHOO.util.Event.getPageY(e)];
 

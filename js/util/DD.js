@@ -1,8 +1,7 @@
 /**
- * @fileoverview Provide a wrapper around YAHOO.util.DD to drag/drop a block containing terminals and redraw the associated wires
- */
-/**
- * @class Wraper for YAHOO.util.DD, to redraw the wires associated with the given terminals
+ * WireIt.util.DD is a wrapper class for YAHOO.util.DD, to redraw the wires associated with the given terminals while drag-dropping
+ * @class DD
+ * @namespace WireIt.util
  * @extends YAHOO.util.DD
  * @constructor
  * @param {Array} terminals List of WireIt.Terminal objects associated within the DragDrop element
@@ -16,19 +15,19 @@ WireIt.util.DD = function( terminals, id, sGroup, config) {
    }
    /**
     * List of the contained terminals
+    * @property _WireItTerminals
+    * @type {Array}
     */
    this._WireItTerminals = terminals;
+   
    WireIt.util.DD.superclass.constructor.call(this, id, sGroup, config);
 };
 
-YAHOO.extend(WireIt.util.DD, YAHOO.util.DD, 
-/**
- * @scope WireIt.util.DD.prototype
- */
-{
+YAHOO.extend(WireIt.util.DD, YAHOO.util.DD, {
 
    /**
     * Override YAHOO.util.DD.prototype.onDrag to redraw the wires
+    * @method onDrag
     */
    onDrag: function(e) {
       // Make sure terminalList is an array
@@ -45,6 +44,7 @@ YAHOO.extend(WireIt.util.DD, YAHOO.util.DD,
 
    /**
     * In case you change the terminals since you created the WireIt.util.DD:
+    * @method setTerminals
     */
    setTerminals: function(terminals) {
       this._WireItTerminals = terminals;

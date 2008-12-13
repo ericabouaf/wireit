@@ -1,13 +1,19 @@
 /**
- * @fileoverview Set the WireIt namespace ; DOM and Canvas helpers
+ * WireIt provide classes to build wirable interfaces
+ * @module WireIt
  */
 /**
- * @namespace WireIt main namespace (only global variable !)
+ * @class WireIt
+ * @static
+ * @namespace
  */
 var WireIt = {
    
    /**
     * Get a css property in pixels and convert it to an integer
+    * @method getIntStyle
+    * @namespace WireIt
+    * @static
     * @param {HTMLElement} el The element
     * @param {String} style css-property to get
     * @return {Integer} integer size
@@ -19,6 +25,8 @@ var WireIt = {
 
    /**
     * Helper function to set DOM node attributes and style attributes.
+    * @method sn
+    * @static
     * @param {HTMLElement} el The element to set attributes to
     * @param {Object} domAttributes An object containing key/value pairs to set as node attributes (ex: {id: 'myElement', className: 'myCssClass', ...})
     * @param {Object} styleAttributes Same thing for style attributes. Please use camelCase for style attributes (ex: backgroundColor for 'background-color')
@@ -56,6 +64,8 @@ var WireIt = {
 
    /**
     * Helper function to create a DOM node. (wrapps the document.createElement tag and the inputEx.sn functions)
+    * @method cn
+    * @static
     * @param {String} tag The tagName to create (ex: 'div', 'a', ...)
     * @param {Object} [domAttributes] see inputEx.sn
     * @param {Object} [styleAttributes] see inputEx.sn
@@ -70,7 +80,9 @@ var WireIt = {
    },
    
    /**
-    * @function indexOf replace Array.indexOf for cases where it isn't available (IE6 only ?)
+    * indexOf replace Array.indexOf for cases where it isn't available (IE6 only ?)
+    * @method indexOf
+    * @static
     * @param {Any} el element to search for
     * @param {Array} arr Array to search into
     * @return {Integer} element index or -1 if not found
@@ -85,7 +97,9 @@ var WireIt = {
                         },
 
    /**
-    * @function compact replace Array.compact for cases where it isn't available
+    * compact replace Array.compact for cases where it isn't available
+    * @method compact
+    * @static
     * @param {Array} arr Array to compact
     * @return {Array} compacted array
     */
@@ -104,6 +118,6 @@ var WireIt = {
 
 
 /**
- * @namespace WireIt.util contains utility classes
+ * WireIt.util contains utility classes
  */
 WireIt.util = {};

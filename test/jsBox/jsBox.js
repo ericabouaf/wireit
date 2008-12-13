@@ -2,11 +2,11 @@
  * @class jsBox
  * @constructor
  */
-var jsBox = function(config, layer) {
+var jsBox = function(options, layer) {
          
-   jsBox.superclass.constructor.call(this, config, layer);
+   jsBox.superclass.constructor.call(this, options, layer);
    
-   this.buildTextArea(this.config.codeText || "function(e) {\n\n  return 0;\n}");
+   this.buildTextArea(options.codeText || "function(e) {\n\n  return 0;\n}");
    
    this.nParams = this.getNbrInputs();
    this.createTerminals();

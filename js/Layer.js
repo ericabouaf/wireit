@@ -1,41 +1,32 @@
 /**
- * @fileoverview A layer encapsulate a bunch of containers and wires.
- */
-/**
- * @class WireIt.Layer
+ * A layer encapsulate a bunch of containers and wires
+ * @class Layer
+ * @namespace WireIt
  * @constructor
- * @param {Object}   config   Configuration object (see the properties)
+ * @param {Object}   options   Configuration object (see the properties)
  */
-WireIt.Layer = function(config) {
+WireIt.Layer = function(options) {
    
-   /**
-    * Configuration object of the layer
-    * <ul>
-    *   <li>className: CSS class name for the layer element (default 'WireIt-Layer')</li>
-    *   <li>parentEl: DOM element that schould contain the layer (default document.body)</li>
-    *   <li>containers: array of container configuration objects</li>  
-    *   <li>wires: array of wire configuration objects</li>
-    * </ul>
-    */
-   this.config = config || {};
-   this.config.className = this.config.className || 'WireIt-Layer';
-   this.config.parentEl = this.config.parentEl || document.body;
-   this.config.containers = this.config.containers || [];
-   this.config.wires = this.config.wires || [];
-   this.config.layerMap = YAHOO.lang.isUndefined(this.config.layerMap) ? false : this.config.layerMap;
+   this.setOptions(options);
    
    /**
     * List of all the WireIt.Container (or subclass) instances in this layer
+    * @property containers
+    * @type {Array}
     */
    this.containers = [];
    
    /**
     * List of all the WireIt.Wire (or subclass) instances in this layer
+    * @property wires
+    * @type {Array}
     */
    this.wires = [];
    
    /**
     * Layer DOM element
+    * @property el
+    * @type {HTMLElement}
     */
    this.el = null;
    
@@ -43,12 +34,14 @@ WireIt.Layer = function(config) {
    /**
     * Event that is fired when a wire is added
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+    * @event eventAddWire
     */
    this.eventAddWire = new YAHOO.util.CustomEvent("eventAddWire");
    
    /**
     * Event that is fired when a wire is removed
     * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+    * @event eventRemoveWire
     */
    this.eventRemoveWire = new YAHOO.util.CustomEvent("eventRemoveWire");
    
@@ -56,24 +49,28 @@ WireIt.Layer = function(config) {
    /**
     * Event that is fired when a container is added
     * You can register this event with myTerminal.eventAddContainer.subscribe(function(e,params) { var container=params[0];}, scope);
+    * @event eventAddContainer
     */
    this.eventAddContainer = new YAHOO.util.CustomEvent("eventAddContainer");
    
    /**
     * Event that is fired when a container is removed
     * You can register this event with myTerminal.eventRemoveContainer.subscribe(function(e,params) { var container=params[0];}, scope);
+    * @event eventRemoveContainer
     */
    this.eventRemoveContainer = new YAHOO.util.CustomEvent("eventRemoveContainer");
    
    /**
     * Event that is fired when a container has been moved
     * You can register this event with myTerminal.eventContainerDragged.subscribe(function(e,params) { var container=params[0];}, scope);
+    * @event eventContainerDragged
     */
    this.eventContainerDragged = new YAHOO.util.CustomEvent("eventContainerDragged");
    
    /**
     * Event that is fired when a container has been resized
     * You can register this event with myTerminal.eventContainerResized.subscribe(function(e,params) { var container=params[0];}, scope);
+    * @event eventContainerResized
     */
    this.eventContainerResized = new YAHOO.util.CustomEvent("eventContainerResized");
    
@@ -84,7 +81,7 @@ WireIt.Layer = function(config) {
    
    this.initWires();
    
-   if(this.config.layerMap) { 
+   if(this.options.layerMap) { 
       new WireIt.LayerMap({layer: this});
    }
    
@@ -93,36 +90,62 @@ WireIt.Layer = function(config) {
 WireIt.Layer.prototype = {
 
    /**
+    * @method setOptions
+    */
+   setOptions: function(options) {
+      /**
+       * Configuration object of the layer
+       * <ul>
+       *   <li>className: CSS class name for the layer element (default 'WireIt-Layer')</li>
+       *   <li>parentEl: DOM element that schould contain the layer (default document.body)</li>
+       *   <li>containers: array of container configuration objects</li>  
+       *   <li>wires: array of wire configuration objects</li>
+       * </ul>
+       * @property options
+       */
+      this.options = {};
+      this.options.className = options.className || 'WireIt-Layer';
+      this.options.parentEl = options.parentEl || document.body;
+      this.options.containers = options.containers || [];
+      this.options.wires = options.wires || [];
+      this.options.layerMap = YAHOO.lang.isUndefined(options.layerMap) ? false : options.layerMap;
+   },
+
+   /**
     * Create the dom of the layer and insert it into the parent element
+    * @method render
     */
    render: function() {
    
-      this.el = WireIt.cn('div', {className: this.config.className} );
+      this.el = WireIt.cn('div', {className: this.options.className} );
    
-      this.config.parentEl.appendChild(this.el);
+      this.options.parentEl.appendChild(this.el);
    },
 
 
    /**
-    * Create all the containers passed as config
+    * Create all the containers passed as options
+    * @method initContainers
     */
    initContainers: function() {
-      for(var i = 0 ; i < this.config.containers.length ; i++) {
-         this.addContainer(this.config.containers[i]);
+      for(var i = 0 ; i < this.options.containers.length ; i++) {
+         this.addContainer(this.options.containers[i]);
       } 
    },
 
    /**
     * Create all the wires passed in the config
+    * @method initWires
     */
    initWires: function() {
-      for(var i = 0 ; i < this.config.wires.length ; i++) {
-         this.addWire(this.config.wires[i]);
+      for(var i = 0 ; i < this.options.wires.length ; i++) {
+         this.addWire(this.options.wires[i]);
       }
    },
 
    /**
     * Instanciate a wire given its "xtype" (default to WireIt.Wire)
+    * @method addWire
     * @param {Object} wireConfig  Wire configuration object (see WireIt.Wire class for details)
     * @return {WireIt.Wire} Wire instance build from the xtype
     */
@@ -143,6 +166,7 @@ WireIt.Layer.prototype = {
 
    /**
     * Instanciate a container given its "xtype": WireIt.Container (default) or a subclass of it.
+    * @method addContainer
     * @param {Object} containerConfig  Container configuration object (see WireIt.Container class for details)
     * @return {WireIt.Container} Container instance build from the xtype
     */
@@ -178,6 +202,7 @@ WireIt.Layer.prototype = {
 
    /**
     * Remove a container
+    * @method removeContainer
     * @param {WireIt.Container} container Container instance to remove
     */
    removeContainer: function(container) {
@@ -193,6 +218,7 @@ WireIt.Layer.prototype = {
 
    /**
     * Update the wire list when any of the containers fired the eventAddWire
+    * @method onAddWire
     * @param {Event} event The eventAddWire event fired by the container
     * @param {Array} args This array contains a single element args[0] which is the added Wire instance
     */
@@ -208,6 +234,7 @@ WireIt.Layer.prototype = {
 
    /**
     * Update the wire list when a wire is removed
+    * @method onRemoveWire
     * @param {Event} event The eventRemoveWire event fired by the container
     * @param {Array} args This array contains a single element args[0] which is the removed Wire instance
     */
@@ -223,6 +250,7 @@ WireIt.Layer.prototype = {
 
    /**
     * Remove all the containers in this layer (and the associated terminals and wires)
+    * @method removeAllContainers
     */
    removeAllContainers: function() {
       while(this.containers.length > 0) {
@@ -233,6 +261,7 @@ WireIt.Layer.prototype = {
 
    /**
     * Return an object that represent the state of the layer including the containers and the wires
+    * @method getWiring
     * @return {Obj} layer configuration
     */
    getWiring: function() {
@@ -259,6 +288,7 @@ WireIt.Layer.prototype = {
 
    /**
     * Load a layer configuration object
+    * @method setWiring
     * @param {Object} wiring layer configuration
     */
    setWiring: function(wiring) {
@@ -278,9 +308,46 @@ WireIt.Layer.prototype = {
 
    /**
     * Alias for removeAllContainers
+    * @method clear
     */
    clear: function() {
       this.removeAllContainers();
+   },
+   
+   
+   
+   /**
+    * Layer explosing animation
+    * @method clearExplode
+    */
+   clearExplode: function(callback, bind) {
+
+      var center = [ Math.floor(YAHOO.util.Dom.getViewportWidth()/2),
+   		            Math.floor(YAHOO.util.Dom.getViewportHeight()/2)];
+      var R = 1.2*Math.sqrt( Math.pow(center[0],2)+Math.pow(center[1],2));
+
+      for(var i = 0 ; i < this.containers.length ; i++) {
+          var left = parseInt(dbWire.layer.containers[i].el.style.left.substr(0,dbWire.layer.containers[i].el.style.left.length-2),10);
+   	    var top = parseInt(dbWire.layer.containers[i].el.style.top.substr(0,dbWire.layer.containers[i].el.style.top.length-2),10);
+
+   	    var d = Math.sqrt( Math.pow(left-center[0],2)+Math.pow(top-center[1],2) );
+
+   	    var u = [ (left-center[0])/d, (top-center[1])/d];
+   	    YAHOO.util.Dom.setStyle(this.containers[i].el, "opacity", "0.8");
+
+   	    var myAnim = new WireIt.util.Anim(this.containers[i].terminals, this.containers[i].el, {
+              left: { to: center[0]+R*u[0] },
+              top: { to: center[1]+R*u[1] },
+   	        opacity: { to: 0, by: 0.05},
+   	        duration: 3
+          });
+          if(i == this.containers.length-1) {
+             myAnim.onComplete.subscribe(function() { this.clear(); callback.call(bind);}, this, true); 
+          }
+   	    myAnim.animate();
+      }
+
    }
+   
 
 };

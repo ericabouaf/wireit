@@ -1,18 +1,22 @@
-/**
- * @fileoverview Define the WireIt.CanvasElement class
- */
 (function () {
    
    // Shortcuts
    var Event = YAHOO.util.Event, UA = YAHOO.env.ua;
 
    /**
-    * @class Create a canvas element and wrap cross-browser hacks to resize it
+    * Create a canvas element and wrap cross-browser hacks to resize it
+    * @class CanvasElement
+    * @namespace WireIt
     * @constructor
+    * @param {HTMLElement} parentNode The canvas tag will be append to this parent DOM node.
     */
    WireIt.CanvasElement = function(parentNode) {
       
-      // Create the canvas element
+      /**
+       * The canvas element
+       * @property element
+       * @type HTMLElement
+       */
       this.element = document.createElement('canvas');
       
       // Append to parentNode
@@ -29,6 +33,7 @@
       
       /**
        * Get a drawing context
+       * @method getContext
        * @param {String} [mode] Context mode (default "2d")
        * @return {CanvasContext} the context
        */
@@ -37,8 +42,9 @@
       },
       
       /**
-       * Set the canvas position and size 
-       * @function
+       * Set the canvas position and size.
+       * <b>Warning:</b> This method changes the <i>element</i> property under some brother. Don't copy references !
+       * @method SetCanvasRegion
        * @param {Number} left Left position
        * @param {Number} top Top position
        * @param {Number} width New width

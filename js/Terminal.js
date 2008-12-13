@@ -1,13 +1,12 @@
-/**
- * @fileoverview Terminals represent the end points of the "wires"
- */
 (function() {
 
    var Event = YAHOO.util.Event, lang = YAHOO.lang, Dom = YAHOO.util.Dom, CSS_PREFIX = "WireIt-";
 
 
    /**
-    * @class Scissors widget to cut wires
+    * Scissors widget to cut wires
+    * @class Scissors
+    * @namespace WireIt
     * @extends YAHOO.util.Element
     * @constructor
     * @param {WireIt.Terminal} terminal Associated terminal
@@ -16,15 +15,21 @@
    WireIt.Scissors = function(terminal, oConfigs) {
       WireIt.Scissors.superclass.constructor.call(this, document.createElement('div'), oConfigs);
 
+      /**
+       * The terminal it is associated to
+       * @property _terminal
+       * @type {WireIt.Terminal}
+       */
       this._terminal = terminal;
+      
       this.initScissors();
    };
-   lang.extend(WireIt.Scissors, YAHOO.util.Element, 
-      /**
-       * @scope WireIt.Scissors.prototype
-       */
-      {
+   lang.extend(WireIt.Scissors, YAHOO.util.Element, {
       
+      /**
+       * Init the scissors
+       * @method initScissors
+       */
       initScissors: function() {
          
          // Display the cut button
@@ -44,34 +49,48 @@
          Event.addListener(this._terminal.el, "mouseout", this.hide, this, true);
       },
       
+      /**
+       * @method setPosition
+       */
       setPosition: function() {
          var pos = this._terminal.getXY();
-         this.setStyle("left", (pos[0]+this._terminal.config.direction[0]*30-8)+"px");
-         this.setStyle("top", (pos[1]+this._terminal.config.direction[1]*30-8)+"px");
+         this.setStyle("left", (pos[0]+this._terminal.options.direction[0]*30-8)+"px");
+         this.setStyle("top", (pos[1]+this._terminal.options.direction[1]*30-8)+"px");
       },
-      
+      /**
+       * @method mouseOver
+       */
       mouseOver: function() {
          if(this._terminal.wires.length > 0)  {
             this.show();
          }
       },
 
+      /**
+       * @method scissorClick
+       */
       scissorClick: function() {
          this._terminal.removeAllWires();
          if(this.terminalTimeout) { this.terminalTimeout.cancel(); }
          this.hideNow();
       },   
-      
+      /**
+       * @method show
+       */
       show: function() {
          this.setPosition();
          this.setStyle('display','');
          if(this.terminalTimeout) { this.terminalTimeout.cancel(); }
       },
-      
+      /**
+       * @method hide
+       */
       hide: function() {
          this.terminalTimeout = lang.later(700,this,this.hideNow);
       },
-      
+      /**
+       * @method hideNow
+       */
       hideNow: function() {
          this.setStyle('display','none');
       }
@@ -84,13 +103,15 @@
    
    
 /**
- * @class This class is used for wire edition. It inherits from YAHOO.util.DDProxy and acts as a "temporary" Terminal.
+ * This class is used for wire edition. It inherits from YAHOO.util.DDProxy and acts as a "temporary" Terminal.
+ * @class TerminalProxy
+ * @namespace WireIt
  * @extends YAHOO.util.DDProxy
  * @constructor
  * @param {WireIt.Terminal} terminal Parent terminal
- * @param {Object} config Configuration object (see in properties for details)
+ * @param {Object} options Configuration object (see in properties for details)
  */
-WireIt.TerminalProxy = function(terminal, config) {
+WireIt.TerminalProxy = function(terminal, options) {
    
    /**
     * Reference to the terminal parent
@@ -100,12 +121,13 @@ WireIt.TerminalProxy = function(terminal, config) {
    /**
     * Object containing the configuration object
     * <ul>
-    *   <li>type: 'type' of this terminal. If no "allowedTypes" is specified in the config, the terminal will only connect to the same type of terminal</li>
+    *   <li>type: 'type' of this terminal. If no "allowedTypes" is specified in the options, the terminal will only connect to the same type of terminal</li>
     *   <li>allowedTypes: list of all the allowed types that we can connect to.</li>
     * </ul>
+    * @property termConfig
     */
    // WARNING: the object config cannot be called "config" because YAHOO.util.DDProxy already has a "config" property
-   this.termConfig = config || {};
+   this.termConfig = options || {};
    
    /**
     * Object that emulate a terminal which is following the mouse
@@ -119,24 +141,24 @@ WireIt.TerminalProxy = function(terminal, config) {
 // Mode Intersect to get the DD objects
 YAHOO.util.DDM.mode = YAHOO.util.DDM.INTERSECT;
 
-YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy,
-/**
- * @scope WireIt.TerminalProxy.prototype   
- */   
-{      
+YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
+   
+   /**
+    * @method startDrag
+    */
    startDrag: function() {
       
       // If only one wire admitted, we remove the previous wire
-      if(this.terminal.config.nMaxWires == 1 && this.terminal.wires.length == 1) {
+      if(this.terminal.options.nMaxWires == 1 && this.terminal.wires.length == 1) {
          this.terminal.wires[0].remove();
       }
       // If the number of wires is at its maximum, prevent editing...
-      else if(this.terminal.wires.length >= this.terminal.config.nMaxWires) {
+      else if(this.terminal.wires.length >= this.terminal.options.nMaxWires) {
          return;
       }
       
       this.fakeTerminal = {
-         config: {direction: this.terminal.config.fakeDirection},
+         options: {direction: this.terminal.options.fakeDirection},
          pos: [200,200], 
          addWire: function() {},
          removeWire: function() {},
@@ -149,10 +171,13 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy,
       if(this.terminal.container) {
          parentEl = this.terminal.container.layer.el;
       }
-      this.editingWire = new WireIt.Wire(this.terminal, this.fakeTerminal, parentEl, this.terminal.config.editingWireConfig);
+      this.editingWire = new WireIt.Wire(this.terminal, this.fakeTerminal, parentEl, this.terminal.options.editingWireConfig);
       Dom.addClass(this.editingWire.element, CSS_PREFIX+'Wire-editing');
    },
    
+   /**
+    * @method onDrag
+    */
    onDrag: function(e) {
       if(this.terminal.container) {
          var obj = this.terminal.container.layer.el;
@@ -174,6 +199,10 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy,
       this.editingWire.redraw();
    },
    
+   
+   /**
+    * @method endDrag
+    */
    endDrag: function(e) {
       if(this.editingWire) {
          this.editingWire.remove();
@@ -181,6 +210,9 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy,
       }
    },
    
+   /**
+    * @method onDragEnter
+    */
    onDragEnter: function(e,ddTargets) {
       for(var i = 0 ; i < ddTargets.length ; i++) {
          if( this.isValidWireTerminal(ddTargets[i]) ) {
@@ -189,6 +221,9 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy,
       }
    },
    
+   /**
+    * @method onDragOut
+    */
    onDragOut: function(e,ddTargets) { 
       for(var i = 0 ; i < ddTargets.length ; i++) {
          if( this.isValidWireTerminal(ddTargets[i]) ) {
@@ -197,6 +232,9 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy,
       }
    },
    
+   /**
+    * @method onDragDrop
+    */
    onDragDrop: function(e,ddTargets) {
       this.onDragOut(e,ddTargets);
       
@@ -241,20 +279,20 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy,
                }
                
                // Check the number of wires for this terminal
-               if( targetTerminalProxy.terminal.config.nMaxWires == 1) {
+               if( targetTerminalProxy.terminal.options.nMaxWires == 1) {
                   if(targetTerminalProxy.terminal.wires.length > 0) {
                      targetTerminalProxy.terminal.wires[0].remove();
                   }
                   
-                  var w = new WireIt.Wire(this.terminal, targetTerminalProxy.terminal, parentEl, this.terminal.config.wireConfig);
+                  var w = new WireIt.Wire(this.terminal, targetTerminalProxy.terminal, parentEl, this.terminal.options.wireConfig);
                   w.redraw();
                }
-               else if(targetTerminalProxy.terminal.wires.length < targetTerminalProxy.terminal.config.nMaxWires) {
-                  var w = new WireIt.Wire(this.terminal, targetTerminalProxy.terminal, parentEl, this.terminal.config.wireConfig);
+               else if(targetTerminalProxy.terminal.wires.length < targetTerminalProxy.terminal.options.nMaxWires) {
+                  var w = new WireIt.Wire(this.terminal, targetTerminalProxy.terminal, parentEl, this.terminal.options.wireConfig);
                   w.redraw();
                }
                else {
-                  //console.log("Cannot connect to this terminal: nMaxWires = ", ddTargets[0].terminal.config.nMaxWires);
+                  //console.log("Cannot connect to this terminal: nMaxWires = ", ddTargets[0].terminal.options.nMaxWires);
                }
             }
             else {
@@ -266,9 +304,13 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy,
    },
    
    
-   // Distinct from other YAHOO.util.DragDrop objects
+   // to distinct from other YAHOO.util.DragDrop objects
    isWireItTerminal: true,
    
+   
+   /**
+    * @method isValidWireTerminal
+    */
    isValidWireTerminal: function(DDterminal) {
       
       if( !DDterminal.isWireItTerminal ) {
@@ -309,71 +351,58 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy,
 
 
    
-
 /**
- * @class WireIt.Terminal
+ * Terminals represent the end points of the "wires"
+ * @class Terminal
  * @constructor
- * @param {DomEl} parentEl Element that will contain the terminal
- * @param {Object} config Configuration object
+ * @param {HTMLElement} parentEl Element that will contain the terminal
+ * @param {Object} options Configuration object
  * @param {WireIt.Container} container (Optional) Container containing this terminal
  */
-WireIt.Terminal = function(parentEl, config, container) {
+WireIt.Terminal = function(parentEl, options, container) {
    
    /**
     * DOM parent element
+    * @property parentEl
+    * @type {HTMLElement}
     */
    this.parentEl = parentEl;
    
    /**
     * Container (optional). Parent container of this terminal
+    * @property container
+    * @type {WireIt.Container}
     */
    this.container = container;
    
    /**
     * List of the associated wires
+    * @property wires
+    * @type {Array}
     */
     this.wires = [];
    
-   /**
-    * <p>Object that contains the terminal configuration:</p>
-    * 
-    * <ul>
-    *   <li><b>direction</b>: direction vector of the wires when connected to this terminal (default [0,1])</li>
-    *   <li><b>fakeDirection</b>: direction vector of the "editing" wire when it started from this terminal (default to -direction)</li>
-    *   <li><b>editable</b>: boolean that makes the terminal editable (default to true)</li>
-    *   <li><b>nMaxWires</b>: maximum number of wires for this terminal (default to Infinity)</li>
-    *   <li><b>offsetPosition</b>: offset position from the parentEl position (default to [0,0])</li>
-    *   <li><b>ddConfig</b>: configuration of the WireIt.TerminalProxy object (only if editable)</li>
-    *   <li><b>className</b>: CSS class name of the terminal (default to "WireIt-Terminal")</li>
-    *   <li><b>connectedClassName</b>: CSS class added to the terminal when it is connected (default to "WireIt-Terminal-connected")</li>
-    *   <li><b>dropinviteClassName</b>: CSS class added for drop invitation (default to "WireIt-Terminal-dropinvite")</li>
-    * </ul>
-    */  
-   this.config = config || {};
-   this.config.direction = this.config.direction || [0,1];
-   this.config.fakeDirection = this.config.fakeDirection || [-this.config.direction[0],-this.config.direction[1]];
-   this.config.className = this.config.className || CSS_PREFIX+'Terminal';
-   this.config.connectedClassName = this.config.connectedClassName || CSS_PREFIX+'Terminal-connected';
-   this.config.dropinviteClassName = this.config.dropinviteClassName || CSS_PREFIX+'Terminal-dropinvite';
-   this.config.editable = YAHOO.lang.isUndefined(this.config.editable) ? true : this.config.editable;
-   this.config.nMaxWires = this.config.nMaxWires || Infinity;
-   this.config.wireConfig = this.config.wireConfig || {};
-   this.config.editingWireConfig = this.config.editingWireConfig || this.config.wireConfig;
+   
+   this.setOptions(options);
    
    /**
     * Event that is fired when a wire is added
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+    * @event eventAddWire
     */
    this.eventAddWire = new YAHOO.util.CustomEvent("eventAddWire");
    
    /**
     * Event that is fired when a wire is removed
     * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+    * @event eventRemoveWire
     */
    this.eventRemoveWire = new YAHOO.util.CustomEvent("eventRemoveWire");
    
    /**
     * DIV dom element that will display the Terminal
+    * @property el
+    * @type {HTMLElement}
     */
    this.el = null;
    
@@ -381,40 +410,77 @@ WireIt.Terminal = function(parentEl, config, container) {
    this.render();
    
    // Create the TerminalProxy object to make the terminal editable
-   if(this.config.editable) {
-      this.dd = new WireIt.TerminalProxy(this, this.config.ddConfig);
+   if(this.options.editable) {
+      this.dd = new WireIt.TerminalProxy(this, this.options.ddConfig);
       this.scissors = new WireIt.Scissors(this);
    }
 };
 
 WireIt.Terminal.prototype = {
+   
+   /**
+    * @method setOptions
+    * @param {Object} options
+    */
+   setOptions: function(options) {
+      
+      /**
+       * <p>Object that contains the terminal configuration:</p>
+       * 
+       * <ul>
+       *   <li><b>direction</b>: direction vector of the wires when connected to this terminal (default [0,1])</li>
+       *   <li><b>fakeDirection</b>: direction vector of the "editing" wire when it started from this terminal (default to -direction)</li>
+       *   <li><b>editable</b>: boolean that makes the terminal editable (default to true)</li>
+       *   <li><b>nMaxWires</b>: maximum number of wires for this terminal (default to Infinity)</li>
+       *   <li><b>offsetPosition</b>: offset position from the parentEl position (default to [0,0])</li>
+       *   <li><b>ddConfig</b>: configuration of the WireIt.TerminalProxy object (only if editable)</li>
+       *   <li><b>className</b>: CSS class name of the terminal (default to "WireIt-Terminal")</li>
+       *   <li><b>connectedClassName</b>: CSS class added to the terminal when it is connected (default to "WireIt-Terminal-connected")</li>
+       *   <li><b>dropinviteClassName</b>: CSS class added for drop invitation (default to "WireIt-Terminal-dropinvite")</li>
+       * </ul>
+       * @property options
+       */  
+      this.options = {};
+      this.options.direction = options.direction || [0,1];
+      this.options.fakeDirection = options.fakeDirection || [-this.options.direction[0],-this.options.direction[1]];
+      this.options.className = options.className || CSS_PREFIX+'Terminal';
+      this.options.connectedClassName = options.connectedClassName || CSS_PREFIX+'Terminal-connected';
+      this.options.dropinviteClassName = options.dropinviteClassName || CSS_PREFIX+'Terminal-dropinvite';
+      this.options.editable = YAHOO.lang.isUndefined(options.editable) ? true : options.editable;
+      this.options.nMaxWires = options.nMaxWires || Infinity;
+      this.options.wireConfig = options.wireConfig || {};
+      this.options.editingWireConfig = options.editingWireConfig || this.options.wireConfig;
+      this.options.offsetPosition = options.offsetPosition;
+   },
 
    /**
-    * Show or hide the drop invitation. (by adding/removing this.config.dropinviteClassName CSS class)
+    * Show or hide the drop invitation. (by adding/removing this.options.dropinviteClassName CSS class)
+    * @method setDropInvitation
     * @param {Boolean} display Show the invitation if true, hide it otherwise
     */
    setDropInvitation: function(display) {
       if(display) {
-         Dom.addClass(this.el, this.config.dropinviteClassName);
+         Dom.addClass(this.el, this.options.dropinviteClassName);
       }
       else {
-         Dom.removeClass(this.el, this.config.dropinviteClassName);
+         Dom.removeClass(this.el, this.options.dropinviteClassName);
       }
    },
 
    /**
     * Render the DOM of the terminal
+    * @method render
     */
    render: function() {
    
       // Create the DIV element
-      this.el = WireIt.cn('div', {className: this.config.className} );
-      if(this.config.name) { this.el.title = this.config.name; }
+      this.el = WireIt.cn('div', {className: this.options.className} );
+      if(this.options.name) { this.el.title = this.options.name; }
    
       // Set the offset position
-      if(this.config.offsetPosition) {
-         this.el.style.left = this.config.offsetPosition[0]+"px";
-         this.el.style.top = this.config.offsetPosition[1]+"px";
+      if(this.options.offsetPosition) {
+         this.el.style.left = this.options.offsetPosition[0]+"px";
+         this.el.style.top = this.options.offsetPosition[1]+"px";
       }
    
       // Append the element to the parent
@@ -424,6 +490,7 @@ WireIt.Terminal.prototype = {
 
    /**
     * Add a wire to this terminal.
+    * @method addWire
     * @param {WireIt.Wire} wire Wire instance to add
     */
    addWire: function(wire) {
@@ -432,7 +499,7 @@ WireIt.Terminal.prototype = {
       this.wires.push(wire);
    
       // Set class indicating that the wire is connected
-      Dom.addClass(this.el, this.config.connectedClassName);
+      Dom.addClass(this.el, this.options.connectedClassName);
    
       // Fire the event
       this.eventAddWire.fire(wire);
@@ -440,6 +507,7 @@ WireIt.Terminal.prototype = {
 
    /**
     * Remove a wire
+    * @method removeWire
     * @param {WireIt.Wire} wire Wire instance to remove
     */
    removeWire: function(wire) {
@@ -450,7 +518,7 @@ WireIt.Terminal.prototype = {
       
          // Remove the connected class if it has no more wires:
          if(this.wires.length == 0) {
-            Dom.removeClass(this.el, this.config.connectedClassName);
+            Dom.removeClass(this.el, this.options.connectedClassName);
          }
       
          // Fire the event
@@ -462,6 +530,7 @@ WireIt.Terminal.prototype = {
    /**
     * This function is a temporary test. I added the border width while traversing the DOM and
     * I calculated the offset to center the wire in the terminal just after its creation
+    * @method getXY
     */
    getXY: function() {
    
@@ -484,6 +553,7 @@ WireIt.Terminal.prototype = {
 
    /**
     * Remove the terminal from the DOM
+    * @method remove
     */
    remove: function() {
       // This isn't very nice but...
@@ -507,6 +577,7 @@ WireIt.Terminal.prototype = {
 
    /**
     * Returns a list of all the terminals connecter to this terminal through its wires.
+    * @method getConnectedTerminals
     * @return  {Array}  List of all connected terminals
     */
    getConnectedTerminals: function() {
@@ -522,6 +593,7 @@ WireIt.Terminal.prototype = {
 
    /**
     * Redraw all the wires connected to this terminal
+    * @method redrawAllWires
     */
    redrawAllWires: function() {
       if(this.wires) {
@@ -533,6 +605,7 @@ WireIt.Terminal.prototype = {
    
    /** 
     * Remove all wires
+    * @method removeAllWires
     */
    removeAllWires: function() {
       while(this.wires.length > 0) {
@@ -547,22 +620,33 @@ WireIt.Terminal.prototype = {
   * @class WireIt.util.TerminalInput
   * @extends WireIt.Terminal
   * @constructor
-  * @param {DOMEl} parentEl Parent dom element
-  * @param {Object} config configuration object
+  * @param {HTMLElement} parentEl Parent dom element
+  * @param {Object} options configuration object
   * @param {WireIt.Container} container (Optional) Container containing this terminal
   */
-WireIt.util.TerminalInput = function(parentEl, config, container) {
-   if(!config) { var config = {}; }
-   config.direction = [0,-1];
-   config.fakeDirection = [0,1];
-   config.ddConfig = {
-      type: "input",
-      allowedTypes: ["output"]
-   };
-   config.nMaxWires = 1;
-   WireIt.util.TerminalInput.superclass.constructor.call(this,parentEl, config, container);
+WireIt.util.TerminalInput = function(parentEl, options, container) {
+   WireIt.util.TerminalInput.superclass.constructor.call(this,parentEl, options, container);
 };
-YAHOO.extend(WireIt.util.TerminalInput, WireIt.Terminal);
+YAHOO.extend(WireIt.util.TerminalInput, WireIt.Terminal, {
+   
+   /**
+    * Override setOptions to add the default options for TerminalInput
+    * @method setOptions
+    */
+   setOptions: function(options) {
+      
+      WireIt.util.TerminalInput.superclass.setOptions.call(this,options);
+      
+      this.options.direction = options.direction || [0,-1];
+      this.options.fakeDirection = options.fakeDirection || [0,1];
+      this.options.ddConfig = {
+         type: "input",
+         allowedTypes: ["output"]
+      };
+      this.options.nMaxWires = options.nMaxWires || 1;
+   }
+   
+});
 
 
 
@@ -572,21 +656,32 @@ YAHOO.extend(WireIt.util.TerminalInput, WireIt.Terminal);
   * @class WireIt.util.TerminalOutput
   * @extends WireIt.Terminal
   * @constructor
-  * @param {DOMEl} parentEl Parent dom element
-  * @param {Object} config configuration object
+  * @param {HTMLElement} parentEl Parent dom element
+  * @param {Object} options configuration object
   * @param {WireIt.Container} container (Optional) Container containing this terminal
   */
-WireIt.util.TerminalOutput = function(parentEl, config, container) {
-  if(!config) { var config = {}; }
-   config.direction = [0,1];
-   config.fakeDirection = [0,-1];
-   config.ddConfig = {
-      type: "output",
-      allowedTypes: ["input"]
-   };
-   WireIt.util.TerminalOutput.superclass.constructor.call(this,parentEl, config, container);
+WireIt.util.TerminalOutput = function(parentEl, options, container) {
+   WireIt.util.TerminalOutput.superclass.constructor.call(this,parentEl, options, container);
 };
-YAHOO.extend(WireIt.util.TerminalOutput, WireIt.Terminal);
+YAHOO.extend(WireIt.util.TerminalOutput, WireIt.Terminal, {
+   
+   /**
+    * Override setOptions to add the default options for TerminalOutput
+    * @method setOptions
+    */
+   setOptions: function(options) {
+      
+      WireIt.util.TerminalOutput.superclass.setOptions.call(this,options);
+      
+      this.options.direction = options.direction || [0,1];
+      this.options.fakeDirection = options.fakeDirection || [0,-1];
+      this.options.ddConfig = {
+          type: "output",
+          allowedTypes: ["input"]
+       };
+   }
+   
+});
 
 
 })();

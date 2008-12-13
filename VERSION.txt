@@ -1,10 +1,10 @@
 
 To get the latest version, please visit http://javascript.neyric.com/wireit
------------------------------------------------------
+---------------------------------------------------------------------------
 
 
-Version 0.3.1
-october ?, 2008
+Version 0.4.0
+december ?, 2008
 
 TODO: 
 

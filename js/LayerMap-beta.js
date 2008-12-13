@@ -1,31 +1,14 @@
 /**
- * @class Widget to display a minimap on a layer (beta)
+ * Widget to display a minimap on a layer (beta)
+ * @class LayerMap
+ * @namespace WireIt
  * @extends WireIt.CanvasElement
  * @constructor
  * @param  {Obj} options configuration object
  */
 WireIt.LayerMap = function(options) {
    
-   /**
-    * Options:
-    * <ul>
-    *    <li>layer: the layer object it is attached to</li>
-    *    <li>className: default to "WireIt-LayerMap"</li>
-    *    <li>style: display style, default to "rgba(0, 0, 200, 0.5)"</li>
-    *    <li>ratio: (warning, this might get removed in futur versions)</li>
-    *    <li>lineWidth: default 2</li>
-    *    <li>width: default 250</li>
-    *    <li>height: default 150</li>
-    * </ul>
-    */
-   this.options = options || {};
-   this.layer = this.options.layer;
-   this.options.className = this.options.className || "WireIt-LayerMap";
-   this.options.style = this.options.style || "rgba(0, 0, 200, 0.5)";
-   this.options.ratio = this.options.ratio || 0.1;
-   this.options.lineWidth = this.options.lineWidth || 2;
-   this.options.width = this.options.width || 250;
-   this.options.height = this.options.height || 150;
+   this.setOptions(options);
    
    // Create the canvas element
    WireIt.LayerMap.superclass.constructor.call(this, this.layer.el);
@@ -42,13 +25,40 @@ WireIt.LayerMap = function(options) {
    this.draw();
 };
 
-YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, 
-/**
- * @scope WireIt.LayerMap.prototype   
- */   
-{
+YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
+   
+   /**
+    * @method setOptions
+    * @param {Object} options
+    */
+   setOptions: function(options) {
+      /**
+       * Options:
+       * <ul>
+       *    <li>layer: the layer object it is attached to</li>
+       *    <li>className: default to "WireIt-LayerMap"</li>
+       *    <li>style: display style, default to "rgba(0, 0, 200, 0.5)"</li>
+       *    <li>ratio: (warning, this might get removed in futur versions)</li>
+       *    <li>lineWidth: default 2</li>
+       *    <li>width: default 250</li>
+       *    <li>height: default 150</li>
+       * </ul>
+       * @property options
+       */
+      this.options = {};
+      this.layer = options.layer;
+      this.options.className = options.className || "WireIt-LayerMap";
+      this.options.style = options.style || "rgba(0, 0, 200, 0.5)";
+      this.options.ratio = options.ratio || 0.1;
+      this.options.lineWidth = options.lineWidth || 2;
+      this.options.width = options.width || 250;
+      this.options.height = options.height || 150;
+   },
+   
+   
    /**
     * Listen for various events that should redraw the layer map
+    * @method initEvents
     */
    initEvents: function() {
       YAHOO.util.Event.addListener(this.element, 'click', this.onClick, this, true);
@@ -65,6 +75,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement,
    
    /**
     * When a click event is received
+    * @method onClick
     * @param {Event} e Original event
     * @param {Array} args event parameters
     */
@@ -75,6 +86,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement,
    
    /**
     * Redraw the layer map
+    * @method draw
     */
    draw: function() {
       var ctxt=this.getContext();

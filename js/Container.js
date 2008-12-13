@@ -1,88 +1,66 @@
-/**
- * @fileoverview This class represents the module and contains multiple terminals.
- */
 (function() {
    
    var Dom = YAHOO.util.Dom, Event = YAHOO.util.Event, CSS_PREFIX = "WireIt-";
    
 /**
- * @class Visual module that contains terminals. The wires are updated when the module is dragged around.
+ * Visual module that contains terminals. The wires are updated when the module is dragged around.
+ * @class Container
+ * @namespace WireIt
  * @constructor
- * @param {Object}   config      Configuration object (see properties)
+ * @param {Object}   options      Configuration object (see properties)
  * @param {WireIt.Layer}   layer The WireIt.Layer (or subclass) instance that contains this container
  */
-WireIt.Container = function(config, layer) {
+WireIt.Container = function(options, layer) {
    
-   /**
-    * Main config object
-    * <ul>
-    *    <li>terminals: list of the terminals configuration</li>
-    *    <li>draggable: boolean that enables drag'n drop on this container (default: true)</li>
-    *    <li>className: CSS class name for the container element (default 'WireIt-Container')</li>
-    *    <li>position: initial position of the container</li>
-    *    <li>ddHandle: (only if draggable) boolean indicating we use a handle for drag'n drop (default true)</li>
-    *    <li>ddHandleClassName: CSS class name for the drag'n drop handle (default 'WireIt-Container-ddhandle')</li>
-    *    <li>resizable: boolean that makes the container resizable (default true)</li>
-    *    <li>resizeHandleClassName: CSS class name for the resize handle (default 'WireIt-Container-resizehandle')</li>
-    *    <li>width: initial width of the container (no default so it autoadjusts to the content)</li>
-    *    <li>height: initial height of the container (default 100)</li>
-    *    <li>close: display a button to close the container (default true)</li>
-    *    <li>closeButtonClassName: CSS class name for the close button (default "WireIt-Container-closebutton")</li>
-    *    <li>title</li>
-    * </ul>
-    */
-   this.config = config || {};
-   this.config.terminals = this.config.terminals || [];
-   this.config.draggable = (typeof this.config.draggable == "undefined") ? true : this.config.draggable ;
-   this.config.position = this.config.position || [100,100];
-   this.config.className = this.config.className || CSS_PREFIX+'Container';
-   
-   this.config.ddHandle = (typeof this.config.ddHandle == "undefined") ? true : this.config.ddHandle;
-   this.config.ddHandleClassName = this.config.ddHandleClassName || CSS_PREFIX+"Container-ddhandle";
-   
-   this.config.resizable = (typeof this.config.resizable == "undefined") ? true : this.config.resizable;
-   this.config.resizeHandleClassName = this.config.resizeHandleClassName || CSS_PREFIX+"Container-resizehandle";
-   
-   this.config.width = this.config.width; // no default
-   this.config.height = this.config.height;// || 100;
-   
-   this.config.close = (typeof this.config.close == "undefined") ? true : this.config.close;
-   this.config.closeButtonClassName = this.config.closeButtonClassName || CSS_PREFIX+"Container-closebutton";
+   // Set the options
+   this.setOptions(options);
    
    /**
     * the WireIt.Layer object that schould contain this container
+    * @property layer
+    * @type {WireIt.Layer}
     */
    this.layer = layer;
    
    /**
-    * List of the terminals
+    * List of the terminals 
+    * @property terminals
+    * @type {Array}
     */
    this.terminals = [];
    
    /**
     * List of all the wires connected to this container terminals
+    * @property wires
+    * @type {Array}
     */
    this.wires = [];
    
    /**
     * Container DOM element
+    * @property el
+    * @type {HTMLElement}
     */
    this.el = null;
    
    /**
     * Body element
+    * @property bodyEl
+    * @type {HTMLElement}
     */
    this.bodyEl = null;
    
    /**
     * Event that is fired when a wire is added
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+    * @event eventAddWire
     */
    this.eventAddWire = new YAHOO.util.CustomEvent("eventAddWire");
    
    /**
     * Event that is fired when a wire is removed
     * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+    * @event eventRemoveWire
     */
    this.eventRemoveWire = new YAHOO.util.CustomEvent("eventRemoveWire");
    
@@ -90,12 +68,12 @@ WireIt.Container = function(config, layer) {
    this.render();
    
    // Init the terminals
-   this.initTerminals( this.config.terminals);
+   this.initTerminals( this.options.terminals);
    
 	// Make the container draggable
-	if(this.config.draggable) {
+	if(this.options.draggable) {
 		   
-	   if(this.config.resizable) {
+	   if(this.options.resizable) {
       	// Make resizeable   
       	this.ddResize = new WireIt.util.DDResize(this);
       	this.ddResize.eventResize.subscribe(this.onResize, this, true);
@@ -105,12 +83,12 @@ WireIt.Container = function(config, layer) {
 	   this.dd = new WireIt.util.DD(this.terminals,this.el);
 	   
 	   // Sets ddHandle as the drag'n drop handle
-	   if(this.config.ddHandle) {
+	   if(this.options.ddHandle) {
    	   this.dd.setHandleElId(this.ddHandle);
 	   }
 	   
 	   // Mark the resize handle as an invalid drag'n drop handle and vice versa
-	   if(this.config.resizable) {
+	   if(this.options.resizable) {
    	   this.dd.addInvalidHandleId(this.ddResizeHandle);
       	this.ddResize.addInvalidHandleId(this.ddHandle);
 	   }
@@ -119,10 +97,56 @@ WireIt.Container = function(config, layer) {
 };
 
 WireIt.Container.prototype = {
+   
+   /**
+    *
+    */
+   setOptions: function(options) {
+      
+      /**
+       * Main options object
+       * <ul>
+       *    <li>terminals: list of the terminals configuration</li>
+       *    <li>draggable: boolean that enables drag'n drop on this container (default: true)</li>
+       *    <li>className: CSS class name for the container element (default 'WireIt-Container')</li>
+       *    <li>position: initial position of the container</li>
+       *    <li>ddHandle: (only if draggable) boolean indicating we use a handle for drag'n drop (default true)</li>
+       *    <li>ddHandleClassName: CSS class name for the drag'n drop handle (default 'WireIt-Container-ddhandle')</li>
+       *    <li>resizable: boolean that makes the container resizable (default true)</li>
+       *    <li>resizeHandleClassName: CSS class name for the resize handle (default 'WireIt-Container-resizehandle')</li>
+       *    <li>width: initial width of the container (no default so it autoadjusts to the content)</li>
+       *    <li>height: initial height of the container (default 100)</li>
+       *    <li>close: display a button to close the container (default true)</li>
+       *    <li>closeButtonClassName: CSS class name for the close button (default "WireIt-Container-closebutton")</li>
+       *    <li>title</li>
+       * </ul>
+       * @property options
+       * @type {Object}
+       */
+      this.options = {};
+      this.options.terminals = options.terminals || [];
+      this.options.draggable = (typeof options.draggable == "undefined") ? true : options.draggable ;
+      this.options.position = options.position || [100,100];
+      this.options.className = options.className || CSS_PREFIX+'Container';
+
+      this.options.ddHandle = (typeof options.ddHandle == "undefined") ? true : options.ddHandle;
+      this.options.ddHandleClassName = options.ddHandleClassName || CSS_PREFIX+"Container-ddhandle";
+
+      this.options.resizable = (typeof options.resizable == "undefined") ? true : options.resizable;
+      this.options.resizeHandleClassName = options.resizeHandleClassName || CSS_PREFIX+"Container-resizehandle";
+
+      this.options.width = options.width; // no default
+      this.options.height = options.height;
+
+      this.options.close = (typeof options.close == "undefined") ? true : options.close;
+      this.options.closeButtonClassName = options.closeButtonClassName || CSS_PREFIX+"Container-closebutton";
+
+   },
 
    /**
     * Function called when the container is being resized.
     * It doesn't do anything, so please override it.
+    * @method onResize
     */
    onResize: function(event, args) {
       var size = args[0];
@@ -131,30 +155,31 @@ WireIt.Container.prototype = {
 
    /**
     * Render the dom of the container
+    * @method render
     */
    render: function() {
    
       // Create the element
-      this.el = WireIt.cn('div', {className: this.config.className});
+      this.el = WireIt.cn('div', {className: this.options.className});
    
-      if(this.config.width) {
-         this.el.style.width = this.config.width+"px";
+      if(this.options.width) {
+         this.el.style.width = this.options.width+"px";
       }
-      if(this.config.height) {
-         this.el.style.height = this.config.height+"px";
+      if(this.options.height) {
+         this.el.style.height = this.options.height+"px";
       }
    
       // Adds a handler for mousedown so we can notice the layer
       Event.addListener(this.el, "mousedown", this.onMouseDown, this, true);
    
-      if(this.config.ddHandle) {
+      if(this.options.ddHandle) {
          // Create the drag/drop handle
-      	this.ddHandle = WireIt.cn('div', {className: this.config.ddHandleClassName});
+      	this.ddHandle = WireIt.cn('div', {className: this.options.ddHandleClassName});
       	this.el.appendChild(this.ddHandle);
       	
          // Set title
-         if(this.config.title) {
-            this.ddHandle.appendChild( WireIt.cn('span', null, null, this.config.title) );
+         if(this.options.title) {
+            this.ddHandle.appendChild( WireIt.cn('span', null, null, this.options.title) );
          }
       }
    
@@ -162,15 +187,15 @@ WireIt.Container.prototype = {
       this.bodyEl = WireIt.cn('div', {className: "body"});
       this.el.appendChild(this.bodyEl);
    
-      if(this.config.resizable) {
+      if(this.options.resizable) {
          // Create the resize handle
-      	this.ddResizeHandle = WireIt.cn('div', {className: this.config.resizeHandleClassName} );
+      	this.ddResizeHandle = WireIt.cn('div', {className: this.options.resizeHandleClassName} );
       	this.el.appendChild(this.ddResizeHandle);
       }
    
-      if(this.config.close) {
+      if(this.options.close) {
          // Close button
-         this.closeButton = WireIt.cn('div', {className: this.config.closeButtonClassName} );
+         this.closeButton = WireIt.cn('div', {className: this.options.closeButtonClassName} );
          this.el.appendChild(this.closeButton);
          Event.addListener(this.closeButton, "click", this.onCloseButton, this, true);
       }
@@ -179,13 +204,14 @@ WireIt.Container.prototype = {
       this.layer.el.appendChild(this.el);
    
    	// Set the position
-   	this.el.style.left = this.config.position[0]+"px";
-   	this.el.style.top = this.config.position[1]+"px";
+   	this.el.style.left = this.options.position[0]+"px";
+   	this.el.style.top = this.options.position[1]+"px";
    },
 
    /**
     * Sets the content of the body element
-    * @param {String or DomEl} content
+    * @method setBody
+    * @param {String or HTMLElement} content
     */
    setBody: function(content) {
       if(typeof content == "string") {
@@ -199,6 +225,7 @@ WireIt.Container.prototype = {
 
    /**
     * Called when the user made a mouse down on the container and sets the focus to this container (only if within a Layer)
+    * @method onMouseDown
     */
    onMouseDown: function() {
       if(this.layer) {
@@ -212,6 +239,7 @@ WireIt.Container.prototype = {
 
    /**
     * Adds the class that shows the container as "focused"
+    * @method setFocus
     */
    setFocus: function() {
       Dom.addClass(this.el, CSS_PREFIX+"Container-focused");
@@ -219,6 +247,7 @@ WireIt.Container.prototype = {
 
    /**
     * Remove the class that shows the container as "focused"
+    * @method removeFocus
     */
    removeFocus: function() {
       Dom.removeClass(this.el, CSS_PREFIX+"Container-focused");
@@ -226,6 +255,7 @@ WireIt.Container.prototype = {
 
    /**
     * Called when the user clicked on the close button
+    * @method onCloseButton
     */
    onCloseButton: function(e, args) {
       Event.stopEvent(e);
@@ -234,6 +264,7 @@ WireIt.Container.prototype = {
 
    /**
     * Remove this container from the dom
+    * @method remove
     */
    remove: function() {
    
@@ -250,6 +281,7 @@ WireIt.Container.prototype = {
 
    /**
     * Call the addTerminal method for each terminal configuration.
+    * @method initTerminals
     */
    initTerminals: function(terminalConfigs) {
       for(var i = 0 ; i < terminalConfigs.length ; i++) {
@@ -260,6 +292,7 @@ WireIt.Container.prototype = {
 
    /**
     * Instanciate the terminal from the class pointer "xtype" (default WireIt.Terminal)
+    * @method addTerminal
     * @return {WireIt.Terminal}  terminal Created terminal
     */
    addTerminal: function(terminalConfig) {
@@ -282,6 +315,7 @@ WireIt.Container.prototype = {
 
    /**
     * This method is called when a wire is added to one of the terminals
+    * @method onAddWire
     * @param {Event} event The eventAddWire event fired by the terminal
     * @param {Array} args This array contains a single element args[0] which is the added Wire instance
     */
@@ -296,6 +330,7 @@ WireIt.Container.prototype = {
 
    /**
     * This method is called when a wire is removed from one of the terminals
+    * @method onRemoveWire
     * @param {Event} event The eventRemoveWire event fired by the terminal
     * @param {Array} args This array contains a single element args[0] which is the removed Wire instance
     */
@@ -311,6 +346,7 @@ WireIt.Container.prototype = {
 
    /**
     * Remove all terminals
+    * @method removeAllTerminals
     */
    removeAllTerminals: function() {
       for(var i = 0 ; i < this.terminals.length ; i++) {
@@ -321,6 +357,7 @@ WireIt.Container.prototype = {
 
    /**
     * Redraw all the wires connected to the terminals of this container
+    * @method redrawAllTerminals
     */
    redrawAllWires: function() {
       for(var i = 0 ; i < this.terminals.length ; i++) {
@@ -330,6 +367,7 @@ WireIt.Container.prototype = {
 
    /**
     * Return the config of this container.
+    * @method getConfig
     */
    getConfig: function() {
       var obj = {};
@@ -343,8 +381,8 @@ WireIt.Container.prototype = {
       }
    
       // xtype
-      if(this.config.xtype) {
-         obj.xtype = this.config.xtype;
+      if(this.options.xtype) {
+         obj.xtype = this.options.xtype;
       }
    
       return obj;

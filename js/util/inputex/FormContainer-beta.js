@@ -1,32 +1,47 @@
-   
 /**
- * @class Class used to build a container with inputEx forms
+ * Class used to build a container with inputEx forms
+ * @class FormContainer
+ * @namespace WireIt
  * @extends WireIt.Container
  * @constructor
- * @param {Object}   config      Configuration object (see properties)
+ * @param {Object}   options  Configuration object (see properties)
  * @param {WireIt.Layer}   layer The WireIt.Layer (or subclass) instance that contains this container
  */
-WireIt.FormContainer = function(config, layer) {
-   WireIt.FormContainer.superclass.constructor.call(this, config, layer);
+WireIt.FormContainer = function(options, layer) {
+   WireIt.FormContainer.superclass.constructor.call(this, options, layer);
 };
 
-YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, 
-/**
- * @scope WireIt.FormContainer
- */
-{
+YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
+   
+   /**
+    * @method setOptions
+    */
+   setOptions: function(options) {
+      WireIt.FormContainer.superclass.setOptions.call(this, options);
+      
+      this.options.legend = options.legend; 
+      this.options.fields = options.fields;
+   },
+   
+   /**
+    * The render method is overrided to call renderForm
+    * @method render
+    */
    render: function() {
       WireIt.FormContainer.superclass.render.call(this);
       this.renderForm();
    },
    
+   /**
+    * Render the form
+    * @method renderForm
+    */
    renderForm: function() {
-      for(var i = 0 ; i < this.config.fields.length ; i++) {
-         this.config.fields[i].inputParams.container = this;
+      for(var i = 0 ; i < this.options.fields.length ; i++) {
+         this.options.fields[i].inputParams.container = this;
       }
-      var groupParams = {parentEl: this.bodyEl, fields: this.config.fields, legend: this.config.legend};
+      var groupParams = {parentEl: this.bodyEl, fields: this.options.fields, legend: this.options.legend};
       this.form = new YAHOO.inputEx.Group(groupParams);
    }
    
 });
-
