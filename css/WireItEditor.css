@@ -51,21 +51,21 @@
 }
 
 #WiringEditor-saveButton button {
- background:transparent url(icons/database_save.png) no-repeat scroll 10% 50%;
+ background:transparent url(../images/icons/database_save.png) no-repeat scroll 10% 50%;
 
 }
 #WiringEditor-deleteButton button {
- background:transparent url(icons/delete.png) no-repeat scroll 10% 50%;
+ background:transparent url(../images/icons/delete.png) no-repeat scroll 10% 50%;
 }
 
 #WiringEditor-newButton button {
- background:transparent url(icons/add.png) no-repeat scroll 10% 50%;
+ background:transparent url(../images/icons/add.png) no-repeat scroll 10% 50%;
 }
 
 #WiringEditor-loadButton button {
- background:transparent url(icons/application_go.png) no-repeat scroll 10% 50%;
+ background:transparent url(../images/icons/application_go.png) no-repeat scroll 10% 50%;
 }
 
 #WiringEditor-helpButton button {
- background:transparent url(icons/help.png) no-repeat scroll 10% 50%;
+ background:transparent url(../images/icons/help.png) no-repeat scroll 10% 50%;
 }

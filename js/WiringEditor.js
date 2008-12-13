@@ -145,32 +145,20 @@ WireIt.WiringEditor.prototype = {
   * @method loadModulesSuccess
   */
  loadModulesSuccess: function(o) {
-    //var modules,evaledModule;
-
     // Evaluating http response
     try {
-       this.modules = eval('('+o.responseText+')');   
+       /**
+        * @property modules
+        */
+       this.modules = YAHOO.lang.JSON.parse(o.responseText);
     }
     catch(ex) {
        console.log("Error while javascript evaluation of loadModules results : ", ex);
        return;
     }
-
-    // Evaluating each module and index them by path
-    /*for(var i = 0 ; i < modules.length ; i++) {
-       try {
-          evaledModule = eval('('+modules[i].json+')');
-          this.modules[modules[i].path] = evaledModule;
-       }
-       catch(ex) {
-          console.log("Error while evaluating module '"+modules[i].path+"' : ", ex);
-       }
-    }*/
-    
     
     // Build module list
     this.buildModulesList();
-
  },
 
  /**
@@ -203,7 +191,7 @@ WireIt.WiringEditor.prototype = {
   * @method saveModuleSuccess
   */
  saveModuleSuccess: function(o) {
-
+    alert("Saved !");
  },
 
  /**
@@ -215,26 +203,23 @@ WireIt.WiringEditor.prototype = {
  },
 
 
-
-
-
  /**
-  * Create a help panel with an iframe to ./help.htmlx
+  * Create a help panel
   * @method onHelp
   */
  onHelp: function() {
-    /*if( !this.helpPanel) {
+      if( !this.helpPanel) {
        this.helpPanel = new widget.Panel('dfly-helpPanel', {
           draggable: true,
           width: '500px',
           visible: false
        });
-       this.helpPanel.setBody("<iframe src='help.html' style='width: 100%; border: 0;'/>");
+       this.helpPanel.setBody("<p>Some help here</p>");
        this.helpPanel.setHeader("You asked for some help ?");
        this.helpPanel.render(document.body);
        this.helpPanel.center();
     }
-    this.helpPanel.show();*/
+    this.helpPanel.show();
  },
 
  /**
@@ -242,7 +227,6 @@ WireIt.WiringEditor.prototype = {
   */
  onNew: function() {
     this.layer.removeAllContainers();
-    //this.layer.setEditingModule(null);
  },
 
  /**
@@ -330,7 +314,7 @@ WireIt.WiringEditor.prototype = {
   * @method onLoad
   */
  onLoad: function() {
-    //this.addContainerWindow.show(this.loadModule,this);
+    alert("not implemented");
  }
 
 
