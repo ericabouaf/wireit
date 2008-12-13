@@ -173,7 +173,7 @@ WireIt.Layer.prototype = {
    addContainer: function(containerConfig) {
    
       var type = eval('('+(containerConfig.xtype || "WireIt.Container")+')');
-      if(!type) {
+      if(!YAHOO.lang.isFunction(type)) {
          throw new Error("WireIt layer unable to add container: xtype '"+containerConfig.xtype+"' not found");
       }
       var container = new type(containerConfig, this);
