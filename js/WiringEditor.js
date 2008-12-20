@@ -21,6 +21,12 @@ WireIt.WiringEditor = function(options) {
     this.layout.render();
 
     /**
+     * Container DOM element
+     * @property el
+     */
+    this.el = Dom.get(options.parentEl);
+
+    /**
      * @property layer
      * @type {WireIt.Layer}
      */

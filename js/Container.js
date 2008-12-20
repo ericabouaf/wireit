@@ -142,6 +142,7 @@ WireIt.Container.prototype = {
       this.options.close = (typeof options.close == "undefined") ? true : options.close;
       this.options.closeButtonClassName = options.closeButtonClassName || CSS_PREFIX+"Container-closebutton";
 
+      this.options.title = options.title; // no default
    },
 
    /**
