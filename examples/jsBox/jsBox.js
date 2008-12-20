@@ -137,7 +137,7 @@ YAHOO.extend(jsBox.Container, WireIt.Container, {
       this.setBody(this.textarea);
 
       YAHOO.util.Event.addListener(this.textarea, 'change', function() {
-         var nParams = this.getNbrInputs();
+         var nParams = jsBox.getNbrInputs(this.textarea.value);
          if( nParams != this.nParams) {
             this.nParams = nParams;
             this.createTerminals();
