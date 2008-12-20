@@ -163,7 +163,12 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
          addWire: function() {},
          removeWire: function() {},
          getXY: function() { 
-            return this.pos; 
+            var layers = YAHOO.util.Dom.getElementsByClassName('WireIt-Layer');
+            if(layers.length > 0) {
+               var orig = YAHOO.util.Dom.getXY(layers[0]);
+               return [this.pos[0]-orig[0], this.pos[1]-orig[1]]; 
+            }
+            return this.pos;
          }
       };
       

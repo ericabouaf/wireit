@@ -29,8 +29,15 @@ WireIt.WiringEditor = function(options) {
     // Render buttons
     this.renderButtons();
     
-    // Load the modules
-    this.loadModules();
+    // Load the modules from options
+    if(options.modules) {
+       this.modules = options.modules;
+       this.buildModulesList();
+    }
+    // Load module with ajax request
+    else if(this.options.loadUrl) {
+       this.loadModules();
+    }
    
 };
 
@@ -179,6 +186,9 @@ WireIt.WiringEditor.prototype = {
   * @method saveModule
   */
  saveModule: function() {
+    
+    //console.log(this.layer.getWiring());
+    
     var postdata = "path="+this.path;
     postdata += "&parameters="+JSON.stringify(this.parameters);
     if(this.definition) {
@@ -187,7 +197,7 @@ WireIt.WiringEditor.prototype = {
     else {
        postdata += "&definition=";
     }
-    Connect.asyncRequest('POST', 'php/saveModule.php', 
+    Connect.asyncRequest('POST', this.options.saveUrl, 
                 {success: this.saveModuleSuccess,failure: this.saveModuleFailure}, postdata);
  },
 

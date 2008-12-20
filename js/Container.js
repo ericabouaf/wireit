@@ -99,7 +99,8 @@ WireIt.Container = function(options, layer) {
 WireIt.Container.prototype = {
    
    /**
-    *
+    * set the options
+    * @method setOptions
     */
    setOptions: function(options) {
       

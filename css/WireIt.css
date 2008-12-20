@@ -98,6 +98,26 @@ div.WireIt-Container-focused {
    opacity: 1;
    filter: alpha(opacity = 100);
 }
+
+/**
+ * ImageContainer
+ */
+
+div.WireIt-ImageContainer div.body {	
+	width: 128px;
+	height: 60px;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	border: 0;
+	cursor: move;
+}
+
+div.WireIt-ImageContainer div.WireIt-Container-closebutton {
+	display: none;
+}
+div.WireIt-ImageContainer:hover div.WireIt-Container-closebutton {
+	display: block;
+}
  
 /**
  * Layers

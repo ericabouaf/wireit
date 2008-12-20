@@ -6,13 +6,6 @@
 	<link rel="icon" href="../../favicon.ico" type="image/png" />
   <link rel="SHORTCUT ICON" href="../../favicon.ico" type="image/png" />
 
-<style type="text/css">
-body {
-	margin:0;
-	padding:0;
-}
-</style>
-
 <!-- YUI -->
 <link rel="stylesheet" type="text/css" href="../../lib/yui/reset-fonts-grids/reset-fonts-grids.css" />
 <link rel="stylesheet" type="text/css" href="../../lib/yui/assets/skins/sam/skin.css" />
@@ -65,50 +58,81 @@ body {
 inputEx.spacerUrl = "/inputex/trunk/images/space.gif";
 
 YAHOO.util.Event.onDOMReady( function() {
-try {
+	
 	new WireIt.WiringEditor({
-		loadUrl: 'php/loadModules.php',
-		saveUrl: 'php/saveModule',
 		
-		propertiesFields: [/* inputEx field definitions */]
+		modules: [
+					{
+						"name": "AND",
+						"position":[280,140],
+						"xtype":"WireIt.ImageContainer", 
+						"image": "images/gate_and.png",
+		   			"terminals": [
+		   				{"direction": [-1,0], "offsetPosition": [-3,2]},
+		   				{"direction": [-1,0], "offsetPosition": [-3,37]},
+		   				{"direction": [1,0], "offsetPosition": [103,20]}
+		   			]
+					},
+
+					{
+					   "name": "OR",
+					   "position":[280,230],
+					   "xtype":"WireIt.ImageContainer", 
+					   "image": "images/gate_or.png",
+						"terminals": [
+							{"direction": [-1,0], "offsetPosition": [-3,2]},
+							{"direction": [-1,0], "offsetPosition": [-3,37]},
+							{"direction": [1,0], "offsetPosition": [103,20]}
+						]
+					},
+
+					{
+					   "name": "NOT",
+					   "position":[480,140],
+					   "xtype":"WireIt.ImageContainer", 
+					   "image": "images/gate_not.png",
+						"terminals": [
+							{"direction": [-1,0], "offsetPosition": [-12,23]},
+							{"direction": [1,0], "offsetPosition": [117,23]}
+						]
+					},
+
+					{
+					   "name": "NAND",
+					   "position":[780,180],
+					   "xtype":"WireIt.ImageContainer", 
+					   "image": "images/gate_nand.png",
+						"terminals": [
+							{"direction": [-1,0], "offsetPosition": [-3,2]},
+							{"direction": [-1,0], "offsetPosition": [-3,37]},
+							{"direction": [1,0], "offsetPosition": [103,20], "wireConfig":{"color": "#FFFF00"}}
+						]
+					},
+
+					{
+					   "name": "XOR",
+					   "position":[580,380],
+					   "xtype":"WireIt.ImageContainer", 
+					   "image": "images/gate_xor.png",
+						"terminals": [
+							{"direction": [-1,0], "offsetPosition": [-3,2]},
+							{"direction": [-1,0], "offsetPosition": [-3,37]},
+							{"direction": [1,0], "offsetPosition": [103,20]}
+						]
+					}
+
+		]
 	});
-}catch(ex){
-	console.log(ex);
-}
+	
 }); 
 </script>
 
 <style>
 body {
+	margin:0;
+	padding:0;
 	font-size: 10px;
 }
-div.WireIt-InputExTerminal {
-	float: left;
-	width: 21px;
-	height: 21px;
-	position: relative;
-}
-div.WireIt-InputExTerminal div.WireIt-Terminal {
-	top: -3px;
-	left: -7px;
-}
-div.inputEx-Group div.inputEx-label {
-	width:100px;
-}
-
-
-div.WireIt-Container {
-	width: 128px;
-	height: 70px;
-}
-div.WireIt-Container-ddhandle {
-	background-color: transparent;
-}
-div.WireIt-Container div.body {
-	background-color: transparent;
-	border: 0;
-}
-
 #left {
 	font-size: 16pt;
 }
