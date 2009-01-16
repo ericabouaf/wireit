@@ -388,6 +388,19 @@ WireIt.Container.prototype = {
       }
    
       return obj;
+   },
+   
+   /**
+    * @method getValue
+    */
+   getValue: function() {
+      return {};
+   },
+
+   /**
+    * @method setValue
+    */
+   setValue: function(val) {
    }
 
 };

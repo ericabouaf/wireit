@@ -42,6 +42,20 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
       }
       var groupParams = {parentEl: this.bodyEl, fields: this.options.fields, legend: this.options.legend};
       this.form = new YAHOO.inputEx.Group(groupParams);
+   },
+   
+   /**
+    * @method getValue
+    */
+   getValue: function() {
+      return this.form.getValue();
+   },
+   
+   /**
+    * @method setValue
+    */
+   setValue: function(val) {
+      this.form.setValue(val);
    }
    
 });

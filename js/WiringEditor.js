@@ -117,13 +117,16 @@ WireIt.WiringEditor.prototype = {
    var module = this.modules[index];
     
    var moduleConfig = module;
-   moduleConfig.position = [300,400];
-   moduleConfig.label = module.name;
+   
+   var containerConfig = moduleConfig.container;
+   containerConfig.position = [300,400];
+   containerConfig.title = module.name;
    try {
-      this.layer.addContainer(moduleConfig);
+      console.log(this.layer);
+      var container = this.layer.addContainer(containerConfig);
    }
    catch(ex) {
-      console.log("Error addContainer", ex.message);
+      console.log("Error Layer.addContainer", ex.message);
    }
  },
 
@@ -192,8 +195,13 @@ WireIt.WiringEditor.prototype = {
   * @method saveModule
   */
  saveModule: function() {
-    
-    //console.log(this.layer.getWiring());
+    try {
+       console.log(this.getValue());
+    }
+    catch(ex) {
+       console.log(ex);
+    }
+    return;
     
     var postdata = "path="+this.path;
     postdata += "&parameters="+JSON.stringify(this.parameters);
@@ -269,6 +277,41 @@ WireIt.WiringEditor.prototype = {
   */
  onLoad: function() {
     alert("not implemented");
+ },
+ 
+ /**
+  * This method return a wiring within the given vocabulary described by the modules list
+  * @method getValue
+  */
+ getValue: function() {
+    
+   var i;
+   var obj = {modules: [], wires: []};
+
+   for( i = 0 ; i < this.layer.containers.length ; i++) {
+      obj.modules.push( {name: this.layer.containers[i].options.title, value: this.layer.containers[i].getValue(), config: this.layer.containers[i].getConfig()});
+   }
+
+   for( i = 0 ; i < this.layer.wires.length ; i++) {
+      var wire = this.layer.wires[i];
+
+      var wireObj = { 
+         src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.layer.containers), terminalId: WireIt.indexOf(wire.terminal1, wire.terminal1.container.terminals)}, 
+         tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.layer.containers), terminalId: WireIt.indexOf(wire.terminal2, wire.terminal2.container.terminals)} 
+      };
+      obj.wires.push(wireObj);
+   }
+    
+   return obj;
+ },
+ 
+ /**
+  * @method setValue
+  */
+ setValue: function(val) {
+    
+    //this.layer.setWiring();
+    
  }
 
 
