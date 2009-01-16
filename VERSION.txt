@@ -57,6 +57,7 @@ TODO:
 
 Changeset
 
+ * Switching to git repository
  * Documentation with YUI Doc
  * WiringEditor:
 		- base example
