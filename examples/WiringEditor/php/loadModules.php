@@ -34,7 +34,7 @@
 				"icon": "http://dev.tarpipe.com/img/photobucket.png",
 				
 				"container": {
-   				"xtype": "WireIt.Container"
+   				"xtype": "WireIt.Container",
    				"outputTerminals": [],
    				"propertiesForm": []
 				}
