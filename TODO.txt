@@ -1,0 +1,34 @@
+
+TODO: 
+
+ Terminals:
+ * nMaxWires (just check + example)
+ * clearable option (display scissors)
+ * drop target (wire seed)
+ * accept bidirectionnal
+ 
+ Wires:
+ * directional
+
+ Containers:
+ * Create an inputEx form to define terminals and containers
+
+ LayerMap:
+ * indicate visible region
+ * move layer from click
+ * method to display bezier curves
+
+ WiringEditor:
+ * right panel with container options, help and minimap
+ * treeview for module list 
+ * Php backend 
+ * addModule method to dynamically define the vocabulary (within the interface)
+ * finish the WiringEditor.getValue/setValue schema implementation
+
+ Examples:
+ * Repair Planar Game
+ * JsBox in Wiring Editor
+
+ Other 
+ * Class treeview
+ * some documentation !

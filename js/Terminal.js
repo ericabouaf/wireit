@@ -589,7 +589,7 @@ WireIt.Terminal.prototype = {
       var terminalList = [];
       if(this.wires) {
          for(var i = 0 ; i < this.wires.length ; i++) {
-            terminalList.push(this.wires[i].getOtherTerminal());
+            terminalList.push(this.wires[i].getOtherTerminal(this));
          }
       }
       return terminalList;

@@ -1,11 +1,10 @@
 /**
- * WireIt provide classes to build wirable interfaces
- * @module WireIt
+ * @module WireIt WireIt provide classes to build wirable interfaces
  */
 /**
  * @class WireIt
  * @static
- * @namespace
+ * @namespace WireIt
  */
 var WireIt = {
    

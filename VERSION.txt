@@ -2,60 +2,10 @@
 To get the latest version, please visit http://javascript.neyric.com/wireit
 ---------------------------------------------------------------------------
 
-// Methods to persist the tooltip if we are hovering over the tooltip element 
-/*EVT.addListener(this.tooltip.element, "mouseover", function(e,obj) {
-   if (this.hideProcId) {
-        clearTimeout(this.hideProcId);
-        this.hideProcId = null;
-    }
-}, this.tooltip, true);
-EVT.addListener(this.tooltip.element, "mouseout", function(e,obj) {
-   if (this.showProcId) {
-       clearTimeout(this.showProcId);
-       this.showProcId = null;
-   }
-   if (this.hideProcId) {
-       clearTimeout(this.hideProcId);
-       this.hideProcId = null;
-   }
-   var me = this;
-   this.hideProcId = setTimeout(function () {
-       me.hide();
-   }, this.cfg.getProperty("hidedelay"));
-}, this.tooltip, true);*/
-
-
 Version 0.4.0
-december ?, 2008
+february 1st, 2009
 
-TODO: 
-
- Terminals:
- * nMaxWires (just check + example)
- * clearable option (display scissors)
- * drop target (wire seed)
- * accept bidirectionnal
- 
- Wires:
- * directional
- containers:
- * Faire une classe BasContainer pour créer d'autres enfants
- * Faire un formulaire inputEx pour définir les terminaux et containes
-
- LayerMap:
- * indicate visible region
- * move layer from click
- * method to display bezier curves
-
- WiringEditor:
- * right panel with container options, help and minimap
- * module list en treeview 
- * Php backend 
- * addModule method to dynamically define the vocabulary (within the interface)
- 
- * finish the WiringEditor.getValue/setValue schema implementation
-
-Changeset
+Changeset:
 
  * Switching to git repository
  * Documentation with YUI Doc

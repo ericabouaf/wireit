@@ -14,17 +14,17 @@ WireIt.WiringEditor = function(options) {
     this.setOptions(options);
     
     /**
-     * @property layout
-     * @type {YAHOO.widget.Layout}
-     */
-    this.layout = new widget.Layout(this.options.layoutOptions);
-    this.layout.render();
-
-    /**
      * Container DOM element
      * @property el
      */
     this.el = Dom.get(options.parentEl);
+    
+    /**
+     * @property layout
+     * @type {YAHOO.widget.Layout}
+     */
+    this.layout = new widget.Layout(this.el, this.options.layoutOptions);
+    this.layout.render();
 
     /**
      * @property layer
