@@ -28,7 +28,7 @@
 <!-- InputEx with wirable options (WirableField-beta) -->
 <script src="../../lib/inputex/js/inputex.js"  type='text/javascript'></script>
 <script src="../../lib/inputex/js/Field.js"  type='text/javascript'></script>
-<script type="text/javascript" src="../../js/util/inputex/WirableField-beta.js"></script>
+<script src="../../js/util/inputex/WirableField-beta.js" type="text/javascript"></script>
 <script src="../../lib/inputex/js/Group.js"  type='text/javascript'></script>
 <script src="../../lib/inputex/js/fields/StringField.js"  type='text/javascript'></script>
 <script src="../../lib/inputex/js/fields/SelectField.js"  type='text/javascript'></script>
@@ -49,7 +49,7 @@
 <script type="text/javascript" src="../../js/ImageContainer.js"></script>
 <script type="text/javascript" src="../../js/Layer.js"></script>
 <script type="text/javascript" src="../../js/util/inputex/FormContainer-beta.js"></script>
-
+<script type="text/javascript" src="../../js/LayerMap-beta.js"></script>
 <script type="text/javascript" src="../../js/WiringEditor.js"></script>
 
 <script>
@@ -61,6 +61,31 @@ YAHOO.util.Event.onDOMReady( function() {
 	
 	new WireIt.WiringEditor({
 		
+		//loadUrl: 'php/loadModules.php',
+		saveUrl: 'php/saveModule',
+		
+		propertiesFields: [
+			{"type": "string", inputParams: {"name": "name", label: "Name", wirable: false} }
+		],
+		
+		// Add a right panel
+		layoutOptions: {
+	        units: [
+	          { position: 'top', height: 50, body: 'top'},
+	          { position: 'left', width: 200, resize: true, body: 'left', gutter: '5px', collapse: true, 
+	            collapseSize: 25, header: 'Modules', scroll: true, animate: true },
+	          { position: 'center', body: 'center', gutter: '5px' },
+	          { position: 'right', width: 266, resize: true, body: 'right', gutter: '5px', collapse: true, 
+	             collapseSize: 25, header: 'Properties', scroll: true, animate: true }
+	        ]
+	     },
+	
+		// Activate the layer map:
+		layerOptions: {
+			layerMap: true,
+			layerMapOptions: { parentEl: YAHOO.util.Dom.get('layerMap') }
+		},
+		
 		modules: [
 					{
 						"name": "AND",
@@ -69,9 +94,9 @@ YAHOO.util.Event.onDOMReady( function() {
 							"xtype":"WireIt.ImageContainer", 
 							"image": "images/gate_and.png",
 		   				"terminals": [
-		   					{"direction": [-1,0], "offsetPosition": [-3,2]},
-		   					{"direction": [-1,0], "offsetPosition": [-3,37]},
-		   					{"direction": [1,0], "offsetPosition": [103,20]}
+		   					{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2]},
+		   					{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37]},
+		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20]}
 		   				]
 						}
 						
@@ -84,9 +109,9 @@ YAHOO.util.Event.onDOMReady( function() {
 					   		"xtype":"WireIt.ImageContainer", 
 					   		"image": "images/gate_or.png",
 								"terminals": [
-									{"direction": [-1,0], "offsetPosition": [-3,2]},
-									{"direction": [-1,0], "offsetPosition": [-3,37]},
-									{"direction": [1,0], "offsetPosition": [103,20]}
+									{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2]},
+									{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37]},
+									{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20]}
 								]
 						}
 					},
@@ -97,8 +122,8 @@ YAHOO.util.Event.onDOMReady( function() {
 							"xtype":"WireIt.ImageContainer", 
 						   "image": "images/gate_not.png",
 							"terminals": [
-								{"direction": [-1,0], "offsetPosition": [-12,23]},
-								{"direction": [1,0], "offsetPosition": [117,23]}
+								{"name": "_INPUT", "direction": [-1,0], "offsetPosition": [-12,23]},
+								{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [117,23]}
 							]
 						}
 					},
@@ -109,9 +134,9 @@ YAHOO.util.Event.onDOMReady( function() {
 						   "xtype":"WireIt.ImageContainer", 
 						   "image": "images/gate_nand.png",
 							"terminals": [
-								{"direction": [-1,0], "offsetPosition": [-3,2]},
-								{"direction": [-1,0], "offsetPosition": [-3,37]},
-								{"direction": [1,0], "offsetPosition": [103,20], "wireConfig":{"color": "#FFFF00"}}
+								{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2]},
+								{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37]},
+								{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20], "wireConfig":{"color": "#FFFF00"}}
 							]
 						}
 					},
@@ -122,10 +147,43 @@ YAHOO.util.Event.onDOMReady( function() {
 					   	"xtype":"WireIt.ImageContainer", 
 					   	"image": "images/gate_xor.png",
 							"terminals": [
-								{"direction": [-1,0], "offsetPosition": [-3,2]},
-								{"direction": [-1,0], "offsetPosition": [-3,37]},
-								{"direction": [1,0], "offsetPosition": [103,20]}
+								{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2]},
+								{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37]},
+								{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20]}
 							]
+						}
+					},
+					
+					{
+						"name": "A",
+						"container" : {
+							"xtype":"WireIt.ImageContainer", 
+							"image": "images/A.png",
+		   				"terminals": [
+		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [94,18]}
+		   				]
+						}
+					},
+					
+					{
+						"name": "B",
+						"container" : {
+							"xtype":"WireIt.ImageContainer", 
+							"image": "images/B.png",
+		   				"terminals": [
+		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [94,18]}
+		   				]
+						}
+					},
+					
+					{
+						"name": "C",
+						"container" : {
+							"xtype":"WireIt.ImageContainer", 
+							"image": "images/C.png",
+		   				"terminals": [
+		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [94,18]}
+		   				]
 						}
 					}
 
@@ -144,6 +202,20 @@ body {
 #left {
 	font-size: 16pt;
 }
+
+#layerMap canvas.WireIt-LayerMap {
+	position: relative;
+}
+
+#propertiesForm div.inputEx-Group div.inputEx-label {
+	width: 50px;
+}
+
+#right h2 {
+	font-size: 130%;
+	font-weight: bold;
+}
+
 </style>
 
 
@@ -164,6 +236,15 @@ body {
 	<div id="left">
 		<p>Click on a logic gate to add it to the layer.</p>
 	</div>
+	
+	
+	<div id="right">
+		<h2>Properties</h2>
+		<div id="propertiesForm"></div>
+		<h2>Minimap</h2>
+		<div id="layerMap"></div>
+	</div>
+	
 
 	<div id="center">
 	</div>

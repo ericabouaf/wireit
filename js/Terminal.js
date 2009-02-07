@@ -433,6 +433,7 @@ WireIt.Terminal.prototype = {
        * <p>Object that contains the terminal configuration:</p>
        * 
        * <ul>
+       *   <li><b>name</b>: terminal name</li>
        *   <li><b>direction</b>: direction vector of the wires when connected to this terminal (default [0,1])</li>
        *   <li><b>fakeDirection</b>: direction vector of the "editing" wire when it started from this terminal (default to -direction)</li>
        *   <li><b>editable</b>: boolean that makes the terminal editable (default to true)</li>
@@ -446,6 +447,7 @@ WireIt.Terminal.prototype = {
        * @property options
        */  
       this.options = {};
+      this.options.name = options.name;
       this.options.direction = options.direction || [0,1];
       this.options.fakeDirection = options.fakeDirection || [-this.options.direction[0],-this.options.direction[1]];
       this.options.className = options.className || CSS_PREFIX+'Terminal';
