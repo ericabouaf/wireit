@@ -253,7 +253,8 @@ WireIt.WiringEditor.prototype = {
        this.helpPanel = new widget.Panel('dfly-helpPanel', {
           draggable: true,
           width: '500px',
-          visible: false
+          visible: false,
+          modal: true
        });
        this.helpPanel.setBody("<p>Some help here</p>");
        this.helpPanel.setHeader("You asked for some help ?");
