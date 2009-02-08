@@ -18,7 +18,7 @@ Source code:
     http://github.com/neyric/wireit
 
 Issue tracker:
-    ...
+	 http://neyric.lighthouseapp.com/projects/25048-wireit
     
 Files:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
