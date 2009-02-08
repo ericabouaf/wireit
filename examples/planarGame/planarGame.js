@@ -53,7 +53,7 @@ Bubble.prototype.onMouseUp = function() {
 
 YAHOO.util.Event.addListener(window, "load", function() {	
    planarGame.init();
-	planarGame.loadLevel(1);
+	planarGame.loadLevel(2);
 });
 
 var planarGame = {
@@ -71,7 +71,7 @@ var planarGame = {
 	   
 	   YAHOO.util.Dom.get('levelContainer').innerHTML = level;
 	   
-	   var c = level+2;
+	   var c = level+1;
 	   
 	   var w = YAHOO.util.Dom.getViewportHeight();
 	   var h = YAHOO.util.Dom.getViewportWidth();
@@ -181,14 +181,14 @@ var planarGame = {
 	   
 		// Set all the wires to blue
 		for(var i = 0 ; i < this.wires.length ; i++) {
-			this.wires[i].config.color = "blue";
+			this.wires[i].options.color = "blue";
 		}	
 		for(var i = 0 ; i < this.wires.length ; i++) {
 			for( var k = i+1 ; k < this.wires.length ; k++) {
 			 	if( this.checkCross(this.wires[i], this.wires[k]) ) {
 			 	   nErrors++;
-					this.wires[i].config.color = "red";
-					this.wires[k].config.color = "red";
+					this.wires[i].options.color = "red";
+					this.wires[k].options.color = "red";
 				}
 			}
 			this.wires[i].redraw();

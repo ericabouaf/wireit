@@ -2,7 +2,6 @@
 TODO: 
 
  Terminals:
- * nMaxWires (just check + example)
  * clearable option (display scissors)
  * drop target (wire seed)
  * accept bidirectionnal
@@ -12,6 +11,7 @@ TODO:
 
  Containers:
  * Create an inputEx form to define terminals and containers
+ * Containers workflow (inputs/outputs)
 
  LayerMap:
  * method to display bezier curves
@@ -24,9 +24,8 @@ TODO:
  * later addModule method to dynamically define the vocabulary (within the interface)
 
  Examples:
- * Repair Planar Game
  * JsBox in Wiring Editor
 
  Other 
  * Class treeview
- * some documentation !
+ * repair documentation

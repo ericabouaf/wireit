@@ -184,6 +184,10 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
     * @method onDrag
     */
    onDrag: function(e) {
+      
+      // Prevention when the editing wire could not be created (due to nMaxWires)
+      if(!this.editingWire) { return; }
+      
       if(this.terminal.container) {
          var obj = this.terminal.container.layer.el;
          var curleft = curtop = 0;
@@ -219,6 +223,10 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
     * @method onDragEnter
     */
    onDragEnter: function(e,ddTargets) {
+      
+      // Prevention when the editing wire could not be created (due to nMaxWires)
+      if(!this.editingWire) { return; }
+      
       for(var i = 0 ; i < ddTargets.length ; i++) {
          if( this.isValidWireTerminal(ddTargets[i]) ) {
             ddTargets[i].terminal.setDropInvitation(true);
@@ -230,6 +238,10 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
     * @method onDragOut
     */
    onDragOut: function(e,ddTargets) { 
+      
+      // Prevention when the editing wire could not be created (due to nMaxWires)
+      if(!this.editingWire) { return; }
+      
       for(var i = 0 ; i < ddTargets.length ; i++) {
          if( this.isValidWireTerminal(ddTargets[i]) ) {
             ddTargets[i].terminal.setDropInvitation(false);
@@ -241,6 +253,10 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
     * @method onDragDrop
     */
    onDragDrop: function(e,ddTargets) {
+      
+      // Prevention when the editing wire could not be created (due to nMaxWires)
+      if(!this.editingWire) { return; }
+      
       this.onDragOut(e,ddTargets);
       
       var targetTerminalProxy = null;

@@ -140,9 +140,19 @@ div.appBox p span.big {
 		 <p>&nbsp;&nbsp;&nbsp;It uses the <a href="http://developer.yahoo.com/yui/">YUI library</a> (2.6.0) for DOM and events manipulation, and <a href="http://excanvas.sourceforge.net/">excanvas</a> for IE support of the canvas tag.</p>
 
 		 <p class="title">Documentation</p>
+		
 		 <p>&nbsp;&nbsp;&nbsp;WireIt comes with an exhaustive <a href="doc/index.html">API documentation</a> built with <a href="http://developer.yahoo.com/yui/yuidoc/">YUI Doc</a>,<br/> and the following <b>examples</b> :</p>
+		
+			
+			<!-- Planar Game -->
+			 <div class="appBox" style="margin-left: 30px;margin-top: 30px;">
+				<a href="examples/wires_and_terminals.html">
+				<img src="res/demo1.png" class="reflect" border="0" alt="Click to play now !"/>
+				<p><span>learn</span><br/><span class="big">Wires, Terminals</span></p>
+				</a>
+			 </div>
+		
 			<ul>
-				
 				<li><a href="presentation.html">WireIt interactive presentation</a></li>
 				<li><a href="examples/creating_terminals.html">Creating terminals and wires</a></li>
 				<li><a href="examples/dd_and_animation.html">Move and Animate elements containing terminals</a></li>
@@ -153,12 +163,6 @@ div.appBox p span.big {
 				<li><b>New:</b> <a href="examples/logicGates/index.html">Logic Gates (show image containers)</a></li>
 				
 			</ul>
-			
-		<p>WireIt also comes with 2 sample applications :</p>
-		<ul>
-			<li><a href="examples/planarGame/planarGame.html">The planar game</li>
-			<li><a href="examples/jsBox/jsBox.html">jsBox: have fun with javascript</a></li>
-		</ul>
 		
 		<!-- Tarpipe video -->
 		<p class="title" style="margin-top: 30px;">WireIt in action</p>
@@ -177,7 +181,7 @@ div.appBox p span.big {
 			
 			<!-- Updates changeset -->
 			<p class="title">Download</p>
-			<p style="text-align:center;font-weight:bold; font-size:15px;"><a href="WireIt-0.4.0.zip">Download WireIt 0.4.0</a><br/><span style="font-size: 70%; font-weight: normal;">(wireit-0.4.0.zip - 3.2MB - <a href="VERSION.txt">changeset</a>)</span></p>
+			<p style="text-align:center;font-weight:bold; font-size:15px;background-color:#EEEEEE;-moz-border-radius: 10px; padding: 5px;"><a href="WireIt-0.4.0.zip">Download WireIt 0.4.0</a><br/><span style="font-size: 70%; font-weight: normal;">(wireit-0.4.0.zip - 3.2MB - <a href="VERSION.txt">changeset</a>)</span></p>
 			
 			<!-- License -->
 			<p>&nbsp;&nbsp;&nbsp;WireIt is released under the <a href="license.txt">MIT License</a> and hosted on <a href="http://github.com/neyric/wireit/">GitHub</a>.</p>
@@ -205,7 +209,7 @@ div.appBox p span.big {
 			 <div class="appBox">
 				<a href="examples/jsBox/jsBox.html">
 				<img src="res/jsBox.gif" class="reflect" border="0" alt="Click to try jsBox !"/>
-				<p><span>Try out</span><br/><span class="big">jsBox</span></p>
+				<p><span>visual javascript demo</span><br/><span class="big">jsBox</span></p>
 				</a>
 			 </div>
 			
@@ -228,7 +232,7 @@ div.appBox p span.big {
 			}
 			</style>
 			<div id="delicious-tags" style="">
-				<p>Popular tags on <a href="http://del.icio.us/url/651a56650c753830645ecf46fb036db6">Del.icio.us</a></p>
+				<p> <img src="http://delicious.com/favicon.ico"> Popular tags on<a href="http://del.icio.us/url/651a56650c753830645ecf46fb036db6">Del.icio.us</a></p>
 			</div>
 			<script type="text/javascript">
 			function displayURL(data) {
@@ -238,7 +242,7 @@ div.appBox p span.big {
 			   for (tag in urlinfo.top_tags) {
 			   	var a = document.createElement('a');
 					var count = urlinfo.top_tags[tag];
-					var size = Math.floor(count*0.09)+10;
+					var size = Math.floor(count*0.07)+10;
 			      a.setAttribute('href', 'http://del.icio.us/tag/'+tag);
 					a.style.fontSize = size+"px";
 			      a.appendChild(document.createTextNode(tag+" "));
