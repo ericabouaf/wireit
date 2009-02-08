@@ -14,7 +14,7 @@ Changeset:
  * inputEx wirable option: make the inputEx fields wirable
  * LayerMap leave beta (indicate visible region, move layer on click)
 
-
+ * New demo
  * Switching to git repository (http://github.com/neyric/wireit/)
  * Switching issue tracking
  * Documentation with YUI Doc

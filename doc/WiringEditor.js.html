@@ -4,18 +4,18 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: WireIt   WiringEditor.js </title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1229176524.63" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1229176524.63" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1234064791.25" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1234064791.25" />
 
-    <script type="text/javascript" src="assets/api-js?stamp=1229176524.63"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1229176524.63"></script>
+    <script type="text/javascript" src="assets/api-js?stamp=1234064791.25"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1234064791.25"></script>
 </head>
 
 <body id="yahoo-com">
 
 <div id="doc3" class="yui-t2">
 	<div id="hd">
-        <h1><a href="http://developer.yahoo.com/yui/" title="WireIt Framework">WireIt Framework</a></h1>
+        <h1><a href="http://javascript.neyric.com/wireit/" title="WireIt Framework">WireIt Framework</a></h1>
         <h3>WireIt&nbsp; <span class="subtitle">0.4.0</span></h3>
         <a href="./index.html" title="WireIt Framework">WireIt Framework</a> 
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
@@ -51,288 +51,342 @@
     <span class="kd">var</span> <span class="nx">util</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="o">,</span><span class="nx">lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">;</span>
     <span class="kd">var</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">,</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="o">,</span> <span class="nx">Connect</span> <span class="o">=</span> <span class="nx">util</span><span class="p">.</span><span class="nx">Connect</span><span class="o">,</span><span class="nx">JSON</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">JSON</span><span class="o">,</span><span class="nx">widget</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="o">;</span>
 
- <span class="c">/**</span>
-<span class="c">  * WireIt.WiringEditor</span>
-<span class="c">  */</span>
- <span class="nx">WireIt</span><span class="p">.</span><span class="nx">WiringEditor</span> <span class="o">=</span> <span class="p">{</span>
-
-    <span class="c">/**</span>
-<span class="c">     * init function </span>
-<span class="c">     */</span>
-    <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
-       
-       <span class="k">this</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="nx">config</span><span class="o">;</span>
-       
-       <span class="c">// Build the layout</span>
-       <span class="kd">var</span> <span class="nx">layout</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">widget</span><span class="p">.</span><span class="nx">Layout</span><span class="p">({</span>
-          <span class="nx">units</span><span class="o">:</span> <span class="p">[</span>
-            <span class="p">{</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;top&#39;</span><span class="o">,</span> <span class="nx">height</span><span class="o">:</span> <span class="mi">50</span><span class="o">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;top&#39;</span><span class="p">}</span><span class="o">,</span>
-            <span class="p">{</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;left&#39;</span><span class="o">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">250</span><span class="o">,</span> <span class="nx">resize</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;left&#39;</span><span class="o">,</span> <span class="nx">gutter</span><span class="o">:</span> <span class="s1">&#39;5px&#39;</span><span class="o">,</span> <span class="nx">collapse</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> 
-              <span class="nx">collapseSize</span><span class="o">:</span> <span class="mi">25</span><span class="o">,</span> <span class="nx">header</span><span class="o">:</span> <span class="s1">&#39;Modules&#39;</span><span class="o">,</span> <span class="nx">scroll</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> <span class="nx">animate</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span><span class="o">,</span>
-            <span class="p">{</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="o">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="o">,</span> <span class="nx">gutter</span><span class="o">:</span> <span class="s1">&#39;5px&#39;</span> <span class="p">}</span>
-          <span class="p">]</span>
-       <span class="p">});</span>
-       <span class="nx">layout</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-
-       <span class="c">// Create the layer</span>
-       <span class="k">this</span><span class="p">.</span><span class="nx">layer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Layer</span><span class="p">({</span><span class="nx">parentEl</span><span class="o">:</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;center&#39;</span><span class="p">)});</span>
-
-       <span class="c">// Render buttons</span>
-       <span class="k">this</span><span class="p">.</span><span class="nx">renderButtons</span><span class="p">();</span>
-       
-       <span class="c">// Load the modules</span>
-       <span class="k">this</span><span class="p">.</span><span class="nx">loadModules</span><span class="p">();</span>
-
-    <span class="p">}</span><span class="o">,</span>
+<span class="c">/**</span>
+<span class="c"> * The WiringEditor class provides a full page interface </span>
+<span class="c"> * @class WiringEditor</span>
+<span class="c"> * @constructor</span>
+<span class="c"> * @param {Object} options</span>
+<span class="c"> */</span>
+<span class="nx">WireIt</span><span class="p">.</span><span class="nx">WiringEditor</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">try</span> <span class="p">{</span>
+    <span class="c">// set the default options</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
     
     <span class="c">/**</span>
-<span class="c">     * Build the left menu on the left</span>
+<span class="c">     * Container DOM element</span>
+<span class="c">     * @property el</span>
 <span class="c">     */</span>
-    <span class="nx">buildModulesList</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-       
-       <span class="kd">var</span> <span class="nx">dl</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;dl&#39;</span><span class="p">);</span>
-       
-       <span class="kd">var</span> <span class="nx">modules</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">modules</span><span class="o">;</span>
-       <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">modules</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-          <span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="nx">modules</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-          <span class="kd">var</span> <span class="nx">dt</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">);</span>
-          <span class="nx">dt</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="o">,</span><span class="p">{</span><span class="nx">src</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">icon</span><span class="p">})</span> <span class="p">);</span>
-          <span class="kd">var</span> <span class="nx">dd</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;dd&#39;</span><span class="p">);</span>
-          <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">href</span><span class="o">:</span> <span class="s1">&#39;#&#39;</span><span class="o">,</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;menu_module_&#39;</span><span class="o">+</span><span class="nx">i</span><span class="p">}</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="nx">module</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
-          <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="nx">a</span><span class="o">,</span> <span class="s1">&#39;click&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onAddModule</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-          <span class="nx">dd</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
-          <span class="nx">dl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">dt</span><span class="p">);</span>
-          <span class="nx">dl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">dd</span><span class="p">);</span>
-       <span class="p">}</span>
-       
-       <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">dl</span><span class="p">);</span>
-       <span class="k">this</span><span class="p">.</span><span class="nx">dl</span> <span class="o">=</span> <span class="nx">dl</span><span class="o">;</span>
-    <span class="p">}</span><span class="o">,</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">);</span>
+    
+    <span class="c">/**</span>
+<span class="c">     * @property layout</span>
+<span class="c">     * @type {YAHOO.widget.Layout}</span>
+<span class="c">     */</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">layout</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">widget</span><span class="p">.</span><span class="nx">Layout</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">layoutOptions</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">layout</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
 
     <span class="c">/**</span>
-<span class="c">     * Callback called when we want to add a module in the layer</span>
+<span class="c">     * @property layer</span>
+<span class="c">     * @type {WireIt.Layer}</span>
 <span class="c">     */</span>
-    <span class="nx">onAddModule</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span> <span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
-       
-      <span class="kd">var</span> <span class="nx">stringId</span> <span class="o">=</span> <span class="nx">Event</span><span class="p">.</span><span class="nx">getTarget</span><span class="p">(</span><span class="nx">e</span><span class="p">).</span><span class="nx">id</span><span class="o">;</span>
-      <span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">((</span><span class="nx">stringId</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">))[</span><span class="mi">2</span><span class="p">]);</span>
-      <span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">modules</span><span class="p">[</span><span class="nx">index</span><span class="p">];</span>
-       
-      <span class="kd">var</span> <span class="nx">moduleConfig</span> <span class="o">=</span> <span class="nx">module</span><span class="o">;</span>
-      <span class="nx">moduleConfig</span><span class="p">.</span><span class="nx">position</span> <span class="o">=</span> <span class="p">[</span><span class="mi">300</span><span class="o">,</span><span class="mi">400</span><span class="p">];</span>
-      <span class="nx">moduleConfig</span><span class="p">.</span><span class="kd">label</span> <span class="o">=</span> <span class="nx">module</span><span class="p">.</span><span class="nx">name</span><span class="o">;</span>
-      <span class="k">try</span> <span class="p">{</span>
-         <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">addContainer</span><span class="p">(</span><span class="nx">moduleConfig</span><span class="p">);</span>
-      <span class="p">}</span>
-      <span class="k">catch</span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span>
-         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Error addContainer&quot;</span><span class="o">,</span> <span class="nx">ex</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
-      <span class="p">}</span>
-    <span class="p">}</span><span class="o">,</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">layer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Layer</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">layerOptions</span><span class="p">);</span>
 
-    <span class="c">/**</span>
-<span class="c">     * Toolbar</span>
-<span class="c">     */</span>
-    <span class="nx">renderButtons</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-       <span class="kd">var</span> <span class="nx">toolbar</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;toolbar&#39;</span><span class="p">);</span>
-       <span class="c">// Buttons :</span>
-       <span class="kd">var</span> <span class="nx">newButton</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">widget</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span> <span class="kd">label</span><span class="o">:</span><span class="s2">&quot;New&quot;</span><span class="o">,</span> <span class="nx">id</span><span class="o">:</span><span class="s2">&quot;WiringEditor-newButton&quot;</span><span class="o">,</span> <span class="nx">container</span><span class="o">:</span> <span class="nx">toolbar</span> <span class="p">});</span>
-       <span class="nx">newButton</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onNew</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-
-       <span class="kd">var</span> <span class="nx">loadButton</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">widget</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span> <span class="kd">label</span><span class="o">:</span><span class="s2">&quot;Load&quot;</span><span class="o">,</span> <span class="nx">id</span><span class="o">:</span><span class="s2">&quot;WiringEditor-loadButton&quot;</span><span class="o">,</span> <span class="nx">container</span><span class="o">:</span> <span class="nx">toolbar</span> <span class="p">});</span>
-       <span class="nx">loadButton</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onLoad</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-
-       <span class="kd">var</span> <span class="nx">saveButton</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">widget</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span> <span class="kd">label</span><span class="o">:</span><span class="s2">&quot;Save&quot;</span><span class="o">,</span> <span class="nx">id</span><span class="o">:</span><span class="s2">&quot;WiringEditor-saveButton&quot;</span><span class="o">,</span> <span class="nx">container</span><span class="o">:</span> <span class="nx">toolbar</span> <span class="p">});</span>
-       <span class="nx">saveButton</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onSave</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-
-       <span class="kd">var</span> <span class="nx">deleteButton</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">widget</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span> <span class="kd">label</span><span class="o">:</span><span class="s2">&quot;Delete&quot;</span><span class="o">,</span> <span class="nx">id</span><span class="o">:</span><span class="s2">&quot;WiringEditor-deleteButton&quot;</span><span class="o">,</span> <span class="nx">container</span><span class="o">:</span> <span class="nx">toolbar</span> <span class="p">});</span>
-       <span class="nx">deleteButton</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onDelete</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-
-       <span class="kd">var</span> <span class="nx">helpButton</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">widget</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span> <span class="kd">label</span><span class="o">:</span><span class="s2">&quot;Help&quot;</span><span class="o">,</span> <span class="nx">id</span><span class="o">:</span><span class="s2">&quot;WiringEditor-helpButton&quot;</span><span class="o">,</span> <span class="nx">container</span><span class="o">:</span> <span class="nx">toolbar</span> <span class="p">});</span>
-       <span class="nx">helpButton</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onHelp</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-    <span class="p">}</span><span class="o">,</span>
-
-    <span class="c">/**</span>
-<span class="c">     * Ajax request to load the modules</span>
-<span class="c">     */</span>
-    <span class="nx">loadModules</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-       <span class="nx">Connect</span><span class="p">.</span><span class="nx">asyncRequest</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">loadUrl</span><span class="o">,</span> 
-                <span class="p">{</span> <span class="nx">success</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">loadModulesSuccess</span><span class="o">,</span> <span class="nx">failure</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">loadModulesFailure</span><span class="o">,</span> <span class="nx">scope</span><span class="o">:</span> <span class="k">this</span><span class="p">});</span>
-    <span class="p">}</span><span class="o">,</span>
-
-    <span class="c">/**</span>
-<span class="c">     * Parse the JSON response </span>
-<span class="c">     */</span>
-    <span class="nx">loadModulesSuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
-       <span class="c">//var modules,evaledModule;</span>
-
-       <span class="c">// Evaluating http response</span>
-       <span class="k">try</span> <span class="p">{</span>
-          <span class="k">this</span><span class="p">.</span><span class="nx">modules</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="o">+</span><span class="nx">o</span><span class="p">.</span><span class="nx">responseText</span><span class="o">+</span><span class="s1">&#39;)&#39;</span><span class="p">);</span>   
-       <span class="p">}</span>
-       <span class="k">catch</span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Error while javascript evaluation of loadModules results : &quot;</span><span class="o">,</span> <span class="nx">ex</span><span class="p">);</span>
-          <span class="k">return</span><span class="o">;</span>
-       <span class="p">}</span>
-
-       <span class="c">// Evaluating each module and index them by path</span>
-       <span class="c">/*for(var i = 0 ; i &lt; modules.length ; i++) {</span>
-<span class="c">          try {</span>
-<span class="c">             evaledModule = eval(&#39;(&#39;+modules[i].json+&#39;)&#39;);</span>
-<span class="c">             this.modules[modules[i].path] = evaledModule;</span>
-<span class="c">          }</span>
-<span class="c">          catch(ex) {</span>
-<span class="c">             console.log(&quot;Error while evaluating module &#39;&quot;+modules[i].path+&quot;&#39; : &quot;, ex);</span>
-<span class="c">          }</span>
-<span class="c">       }*/</span>
-       
-       
-       <span class="c">// Build module list</span>
+    <span class="c">// Render buttons</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">renderButtons</span><span class="p">();</span>
+    
+    <span class="c">// Properties Form</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">renderPropertiesForm</span><span class="p">();</span>
+    
+    <span class="c">// Load the modules from options</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">modules</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">modules</span><span class="o">;</span>
        <span class="k">this</span><span class="p">.</span><span class="nx">buildModulesList</span><span class="p">();</span>
-
-    <span class="p">}</span><span class="o">,</span>
-
-    <span class="c">/**</span>
-<span class="c">     * An error occured on loadModules :(</span>
-<span class="c">     */</span>
-    <span class="nx">loadModulesFailure</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
-       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Load module failure !!&quot;</span><span class="o">,</span> <span class="nx">o</span><span class="p">);</span>
-    <span class="p">}</span><span class="o">,</span>
-
-    <span class="c">/**</span>
-<span class="c">     * save the current module</span>
-<span class="c">     */</span>
-    <span class="nx">saveModule</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-       <span class="kd">var</span> <span class="nx">postdata</span> <span class="o">=</span> <span class="s2">&quot;path=&quot;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">path</span><span class="o">;</span>
-       <span class="nx">postdata</span> <span class="o">+=</span> <span class="s2">&quot;&amp;parameters=&quot;</span><span class="o">+</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">);</span>
-       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">definition</span><span class="p">)</span> <span class="p">{</span>
-          <span class="nx">postdata</span> <span class="o">+=</span> <span class="s2">&quot;&amp;definition=&quot;</span><span class="o">+</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">definition</span><span class="p">);</span>
-       <span class="p">}</span>
-       <span class="k">else</span> <span class="p">{</span>
-          <span class="nx">postdata</span> <span class="o">+=</span> <span class="s2">&quot;&amp;definition=&quot;</span><span class="o">;</span>
-       <span class="p">}</span>
-       <span class="nx">Connect</span><span class="p">.</span><span class="nx">asyncRequest</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="o">,</span> <span class="s1">&#39;php/saveModule.php&#39;</span><span class="o">,</span> 
-                   <span class="p">{</span><span class="nx">success</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">saveModuleSuccess</span><span class="o">,</span><span class="nx">failure</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">saveModuleFailure</span><span class="p">}</span><span class="o">,</span> <span class="nx">postdata</span><span class="p">);</span>
-    <span class="p">}</span><span class="o">,</span>
-
-    <span class="nx">saveModuleSuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
-
-    <span class="p">}</span><span class="o">,</span>
-
-    <span class="nx">saveModuleFailure</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
-       <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;error while saving! &quot;</span><span class="p">);</span>
-    <span class="p">}</span><span class="o">,</span>
-
-
-
-
-
-    <span class="c">/**</span>
-<span class="c">     * Create a help panel with an iframe to ./help.htmlx</span>
-<span class="c">     */</span>
-    <span class="nx">onHelp</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-       <span class="c">/*if( !this.helpPanel) {</span>
-<span class="c">          this.helpPanel = new widget.Panel(&#39;dfly-helpPanel&#39;, {</span>
-<span class="c">             draggable: true,</span>
-<span class="c">             width: &#39;500px&#39;,</span>
-<span class="c">             visible: false</span>
-<span class="c">          });</span>
-<span class="c">          this.helpPanel.setBody(&quot;&lt;iframe src=&#39;help.html&#39; style=&#39;width: 100%; border: 0;&#39;/&gt;&quot;);</span>
-<span class="c">          this.helpPanel.setHeader(&quot;You asked for some help ?&quot;);</span>
-<span class="c">          this.helpPanel.render(document.body);</span>
-<span class="c">          this.helpPanel.center();</span>
-<span class="c">       }</span>
-<span class="c">       this.helpPanel.show();*/</span>
-    <span class="p">}</span><span class="o">,</span>
-
-    <span class="nx">onNew</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-       <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">removeAllContainers</span><span class="p">();</span>
-       <span class="c">//this.layer.setEditingModule(null);</span>
-    <span class="p">}</span><span class="o">,</span>
-
-    <span class="nx">onDelete</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-       <span class="c">/*var moduleToDelete = this.editingModuleInputName.value;</span>
-<span class="c">       var m = dfly.ModuleModel.get(moduleToDelete);</span>
-<span class="c">       if(m) {</span>
-<span class="c">          m.destroy();</span>
-<span class="c">       }</span>
-<span class="c">       this.onNew();</span>
-<span class="c">       dfly.addContainerWindow.removeModuleFromTree(moduleToDelete);*/</span>
-    <span class="p">}</span><span class="o">,</span>
-
-    <span class="nx">onSave</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-
-       <span class="c">/*var moduleName = this.editingModuleInputName.value;</span>
-
-<span class="c">       var wiring = this.getWiring();</span>
-<span class="c">       var parameters = {inputs:[], outputs:[]};</span>
-
-<span class="c">       // Generate the &quot;parameters&quot;</span>
-<span class="c">       for(var i = 0 ; i &lt; wiring.containers.length ; i++) {</span>
-<span class="c">          var c = wiring.containers[i];</span>
-
-<span class="c">          if(c.moduleName == moduleName) {</span>
-<span class="c">             alert(&#39;We cannot run recursive modules (yet...). Please remove modules &quot;&#39;+moduleName+&#39;&quot; before saving.&#39;);</span>
-<span class="c">             return;</span>
-<span class="c">          }</span>
-
-<span class="c">          // inputs</span>
-<span class="c">          if(c.moduleName == &#39;/system/input&#39;) {</span>
-<span class="c">             var param = {};</span>
-<span class="c">             param.label = c.formValue.name;</span>
-<span class="c">             param.type = c.formValue.type.type;</span>
-<span class="c">             param.inputParams = {};</span>
-<span class="c">             if(c.formValue.type.typeOptions)</span>
-<span class="c">             for(var key in c.formValue.type.typeOptions) {</span>
-<span class="c">                if(c.formValue.type.typeOptions.hasOwnProperty(key)) {</span>
-<span class="c">                   param.inputParams[key] = c.formValue.type.typeOptions[key];</span>
-<span class="c">                }</span>
-<span class="c">             }</span>
-<span class="c">             param.inputParams.name = c.formValue.name;</span>
-<span class="c">             parameters.inputs.push(param);</span>
-<span class="c">          }</span>
-<span class="c">          // outputs</span>
-<span class="c">          else if(c.moduleName == &#39;/system/output&#39;) {</span>
-<span class="c">             var param = {};</span>
-
-<span class="c">             param.name = c.formValue.name;</span>
-
-<span class="c">             parameters.outputs.push(param);</span>
-<span class="c">          }</span>
-<span class="c">       }</span>
-
-<span class="c">       // Boolean to know if we need to rebuild the module treeView</span>
-<span class="c">       var alreadyPresent = !!dfly.ModuleModel.get(moduleName);</span>
-
-<span class="c">       if(alreadyPresent) {</span>
-<span class="c">          var m = dfly.ModuleModel.get(moduleName);</span>
-<span class="c">          m.definition = wiring;//YAHOO.lang.JSON.stringify(wiring);</span>
-<span class="c">          m.parameters = parameters;//YAHOO.lang.JSON.stringify(parameters);</span>
-<span class="c">          m.save();</span>
-<span class="c">       }</span>
-<span class="c">       else {</span>
-<span class="c">          var newModule = new dfly.ModuleModel( {</span>
-<span class="c">             path: moduleName,</span>
-<span class="c">             definition: wiring,//YAHOO.lang.JSON.stringify(wiring),</span>
-<span class="c">             parameters: parameters//YAHOO.lang.JSON.stringify(parameters)</span>
-<span class="c">          });</span>
-<span class="c">          newModule.save();</span>
-<span class="c">       }</span>
-
-<span class="c">       // Regenerate the treeview in the addContainerWindow if this is a new module</span>
-<span class="c">       if(!alreadyPresent) {</span>
-<span class="c">          dfly.addContainerWindow.refreshModuleList();</span>
-<span class="c">       }*/</span>
-    <span class="p">}</span><span class="o">,</span>
-
-    <span class="nx">onLoad</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-       <span class="c">//this.addContainerWindow.show(this.loadModule,this);</span>
     <span class="p">}</span>
+    <span class="c">// Load module with ajax request</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">loadUrl</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">loadModules</span><span class="p">();</span>
+    <span class="p">}</span>
+   
+   <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ex</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">WireIt</span><span class="p">.</span><span class="nx">WiringEditor</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+
+ <span class="c">/**</span>
+<span class="c">  * @method setOptions</span>
+<span class="c">  * @param {Object} options</span>
+<span class="c">  */</span>
+ <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    
+    <span class="c">/**</span>
+<span class="c">     * @property options</span>
+<span class="c">     * @type {Object}</span>
+<span class="c">     */</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">loadUrl</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">loadUrl</span><span class="o">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">saveUrl</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">saveUrl</span><span class="o">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">propertiesFields</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">propertiesFields</span><span class="o">;</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">layoutOptions</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">layoutOptions</span> <span class="o">||</span> <span class="p">{</span>
+	        <span class="nx">units</span><span class="o">:</span> <span class="p">[</span>
+	          <span class="p">{</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;top&#39;</span><span class="o">,</span> <span class="nx">height</span><span class="o">:</span> <span class="mi">50</span><span class="o">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;top&#39;</span><span class="p">}</span><span class="o">,</span>
+	          <span class="p">{</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;left&#39;</span><span class="o">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">200</span><span class="o">,</span> <span class="nx">resize</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;left&#39;</span><span class="o">,</span> <span class="nx">gutter</span><span class="o">:</span> <span class="s1">&#39;5px&#39;</span><span class="o">,</span> <span class="nx">collapse</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> 
+	            <span class="nx">collapseSize</span><span class="o">:</span> <span class="mi">25</span><span class="o">,</span> <span class="nx">header</span><span class="o">:</span> <span class="s1">&#39;Modules&#39;</span><span class="o">,</span> <span class="nx">scroll</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> <span class="nx">animate</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span><span class="o">,</span>
+	          <span class="p">{</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="o">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="o">,</span> <span class="nx">gutter</span><span class="o">:</span> <span class="s1">&#39;5px&#39;</span> <span class="p">}</span><span class="o">,</span>
+	          <span class="p">{</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;right&#39;</span><span class="o">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">320</span><span class="o">,</span> <span class="nx">resize</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;right&#39;</span><span class="o">,</span> <span class="nx">gutter</span><span class="o">:</span> <span class="s1">&#39;5px&#39;</span><span class="o">,</span> <span class="nx">collapse</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> 
+	             <span class="nx">collapseSize</span><span class="o">:</span> <span class="mi">25</span><span class="o">,</span> <span class="nx">header</span><span class="o">:</span> <span class="s1">&#39;Properties&#39;</span><span class="o">,</span> <span class="nx">scroll</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> <span class="nx">animate</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+	        <span class="p">]</span>
+	<span class="p">};</span>
+     
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">layerOptions</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="kd">var</span> <span class="nx">layerOptions</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">layerOptions</span> <span class="o">||</span> <span class="p">{};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">layerOptions</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">=</span> <span class="nx">layerOptions</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">?</span> <span class="nx">layerOptions</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">:</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;center&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">layerOptions</span><span class="p">.</span><span class="nx">layerMap</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">layerOptions</span><span class="p">.</span><span class="nx">layerMap</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="nx">layerOptions</span><span class="p">.</span><span class="nx">layerMap</span><span class="o">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">layerOptions</span><span class="p">.</span><span class="nx">layerMapOptions</span> <span class="o">=</span> <span class="nx">layerOptions</span><span class="p">.</span><span class="nx">layerMapOptions</span> <span class="o">||</span> <span class="p">{</span> <span class="nx">parentEl</span><span class="o">:</span> <span class="s1">&#39;layerMap&#39;</span> <span class="p">};</span>
+ <span class="p">}</span><span class="o">,</span>
+ 
+ <span class="c">/**</span>
+<span class="c">  * Render the properties form</span>
+<span class="c">  * @method renderPropertiesForm</span>
+<span class="c">  */</span>
+ <span class="nx">renderPropertiesForm</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">propertiesForm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Group</span><span class="p">({</span>
+       <span class="nx">parentEl</span><span class="o">:</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;propertiesForm&#39;</span><span class="p">)</span><span class="o">,</span>
+       <span class="nx">fields</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">propertiesFields</span>
+    <span class="p">});</span>
+ <span class="p">}</span><span class="o">,</span>
+ 
+ <span class="c">/**</span>
+<span class="c">  * Build the left menu on the left</span>
+<span class="c">  * @method buildModulesList</span>
+<span class="c">  */</span>
+ <span class="nx">buildModulesList</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    
+    <span class="kd">var</span> <span class="nx">dl</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;dl&#39;</span><span class="p">);</span>
+    
+    <span class="kd">var</span> <span class="nx">modules</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">modules</span><span class="o">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">modules</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+       <span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="nx">modules</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+       <span class="kd">var</span> <span class="nx">dt</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">);</span>
+       <span class="nx">dt</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="o">,</span><span class="p">{</span><span class="nx">src</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">icon</span><span class="p">})</span> <span class="p">);</span>
+       <span class="kd">var</span> <span class="nx">dd</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;dd&#39;</span><span class="p">);</span>
+       <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">href</span><span class="o">:</span> <span class="s1">&#39;#&#39;</span><span class="o">,</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;menu_module_&#39;</span><span class="o">+</span><span class="nx">i</span><span class="p">}</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="nx">module</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+       <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="nx">a</span><span class="o">,</span> <span class="s1">&#39;click&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onAddModule</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+       <span class="nx">dd</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+       <span class="nx">dl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">dt</span><span class="p">);</span>
+       <span class="nx">dl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">dd</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">dl</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dl</span> <span class="o">=</span> <span class="nx">dl</span><span class="o">;</span>
+ <span class="p">}</span><span class="o">,</span>
+
+ <span class="c">/**</span>
+<span class="c">  * Callback called when we want to add a module in the layer</span>
+<span class="c">  * @method onAddModule</span>
+<span class="c">  */</span>
+ <span class="nx">onAddModule</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span> <span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+    
+   <span class="kd">var</span> <span class="nx">stringId</span> <span class="o">=</span> <span class="nx">Event</span><span class="p">.</span><span class="nx">getTarget</span><span class="p">(</span><span class="nx">e</span><span class="p">).</span><span class="nx">id</span><span class="o">;</span>
+   <span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">((</span><span class="nx">stringId</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">))[</span><span class="mi">2</span><span class="p">]);</span>
+   <span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">modules</span><span class="p">[</span><span class="nx">index</span><span class="p">];</span>
+    
+   <span class="kd">var</span> <span class="nx">moduleConfig</span> <span class="o">=</span> <span class="nx">module</span><span class="o">;</span>
+   
+   <span class="kd">var</span> <span class="nx">containerConfig</span> <span class="o">=</span> <span class="nx">moduleConfig</span><span class="p">.</span><span class="nx">container</span><span class="o">;</span>
+   <span class="nx">containerConfig</span><span class="p">.</span><span class="nx">position</span> <span class="o">=</span> <span class="p">[</span><span class="mi">200</span><span class="o">,</span><span class="mi">200</span><span class="p">];</span>
+   <span class="nx">containerConfig</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">module</span><span class="p">.</span><span class="nx">name</span><span class="o">;</span>
+   <span class="k">try</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">addContainer</span><span class="p">(</span><span class="nx">containerConfig</span><span class="p">);</span>
+   <span class="p">}</span>
+   <span class="k">catch</span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Error Layer.addContainer&quot;</span><span class="o">,</span> <span class="nx">ex</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+   <span class="p">}</span>
+ <span class="p">}</span><span class="o">,</span>
+
+ <span class="c">/**</span>
+<span class="c">  * Toolbar</span>
+<span class="c">  * @method renderButtons</span>
+<span class="c">  */</span>
+ <span class="nx">renderButtons</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">toolbar</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;toolbar&#39;</span><span class="p">);</span>
+    <span class="c">// Buttons :</span>
+    <span class="kd">var</span> <span class="nx">newButton</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">widget</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span> <span class="kd">label</span><span class="o">:</span><span class="s2">&quot;New&quot;</span><span class="o">,</span> <span class="nx">id</span><span class="o">:</span><span class="s2">&quot;WiringEditor-newButton&quot;</span><span class="o">,</span> <span class="nx">container</span><span class="o">:</span> <span class="nx">toolbar</span> <span class="p">});</span>
+    <span class="nx">newButton</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onNew</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+
+    <span class="kd">var</span> <span class="nx">loadButton</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">widget</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span> <span class="kd">label</span><span class="o">:</span><span class="s2">&quot;Load&quot;</span><span class="o">,</span> <span class="nx">id</span><span class="o">:</span><span class="s2">&quot;WiringEditor-loadButton&quot;</span><span class="o">,</span> <span class="nx">container</span><span class="o">:</span> <span class="nx">toolbar</span> <span class="p">});</span>
+    <span class="nx">loadButton</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onLoad</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+
+    <span class="kd">var</span> <span class="nx">saveButton</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">widget</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span> <span class="kd">label</span><span class="o">:</span><span class="s2">&quot;Save&quot;</span><span class="o">,</span> <span class="nx">id</span><span class="o">:</span><span class="s2">&quot;WiringEditor-saveButton&quot;</span><span class="o">,</span> <span class="nx">container</span><span class="o">:</span> <span class="nx">toolbar</span> <span class="p">});</span>
+    <span class="nx">saveButton</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onSave</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+
+    <span class="kd">var</span> <span class="nx">deleteButton</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">widget</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span> <span class="kd">label</span><span class="o">:</span><span class="s2">&quot;Delete&quot;</span><span class="o">,</span> <span class="nx">id</span><span class="o">:</span><span class="s2">&quot;WiringEditor-deleteButton&quot;</span><span class="o">,</span> <span class="nx">container</span><span class="o">:</span> <span class="nx">toolbar</span> <span class="p">});</span>
+    <span class="nx">deleteButton</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onDelete</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+
+    <span class="kd">var</span> <span class="nx">helpButton</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">widget</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span> <span class="kd">label</span><span class="o">:</span><span class="s2">&quot;Help&quot;</span><span class="o">,</span> <span class="nx">id</span><span class="o">:</span><span class="s2">&quot;WiringEditor-helpButton&quot;</span><span class="o">,</span> <span class="nx">container</span><span class="o">:</span> <span class="nx">toolbar</span> <span class="p">});</span>
+    <span class="nx">helpButton</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onHelp</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+ <span class="p">}</span><span class="o">,</span>
+
+ <span class="c">/**</span>
+<span class="c">  * Ajax request to load the modules</span>
+<span class="c">  * @method loadModules</span>
+<span class="c">  */</span>
+ <span class="nx">loadModules</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">Connect</span><span class="p">.</span><span class="nx">asyncRequest</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">loadUrl</span><span class="o">,</span> 
+             <span class="p">{</span> <span class="nx">success</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">loadModulesSuccess</span><span class="o">,</span> <span class="nx">failure</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">loadModulesFailure</span><span class="o">,</span> <span class="nx">scope</span><span class="o">:</span> <span class="k">this</span><span class="p">});</span>
+ <span class="p">}</span><span class="o">,</span>
+
+ <span class="c">/**</span>
+<span class="c">  * Parse the JSON response </span>
+<span class="c">  * @method loadModulesSuccess</span>
+<span class="c">  */</span>
+ <span class="nx">loadModulesSuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+       <span class="c">/**</span>
+<span class="c">        * @property modules</span>
+<span class="c">        */</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">modules</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">o</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">catch</span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Error while javascript evaluation of loadModules results : &quot;</span><span class="o">,</span> <span class="nx">ex</span><span class="p">);</span>
+       <span class="k">return</span><span class="o">;</span>
+    <span class="p">}</span>
+    
+    <span class="c">// Build module list</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">buildModulesList</span><span class="p">();</span>
+ <span class="p">}</span><span class="o">,</span>
+
+ <span class="c">/**</span>
+<span class="c">  * An error occured on loadModules :(</span>
+<span class="c">  * @method loadModulesFailure</span>
+<span class="c">  */</span>
+ <span class="nx">loadModulesFailure</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Load module failure !!&quot;</span><span class="o">,</span> <span class="nx">o</span><span class="p">);</span>
+ <span class="p">}</span><span class="o">,</span>
+
+ <span class="c">/**</span>
+<span class="c">  * save the current module</span>
+<span class="c">  * @method saveModule</span>
+<span class="c">  */</span>
+ <span class="nx">saveModule</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    
+    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
+    
+    <span class="k">if</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">name</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+       <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Please choose a name&quot;</span><span class="p">);</span>
+       <span class="k">return</span><span class="o">;</span>
+    <span class="p">}</span>
+    
+    <span class="kd">var</span> <span class="nx">postdata</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+    
+    <span class="nx">Connect</span><span class="p">.</span><span class="nx">asyncRequest</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">saveUrl</span><span class="o">,</span> 
+                <span class="p">{</span><span class="nx">success</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">saveModuleSuccess</span><span class="o">,</span><span class="nx">failure</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">saveModuleFailure</span><span class="p">}</span><span class="o">,</span> <span class="nx">postdata</span><span class="p">);</span>
+ <span class="p">}</span><span class="o">,</span>
+
+ <span class="c">/**</span>
+<span class="c">  * saveModule success callback</span>
+<span class="c">  * @method saveModuleSuccess</span>
+<span class="c">  */</span>
+ <span class="nx">saveModuleSuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Saved !&quot;</span><span class="p">);</span>
+ <span class="p">}</span><span class="o">,</span>
+
+ <span class="c">/**</span>
+<span class="c">  * saveModule failure callback</span>
+<span class="c">  * @method saveModuleFailure</span>
+<span class="c">  */</span>
+ <span class="nx">saveModuleFailure</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;error while saving! &quot;</span><span class="p">);</span>
+ <span class="p">}</span><span class="o">,</span>
 
 
- <span class="p">};</span>
+ <span class="c">/**</span>
+<span class="c">  * Create a help panel</span>
+<span class="c">  * @method onHelp</span>
+<span class="c">  */</span>
+ <span class="nx">onHelp</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">helpPanel</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">helpPanel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">widget</span><span class="p">.</span><span class="nx">Panel</span><span class="p">(</span><span class="s1">&#39;dfly-helpPanel&#39;</span><span class="o">,</span> <span class="p">{</span>
+          <span class="nx">draggable</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
+          <span class="nx">width</span><span class="o">:</span> <span class="s1">&#39;500px&#39;</span><span class="o">,</span>
+          <span class="nx">visible</span><span class="o">:</span> <span class="kc">false</span>
+       <span class="p">});</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">helpPanel</span><span class="p">.</span><span class="nx">setBody</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;Some help here&lt;/p&gt;&quot;</span><span class="p">);</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">helpPanel</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s2">&quot;You asked for some help ?&quot;</span><span class="p">);</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">helpPanel</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">helpPanel</span><span class="p">.</span><span class="nx">center</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">helpPanel</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+ <span class="p">}</span><span class="o">,</span>
 
- <span class="c">// InputEx needs a correct path to this image</span>
- <span class="nx">inputEx</span><span class="p">.</span><span class="nx">spacerUrl</span> <span class="o">=</span> <span class="s2">&quot;/inputex/trunk/images/space.gif&quot;</span><span class="o">;</span>
+ <span class="c">/**</span>
+<span class="c">  * @method onNew</span>
+<span class="c">  */</span>
+ <span class="nx">onNew</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">removeAllContainers</span><span class="p">();</span>
+ <span class="p">}</span><span class="o">,</span>
+
+ <span class="c">/**</span>
+<span class="c">  * @method onDelete</span>
+<span class="c">  */</span>
+ <span class="nx">onDelete</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span> <span class="nx">confirm</span><span class="p">(</span><span class="s2">&quot;Are you sure you want to delete this wiring ?&quot;</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+       
+       <span class="nx">Connect</span><span class="p">.</span><span class="nx">asyncRequest</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">deleteUrl</span><span class="o">,</span> 
+                 <span class="p">{</span> <span class="nx">success</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">loadModulesSuccess</span><span class="o">,</span> <span class="nx">failure</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">loadModulesFailure</span><span class="o">,</span> <span class="nx">scope</span><span class="o">:</span> <span class="k">this</span><span class="p">});</span>
+       
+    <span class="p">}</span>
+ <span class="p">}</span><span class="o">,</span>
+
+ <span class="c">/**</span>
+<span class="c">  * @method onSave</span>
+<span class="c">  */</span>
+ <span class="nx">onSave</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">saveModule</span><span class="p">();</span>
+ <span class="p">}</span><span class="o">,</span>
+
+ <span class="c">/**</span>
+<span class="c">  * @method onLoad</span>
+<span class="c">  */</span>
+ <span class="nx">onLoad</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;not implemented&quot;</span><span class="p">);</span>
+ <span class="p">}</span><span class="o">,</span>
+ 
+ <span class="c">/**</span>
+<span class="c">  * This method return a wiring within the given vocabulary described by the modules list</span>
+<span class="c">  * @method getValue</span>
+<span class="c">  */</span>
+ <span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    
+   <span class="kd">var</span> <span class="nx">i</span><span class="o">;</span>
+   <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">modules</span><span class="o">:</span> <span class="p">[]</span><span class="o">,</span> <span class="nx">wires</span><span class="o">:</span> <span class="p">[]};</span>
+
+   <span class="k">for</span><span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">containers</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">obj</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">containers</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">options</span><span class="p">.</span><span class="nx">title</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">containers</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">getValue</span><span class="p">()</span><span class="o">,</span> <span class="nx">config</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">containers</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">getConfig</span><span class="p">()});</span>
+   <span class="p">}</span>
+
+   <span class="k">for</span><span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">wires</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">wire</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">wires</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+
+      <span class="kd">var</span> <span class="nx">wireObj</span> <span class="o">=</span> <span class="p">{</span> 
+         <span class="nx">src</span><span class="o">:</span> <span class="p">{</span><span class="nx">moduleId</span><span class="o">:</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">wire</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">container</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">containers</span><span class="p">)</span><span class="o">,</span> <span class="nx">terminalId</span><span class="o">:</span> <span class="nx">wire</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">,</span> 
+         <span class="nx">tgt</span><span class="o">:</span> <span class="p">{</span><span class="nx">moduleId</span><span class="o">:</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">wire</span><span class="p">.</span><span class="nx">terminal2</span><span class="p">.</span><span class="nx">container</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">containers</span><span class="p">)</span><span class="o">,</span> <span class="nx">terminalId</span><span class="o">:</span> <span class="nx">wire</span><span class="p">.</span><span class="nx">terminal2</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span> 
+      <span class="p">};</span>
+      <span class="nx">obj</span><span class="p">.</span><span class="nx">wires</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">wireObj</span><span class="p">);</span>
+   <span class="p">}</span>
+   
+   <span class="kd">var</span> <span class="nx">propertiesValue</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">propertiesForm</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
+    
+   <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="nx">propertiesValue</span><span class="p">.</span><span class="nx">name</span><span class="o">,</span>
+      <span class="nx">working</span><span class="o">:</span> <span class="nx">obj</span>
+   <span class="p">};</span>
+ <span class="p">}</span><span class="o">,</span>
+ 
+ <span class="c">/**</span>
+<span class="c">  * @method setValue</span>
+<span class="c">  */</span>
+ <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+    
+    <span class="c">//this.layer.setWiring();</span>
+    
+ <span class="p">}</span>
+
+
+<span class="p">};</span>
 
 <span class="p">})();</span>
  
@@ -355,10 +409,10 @@
                         <ul class="content">
                                 <li class=""><a href="inputEx.BaseField.html" title="inputEx.BaseField">inputEx.BaseField</a></li>
                                 <li class=""><a href="inputEx.Field.html" title="inputEx.Field">inputEx.Field</a></li>
-                                <li class=""><a href="WireIt.html" title="WireIt">WireIt</a></li>
                                 <li class=""><a href="WireIt.CanvasElement.html" title="WireIt.CanvasElement">WireIt.CanvasElement</a></li>
                                 <li class=""><a href="WireIt.Container.html" title="WireIt.Container">WireIt.Container</a></li>
                                 <li class=""><a href="WireIt.FormContainer.html" title="WireIt.FormContainer">WireIt.FormContainer</a></li>
+                                <li class=""><a href="WireIt.ImageContainer.html" title="WireIt.ImageContainer">WireIt.ImageContainer</a></li>
                                 <li class=""><a href="WireIt.Layer.html" title="WireIt.Layer">WireIt.Layer</a></li>
                                 <li class=""><a href="WireIt.LayerMap.html" title="WireIt.LayerMap">WireIt.LayerMap</a></li>
                                 <li class=""><a href="WireIt.Scissors.html" title="WireIt.Scissors">WireIt.Scissors</a></li>
@@ -370,6 +424,8 @@
                                 <li class=""><a href="WireIt.util.TerminalInput.html" title="WireIt.util.TerminalInput">WireIt.util.TerminalInput</a></li>
                                 <li class=""><a href="WireIt.util.TerminalOutput.html" title="WireIt.util.TerminalOutput">WireIt.util.TerminalOutput</a></li>
                                 <li class=""><a href="WireIt.Wire.html" title="WireIt.Wire">WireIt.Wire</a></li>
+                                <li class=""><a href="WireIt.WireIt.html" title="WireIt.WireIt">WireIt.WireIt</a></li>
+                                <li class=""><a href="WireIt.WiringEditor.html" title="WireIt.WiringEditor">WireIt.WiringEditor</a></li>
                         </ul>
                     </div>
 
@@ -382,8 +438,9 @@
                                 <li class=""><a href="DD.js.html" title="DD.js">DD.js</a></li>
                                 <li class=""><a href="DDResize.js.html" title="DDResize.js">DDResize.js</a></li>
                                 <li class=""><a href="FormContainer-beta.js.html" title="FormContainer-beta.js">FormContainer-beta.js</a></li>
+                                <li class=""><a href="ImageContainer.js.html" title="ImageContainer.js">ImageContainer.js</a></li>
                                 <li class=""><a href="Layer.js.html" title="Layer.js">Layer.js</a></li>
-                                <li class=""><a href="LayerMap-beta.js.html" title="LayerMap-beta.js">LayerMap-beta.js</a></li>
+                                <li class=""><a href="LayerMap.js.html" title="LayerMap.js">LayerMap.js</a></li>
                                 <li class=""><a href="Terminal.js.html" title="Terminal.js">Terminal.js</a></li>
                                 <li class=""><a href="WirableField-beta.js.html" title="WirableField-beta.js">WirableField-beta.js</a></li>
                                 <li class=""><a href="Wire.js.html" title="Wire.js">Wire.js</a></li>
@@ -401,11 +458,11 @@
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2008 Eric Abouaf. All rights reserved.
+        Copyright &copy; 2009 Eric Abouaf. All rights reserved.
 	</div>
 </div>
 <script type="text/javascript">
-    ALL_YUI_PROPS = [{"access": "", "host": "WireIt.Layer", "name": "addContainer", "url": "WireIt.Layer.html#method_addContainer", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "addTerminal", "url": "WireIt.Container.html#method_addTerminal", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "addWire", "url": "WireIt.Layer.html#method_addWire", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "addWire", "url": "WireIt.Terminal.html#method_addWire", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "bodyEl", "url": "WireIt.Container.html#property_bodyEl", "type": "property"}, {"access": "", "host": "WireIt", "name": "buildModulesList", "url": "WireIt.html#method_buildModulesList", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "clear", "url": "WireIt.Layer.html#method_clear", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "clearExplode", "url": "WireIt.Layer.html#method_clearExplode", "type": "method"}, {"access": "", "host": "WireIt", "name": "cn", "url": "WireIt.html#method_cn", "type": "method"}, {"access": "", "host": "WireIt", "name": "compact", "url": "WireIt.html#method_compact", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "container", "url": "WireIt.Terminal.html#property_container", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "containers", "url": "WireIt.Layer.html#property_containers", "type": "property"}, {"access": "", "host": "WireIt.LayerMap", "name": "draw", "url": "WireIt.LayerMap.html#method_draw", "type": "method"}, {"access": "", "host": "WireIt.Wire", "name": "drawArrows", "url": "WireIt.Wire.html#method_drawArrows", "type": "method"}, {"access": "", "host": "WireIt.Wire", "name": "drawBezierCurve", "url": "WireIt.Wire.html#method_drawBezierCurve", "type": "method"}, {"access": "", "host": "WireIt.Wire", "name": "drawStraight", "url": "WireIt.Wire.html#method_drawStraight", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "el", "url": "WireIt.Container.html#property_el", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "el", "url": "WireIt.Layer.html#property_el", "type": "property"}, {"access": "", "host": "WireIt.Terminal", "name": "el", "url": "WireIt.Terminal.html#property_el", "type": "property"}, {"access": "", "host": "WireIt.CanvasElement", "name": "element", "url": "WireIt.CanvasElement.html#property_element", "type": "property"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "endDrag", "url": "WireIt.TerminalProxy.html#method_endDrag", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "eventAddContainer", "url": "WireIt.Layer.html#event_eventAddContainer", "type": "event"}, {"access": "", "host": "WireIt.Container", "name": "eventAddWire", "url": "WireIt.Container.html#event_eventAddWire", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventAddWire", "url": "WireIt.Layer.html#event_eventAddWire", "type": "event"}, {"access": "", "host": "WireIt.Terminal", "name": "eventAddWire", "url": "WireIt.Terminal.html#event_eventAddWire", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventContainerDragged", "url": "WireIt.Layer.html#event_eventContainerDragged", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventContainerResized", "url": "WireIt.Layer.html#event_eventContainerResized", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventRemoveContainer", "url": "WireIt.Layer.html#event_eventRemoveContainer", "type": "event"}, {"access": "", "host": "WireIt.Container", "name": "eventRemoveWire", "url": "WireIt.Container.html#event_eventRemoveWire", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventRemoveWire", "url": "WireIt.Layer.html#event_eventRemoveWire", "type": "event"}, {"access": "", "host": "WireIt.Terminal", "name": "eventRemoveWire", "url": "WireIt.Terminal.html#event_eventRemoveWire", "type": "event"}, {"access": "", "host": "WireIt.util.DDResize", "name": "eventResize", "url": "WireIt.util.DDResize.html#event_eventResize", "type": "event"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "fakeTerminal", "url": "WireIt.TerminalProxy.html#property_fakeTerminal", "type": "property"}, {"access": "", "host": "WireIt.Container", "name": "getConfig", "url": "WireIt.Container.html#method_getConfig", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "getConnectedTerminals", "url": "WireIt.Terminal.html#method_getConnectedTerminals", "type": "method"}, {"access": "", "host": "WireIt.CanvasElement", "name": "getContext", "url": "WireIt.CanvasElement.html#method_getContext", "type": "method"}, {"access": "", "host": "WireIt", "name": "getIntStyle", "url": "WireIt.html#method_getIntStyle", "type": "method"}, {"access": "", "host": "WireIt.Wire", "name": "getOtherTerminal", "url": "WireIt.Wire.html#method_getOtherTerminal", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "getWiring", "url": "WireIt.Layer.html#method_getWiring", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "getXY", "url": "WireIt.Terminal.html#method_getXY", "type": "method"}, {"access": "", "host": "WireIt.Scissors", "name": "hide", "url": "WireIt.Scissors.html#method_hide", "type": "method"}, {"access": "", "host": "WireIt.Scissors", "name": "hideNow", "url": "WireIt.Scissors.html#method_hideNow", "type": "method"}, {"access": "", "host": "WireIt", "name": "indexOf", "url": "WireIt.html#method_indexOf", "type": "method"}, {"access": "", "host": "WireIt", "name": "init", "url": "WireIt.html#method_init", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "initContainers", "url": "WireIt.Layer.html#method_initContainers", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "initEvents", "url": "WireIt.LayerMap.html#method_initEvents", "type": "method"}, {"access": "", "host": "WireIt.Scissors", "name": "initScissors", "url": "WireIt.Scissors.html#method_initScissors", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "initTerminals", "url": "WireIt.Container.html#method_initTerminals", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "initWires", "url": "WireIt.Layer.html#method_initWires", "type": "method"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "isValidWireTerminal", "url": "WireIt.TerminalProxy.html#method_isValidWireTerminal", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "layer", "url": "WireIt.Container.html#property_layer", "type": "property"}, {"access": "", "host": "WireIt", "name": "loadModules", "url": "WireIt.html#method_loadModules", "type": "method"}, {"access": "", "host": "WireIt", "name": "loadModulesFailure", "url": "WireIt.html#method_loadModulesFailure", "type": "method"}, {"access": "", "host": "WireIt", "name": "loadModulesSuccess", "url": "WireIt.html#method_loadModulesSuccess", "type": "method"}, {"access": "", "host": "WireIt.Scissors", "name": "mouseOver", "url": "WireIt.Scissors.html#method_mouseOver", "type": "method"}, {"access": "", "host": "WireIt.util.Anim", "name": "moveWireItWires", "url": "WireIt.util.Anim.html#method_moveWireItWires", "type": "method"}, {"access": "", "host": "WireIt.util.DDResize", "name": "myConf", "url": "WireIt.util.DDResize.html#property_myConf", "type": "property"}, {"access": "", "host": "WireIt", "name": "onAddModule", "url": "WireIt.html#method_onAddModule", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onAddWire", "url": "WireIt.Container.html#method_onAddWire", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "onAddWire", "url": "WireIt.Layer.html#method_onAddWire", "type": "method"}, {"access": "", "host": "inputEx.Field", "name": "onAddWire", "url": "inputEx.Field.html#method_onAddWire", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "onClick", "url": "WireIt.LayerMap.html#method_onClick", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onCloseButton", "url": "WireIt.Container.html#method_onCloseButton", "type": "method"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "onDrag", "url": "WireIt.TerminalProxy.html#method_onDrag", "type": "method"}, {"access": "", "host": "WireIt.util.DD", "name": "onDrag", "url": "WireIt.util.DD.html#method_onDrag", "type": "method"}, {"access": "", "host": "WireIt.util.DDResize", "name": "onDrag", "url": "WireIt.util.DDResize.html#method_onDrag", "type": "method"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "onDragDrop", "url": "WireIt.TerminalProxy.html#method_onDragDrop", "type": "method"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "onDragEnter", "url": "WireIt.TerminalProxy.html#method_onDragEnter", "type": "method"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "onDragOut", "url": "WireIt.TerminalProxy.html#method_onDragOut", "type": "method"}, {"access": "", "host": "WireIt", "name": "onHelp", "url": "WireIt.html#method_onHelp", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onMouseDown", "url": "WireIt.Container.html#method_onMouseDown", "type": "method"}, {"access": "", "host": "WireIt.util.DDResize", "name": "onMouseDown", "url": "WireIt.util.DDResize.html#method_onMouseDown", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onRemoveWire", "url": "WireIt.Container.html#method_onRemoveWire", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "onRemoveWire", "url": "WireIt.Layer.html#method_onRemoveWire", "type": "method"}, {"access": "", "host": "inputEx.Field", "name": "onRemoveWire", "url": "inputEx.Field.html#method_onRemoveWire", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onResize", "url": "WireIt.Container.html#method_onResize", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "options", "url": "WireIt.Container.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "options", "url": "WireIt.Layer.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.LayerMap", "name": "options", "url": "WireIt.LayerMap.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.Terminal", "name": "options", "url": "WireIt.Terminal.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.Wire", "name": "options", "url": "WireIt.Wire.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.Terminal", "name": "parentEl", "url": "WireIt.Terminal.html#property_parentEl", "type": "property"}, {"access": "", "host": "WireIt.Wire", "name": "parentEl", "url": "WireIt.Wire.html#property_parentEl", "type": "property"}, {"access": "", "host": "WireIt.Wire", "name": "redraw", "url": "WireIt.Wire.html#method_redraw", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "redrawAllTerminals", "url": "WireIt.Container.html#method_redrawAllTerminals", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "redrawAllWires", "url": "WireIt.Terminal.html#method_redrawAllWires", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "remove", "url": "WireIt.Container.html#method_remove", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "remove", "url": "WireIt.Terminal.html#method_remove", "type": "method"}, {"access": "", "host": "WireIt.Wire", "name": "remove", "url": "WireIt.Wire.html#method_remove", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "removeAllContainers", "url": "WireIt.Layer.html#method_removeAllContainers", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "removeAllTerminals", "url": "WireIt.Container.html#method_removeAllTerminals", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "removeAllWires", "url": "WireIt.Terminal.html#method_removeAllWires", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "removeContainer", "url": "WireIt.Layer.html#method_removeContainer", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "removeFocus", "url": "WireIt.Container.html#method_removeFocus", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "removeWire", "url": "WireIt.Terminal.html#method_removeWire", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "render", "url": "WireIt.Container.html#method_render", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "render", "url": "WireIt.Layer.html#method_render", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "render", "url": "WireIt.Terminal.html#method_render", "type": "method"}, {"access": "", "host": "WireIt.FormContainer", "name": "render", "url": "WireIt.FormContainer.html#method_render", "type": "method"}, {"access": "", "host": "inputEx.Field", "name": "render", "url": "inputEx.Field.html#method_render", "type": "method"}, {"access": "", "host": "WireIt", "name": "renderButtons", "url": "WireIt.html#method_renderButtons", "type": "method"}, {"access": "", "host": "WireIt.FormContainer", "name": "renderForm", "url": "WireIt.FormContainer.html#method_renderForm", "type": "method"}, {"access": "", "host": "inputEx.Field", "name": "renderTerminal", "url": "inputEx.Field.html#method_renderTerminal", "type": "method"}, {"access": "", "host": "WireIt", "name": "saveModule", "url": "WireIt.html#method_saveModule", "type": "method"}, {"access": "", "host": "WireIt.Scissors", "name": "scissorClick", "url": "WireIt.Scissors.html#method_scissorClick", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "setBody", "url": "WireIt.Container.html#method_setBody", "type": "method"}, {"access": "", "host": "WireIt.CanvasElement", "name": "SetCanvasRegion", "url": "WireIt.CanvasElement.html#method_SetCanvasRegion", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "setDropInvitation", "url": "WireIt.Terminal.html#method_setDropInvitation", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "setFocus", "url": "WireIt.Container.html#method_setFocus", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "setOptions", "url": "WireIt.Container.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "setOptions", "url": "WireIt.Layer.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "setOptions", "url": "WireIt.LayerMap.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "setOptions", "url": "WireIt.Terminal.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.util.TerminalInput", "name": "setOptions", "url": "WireIt.util.TerminalInput.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.util.TerminalOutput", "name": "setOptions", "url": "WireIt.util.TerminalOutput.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.Wire", "name": "setOptions", "url": "WireIt.Wire.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.FormContainer", "name": "setOptions", "url": "WireIt.FormContainer.html#method_setOptions", "type": "method"}, {"access": "", "host": "inputEx.Field", "name": "setOptions", "url": "inputEx.Field.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.Scissors", "name": "setPosition", "url": "WireIt.Scissors.html#method_setPosition", "type": "method"}, {"access": "", "host": "WireIt.util.Anim", "name": "setTerminals", "url": "WireIt.util.Anim.html#method_setTerminals", "type": "method"}, {"access": "", "host": "WireIt.util.DD", "name": "setTerminals", "url": "WireIt.util.DD.html#method_setTerminals", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "setWiring", "url": "WireIt.Layer.html#method_setWiring", "type": "method"}, {"access": "", "host": "WireIt.Scissors", "name": "show", "url": "WireIt.Scissors.html#method_show", "type": "method"}, {"access": "", "host": "WireIt", "name": "sn", "url": "WireIt.html#method_sn", "type": "method"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "startDrag", "url": "WireIt.TerminalProxy.html#method_startDrag", "type": "method"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "termConfig", "url": "WireIt.TerminalProxy.html#property_termConfig", "type": "property"}, {"access": "", "host": "WireIt.Scissors", "name": "_terminal", "url": "WireIt.Scissors.html#property__terminal", "type": "property"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "terminal", "url": "WireIt.TerminalProxy.html#property_terminal", "type": "property"}, {"access": "", "host": "WireIt.Wire", "name": "terminal1", "url": "WireIt.Wire.html#property_terminal1", "type": "property"}, {"access": "", "host": "WireIt.Wire", "name": "terminal2", "url": "WireIt.Wire.html#property_terminal2", "type": "property"}, {"access": "", "host": "WireIt.Container", "name": "terminals", "url": "WireIt.Container.html#property_terminals", "type": "property"}, {"access": "", "host": "WireIt", "name": "util", "url": "WireIt.html#property_util", "type": "property"}, {"access": "", "host": "WireIt.util.Anim", "name": "_WireItTerminals", "url": "WireIt.util.Anim.html#property__WireItTerminals", "type": "property"}, {"access": "", "host": "WireIt.util.DD", "name": "_WireItTerminals", "url": "WireIt.util.DD.html#property__WireItTerminals", "type": "property"}, {"access": "", "host": "WireIt.Container", "name": "wires", "url": "WireIt.Container.html#property_wires", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "wires", "url": "WireIt.Layer.html#property_wires", "type": "property"}, {"access": "", "host": "WireIt.Terminal", "name": "wires", "url": "WireIt.Terminal.html#property_wires", "type": "property"}, {"access": "", "host": "WireIt", "name": "WiringEditor", "url": "WireIt.html#property_WiringEditor", "type": "property"}];
+    ALL_YUI_PROPS = [{"access": "", "host": "WireIt.Layer", "name": "addContainer", "url": "WireIt.Layer.html#method_addContainer", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "addTerminal", "url": "WireIt.Container.html#method_addTerminal", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "addWire", "url": "WireIt.Layer.html#method_addWire", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "addWire", "url": "WireIt.Terminal.html#method_addWire", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "bodyEl", "url": "WireIt.Container.html#property_bodyEl", "type": "property"}, {"access": "", "host": "WireIt.WiringEditor", "name": "buildModulesList", "url": "WireIt.WiringEditor.html#method_buildModulesList", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "clear", "url": "WireIt.Layer.html#method_clear", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "clearExplode", "url": "WireIt.Layer.html#method_clearExplode", "type": "method"}, {"access": "", "host": "WireIt.WireIt", "name": "cn", "url": "WireIt.WireIt.html#method_cn", "type": "method"}, {"access": "", "host": "WireIt.WireIt", "name": "compact", "url": "WireIt.WireIt.html#method_compact", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "container", "url": "WireIt.Terminal.html#property_container", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "containers", "url": "WireIt.Layer.html#property_containers", "type": "property"}, {"access": "", "host": "WireIt.LayerMap", "name": "draw", "url": "WireIt.LayerMap.html#method_draw", "type": "method"}, {"access": "", "host": "WireIt.Wire", "name": "drawArrows", "url": "WireIt.Wire.html#method_drawArrows", "type": "method"}, {"access": "", "host": "WireIt.Wire", "name": "drawBezierCurve", "url": "WireIt.Wire.html#method_drawBezierCurve", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "drawContainers", "url": "WireIt.LayerMap.html#method_drawContainers", "type": "method"}, {"access": "", "host": "WireIt.Wire", "name": "drawStraight", "url": "WireIt.Wire.html#method_drawStraight", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "drawWires", "url": "WireIt.LayerMap.html#method_drawWires", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "el", "url": "WireIt.Container.html#property_el", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "el", "url": "WireIt.Layer.html#property_el", "type": "property"}, {"access": "", "host": "WireIt.Terminal", "name": "el", "url": "WireIt.Terminal.html#property_el", "type": "property"}, {"access": "", "host": "WireIt.WiringEditor", "name": "el", "url": "WireIt.WiringEditor.html#property_el", "type": "property"}, {"access": "", "host": "WireIt.CanvasElement", "name": "element", "url": "WireIt.CanvasElement.html#property_element", "type": "property"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "endDrag", "url": "WireIt.TerminalProxy.html#method_endDrag", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "eventAddContainer", "url": "WireIt.Layer.html#event_eventAddContainer", "type": "event"}, {"access": "", "host": "WireIt.Container", "name": "eventAddWire", "url": "WireIt.Container.html#event_eventAddWire", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventAddWire", "url": "WireIt.Layer.html#event_eventAddWire", "type": "event"}, {"access": "", "host": "WireIt.Terminal", "name": "eventAddWire", "url": "WireIt.Terminal.html#event_eventAddWire", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventContainerDragged", "url": "WireIt.Layer.html#event_eventContainerDragged", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventContainerResized", "url": "WireIt.Layer.html#event_eventContainerResized", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventRemoveContainer", "url": "WireIt.Layer.html#event_eventRemoveContainer", "type": "event"}, {"access": "", "host": "WireIt.Container", "name": "eventRemoveWire", "url": "WireIt.Container.html#event_eventRemoveWire", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventRemoveWire", "url": "WireIt.Layer.html#event_eventRemoveWire", "type": "event"}, {"access": "", "host": "WireIt.Terminal", "name": "eventRemoveWire", "url": "WireIt.Terminal.html#event_eventRemoveWire", "type": "event"}, {"access": "", "host": "WireIt.util.DDResize", "name": "eventResize", "url": "WireIt.util.DDResize.html#event_eventResize", "type": "event"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "fakeTerminal", "url": "WireIt.TerminalProxy.html#property_fakeTerminal", "type": "property"}, {"access": "", "host": "WireIt.Container", "name": "getConfig", "url": "WireIt.Container.html#method_getConfig", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "getConnectedTerminals", "url": "WireIt.Terminal.html#method_getConnectedTerminals", "type": "method"}, {"access": "", "host": "WireIt.CanvasElement", "name": "getContext", "url": "WireIt.CanvasElement.html#method_getContext", "type": "method"}, {"access": "", "host": "WireIt.WireIt", "name": "getIntStyle", "url": "WireIt.WireIt.html#method_getIntStyle", "type": "method"}, {"access": "", "host": "WireIt.Wire", "name": "getOtherTerminal", "url": "WireIt.Wire.html#method_getOtherTerminal", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "getValue", "url": "WireIt.Container.html#method_getValue", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "getValue", "url": "WireIt.WiringEditor.html#method_getValue", "type": "method"}, {"access": "", "host": "WireIt.FormContainer", "name": "getValue", "url": "WireIt.FormContainer.html#method_getValue", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "getWiring", "url": "WireIt.Layer.html#method_getWiring", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "getXY", "url": "WireIt.Terminal.html#method_getXY", "type": "method"}, {"access": "", "host": "WireIt.Scissors", "name": "hide", "url": "WireIt.Scissors.html#method_hide", "type": "method"}, {"access": "", "host": "WireIt.Scissors", "name": "hideNow", "url": "WireIt.Scissors.html#method_hideNow", "type": "method"}, {"access": "", "host": "WireIt.WireIt", "name": "indexOf", "url": "WireIt.WireIt.html#method_indexOf", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "initContainers", "url": "WireIt.Layer.html#method_initContainers", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "initEvents", "url": "WireIt.LayerMap.html#method_initEvents", "type": "method"}, {"access": "", "host": "WireIt.Scissors", "name": "initScissors", "url": "WireIt.Scissors.html#method_initScissors", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "initTerminals", "url": "WireIt.Container.html#method_initTerminals", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "initWires", "url": "WireIt.Layer.html#method_initWires", "type": "method"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "isValidWireTerminal", "url": "WireIt.TerminalProxy.html#method_isValidWireTerminal", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "layer", "url": "WireIt.Container.html#property_layer", "type": "property"}, {"access": "", "host": "WireIt.LayerMap", "name": "layer", "url": "WireIt.LayerMap.html#property_layer", "type": "property"}, {"access": "", "host": "WireIt.WiringEditor", "name": "layer", "url": "WireIt.WiringEditor.html#property_layer", "type": "property"}, {"access": "", "host": "WireIt.WiringEditor", "name": "layout", "url": "WireIt.WiringEditor.html#property_layout", "type": "property"}, {"access": "", "host": "WireIt.WiringEditor", "name": "loadModules", "url": "WireIt.WiringEditor.html#method_loadModules", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "loadModulesFailure", "url": "WireIt.WiringEditor.html#method_loadModulesFailure", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "loadModulesSuccess", "url": "WireIt.WiringEditor.html#method_loadModulesSuccess", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "modules", "url": "WireIt.WiringEditor.html#property_modules", "type": "property"}, {"access": "", "host": "WireIt.Scissors", "name": "mouseOver", "url": "WireIt.Scissors.html#method_mouseOver", "type": "method"}, {"access": "", "host": "WireIt.util.Anim", "name": "moveWireItWires", "url": "WireIt.util.Anim.html#method_moveWireItWires", "type": "method"}, {"access": "", "host": "WireIt.util.DDResize", "name": "myConf", "url": "WireIt.util.DDResize.html#property_myConf", "type": "property"}, {"access": "", "host": "WireIt.WiringEditor", "name": "onAddModule", "url": "WireIt.WiringEditor.html#method_onAddModule", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onAddWire", "url": "WireIt.Container.html#method_onAddWire", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "onAddWire", "url": "WireIt.Layer.html#method_onAddWire", "type": "method"}, {"access": "", "host": "inputEx.Field", "name": "onAddWire", "url": "inputEx.Field.html#method_onAddWire", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onCloseButton", "url": "WireIt.Container.html#method_onCloseButton", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "onDelete", "url": "WireIt.WiringEditor.html#method_onDelete", "type": "method"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "onDrag", "url": "WireIt.TerminalProxy.html#method_onDrag", "type": "method"}, {"access": "", "host": "WireIt.util.DD", "name": "onDrag", "url": "WireIt.util.DD.html#method_onDrag", "type": "method"}, {"access": "", "host": "WireIt.util.DDResize", "name": "onDrag", "url": "WireIt.util.DDResize.html#method_onDrag", "type": "method"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "onDragDrop", "url": "WireIt.TerminalProxy.html#method_onDragDrop", "type": "method"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "onDragEnter", "url": "WireIt.TerminalProxy.html#method_onDragEnter", "type": "method"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "onDragOut", "url": "WireIt.TerminalProxy.html#method_onDragOut", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "onHelp", "url": "WireIt.WiringEditor.html#method_onHelp", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "onLayerScroll", "url": "WireIt.LayerMap.html#method_onLayerScroll", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "onLoad", "url": "WireIt.WiringEditor.html#method_onLoad", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onMouseDown", "url": "WireIt.Container.html#method_onMouseDown", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "onMouseDown", "url": "WireIt.LayerMap.html#method_onMouseDown", "type": "method"}, {"access": "", "host": "WireIt.util.DDResize", "name": "onMouseDown", "url": "WireIt.util.DDResize.html#method_onMouseDown", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "onMouseMove", "url": "WireIt.LayerMap.html#method_onMouseMove", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "onMouseUp", "url": "WireIt.LayerMap.html#method_onMouseUp", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "onNew", "url": "WireIt.WiringEditor.html#method_onNew", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onRemoveWire", "url": "WireIt.Container.html#method_onRemoveWire", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "onRemoveWire", "url": "WireIt.Layer.html#method_onRemoveWire", "type": "method"}, {"access": "", "host": "inputEx.Field", "name": "onRemoveWire", "url": "inputEx.Field.html#method_onRemoveWire", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onResize", "url": "WireIt.Container.html#method_onResize", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "onSave", "url": "WireIt.WiringEditor.html#method_onSave", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "options", "url": "WireIt.Container.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "options", "url": "WireIt.Layer.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.LayerMap", "name": "options", "url": "WireIt.LayerMap.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.Terminal", "name": "options", "url": "WireIt.Terminal.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.Wire", "name": "options", "url": "WireIt.Wire.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.WiringEditor", "name": "options", "url": "WireIt.WiringEditor.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.Terminal", "name": "parentEl", "url": "WireIt.Terminal.html#property_parentEl", "type": "property"}, {"access": "", "host": "WireIt.Wire", "name": "parentEl", "url": "WireIt.Wire.html#property_parentEl", "type": "property"}, {"access": "", "host": "WireIt.Wire", "name": "redraw", "url": "WireIt.Wire.html#method_redraw", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "redrawAllTerminals", "url": "WireIt.Container.html#method_redrawAllTerminals", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "redrawAllWires", "url": "WireIt.Terminal.html#method_redrawAllWires", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "remove", "url": "WireIt.Container.html#method_remove", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "remove", "url": "WireIt.Terminal.html#method_remove", "type": "method"}, {"access": "", "host": "WireIt.Wire", "name": "remove", "url": "WireIt.Wire.html#method_remove", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "removeAllContainers", "url": "WireIt.Layer.html#method_removeAllContainers", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "removeAllTerminals", "url": "WireIt.Container.html#method_removeAllTerminals", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "removeAllWires", "url": "WireIt.Terminal.html#method_removeAllWires", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "removeContainer", "url": "WireIt.Layer.html#method_removeContainer", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "removeFocus", "url": "WireIt.Container.html#method_removeFocus", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "removeWire", "url": "WireIt.Terminal.html#method_removeWire", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "render", "url": "WireIt.Container.html#method_render", "type": "method"}, {"access": "", "host": "WireIt.ImageContainer", "name": "render", "url": "WireIt.ImageContainer.html#method_render", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "render", "url": "WireIt.Layer.html#method_render", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "render", "url": "WireIt.Terminal.html#method_render", "type": "method"}, {"access": "", "host": "WireIt.FormContainer", "name": "render", "url": "WireIt.FormContainer.html#method_render", "type": "method"}, {"access": "", "host": "inputEx.Field", "name": "render", "url": "inputEx.Field.html#method_render", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "renderButtons", "url": "WireIt.WiringEditor.html#method_renderButtons", "type": "method"}, {"access": "", "host": "WireIt.FormContainer", "name": "renderForm", "url": "WireIt.FormContainer.html#method_renderForm", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "renderPropertiesForm", "url": "WireIt.WiringEditor.html#method_renderPropertiesForm", "type": "method"}, {"access": "", "host": "inputEx.Field", "name": "renderTerminal", "url": "inputEx.Field.html#method_renderTerminal", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "saveModule", "url": "WireIt.WiringEditor.html#method_saveModule", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "saveModuleFailure", "url": "WireIt.WiringEditor.html#method_saveModuleFailure", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "saveModuleSuccess", "url": "WireIt.WiringEditor.html#method_saveModuleSuccess", "type": "method"}, {"access": "", "host": "WireIt.Scissors", "name": "scissorClick", "url": "WireIt.Scissors.html#method_scissorClick", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "scrollLayer", "url": "WireIt.LayerMap.html#method_scrollLayer", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "setBody", "url": "WireIt.Container.html#method_setBody", "type": "method"}, {"access": "", "host": "WireIt.CanvasElement", "name": "SetCanvasRegion", "url": "WireIt.CanvasElement.html#method_SetCanvasRegion", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "setDropInvitation", "url": "WireIt.Terminal.html#method_setDropInvitation", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "setFocus", "url": "WireIt.Container.html#method_setFocus", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "setOptions", "url": "WireIt.Container.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.ImageContainer", "name": "setOptions", "url": "WireIt.ImageContainer.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "setOptions", "url": "WireIt.Layer.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "setOptions", "url": "WireIt.LayerMap.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.Terminal", "name": "setOptions", "url": "WireIt.Terminal.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.util.TerminalInput", "name": "setOptions", "url": "WireIt.util.TerminalInput.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.util.TerminalOutput", "name": "setOptions", "url": "WireIt.util.TerminalOutput.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.Wire", "name": "setOptions", "url": "WireIt.Wire.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "setOptions", "url": "WireIt.WiringEditor.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.FormContainer", "name": "setOptions", "url": "WireIt.FormContainer.html#method_setOptions", "type": "method"}, {"access": "", "host": "inputEx.Field", "name": "setOptions", "url": "inputEx.Field.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.Scissors", "name": "setPosition", "url": "WireIt.Scissors.html#method_setPosition", "type": "method"}, {"access": "", "host": "WireIt.util.Anim", "name": "setTerminals", "url": "WireIt.util.Anim.html#method_setTerminals", "type": "method"}, {"access": "", "host": "WireIt.util.DD", "name": "setTerminals", "url": "WireIt.util.DD.html#method_setTerminals", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "setValue", "url": "WireIt.Container.html#method_setValue", "type": "method"}, {"access": "", "host": "WireIt.WiringEditor", "name": "setValue", "url": "WireIt.WiringEditor.html#method_setValue", "type": "method"}, {"access": "", "host": "WireIt.FormContainer", "name": "setValue", "url": "WireIt.FormContainer.html#method_setValue", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "setWiring", "url": "WireIt.Layer.html#method_setWiring", "type": "method"}, {"access": "", "host": "WireIt.Scissors", "name": "show", "url": "WireIt.Scissors.html#method_show", "type": "method"}, {"access": "", "host": "WireIt.WireIt", "name": "sn", "url": "WireIt.WireIt.html#method_sn", "type": "method"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "startDrag", "url": "WireIt.TerminalProxy.html#method_startDrag", "type": "method"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "termConfig", "url": "WireIt.TerminalProxy.html#property_termConfig", "type": "property"}, {"access": "", "host": "WireIt.Scissors", "name": "_terminal", "url": "WireIt.Scissors.html#property__terminal", "type": "property"}, {"access": "", "host": "WireIt.TerminalProxy", "name": "terminal", "url": "WireIt.TerminalProxy.html#property_terminal", "type": "property"}, {"access": "", "host": "WireIt.Wire", "name": "terminal1", "url": "WireIt.Wire.html#property_terminal1", "type": "property"}, {"access": "", "host": "WireIt.Wire", "name": "terminal2", "url": "WireIt.Wire.html#property_terminal2", "type": "property"}, {"access": "", "host": "WireIt.Container", "name": "terminals", "url": "WireIt.Container.html#property_terminals", "type": "property"}, {"access": "", "host": "WireIt.WireIt", "name": "util", "url": "WireIt.WireIt.html#property_util", "type": "property"}, {"access": "", "host": "WireIt.util.Anim", "name": "_WireItTerminals", "url": "WireIt.util.Anim.html#property__WireItTerminals", "type": "property"}, {"access": "", "host": "WireIt.util.DD", "name": "_WireItTerminals", "url": "WireIt.util.DD.html#property__WireItTerminals", "type": "property"}, {"access": "", "host": "WireIt.Container", "name": "wires", "url": "WireIt.Container.html#property_wires", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "wires", "url": "WireIt.Layer.html#property_wires", "type": "property"}, {"access": "", "host": "WireIt.Terminal", "name": "wires", "url": "WireIt.Terminal.html#property_wires", "type": "property"}];
 </script>
 </body>
 </html>

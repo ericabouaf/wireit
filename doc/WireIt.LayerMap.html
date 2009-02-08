@@ -4,18 +4,18 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: WireIt  WireIt.LayerMap  </title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1229176524.63" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1229176524.63" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1234064791.25" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1234064791.25" />
 
-    <script type="text/javascript" src="assets/api-js?stamp=1229176524.63"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1229176524.63"></script>
+    <script type="text/javascript" src="assets/api-js?stamp=1234064791.25"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1234064791.25"></script>
 </head>
 
 <body id="yahoo-com">
 
 <div id="doc3" class="yui-t2">
 	<div id="hd">
-        <h1><a href="http://developer.yahoo.com/yui/" title="WireIt Framework">WireIt Framework</a></h1>
+        <h1><a href="http://javascript.neyric.com/wireit/" title="WireIt Framework">WireIt Framework</a></h1>
         <h3>WireIt&nbsp; <span class="subtitle">0.4.0</span></h3>
         <a href="./index.html" title="WireIt Framework">WireIt Framework</a> 
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
@@ -60,7 +60,7 @@
   
 
                     <div class="summary description" property="yui:description">
-                        Widget to display a minimap on a layer (beta)
+                        Widget to display a minimap on a layer
                     </div>
 
                         <div class="section constructor details" rel="yui:constructor" resource="#constructor">
@@ -73,12 +73,21 @@
   
                                         
                                                 
+                                                layer
+
+                                                , 
                                                 options
                                     )
                                 </code>
                                 <div class="description">
                                         <dl rel="yui:parameters">
                                             <dt>Parameters:</dt>
+                                                <dd rel="yui:parameter">
+                                                    <code><span property="yui:name">layer</span>
+                                                    &lt;<span property="yui:type">WireIt.Layer</span>&gt;
+                                                    </code>
+                                                    <span property="yui:description"> the layer object it is attached to</span>
+                                                </dd>
                                                 <dd rel="yui:parameter">
                                                     <code><span property="yui:name">options</span>
                                                     &lt;<span property="yui:type">Obj</span>&gt;
@@ -97,6 +106,21 @@
                         <div class="section field details">
                             <h3 id="properties">Properties</h3>
                             <div class="content">
+                                    <div class="" rel="yui:property" resource="#property_layer">
+                                    <h4><a name="property_layer" property="yui:name">layer</a>
+                                        - <code><span property="yui:type">object</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    </div>
                                     <div class="" rel="yui:property" resource="#property_options">
                                     <h4><a name="property_options" property="yui:name">options</a>
                                         - <code><span property="yui:type">object</span></code>
@@ -105,13 +129,10 @@
                                         <div class="description" property="yui:description">
                                             Options:
 <ul>
-<li>layer: the layer object it is attached to</li>
+<li>parentEl: parent element (defaut layer.el)</li>
 <li>className: default to "WireIt-LayerMap"</li>
 <li>style: display style, default to "rgba(0, 0, 200, 0.5)"</li>
-<li>ratio: (warning, this might get removed in futur versions)</li>
 <li>lineWidth: default 2</li>
-<li>width: default 250</li>
-<li>height: default 150</li>
 </ul>
                                         </div>
                                     </div>
@@ -181,6 +202,80 @@
                                     </div>
                                     <hr />
                                     </div>
+                                    <div class="" rel="yui:method" resource="#method_drawContainers">
+                                    <h4>
+                                        <a name="method_drawContainers">drawContainers</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">drawContainers</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Subroutine to draw the containers
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_drawWires">
+                                    <h4>
+                                        <a name="method_drawWires">drawWires</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">drawWires</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Subroutine to draw the wires
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
                                     <div class="" rel="yui:method" resource="#method_initEvents">
                                     <h4>
                                         <a name="method_initEvents">initEvents</a></h4>
@@ -218,16 +313,53 @@
                                     </div>
                                     <hr />
                                     </div>
-                                    <div class="" rel="yui:method" resource="#method_onClick">
+                                    <div class="" rel="yui:method" resource="#method_onLayerScroll">
                                     <h4>
-                                        <a name="method_onClick">onClick</a></h4>
+                                        <a name="method_onLayerScroll">onLayerScroll</a></h4>
                                     <div class="detail" >
                                         <code>
                                         
                                         
                                         
                                         void
-                                            <strong property="yui:name">onClick</strong>
+                                            <strong property="yui:name">onLayerScroll</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Redraw after a timeout
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_onMouseDown">
+                                    <h4>
+                                        <a name="method_onMouseDown">onMouseDown</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">onMouseDown</strong>
                                            (
                                                 
                                                         
@@ -242,7 +374,7 @@
                                         </code>
                                         
                                         <div class="description" property="yui:description">
-                                            When a click event is received
+                                            When a mouse down is received
                                         </div>
 
                                         <div class="description">
@@ -260,6 +392,189 @@
                                                         &lt;<span property="yui:type">Array</span>&gt;
                                                         </code>
                                                         <span property="yui:description"> event parameters</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_onMouseMove">
+                                    <h4>
+                                        <a name="method_onMouseMove">onMouseMove</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">onMouseMove</strong>
+                                           (
+                                                
+                                                        
+                                                         e
+                                                    
+                                                
+                                                        , 
+                                                         args
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            When a mouse move is received
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">e</span>
+                                                        &lt;<span property="yui:type">Event</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> Original event</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">args</span>
+                                                        &lt;<span property="yui:type">Array</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> event parameters</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_onMouseUp">
+                                    <h4>
+                                        <a name="method_onMouseUp">onMouseUp</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">onMouseUp</strong>
+                                           (
+                                                
+                                                        
+                                                         e
+                                                    
+                                                
+                                                        , 
+                                                         args
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            When a mouseup or mouseout is received
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">e</span>
+                                                        &lt;<span property="yui:type">Event</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> Original event</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">args</span>
+                                                        &lt;<span property="yui:type">Array</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> event parameters</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_scrollLayer">
+                                    <h4>
+                                        <a name="method_scrollLayer">scrollLayer</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">scrollLayer</strong>
+                                           (
+                                                
+                                                        
+                                                         clientX
+                                                    
+                                                
+                                                        , 
+                                                         clientY
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Scroll the layer from mousedown/mousemove
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">clientX</span>
+                                                        &lt;<span property="yui:type">Integer</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> mouse event x coordinate</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">clientY</span>
+                                                        &lt;<span property="yui:type">Integer</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> mouse event y coordinate</span>
                                                         </dd>
                                                 </dl>
 
@@ -376,10 +691,10 @@
                         <ul class="content">
                                 <li class=""><a href="inputEx.BaseField.html" title="inputEx.BaseField">inputEx.BaseField</a></li>
                                 <li class=""><a href="inputEx.Field.html" title="inputEx.Field">inputEx.Field</a></li>
-                                <li class=""><a href="WireIt.html" title="WireIt">WireIt</a></li>
                                 <li class=""><a href="WireIt.CanvasElement.html" title="WireIt.CanvasElement">WireIt.CanvasElement</a></li>
                                 <li class=""><a href="WireIt.Container.html" title="WireIt.Container">WireIt.Container</a></li>
                                 <li class=""><a href="WireIt.FormContainer.html" title="WireIt.FormContainer">WireIt.FormContainer</a></li>
+                                <li class=""><a href="WireIt.ImageContainer.html" title="WireIt.ImageContainer">WireIt.ImageContainer</a></li>
                                 <li class=""><a href="WireIt.Layer.html" title="WireIt.Layer">WireIt.Layer</a></li>
                                 <li class="selected"><a href="WireIt.LayerMap.html" title="WireIt.LayerMap">WireIt.LayerMap</a></li>
                                 <li class=""><a href="WireIt.Scissors.html" title="WireIt.Scissors">WireIt.Scissors</a></li>
@@ -391,6 +706,8 @@
                                 <li class=""><a href="WireIt.util.TerminalInput.html" title="WireIt.util.TerminalInput">WireIt.util.TerminalInput</a></li>
                                 <li class=""><a href="WireIt.util.TerminalOutput.html" title="WireIt.util.TerminalOutput">WireIt.util.TerminalOutput</a></li>
                                 <li class=""><a href="WireIt.Wire.html" title="WireIt.Wire">WireIt.Wire</a></li>
+                                <li class=""><a href="WireIt.WireIt.html" title="WireIt.WireIt">WireIt.WireIt</a></li>
+                                <li class=""><a href="WireIt.WiringEditor.html" title="WireIt.WiringEditor">WireIt.WiringEditor</a></li>
                         </ul>
                     </div>
 
@@ -403,8 +720,9 @@
                                 <li class=""><a href="DD.js.html" title="DD.js">DD.js</a></li>
                                 <li class=""><a href="DDResize.js.html" title="DDResize.js">DDResize.js</a></li>
                                 <li class=""><a href="FormContainer-beta.js.html" title="FormContainer-beta.js">FormContainer-beta.js</a></li>
+                                <li class=""><a href="ImageContainer.js.html" title="ImageContainer.js">ImageContainer.js</a></li>
                                 <li class=""><a href="Layer.js.html" title="Layer.js">Layer.js</a></li>
-                                <li class=""><a href="LayerMap-beta.js.html" title="LayerMap-beta.js">LayerMap-beta.js</a></li>
+                                <li class=""><a href="LayerMap.js.html" title="LayerMap.js">LayerMap.js</a></li>
                                 <li class=""><a href="Terminal.js.html" title="Terminal.js">Terminal.js</a></li>
                                 <li class=""><a href="WirableField-beta.js.html" title="WirableField-beta.js">WirableField-beta.js</a></li>
                                 <li class=""><a href="Wire.js.html" title="Wire.js">Wire.js</a></li>
@@ -416,6 +734,7 @@
                     <div id="propertyList" class="module">
                         <h4>Properties</h4>
                         <ul class="content">        
+                                <li class=""><a href="#property_layer" title="layer">layer</a></li>
                                 <li class=""><a href="#property_options" title="options">options</a></li>
                         </ul>
                     </div>
@@ -424,8 +743,14 @@
                         <h4>Methods</h4>
                         <ul class="content">        
                                 <li class=""><a href="#method_draw" title="draw">draw</a></li>
+                                <li class=""><a href="#method_drawContainers" title="drawContainers">drawContainers</a></li>
+                                <li class=""><a href="#method_drawWires" title="drawWires">drawWires</a></li>
                                 <li class=""><a href="#method_initEvents" title="initEvents">initEvents</a></li>
-                                <li class=""><a href="#method_onClick" title="onClick">onClick</a></li>
+                                <li class=""><a href="#method_onLayerScroll" title="onLayerScroll">onLayerScroll</a></li>
+                                <li class=""><a href="#method_onMouseDown" title="onMouseDown">onMouseDown</a></li>
+                                <li class=""><a href="#method_onMouseMove" title="onMouseMove">onMouseMove</a></li>
+                                <li class=""><a href="#method_onMouseUp" title="onMouseUp">onMouseUp</a></li>
+                                <li class=""><a href="#method_scrollLayer" title="scrollLayer">scrollLayer</a></li>
                                 <li class=""><a href="#method_setOptions" title="setOptions">setOptions</a></li>
                         </ul>
                     </div>
@@ -437,11 +762,11 @@
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2008 Eric Abouaf. All rights reserved.
+        Copyright &copy; 2009 Eric Abouaf. All rights reserved.
 	</div>
 </div>
 <script type="text/javascript">
-    ALL_YUI_PROPS = [{"access": "", "host": "WireIt.Layer", "name": "addContainer", "url": "WireIt.Layer.html#method_addContainer", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "addTerminal", "url": "WireIt.Container.html#method_addTerminal", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "addWire", "url": "WireIt.Layer.html#method_addWire", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "bodyEl", "url": "WireIt.Container.html#property_bodyEl", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "clear", "url": "WireIt.Layer.html#method_clear", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "clearExplode", "url": "WireIt.Layer.html#method_clearExplode", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "containers", "url": "WireIt.Layer.html#property_containers", "type": "property"}, {"access": "", "host": "WireIt.LayerMap", "name": "draw", "url": "WireIt.LayerMap.html#method_draw", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "el", "url": "WireIt.Container.html#property_el", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "el", "url": "WireIt.Layer.html#property_el", "type": "property"}, {"access": "", "host": "WireIt.CanvasElement", "name": "element", "url": "WireIt.CanvasElement.html#property_element", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "eventAddContainer", "url": "WireIt.Layer.html#event_eventAddContainer", "type": "event"}, {"access": "", "host": "WireIt.Container", "name": "eventAddWire", "url": "WireIt.Container.html#event_eventAddWire", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventAddWire", "url": "WireIt.Layer.html#event_eventAddWire", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventContainerDragged", "url": "WireIt.Layer.html#event_eventContainerDragged", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventContainerResized", "url": "WireIt.Layer.html#event_eventContainerResized", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventRemoveContainer", "url": "WireIt.Layer.html#event_eventRemoveContainer", "type": "event"}, {"access": "", "host": "WireIt.Container", "name": "eventRemoveWire", "url": "WireIt.Container.html#event_eventRemoveWire", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventRemoveWire", "url": "WireIt.Layer.html#event_eventRemoveWire", "type": "event"}, {"access": "", "host": "WireIt.Container", "name": "getConfig", "url": "WireIt.Container.html#method_getConfig", "type": "method"}, {"access": "", "host": "WireIt.CanvasElement", "name": "getContext", "url": "WireIt.CanvasElement.html#method_getContext", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "getWiring", "url": "WireIt.Layer.html#method_getWiring", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "initContainers", "url": "WireIt.Layer.html#method_initContainers", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "initEvents", "url": "WireIt.LayerMap.html#method_initEvents", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "initTerminals", "url": "WireIt.Container.html#method_initTerminals", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "initWires", "url": "WireIt.Layer.html#method_initWires", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "layer", "url": "WireIt.Container.html#property_layer", "type": "property"}, {"access": "", "host": "WireIt.Container", "name": "onAddWire", "url": "WireIt.Container.html#method_onAddWire", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "onAddWire", "url": "WireIt.Layer.html#method_onAddWire", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "onClick", "url": "WireIt.LayerMap.html#method_onClick", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onCloseButton", "url": "WireIt.Container.html#method_onCloseButton", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onMouseDown", "url": "WireIt.Container.html#method_onMouseDown", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onRemoveWire", "url": "WireIt.Container.html#method_onRemoveWire", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "onRemoveWire", "url": "WireIt.Layer.html#method_onRemoveWire", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onResize", "url": "WireIt.Container.html#method_onResize", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "options", "url": "WireIt.Container.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "options", "url": "WireIt.Layer.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.LayerMap", "name": "options", "url": "WireIt.LayerMap.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.Container", "name": "redrawAllTerminals", "url": "WireIt.Container.html#method_redrawAllTerminals", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "remove", "url": "WireIt.Container.html#method_remove", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "removeAllContainers", "url": "WireIt.Layer.html#method_removeAllContainers", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "removeAllTerminals", "url": "WireIt.Container.html#method_removeAllTerminals", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "removeContainer", "url": "WireIt.Layer.html#method_removeContainer", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "removeFocus", "url": "WireIt.Container.html#method_removeFocus", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "render", "url": "WireIt.Container.html#method_render", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "render", "url": "WireIt.Layer.html#method_render", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "setBody", "url": "WireIt.Container.html#method_setBody", "type": "method"}, {"access": "", "host": "WireIt.CanvasElement", "name": "SetCanvasRegion", "url": "WireIt.CanvasElement.html#method_SetCanvasRegion", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "setFocus", "url": "WireIt.Container.html#method_setFocus", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "setOptions", "url": "WireIt.Container.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "setOptions", "url": "WireIt.Layer.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "setOptions", "url": "WireIt.LayerMap.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "setWiring", "url": "WireIt.Layer.html#method_setWiring", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "terminals", "url": "WireIt.Container.html#property_terminals", "type": "property"}, {"access": "", "host": "WireIt.Container", "name": "wires", "url": "WireIt.Container.html#property_wires", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "wires", "url": "WireIt.Layer.html#property_wires", "type": "property"}];
+    ALL_YUI_PROPS = [{"access": "", "host": "WireIt.Layer", "name": "addContainer", "url": "WireIt.Layer.html#method_addContainer", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "addTerminal", "url": "WireIt.Container.html#method_addTerminal", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "addWire", "url": "WireIt.Layer.html#method_addWire", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "bodyEl", "url": "WireIt.Container.html#property_bodyEl", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "clear", "url": "WireIt.Layer.html#method_clear", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "clearExplode", "url": "WireIt.Layer.html#method_clearExplode", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "containers", "url": "WireIt.Layer.html#property_containers", "type": "property"}, {"access": "", "host": "WireIt.LayerMap", "name": "draw", "url": "WireIt.LayerMap.html#method_draw", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "drawContainers", "url": "WireIt.LayerMap.html#method_drawContainers", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "drawWires", "url": "WireIt.LayerMap.html#method_drawWires", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "el", "url": "WireIt.Container.html#property_el", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "el", "url": "WireIt.Layer.html#property_el", "type": "property"}, {"access": "", "host": "WireIt.CanvasElement", "name": "element", "url": "WireIt.CanvasElement.html#property_element", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "eventAddContainer", "url": "WireIt.Layer.html#event_eventAddContainer", "type": "event"}, {"access": "", "host": "WireIt.Container", "name": "eventAddWire", "url": "WireIt.Container.html#event_eventAddWire", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventAddWire", "url": "WireIt.Layer.html#event_eventAddWire", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventContainerDragged", "url": "WireIt.Layer.html#event_eventContainerDragged", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventContainerResized", "url": "WireIt.Layer.html#event_eventContainerResized", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventRemoveContainer", "url": "WireIt.Layer.html#event_eventRemoveContainer", "type": "event"}, {"access": "", "host": "WireIt.Container", "name": "eventRemoveWire", "url": "WireIt.Container.html#event_eventRemoveWire", "type": "event"}, {"access": "", "host": "WireIt.Layer", "name": "eventRemoveWire", "url": "WireIt.Layer.html#event_eventRemoveWire", "type": "event"}, {"access": "", "host": "WireIt.Container", "name": "getConfig", "url": "WireIt.Container.html#method_getConfig", "type": "method"}, {"access": "", "host": "WireIt.CanvasElement", "name": "getContext", "url": "WireIt.CanvasElement.html#method_getContext", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "getValue", "url": "WireIt.Container.html#method_getValue", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "getWiring", "url": "WireIt.Layer.html#method_getWiring", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "initContainers", "url": "WireIt.Layer.html#method_initContainers", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "initEvents", "url": "WireIt.LayerMap.html#method_initEvents", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "initTerminals", "url": "WireIt.Container.html#method_initTerminals", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "initWires", "url": "WireIt.Layer.html#method_initWires", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "layer", "url": "WireIt.Container.html#property_layer", "type": "property"}, {"access": "", "host": "WireIt.LayerMap", "name": "layer", "url": "WireIt.LayerMap.html#property_layer", "type": "property"}, {"access": "", "host": "WireIt.Container", "name": "onAddWire", "url": "WireIt.Container.html#method_onAddWire", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "onAddWire", "url": "WireIt.Layer.html#method_onAddWire", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onCloseButton", "url": "WireIt.Container.html#method_onCloseButton", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "onLayerScroll", "url": "WireIt.LayerMap.html#method_onLayerScroll", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onMouseDown", "url": "WireIt.Container.html#method_onMouseDown", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "onMouseDown", "url": "WireIt.LayerMap.html#method_onMouseDown", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "onMouseMove", "url": "WireIt.LayerMap.html#method_onMouseMove", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "onMouseUp", "url": "WireIt.LayerMap.html#method_onMouseUp", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onRemoveWire", "url": "WireIt.Container.html#method_onRemoveWire", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "onRemoveWire", "url": "WireIt.Layer.html#method_onRemoveWire", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "onResize", "url": "WireIt.Container.html#method_onResize", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "options", "url": "WireIt.Container.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "options", "url": "WireIt.Layer.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.LayerMap", "name": "options", "url": "WireIt.LayerMap.html#property_options", "type": "property"}, {"access": "", "host": "WireIt.Container", "name": "redrawAllTerminals", "url": "WireIt.Container.html#method_redrawAllTerminals", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "remove", "url": "WireIt.Container.html#method_remove", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "removeAllContainers", "url": "WireIt.Layer.html#method_removeAllContainers", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "removeAllTerminals", "url": "WireIt.Container.html#method_removeAllTerminals", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "removeContainer", "url": "WireIt.Layer.html#method_removeContainer", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "removeFocus", "url": "WireIt.Container.html#method_removeFocus", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "render", "url": "WireIt.Container.html#method_render", "type": "method"}, {"access": "", "host": "WireIt.ImageContainer", "name": "render", "url": "WireIt.ImageContainer.html#method_render", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "render", "url": "WireIt.Layer.html#method_render", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "scrollLayer", "url": "WireIt.LayerMap.html#method_scrollLayer", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "setBody", "url": "WireIt.Container.html#method_setBody", "type": "method"}, {"access": "", "host": "WireIt.CanvasElement", "name": "SetCanvasRegion", "url": "WireIt.CanvasElement.html#method_SetCanvasRegion", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "setFocus", "url": "WireIt.Container.html#method_setFocus", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "setOptions", "url": "WireIt.Container.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.ImageContainer", "name": "setOptions", "url": "WireIt.ImageContainer.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "setOptions", "url": "WireIt.Layer.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.LayerMap", "name": "setOptions", "url": "WireIt.LayerMap.html#method_setOptions", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "setValue", "url": "WireIt.Container.html#method_setValue", "type": "method"}, {"access": "", "host": "WireIt.Layer", "name": "setWiring", "url": "WireIt.Layer.html#method_setWiring", "type": "method"}, {"access": "", "host": "WireIt.Container", "name": "terminals", "url": "WireIt.Container.html#property_terminals", "type": "property"}, {"access": "", "host": "WireIt.Container", "name": "wires", "url": "WireIt.Container.html#property_wires", "type": "property"}, {"access": "", "host": "WireIt.Layer", "name": "wires", "url": "WireIt.Layer.html#property_wires", "type": "property"}];
 </script>
 </body>
 </html>

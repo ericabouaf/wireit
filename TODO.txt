@@ -2,8 +2,7 @@
 TODO: 
 
  Terminals:
- * clearable option (display scissors)
- * drop target (wire seed)
+ * split the "editable" option into "clearable" (display scissors) and "dropTarget" (wire seed)
  * accept bidirectionnal
  
  Wires:
@@ -27,5 +26,5 @@ TODO:
  * JsBox in Wiring Editor
 
  Other 
+ * Move tickets to lighthouse
  * Class treeview
- * repair documentation

@@ -15,11 +15,10 @@ WireIt.LayerMap = function(layer,options) {
    
    /**
     * @property layer
-    * @type {WireIt.Layer}
     */
    this.layer = layer;
    
-   this.setOptions(options || ({}));
+   this.setOptions(options);
    
    // Create the canvas element
    WireIt.LayerMap.superclass.constructor.call(this, this.options.parentEl);
@@ -39,6 +38,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
     * @param {Object} options
     */
    setOptions: function(options) { 
+      var options = options || {};
       /**
        * Options:
        * <ul>

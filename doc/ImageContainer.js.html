@@ -2,7 +2,7 @@
 <html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<title>API: WireIt  inputEx.Field  </title>
+	<title>API: WireIt   ImageContainer.js </title>
 
 	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1234064791.25" />
 	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1234064791.25" />
@@ -19,8 +19,8 @@
         <h3>WireIt&nbsp; <span class="subtitle">0.4.0</span></h3>
         <a href="./index.html" title="WireIt Framework">WireIt Framework</a> 
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
-                 &gt; inputEx.Field 
                 
+                 &gt; ImageContainer.js (source view) 
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -43,234 +43,52 @@
                 </fieldset>
             </form>
 
-                    <h2>
-                        
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * Container represented by an image</span>
+<span class="c"> * @class ImageContainer</span>
+<span class="c"> * @extends WireIt.Container</span>
+<span class="c"> * @constructor</span>
+<span class="c"> * @param {Object} options</span>
+<span class="c"> * @param {WireIt.Layer} layer</span>
+<span class="c"> */</span>
+<span class="nx">WireIt</span><span class="p">.</span><span class="nx">ImageContainer</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="o">,</span> <span class="nx">layer</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">WireIt</span><span class="p">.</span><span class="nx">ImageContainer</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="o">,</span> <span class="nx">layer</span><span class="p">);</span>
+<span class="p">};</span>
 
-                        
-                        
-                            Class <b property="yui:name">inputEx.Field</b>
-                        <span class="extends">
-                           - extends <a href="inputEx.BaseField.html" title="inputEx.BaseField">inputEx.BaseField</a>
-                        </span>
-
-                    </h2>
-                    <!-- class tree goes here -->
-                    
-                
-  
-
-                    <div class="summary description" property="yui:description">
-                        Class to make inputEx Fields "wirable".Re-create inputEx.Field adding the wirable properties
+<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">ImageContainer</span><span class="o">,</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Container</span><span class="o">,</span> <span class="p">{</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * @method setOptions</span>
+<span class="c">    * @param {Object} options the options object</span>
+<span class="c">    */</span>
+   <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">WireIt</span><span class="p">.</span><span class="nx">ImageContainer</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+      
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">image</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">image</span><span class="o">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">xtype</span> <span class="o">=</span> <span class="s2">&quot;WireIt.ImageContainer&quot;</span><span class="o">;</span>
+      
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">||</span> <span class="s2">&quot;WireIt-Container WireIt-ImageContainer&quot;</span><span class="o">;</span>
+      
+      <span class="c">// Overwrite default value for options:</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">resizable</span> <span class="o">=</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">resizable</span> <span class="o">==</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">resizable</span><span class="o">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">ddHandle</span> <span class="o">=</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ddHandle</span> <span class="o">==</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ddHandle</span><span class="o">;</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * @method render</span>
+<span class="c">    */</span>
+   <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">WireIt</span><span class="p">.</span><span class="nx">ImageContainer</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">render</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+      <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">bodyEl</span><span class="o">,</span> <span class="s2">&quot;background-image&quot;</span><span class="o">,</span> <span class="s2">&quot;url(&quot;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">image</span><span class="o">+</span><span class="s2">&quot;)&quot;</span><span class="p">);</span>
+   <span class="p">}</span>
+   
+<span class="p">});</span>
+</pre></div>
                     </div>
-
-                    
-                    <div rel="yui:properties" resource="#properties">
-
-                    </div>
-
-                    <div rel="yui:methods" resource="#methods">
-                        <div class="section method details">
-                            <h3 id="methods">Methods</h3>
-                            <div class="content">
-                                    <div class="" rel="yui:method" resource="#method_onAddWire">
-                                    <h4>
-                                        <a name="method_onAddWire">onAddWire</a></h4>
-                                    <div class="detail" >
-                                        <code>
-                                        
-                                        
-                                        
-                                        void
-                                            <strong property="yui:name">onAddWire</strong>
-                                           (
-                                            )
-                                        </code>
-                                        
-                                        <div class="description" property="yui:description">
-                                            Remove the input wired state on the
-                                        </div>
-
-                                        <div class="description">
-
-
-                                                <dl>
-                                                    <dt>Returns:
-                                                    <code property="yui:return">
-                                                        void
-                                                    </code></dt>
-                                                    <dd property="yui:returnInfo"></dd>
-                                                </dl>
-
-
-             
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    </div>
-                                    <div class="" rel="yui:method" resource="#method_onRemoveWire">
-                                    <h4>
-                                        <a name="method_onRemoveWire">onRemoveWire</a></h4>
-                                    <div class="detail" >
-                                        <code>
-                                        
-                                        
-                                        
-                                        void
-                                            <strong property="yui:name">onRemoveWire</strong>
-                                           (
-                                            )
-                                        </code>
-                                        
-                                        <div class="description" property="yui:description">
-                                            Remove the input wired state on the
-                                        </div>
-
-                                        <div class="description">
-
-
-                                                <dl>
-                                                    <dt>Returns:
-                                                    <code property="yui:return">
-                                                        void
-                                                    </code></dt>
-                                                    <dd property="yui:returnInfo"></dd>
-                                                </dl>
-
-
-             
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    </div>
-                                    <div class="" rel="yui:method" resource="#method_render">
-                                    <h4>
-                                        <a name="method_render">render</a></h4>
-                                    <div class="detail" >
-                                        <code>
-                                        
-                                        
-                                        
-                                        void
-                                            <strong property="yui:name">render</strong>
-                                           (
-                                            )
-                                        </code>
-                                        
-                                        <div class="description" property="yui:description">
-                                            Adds a terminal to each field
-                                        </div>
-
-                                        <div class="description">
-
-
-                                                <dl>
-                                                    <dt>Returns:
-                                                    <code property="yui:return">
-                                                        void
-                                                    </code></dt>
-                                                    <dd property="yui:returnInfo"></dd>
-                                                </dl>
-
-
-             
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    </div>
-                                    <div class="" rel="yui:method" resource="#method_renderTerminal">
-                                    <h4>
-                                        <a name="method_renderTerminal">renderTerminal</a></h4>
-                                    <div class="detail" >
-                                        <code>
-                                        
-                                        
-                                        
-                                        void
-                                            <strong property="yui:name">renderTerminal</strong>
-                                           (
-                                            )
-                                        </code>
-                                        
-                                        <div class="description" property="yui:description">
-                                            Render the associated input terminal
-                                        </div>
-
-                                        <div class="description">
-
-
-                                                <dl>
-                                                    <dt>Returns:
-                                                    <code property="yui:return">
-                                                        void
-                                                    </code></dt>
-                                                    <dd property="yui:returnInfo"></dd>
-                                                </dl>
-
-
-             
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    </div>
-                                    <div class="" rel="yui:method" resource="#method_setOptions">
-                                    <h4>
-                                        <a name="method_setOptions">setOptions</a></h4>
-                                    <div class="detail" >
-                                        <code>
-                                        
-                                        
-                                        
-                                        void
-                                            <strong property="yui:name">setOptions</strong>
-                                           (
-                                            )
-                                        </code>
-                                        
-                                        <div class="description" property="yui:description">
-                                            Adds a wirable option to every field
-                                        </div>
-
-                                        <div class="description">
-
-
-                                                <dl>
-                                                    <dt>Returns:
-                                                    <code property="yui:return">
-                                                        void
-                                                    </code></dt>
-                                                    <dd property="yui:returnInfo"></dd>
-                                                </dl>
-
-
-             
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div rel="yui:events" resource="#events">
-
-
-                    </div>
-
-                    <div rel="yui:attributes" resource="#configattributes">
-
-                    </div>
-
 			</div>
 		</div>
 		<div class="yui-b">
@@ -287,7 +105,7 @@
                         <h4>Classes</h4>
                         <ul class="content">
                                 <li class=""><a href="inputEx.BaseField.html" title="inputEx.BaseField">inputEx.BaseField</a></li>
-                                <li class="selected"><a href="inputEx.Field.html" title="inputEx.Field">inputEx.Field</a></li>
+                                <li class=""><a href="inputEx.Field.html" title="inputEx.Field">inputEx.Field</a></li>
                                 <li class=""><a href="WireIt.CanvasElement.html" title="WireIt.CanvasElement">WireIt.CanvasElement</a></li>
                                 <li class=""><a href="WireIt.Container.html" title="WireIt.Container">WireIt.Container</a></li>
                                 <li class=""><a href="WireIt.FormContainer.html" title="WireIt.FormContainer">WireIt.FormContainer</a></li>
@@ -317,7 +135,7 @@
                                 <li class=""><a href="DD.js.html" title="DD.js">DD.js</a></li>
                                 <li class=""><a href="DDResize.js.html" title="DDResize.js">DDResize.js</a></li>
                                 <li class=""><a href="FormContainer-beta.js.html" title="FormContainer-beta.js">FormContainer-beta.js</a></li>
-                                <li class=""><a href="ImageContainer.js.html" title="ImageContainer.js">ImageContainer.js</a></li>
+                                <li class="selected"><a href="ImageContainer.js.html" title="ImageContainer.js">ImageContainer.js</a></li>
                                 <li class=""><a href="Layer.js.html" title="Layer.js">Layer.js</a></li>
                                 <li class=""><a href="LayerMap.js.html" title="LayerMap.js">LayerMap.js</a></li>
                                 <li class=""><a href="Terminal.js.html" title="Terminal.js">Terminal.js</a></li>
@@ -329,16 +147,6 @@
                     </div>
 
 
-                    <div id="methodsList" class="module">
-                        <h4>Methods</h4>
-                        <ul class="content">        
-                                <li class=""><a href="#method_onAddWire" title="onAddWire">onAddWire</a></li>
-                                <li class=""><a href="#method_onRemoveWire" title="onRemoveWire">onRemoveWire</a></li>
-                                <li class=""><a href="#method_render" title="render">render</a></li>
-                                <li class=""><a href="#method_renderTerminal" title="renderTerminal">renderTerminal</a></li>
-                                <li class=""><a href="#method_setOptions" title="setOptions">setOptions</a></li>
-                        </ul>
-                    </div>
 
 
 

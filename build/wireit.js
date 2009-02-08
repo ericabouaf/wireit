@@ -5,7 +5,7 @@
 /**
  * @class WireIt
  * @static
- * @namespace
+ * @namespace WireIt
  */
 var WireIt = {
    
@@ -764,7 +764,12 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
          addWire: function() {},
          removeWire: function() {},
          getXY: function() { 
-            return this.pos; 
+            var layers = YAHOO.util.Dom.getElementsByClassName('WireIt-Layer');
+            if(layers.length > 0) {
+               var orig = YAHOO.util.Dom.getXY(layers[0]);
+               return [this.pos[0]-orig[0], this.pos[1]-orig[1]]; 
+            }
+            return this.pos;
          }
       };
       
@@ -780,6 +785,10 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
     * @method onDrag
     */
    onDrag: function(e) {
+      
+      // Prevention when the editing wire could not be created (due to nMaxWires)
+      if(!this.editingWire) { return; }
+      
       if(this.terminal.container) {
          var obj = this.terminal.container.layer.el;
          var curleft = curtop = 0;
@@ -815,6 +824,10 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
     * @method onDragEnter
     */
    onDragEnter: function(e,ddTargets) {
+      
+      // Prevention when the editing wire could not be created (due to nMaxWires)
+      if(!this.editingWire) { return; }
+      
       for(var i = 0 ; i < ddTargets.length ; i++) {
          if( this.isValidWireTerminal(ddTargets[i]) ) {
             ddTargets[i].terminal.setDropInvitation(true);
@@ -826,6 +839,10 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
     * @method onDragOut
     */
    onDragOut: function(e,ddTargets) { 
+      
+      // Prevention when the editing wire could not be created (due to nMaxWires)
+      if(!this.editingWire) { return; }
+      
       for(var i = 0 ; i < ddTargets.length ; i++) {
          if( this.isValidWireTerminal(ddTargets[i]) ) {
             ddTargets[i].terminal.setDropInvitation(false);
@@ -837,6 +854,10 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
     * @method onDragDrop
     */
    onDragDrop: function(e,ddTargets) {
+      
+      // Prevention when the editing wire could not be created (due to nMaxWires)
+      if(!this.editingWire) { return; }
+      
       this.onDragOut(e,ddTargets);
       
       var targetTerminalProxy = null;
@@ -1029,6 +1050,7 @@ WireIt.Terminal.prototype = {
        * <p>Object that contains the terminal configuration:</p>
        * 
        * <ul>
+       *   <li><b>name</b>: terminal name</li>
        *   <li><b>direction</b>: direction vector of the wires when connected to this terminal (default [0,1])</li>
        *   <li><b>fakeDirection</b>: direction vector of the "editing" wire when it started from this terminal (default to -direction)</li>
        *   <li><b>editable</b>: boolean that makes the terminal editable (default to true)</li>
@@ -1042,6 +1064,7 @@ WireIt.Terminal.prototype = {
        * @property options
        */  
       this.options = {};
+      this.options.name = options.name;
       this.options.direction = options.direction || [0,1];
       this.options.fakeDirection = options.fakeDirection || [-this.options.direction[0],-this.options.direction[1]];
       this.options.className = options.className || CSS_PREFIX+'Terminal';
@@ -1185,7 +1208,7 @@ WireIt.Terminal.prototype = {
       var terminalList = [];
       if(this.wires) {
          for(var i = 0 ; i < this.wires.length ; i++) {
-            terminalList.push(this.wires[i].getOtherTerminal());
+            terminalList.push(this.wires[i].getOtherTerminal(this));
          }
       }
       return terminalList;
@@ -1510,7 +1533,8 @@ WireIt.Container = function(options, layer) {
 WireIt.Container.prototype = {
    
    /**
-    *
+    * set the options
+    * @method setOptions
     */
    setOptions: function(options) {
       
@@ -1530,6 +1554,7 @@ WireIt.Container.prototype = {
        *    <li>close: display a button to close the container (default true)</li>
        *    <li>closeButtonClassName: CSS class name for the close button (default "WireIt-Container-closebutton")</li>
        *    <li>title</li>
+       *    <li>icon</li>
        * </ul>
        * @property options
        * @type {Object}
@@ -1552,6 +1577,9 @@ WireIt.Container.prototype = {
       this.options.close = (typeof options.close == "undefined") ? true : options.close;
       this.options.closeButtonClassName = options.closeButtonClassName || CSS_PREFIX+"Container-closebutton";
 
+      this.options.title = options.title; // no default
+      
+      this.options.icon = options.icon;
    },
 
    /**
@@ -1592,6 +1620,13 @@ WireIt.Container.prototype = {
          if(this.options.title) {
             this.ddHandle.appendChild( WireIt.cn('span', null, null, this.options.title) );
          }
+         
+         // Icon
+         if (this.options.icon) {
+            var iconCn = WireIt.cn('img', {src: this.options.icon, className: 'WireIt-Container-icon'});
+            this.ddHandle.appendChild(iconCn);
+         }
+
       }
    
       // Create the body element
@@ -1797,6 +1832,19 @@ WireIt.Container.prototype = {
       }
    
       return obj;
+   },
+   
+   /**
+    * @method getValue
+    */
+   getValue: function() {
+      return {};
+   },
+
+   /**
+    * @method setValue
+    */
+   setValue: function(val) {
    }
 
 };
@@ -1885,7 +1933,7 @@ WireIt.Layer = function(options) {
    this.initWires();
    
    if(this.options.layerMap) { 
-      new WireIt.LayerMap({layer: this});
+      new WireIt.LayerMap(this, this.options.layerMapOptions);
    }
    
 };
@@ -1903,6 +1951,8 @@ WireIt.Layer.prototype = {
        *   <li>parentEl: DOM element that schould contain the layer (default document.body)</li>
        *   <li>containers: array of container configuration objects</li>  
        *   <li>wires: array of wire configuration objects</li>
+       *   <li>layerMap: boolean</li>
+       *   <li>layerMapOptions: layer map options</li>
        * </ul>
        * @property options
        */
@@ -1912,6 +1962,7 @@ WireIt.Layer.prototype = {
       this.options.containers = options.containers || [];
       this.options.wires = options.wires || [];
       this.options.layerMap = YAHOO.lang.isUndefined(options.layerMap) ? false : options.layerMap;
+      this.options.layerMapOptions = options.layerMapOptions;
    },
 
    /**
@@ -1976,7 +2027,7 @@ WireIt.Layer.prototype = {
    addContainer: function(containerConfig) {
    
       var type = eval('('+(containerConfig.xtype || "WireIt.Container")+')');
-      if(!type) {
+      if(!YAHOO.lang.isFunction(type)) {
          throw new Error("WireIt layer unable to add container: xtype '"+containerConfig.xtype+"' not found");
       }
       var container = new type(containerConfig, this);

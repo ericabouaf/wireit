@@ -1,5 +1,6 @@
 /**
- * @module WireIt WireIt provide classes to build wirable interfaces
+ * WireIt provide classes to build wirable interfaces
+ * @module WireIt
  */
 /**
  * @class WireIt
