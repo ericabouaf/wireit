@@ -3,18 +3,23 @@ To get the latest version, please visit http://javascript.neyric.com/wireit
 ---------------------------------------------------------------------------
 
 Version 0.4.0
-february 1st, 2009
+february ?, 2009
 
 Changeset:
 
- * Switching to git repository
- * Documentation with YUI Doc
  * WiringEditor:
 		- base example
 		- logicGates example
  * inputEx FormContainer: create a container from an inputEx field definition
  * inputEx wirable option: make the inputEx fields wirable
+ * LayerMap leave beta (indicate visible region, move layer on click)
+
+
+ * Switching to git repository (http://github.com/neyric/wireit/)
+ * Switching issue tracking
+ * Documentation with YUI Doc
  * Bugfixes for IE
+
 
 
 -----------------------------------------------------

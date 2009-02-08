@@ -1,4 +1,14 @@
 
+body {
+	margin:0;
+	padding:0;
+	font-size: 10px;
+}
+
+
+/**
+ * TOP
+ */
 #top {
 	position: relative;
 }
@@ -17,30 +27,12 @@
    padding-top: 4px;
 }
 
-#left dl {
-	padding: 5px;
-}
-
-#left dt {
-	float: left;
-	clear: left;
-}
-
-#left dd {
-	float: left;
-	margin-left: 10px;
-}
-
-#center {
-	height: 100%;
-}
-
+/* Toolbar */
 #toolbar {
    position: absolute;
    top: 10px;
    left: 200px;
 }
-
 
 #toolbar .yui-button {
    margin: 5px;
@@ -69,3 +61,52 @@
 #WiringEditor-helpButton button {
  background:transparent url(../images/icons/help.png) no-repeat scroll 10% 50%;
 }
+
+
+/**
+ * LEFT
+ */
+#left dl {
+	padding: 5px;
+}
+
+#left dt {
+	float: left;
+	clear: left;
+}
+
+#left dd {
+	float: left;
+	margin-left: 10px;
+}
+
+/**
+ * CENTER
+ */
+
+#center {
+	height: 100%;
+}
+
+
+/**
+ * RIGHT
+ */
+#right h2 {
+	font-size: 130%;
+	font-weight: bold;
+}
+
+#layerMap {
+   width: 80%;
+}
+
+#layerMap canvas.WireIt-LayerMap {
+	position: relative;
+	/*width: 250px; Don't put any width or it breaks the layerMap */
+}
+
+#propertiesForm div.inputEx-Group div.inputEx-label {
+	width: 50px;
+}
+

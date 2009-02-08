@@ -64,14 +64,29 @@ div.WireIt-Container div.body {
 
 div.WireIt-Container-ddhandle {
    width: 100%;
-   height: 20px;
+   height: 22px;
    background-color: #3366CC;
  	cursor: move;
  	-moz-border-radius-topleft: 5px;
  	-moz-border-radius-topright: 5px;
 	-webkit-border-top-left-radius: 5px;
 	-webkit-border-top-right-radius: 5px;
+	padding-top: 3px;
+	line-height:150%;
+	color:white;
+	font-weight:bold;
+	text-align:center;
+	font-size: 10pt;
 } 
+
+img.WireIt-Container-icon {
+   background: white;
+   position: absolute;
+   top: 4px;
+   left: 4px;
+   padding: 1px;
+   border: 1px solid #ccc;
+}
 
 div.WireIt-Container-resizehandle {
    position: absolute;
@@ -87,8 +102,8 @@ div.WireIt-Container-closebutton {
    width: 25px;
    height: 15px;
    position: absolute;
-   top: 3px;
-   right: 3px;
+   top: 4px;
+   right: 4px;
    cursor: pointer;
 }
 

@@ -72,19 +72,21 @@ WireIt.WiringEditor.prototype = {
     this.options.propertiesFields = options.propertiesFields;
     
     this.options.layoutOptions = options.layoutOptions || {
-        units: [
-          { position: 'top', height: 50, body: 'top'},
-          { position: 'left', width: 250, resize: true, body: 'left', gutter: '5px', collapse: true, 
-            collapseSize: 25, header: 'Modules', scroll: true, animate: true },
-          { position: 'center', body: 'center', gutter: '5px' }
-        ]
-     };
+	        units: [
+	          { position: 'top', height: 50, body: 'top'},
+	          { position: 'left', width: 200, resize: true, body: 'left', gutter: '5px', collapse: true, 
+	            collapseSize: 25, header: 'Modules', scroll: true, animate: true },
+	          { position: 'center', body: 'center', gutter: '5px' },
+	          { position: 'right', width: 320, resize: true, body: 'right', gutter: '5px', collapse: true, 
+	             collapseSize: 25, header: 'Properties', scroll: true, animate: true }
+	        ]
+	};
      
     this.options.layerOptions = {};
     var layerOptions = options.layerOptions || {};
     this.options.layerOptions.parentEl = layerOptions.parentEl ? layerOptions.parentEl : Dom.get('center');
-    this.options.layerOptions.layerMap = YAHOO.lang.isUndefined(layerOptions.layerMap) ? false : layerOptions.layerMap;
-    this.options.layerOptions.layerMapOptions = layerOptions.layerMapOptions;
+    this.options.layerOptions.layerMap = YAHOO.lang.isUndefined(layerOptions.layerMap) ? true : layerOptions.layerMap;
+    this.options.layerOptions.layerMapOptions = layerOptions.layerMapOptions || { parentEl: 'layerMap' };
  },
  
  /**
@@ -110,7 +112,7 @@ WireIt.WiringEditor.prototype = {
     for(var i = 0 ; i < modules.length ; i++) {
        var module = modules[i];
        var dt = WireIt.cn('dt');
-       dt.appendChild( WireIt.cn('img',{src: module.icon}) );
+       dt.appendChild( WireIt.cn('img',{src: module.container.icon}) );
        var dd = WireIt.cn('dd');
        var a = WireIt.cn('a', {href: '#', id: 'menu_module_'+i}, null, module.name);
        Event.addListener(a, 'click', this.onAddModule, this, true);
@@ -136,7 +138,7 @@ WireIt.WiringEditor.prototype = {
    var moduleConfig = module;
    
    var containerConfig = moduleConfig.container;
-   containerConfig.position = [300,400];
+   containerConfig.position = [200,200];
    containerConfig.title = module.name;
    try {
       var container = this.layer.addContainer(containerConfig);

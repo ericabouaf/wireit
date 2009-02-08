@@ -120,6 +120,7 @@ WireIt.Container.prototype = {
        *    <li>close: display a button to close the container (default true)</li>
        *    <li>closeButtonClassName: CSS class name for the close button (default "WireIt-Container-closebutton")</li>
        *    <li>title</li>
+       *    <li>icon</li>
        * </ul>
        * @property options
        * @type {Object}
@@ -143,6 +144,8 @@ WireIt.Container.prototype = {
       this.options.closeButtonClassName = options.closeButtonClassName || CSS_PREFIX+"Container-closebutton";
 
       this.options.title = options.title; // no default
+      
+      this.options.icon = options.icon;
    },
 
    /**
@@ -183,6 +186,13 @@ WireIt.Container.prototype = {
          if(this.options.title) {
             this.ddHandle.appendChild( WireIt.cn('span', null, null, this.options.title) );
          }
+         
+         // Icon
+         if (this.options.icon) {
+            var iconCn = WireIt.cn('img', {src: this.options.icon, className: 'WireIt-Container-icon'});
+            this.ddHandle.appendChild(iconCn);
+         }
+
       }
    
       // Create the body element

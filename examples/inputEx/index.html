@@ -52,8 +52,7 @@ body {
 	font-size: 10px;
 }
 div.WireIt-Container {
-	width: 435px;
-	height: 100px;
+	width: 350px; /* Prevent the modules from scratching on the right */
 }
 div.WireIt-InputExTerminal {
 	float: left;
@@ -93,7 +92,7 @@ div.inputEx-Group div.inputEx-label {
 						{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont'} }, 
 						{type:'email', inputParams: {label: 'Email', name: 'email', required: true}}, 
 						{type:'boolean', inputParams: {label: 'Happy to be there ?', name: 'happy'}}, 
-						{type:'url', inputParams: {label: 'Website', name:'website'}} 
+						{type:'url', inputParams: {label: 'Website', name:'website', size: 25}} 
 					],
 					legend: 'Tell us about yourself...'
 		 		},

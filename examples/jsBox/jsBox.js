@@ -9,7 +9,7 @@ var jsBox = {
     */
    init: function() {
       
-      this.jsBoxLayer = new WireIt.Layer({layerMap: true});
+      this.jsBoxLayer = new WireIt.Layer({layerMap: true,layerMapOptions: { parentEl: document.body } });
 
       this.jsBoxLayer.el.appendChild( WireIt.cn('p', null, {margin: "10px"}, "This application is an example of the <a href='http://javascript.neyric.com/wireit'>WireIt library</a>.<br />Each box contains a javascript function. The number of input terminals is automatically updated when you edit the function.<br />When you press 'Run', all the functions without input parameters are exectued. Then, the other modules are executed sequentially.") );
 
