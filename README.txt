@@ -24,11 +24,16 @@ Files:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 README.txt
-    This file
+   This file
 
 VERSION.txt
-    The change log
+   The change log
 
 license.txt
-    Open source license details.
+   Open source license details.
+
+backend/
+	Contains backend code for the WiringEditor
+	
+
 

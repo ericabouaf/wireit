@@ -72,8 +72,10 @@ YAHOO.util.Event.onDOMReady( function() {
 
 	new WireIt.WiringEditor({
 
-		//loadUrl: 'php/loadModules.php',
-		saveUrl: 'php/saveModule',
+		
+		languageName: "logicGates",
+		
+		smdUrl: '../../backend/php/WiringEditor.smd',
 
 		propertiesFields: [
 			{"type": "string", inputParams: {"name": "name", label: "Name", wirable: false, typeInvite: "Enter a title"} },
@@ -88,9 +90,9 @@ YAHOO.util.Event.onDOMReady( function() {
 							"xtype":"WireIt.ImageContainer", 
 							"image": "images/gate_and.png",
 		   				"terminals": [
-		   					{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2]},
-		   					{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37]},
-		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20]}
+		   					{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2],"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
+		   					{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37],"ddConfig": {"type": "input","allowedTypes": ["output"]}},
+		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20],"ddConfig": {"type": "output","allowedTypes": ["input"]}}
 		   				]
 						}
 
@@ -103,9 +105,9 @@ YAHOO.util.Event.onDOMReady( function() {
 					   		"xtype":"WireIt.ImageContainer", 
 					   		"image": "images/gate_or.png",
 								"terminals": [
-									{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2]},
-									{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37]},
-									{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20]}
+									{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2],"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
+									{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37],"ddConfig": {"type": "input","allowedTypes": ["output"]}},
+									{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20],"ddConfig": {"type": "output","allowedTypes": ["input"]}}
 								]
 						}
 					},
@@ -116,8 +118,8 @@ YAHOO.util.Event.onDOMReady( function() {
 							"xtype":"WireIt.ImageContainer", 
 						   "image": "images/gate_not.png",
 							"terminals": [
-								{"name": "_INPUT", "direction": [-1,0], "offsetPosition": [-12,23]},
-								{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [117,23]}
+								{"name": "_INPUT", "direction": [-1,0], "offsetPosition": [-12,23],"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
+								{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [117,23],"ddConfig": {"type": "output","allowedTypes": ["input"]}}
 							]
 						}
 					},
@@ -128,9 +130,9 @@ YAHOO.util.Event.onDOMReady( function() {
 						   "xtype":"WireIt.ImageContainer", 
 						   "image": "images/gate_nand.png",
 							"terminals": [
-								{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2]},
-								{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37]},
-								{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20], "wireConfig":{"color": "#FFFF00"}}
+								{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2],"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
+								{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37],"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
+								{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20], "ddConfig": {"type": "output","allowedTypes": ["input"]}}
 							]
 						}
 					},
@@ -141,9 +143,9 @@ YAHOO.util.Event.onDOMReady( function() {
 					   	"xtype":"WireIt.ImageContainer", 
 					   	"image": "images/gate_xor.png",
 							"terminals": [
-								{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2]},
-								{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37]},
-								{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20]}
+								{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2],"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
+								{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37],"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
+								{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20],"ddConfig": {"type": "output","allowedTypes": ["input"]}}
 							]
 						}
 					},
@@ -154,7 +156,7 @@ YAHOO.util.Event.onDOMReady( function() {
 							"xtype":"WireIt.ImageContainer", 
 							"image": "images/A.png",
 		   				"terminals": [
-		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [94,18]}
+		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [94,18],"ddConfig": {"type": "output","allowedTypes": ["input"]}}
 		   				]
 						}
 					},
@@ -165,7 +167,7 @@ YAHOO.util.Event.onDOMReady( function() {
 							"xtype":"WireIt.ImageContainer", 
 							"image": "images/B.png",
 		   				"terminals": [
-		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [94,18]}
+		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [94,18],"ddConfig": {"type": "output","allowedTypes": ["input"]}}
 		   				]
 						}
 					},
@@ -176,7 +178,7 @@ YAHOO.util.Event.onDOMReady( function() {
 							"xtype":"WireIt.ImageContainer", 
 							"image": "images/C.png",
 		   				"terminals": [
-		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [94,18]}
+		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [94,18],"ddConfig": {"type": "output","allowedTypes": ["input"]}}
 		   				]
 						}
 					}
@@ -201,11 +203,7 @@ YAHOO.util.Event.onDOMReady( function() {
 		</div>
 	</div>
 
-
-	<div id="left">
-		<p>Click on a logic gate to add it to the layer.</p>
-	</div>
-	
+	<div id="left"></div>	
 	
 	<div id="right">
 		<h2>Properties</h2>

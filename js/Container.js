@@ -411,6 +411,21 @@ WireIt.Container.prototype = {
     * @method setValue
     */
    setValue: function(val) {
+   },
+   
+   
+   /**
+    * @method getTerminal
+    */
+   getTerminal: function(name) {
+      var term;
+      for(var i = 0 ; i < this.terminals.length ; i++) {
+         term = this.terminals[i];
+         if(term.options.name == name) {
+            return term;
+         }
+      }
+      return null;
    }
 
 };

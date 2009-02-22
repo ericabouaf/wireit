@@ -158,8 +158,10 @@ WireIt.Layer.prototype = {
       var src = wireConfig.src;
       var tgt = wireConfig.tgt;
    
-      var terminal1 = this.containers[src.moduleId].terminals[src.terminalId];
-      var terminal2 = this.containers[tgt.moduleId].terminals[tgt.terminalId];
+      /*var terminal1 = this.containers[src.moduleId].terminals[src.terminalId];
+      var terminal2 = this.containers[tgt.moduleId].terminals[tgt.terminalId];*/
+      var terminal1 = this.containers[src.moduleId].getTerminal(src.terminal);
+      var terminal2 = this.containers[tgt.moduleId].getTerminal(tgt.terminal);
    
       var wire = new type( terminal1, terminal2, this.el);
       wire.redraw();
@@ -280,8 +282,8 @@ WireIt.Layer.prototype = {
          var wire = this.wires[i];
       
          var wireObj = { 
-            src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.containers), terminalId: WireIt.indexOf(wire.terminal1, wire.terminal1.container.terminals)}, 
-            tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.containers), terminalId: WireIt.indexOf(wire.terminal2, wire.terminal2.container.terminals)} 
+            src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.containers), terminal: wire.terminal1.name }, 
+            tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.containers), terminal: wire.terminal2.name }
          };
          obj.wires.push(wireObj);
       }

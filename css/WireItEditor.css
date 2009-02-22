@@ -66,18 +66,29 @@ body {
 /**
  * LEFT
  */
-#left dl {
-	padding: 5px;
+ 
+#left .WiringEditor-module {
+   cursor: pointer;
+   background-color: #AADDDD;
+   margin: 5px;
+   padding: 2px;
+   font-size: 9pt;
+   -moz-border-radius: 2px;
+   height: 16px;
 }
 
-#left dt {
-	float: left;
-	clear: left;
+#left .WiringEditor-module:hover {
+   color: red;
 }
 
-#left dd {
-	float: left;
-	margin-left: 10px;
+#left .WiringEditor-module img {
+   margin-left: 5px;
+}
+
+#left .WiringEditor-module span {
+   margin-left: 5px;
+   position: relative;
+   top: -3px;
 }
 
 /**

@@ -454,7 +454,7 @@ WireIt.Terminal.prototype = {
        *   <li><b>fakeDirection</b>: direction vector of the "editing" wire when it started from this terminal (default to -direction)</li>
        *   <li><b>editable</b>: boolean that makes the terminal editable (default to true)</li>
        *   <li><b>nMaxWires</b>: maximum number of wires for this terminal (default to Infinity)</li>
-       *   <li><b>offsetPosition</b>: offset position from the parentEl position (default to [0,0])</li>
+       *   <li><b>offsetPosition</b>: offset position from the parentEl position. Can be an array [top,left] or an object {left: 100, bottom: 20} or {right: 10, top: 5} etc... (default to [0,0])</li>
        *   <li><b>ddConfig</b>: configuration of the WireIt.TerminalProxy object (only if editable)</li>
        *   <li><b>className</b>: CSS class name of the terminal (default to "WireIt-Terminal")</li>
        *   <li><b>connectedClassName</b>: CSS class added to the terminal when it is connected (default to "WireIt-Terminal-connected")</li>
@@ -474,6 +474,7 @@ WireIt.Terminal.prototype = {
       this.options.wireConfig = options.wireConfig || {};
       this.options.editingWireConfig = options.editingWireConfig || this.options.wireConfig;
       this.options.offsetPosition = options.offsetPosition;
+      this.options.ddConfig = options.ddConfig || {};
    },
 
    /**
@@ -501,9 +502,19 @@ WireIt.Terminal.prototype = {
       if(this.options.name) { this.el.title = this.options.name; }
    
       // Set the offset position
-      if(this.options.offsetPosition) {
-         this.el.style.left = this.options.offsetPosition[0]+"px";
-         this.el.style.top = this.options.offsetPosition[1]+"px";
+      var pos = this.options.offsetPosition;
+      if(pos) {
+         if( lang.isArray(pos) ) {
+            this.el.style.left = pos[0]+"px";
+            this.el.style.top = pos[1]+"px";
+         }
+         else if( lang.isObject(pos) ) {
+            for(var key in pos) {
+               if(pos.hasOwnProperty(key)){
+                  this.el.style[key] = pos[key]+"px";
+               }
+            }
+         }
       }
    
       // Append the element to the parent

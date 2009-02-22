@@ -30,7 +30,7 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
    setOptions: function(options) {
       inputEx.Field.superclass.setOptions.call(this, options);
       
-      this.options.wirable = lang.isUndefined(options.wirable) ? true : options.wirable;
+      this.options.wirable = lang.isUndefined(options.wirable) ? false : options.wirable;
       this.options.container = options.container;
    },
    
