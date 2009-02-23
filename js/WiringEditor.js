@@ -5,7 +5,10 @@
 
 /**
  * Module Proxy handle the drag/dropping from the module list to the layer
- *
+ * @class ModuleProxy
+ * @constructor
+ * @param {HTMLElement} el
+ * @param {WireIt.WiringEditor} WiringEditor
  */
 WireIt.ModuleProxy = function(el, WiringEditor) {
    
@@ -20,26 +23,36 @@ WireIt.ModuleProxy = function(el, WiringEditor) {
 };
 YAHOO.extend(WireIt.ModuleProxy,YAHOO.util.DDProxy, {
    
-   
-    /*startDrag: function(e) {
-       // TODO: copy the html and apply selected classes !
-    },*/
-   
-   // overrides YAHOO.util.DDProxy
-    endDrag: function(e) {},
-    
-    // The layer is the only target :
-    onDragDrop: function(e, ddTargets) { 
-       var layerTarget = ddTargets[0];
-       var layer = ddTargets[0]._layer;
+   /**
+    * copy the html and apply selected classes
+    * @method startDrag
+    */
+   startDrag: function(e) {
+      WireIt.ModuleProxy.superclass.startDrag.call(this,e);
        var del = this.getDragEl();
-       var pos = YAHOO.util.Dom.getXY(del);
-       var layerPos = YAHOO.util.Dom.getXY(layer.el);
-       
-       /*var lel = this.getEl();
-       var moduleName = lel.childNodes[0].innerHTML;*/
-       
-       this._WiringEditor.addModule( this._module ,[pos[0]-layerPos[0], pos[1]-layerPos[1]]);
+       var lel = this.getEl();
+       del.innerHTML = lel.innerHTML;
+       del.className = lel.className;
+   },
+   
+   /**
+    * Override default behavior of DDProxy
+    * @method endDrag
+    */
+   endDrag: function(e) {},
+    
+   /**
+    * Add the module to the WiringEditor on drop on layer
+    * @method onDragDrop
+    */
+   onDragDrop: function(e, ddTargets) { 
+      // The layer is the only target :
+      var layerTarget = ddTargets[0];
+      var layer = ddTargets[0]._layer;
+      var del = this.getDragEl();
+      var pos = YAHOO.util.Dom.getXY(del);
+      var layerPos = YAHOO.util.Dom.getXY(layer.el);
+      this._WiringEditor.addModule( this._module ,[pos[0]-layerPos[0], pos[1]-layerPos[1]]);
     }
    
 });
@@ -159,7 +172,9 @@ WireIt.WiringEditor.prototype = {
      for(var i = 0 ; i < modules.length ; i++) {
         var module = modules[i];
         var div = WireIt.cn('div', {className: "WiringEditor-module"});
-        div.appendChild( WireIt.cn('img',{src: module.container.icon}) );
+        if(module.container.icon) {
+           div.appendChild( WireIt.cn('img',{src: module.container.icon}) );
+        }
         div.appendChild( WireIt.cn('span', null, null, module.name) );
         var ddProxy = new WireIt.ModuleProxy(div, this);
         ddProxy._module = module;
@@ -178,20 +193,16 @@ WireIt.WiringEditor.prototype = {
   * add a module at the given pos
   */
  addModule: function(module, pos) {
-    
-    var moduleConfig = module;
-
-    var containerConfig = moduleConfig.container;
-    containerConfig.position = pos;
-    containerConfig.title = module.name;
     try {
+       var containerConfig = module.container;
+       containerConfig.position = pos;
+       containerConfig.title = module.name;
        var container = this.layer.addContainer(containerConfig);
        Dom.addClass(container.el, "WiringEditor-module-"+module.name);
     }
     catch(ex) {
        console.log("Error Layer.addContainer", ex.message);
-    }
-    
+    }    
  },
 
  /**
@@ -284,15 +295,13 @@ WireIt.WiringEditor.prototype = {
   */
  onHelp: function() {
       if( !this.helpPanel) {
-       this.helpPanel = new widget.Panel('dfly-helpPanel', {
+       this.helpPanel = new widget.Panel('helpPanel', {
           draggable: true,
           width: '500px',
           visible: false,
           modal: true
        });
-       this.helpPanel.setBody("<p>Some help here</p>");
-       this.helpPanel.setHeader("You asked for some help ?");
-       this.helpPanel.render(document.body);
+       this.helpPanel.render();
        this.helpPanel.center();
     }
     this.helpPanel.show();
@@ -313,9 +322,7 @@ WireIt.WiringEditor.prototype = {
  onDelete: function() {
     if( confirm("Are you sure you want to delete this wiring ?") ) {
        
-       var value = this.getValue();
-       console.log(value);
-       
+      var value = this.getValue();
  		this.service.deleteWiring({name: value.name, language: this.options.languageName},{
  			success: function(result) {
  				alert("Deleted !");
@@ -383,14 +390,13 @@ WireIt.WiringEditor.prototype = {
 		}
 		);
 
-		/*this.loadWiring({name: "UnSuperNom de pipe !"},{
-			success: function(result) {
-				console.log("result", result);
-			}
-		});*/
  },
  
- 
+ /**
+  * @method getPipeByName
+  * @param {String} name Pipe's name
+  * @return {Object} return the evaled json pipe configuration
+  */
  getPipeByName: function(name) {
     var n = this.pipes.length,ret;
     for(var i = 0 ; i < n ; i++) {
@@ -432,6 +438,7 @@ WireIt.WiringEditor.prototype = {
              YAHOO.lang.augmentObject(m.config, baseContainerConfig); 
              m.config.title = m.name;
              var container = this.layer.addContainer(m.config);
+             Dom.addClass(container.el, "WiringEditor-module-"+m.name);
              container.setValue(m.value);
           }
           else {

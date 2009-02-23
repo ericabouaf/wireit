@@ -62,12 +62,12 @@ class WiringEditor {
          return $wirings;
     }
      
-    public function loadWiring($name, $language) {
+    public function loadWiring($language, $name) {
        $wirings = $this->queryToArray( sprintf("SELECT * from wirings WHERE name='%s' AND language='%s'", mysql_real_escape_string($name), mysql_real_escape_string($language)) );
        return $wirings[0];
     }
       
-    public function deleteWiring($name, $language) {
+    public function deleteWiring($language, $name) {
       $this->query( sprintf("DELETE from wirings WHERE name='%s' AND language='%s'", mysql_real_escape_string($name), mysql_real_escape_string($language)) );
       return true;
    }

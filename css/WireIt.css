@@ -53,6 +53,7 @@ div.WireIt-Container {
  	opacity: 0.8;
  	filter: alpha(opacity = 80);
    border: 0; /* Changing this value causes positioning issues */
+   font-size: 8pt;
 }
 
 div.WireIt-Container div.body {

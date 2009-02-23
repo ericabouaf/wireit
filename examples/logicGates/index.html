@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>WireIt - LogicGates example</title>
-	<link rel="icon" href="../../favicon.ico" type="image/png" />
+	<link rel="icon" href="../../res/favicon.ico" type="image/png" />
   <link rel="SHORTCUT ICON" href="../../favicon.ico" type="image/png" />
 
 <!-- YUI -->
@@ -21,6 +21,29 @@
 #left {
 	font-size: 16pt;
 }
+
+/*#top {
+	background-color:black;
+	color:white;
+	position:relative;
+}
+
+#top a {
+	color: yellow;
+}
+
+#top .logo {
+	font-family: monospace;
+	color: yellow;
+}
+
+#toolbar {
+	left:300px;
+}
+
+.yui-skin-sam .yui-layout {
+	background-color:black;
+}*/
 </style>
 
 
@@ -63,130 +86,13 @@
 <script type="text/javascript" src="../../js/LayerMap.js"></script>
 <script type="text/javascript" src="../../js/WiringEditor.js"></script>
 
-<script>
 
+<script type="text/javascript" src="logicGates.js"></script>
+<script>
 // InputEx needs a correct path to this image
 inputEx.spacerUrl = "/inputex/trunk/images/space.gif";
 
-YAHOO.util.Event.onDOMReady( function() {
-
-	new WireIt.WiringEditor({
-
-		
-		languageName: "logicGates",
-		
-		smdUrl: '../../backend/php/WiringEditor.smd',
-
-		propertiesFields: [
-			{"type": "string", inputParams: {"name": "name", label: "Name", wirable: false, typeInvite: "Enter a title"} },
-			{"type": "text", inputParams: {"name": "description", label: "Description", wirable: false, cols: 30} }
-		],
-
-		modules: [
-					{
-						"name": "AND",
-
-						"container" : {
-							"xtype":"WireIt.ImageContainer", 
-							"image": "images/gate_and.png",
-		   				"terminals": [
-		   					{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2],"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
-		   					{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37],"ddConfig": {"type": "input","allowedTypes": ["output"]}},
-		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20],"ddConfig": {"type": "output","allowedTypes": ["input"]}}
-		   				]
-						}
-
-					},
-
-					{
-					  "name": "OR",
-
-						"container": {
-					   		"xtype":"WireIt.ImageContainer", 
-					   		"image": "images/gate_or.png",
-								"terminals": [
-									{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2],"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
-									{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37],"ddConfig": {"type": "input","allowedTypes": ["output"]}},
-									{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20],"ddConfig": {"type": "output","allowedTypes": ["input"]}}
-								]
-						}
-					},
-
-					{
-					  "name": "NOT",
-					  "container": {
-							"xtype":"WireIt.ImageContainer", 
-						   "image": "images/gate_not.png",
-							"terminals": [
-								{"name": "_INPUT", "direction": [-1,0], "offsetPosition": [-12,23],"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
-								{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [117,23],"ddConfig": {"type": "output","allowedTypes": ["input"]}}
-							]
-						}
-					},
-
-					{
-					   "name": "NAND",
-					   "container": {
-						   "xtype":"WireIt.ImageContainer", 
-						   "image": "images/gate_nand.png",
-							"terminals": [
-								{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2],"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
-								{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37],"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
-								{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20], "ddConfig": {"type": "output","allowedTypes": ["input"]}}
-							]
-						}
-					},
-
-					{
-					   "name": "XOR",
-					   "container": {
-					   	"xtype":"WireIt.ImageContainer", 
-					   	"image": "images/gate_xor.png",
-							"terminals": [
-								{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2],"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
-								{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37],"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
-								{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20],"ddConfig": {"type": "output","allowedTypes": ["input"]}}
-							]
-						}
-					},
-
-					{
-						"name": "A",
-						"container" : {
-							"xtype":"WireIt.ImageContainer", 
-							"image": "images/A.png",
-		   				"terminals": [
-		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [94,18],"ddConfig": {"type": "output","allowedTypes": ["input"]}}
-		   				]
-						}
-					},
-
-					{
-						"name": "B",
-						"container" : {
-							"xtype":"WireIt.ImageContainer", 
-							"image": "images/B.png",
-		   				"terminals": [
-		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [94,18],"ddConfig": {"type": "output","allowedTypes": ["input"]}}
-		   				]
-						}
-					},
-
-					{
-						"name": "C",
-						"container" : {
-							"xtype":"WireIt.ImageContainer", 
-							"image": "images/C.png",
-		   				"terminals": [
-		   					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [94,18],"ddConfig": {"type": "output","allowedTypes": ["input"]}}
-		   				]
-						}
-					}
-
-		]
-	});
-
-}); 
+YAHOO.util.Event.onDOMReady( function() { new WireIt.WiringEditor(logicGatesLang); });
 </script>
 
 
@@ -195,7 +101,7 @@ YAHOO.util.Event.onDOMReady( function() {
 <body class="yui-skin-sam">
 
 	<div id="top">
-		<div class="logo">WireIt</a></div>
+		<div class="logo">logic gates</a></div>
 		<div id="toolbar"></div>
 		<div class="topright">
 			<span>Hello there !</span> | 
@@ -215,6 +121,16 @@ YAHOO.util.Event.onDOMReady( function() {
 
 	<div id="center">
 	</div>
+
+
+	<div id="helpPanel">
+	    <div class="hd">Some help here</div>
+	    <div class="bd">
+	        You asked for some help ?
+	Hello !
+	    </div>
+	</div>
+	
 
 </body>
 </html>
