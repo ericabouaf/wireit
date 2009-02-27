@@ -58,7 +58,10 @@ class WiringEditor {
     }
     
     public function listWirings($language) {
-         $wirings = $this->queryToArray( sprintf("SELECT * from wirings WHERE language='%s'", mysql_real_escape_string($language) ) );
+         //$query = sprintf("SELECT * from wirings WHERE language='%s'", mysql_real_escape_string($language) );
+         $query = "SELECT * from wirings WHERE language='$language'";
+         //echo $query."\n";
+         $wirings = $this->queryToArray( $query );
          return $wirings;
     }
      
@@ -87,7 +90,7 @@ class jsonRPCServer {
 			if ($result = @call_user_func_array(array($object,$request['method']),$request['params'])) {
 				$response = array ('id' => $request['id'],'result' => $result,'error' => NULL);
 			} else {
-				$response = array ('id' => $request['id'], 'result' => NULL,'error' => 'unknown method or incorrect parameters');
+				$response = array ('id' => $request['id'], 'result' => NULL,'error' => "unknown method '".$request['method']."' or incorrect parameters");
 			}
 		} catch (Exception $e) {
 			$response = array ('id' => $request['id'],'result' => NULL,'error' => $e->getMessage());

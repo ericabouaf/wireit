@@ -59,10 +59,10 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
          name: this.options.name, 
          direction: [-1,0],
          fakeDirection: [0, 1],
-         /*ddConfig: {
+         ddConfig: {
             type: "input",
             allowedTypes: ["output"]
-         },*/
+         },
       nMaxWires: 1 }, this.options.container);
 
       // Dfly name for this terminal

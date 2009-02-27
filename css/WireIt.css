@@ -154,3 +154,13 @@ canvas.WireIt-LayerMap {
    top: 0;
    right: 0;
 }
+
+
+/**
+ *
+ */
+div.WireIt-InputExTerminal div.WireIt-Terminal {
+   left: -21px;
+   top: -5px;
+}
+

@@ -339,6 +339,46 @@ WireIt.WiringEditor.prototype = {
     this.saveModule();
  },
 
+ renderLoadPanel: function() {
+    if( !this.loadPanel) {
+     this.loadPanel = new widget.Panel('WiringEditor-loadPanel', {
+        draggable: true,
+        width: '500px',
+        visible: false,
+        modal: true
+     });
+     this.loadPanel.setHeader("Select module");
+     this.loadPanel.setBody("<div id='loadPanelBody'></div>");
+     this.loadPanel.render(document.body);
+    // this.loadPanel.center();
+    }
+ },
+ 
+ updateLoadPanelList: function() {
+    var list = WireIt.cn("ul");
+    if(lang.isArray(this.pipes)) {
+       for(var i = 0 ; i < this.pipes.length ; i++) {
+          var module = this.pipes[i];
+          
+          this.pipesByName[module.name] = module;
+          
+          var li = WireIt.cn('li',null,{cursor: 'pointer'},module.name);
+          Event.addListener(li, 'click', function(e,args) {
+             try {
+                this.loadPipe(Event.getTarget(e).innerHTML);
+             }
+             catch(ex) {
+                console.log(ex);
+             }
+          }, this, true);
+          list.appendChild(li);
+       }
+    }
+    var panelBody = Dom.get('loadPanelBody');
+    panelBody.innerHTML = "";
+    panelBody.appendChild(list);
+ },
+
  /**
   * @method onLoad
   */
@@ -347,45 +387,11 @@ WireIt.WiringEditor.prototype = {
     this.service.listWirings({language: this.options.languageName},{
 			success: function(result) {
 				this.pipes = result.result;
-				
-				if( !this.loadPanel) {
-             this.loadPanel = new widget.Panel('WiringEditor-loadPanel', {
-                draggable: true,
-                width: '500px',
-                visible: false,
-                modal: true
-             });
-             this.loadPanel.setHeader("Select module");
-             this.loadPanel.setBody("<div id='loadPanelBody'></div>");
-             this.loadPanel.render(document.body);
-             this.loadPanel.center();
-            }
-          
-            var list = WireIt.cn("ul");
-            if(lang.isArray(this.pipes)) {
-               for(var i = 0 ; i < this.pipes.length ; i++) {
-                  var module = this.pipes[i];
-                  var li = WireIt.cn('li',null,{cursor: 'pointer'},module.name);
-                  Event.addListener(li, 'click', function(e,args) {
-                     try {
-                        this.loadPipe(Event.getTarget(e).innerHTML);
-                     }
-                     catch(ex) {
-                        console.log(ex);
-                     }
-                  }, this, true);
-                  list.appendChild(li);
-               }
-            }
-            var panelBody = Dom.get('loadPanelBody');
-            panelBody.innerHTML = "";
-            panelBody.appendChild(list);
-            
-          
+				this.pipesByName = {};
+				this.renderLoadPanel();
+            this.updateLoadPanelList();
             this.loadPanel.show();
-          
 			},
-			
 			scope: this
 		}
 		);

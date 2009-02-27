@@ -3,128 +3,154 @@
  */
 var jsBox = {
    
+   language: {
+	   languageName: "jsBox",
+		smdUrl: '../../backend/php/WiringEditor.smd',
+		propertiesFields: [
+			{"type": "string", inputParams: {"name": "name", label: "Title", wirable: false, typeInvite: "Enter a title" } },
+			{"type": "text", inputParams: {"name": "description", label: "Description", wirable: false, cols: 30} }
+		],
+		modules: [
+		   {
+		      "name": "jsBox",
+		      "container": {"xtype": "jsBox.Container"}
+		   },
+		   
+		   {
+		      "name": "comment",
+		      "container": {
+		         "xtype": "WireIt.FormContainer",
+		   		"title": "Comment",
+		   		"fields": [
+		            {"type": "text", "inputParams": {"label": "", "name": "comment", "wirable": false }}
+		         ]
+		      },
+		      "value": {
+		         "input": {
+		            "type":"url","inputParams":{}
+		         }
+		      }
+		   },
+		   
+		   {
+		      "name": "input",
+		      "container": {
+		         "xtype": "WireIt.FormContainer",
+		   		"title": "input",
+		   		"fields": [
+		   			{"type": "type", "inputParams": {"label": "Value", "name": "input", "wirable": false, "value": { "type":"string","inputParams":{"typeInvite": "input name"}} }}
+		   		],
+		   		"terminals": [
+      			   {"name": "out", "direction": [0,1], "offsetPosition": {"left": 86, "bottom": -15}, "ddConfig": {
+                      "type": "output",
+                      "allowedTypes": ["input"]
+                   }
+                  }
+      		   ]
+		      }
+		   },
+		   
+		   {
+		      "name": "output",
+		      "container": {
+		         "xtype": "WireIt.FormContainer",
+		   		"title": "output",
+		   		"fields": [ 
+		   			{"type": "string", "inputParams": {"label": "name", "name": "name", "wirable": false}}
+		   		],
+   		   	"terminals": [
+	      		   {"name": "in", "direction": [0,-1], "offsetPosition": [82,-15], "ddConfig": {
+                      "type": "input",
+                      "allowedTypes": ["output"]
+                   },
+                   "nMaxWires": 1
+                  }
+	      		]
+		      }
+		   },
+		   
+		   {
+		      "name": "callback",
+		      "container": {
+		         "xtype": "WireIt.Container",
+		         "title": "Callback",
+		         "terminals": [
+		            {
+		               "name": "callbackFunction",
+		               "direction": [0,1], "offsetPosition": {"left": 56, "bottom": -15}, "ddConfig": {
+                         "type": "output",
+                         "allowedTypes": ["input"]
+                      },
+                      "wireConfig":{"color": "#EEEE11", "bordercolor":"#FFFF00"}
+		            },
+		             {
+   		               "name": "output",
+   		               "direction": [0,1], "offsetPosition": {"left": 126, "bottom": -15}, "ddConfig": {
+                            "type": "output",
+                            "allowedTypes": ["input"]
+                         }
+   		            }
+		         ]
+		      }
+		   }//,
+		   
+		   
+		   /*****************************
+		    * FAKE MODULES, JUST POC
+		    *****************************
+		   {
+		      "name": "asyncRequestCallback9", 
+		      "container": {
+		         "xtype": "jsBox.ComposedContainer",
+		         "title": "asyncRequestCallback9"
+		      }
+		   },
+		   {
+		      "name": "inputValue", 
+		      "container": {
+		         "xtype": "jsBox.ComposedContainer",
+		         "title": "inputValue"
+		      }
+		   },
+		   {
+		      "name": "Multiplication2", 
+		      "container": {
+		         "xtype": "jsBox.ComposedContainer",
+		         "title": "Multiplication2"
+		      }
+		   },
+		   {
+		      "name": "ComposedModule3", 
+		      "container": {
+		         "xtype": "jsBox.ComposedContainer",
+		         "title": "ComposedModule3"
+		      }
+		   }
+		   ,
+		   {
+		      "name": "machinTruc", 
+		      "container": {
+		         "xtype": "jsBox.ComposedContainer",
+		         "title": "machinTruc"
+		      }
+		   }*/
+		]
+	},
+   
    /**
     * @method init
     * @static
     */
    init: function() {
-     
-     
-   	this.editor = new jsBox.WiringEditor({
-		   languageName: "jsBox",
-   		smdUrl: '../../backend/php/WiringEditor.smd',
-   		propertiesFields: [
-   			{"type": "string", inputParams: {"name": "name", label: "Title", wirable: false, typeInvite: "Enter a title" } },
-   			{"type": "text", inputParams: {"name": "description", label: "Description", wirable: false, cols: 30} }
-   		],
-   		modules: [
-   		   {
-   		      "name": "jsBox",
-   		      "container": {"xtype": "jsBox.Container"}
-   		   },
-   		   
-   		   {
-   		      "name": "comment",
-   		      "container": {
-   		         "xtype": "WireIt.FormContainer",
-   		   		"title": "Comment",
-   		   		"fields": [
-   		            {"type": "text", "inputParams": {"label": "", "name": "comment", "wirable": false }}
-   		         ]
-   		      },
-   		      "value": {
-   		         "input": {
-   		            "type":"url","inputParams":{}
-   		         }
-   		      }
-   		   },
-   		   
-   		   {
-   		      "name": "input",
-   		      "container": {
-   		         "xtype": "WireIt.FormContainer",
-   		   		"title": "input",
-   		   		"fields": [
-   		   			{"type": "type", "inputParams": {"label": "Value", "name": "input", "wirable": false, "value": { "type":"string","inputParams":{"typeInvite": "input name"}} }}
-   		   		],
-   		   		"terminals": [
-	      			   {"name": "out", "direction": [0,1], "offsetPosition": {"left": 86, "bottom": -15}, "ddConfig": {
-                         "type": "output",
-                         "allowedTypes": ["input"]
-                      }
-                     }
-	      		   ]
-   		      }
-   		   },
-   		   
-   		   {
-   		      "name": "output",
-   		      "container": {
-   		         "xtype": "WireIt.FormContainer",
-   		   		"title": "output",
-   		   		"fields": [ 
-   		   			{"type": "string", "inputParams": {"label": "name", "name": "name", "wirable": false}}
-   		   		],
-      		   	"terminals": [
-   	      		   {"name": "in", "direction": [0,-1], "offsetPosition": [82,-15], "ddConfig": {
-                         "type": "input",
-                         "allowedTypes": ["output"]
-                      },
-                      "nMaxWires": 1
-                     }
-   	      		]
-   		      }
-   		   }
-   		]
-   	});
- 
-     
+   	this.editor = new jsBox.WiringEditor(this.language);
    },
    
-   
-   /**
-    * Static function to run the "program"
-    * @method run
-    * @static
-    */
    run: function() {
-
-      try {
-
-         // Clear the previous results
-         for(var i = 0; i < this.editor.layer.containers.length; i++) {
-            this.editor.layer.containers[i].evalResult = null;
-         }
-
-         // Make a list of all the containers that may be run (no input params)
-         var modules = [];
-         for(var i = 0; i < this.editor.layer.containers.length; i++) {
-            if( this.editor.layer.containers[i].mayEval() ) {
-               modules.push( this.editor.layer.containers[i] );
-            }
-         }
-         
-         console.log("module may eval", modules);
-
-         // Eval the "sources" modules 
-         for(var i = 0 ; i < modules.length ; i++) {
-            modules[i].execute();
-         }
-         
-      }
-      catch(ex) {
-         console.log("Error while running: ", ex);
-      }
-
+      var ef = new ExecutionFrame( this.editor.getValue() );
+      ef.run();
    }
    
 };
-
-
-// Init the jsBox editor with a default program
-YAHOO.util.Event.onDOMReady( jsBox.init, jsBox, true);
-
-
 
 
 /**
@@ -136,87 +162,67 @@ jsBox.WiringEditor = function(options) {
 
 YAHOO.lang.extend(jsBox.WiringEditor, WireIt.WiringEditor, {
    
+   onSMDsuccess: function() {
+      this.onLoad();
+   },
+   
+   /**
+    * Add the "run" button
+    */
    renderButtons: function() {
       jsBox.WiringEditor.superclass.renderButtons.call(this);
       var toolbar = YAHOO.util.Dom.get('toolbar');
       var runButton = new YAHOO.widget.Button({ label:"Run", id:"WiringEditor-runButton", container: toolbar });
       runButton.on("click", jsBox.run, jsBox, true);
-   }
+   },
+   
+   /**
+    * Overwrite updateLoadPanelList to add Composed modules to the module list
+    */
+   updateLoadPanelList: function() { try {
+       var left = YAHOO.util.Dom.get('left');
+       var list = WireIt.cn("ul");
+       if(YAHOO.lang.isArray(this.pipes)) {
+          for(var i = 0 ; i < this.pipes.length ; i++) {
+             var module = this.pipes[i];
+
+             this.pipesByName[module.name] = module;
+             
+             // Add the module to the list
+             var div = WireIt.cn('div', {className: "WiringEditor-module ComposedModule"});
+             div.appendChild( WireIt.cn('span', null, null, module.name) );
+             var ddProxy = new WireIt.ModuleProxy(div, this);
+             ddProxy._module = {
+                name: module.name,
+                container: {
+                   "xtype": "jsBox.ComposedContainer",
+                   "title": module.name
+                }
+             };
+             left.appendChild(div);
+               
+
+             var li = WireIt.cn('li',null,{cursor: 'pointer'},module.name);
+             YAHOO.util.Event.addListener(li, 'click', function(e,args) {
+                try {
+                   this.loadPipe(YAHOO.util.Event.getTarget(e).innerHTML);
+                }
+                catch(ex) {
+                   console.log(ex);
+                }
+             }, this, true);
+             list.appendChild(li);
+          }
+       }
+       var panelBody = YAHOO.util.Dom.get('loadPanelBody');
+       panelBody.innerHTML = "";
+       panelBody.appendChild(list);
+       
+    }catch(ex){console.log(ex);}
+    },
    
 });
 
-
-
-/**
- * Running methods for "input" modules
- */
-WireIt.Container.prototype.execute = function() {
-   
-   //console.log("execute", this.options.title);
-   
-   var term;
-   
-   if(this.options.title == "input") {
-      
-      this.evalResult = this.form.inputsNames.input.fieldValue.getValue();
-   
-      // Execute the linked output wires
-      var term = this.terminals[0];
-   
-      
-   }
-   else if(this.options.title == "jsBox") {
-      
-      // Eval each of the parameter functions : 
-      var params = [];
-      for(var i = 1 ; i < this.terminals.length ; i++) {
-         var inputTerm = this.terminals[i];
-         var otherTerm = inputTerm.wires[0].getOtherTerminal(inputTerm);
-         if(!otherTerm.container.evalResult) {
-            otherTerm.container.execute();
-         }
-         params[i-1] = otherTerm.container.evalResult;
-      }
-      var code = "var tempJsBoxFunction = ("+this.textarea.value+")";
-      eval(code);
-      this.evalResult = tempJsBoxFunction.apply(window, params);
-      
-      term = this.terminals[0];
-   }
-   
-   // Execute the modules linked to the ouput
-   for(var i = 0 ; i < term.wires.length ; i++) {
-      var wire = term.wires[i];
-      var container = wire.getOtherTerminal(term).container;
-      if( container.mayEval() ) {
-         container.execute();
-      }
-   }
-   
-};
-
-WireIt.Container.prototype.mayEval = function() {
-   
-   //console.log("mayEval", this.options.title);
-      
-   if(this.options.title == "input") {
-      return true;
-   }
-   else if(this.options.title == "jsBox") {
-      
-       // For each input param :
-      for(var i = 1 ; i < this.terminals.length ; i++) {
-         var term = this.terminals[i];
-         if(term.wires.length != 1) return false;
-         var otherTerm = term.wires[0].getOtherTerminal(term);
-         if(!otherTerm.container) return false;
-         if( otherTerm.container.evalResult == null) return false;
-      }
-      return true;
-      
-   }
-   return false;
-};
 
 
 /**
@@ -333,3 +339,50 @@ YAHOO.extend(jsBox.Container, WireIt.Container, {
    
 });
 
+
+
+
+
+
+
+
+/**
+ * ComposedContainer is a class for Container representing Pipes.
+ * It automatically generates the inputEx Form from the input Params.
+ * @class ComposedContainer
+ * @extends WireIt.inputExContainer
+ * @constructor
+ */
+jsBox.ComposedContainer = function(options, layer) {
+   
+   if(!options.fields) {
+      
+      options.fields = [];
+      options.terminals = [];
+   
+      var pipe = jsBox.editor.getPipeByName(options.title);
+      for(var i = 0 ; i < pipe.modules.length ; i++) {
+         var m = pipe.modules[i];
+         if( m.name == "input") {
+            m.value.input.inputParams.wirable = true;
+            options.fields.push(m.value.input);
+         }
+         else if(m.name == "output") {
+            options.terminals.push({
+               name: m.value.name,
+               "direction": [0,1], 
+               "offsetPosition": {"left": options.terminals.length*40, "bottom": -15}, 
+               "ddConfig": {
+                   "type": "output",
+                   "allowedTypes": ["input"]
+                }
+            });
+         }
+      }
+   }
+   
+   jsBox.ComposedContainer.superclass.constructor.call(this, options, layer);
+};
+
+YAHOO.extend(jsBox.ComposedContainer, WireIt.FormContainer, {
+});
