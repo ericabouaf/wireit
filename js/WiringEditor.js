@@ -76,6 +76,19 @@ WireIt.WiringEditor = function(options) {
     this.el = Dom.get(options.parentEl);
     
     /**
+     * @property helpPanel
+     * @type {YAHOO.widget.Panel}
+     */
+    this.helpPanel = new widget.Panel('helpPanel', {
+        fixedcenter: true,
+        draggable: true,
+        width: '500px',
+        visible: false,
+        modal: true
+     });
+     this.helpPanel.render();
+    
+    /**
      * @property layout
      * @type {YAHOO.widget.Layout}
      */
@@ -231,6 +244,7 @@ WireIt.WiringEditor.prototype = {
 
  /**
   * WiringEditor uses a SMD to connect to the backend
+  * @method loadSMD
   */
  loadSMD: function() {
     
@@ -242,13 +256,20 @@ WireIt.WiringEditor.prototype = {
  		
  },
  
+ /**
+  * callback for loadSMD request
+  * @method onSMDsuccess
+  */
  onSMDsuccess: function() {
     //console.log("onSMDsuccess",this.service);
  },
- onSMDfailure: function() {
-    
-    console.log("onSMDfailure", this.service);
-     
+ 
+ /**
+  * callback for loadSMD request
+  * @method onSMDfailure
+  */
+ onSMDfailure: function() { 
+    //console.log("onSMDfailure", this.service);
  },
 
  /**
@@ -294,16 +315,6 @@ WireIt.WiringEditor.prototype = {
   * @method onHelp
   */
  onHelp: function() {
-      if( !this.helpPanel) {
-       this.helpPanel = new widget.Panel('helpPanel', {
-          draggable: true,
-          width: '500px',
-          visible: false,
-          modal: true
-       });
-       this.helpPanel.render();
-       this.helpPanel.center();
-    }
     this.helpPanel.show();
  },
 
@@ -339,21 +350,27 @@ WireIt.WiringEditor.prototype = {
     this.saveModule();
  },
 
+ /**
+  * @method renderLoadPanel
+  */
  renderLoadPanel: function() {
     if( !this.loadPanel) {
-     this.loadPanel = new widget.Panel('WiringEditor-loadPanel', {
-        draggable: true,
-        width: '500px',
-        visible: false,
-        modal: true
-     });
-     this.loadPanel.setHeader("Select module");
-     this.loadPanel.setBody("<div id='loadPanelBody'></div>");
-     this.loadPanel.render(document.body);
-    // this.loadPanel.center();
+       this.loadPanel = new widget.Panel('WiringEditor-loadPanel', {
+          fixedcenter: true,
+          draggable: true,
+          width: '500px',
+          visible: false,
+          modal: true
+       });
+       this.loadPanel.setHeader("Select module");
+       this.loadPanel.setBody("<div id='loadPanelBody'></div>");
+       this.loadPanel.render(document.body);
     }
  },
- 
+
+ /**
+  * @method updateLoadPanelList
+  */
  updateLoadPanelList: function() {
     var list = WireIt.cn("ul");
     if(lang.isArray(this.pipes)) {
