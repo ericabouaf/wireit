@@ -92,48 +92,7 @@ var jsBox = {
    		            }
 		         ]
 		      }
-		   }//,
-		   
-		   
-		   /*****************************
-		    * FAKE MODULES, JUST POC
-		    *****************************
-		   {
-		      "name": "asyncRequestCallback9", 
-		      "container": {
-		         "xtype": "jsBox.ComposedContainer",
-		         "title": "asyncRequestCallback9"
-		      }
-		   },
-		   {
-		      "name": "inputValue", 
-		      "container": {
-		         "xtype": "jsBox.ComposedContainer",
-		         "title": "inputValue"
-		      }
-		   },
-		   {
-		      "name": "Multiplication2", 
-		      "container": {
-		         "xtype": "jsBox.ComposedContainer",
-		         "title": "Multiplication2"
-		      }
-		   },
-		   {
-		      "name": "ComposedModule3", 
-		      "container": {
-		         "xtype": "jsBox.ComposedContainer",
-		         "title": "ComposedModule3"
-		      }
 		   }
-		   ,
-		   {
-		      "name": "machinTruc", 
-		      "container": {
-		         "xtype": "jsBox.ComposedContainer",
-		         "title": "machinTruc"
-		      }
-		   }*/
 		]
 	},
    
@@ -179,7 +138,8 @@ YAHOO.lang.extend(jsBox.WiringEditor, WireIt.WiringEditor, {
    /**
     * Overwrite updateLoadPanelList to add Composed modules to the module list
     */
-   updateLoadPanelList: function() { try {
+   updateLoadPanelList: function() { 
+      try {
        var left = YAHOO.util.Dom.get('left');
        var list = WireIt.cn("ul");
        if(YAHOO.lang.isArray(this.pipes)) {
@@ -218,8 +178,8 @@ YAHOO.lang.extend(jsBox.WiringEditor, WireIt.WiringEditor, {
        panelBody.innerHTML = "";
        panelBody.appendChild(list);
        
-    }catch(ex){console.log(ex);}
-    },
+      }catch(ex){console.log(ex);}
+    }
    
 });
 
@@ -289,7 +249,7 @@ YAHOO.extend(jsBox.Container, WireIt.Container, {
       }
       else if (curTerminalN > nParams) {
          // remove terminals
-         for(var i = nParams ; i < curTerminalN ; i++) {
+         for(var i = this.terminals.length-(curTerminalN-nParams) ; i < this.terminals.length ; i++) {
          	this.terminals[i].remove();
          	this.terminals[i] = null;
          }
