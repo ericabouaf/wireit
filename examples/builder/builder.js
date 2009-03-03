@@ -1,5 +1,7 @@
+/**
+ * WireIt Builder
+ */
 WireIt.Builder = {
-	
 	
 	init: function() {
 		   
@@ -12,11 +14,11 @@ WireIt.Builder = {
    
       // Buttons
       var toolbar = YAHOO.util.Dom.get('toolbar');
-  		var loadButton = new YAHOO.widget.Button({ label:"Load", id:"WiringEditor-loadButton", container: toolbar });
+  		var loadButton = new YAHOO.widget.Button({ label:"Load", id:"WireItBuilder-loadButton", container: toolbar });
       loadButton.on("click", this.onLoad, this, true);   
-	   var saveButton = new YAHOO.widget.Button({ label:"Save", id:"WiringEditor-saveButton", container: toolbar });
+	   var saveButton = new YAHOO.widget.Button({ label:"Save", id:"WireItBuilder-saveButton", container: toolbar });
       saveButton.on("click", this.onSave, this, true);
-	   var createButton = new YAHOO.widget.Button({ label:"Create !", id:"WiringEditor-saveButton", container: toolbar });
+	   var createButton = new YAHOO.widget.Button({ label:"Run", id:"WireItBuilder-runButton", container: toolbar });
       createButton.on("click", (function() { 
          this.generateWiringEditor(this.form.getValue()); 
       }), this, true);
@@ -52,7 +54,8 @@ WireIt.Builder = {
 	   var div = WireIt.cn('div', {className: 'language', id: 'language-'+i}, null, "<span class='languageName'>"+l.name+"</span> <span class='wiringsCount'>"+l.wirings+" wirings</span>");
 	   YAHOO.util.Event.addListener(div, 'click', this.onLoadLanguage, this, true);
 	   var runLink = WireIt.cn('a', null, null, "run");
-	   YAHOO.util.Event.addListener(runLink, 'click', function() {
+	   YAHOO.util.Event.addListener(runLink, 'click', function(e) {
+	      YAHOO.util.Event.stopEvent(e);
 	      this.generateWiringEditor(l);
 	   }, this, true);
 	   div.appendChild(runLink);
@@ -186,234 +189,235 @@ WireIt.Builder = {
 	   var formPage = window.open("",languageDef.languageName);
 	   formPage.document.write(html.join("\n"));
 	   formPage.document.close();
-	}
-	
+	},
+
+   // inputEx form Definition
+   formDef: {
+   	"type": "group",
+   	"inputParams": {
+			
+   			"fields" : [
+   				{
+   					"type": "string",
+   					"inputParams": {
+   						"label": "Language Name",
+   						"name": "languageName"
+   					}
+   				},
+   				{
+   					"type": "string",
+   					"inputParams": {
+   						"label": "SMD url",
+   						"name": "smdUrl",
+   						"value": "../../backend/php/WiringEditor.smd"
+   					}
+   				},
+   				{
+   					"type": "list",
+   					"inputParams": {
+   						"name": "propertiesFields",
+   						"label": "Properties",
+   						"elementType": {
+   							"type": "type",
+   							"inputParams": {
+   							}
+   						}
+   					}
+   				},
+   				{
+   					"type" : "list",
+   					"inputParams" : {
+   						"label" : "Modules",
+   						"name" : "modules",
+   						"listAddLabel": "Add a new module",
+   						"sortable": true,
+   						"elementType" : {
+   							"type" : "group",
+   							"inputParams" : {
+   								"legend" : "",
+   								"fields" : [
+   									{
+   										"type" : "string",
+   										"inputParams" : {
+   											"label" : "Name",
+   											"name" : "name",
+   											"typeInvite" : "name",
+   											"value" : ""
+   										}
+   									},
+   									{
+   										"type" : "group",
+   										"inputParams" : {
+   											"className": "inputEx-Group WireIt-Container-Group",
+   											"legend" : "Container options",
+   								   		"collapsible": true,
+   											"collapsed": true,
+   											"name": "container",
+   											"fields" : [
+   												{
+   													"type" : "select",
+   													"inputParams" : {
+   														"label" : "Type",
+   														"name" : "xtype",
+   														"selectValues" : [
+   															"WireIt.Container",
+   															"WireIt.ImageContainer",
+   															"WireIt.FormContainer"
+   														],
+   														"selectOptions" : [
+
+   														],
+   														"value" : "WireIt.Container"
+   													}
+   												},
+   												{
+   													"type" : "string",
+   													"inputParams" : {
+   														"label" : "Image",
+   														"name" : "image",
+   														"value" : ""
+   													}
+   												},
+   												{
+   													"type" : "url",
+   													"inputParams" : {
+   														"label" : "Icon",
+   														"name" : "icon"
+   													}
+   												},
+   												{
+   													"type" : "list",
+   													"inputParams" : {
+   														"label" : "Fields",
+   														"name" : "fields",
+   														"elementType": {
+   															"type": "type",
+   															"inputParams": {
+   															}
+   														}
+   													}
+   												},
+   												{
+   													"type" : "list",
+   													"inputParams" : {
+   														"label" : "Terminals",
+   														"name" : "terminals",
+   														"elementType" : {
+   															"type" : "group",
+   															"inputParams" : {
+   																"legend" : "Terminal",
+   														   	"collapsible": true,
+   																"collapsed": true,
+   																"fields" : [
+   																	{
+   																		"type" : "string",
+   																		"inputParams" : {
+   																			"label" : "Name",
+   																			"name" : "name"
+   																		}
+   																	},
+   																	{
+   																		"type" : "vector",
+   																		"inputParams" : {
+   																			"label" : "Direction",
+   																			"name" : "direction"
+   																		}
+   																	},
+   																	{
+   																		"type": "group",
+   																		"inputParams": {
+   																			"label" : "Position",
+   																			"name" : "offsetPosition",
+   																			"fields": [
+   																				{"type": "integer", "inputParams": {"name": "top", "label": "top", "negative":true} },
+   																				{"type": "integer", "inputParams": {"name": "right", "label": "right", "negative":true} },
+   																				{"type": "integer", "inputParams": {"name": "bottom", "label": "bottom", "negative":true} },
+   																				{"type": "integer", "inputParams": {"name": "left", "label": "left", "negative":true} }
+   																			]
+   																		}
+   																	},
+   																	{
+																			"type": "integer",
+																			"inputParams": {
+																				"name": "nMaxWires",
+																				"label": "Maximum wire number",
+																				"size": "5"
+																			}
+																		},
+   																	{
+   																		"type": "group",
+   																		"inputParams": {
+   																			"name": "ddConfig",
+   																			"fields": [
+   																				{
+   																					"type": "string",
+   																					"inputParams": {
+   																						"name": "type",
+   																						"label": "Terminal type"
+   																					}
+   																				},
+   																				{
+   																					"type": "list",
+   																					"inputParams": {
+   																						"name": "allowedTypes",
+   																						"label": "Allowed types",
+   																						"elementType": {
+   																							"type":"string",
+   																							"inputParams":{}
+   																						}
+   																					}
+   																				}
+   																			]
+   																		}
+   																	}
+   																],
+   																"value" : {
+   																	"name" : "",
+   																	"direction" : ["",""],
+   																	"offsetPosition" : ["",""]
+   																}
+   															}
+   														},
+   														"value" : []
+   													}
+   												}
+   											],
+   											"value" : {
+   												"xtype" : "WireIt.Container",
+   												"image" : "",
+   												"terminals" : []
+   											}
+   										}
+   									}
+   								]
+   							}
+   						},
+   						"value" : []
+   					}
+   				},
+				
+   				{
+   					"type": "text",
+   					"inputParams": {
+   						"name": "additionalCss",
+   						"label": "Additional CSS",
+   						"rows": 10,
+   						"cols": 80
+   					}
+   				},
+				
+   				{
+   				   "type": "text",
+   				   "inputParams": {
+   				      "name": "additionalScripts",
+   				      "label": "Additional scripts",
+   				      "rows": 10,
+   						"cols": 80
+   				   }
+   				}
+   			]
+   		}
+   }
+
 };
 YAHOO.util.Event.onDOMReady(WireIt.Builder.init, WireIt.Builder, true);
-
-
-WireIt.Builder.formDef = {
-	"type": "group",
-	"inputParams": {
-			
-			"fields" : [
-				{
-					"type": "string",
-					"inputParams": {
-						"label": "Language Name",
-						"name": "languageName"
-					}
-				},
-				{
-					"type": "string",
-					"inputParams": {
-						"label": "SMD url",
-						"name": "smdUrl",
-						"value": "../../backend/php/WiringEditor.smd"
-					}
-				},
-				{
-					"type": "list",
-					"inputParams": {
-						"name": "propertiesFields",
-						"label": "Properties",
-						"elementType": {
-							"type": "type",
-							"inputParams": {
-							}
-						}
-					}
-				},
-				{
-					"type" : "list",
-					"inputParams" : {
-						"label" : "Modules",
-						"name" : "modules",
-						"listAddLabel": "Add a new module",
-						"sortable": true,
-						"elementType" : {
-							"type" : "group",
-							"inputParams" : {
-								"legend" : "",
-								"fields" : [
-									{
-										"type" : "string",
-										"inputParams" : {
-											"label" : "Name",
-											"name" : "name",
-											"typeInvite" : "name",
-											"value" : ""
-										}
-									},
-									{
-										"type" : "group",
-										"inputParams" : {
-											"className": "inputEx-Group WireIt-Container-Group",
-											"legend" : "Container options",
-								   		"collapsible": true,
-											"collapsed": true,
-											"name": "container",
-											"fields" : [
-												{
-													"type" : "select",
-													"inputParams" : {
-														"label" : "Type",
-														"name" : "xtype",
-														"selectValues" : [
-															"WireIt.Container",
-															"WireIt.ImageContainer",
-															"WireIt.FormContainer"
-														],
-														"selectOptions" : [
-
-														],
-														"value" : "WireIt.Container"
-													}
-												},
-												{
-													"type" : "string",
-													"inputParams" : {
-														"label" : "Image",
-														"name" : "image",
-														"value" : ""
-													}
-												},
-												{
-													"type" : "url",
-													"inputParams" : {
-														"label" : "Icon",
-														"name" : "icon"
-													}
-												},
-												{
-													"type" : "list",
-													"inputParams" : {
-														"label" : "Fields",
-														"name" : "fields",
-														"elementType": {
-															"type": "type",
-															"inputParams": {
-															}
-														}
-													}
-												},
-												{
-													"type" : "list",
-													"inputParams" : {
-														"label" : "Terminals",
-														"name" : "terminals",
-														"elementType" : {
-															"type" : "group",
-															"inputParams" : {
-																"legend" : "Terminal",
-														   	"collapsible": true,
-																"collapsed": true,
-																"fields" : [
-																	{
-																		"type" : "string",
-																		"inputParams" : {
-																			"label" : "Name",
-																			"name" : "name"
-																		}
-																	},
-																	{
-																		"type" : "vector",
-																		"inputParams" : {
-																			"label" : "Direction",
-																			"name" : "direction"
-																		}
-																	},
-																	{
-																		"type": "group",
-																		"inputParams": {
-																			"label" : "Position",
-																			"name" : "offsetPosition",
-																			"fields": [
-																				{"type": "integer", "inputParams": {"name": "top", "label": "top", "negative":true} },
-																				{"type": "integer", "inputParams": {"name": "right", "label": "right", "negative":true} },
-																				{"type": "integer", "inputParams": {"name": "bottom", "label": "bottom", "negative":true} },
-																				{"type": "integer", "inputParams": {"name": "left", "label": "left", "negative":true} }
-																			]
-																		}
-																	},
-																	{
-																		"type": "group",
-																		"inputParams": {
-																			"name": "ddConfig",
-																			"fields": [
-																				{
-																					"type": "string",
-																					"inputParams": {
-																						"name": "type",
-																						"label": "Terminal type"
-																					}
-																				},
-																				{
-																					"type": "list",
-																					"inputParams": {
-																						"name": "allowedTypes",
-																						"label": "Allowed types",
-																						"elementType": {
-																							"type":"string",
-																							"inputParams":{}
-																						}
-																					}
-																				},
-																				{
-																					"type": "integer",
-																					"inputParams": {
-																						"name": "nMaxWires",
-																						"label": "Maximum wire number"
-																					}
-																				}
-																			]
-																		}
-																	}
-																],
-																"value" : {
-																	"name" : "",
-																	"direction" : ["",""],
-																	"offsetPosition" : ["",""]
-																}
-															}
-														},
-														"value" : []
-													}
-												}
-											],
-											"value" : {
-												"xtype" : "WireIt.Container",
-												"image" : "",
-												"terminals" : []
-											}
-										}
-									}
-								]
-							}
-						},
-						"value" : []
-					}
-				},
-				
-				{
-					"type": "text",
-					"inputParams": {
-						"name": "additionalCss",
-						"label": "Additional CSS",
-						"rows": 10,
-						"cols": 80
-					}
-				},
-				
-				{
-				   "type": "text",
-				   "inputParams": {
-				      "name": "additionalScripts",
-				      "label": "Additional scripts",
-				      "rows": 10,
-						"cols": 80
-				   }
-				}
-			]
-		}
-};

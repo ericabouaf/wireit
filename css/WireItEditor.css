@@ -20,7 +20,7 @@ body {
 
 #top .logo {
    font-family: cursive;
-   font-size: 39px;
+   font-size: 30px;
    font-weight: bold;
    color:  #3366CC;
    padding-left: 10px;
@@ -30,8 +30,8 @@ body {
 /* Toolbar */
 #toolbar {
    position: absolute;
-   top: 10px;
-   left: 200px;
+   top: 7px;
+   left: 300px;
 }
 
 #toolbar .yui-button {
