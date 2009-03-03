@@ -259,68 +259,76 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
       
       this.onDragOut(e,ddTargets);
       
+      // Connect to the FIRST target terminal
       var targetTerminalProxy = null;
       for(var i = 0 ; i < ddTargets.length ; i++) {
-         if( ddTargets[i].isWireItTerminal ) {
+         if( this.isValidWireTerminal(ddTargets[i]) ) {
             targetTerminalProxy =  ddTargets[i];
+            break;
+         }
+      }
+
+      // Quit if no valid terminal found
+      if( !targetTerminalProxy ) { 
+         return;
+      }
+      
+      // Remove the editing wire
+      this.editingWire.remove();
+      this.editingWire = null;
+         
+      // Don't create the wire if it already exists between the 2 terminals !!
+      var termAlreadyConnected = false;
+      for(var i = 0 ; i < this.terminal.wires.length ; i++) {
+         if(this.terminal.wires[i].terminal1 == this.terminal) {
+            if( this.terminal.wires[i].terminal2 == targetTerminalProxy.terminal) {
+               termAlreadyConnected = true;
+               break;
+            }
+         }
+         else if(this.terminal.wires[i].terminal2 == this.terminal) {
+            if( this.terminal.wires[i].terminal1 == targetTerminalProxy.terminal) {
+               termAlreadyConnected = true;
+               break;
+            }
          }
       }
       
-      // Connect to the FIRST target terminal
-      if( targetTerminalProxy ) {
-         if( this.isValidWireTerminal(targetTerminalProxy) ) { 
-            
-            this.editingWire.remove();
-            this.editingWire = null;
-               
-            // Don't create the wire if it already exists between the 2 terminals !!
-            var termAlreadyConnected = false;
-            for(var i = 0 ; i < this.terminal.wires.length ; i++) {
-               if(this.terminal.wires[i].terminal1 == this.terminal) {
-                  if( this.terminal.wires[i].terminal2 == targetTerminalProxy.terminal) {
-                     termAlreadyConnected = true;
-                     break;
-                  }
-               }
-               else if(this.terminal.wires[i].terminal2 == this.terminal) {
-                  if( this.terminal.wires[i].terminal1 == targetTerminalProxy.terminal) {
-                     termAlreadyConnected = true;
-                     break;
-                  }
-               }
-            }
-            
-            // Create the wire only if the terminals aren't connected yet
-            if(!termAlreadyConnected) {
-               
-               
-               var parentEl = this.terminal.parentEl.parentNode;
-               if(this.terminal.container) {
-                  parentEl = this.terminal.container.layer.el;
-               }
-               
-               // Check the number of wires for this terminal
-               if( targetTerminalProxy.terminal.options.nMaxWires == 1) {
-                  if(targetTerminalProxy.terminal.wires.length > 0) {
-                     targetTerminalProxy.terminal.wires[0].remove();
-                  }
-                  
-                  var w = new WireIt.Wire(this.terminal, targetTerminalProxy.terminal, parentEl, this.terminal.options.wireConfig);
-                  w.redraw();
-               }
-               else if(targetTerminalProxy.terminal.wires.length < targetTerminalProxy.terminal.options.nMaxWires) {
-                  var w = new WireIt.Wire(this.terminal, targetTerminalProxy.terminal, parentEl, this.terminal.options.wireConfig);
-                  w.redraw();
-               }
-               else {
-                  //console.log("Cannot connect to this terminal: nMaxWires = ", ddTargets[0].terminal.options.nMaxWires);
-               }
-            }
-            else {
-               //console.log("terminals already connected ");
-            }
-         }
+      // Create the wire only if the terminals aren't connected yet
+      if(termAlreadyConnected) {
+         //console.log("terminals already connected ");
+         return;
       }
+         
+      var parentEl = this.terminal.parentEl.parentNode;
+      if(this.terminal.container) {
+         parentEl = this.terminal.container.layer.el;
+      }
+      
+      // Switch the order of the terminals if tgt as the "alwaysSrc" property
+      var term1 = this.terminal;
+      var term2 = targetTerminalProxy.terminal;
+      if(term2.options.alwaysSrc) {
+         term1 = targetTerminalProxy.terminal;
+         term2 = this.terminal;
+      }
+      
+      // Check the number of wires for this terminal
+      var tgtTerm = targetTerminalProxy.terminal;
+      if( tgtTerm.options.nMaxWires == 1) {
+         if(tgtTerm.wires.length > 0) {
+            tgtTerm.wires[0].remove();
+         }
+         var w = new WireIt.Wire(term1, term2, parentEl, term1.options.wireConfig);
+         w.redraw();
+      }
+      else if(tgtTerm.wires.length < tgtTerm.options.nMaxWires) {
+         var w = new WireIt.Wire(term1, term2, parentEl, term1.options.wireConfig);
+         w.redraw();
+      }
+      /*else {
+         console.log("Cannot connect to this terminal: nMaxWires = ", ddTargets[0].terminal.options.nMaxWires);
+      }*/
       
    },
    
@@ -360,6 +368,15 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
          }
          else {
             if(this.termConfig.type != DDterminal.termConfig.type) {
+               return false;
+            }
+         }
+      }
+      
+      // Check the allowSelfWiring
+      if(this.terminal.container) {
+         if(this.terminal.container.options.preventSelfWiring) {
+            if(DDterminal.terminal.container == this.terminal.container) {
                return false;
             }
          }
@@ -456,6 +473,7 @@ WireIt.Terminal.prototype = {
        *   <li><b>nMaxWires</b>: maximum number of wires for this terminal (default to Infinity)</li>
        *   <li><b>offsetPosition</b>: offset position from the parentEl position. Can be an array [top,left] or an object {left: 100, bottom: 20} or {right: 10, top: 5} etc... (default to [0,0])</li>
        *   <li><b>ddConfig</b>: configuration of the WireIt.TerminalProxy object (only if editable)</li>
+       *   <li><b>alwaysSrc</b>: alwaysSrc forces this terminal to be the src terminal in the wire config (default false, only if editable)</li>
        *   <li><b>className</b>: CSS class name of the terminal (default to "WireIt-Terminal")</li>
        *   <li><b>connectedClassName</b>: CSS class added to the terminal when it is connected (default to "WireIt-Terminal-connected")</li>
        *   <li><b>dropinviteClassName</b>: CSS class added for drop invitation (default to "WireIt-Terminal-dropinvite")</li>
@@ -474,6 +492,7 @@ WireIt.Terminal.prototype = {
       this.options.wireConfig = options.wireConfig || {};
       this.options.editingWireConfig = options.editingWireConfig || this.options.wireConfig;
       this.options.offsetPosition = options.offsetPosition;
+      this.options.alwaysSrc = YAHOO.lang.isUndefined(options.alwaysSrc) ? false : options.alwaysSrc;
       this.options.ddConfig = options.ddConfig || {};
    },
 
@@ -504,10 +523,12 @@ WireIt.Terminal.prototype = {
       // Set the offset position
       var pos = this.options.offsetPosition;
       if(pos) {
+         // Kept old version [x,y] for retro-compatibility
          if( lang.isArray(pos) ) {
             this.el.style.left = pos[0]+"px";
             this.el.style.top = pos[1]+"px";
          }
+         // New version: {top: 32, left: 23}
          else if( lang.isObject(pos) ) {
             for(var key in pos) {
                if(pos.hasOwnProperty(key)){
@@ -710,9 +731,10 @@ YAHOO.extend(WireIt.util.TerminalOutput, WireIt.Terminal, {
       this.options.direction = options.direction || [0,1];
       this.options.fakeDirection = options.fakeDirection || [0,-1];
       this.options.ddConfig = {
-          type: "output",
-          allowedTypes: ["input"]
-       };
+         type: "output",
+         allowedTypes: ["input"]
+      };
+      this.options.alwaysSrc = true;
    }
    
 });

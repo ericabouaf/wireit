@@ -201,7 +201,7 @@ jsBox.Container = function(options, layer) {
    // Reposition the terminals when the jsBox is being resized
    this.ddResize.eventResize.subscribe(function(e, args) {
       this.positionTerminals();
-      YAHOO.util.Dom.setStyle(this.textarea, "height", (args[0][1]-30)+"px");
+      YAHOO.util.Dom.setStyle(this.textarea, "height", (args[0][1]-70)+"px");
    }, this, true);
 };
 

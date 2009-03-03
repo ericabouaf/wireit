@@ -121,6 +121,7 @@ WireIt.Container.prototype = {
        *    <li>closeButtonClassName: CSS class name for the close button (default "WireIt-Container-closebutton")</li>
        *    <li>title</li>
        *    <li>icon</li>
+       *    <li>preventSelfWiring: option to prevent connections between terminals of this same container</li>
        * </ul>
        * @property options
        * @type {Object}
@@ -146,6 +147,8 @@ WireIt.Container.prototype = {
       this.options.title = options.title; // no default
       
       this.options.icon = options.icon;
+      
+      this.options.preventSelfWiring = (typeof options.preventSelfWiring == "undefined") ? true : options.preventSelfWiring;
    },
 
    /**
