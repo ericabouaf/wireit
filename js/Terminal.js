@@ -1,6 +1,7 @@
 (function() {
 
-   var Event = YAHOO.util.Event, lang = YAHOO.lang, Dom = YAHOO.util.Dom, CSS_PREFIX = "WireIt-";
+   var util = YAHOO.util;
+   var Event = util.Event, lang = YAHOO.lang, Dom = util.Dom, CSS_PREFIX = "WireIt-";
 
 
    /**
@@ -24,7 +25,7 @@
       
       this.initScissors();
    };
-   lang.extend(WireIt.Scissors, YAHOO.util.Element, {
+   lang.extend(WireIt.Scissors, util.Element, {
       
       /**
        * Init the scissors
@@ -109,7 +110,7 @@
  * @extends YAHOO.util.DDProxy
  * @constructor
  * @param {WireIt.Terminal} terminal Parent terminal
- * @param {Object} options Configuration object (see in properties for details)
+ * @param {Object} options Configuration object (see "termConfig" property for details)
  */
 WireIt.TerminalProxy = function(terminal, options) {
    
@@ -123,11 +124,14 @@ WireIt.TerminalProxy = function(terminal, options) {
     * <ul>
     *   <li>type: 'type' of this terminal. If no "allowedTypes" is specified in the options, the terminal will only connect to the same type of terminal</li>
     *   <li>allowedTypes: list of all the allowed types that we can connect to.</li>
+    *   <li>{Integer} terminalProxySize: size of the drag drop proxy element. default is 10 for "10px"</li>
     * </ul>
     * @property termConfig
     */
    // WARNING: the object config cannot be called "config" because YAHOO.util.DDProxy already has a "config" property
    this.termConfig = options || {};
+   
+   this.terminalProxySize = options.terminalProxySize || 10;
    
    /**
     * Object that emulate a terminal which is following the mouse
@@ -135,13 +139,51 @@ WireIt.TerminalProxy = function(terminal, options) {
    this.fakeTerminal = null;
    
    // Init the DDProxy
-   WireIt.TerminalProxy.superclass.constructor.call(this,this.terminal.el);
+   WireIt.TerminalProxy.superclass.constructor.call(this,this.terminal.el, undefined, {
+      dragElId: "WireIt-TerminalProxy",
+      resizeFrame: false,
+      centerFrame: true
+   });
 };
 
 // Mode Intersect to get the DD objects
-YAHOO.util.DDM.mode = YAHOO.util.DDM.INTERSECT;
+util.DDM.mode = util.DDM.INTERSECT;
 
-YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
+lang.extend(WireIt.TerminalProxy, util.DDProxy, {
+   
+   /**
+    * Took this method from the YAHOO.util.DDProxy class
+    * to overwrite the creation of the proxy Element with our custom size
+    * @method createFrame
+    */
+   createFrame: function() {
+        var self=this, body=document.body;
+        if (!body || !body.firstChild) {
+            setTimeout( function() { self.createFrame(); }, 50 );
+            return;
+        }
+        var div=this.getDragEl(), Dom=YAHOO.util.Dom;
+        if (!div) {
+            div    = document.createElement("div");
+            div.id = this.dragElId;
+            var s  = div.style;
+            s.position   = "absolute";
+            s.visibility = "hidden";
+            s.cursor     = "move";
+            s.border     = "2px solid #aaa";
+            s.zIndex     = 999;
+            var size = this.terminalProxySize+"px";
+            s.height     = size; 
+            s.width      = size;
+            var _data = document.createElement('div');
+            Dom.setStyle(_data, 'height', '100%');
+            Dom.setStyle(_data, 'width', '100%');
+            Dom.setStyle(_data, 'background-color', '#ccc');
+            Dom.setStyle(_data, 'opacity', '0');
+            div.appendChild(_data);
+            body.insertBefore(div, body.firstChild);
+        }
+    },
    
    /**
     * @method startDrag
@@ -157,16 +199,17 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
          return;
       }
       
+      var halfProxySize = this.terminalProxySize/2;
       this.fakeTerminal = {
          options: {direction: this.terminal.options.fakeDirection},
          pos: [200,200], 
          addWire: function() {},
          removeWire: function() {},
          getXY: function() { 
-            var layers = YAHOO.util.Dom.getElementsByClassName('WireIt-Layer');
+            var layers = Dom.getElementsByClassName('WireIt-Layer');
             if(layers.length > 0) {
-               var orig = YAHOO.util.Dom.getXY(layers[0]);
-               return [this.pos[0]-orig[0], this.pos[1]-orig[1]]; 
+               var orig = Dom.getXY(layers[0]);
+               return [this.pos[0]-orig[0]+halfProxySize, this.pos[1]-orig[1]+halfProxySize]; 
             }
             return this.pos;
          }
@@ -428,14 +471,14 @@ WireIt.Terminal = function(parentEl, options, container) {
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventAddWire
     */
-   this.eventAddWire = new YAHOO.util.CustomEvent("eventAddWire");
+   this.eventAddWire = new util.CustomEvent("eventAddWire");
    
    /**
     * Event that is fired when a wire is removed
     * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventRemoveWire
     */
-   this.eventRemoveWire = new YAHOO.util.CustomEvent("eventRemoveWire");
+   this.eventRemoveWire = new util.CustomEvent("eventRemoveWire");
    
    /**
     * DIV dom element that will display the Terminal
@@ -487,12 +530,12 @@ WireIt.Terminal.prototype = {
       this.options.className = options.className || CSS_PREFIX+'Terminal';
       this.options.connectedClassName = options.connectedClassName || CSS_PREFIX+'Terminal-connected';
       this.options.dropinviteClassName = options.dropinviteClassName || CSS_PREFIX+'Terminal-dropinvite';
-      this.options.editable = YAHOO.lang.isUndefined(options.editable) ? true : options.editable;
+      this.options.editable = lang.isUndefined(options.editable) ? true : options.editable;
       this.options.nMaxWires = options.nMaxWires || Infinity;
       this.options.wireConfig = options.wireConfig || {};
       this.options.editingWireConfig = options.editingWireConfig || this.options.wireConfig;
       this.options.offsetPosition = options.offsetPosition;
-      this.options.alwaysSrc = YAHOO.lang.isUndefined(options.alwaysSrc) ? false : options.alwaysSrc;
+      this.options.alwaysSrc = lang.isUndefined(options.alwaysSrc) ? false : options.alwaysSrc;
       this.options.ddConfig = options.ddConfig || {};
    },
 
@@ -682,7 +725,7 @@ WireIt.Terminal.prototype = {
 WireIt.util.TerminalInput = function(parentEl, options, container) {
    WireIt.util.TerminalInput.superclass.constructor.call(this,parentEl, options, container);
 };
-YAHOO.extend(WireIt.util.TerminalInput, WireIt.Terminal, {
+lang.extend(WireIt.util.TerminalInput, WireIt.Terminal, {
    
    /**
     * Override setOptions to add the default options for TerminalInput
@@ -718,7 +761,7 @@ YAHOO.extend(WireIt.util.TerminalInput, WireIt.Terminal, {
 WireIt.util.TerminalOutput = function(parentEl, options, container) {
    WireIt.util.TerminalOutput.superclass.constructor.call(this,parentEl, options, container);
 };
-YAHOO.extend(WireIt.util.TerminalOutput, WireIt.Terminal, {
+lang.extend(WireIt.util.TerminalOutput, WireIt.Terminal, {
    
    /**
     * Override setOptions to add the default options for TerminalOutput

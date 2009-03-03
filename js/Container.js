@@ -1,6 +1,7 @@
 (function() {
    
-   var Dom = YAHOO.util.Dom, Event = YAHOO.util.Event, CSS_PREFIX = "WireIt-";
+   var util = YAHOO.util;
+   var Dom = util.Dom, Event = util.Event, CSS_PREFIX = "WireIt-";
    
 /**
  * Visual module that contains terminals. The wires are updated when the module is dragged around.
@@ -55,14 +56,14 @@ WireIt.Container = function(options, layer) {
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventAddWire
     */
-   this.eventAddWire = new YAHOO.util.CustomEvent("eventAddWire");
+   this.eventAddWire = new util.CustomEvent("eventAddWire");
    
    /**
     * Event that is fired when a wire is removed
     * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventRemoveWire
     */
-   this.eventRemoveWire = new YAHOO.util.CustomEvent("eventRemoveWire");
+   this.eventRemoveWire = new util.CustomEvent("eventRemoveWire");
    
    // Render the div object
    this.render();
