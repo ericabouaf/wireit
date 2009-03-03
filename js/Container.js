@@ -387,9 +387,13 @@ WireIt.Container.prototype = {
       // Position
       obj.position = Dom.getXY(this.el);
       if(this.layer) {
+         // remove the layer position to the container position
          var layerPos = Dom.getXY(this.layer.el);
          obj.position[0] -= layerPos[0];
          obj.position[1] -= layerPos[1];
+         // add the scroll position of the layer to the container position
+         obj.position[0] += this.layer.el.scrollLeft;
+         obj.position[1] += this.layer.el.scrollTop;
       }
    
       // xtype
