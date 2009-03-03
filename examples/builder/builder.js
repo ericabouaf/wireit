@@ -176,10 +176,9 @@ WireIt.Builder = {
 			"	</div>",
 
 			"	<div id='helpPanel'>",
-			"	    <div class='hd'>Some help here</div>",
-			"	    <div class='bd'>",
-			"	        You asked for some help ?",
-			"	         Hello !",
+			"	    <div class='hd'>Help</div>",
+			"	    <div class='bd' style='text-align: left;'>",
+			languageDef.helpContent,
 			"	    </div>",
 			"	</div>",
 			"</body>",
@@ -326,7 +325,7 @@ WireIt.Builder = {
    																	{
    																		"type": "group",
    																		"inputParams": {
-   																			"label" : "Position",
+   																		   "legend": "Position",
    																			"name" : "offsetPosition",
    																			"fields": [
    																				{"type": "integer", "inputParams": {"name": "top", "label": "top", "negative":true} },
@@ -413,6 +412,14 @@ WireIt.Builder = {
    				      "label": "Additional scripts",
    				      "rows": 10,
    						"cols": 80
+   				   }
+   				},
+   				
+   				{
+   				   "type": "html",
+   				   "inputParams": {
+   				      "name": "helpContent",
+   				      "label": "Help Content"
    				   }
    				}
    			]
