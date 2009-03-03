@@ -574,7 +574,7 @@ WireIt.Terminal.prototype = {
          // New version: {top: 32, left: 23}
          else if( lang.isObject(pos) ) {
             for(var key in pos) {
-               if(pos.hasOwnProperty(key)){
+               if(pos.hasOwnProperty(key) && pos[key] != ""){
                   this.el.style[key] = pos[key]+"px";
                }
             }

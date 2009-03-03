@@ -1,6 +1,6 @@
 <?php
 
-class WiringEditor {
+class LanguageEditor {
    
     private $dbData = array (
        'dbhost' => "localhost",
@@ -35,21 +35,19 @@ class WiringEditor {
     
     
     // variable needs to be in alphabetical order
-    public function saveWiring($language, $name, $working) {
+    public function saveLanguage($language, $name) {
        
-    	$result = $this->query( sprintf("SELECT * from wirings where name='%s' AND language='%s'", mysql_real_escape_string($name), mysql_real_escape_string($language)) );
+    	$result = $this->query( sprintf("SELECT * from languages where name='%s'", mysql_real_escape_string($name) ) );
 
       if( mysql_num_rows($result) == 0) {
-    		$query = sprintf("INSERT INTO wirings (`name` ,`language`,`working`) VALUES ('%s','%s','%s');", 		
+    		$query = sprintf("INSERT INTO languages (`name` ,`language`) VALUES ('%s','%s');", 		
     							mysql_real_escape_string($name), 
-    							mysql_real_escape_string($language),
-    							mysql_real_escape_string($working) );
+    							mysql_real_escape_string($language) );
     	}
     	else {
-    		$query = sprintf("UPDATE wirings SET working='%s' where name='%s' AND language='%s';",
-    							mysql_real_escape_string($working),
-    							mysql_real_escape_string($name),
-    							mysql_real_escape_string($language) );
+    		$query = sprintf("UPDATE languages SET language='%s' WHERE name='%s' ;",
+    							mysql_real_escape_string($language),
+    							mysql_real_escape_string($name) );
     	}
     	
     	$this->query($query);
@@ -57,21 +55,18 @@ class WiringEditor {
       return true;
     }
     
-    public function listWirings($language) {
-         //$query = sprintf("SELECT * from wirings WHERE language='%s'", mysql_real_escape_string($language) );
-         $query = "SELECT * from wirings WHERE language='$language'";
-         //echo $query."\n";
-         $wirings = $this->queryToArray( $query );
+    public function listLanguages() {
+         $wirings = $this->queryToArray("SELECT languages.*,COUNT(wirings.id) AS wirings FROM languages LEFT OUTER JOIN wirings ON languages.name=wirings.language GROUP BY wirings.language ORDER BY wirings DESC");
          return $wirings;
     }
      
-    public function loadWiring($language, $name) {
-       $wirings = $this->queryToArray( sprintf("SELECT * from wirings WHERE name='%s' AND language='%s'", mysql_real_escape_string($name), mysql_real_escape_string($language)) );
+    public function loadLanguage($name) {
+       $wirings = $this->queryToArray( sprintf("SELECT * from languages WHERE name='%s'", mysql_real_escape_string($name) ) );
        return $wirings[0];
     }
       
-    public function deleteWiring($language, $name) {
-      $this->query( sprintf("DELETE from wirings WHERE name='%s' AND language='%s'", mysql_real_escape_string($name), mysql_real_escape_string($language)) );
+    public function deleteLanguage($name) {
+      $this->query( sprintf("DELETE from languages WHERE name='%s'", mysql_real_escape_string($name) ) );
       return true;
    }
        
@@ -105,7 +100,7 @@ class jsonRPCServer {
 	}
 }
 
-$myExample = new WiringEditor();
+$myExample = new LanguageEditor();
 jsonRPCServer::handle($myExample) or print 'no request';
 
 ?>

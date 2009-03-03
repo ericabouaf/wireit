@@ -14,6 +14,14 @@ Changeset:
  * inputEx wirable option: make the inputEx fields wirable
  * LayerMap leave beta (indicate visible region, move layer on click)
 
+ * Terminal position switched to {top: , left: , right: , bottom: }
+ * new options: 
+	- TerminalProxy.proxySize (default 10) size of the proxy element
+	- Terminal.alwaysSrc : make this terminal the src element in every wires
+	- Container.preventSelfWiring : prevent to connect 2 terminals of the same container 
+
+ * The Builder: a WiringEditor building page !
+
  * New demo
  * Switching to git repository (http://github.com/neyric/wireit/)
  * Switching issue tracking

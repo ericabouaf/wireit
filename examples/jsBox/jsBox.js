@@ -7,8 +7,8 @@ var jsBox = {
 	   languageName: "jsBox",
 		smdUrl: '../../backend/php/WiringEditor.smd',
 		propertiesFields: [
-			{"type": "string", inputParams: {"name": "name", label: "Title", wirable: false, typeInvite: "Enter a title" } },
-			{"type": "text", inputParams: {"name": "description", label: "Description", wirable: false, cols: 30} }
+			{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
+			{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30} }
 		],
 		modules: [
 		   {
@@ -59,7 +59,7 @@ var jsBox = {
 		   			{"type": "string", "inputParams": {"label": "name", "name": "name", "wirable": false}}
 		   		],
    		   	"terminals": [
-	      		   {"name": "in", "direction": [0,-1], "offsetPosition": [82,-15], "ddConfig": {
+	      		   {"name": "in", "direction": [0,-1], "offsetPosition": {"left": 82, "top": -15 }, "ddConfig": {
                       "type": "input",
                       "allowedTypes": ["output"]
                    },
@@ -234,7 +234,7 @@ YAHOO.extend(jsBox.Container, WireIt.Container, {
       }
       
       // Input terminals :
-   	var sParamList = (this.textarea.value).match(/^[ ]*function[ ]*\((.*)\)[ ]*{/)[1];
+   	var sParamList = (this.textarea.value).match((/^[ ]*function[ ]*\((.*)\)[ ]*\{/))[1];
       var params = sParamList.split(',');
       var nParams = (sParamList=="") ? 0 : params.length;
       

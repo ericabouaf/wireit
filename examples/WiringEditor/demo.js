@@ -5,8 +5,8 @@ var demoLanguage = {
 	smdUrl: '../../backend/php/WiringEditor.smd',
 
 	propertiesFields: [
-		{"type": "string", inputParams: {"name": "name", label: "Title", wirable: false, typeInvite: "Enter a title" } },
-		{"type": "text", inputParams: {"name": "description", label: "Description", wirable: false, cols: 30} }
+		{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
+		{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30} }
 	],
 	
 	modules: [
@@ -38,9 +38,9 @@ var demoLanguage = {
 	      		"image": "../logicGates/images/gate_and.png",
 	      		"icon": "http://dev.tarpipe.com/img/tumblr.png",
 	      		"terminals": [
-	      			{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": [-3,2]},
-	      			{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": [-3,37]},
-	      			{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": [103,20]}
+	      			{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": {"left": -3, "top": 2 }},
+	      			{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": {"left": -3, "top": 37 }},
+	      			{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": {"left": 103, "top": 20 }}
 	      		]
 	      	}
 	      },
@@ -54,10 +54,10 @@ var demoLanguage = {
 	            	"icon": "http://dev.tarpipe.com/img/photobucket.png",
 	         		"image": "../images/bubble.png",
 	         		"terminals": [
-	         				{"direction": [-1,-1], "offsetPosition": [-10,-10], "name": "tl"},
-	         				{"direction": [1,-1], "offsetPosition": [25,-10], "name": "tr"},
-	         				{"direction": [-1,1], "offsetPosition": [-10,25], "name": "bl"},
-	         				{"direction": [1,1], "offsetPosition": [25,25], "name": "br"}
+	         				{"direction": [-1,-1], "offsetPosition": {"left": -10, "top": -10 }, "name": "tl"},
+	         				{"direction": [1,-1], "offsetPosition": {"left": 25, "top": -10 }, "name": "tr"},
+	         				{"direction": [-1,1], "offsetPosition": {"left": -10, "top": 25 }, "name": "bl"},
+	         				{"direction": [1,1], "offsetPosition": {"left": 25, "top": 25 }, "name": "br"}
 	         		]
 	         	}
 		      },
@@ -104,8 +104,8 @@ var demoLanguage = {
 	         		],
 
 	         		   	"terminals": [
-	               			{"name": "SOURCES", "direction": [0,-1], "offsetPosition": [100,-15]},
-	               			{"name": "FOLLOWUPS", "direction": [0,1], "offsetPosition": {left: 100, bottom: -15}}
+	               			{"name": "SOURCES", "direction": [0,-1], "offsetPosition": {"left": 100, "top": -15 }},
+	               			{"name": "FOLLOWUPS", "direction": [0,1], "offsetPosition": {"left": 100, "bottom": -15}}
 	               			]
 	         	}
 	         }
