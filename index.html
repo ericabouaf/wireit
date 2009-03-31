@@ -136,11 +136,17 @@ div.appBox p span.big {
 		
 		 <p>&nbsp;&nbsp;&nbsp;WireIt is an open-source javascript library to create <b>web wirable interfaces</b> for <b>dataflow applications</b>, <b>visual programming languages</b> or <b>graphical modeling</b>.</p>
 		
-		 <p><img src='res/star.png'/> Version 0.4 introduced a new component, the WiringEditor, a <b>full-blown interface to create <i>visual languages</i>.</b> (see the <a href="http://www.slideshare.net/neyric/wire-it-presentation-1057012">presentation</a>)</p>
+			<p>It was inspired by <a href="http://pipes.yahoo.com/">Yahoo Pipes</a> and is used by <a href="http://tarpipe.com/">Tarpipe</a>. You can see it in action in <a href="examples/planarGame/planarGame.html">the Planar Game</a>, in <a href="examples/jsBox/jsBox.html">jsBox</a>, or in the examples below.</p>
+			 <p>&nbsp;&nbsp;&nbsp;It currently supports Firefox 2.0+, Safari 2.0+, IE 7.0, Opera 9+ and Chrome 1.0+. Please report your issues with specific browsers in <a href="http://groups.google.com/group/wireit/">the forum</a>.</p>
+			 <p>&nbsp;&nbsp;&nbsp;It uses the <a href="http://developer.yahoo.com/yui/">YUI library</a> (2.7.0) for DOM and events manipulation, and <a href="http://excanvas.sourceforge.net/">excanvas</a> for IE support of the canvas tag.</p>
 		
-		 <p>It was inspired by <a href="http://pipes.yahoo.com/">Yahoo Pipes</a> and is used by <a href="http://tarpipe.com/">Tarpipe</a>. You can see it in action in <a href="examples/planarGame/planarGame.html">the Planar Game</a>, in <a href="examples/jsBox/jsBox.html">jsBox</a>, or in the examples below.</p>
-		 <p>&nbsp;&nbsp;&nbsp;It currently supports Firefox 2.0+, Safari 2.0+, IE 7.0, Opera 9+ and Chrome 1.0+. Please report your issues with specific browsers in <a href="http://groups.google.com/group/wireit/">the forum</a>.</p>
-		 <p>&nbsp;&nbsp;&nbsp;It uses the <a href="http://developer.yahoo.com/yui/">YUI library</a> (2.7.0) for DOM and events manipulation, and <a href="http://excanvas.sourceforge.net/">excanvas</a> for IE support of the canvas tag.</p>
+			<p class="title">What's new in 0.4 ?</p>
+			<ul>
+				<li>The <a href="examples/WiringEditor/">WiringEditor</a>, a full-blown interface to use <i>visual languages</i>.</li>
+			</ul>
+		 <!--p><img src='res/star.png'/> Version 0.4 introduced a new component, the WiringEditor, a <b>full-blown interface to create <i>visual languages</i>.</b> (see the <a href="http://www.slideshare.net/neyric/wire-it-presentation-1057012">presentation</a>)</p-->
+		
+		 
 
 		<center>
 		<div style="width:425px;text-align:left" id="__ss_1057012">
@@ -234,44 +240,10 @@ div.appBox p span.big {
 				</a>
 			 </div>
 
-			<!-- Delicious tags -->
-			<style>
-			#delicious-tags {
-				background-color: #EEEEEE;
-				width: 320px;
-				border-top: 1px solid #CCCCCC;
-				border-bottom: 1px solid #CCCCCC;
-				padding-bottom: 10px;
-			}
-			#delicious-tags p {
-				margin-left: 20px;
-				font-weight: bold;
-			}
-			#delicious-tags a {
-				margin: 10px;
-			}
-			</style>
-			<div id="delicious-tags" style="">
-				<p> <img src="http://delicious.com/favicon.ico"> Popular tags on<a href="http://del.icio.us/url/651a56650c753830645ecf46fb036db6">Del.icio.us</a></p>
-			</div>
-			<script type="text/javascript">
-			function displayURL(data) {
-				var urlinfo = data[0];
-			   if (!urlinfo.total_posts) return;
-			   var ct = document.getElementById('delicious-tags');
-			   for (tag in urlinfo.top_tags) {
-			   	var a = document.createElement('a');
-					var count = urlinfo.top_tags[tag];
-					var size = Math.floor(count*0.07)+10;
-			      a.setAttribute('href', 'http://del.icio.us/tag/'+tag);
-					a.style.fontSize = size+"px";
-			      a.appendChild(document.createTextNode(tag+" "));
-			      ct.appendChild(a);
-			   }
-			}
-			</script>
-			<script type="text/javascript" src="http://badges.del.icio.us/feeds/json/url/data?hash=651a56650c753830645ecf46fb036db6&callback=displayURL"></script>
-
+			<img src='http://www.twitter.com/favicon.ico' alt="twitter" /> Follow <a href="http://twitter.com/wireit">WireIt on Twitter</a><br /><br />
+			<img src="http://delicious.com/favicon.ico"> Bookmarks on <a href="http://del.icio.us/url/651a56650c753830645ecf46fb036db6">Del.icio.us</a><br /><br />
+			<img src='http://github.com/favicon.ico' alt="twitter" /> Follow <a href="http://github.com/neyric/wireit/tree/master"> on Github</a>
+			
 		</td>
 	</tr>
 </table>

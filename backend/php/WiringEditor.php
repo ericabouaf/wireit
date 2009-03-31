@@ -58,9 +58,7 @@ class WiringEditor {
     }
     
     public function listWirings($language) {
-         //$query = sprintf("SELECT * from wirings WHERE language='%s'", mysql_real_escape_string($language) );
-         $query = "SELECT * from wirings WHERE language='$language'";
-         //echo $query."\n";
+         $query = sprintf("SELECT * from wirings WHERE `language`='%s'", mysql_real_escape_string($language) );
          $wirings = $this->queryToArray( $query );
          return $wirings;
     }

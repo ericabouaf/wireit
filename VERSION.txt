@@ -7,6 +7,7 @@ february ?, 2009
 
 Changeset:
 
+ * Installation instructions
  * WiringEditor:
 		- base example
 		- logicGates example
@@ -19,8 +20,6 @@ Changeset:
 	- TerminalProxy.proxySize (default 10) size of the proxy element
 	- Terminal.alwaysSrc : make this terminal the src element in every wires
 	- Container.preventSelfWiring : prevent to connect 2 terminals of the same container 
-
- * The Builder: a WiringEditor building page !
 
  * New demo
  * Switching to git repository (http://github.com/neyric/wireit/)

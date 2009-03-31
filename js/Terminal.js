@@ -609,8 +609,11 @@ WireIt.Terminal.prototype = {
     * @param {WireIt.Wire} wire Wire instance to remove
     */
    removeWire: function(wire) {
-      var index = WireIt.indexOf(wire, this.wires);   
+      var index = WireIt.indexOf(wire, this.wires), w;   
       if( index != -1 ) {
+         
+         this.wires[index].destroy();
+         
          this.wires[index] = null;
          this.wires = WireIt.compact(this.wires);
       

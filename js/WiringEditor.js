@@ -82,7 +82,6 @@ WireIt.WiringEditor = function(options) {
     this.helpPanel = new widget.Panel('helpPanel', {
         fixedcenter: true,
         draggable: true,
-        width: '500px',
         visible: false,
         modal: true
      });

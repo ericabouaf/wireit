@@ -42,6 +42,22 @@
       },
       
       /**
+       * Purge all event listeners and remove the component from the dom
+       * @method destroy
+       */
+      destroy: function() {
+         var el = this.element;
+
+         // Remove from DOM
+         if(YAHOO.util.Dom.inDocument(el)) {
+            el.parentNode.removeChild(el);
+         }
+
+         // recursively purge element
+         Event.purgeElement(el, true);
+      },
+      
+      /**
        * Set the canvas position and size.
        * <b>Warning:</b> This method changes the <i>element</i> property under some brother. Don't copy references !
        * @method SetCanvasRegion

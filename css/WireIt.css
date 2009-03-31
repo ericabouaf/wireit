@@ -79,6 +79,9 @@ div.WireIt-Container-ddhandle {
 	text-align:center;
 	font-size: 10pt;
 } 
+div.WireIt-Container-ddhandle span {
+   margin-right: 32px;
+}
 
 img.WireIt-Container-icon {
    background: white;

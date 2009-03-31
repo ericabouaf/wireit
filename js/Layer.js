@@ -112,6 +112,7 @@ WireIt.Layer.prototype = {
       this.options.wires = options.wires || [];
       this.options.layerMap = YAHOO.lang.isUndefined(options.layerMap) ? false : options.layerMap;
       this.options.layerMapOptions = options.layerMapOptions;
+      this.options.enableMouseEvents = YAHOO.lang.isUndefined(options.enableMouseEvents) ? true : options.enableMouseEvents;
    },
 
    /**
@@ -229,6 +230,12 @@ WireIt.Layer.prototype = {
       // add the wire to the list if it isn't in
       if( WireIt.indexOf(wire, this.wires) == -1 ) {
          this.wires.push(wire);
+         
+         if(this.options.enableMouseEvents) {
+            YAHOO.util.Event.addListener(wire.element, "mousemove", this.onWireMouseMove, this, true);
+            YAHOO.util.Event.addListener(wire.element, "click", this.onWireClick, this, true);
+         }
+         
          // Re-Fire an event at the layer level
          this.eventAddWire.fire(wire);
       }
@@ -316,6 +323,57 @@ WireIt.Layer.prototype = {
       this.removeAllContainers();
    },
    
+   /**
+    * Returns a position relative to the layer from a mouse event
+    * @method _getMouseEvtPos
+    * @param {Event} e Mouse event
+    * @return {Array} position
+    */
+   _getMouseEvtPos: function(e) {
+   	var tgt = YAHOO.util.Event.getTarget(e);
+   	var tgtPos = [tgt.offsetLeft, tgt.offsetTop];
+   	return [tgtPos[0]+e.layerX, tgtPos[1]+e.layerY];
+   },
+
+   /**
+    * Handles click on any wire canvas
+    * Note: we treat mouse events globally so that wires behind others can still receive the events
+    * @method onWireClick
+    * @param {Event} e Mouse click event
+    */
+   onWireClick: function(e) {
+      var p = this._getMouseEvtPos(e);
+   	var lx = p[0], ly = p[1], n = this.wires.length, w;
+   	for(var i = 0 ; i < n ; i++) {
+   	   w = this.wires[i];
+      	var elx = w.element.offsetLeft, ely = w.element.offsetTop;
+      	// Check if the mouse is within the canvas boundaries
+   	   if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
+   	      var rx = lx-elx, ry = ly-ely; // relative to the canvas
+   			w.onClick(rx,ry);
+   	   }
+   	}
+   },
+
+   /**
+    * Handles mousemove events on any wire canvas
+    * Note: we treat mouse events globally so that wires behind others can still receive the events
+    * @method onWireMouseMove
+    * @param {Event} e Mouse click event
+    */
+   onWireMouseMove: function(e) {
+      var p = this._getMouseEvtPos(e);
+   	var lx = p[0], ly = p[1], n = this.wires.length, w;
+   	for(var i = 0 ; i < n ; i++) {
+   	   w = this.wires[i];
+      	var elx = w.element.offsetLeft, ely = w.element.offsetTop;
+      	// Check if the mouse is within the canvas boundaries
+   	   if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
+   	      var rx = lx-elx, ry = ly-ely; // relative to the canvas
+   			w.onMouseMove(rx,ry);
+   	   }
+   	}
+   },
    
    
    /**

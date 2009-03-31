@@ -391,7 +391,110 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       else {
          throw new Error("WireIt.Wire unable to find '"+this.drawingMethod+"' drawing method.");
       }
+   },
+   
+   /**
+    * @method wireDrawnAt
+    * @return {Boolean} true if the wire is at x,y
+    */
+   wireDrawnAt: function(x,y) {
+      var ctxt = this.getContext();
+	   var imgData = ctxt.getImageData(x,y,1,1);
+	   var pixel = imgData.data;
+	   return !( pixel[0] == 0 && pixel[1] == 0 && pixel[2] == 0 && pixel[3] == 0 );
+   },
+   
+   /**
+    * Called by the Layer when the mouse moves over the canvas element.
+    * Note: the event is not listened directly, to receive the event event if the wire is behind another wire
+    * @method onWireMove
+    * @param {Integer} x left position of the mouse (relative to the canvas)
+    * @param {Integer} y top position of the mouse (relative to the canvas)
+    */
+   onMouseMove: function(x,y) {
+      
+      if(typeof this.mouseInState === undefined) {
+         this.mouseInState = false;
+      }
+
+	   if( this.wireDrawnAt(x,y) ) {
+			if(!this.mouseInState) {
+			   this.mouseInState=true;
+			   this.onWireIn(x,y);
+			}	
+			// should we call both ??
+			// else {
+			this.onWireMove(x,y);
+			// }
+	   }
+	   else {
+	      if(this.mouseInState) {
+	         this.mouseInState=false;
+			   this.onWireOut(x,y);
+	      }
+	   }
+      
+   },
+   
+   /**
+    * When the mouse moves over a wire
+    * Note: this will only work within a layer
+    * @method onWireMove
+    * @param {Integer} x left position of the mouse (relative to the canvas)
+    * @param {Integer} y top position of the mouse (relative to the canvas)
+    */
+   onWireMove: function(x,y) {
+      console.log("onWireMove",x,y);
+   },
+   
+   /**
+    * When the mouse comes into the wire
+    * Note: this will only work within a layer
+    * @method onWireIn
+    * @param {Integer} x left position of the mouse (relative to the canvas)
+    * @param {Integer} y top position of the mouse (relative to the canvas)
+    */
+   onWireIn: function(x,y) {
+      this.options.color = 'rgb(255, 0, 0)';
+      this.redraw();
+   },
+   
+   /**
+    * When the mouse comes out of the wire
+    * Note: this will only work within a layer
+    * @method onWireOut
+    * @param {Integer} x left position of the mouse (relative to the canvas)
+    * @param {Integer} y top position of the mouse (relative to the canvas)
+    */
+   onWireOut: function(x,y) {
+       this.options.color = 'rgb(173, 216, 230)';
+      this.redraw();
+   },
+   
+   /**
+    * When the mouse clicked on the canvas
+    * Note: this will only work within a layer
+    * @method onClick
+    * @param {Integer} x left position of the mouse (relative to the canvas)
+    * @param {Integer} y top position of the mouse (relative to the canvas)
+    */
+   onClick: function(x,y) {
+ 	   if( this.wireDrawnAt(x,y) ) {
+ 	      this.onWireClick(x,y);
+      }
+   },
+   
+   /**
+    * When the mouse clicked on the wire
+    * Note: this will only work within a layer
+    * @method onWireClick
+    * @param {Integer} x left position of the mouse (relative to the canvas)
+    * @param {Integer} y top position of the mouse (relative to the canvas)
+    */
+   onWireClick: function(x,y) {
+ 	   console.log("onWireClick",x,y);
    }
+   
 
 
 });

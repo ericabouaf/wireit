@@ -104,7 +104,8 @@ div.Bubble div.body {
 inputEx.spacerUrl = "/inputex/trunk/images/space.gif";
 
 YAHOO.util.Event.onDOMReady( function() {
-	new WireIt.WiringEditor(demoLanguage); 
+	var editor = new WireIt.WiringEditor(demoLanguage); 
+	editor.onHelp();
 });
 </script>
 
@@ -137,10 +138,15 @@ YAHOO.util.Event.onDOMReady( function() {
 	
 	
 	<div id="helpPanel">
-	    <div class="hd">Some help here</div>
-	    <div class="bd">
-	        You asked for some help ?
-	Hello !
+	    <div class="hd">Welcome to the WiringEditor demonstration</div>
+	    <div class="bd" style="text-align: left;">
+					
+					<p>This example shows how to use the <i>ImageContainer</i> and <i>FormContainer</i> in a language definition.</p>
+					<br />
+					<p><b>Drag and drop modules from the Module list</b> on the left to the working layer in the middle.</p>
+					<br />
+					<p><a href="demo.js" target="_new">Click here to view the language definition for this editor.</a></p>
+					
 	    </div>
 	</div>
 

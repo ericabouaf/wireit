@@ -1,0 +1,31 @@
+WireIt installation
+--------------------
+
+WireIt is mostly a bunch of static files.
+
+	* download the latest WireIt zip (from http://javascript.neyric.com/wireit)
+		or
+	  clone the WireIt repository (http://github.com/neyric/wireit/tree/master)
+	
+	* Copy the following directory structure to your project's library directory:
+
+	wireit/
+ 	 - build/
+ 	 - css/
+ 	 - images/
+ 	 - js/
+ 	 - lib/
+
+
+WiringEditor installation
+-------------------------
+
+	* Install the  inputEx library:
+		* download the latest inputEx zip (http://javascript.neyric.com/inputEx)
+		* uncompress it to the wireit/lib/inputex directory
+
+	* Configure the backend:
+	  	* copy the backend/"language you want to use" directory to your wireit directory
+		* edit the config script with your database access
+		* make sure the backend files are accessible by your webserver and that the language module is loaded 
+		  (the php backend requires a working php installation...)

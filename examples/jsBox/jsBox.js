@@ -102,8 +102,14 @@ var jsBox = {
     */
    init: function() {
    	this.editor = new jsBox.WiringEditor(this.language);
+   	this.editor.onHelp();
    },
    
+   /**
+    * Execute the module in the "ExecutionFrame" virtual machine
+    * @method run
+    * @static
+    */
    run: function() {
       var ef = new ExecutionFrame( this.editor.getValue() );
       ef.run();
@@ -121,9 +127,23 @@ jsBox.WiringEditor = function(options) {
 
 YAHOO.lang.extend(jsBox.WiringEditor, WireIt.WiringEditor, {
    
+   /**
+    * Update the module list right after loading the SMD
+    */
    onSMDsuccess: function() {
-      this.onLoad();
+      
+      this.service.listWirings({language: this.options.languageName},{
+   			success: function(result) {
+   				this.pipes = result.result;
+   				this.pipesByName = {};
+   				this.renderLoadPanel();
+               this.updateLoadPanelList();
+               //this.loadPanel.show();
+   			},
+   			scope: this
+   	});
    },
+   
    
    /**
     * Add the "run" button
@@ -186,6 +206,7 @@ YAHOO.lang.extend(jsBox.WiringEditor, WireIt.WiringEditor, {
 
 
 /**
+ * Container class used by the "jsBox" module (automatically sets terminals depending on the number of arguments)
  * @class Container
  * @namespace jsBox
  * @constructor
@@ -234,7 +255,8 @@ YAHOO.extend(jsBox.Container, WireIt.Container, {
       }
       
       // Input terminals :
-   	var sParamList = (this.textarea.value).match((/^[ ]*function[ ]*\((.*)\)[ ]*\{/))[1];
+      var match = (this.textarea.value).match((/^[ ]*function[ ]*\((.*)\)[ ]*\{/));
+   	var sParamList = match ? match[1] : "";
       var params = sParamList.split(',');
       var nParams = (sParamList=="") ? 0 : params.length;
       

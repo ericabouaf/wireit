@@ -17,35 +17,6 @@
 <link rel="stylesheet" type="text/css" href="../../css/WireIt.css" />
 <link rel="stylesheet" type="text/css" href="../../css/WireItEditor.css" />
 
-<style>
-#left {
-	font-size: 16pt;
-}
-
-/*#top {
-	background-color:black;
-	color:white;
-	position:relative;
-}
-
-#top a {
-	color: yellow;
-}
-
-#top .logo {
-	font-family: monospace;
-	color: yellow;
-}
-
-#toolbar {
-	left:300px;
-}
-
-.yui-skin-sam .yui-layout {
-	background-color:black;
-}*/
-</style>
-
 
 <!-- YUI -->
 <script type="text/javascript" src="../../lib/yui/utilities/utilities.js"></script>
@@ -92,7 +63,10 @@
 // InputEx needs a correct path to this image
 inputEx.spacerUrl = "/inputex/trunk/images/space.gif";
 
-YAHOO.util.Event.onDOMReady( function() { new WireIt.WiringEditor(logicGatesLang); });
+YAHOO.util.Event.onDOMReady( function() { 
+	var editor = new WireIt.WiringEditor(logicGatesLang); 
+	editor.onHelp();
+});
 </script>
 
 
@@ -124,10 +98,15 @@ YAHOO.util.Event.onDOMReady( function() { new WireIt.WiringEditor(logicGatesLang
 
 
 	<div id="helpPanel">
-	    <div class="hd">Some help here</div>
-	    <div class="bd">
-	        You asked for some help ?
-	Hello !
+	    <div class="hd">logicGates (WiringEditor example)</div>
+	    <div class="bd" style="text-align: left;">
+	
+	        <p>This example uses <i>ImageContainers</i> to represent logic gates.</p>
+					<br />
+					<p><b>Drag and drop modules from the Module list</b> on the left to the working layer in the middle.</p>
+					<br />
+					<p><a href="logicGates.js" target="_new">Click here to view the language definition for this editor.</a></p>
+		
 	    </div>
 	</div>
 	
