@@ -1,0 +1,30 @@
+/**
+ * ImagemapField
+ */
+div.inputEx-ImagemapField {
+	height: 16px;
+	width: 150px;
+	border: 1px solid #B5B8C8;
+	margin-left: 0px;
+	cursor: pointer;
+}
+
+.inputEx-ImagemapField-popup {
+	z-index: 999;
+	position:absolute;
+	border:1px solid #B5B8C8;
+	padding:5px;
+	margin:10px;
+	background:#ffffff;
+}
+.inputEx-ImagemapField-popup .hd {padding:5px; }
+.inputEx-ImagemapField-popup .bd {padding:5px; }
+.inputEx-ImagemapField-popup .ft {padding:5px; }
+
+area.inputEx-ImagemapField {
+	cursor: pointer;
+}
+
+img.inputEx-ImagemapField {
+	cursor: pointer;
+}

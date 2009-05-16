@@ -1,0 +1,223 @@
+
+
+#doc3 {
+   
+}
+
+/**
+ * HEADER
+ */
+#doc3 #hd {
+   margin-bottom: 1em;
+}
+
+#doc3 #hd p.layoutTitle {
+   color:#545454;
+   font-family:arial Bold;
+   font-size: 200%;
+   font-size-adjust:none;
+   font-stretch:normal;
+   font-style:normal;
+   font-variant:normal;
+   font-weight:normal;
+   line-height:50px;
+   padding:8px 0pt 8px 0px;
+}
+
+
+#doc3 #hd p.layoutTitle span {
+   font-size: 11pt;
+}
+
+#doc3 #hd h3 {
+   background:#947DB2 none repeat scroll 0%;
+   color:#FFFFFF;
+   font-family:arial;
+   font-size:110%;
+   font-size-adjust:none;
+   font-stretch:normal;
+   font-style:normal;
+   font-variant:normal;
+   font-weight:normal;
+   line-height:1.22em;
+   margin:0pt 0pt 7px;
+   padding:5px 10px;
+}
+
+#doc3 #hd .subtitle {
+   margin:0px;
+   padding:0px;
+   position:absolute;
+   right:1em;
+}
+
+#doc3 #hd a {
+   text-decoration:none;
+}
+
+/**
+ * BODY
+ */
+#doc3 #bd {
+}
+
+#doc3 .nav {
+   min-height:400px;
+}
+
+#doc3 .nav .module {
+   background:#EEEEEE none repeat scroll 0%;
+   margin:0pt 0pt 15px;
+   overflow:hidden;
+   padding:0pt;
+   width:100%;
+}
+
+#doc3 .nav .module h4 {
+   border-bottom:1px solid #947DB2;
+   padding:3px 5px;
+}
+
+#doc3 .nav .module h4 a {
+   font-size: 80%;
+}
+
+#doc3 .nav .module .content {
+   padding:2px;
+}
+
+#doc3 .nav .module ul.content li {
+   font-size:90%;
+}
+
+#doc3 .nav .module li {
+padding:2px 4px;
+}
+
+#doc3 .nav .module ul.content a {
+   text-decoration:none;
+}
+
+#doc3 .summary {
+   background-color:#EEEEEE;
+   border:1px solid #CCCCCC;
+   margin:0px 0pt 10px;
+   padding:10px;
+}
+
+#doc3 .extends {
+font-size:90%;
+font-weight:normal;
+}
+
+#doc3 .inheritance {
+   background-color:#EEEEEE;
+   padding:10px;
+}
+#doc3 .section {
+   margin:0pt 0pt 16px;
+}
+
+#doc3 .section h3 {
+   background:#947DB2 none repeat scroll 0%;
+   color:#FFFFFF;
+   margin:0pt 0pt 7px;
+   padding:3px;
+   width:100%;
+}
+
+#doc3 .section.details .content {
+   padding:0pt 0pt 0pt 10px;
+}
+
+#doc3 code {
+   font-size:85%;
+}
+
+
+#doc3 .section hr {
+   border-color:#CCCCCC -moz-use-text-color -moz-use-text-color;
+   border-style:solid none none;
+   border-width:1px 0pt 0pt;
+}
+
+#doc3 dd {
+   margin-left:20px;
+}
+
+#doc3 dl {
+   margin:5px 0pt;
+}
+
+#doc3 .section strong {
+   font-weight:bold;
+}
+
+#doc3 .section.details .description dt {
+   font-weight:bold;
+}
+
+#doc3 .section.details .description {
+   padding:10px 0pt 0pt 20px;
+}
+
+#doc3 .section h4 {
+   font-size:110%;
+}
+
+#doc3 .nav .module li.selected {
+   background:#CDC6D5 none repeat scroll 0%;
+}
+
+/**
+ * FOOTER
+ */
+#doc3 #ft {
+}
+
+
+/**
+ * Pages
+ */
+#doc3 .page {
+   background-color:#EEEEEE;
+   border:1px solid #CCCCCC;
+   margin:0px 0pt 10px;
+   padding:10px;
+}
+
+#doc3 .page h1 {
+   font-size: 18pt;
+}
+
+
+#doc3 .page h2 {
+   font-size: 16pt;
+}
+
+
+#doc3 .page h3 {
+   font-size: 14pt;
+}
+
+
+#doc3 .page ul {
+   list-style-type: disc;
+   margin-left: 20px;
+}
+
+#doc3 .page li {
+   list-style-type: disc;
+   margin-left: 20px;
+}
+
+
+#doc3 .page p {
+   margin: 20px;
+}
+
+
+#doc3 .page strong {
+   font-weight: bold;
+}
+

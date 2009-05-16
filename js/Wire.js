@@ -444,7 +444,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @param {Integer} y top position of the mouse (relative to the canvas)
     */
    onWireMove: function(x,y) {
-      console.log("onWireMove",x,y);
+      //console.log("onWireMove",x,y);
    },
    
    /**
@@ -492,7 +492,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @param {Integer} y top position of the mouse (relative to the canvas)
     */
    onWireClick: function(x,y) {
- 	   console.log("onWireClick",x,y);
+ 	   //console.log("onWireClick",x,y);
    }
    
 

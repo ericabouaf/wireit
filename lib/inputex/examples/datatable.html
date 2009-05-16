@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+ <head>
+  <title>inputEx - DataTable Usage</title>
+
+<!-- YUI CSS -->
+<link rel="stylesheet" type="text/css" href="../lib/yui/reset/reset-min.css">
+<link rel="stylesheet" type="text/css" href="../lib/yui/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="../lib/yui/datatable/assets/skins/sam/datatable.css" />
+
+
+<!-- InputEx CSS -->
+<link type='text/css' rel='stylesheet' href='../css/inputEx.css' />
+
+<!-- Demo CSS -->
+<link rel="stylesheet" type="text/css" href="css/demo.css"/>
+<link rel="stylesheet" type="text/css" href="css/dpSyntaxHighlighter.css">
+
+
+<!--begin custom header content for this example-->
+<style type="text/css">
+/* custom styles for this example */
+.yui-skin-sam .yui-dt-liner { white-space:nowrap; } 
+</style>
+
+<!--end custom header content for this example-->
+
+</head>
+
+<body class=" yui-skin-sam">
+
+
+
+	<p class='demoTitle'>inputEx - DataTable Usage</p>
+
+
+	<!-- Example 1 -->
+	<div class='exampleDiv'>
+
+		<p class="title">Basic DataTable creation</p>
+
+		<p>Use the following code to create a basic inputEx DataTable.</p>
+
+		<div class='demoContainer' id='container1'></div>
+
+		<div class='codeContainer'>
+			<textarea name="code" class="JScript">
+				
+				/**
+				 * Datasource and inputEx fields used for both examples
+				 */
+				var myDataSource = new YAHOO.util.DataSource([
+			        {id:"po-0167", date:new Date(1980, 2, 24), quantity:1, amount:4, title:"A Book About Nothing", category: "SF"},
+			        {id:"po-0783", date:new Date("January 3, 1983"), quantity:null, amount:12.12345, title:"The Meaning of Life", category: "Novel"},
+			        {id:"po-0297", date:new Date(1978, 11, 12), quantity:12, amount:1.25, title:"This Book Was Meant to Be Read Aloud", category: "SF"},
+			        {id:"po-1482", date:new Date("March 11, 1985"), quantity:6, amount:3.5, title:"Read Me Twice", category: "Philosophy"}
+			  ]);
+			  myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
+			  myDataSource.responseSchema = { fields: ["id","date","quantity","amount","title", "category"] };
+
+				var myFields = [
+					{type: 'hidden', inputParams: {label: 'Id', name: 'id'}, formatter:formatAddress },
+					{type: 'date', inputParams: {label: 'Date', name: 'date'} }, // formatter is auto-generated
+					{type: 'integer', inputParams: {label: 'Quantity', name: 'quantity'} },
+					{type: 'number', inputParams: {label: 'Amount', name: 'amount'} },
+					{type: 'string', inputParams: {label: 'Title', name: 'title'} },
+					{type: 'select', inputParams: {label: 'Category', name: 'category', selectValues: ['SF', 'Novel', 'Philosophy']}}
+				];
+
+
+				// Example 1
+
+			  // Custom formatter for "address" column to preserve line breaks
+			  var formatAddress = function(elCell, oRecord, oColumn, oData) {
+			  	elCell.innerHTML = "<pre class=\"address\">" + oData + "</pre>";
+			  };
+				var myDataTable = new YAHOO.inputEx.widget.DataTable({
+					parentEl: 'container1', 
+					editing: 'formeditor', // Uses a form editor
+					fields: myFields,
+					tableColumns: ["date","quantity","amount","title", "category"],
+					datasource: myDataSource,
+					datatableOpts: {caption: "DataTable Caption"}
+				});
+				myDataTable.itemRemovedEvt.subscribe(function(e, args) {
+					var record = args[0];
+					var data = record.getData();
+					//console.log("itemRemovedEvt", data);
+				});
+				myDataTable.itemAddedEvt.subscribe(function(e, args) {
+					var record = args[0];
+					var data = record.getData();
+					//console.log("itemAddedEvt", data);
+				});
+				myDataTable.itemModifiedEvt.subscribe(function(e, args) {
+					var record = args[0];
+					var data = record.getData();
+					//console.log("itemModifiedEvt", data);
+				});
+			</textarea>
+		</div>
+
+	</div>
+
+
+
+
+	<!-- Example 2 -->
+	<div class='exampleDiv'>
+
+		<p class="title">InPlaceEditing</p>
+
+		<p>Use the following code to create a basic inputEx DataTable.</p>
+
+		<div class='demoContainer' id='container2'></div>
+
+		<div class='codeContainer'>
+			<textarea name="code" class="JScript">
+				new YAHOO.inputEx.widget.DataTable({
+					parentEl: 'container2', 
+
+					editing: 'celleditor', // using cell editing
+					editableFields: ['title', 'amount', 'quantity', 'date', 'category'],
+
+					fields: myFields,
+					datasource: myDataSource,
+					datatableOpts: {caption:"DataTable Caption"}
+				});
+			</textarea>
+		</div>
+
+	</div>
+
+
+<!-- YUI JS -->
+<script type="text/javascript" src="../lib/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="../lib/yui/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="../lib/yui/element/element-beta-min.js"></script>
+<script type="text/javascript" src="../lib/yui/datasource/datasource-min.js"></script>
+<script type="text/javascript" src="../lib/yui/datatable/datatable-min.js"></script>
+
+<!-- inputEx JS -->
+
+<!-- InputEx -->
+<script src="../js/inputex.js"  type='text/javascript'></script>
+<script src="../js/Field.js"  type='text/javascript'></script>
+<script src="../js/Group.js"  type='text/javascript'></script>
+<script src="../js/Form.js"  type='text/javascript'></script>
+<script src="../js/fields/SelectField.js"  type='text/javascript'></script>
+<script src="../js/fields/StringField.js"  type='text/javascript'></script>
+<script src="../js/fields/HiddenField.js"  type='text/javascript'></script>
+<script src="../js/fields/IntegerField.js"  type='text/javascript'></script>
+<script src="../js/fields/NumberField.js"  type='text/javascript'></script>
+<script src="../js/fields/DateField.js"  type='text/javascript'></script>
+<script src="../js/widgets/DataTable-beta.js"  type='text/javascript'></script>
+
+<script>
+
+YAHOO.util.Event.addListener(window, 'load', function() {
+
+	/**
+	 * Datasource and inputEx fields used for both examples
+	 */
+	var myDataSource = new YAHOO.util.DataSource([
+        {id:"po-0167", date:new Date(1980, 2, 24), quantity:1, amount:4, title:"A Book About Nothing", category: "SF"},
+        {id:"po-0783", date:new Date("January 3, 1983"), quantity:null, amount:12.12345, title:"The Meaning of Life", category: "Novel"},
+        {id:"po-0297", date:new Date(1978, 11, 12), quantity:12, amount:1.25, title:"This Book Was Meant to Be Read Aloud", category: "SF"},
+        {id:"po-1482", date:new Date("March 11, 1985"), quantity:6, amount:3.5, title:"Read Me Twice", category: "Philosophy"}
+  ]);
+  myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
+  myDataSource.responseSchema = { fields: ["id","date","quantity","amount","title", "category"] };
+
+	var myFields = [
+		{type: 'hidden', inputParams: {label: 'Id', name: 'id'}, formatter:formatAddress },
+		{type: 'date', inputParams: {label: 'Date', name: 'date'} }, // formatter is auto-generated
+		{type: 'integer', inputParams: {label: 'Quantity', name: 'quantity'} },
+		{type: 'number', inputParams: {label: 'Amount', name: 'amount'} },
+		{type: 'string', inputParams: {label: 'Title', name: 'title'} },
+		{type: 'select', inputParams: {label: 'Category', name: 'category', selectValues: ['SF', 'Novel', 'Philosophy']}}
+	];
+	
+
+	// Example 1
+	
+  // Custom formatter for "address" column to preserve line breaks
+  var formatAddress = function(elCell, oRecord, oColumn, oData) {
+  	elCell.innerHTML = "<pre class=\"address\">" + oData + "</pre>";
+  };
+	var myDataTable = new YAHOO.inputEx.widget.DataTable({
+		parentEl: 'container1', 
+		editing: 'formeditor', // Uses a form editor
+		fields: myFields,
+		tableColumns: ["date","quantity","amount","title", "category"],
+		datasource: myDataSource,
+		datatableOpts: {caption: "DataTable Caption"}
+	});
+	myDataTable.itemRemovedEvt.subscribe(function(e, args) {
+		var record = args[0];
+		var data = record.getData();
+		console.log("itemRemovedEvt", data);
+		
+		
+		myDataSource.sendRequest(null, {
+			success: function(o,data) {
+				console.log("success",data.results);
+			}
+		});
+	});
+	myDataTable.itemAddedEvt.subscribe(function(e, args) {
+		var record = args[0];
+		var data = record.getData();
+		console.log("itemAddedEvt", data);
+		
+		console.log(myDataTable.datatable);
+		try {
+		var rs = myDataTable.datatable.getRecordSet();
+		console.log(rs);
+		} catch(ex) {
+			console.log(ex);
+		}
+		
+		myDataSource.sendRequest(null, {
+			success: function(o,data) {
+				console.log("success",data.results);
+			}
+		});
+	});
+	myDataTable.itemModifiedEvt.subscribe(function(e, args) {
+		var record = args[0];
+		var data = record.getData();
+		console.log("itemModifiedEvt", data);
+		
+		
+		myDataSource.sendRequest(null, {
+			success: function(o,data) {
+				console.log("success",data.results);
+			}
+		});
+	});
+	
+	// Example 2
+	new YAHOO.inputEx.widget.DataTable({
+		parentEl: 'container2', 
+		
+		editing: 'celleditor', // using cell editing
+		editableFields: ['title', 'amount', 'quantity', 'date', 'category'],
+		
+		fields: myFields,
+		datasource: myDataSource,
+		datatableOpts: {caption:"DataTable Caption"}
+	});
+	
+});
+
+</script>
+
+<script src="js/dpSyntaxHighlighter.js"></script>
+<script language="javascript"> 
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+
+</body>
+</html>

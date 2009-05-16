@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>inputEx - How to use the Dialog widget</title>
+
+<!-- Demo CSS -->
+<link rel="stylesheet" type="text/css" href="css/demo.css"/>
+<link rel="stylesheet" type="text/css" href="css/dpSyntaxHighlighter.css">
+
+<!-- YUI loader-->	
+<script src="http://yui.yahooapis.com/2.7.0/build/yuiloader/yuiloader-min.js"></script> 
+
+<!-- inputEx loader -->
+<script src="../js/inputex-loader.js"></script>
+
+</head>
+<body class="yui-skin-sam">
+	
+	<p class='demoTitle'>inputEx - Dialog Widget Usage</p>
+	
+	<!-- Example 1 -->
+	<div class='exampleDiv'>
+
+		<p class="title">Basic Dialog creation</p>
+
+		<p>Use the following code to create a basic inputEx Dialog. Note the scope hack with "Example1" to define the buttons callbacks.</p>
+
+		<div class='demoContainer' id='container1'>
+			<button onclick="Example1.myPanel.show();">Show Panel</button>
+		</div>
+
+		<div class='codeContainer'>
+			<textarea name="code" class="JScript">
+				
+				// HTML code
+				<button onclick="Example1.myPanel.show();">Show Panel</button>
+				
+				// Javascript code
+				Example1 = {};
+				var formConfig =		{
+				         type: 'form',
+				         inputParams: {
+				            fields: [ 
+												{type: 'select', inputParams: {label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] } },
+												{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } }, 
+												{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } }, 
+												{type:'email', inputParams: {label: 'Email', name: 'email'}}, 
+												{type:'url', inputParams: {label: 'Website',name:'website'}} 
+											],
+				            buttons: [
+				               {type: 'button', value: 'Send', onClick: function() { 
+														alert(YAHOO.lang.JSON.stringify(Example1.myPanel.getForm().getValue())); 
+											 }},
+				               {type: 'button', value: 'Cancel', onClick: function() { Example1.myPanel.hide(); } }
+				            ]
+				         }
+				      }
+				Example1.myPanel = new inputEx.widget.Dialog({
+					inputExDef: formConfig,
+					title: 'Here the title of your dialog'
+				});
+			</textarea>
+		</div>
+
+	</div>
+
+	
+	
+	<!-- Example 2 -->
+	<div class='exampleDiv'>
+
+		<p class="title">Change dialog properties</p>
+
+		<p>Access the YUI panel properties with the "panelConfig" object. Example with a modal dialog. (See <a href="http://developer.yahoo.com/yui/container/panel/">the YUI panel documentation</a> for more informations.)</p>
+
+		<div class='demoContainer' id='container2'>
+			<button onclick="Example2.myPanel.show();">Show Panel</button>
+		</div>
+
+		<div class='codeContainer'>
+			<textarea name="code" class="JScript">
+				Example2 = {};
+				Example2.myPanel = new inputEx.widget.Dialog({
+						inputExDef: {
+						         type: 'form',
+						         inputParams: {
+						            fields: [ 
+														{type:'string', inputParams: {label: 'Name', name: 'firstname', required: true } }, 
+														{type:'email', inputParams: {label: 'Email', name: 'email', description: 'Won\'t be displayed...'}}, 
+														{type:'url', inputParams: {label: 'Website',name:'website', typeInvite: '(optional)'}}, 
+														{type:'text', inputParams: {label: 'Your comment',name:'comments'}}
+													],
+						            buttons: [
+						               {type: 'button', value: 'Send', onClick: function() { 
+																alert(YAHOO.lang.JSON.stringify(Example2.myPanel.getForm().getValue())); 
+													 }},
+						               {type: 'button', value: 'Cancel', onClick: function() { Example2.myPanel.hide(); } }
+						            ]
+						         }
+						      },
+						title: 'Please post a comment !',
+						panelConfig: {
+							constraintoviewport: true, 
+							underlay:"shadow", 
+							close:true, 
+							fixedcenter: true,
+							visible:false, 
+							draggable:true,
+							modal: true
+						}
+				});
+			</textarea>
+		</div>
+
+	</div>
+
+	
+	
+<script>
+
+
+/**
+ * The function to call when all script/css resources have been loaded
+ */
+function init() {
+	
+	// Required for the UrlField
+	YAHOO.inputEx.spacerUrl = "../images/space.gif";
+		
+	// Example 1	
+	Example1 = {};
+	var formConfig =		{
+	         type: 'form',
+	         inputParams: {
+	            fields: [ 
+									{type: 'select', inputParams: {label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] } },
+									{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } }, 
+									{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } }, 
+									{type:'email', inputParams: {label: 'Email', name: 'email'}}, 
+									{type:'url', inputParams: {label: 'Website',name:'website'}} 
+								],
+	            buttons: [
+	               {type: 'button', value: 'Send', onClick: function() { 
+											alert(YAHOO.lang.JSON.stringify(Example1.myPanel.getForm().getValue())); 
+								 }},
+	               {type: 'button', value: 'Cancel', onClick: function() { Example1.myPanel.hide(); } }
+	            ]
+	         }
+	      };
+	Example1.myPanel = new inputEx.widget.Dialog({
+		inputExDef: formConfig,
+		title: 'Here the title of your dialog'
+	});
+	
+	// Example 2
+	Example2 = {};
+	Example2.myPanel = new inputEx.widget.Dialog({
+			inputExDef: {
+			         type: 'form',
+			         inputParams: {
+			            fields: [ 
+											{type:'string', inputParams: {label: 'Name', name: 'firstname', required: true } }, 
+											{type:'email', inputParams: {label: 'Email', name: 'email', description: 'Won\'t be displayed...'}}, 
+											{type:'url', inputParams: {label: 'Website',name:'website', typeInvite: '(optional)'}}, 
+											{type:'text', inputParams: {label: 'Your comment',name:'comments'}}
+										],
+			            buttons: [
+			               {type: 'button', value: 'Send', onClick: function() { 
+													alert(YAHOO.lang.JSON.stringify(Example2.myPanel.getForm().getValue())); 
+										 }},
+			               {type: 'button', value: 'Cancel', onClick: function() { Example2.myPanel.hide(); } }
+			            ]
+			         }
+			      },
+			title: 'Please post a comment !',
+			panelConfig: {
+				constraintoviewport: true, 
+				underlay:"shadow", 
+				close:true, 
+				fixedcenter: true,
+				visible:false, 
+				draggable:true,
+				modal: true
+			}
+	});
+	
+};
+
+
+var loader = new YAHOO.util.YUILoader({
+    require: ["inputex-emailfield", "inputex-urlfield", "inputex-selectfield", "inputex-form", "inputex-dialog", "inputex-textarea", "json"],
+    loadOptional: true,
+    onSuccess: init
+});
+
+/**
+ * Important: this functions declares all inputEx Modules to YUI
+ */
+YAHOO.addInputExModules(loader, '../');
+loader.insert();
+
+</script>
+
+
+<script src="js/dpSyntaxHighlighter.js"></script>
+<script language="javascript"> 
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+
+
+</body>
+</html>

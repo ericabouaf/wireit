@@ -1,0 +1,878 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>inputEx Documentation - yui-rpc.js</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="JsDoc Toolkit 2.0.0" />
+<link href="css/reset-fonts-grids.css" type="text/css" rel="stylesheet" media="all" /> 
+<link href="css/dpSyntaxHighlighter.css" type="text/css" rel="stylesheet" media="all" />
+<link href="css/style.css" type="text/css" rel="stylesheet" media="all" />
+</head>
+<body>
+	
+	<div id="doc3" class="yui-t2">					
+		<div id="hd">
+			
+			
+			<p class='layoutTitle'>inputEx Documentation <span><a href="../../">Back to homepage</a></span></p> 
+			
+			
+			<h3>
+				<a href="./index.html">inputEx Documentation</a> &gt; yui-rpc.js
+				<span class="subtitle">0.2.2a</span>
+			</h3>
+		
+		</div>
+		<div id="bd">
+			<div id="yui-main">
+				<div class="yui-b">
+<div class="summary description">
+	<p>This is the source view for yui-rpc.js</p>
+</div>
+										
+<form>
+	<textarea name="code" class="JScript">/**
+ * Provide SMD support 
+ * http://groups.google.com/group/json-schema/web/service-mapping-description-proposal
+ * Not implemented: REST envelope, TCP/IP transport 
+ *
+ * @namespace YAHOO.rpc
+ */
+YAHOO.namespace("rpc");
+
+(function() {
+   
+   var rpc = YAHOO.rpc, lang = YAHOO.lang, util = YAHOO.util;
+
+/**
+ * Take a string as a url to retrieve an smd or an object that is an smd or partial smd to use 
+ * as a definition for the service
+ * @class YAHOO.rpc.Service
+ * @constructor
+ */
+YAHOO.rpc.Service = function(smd, callback) {
+
+   if( lang.isString(smd) ) {
+      this.fetch(smd, callback);
+   }
+   else if( lang.isObject(smd) ) {
+      this._smd = smd;
+      this.process(callback);
+   }
+   else {
+      throw new Error("smd should be an object or an url");
+   }
+   
+};
+
+
+YAHOO.rpc.Service.prototype = {
+   
+   /**
+    * Generate the function from a service definition
+    * @method _generateService
+    * @param {String} serviceName
+    * @param {Method definition} method
+    */
+   _generateService: function(serviceName, method) {
+      
+      if(this[method]){
+			throw new Error("WARNING: "+ serviceName+ " already exists for service. Unable to generate function");
+		}
+		method.name = serviceName;
+	
+		var self = this;
+		var func = function(data, opts) {
+		   var envelope = rpc.Envelope[method.envelope || self._smd.envelope];
+		   var callback = {
+   	      success: function(o) {
+               var results = envelope.deserialize(o.responseText);
+      	      opts.success.call(opts.scope || self,results);
+   	      },
+   	      failure: function(o) {
+   	         if(lang.isFunction(opts.failure) ) {
+   	            opts.failure.call(opts.scope || self, {error: "unable to transport"});
+   	         }
+   	      },
+   	      scope: self
+   	   };
+   	   
+   	   
+   	   var params = {};
+   	   if(self._smd.additionalParameters && lang.isArray(self._smd.parameters) ) {
+   	      for(var i = 0 ; i < self._smd.parameters.length ; i++) {
+   	         var p = self._smd.parameters[i];
+   	         params[p.name] = p["default"];
+   	      }
+   	   }
+   	   lang.augmentObject(params, data, true);
+   	   
+         var r = {
+            target: method.target || self._smd.target,
+            callback: callback,
+            data: params,
+            transport: method.transport || self._smd.transport
+         };
+   	   var serialized = envelope.serialize(self._smd, method, params);
+         lang.augmentObject(r, serialized, true);
+         
+   	   rpc.Transport[r.transport].call(self, r ); 
+		};
+		
+		func.name = serviceName;
+		func._parameters = method.parameters;
+		
+		return func;
+   },
+   
+   /**
+    * Process the SMD definition
+    * @method process
+    */
+   process: function(callback) {
+      
+      var serviceDefs = this._smd.services;
+      
+      // Generate the methods to this object
+		for(var serviceName in serviceDefs){
+		   if( serviceDefs.hasOwnProperty(serviceName) ) {
+		      
+		      // Get the object that will contain the method.
+		      // handles "namespaced" services by breaking apart by '.'
+			   var current = this;
+			   var pieces = serviceName.split("."); 
+			   for(var i=0; i< pieces.length-1; i++){
+				   current = current[pieces[i]] || (current[pieces[i]] = {});
+			   }
+			   
+			   current[pieces[pieces.length-1]] =	this._generateService(serviceName, serviceDefs[serviceName]);
+		   }
+		}
+		
+		// call the success handler
+		if(lang.isObject(callback) && lang.isFunction(callback.success)) {
+		   callback.success.call(callback.scope || this);
+		}
+		
+   },
+   
+   /**
+    * Download the SMD at the given url
+    * @method fetch
+    * @param {String} Absolute or relative url
+    */
+   fetch: function(url, callback) {
+      util.Connect.asyncRequest('GET', url, { 
+         success: function(o) {
+            try {
+               this._smd = lang.JSON.parse(o.responseText);
+               this.process(callback);
+            }
+            catch(ex) {
+               if( lang.isFunction(callback.failure) ) {
+                  callback.failure.call(callback.scope || this, {error: ex});
+               }
+            }
+         }, 
+         failure: function(o) {
+            if( lang.isFunction(callback.failure) ) {
+               callback.failure.call(callback.scope || this, {error: "unable to fetch url "+url});
+            }
+         },
+         scope: this
+      });
+   }
+   
+    
+};
+
+
+
+
+YAHOO.rpc.Service._requestId = 1;
+
+
+/**
+ * @namespace YAHOO.rpc.Transport
+ */
+YAHOO.rpc.Transport = {
+   
+   "POST": function(r) {
+      return util.Connect.asyncRequest('POST', r.target, r.callback, r.data );
+   },
+   
+   "GET": function(r) {
+      return util.Connect.asyncRequest('GET', r.target + (r.data ? '?'+  r.data : ''), r.callback, '');
+   },
+   
+   "REST": function(r) {
+      // TODO
+   },
+   
+   "JSONP": function(r) {
+		//r.callbackParamName = r.callbackParamName || "callback";
+      return util.Get.script( r.target + ((r.target.indexOf("?") == -1) ? '?' : '&') + r.data );
+   },
+   
+   "TCP/IP": function(r) {
+      throw new Error("TCP/IP transport not implemented !");
+   }
+   
+};
+
+
+/**
+ * @namespace YAHOO.rpc.Envelope
+ */
+YAHOO.rpc.Envelope = {
+   
+   "URL":  {
+         serialize: function(smd, method, data) {
+            var eURI = encodeURIComponent;
+            var params = [];
+            for(var name in data){
+         	   if(data.hasOwnProperty(name)){
+            	   var value = data[name];
+            		if(lang.isArray(value)){
+            			for(var i=0; i < value.length; i++){
+            				params.push(eURI(name)+"="+eURI(value[i]));
+            			}
+            		}else{
+            			params.push(eURI(name)+"="+eURI(value));
+            		}
+            	}
+            }
+            return {
+   				data: params.join("&")
+            };   
+         },
+         deserialize: function(results) {
+            return results;
+         }
+   },
+   
+   "PATH": {
+        serialize: function(smd, method, data) {
+     			var target = method.target || smd.target, i;
+     			if(lang.isArray(data)){
+     				for(i = 0; i < data.length;i++){
+     					target += '/' + data[i];
+     				}
+     			}else{
+     				for(i in data){
+     				   if(data.hasOwnProperty(i)) {
+     					   target += '/' + i + '/' + data[i];
+  					   }
+     				}
+     			}
+           return {
+              data: '',
+              target: target
+           };   
+        },
+        deserialize: function(results) {
+           return results;
+        }
+    },
+    
+   "JSON": {
+       serialize: function(smd, method, data) {
+          return {
+             data: lang.JSON.stringify(data)
+          };   
+       },
+       deserialize: function(results) {
+          return results;
+       }
+    },
+   
+   "JSON-RPC-1.0":  {
+       serialize: function(smd, method, data) {
+          return {
+             data: lang.JSON.stringify({
+       	      "id": rpc.Service._requestId++,
+       	      "method": method.name,
+       	      "params": data
+       	   })
+          };   
+       },
+       deserialize: function(results) {
+          return lang.JSON.parse(results);
+       }
+    },
+   
+   "JSON-RPC-2.0": {
+      serialize: function(smd, method, data) {
+         return {
+            data: lang.JSON.stringify({
+      	      "id": rpc.Service._requestId++,
+      	      "method": method.name,
+      	      "version": "json-rpc-2.0",
+      	      "params": data
+      	   })
+         };   
+      },
+      deserialize: function(results) {
+         return lang.JSON.parse(results);
+      }
+   }
+   
+};
+
+})();
+</textarea>
+</form>
+					
+					
+					</div>
+			</div>
+			
+			<div class="yui-b">
+				<div class="nav">
+					
+					<div class="module">
+						<h4>Pages</h4>
+						<ul class="content">
+							
+								
+								<li>
+								<a href="index.html">Index</a></li>
+							
+								
+								<li>
+								<a href="getting_started.html">Getting Started</a></li>
+							
+								
+								<li>
+								<a href="overview.html">Overview</a></li>
+							
+								
+								<li>
+								<a href="markup.html">Markup structure</a></li>
+							
+								
+								<li>
+								<a href="migrate.html">Migrate from 0.1.0</a></li>
+							
+								
+								<li>
+								<a href="create_field.html">Field development</a></li>
+							
+								
+								<li>
+								<a href="dom_helpers.html">DOM functions</a></li>
+							
+								
+								<li>
+								<a href="internationalization.html">Internationalization</a></li>
+							
+								
+								<li>
+								<a href="visualization.html">Visualization</a></li>
+							
+								
+								<li>
+								<a href="examples.html">Examples</a></li>
+							
+								
+						</ul>
+					</div>
+					
+					<div class="module">
+						<h4>Classes <a href="treeview.html">(treeview)</a></h4>
+						<ul class="content">
+							
+								
+								<li>
+									<a href="inputEx.html">inputEx</a></li>
+							
+								
+								<li>
+									<a href="inputEx.AutoComplete.html">inputEx.AutoComplete</a></li>
+							
+								
+								<li>
+									<a href="inputEx.BirthdateField.html">inputEx.BirthdateField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.CheckBox.html">inputEx.CheckBox</a></li>
+							
+								
+								<li>
+									<a href="inputEx.ColorField.html">inputEx.ColorField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.ColorField2.html">inputEx.ColorField2</a></li>
+							
+								
+								<li>
+									<a href="inputEx.CombineField.html">inputEx.CombineField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.DateField.html">inputEx.DateField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.DatePickerField.html">inputEx.DatePickerField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.DateSplitField.html">inputEx.DateSplitField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.DateTimeField.html">inputEx.DateTimeField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.DSSelectField.html">inputEx.DSSelectField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.EmailField.html">inputEx.EmailField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.Field.html">inputEx.Field</a></li>
+							
+								
+								<li>
+									<a href="inputEx.FileField.html">inputEx.FileField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.Form.html">inputEx.Form</a></li>
+							
+								
+								<li>
+									<a href="inputEx.FrenchDate.html">inputEx.FrenchDate</a></li>
+							
+								
+								<li>
+									<a href="inputEx.FrenchPhone.html">inputEx.FrenchPhone</a></li>
+							
+								
+								<li>
+									<a href="inputEx.generateServiceForm.html">inputEx.generateServiceForm</a></li>
+							
+								
+								<li>
+									<a href="inputEx.Group.html">inputEx.Group</a></li>
+							
+								
+								<li>
+									<a href="inputEx.HiddenField.html">inputEx.HiddenField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.ImagemapField.html">inputEx.ImagemapField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.InPlaceEdit.html">inputEx.InPlaceEdit</a></li>
+							
+								
+								<li>
+									<a href="inputEx.IntegerField.html">inputEx.IntegerField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.IPv4Field.html">inputEx.IPv4Field</a></li>
+							
+								
+								<li>
+									<a href="inputEx.JsonSchema.html">inputEx.JsonSchema</a></li>
+							
+								
+								<li>
+									<a href="inputEx.JsonSchema.Builder.html">inputEx.JsonSchema.Builder</a></li>
+							
+								
+								<li>
+									<a href="inputEx.ListField.html">inputEx.ListField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.MapField.html">inputEx.MapField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.MenuField.html">inputEx.MenuField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.MultiAutoComplete.html">inputEx.MultiAutoComplete</a></li>
+							
+								
+								<li>
+									<a href="inputEx.MultiSelectField.html">inputEx.MultiSelectField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.NumberField.html">inputEx.NumberField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.PairField.html">inputEx.PairField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.PasswordField.html">inputEx.PasswordField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.RadioButton.html">inputEx.RadioButton</a></li>
+							
+								
+								<li>
+									<a href="inputEx.RadioField.html">inputEx.RadioField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.RTEField.html">inputEx.RTEField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.SelectField.html">inputEx.SelectField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.SliderField.html">inputEx.SliderField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.StringField.html">inputEx.StringField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.Textarea.html">inputEx.Textarea</a></li>
+							
+								
+								<li>
+									<a href="inputEx.TimeField.html">inputEx.TimeField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.TreeField.html">inputEx.TreeField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.TypeField.html">inputEx.TypeField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.UneditableField.html">inputEx.UneditableField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.UpperCaseField.html">inputEx.UpperCaseField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.UrlField.html">inputEx.UrlField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.VectorField.html">inputEx.VectorField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.html">inputEx.widget</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.DataTable.html">inputEx.widget.DataTable</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.DDList.html">inputEx.widget.DDList</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.DDListItem.html">inputEx.widget.DDListItem</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.Dialog.html">inputEx.widget.Dialog</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.InputExCellEditor.html">inputEx.widget.InputExCellEditor</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.JsonTreeInspector.html">inputEx.widget.JsonTreeInspector</a></li>
+							
+								
+								<li>
+									<a href="YAHOO.rpc.Envelope.html">YAHOO.rpc.Envelope</a></li>
+							
+								
+								<li>
+									<a href="YAHOO.rpc.Service.html">YAHOO.rpc.Service</a></li>
+							
+								
+								<li>
+									<a href="YAHOO.rpc.Transport.html">YAHOO.rpc.Transport</a></li>
+							
+								
+						</ul>
+					</div>
+					
+					<div class="module">
+						<h4>Files</h4>
+						<ul class="content">
+							
+								
+								<li>
+								<a href="AutoComplete.js.html">AutoComplete.js</a></li>
+							
+								
+								<li>
+								<a href="BirthdateField.js.html">BirthdateField.js</a></li>
+							
+								
+								<li>
+								<a href="CheckBox.js.html">CheckBox.js</a></li>
+							
+								
+								<li>
+								<a href="ColorField.js.html">ColorField.js</a></li>
+							
+								
+								<li>
+								<a href="ColorField2.js.html">ColorField2.js</a></li>
+							
+								
+								<li>
+								<a href="CombineField.js.html">CombineField.js</a></li>
+							
+								
+								<li>
+								<a href="DataTable-beta.js.html">DataTable-beta.js</a></li>
+							
+								
+								<li>
+								<a href="DateField.js.html">DateField.js</a></li>
+							
+								
+								<li>
+								<a href="DatePickerField.js.html">DatePickerField.js</a></li>
+							
+								
+								<li>
+								<a href="DateSplitField.js.html">DateSplitField.js</a></li>
+							
+								
+								<li>
+								<a href="DateTimeField.js.html">DateTimeField.js</a></li>
+							
+								
+								<li>
+								<a href="ddlist.js.html">ddlist.js</a></li>
+							
+								
+								<li>
+								<a href="Dialog-beta.js.html">Dialog-beta.js</a></li>
+							
+								
+								<li>
+								<a href="DSSelectField.js.html">DSSelectField.js</a></li>
+							
+								
+								<li>
+								<a href="EmailField.js.html">EmailField.js</a></li>
+							
+								
+								<li>
+								<a href="Field.js.html">Field.js</a></li>
+							
+								
+								<li>
+								<a href="FileField-beta.js.html">FileField-beta.js</a></li>
+							
+								
+								<li>
+								<a href="Form.js.html">Form.js</a></li>
+							
+								
+								<li>
+								<a href="fr.js.html">fr.js</a></li>
+							
+								
+								<li>
+								<a href="FrenchDate.js.html">FrenchDate.js</a></li>
+							
+								
+								<li>
+								<a href="FrenchPhone.js.html">FrenchPhone.js</a></li>
+							
+								
+								<li>
+								<a href="Group.js.html">Group.js</a></li>
+							
+								
+								<li>
+								<a href="HiddenField.js.html">HiddenField.js</a></li>
+							
+								
+								<li>
+								<a href="ImagemapField.js.html">ImagemapField.js</a></li>
+							
+								
+								<li>
+								<a href="InPlaceEdit.js.html">InPlaceEdit.js</a></li>
+							
+								
+								<li>
+								<a href="inputex-loader.js.html">inputex-loader.js</a></li>
+							
+								
+								<li>
+								<a href="inputex-rpc.js.html">inputex-rpc.js</a></li>
+							
+								
+								<li>
+								<a href="inputex.js.html">inputex.js</a></li>
+							
+								
+								<li>
+								<a href="IntegerField.js.html">IntegerField.js</a></li>
+							
+								
+								<li>
+								<a href="IPv4Field.js.html">IPv4Field.js</a></li>
+							
+								
+								<li>
+								<a href="it.js.html">it.js</a></li>
+							
+								
+								<li>
+								<a href="json-schema.js.html">json-schema.js</a></li>
+							
+								
+								<li>
+								<a href="json-tree-inspector.js.html">json-tree-inspector.js</a></li>
+							
+								
+								<li>
+								<a href="ListField.js.html">ListField.js</a></li>
+							
+								
+								<li>
+								<a href="MapField.js.html">MapField.js</a></li>
+							
+								
+								<li>
+								<a href="MenuField.js.html">MenuField.js</a></li>
+							
+								
+								<li>
+								<a href="MultiAutoComplete.js.html">MultiAutoComplete.js</a></li>
+							
+								
+								<li>
+								<a href="MultiSelectField.js.html">MultiSelectField.js</a></li>
+							
+								
+								<li>
+								<a href="NumberField.js.html">NumberField.js</a></li>
+							
+								
+								<li>
+								<a href="PairField.js.html">PairField.js</a></li>
+							
+								
+								<li>
+								<a href="PasswordField.js.html">PasswordField.js</a></li>
+							
+								
+								<li>
+								<a href="RadioButton.js.html">RadioButton.js</a></li>
+							
+								
+								<li>
+								<a href="RadioField.js.html">RadioField.js</a></li>
+							
+								
+								<li>
+								<a href="RTEField.js.html">RTEField.js</a></li>
+							
+								
+								<li>
+								<a href="SelectField.js.html">SelectField.js</a></li>
+							
+								
+								<li>
+								<a href="SliderField.js.html">SliderField.js</a></li>
+							
+								
+								<li>
+								<a href="StringField.js.html">StringField.js</a></li>
+							
+								
+								<li>
+								<a href="Textarea.js.html">Textarea.js</a></li>
+							
+								
+								<li>
+								<a href="TimeField.js.html">TimeField.js</a></li>
+							
+								
+								<li>
+								<a href="TreeField.js.html">TreeField.js</a></li>
+							
+								
+								<li>
+								<a href="TypeField.js.html">TypeField.js</a></li>
+							
+								
+								<li>
+								<a href="UneditableField.js.html">UneditableField.js</a></li>
+							
+								
+								<li>
+								<a href="UpperCaseField.js.html">UpperCaseField.js</a></li>
+							
+								
+								<li>
+								<a href="UrlField.js.html">UrlField.js</a></li>
+							
+								
+								<li>
+								<a href="VectorField.js.html">VectorField.js</a></li>
+							
+								
+								<li>
+								<a href="Visus.js.html">Visus.js</a></li>
+							
+								<li class="selected">
+								
+								<a href="yui-rpc.js.html">yui-rpc.js</a></li>
+							
+						</ul>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		
+		<div id="ft">
+			<hr/>
+			Copyright (c) 2007-2009 <a href='http://javascript.neyric.com' target='_new'>Eric Abouaf</a>. All rights reserved.<br />
+			Generated by <a href="http://jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.0 on Fri, 30 Jan 2009 16:05:58 GMT using <a href="http://code.google.com/p/neyricjslibs-template/" target="_blank">neyricjslibs-template</a>.
+		</div>
+		
+	</div>
+
+<script src="js/dpSyntaxHighlighter.js" type="text/javascript"></script>
+<script language="javascript"> 
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</body>
+</html>

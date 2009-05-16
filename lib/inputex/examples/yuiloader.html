@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>inputEx - How to use the YUI loader</title>
+
+<!-- Demo CSS -->
+<link rel="stylesheet" type="text/css" href="css/demo.css"/>
+<link rel="stylesheet" type="text/css" href="css/dpSyntaxHighlighter.css">
+
+<!-- YUI loader-->	
+<script src="http://yui.yahooapis.com/2.7.0/build/yuiloader/yuiloader-min.js"></script> 
+
+<!-- inputEx loader -->
+<script src="../js/inputex-loader.js"></script>
+
+</head>
+<body>
+	
+	
+	<p class='demoTitle'>inputEx - Using the YUI loader</p>
+	
+	<!-- Example 1 -->
+	<div class='exampleDiv'>
+
+		<p class="title">How to use the YUI loader</p>
+
+		<p>InputEx modules and dependencies are defined in the inputex-loader.js file. See <a  href="http://developer.yahoo.com/yui/yuiloader/">the YUI loader page</a> for more informations.</p>
+
+		<div class='demoContainer' id='container1'>
+		</div>
+
+		<div class='codeContainer'>
+			<textarea name="code" class="JScript">
+				
+				// in your HTML:
+				<script src="http://yui.yahooapis.com/2.7.0/build/yuiloader/yuiloader-min.js"></script> 
+				<script src="../js/inputex-loader.js"></script>
+				
+				/**
+				 * The function to call when all script/css resources have been loaded
+				 */
+				function init() {
+
+					// Required for the UrlField
+					YAHOO.inputEx.spacerUrl = "../images/space.gif";
+
+					new YAHOO.inputEx.Form( { 
+						fields: [ 
+							{type: 'select', inputParams: {label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] } },
+							{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } }, 
+							{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } }, 
+							{type:'email', inputParams: {label: 'Email', name: 'email'}}, 
+							{type:'url', inputParams: {label: 'Website',name:'website'}} 
+						], 
+						buttons: [{type: 'submit', value: 'Change'}], 	
+						parentEl: 'container1' 
+					});
+				};
+
+				var loader = new YAHOO.util.YUILoader({
+				    require: ["inputex-emailfield", "inputex-urlfield", "inputex-selectfield", "inputex-form"],
+				    loadOptional: true,
+						//base: "../lib/yui/", // remove the comment if you want to load YUI locally
+				    onSuccess: init
+				});
+
+				/**
+				 * Important: this functions declares all inputEx Modules to YUI
+				 */
+				YAHOO.addInputExModules(loader, '../');
+				loader.insert();
+			</textarea>
+		</div>
+
+	</div>
+
+	
+	
+	<div  class='exampleDiv'></div>
+	
+<script>
+
+
+/**
+ * The function to call when all script/css resources have been loaded
+ */
+function init() {
+
+	// Required for the UrlField
+	YAHOO.inputEx.spacerUrl = "../images/space.gif";
+
+	new YAHOO.inputEx.Form( { 
+		fields: [ 
+			{type: 'select', inputParams: {label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] } },
+			{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } }, 
+			{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } }, 
+			{type:'email', inputParams: {label: 'Email', name: 'email'}}, 
+			{type:'url', inputParams: {label: 'Website',name:'website'}} 
+		], 
+		buttons: [{type: 'submit', value: 'Change'}], 	
+		parentEl: 'container1' 
+	});
+};
+
+var loader = new YAHOO.util.YUILoader({
+    require: ["inputex-emailfield", "inputex-urlfield", "inputex-selectfield", "inputex-form"],
+    loadOptional: true,
+		//base: "../lib/yui/", // remove the comment if you want to load YUI locally
+    onSuccess: init
+});
+
+/**
+ * Important: this functions declares all inputEx Modules to YUI
+ */
+YAHOO.addInputExModules(loader, '../');
+loader.insert();
+
+</script>
+
+
+<script src="js/dpSyntaxHighlighter.js"></script>
+<script language="javascript"> 
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+
+
+</body>
+</html>

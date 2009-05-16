@@ -1,0 +1,781 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>inputEx Documentation - Overview</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="JsDoc Toolkit 2.0.0" />
+<link href="css/reset-fonts-grids.css" type="text/css" rel="stylesheet" media="all" /> 
+<link href="css/dpSyntaxHighlighter.css" type="text/css" rel="stylesheet" media="all" />
+<link href="css/style.css" type="text/css" rel="stylesheet" media="all" />
+</head>
+<body>
+	
+	<div id="doc3" class="yui-t2">					
+		<div id="hd">
+			
+			
+			<p class='layoutTitle'>inputEx Documentation <span><a href="../../">Back to homepage</a></span></p> 
+			
+			
+			<h3>
+				<a href="./index.html">inputEx Documentation</a> &gt; Overview
+				<span class="subtitle">0.2.2</span>
+			</h3>
+		
+		</div>
+		<div id="bd">
+			<div id="yui-main">
+				<div class="yui-b"><div class="page">
+<h2>Overview</h2>
+
+	<p>inputEx is built around the <b>Field</b> class. It is an <b>abstract</b> class (we <i>never</i> instantiate it).<br/>
+		 All the other field classes inherits directly or indirectly from this base class. (see diagram below)</p>
+	
+	<p><u>Warning:</u> this diagram is not complete. See <a href="treeview.html">treeview</a> for the full class diagram</p>
+	<center>
+		<img src="../images/inputEx-class-diagram.png" />
+	</center>
+
+	<p></p>
+
+<h2>Instantiating a Field / the "type" property :</h2>
+	
+	<p>There are 3 ways to instantiate a Field :</p>
+  <ul>
+		<li>Calling the class constructor (classic) :<br />
+<form><textarea name="code" class="JScript">
+	var field = new inputEx.StringField({name: 'test'});
+</textarea></form></li><br />
+	  <li>Using the inputEx function with the "type" construction:<br /> 
+<form><textarea name="code" class="JScript">
+	var field = inputEx({ type: 'string', inputParams: {name: 'test'} });
+</textarea></form></li><br/>
+
+		<li>Through a meta-field (see below)</li>
+	</ul>
+	
+	<p>The default "type" associations : (<u>Warning:</u> this table is not complete, but each class follow the same naming conventions.)</p>
+	
+<style>
+#associationTypes {
+	margin-left: 40px;
+}
+#associationTypes td {
+	width: 200px;
+	padding: 2px;
+}
+#associationTypes tr.odd {
+	background-color: #aaaaff;
+}
+#associationTypes th {
+	font-weight: bold;
+	text-align: center;
+	padding: 5px;
+	background-color: white;
+}
+</style>
+	<table id="associationTypes">
+		<thead>
+			<tr>
+				<th>type string</th>
+				<th>class</th>
+				<th>loader module</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="odd">
+				<td>boolean</td>
+				<td>inputEx.CheckBox</td>
+				<td>inputex-checkbox</td>
+			</tr>
+			<tr>
+				<td>color</td>
+				<td>inputEx.ColorField</td>
+				<td>inputex-colorfield</td>
+			</tr>
+			<tr class="odd">
+				<td>date</td>
+				<td>inputEx.DateField</td>
+				<td>inputex-datefield</td>
+			</tr>
+			<tr>
+				<td>email</td>
+				<td>inputEx.EmailField</td>
+				<td>inputex-emailfield</td>
+			</tr>
+			<tr class="odd">
+				<td>form</td>
+				<td>inputEx.Form</td>
+				<td>inputex-form</td>
+			</tr>
+			<tr>
+				<td>group</td>
+				<td>inputEx.Group</td>
+				<td>inputex-group</td>
+			</tr>
+			<tr class="odd">
+				<td>hidden</td>
+				<td>inputEx.HiddenField</td>
+				<td>inputex-hiddenfield</td>
+			</tr>
+			<tr>
+				<td>html</td>
+				<td>inputEx.RTEField</td>
+				<td>inputex-rtefield</td>
+			</tr>
+			<tr class="odd">
+				<td>inplaceedit</td>
+				<td>inputEx.InPlaceEdit</td>
+				<td>inputex-inplaceedit</td>
+			</tr>
+			<tr>
+				<td>IPv4</td>
+				<td>inputEx.IPv4Field</td>
+				<td>inputex-ipv4field</td>
+			</tr>
+			<tr class="odd"><td>list</td>
+				<td>inputEx.ListField</td>
+				<td>inputex-listfield</td>
+			</tr>
+			<tr class="odd">
+				<td>password</td>
+				<td>inputEx.PasswordField</td>
+				<td>inputex-passwordfield</td>
+			</tr>
+			<tr>
+				<td>select</td>
+				<td>inputEx.SelectField</td>
+				<td>inputex-selectfield</td>
+			</tr>
+			<tr class="odd"><td>string</td>
+				<td>inputEx.StringField</td>
+				<td>inputex-stringfield</td>
+			</tr>
+			<tr>
+				<td>text</td>
+				<td>inputEx.Textarea</td>
+				<td>inputex-textarea</td>
+			</tr>
+			<tr class="odd"><td>type</td>
+				<td>inputEx.TypeField</td>
+				<td>inputex-typefield</td>
+			</tr>
+			<tr>
+				<td>uneditable</td>
+				<td>inputEx.UneditableField</td>
+				<td>inputex-uneditablefield</td>
+			</tr>
+			<tr class="odd">
+				<td>url</td>
+				<td>inputEx.UrlField</td>
+				<td>inputex-urlfield</td>
+			</tr>
+
+		</tbody>
+	</table>
+	
+	<p>To link a class with a "type", we use :</p>
+<form><textarea name="code" class="JScript">
+	inputEx.registerType(inputEx.StringField, 'string');
+</textarea></form>
+	
+	<p></p>
+
+<h2>Meta-Fields :</h2>
+
+	<p>Some special fields called meta-fields take one or multiple "type" construction objects as configuration.</p>
+
+	<ul>
+		<li><b>Group</b>: A group of fields. It is itself a Field so it can be combined with any other field.</li>
+			
+		<li><b>Form</b>: A group that provide ajax form capabilities.</li>
+
+		 <li><b>List</b>: list of any subfield.</li>
+	
+		 <li><b>InPlaceEdit</b>: Make any subfield inplace-editable.</li>
+
+ 		 <li><b>Typefield</b>: A special field that returns a config object to create an instance through the inputEx.buildField function. We create a form for each Field class to define the parameters for the specified field.</li>
+		</ul>
+					
+		<p></p>
+
+<h2>Insert a Field into the DOM :</h2>
+
+<p></p>
+
+<form><textarea name="code" class="JScript">
+	var field = inputEx.FieldClass({...options...});
+	parentEl.appendChild( field.getEl() );
+	
+	// or
+	
+	var field = inputEx.FieldClass({...options..., parentEl: parentEl});
+	
+	// or
+		
+	var field = inputEx.FieldClass({...options..., parentEl: 'parentElId'});
+</textarea></form>
+
+<p></p>
+	
+<h2>The "updated" event :</h2>
+
+<p>All the fields fire the same event when they are "updated".</p>
+
+<p>To subscribe this event for a field, use : (see <a href="http://developer.yahoo.com/yui/event/#customevent" target="_new">YUI Custom Events</a> for more informations)</p>
+
+<form><textarea name="code" class="JScript">
+	myField.updatedEvt.subscribe(function(e,value) {
+		// value = new value returned by getValue
+		...code here...
+	}, scope, true);
+</textarea></form>
+
+<p>This event is fired when you use a setValue on the field. If you want to disable this behaviour, pass "false" as second argument to the setValue and the event won't be fired.</p>
+
+
+<form><textarea name="code" class="JScript">
+	// This setValue won't fire the updatedEvt
+	myField.setValue("My Value", false);
+</textarea></form>
+
+</div></div>
+			</div>
+			
+			<div class="yui-b">
+				<div class="nav">
+					
+					<div class="module">
+						<h4>Pages</h4>
+						<ul class="content">
+							
+								
+								<li>
+								<a href="index.html">Index</a></li>
+							
+								
+								<li>
+								<a href="getting_started.html">Getting Started</a></li>
+							
+								<li class="selected">
+								
+								<a href="overview.html">Overview</a></li>
+							
+								
+								<li>
+								<a href="markup.html">Markup structure</a></li>
+							
+								
+								<li>
+								<a href="migrate.html">Migrate from 0.1.0</a></li>
+							
+								
+								<li>
+								<a href="create_field.html">Field development</a></li>
+							
+								
+								<li>
+								<a href="dom_helpers.html">DOM functions</a></li>
+							
+								
+								<li>
+								<a href="internationalization.html">Internationalization</a></li>
+							
+								
+								<li>
+								<a href="visualization.html">Visualization</a></li>
+							
+								
+								<li>
+								<a href="examples.html">Examples</a></li>
+							
+								
+						</ul>
+					</div>
+					
+					<div class="module">
+						<h4>Classes <a href="treeview.html">(treeview)</a></h4>
+						<ul class="content">
+							
+								
+								<li>
+									<a href="inputEx.html">inputEx</a></li>
+							
+								
+								<li>
+									<a href="inputEx.AutoComplete.html">inputEx.AutoComplete</a></li>
+							
+								
+								<li>
+									<a href="inputEx.BirthdateField.html">inputEx.BirthdateField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.CheckBox.html">inputEx.CheckBox</a></li>
+							
+								
+								<li>
+									<a href="inputEx.ColorField.html">inputEx.ColorField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.ColorField2.html">inputEx.ColorField2</a></li>
+							
+								
+								<li>
+									<a href="inputEx.CombineField.html">inputEx.CombineField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.DateField.html">inputEx.DateField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.DatePickerField.html">inputEx.DatePickerField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.DateSplitField.html">inputEx.DateSplitField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.DateTimeField.html">inputEx.DateTimeField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.DSSelectField.html">inputEx.DSSelectField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.EmailField.html">inputEx.EmailField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.Field.html">inputEx.Field</a></li>
+							
+								
+								<li>
+									<a href="inputEx.FileField.html">inputEx.FileField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.Form.html">inputEx.Form</a></li>
+							
+								
+								<li>
+									<a href="inputEx.formForMethod.html">inputEx.formForMethod</a></li>
+							
+								
+								<li>
+									<a href="inputEx.FrenchDate.html">inputEx.FrenchDate</a></li>
+							
+								
+								<li>
+									<a href="inputEx.FrenchPhone.html">inputEx.FrenchPhone</a></li>
+							
+								
+								<li>
+									<a href="inputEx.generateServiceForm.html">inputEx.generateServiceForm</a></li>
+							
+								
+								<li>
+									<a href="inputEx.Group.html">inputEx.Group</a></li>
+							
+								
+								<li>
+									<a href="inputEx.HiddenField.html">inputEx.HiddenField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.ImagemapField.html">inputEx.ImagemapField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.InPlaceEdit.html">inputEx.InPlaceEdit</a></li>
+							
+								
+								<li>
+									<a href="inputEx.IntegerField.html">inputEx.IntegerField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.IPv4Field.html">inputEx.IPv4Field</a></li>
+							
+								
+								<li>
+									<a href="inputEx.JsonSchema.html">inputEx.JsonSchema</a></li>
+							
+								
+								<li>
+									<a href="inputEx.JsonSchema.Builder.html">inputEx.JsonSchema.Builder</a></li>
+							
+								
+								<li>
+									<a href="inputEx.ListField.html">inputEx.ListField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.MapField.html">inputEx.MapField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.MenuField.html">inputEx.MenuField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.MultiAutoComplete.html">inputEx.MultiAutoComplete</a></li>
+							
+								
+								<li>
+									<a href="inputEx.MultiSelectField.html">inputEx.MultiSelectField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.NumberField.html">inputEx.NumberField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.PairField.html">inputEx.PairField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.PasswordField.html">inputEx.PasswordField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.RadioButton.html">inputEx.RadioButton</a></li>
+							
+								
+								<li>
+									<a href="inputEx.RadioField.html">inputEx.RadioField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.RTEField.html">inputEx.RTEField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.SelectField.html">inputEx.SelectField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.SliderField.html">inputEx.SliderField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.StringField.html">inputEx.StringField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.Textarea.html">inputEx.Textarea</a></li>
+							
+								
+								<li>
+									<a href="inputEx.TimeField.html">inputEx.TimeField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.TreeField.html">inputEx.TreeField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.TypeField.html">inputEx.TypeField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.UneditableField.html">inputEx.UneditableField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.UpperCaseField.html">inputEx.UpperCaseField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.UrlField.html">inputEx.UrlField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.VectorField.html">inputEx.VectorField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.html">inputEx.widget</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.DataTable.html">inputEx.widget.DataTable</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.DDList.html">inputEx.widget.DDList</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.DDListItem.html">inputEx.widget.DDListItem</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.Dialog.html">inputEx.widget.Dialog</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.InputExCellEditor.html">inputEx.widget.InputExCellEditor</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.JsonTreeInspector.html">inputEx.widget.JsonTreeInspector</a></li>
+							
+								
+						</ul>
+					</div>
+					
+					<div class="module">
+						<h4>Files</h4>
+						<ul class="content">
+							
+								
+								<li>
+								<a href="AutoComplete.js.html">AutoComplete.js</a></li>
+							
+								
+								<li>
+								<a href="BirthdateField.js.html">BirthdateField.js</a></li>
+							
+								
+								<li>
+								<a href="CheckBox.js.html">CheckBox.js</a></li>
+							
+								
+								<li>
+								<a href="ColorField.js.html">ColorField.js</a></li>
+							
+								
+								<li>
+								<a href="ColorField2.js.html">ColorField2.js</a></li>
+							
+								
+								<li>
+								<a href="CombineField.js.html">CombineField.js</a></li>
+							
+								
+								<li>
+								<a href="DataTable-beta.js.html">DataTable-beta.js</a></li>
+							
+								
+								<li>
+								<a href="DateField.js.html">DateField.js</a></li>
+							
+								
+								<li>
+								<a href="DatePickerField.js.html">DatePickerField.js</a></li>
+							
+								
+								<li>
+								<a href="DateSplitField.js.html">DateSplitField.js</a></li>
+							
+								
+								<li>
+								<a href="DateTimeField.js.html">DateTimeField.js</a></li>
+							
+								
+								<li>
+								<a href="ddlist.js.html">ddlist.js</a></li>
+							
+								
+								<li>
+								<a href="Dialog-beta.js.html">Dialog-beta.js</a></li>
+							
+								
+								<li>
+								<a href="DSSelectField.js.html">DSSelectField.js</a></li>
+							
+								
+								<li>
+								<a href="EmailField.js.html">EmailField.js</a></li>
+							
+								
+								<li>
+								<a href="Field.js.html">Field.js</a></li>
+							
+								
+								<li>
+								<a href="FileField-beta.js.html">FileField-beta.js</a></li>
+							
+								
+								<li>
+								<a href="Form.js.html">Form.js</a></li>
+							
+								
+								<li>
+								<a href="fr.js.html">fr.js</a></li>
+							
+								
+								<li>
+								<a href="FrenchDate.js.html">FrenchDate.js</a></li>
+							
+								
+								<li>
+								<a href="FrenchPhone.js.html">FrenchPhone.js</a></li>
+							
+								
+								<li>
+								<a href="Group.js.html">Group.js</a></li>
+							
+								
+								<li>
+								<a href="HiddenField.js.html">HiddenField.js</a></li>
+							
+								
+								<li>
+								<a href="ImagemapField.js.html">ImagemapField.js</a></li>
+							
+								
+								<li>
+								<a href="InPlaceEdit.js.html">InPlaceEdit.js</a></li>
+							
+								
+								<li>
+								<a href="inputex-loader.js.html">inputex-loader.js</a></li>
+							
+								
+								<li>
+								<a href="inputex-rpc.js.html">inputex-rpc.js</a></li>
+							
+								
+								<li>
+								<a href="inputex.js.html">inputex.js</a></li>
+							
+								
+								<li>
+								<a href="IntegerField.js.html">IntegerField.js</a></li>
+							
+								
+								<li>
+								<a href="IPv4Field.js.html">IPv4Field.js</a></li>
+							
+								
+								<li>
+								<a href="it.js.html">it.js</a></li>
+							
+								
+								<li>
+								<a href="json-schema.js.html">json-schema.js</a></li>
+							
+								
+								<li>
+								<a href="json-tree-inspector.js.html">json-tree-inspector.js</a></li>
+							
+								
+								<li>
+								<a href="ListField.js.html">ListField.js</a></li>
+							
+								
+								<li>
+								<a href="MapField.js.html">MapField.js</a></li>
+							
+								
+								<li>
+								<a href="MenuField.js.html">MenuField.js</a></li>
+							
+								
+								<li>
+								<a href="MultiAutoComplete.js.html">MultiAutoComplete.js</a></li>
+							
+								
+								<li>
+								<a href="MultiSelectField.js.html">MultiSelectField.js</a></li>
+							
+								
+								<li>
+								<a href="NumberField.js.html">NumberField.js</a></li>
+							
+								
+								<li>
+								<a href="PairField.js.html">PairField.js</a></li>
+							
+								
+								<li>
+								<a href="PasswordField.js.html">PasswordField.js</a></li>
+							
+								
+								<li>
+								<a href="RadioButton.js.html">RadioButton.js</a></li>
+							
+								
+								<li>
+								<a href="RadioField.js.html">RadioField.js</a></li>
+							
+								
+								<li>
+								<a href="RTEField.js.html">RTEField.js</a></li>
+							
+								
+								<li>
+								<a href="SelectField.js.html">SelectField.js</a></li>
+							
+								
+								<li>
+								<a href="SliderField.js.html">SliderField.js</a></li>
+							
+								
+								<li>
+								<a href="StringField.js.html">StringField.js</a></li>
+							
+								
+								<li>
+								<a href="Textarea.js.html">Textarea.js</a></li>
+							
+								
+								<li>
+								<a href="TimeField.js.html">TimeField.js</a></li>
+							
+								
+								<li>
+								<a href="TreeField.js.html">TreeField.js</a></li>
+							
+								
+								<li>
+								<a href="TypeField.js.html">TypeField.js</a></li>
+							
+								
+								<li>
+								<a href="UneditableField.js.html">UneditableField.js</a></li>
+							
+								
+								<li>
+								<a href="UpperCaseField.js.html">UpperCaseField.js</a></li>
+							
+								
+								<li>
+								<a href="UrlField.js.html">UrlField.js</a></li>
+							
+								
+								<li>
+								<a href="VectorField.js.html">VectorField.js</a></li>
+							
+								
+								<li>
+								<a href="Visus.js.html">Visus.js</a></li>
+							
+						</ul>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		
+		<div id="ft">
+			<hr/>
+			Copyright (c) 2007-2009 <a href='http://javascript.neyric.com' target='_new'>Eric Abouaf</a>. All rights reserved.<br />
+			Generated by <a href="http://jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.0 on Wed, 04 Mar 2009 15:41:32 GMT using <a href="http://code.google.com/p/neyricjslibs-template/" target="_blank">neyricjslibs-template</a>.
+		</div>
+		
+	</div>
+
+<script src="js/dpSyntaxHighlighter.js" type="text/javascript"></script>
+<script language="javascript"> 
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</body>
+</html>

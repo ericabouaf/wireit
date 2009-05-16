@@ -1,0 +1,1381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>inputEx Documentation - inputEx</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="JsDoc Toolkit 2.0.0" />
+<link href="css/reset-fonts-grids.css" type="text/css" rel="stylesheet" media="all" /> 
+<link href="css/dpSyntaxHighlighter.css" type="text/css" rel="stylesheet" media="all" />
+<link href="css/style.css" type="text/css" rel="stylesheet" media="all" />
+</head>
+<body>
+	
+	<div id="doc3" class="yui-t2">					
+		<div id="hd">
+			
+			
+			<p class='layoutTitle'>inputEx Documentation <span><a href="../../">Back to homepage</a></span></p> 
+			
+			
+			<h3>
+				<a href="./index.html">inputEx Documentation</a> &gt; inputEx
+				<span class="subtitle">0.2.2</span>
+			</h3>
+		
+		</div>
+		<div id="bd">
+			<div id="yui-main">
+				<div class="yui-b">
+
+<!-- Class -->
+<h2>
+	Static Class <b>inputEx</b>
+	
+</h2>
+
+<!--
+
+
+-->
+<!-- class description -->
+<div class="summary description">The inputEx global namespace object.
+Build a field from an object like: { type: 'color' or fieldClass: inputEx.ColorField, inputParams: {} }<br />
+The inputParams property is the object that will be passed as the <code>options</code> parameter to the field class constructor.<br />
+If the neither type or fieldClass are found, it uses inputEx.StringField</div>
+
+
+<!-- Known subsclasses -->
+
+
+<!--
+
+<hr>
+-->
+
+
+<!-- ========= CONSTRUCTOR ======== -->
+
+<!-- ========= CONSTRUCTOR END ======== -->
+
+
+
+
+<!-- ============ Properties START ========= -->
+
+<a name="field_detail"> </a> 
+<div class="section field details">
+	<h3 id="properties">Properties</h3>
+	<div class="content">
+		
+			<div>
+				
+				<h4>
+					
+					<i>static</i>&nbsp;
+					<a name="messages">messages</a> 
+					<code>- Object</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						Associative array containing field messages
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					<i>static</i>&nbsp;
+					<a name="regexps">regexps</a> 
+					<code>- Object</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						Associative array containing common regular expressions
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					<i>static</i>&nbsp;
+					<a name="spacerUrl">spacerUrl</a> 
+					<code>- String</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						Url to the spacer image. This url schould be changed according to your project directories
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					<i>static</i>&nbsp;
+					<a name="stateEmpty">stateEmpty</a> 
+					<code>- String</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						Field empty state constant
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					<i>static</i>&nbsp;
+					<a name="stateInvalid">stateInvalid</a> 
+					<code>- String</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						Field invalid state constant
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					<i>static</i>&nbsp;
+					<a name="stateRequired">stateRequired</a> 
+					<code>- String</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						Field required state constant
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					<i>static</i>&nbsp;
+					<a name="stateValid">stateValid</a> 
+					<code>- String</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						Field valid state constant
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					<i>static</i>&nbsp;
+					<a name="typeClasses">typeClasses</a> 
+					<code>- Object</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						Hash between inputEx types and classes (ex: <code>inputEx.typeClasses.color = inputEx.ColorField</code>)<br />
+Please register the types with the <code>registerType</code> method
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					<i>static</i>&nbsp;
+					<a name="visus">visus</a> 
+					<code>- Object</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						Contains the various visualization methods
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+			<div>
+				
+				<h4>
+					
+					<i>static</i>&nbsp;
+					<a name="widget">widget</a> 
+					<code>- Object</code>
+					
+				</h4>
+				
+				<div class="detail">
+					<div class="description">
+						
+						
+					</div>
+				</div>
+			</div>
+			<hr>
+		
+	</div>
+</div>
+
+<!-- ============ Properties END ========== -->
+
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+	<a name="method_detail"> </a> 
+
+	<div class="section method details">
+		<h3 id="methods">Methods</h3>
+		<div class="content">
+
+		
+		
+			<div>
+				<h4><a name="method_buildField">buildField</a></h4>
+			
+				<div class="detail">
+					<code><i>static</i>&nbsp;<i>&lt;inputEx.Field&gt;</i>&nbsp;<b>buildField</b>(fieldOptions)</code> 
+				</div>
+				
+				<div class="description">
+					
+					Kept for backward compatibility
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>fieldOptions&nbsp;<i>&lt;Object&gt;</i>&nbsp;</code>
+						 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+					<div class="description">
+					<b>Returns:</b>
+						<ul>
+							<code><i>&lt;inputEx.Field&gt;</i>&nbsp;</code>Created field instance 
+						</ul>
+					
+					</div>
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_cn">cn</a></h4>
+			
+				<div class="detail">
+					<code><i>static</i>&nbsp;<i>&lt;HTMLElement&gt;</i>&nbsp;<b>cn</b>(tag[,domAttributes][,styleAttributes][,innerHTML])</code> 
+				</div>
+				
+				<div class="description">
+					
+					Helper function to create a DOM node. (wrapps the document.createElement tag and the inputEx.sn functions)
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>tag&nbsp;<i>&lt;String&gt;</i>&nbsp;</code>
+						 - The tagName to create (ex: 'div', 'a', ...) 
+					</ul>
+					
+					<ul>
+						<code>domAttributes&nbsp;<i>&lt;Object&gt;</i>&nbsp;</code><a title="optional parameter" class="optional">optional</a>
+						 - see inputEx.sn 
+					</ul>
+					
+					<ul>
+						<code>styleAttributes&nbsp;<i>&lt;Object&gt;</i>&nbsp;</code><a title="optional parameter" class="optional">optional</a>
+						 - see inputEx.sn 
+					</ul>
+					
+					<ul>
+						<code>innerHTML&nbsp;<i>&lt;String&gt;</i>&nbsp;</code><a title="optional parameter" class="optional">optional</a>
+						 - The html string to append into the created element 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+					<div class="description">
+					<b>Returns:</b>
+						<ul>
+							<code><i>&lt;HTMLElement&gt;</i>&nbsp;</code>The created node 
+						</ul>
+					
+					</div>
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_compactArray">compactArray</a></h4>
+			
+				<div class="detail">
+					<code><i>static</i>&nbsp;<i>&lt;Array&gt;</i>&nbsp;<b>compactArray</b>(arr)</code> 
+				</div>
+				
+				<div class="description">
+					
+					Create a new array without the null or undefined values
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>arr&nbsp;<i>&lt;Array&gt;</i>&nbsp;</code>
+						 - The array to compact 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+					<div class="description">
+					<b>Returns:</b>
+						<ul>
+							<code><i>&lt;Array&gt;</i>&nbsp;</code>The new array 
+						</ul>
+					
+					</div>
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_formForMethod">formForMethod</a></h4>
+			
+				<div class="detail">
+					<code><i>static</i>&nbsp;<b>formForMethod</b>(method)</code> 
+				</div>
+				
+				<div class="description">
+					
+					Return the inputEx form options from a method
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>method&nbsp;<i>&lt;function&gt;</i>&nbsp;</code>
+						 - A method created through YAHOO.rpc.Service 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_generateServiceForm">generateServiceForm</a></h4>
+			
+				<div class="detail">
+					<code><i>static</i>&nbsp;<b>generateServiceForm</b>(method,formOpts,callback)</code> 
+				</div>
+				
+				<div class="description">
+					
+					Build a form to run a service !
+built for yui-rpc
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>method&nbsp;<i>&lt;function&gt;</i>&nbsp;</code>
+						 - A method created through YAHOO.rpc.Service 
+					</ul>
+					
+					<ul>
+						<code>formOpts&nbsp;<i>&lt;Object&gt;</i>&nbsp;</code>
+						 
+					</ul>
+					
+					<ul>
+						<code>callback</code>
+						 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_getFieldClass">getFieldClass</a></h4>
+			
+				<div class="detail">
+					<code><i>static</i>&nbsp;<b>getFieldClass</b>(type)</code> 
+				</div>
+				
+				<div class="description">
+					
+					Returns the class for the given type
+ex: inputEx.getFieldClass("color") returns inputEx.ColorField
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>type&nbsp;<i>&lt;String&gt;</i>&nbsp;</code>
+						 - String type of the field 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_getType">getType</a></h4>
+			
+				<div class="detail">
+					<code><i>static</i>&nbsp;<i>&lt;String&gt;</i>&nbsp;<b>getType</b>(FieldClass)</code> 
+				</div>
+				
+				<div class="description">
+					
+					Get the inputex type for the given class (ex: <code>inputEx.getType(inputEx.ColorField)</code> returns "color")
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>FieldClass&nbsp;<i>&lt;inputEx.Field&gt;</i>&nbsp;</code>
+						 - An inputEx.Field or derivated class 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+					<div class="description">
+					<b>Returns:</b>
+						<ul>
+							<code><i>&lt;String&gt;</i>&nbsp;</code>returns the inputEx type string or <code>null</code> 
+						</ul>
+					
+					</div>
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_indexOf">indexOf</a></h4>
+			
+				<div class="detail">
+					<code><i>static</i>&nbsp;<i>&lt;number&gt;</i>&nbsp;<b>indexOf</b>(el,arr)</code> 
+				</div>
+				
+				<div class="description">
+					
+					Find the position of the given element. (This method is not available in IE 6)
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>el&nbsp;<i>&lt;Object&gt;</i>&nbsp;</code>
+						 - Value to search 
+					</ul>
+					
+					<ul>
+						<code>arr&nbsp;<i>&lt;Array&gt;</i>&nbsp;</code>
+						 - The array to search 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+					<div class="description">
+					<b>Returns:</b>
+						<ul>
+							<code><i>&lt;number&gt;</i>&nbsp;</code>Element position, -1 if not found 
+						</ul>
+					
+					</div>
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_registerType">registerType</a></h4>
+			
+				<div class="detail">
+					<code><i>static</i>&nbsp;<b>registerType</b>(type,field)</code> 
+				</div>
+				
+				<div class="description">
+					
+					When you create a new inputEx Field Class, you can register it to give it a simple type.
+ex:   inputEx.registerType("color", inputEx.ColorField);
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>type</code>
+						 
+					</ul>
+					
+					<ul>
+						<code>field</code>
+						 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_renderVisu">renderVisu</a></h4>
+			
+				<div class="detail">
+					<code><i>static</i>&nbsp;<i>&lt;HTMLElement || String&gt;</i>&nbsp;<b>renderVisu</b>(visuOptions,data,parentEl)</code> 
+				</div>
+				
+				<div class="description">
+					
+					Render 'data' using a visualization function described by 'visuOptions'
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>visuOptions&nbsp;<i>&lt;Object&gt;</i>&nbsp;</code>
+						 - The visu parameters {visuType: 'myType', ...args...} 
+					</ul>
+					
+					<ul>
+						<code>data&nbsp;<i>&lt;Object&gt;</i>&nbsp;</code>
+						 - The input data to send to the template 
+					</ul>
+					
+					<ul>
+						<code>parentEl&nbsp;<i>&lt;HTMLElement || String&gt;</i>&nbsp;</code>
+						 - optional Set the result as content of parentEl 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+					<div class="description">
+					<b>Returns:</b>
+						<ul>
+							<code><i>&lt;HTMLElement || String&gt;</i>&nbsp;</code>Either the inserted HTMLElement or the String set to parentEl.innerHTML 
+						</ul>
+					
+					</div>
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+		
+			<div>
+				<h4><a name="method_sn">sn</a></h4>
+			
+				<div class="detail">
+					<code><i>static</i>&nbsp;<b>sn</b>(el,domAttributes,styleAttributes)</code> 
+				</div>
+				
+				<div class="description">
+					
+					Helper function to set DOM node attributes and style attributes.
+					<!--
+					for each="since" in="method.doc.getTag('since')">
+						<br><b>Since:</b> undefined<br/>
+					/for>
+				-->
+				</div>
+				
+			<!-- METHOD PARAMETERS START -->
+			
+				<div class="description">
+				<b>Parameters:</b>
+					<ul>
+						<code>el&nbsp;<i>&lt;HTMLElement&gt;</i>&nbsp;</code>
+						 - The element to set attributes to 
+					</ul>
+					
+					<ul>
+						<code>domAttributes&nbsp;<i>&lt;Object&gt;</i>&nbsp;</code>
+						 - An object containing key/value pairs to set as node attributes (ex: {id: 'myElement', className: 'myCssClass', ...}) 
+					</ul>
+					
+					<ul>
+						<code>styleAttributes&nbsp;<i>&lt;Object&gt;</i>&nbsp;</code>
+						 - Same thing for style attributes. Please use camelCase for style attributes (ex: backgroundColor for 'background-color') 
+					</ul>
+					
+				</div>
+				
+				<!-- METHOD PARAMETERS END -->
+				<!-- ADDITIONAL ATTRIBUTES START -->
+				
+				
+					
+						<!-- ADDITIONAL ATTRIBUTES  END -->
+						<hr>
+						</div>
+					
+					
+
+				</div>
+			</div>
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+
+	
+	
+	<br/>
+	
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+
+</div>
+			</div>
+			
+			<div class="yui-b">
+				<div class="nav">
+					
+					<div class="module">
+						<h4>Pages</h4>
+						<ul class="content">
+							
+								
+								<li>
+								<a href="index.html">Index</a></li>
+							
+								
+								<li>
+								<a href="getting_started.html">Getting Started</a></li>
+							
+								
+								<li>
+								<a href="overview.html">Overview</a></li>
+							
+								
+								<li>
+								<a href="markup.html">Markup structure</a></li>
+							
+								
+								<li>
+								<a href="migrate.html">Migrate from 0.1.0</a></li>
+							
+								
+								<li>
+								<a href="create_field.html">Field development</a></li>
+							
+								
+								<li>
+								<a href="dom_helpers.html">DOM functions</a></li>
+							
+								
+								<li>
+								<a href="internationalization.html">Internationalization</a></li>
+							
+								
+								<li>
+								<a href="visualization.html">Visualization</a></li>
+							
+								
+								<li>
+								<a href="examples.html">Examples</a></li>
+							
+								
+						</ul>
+					</div>
+					
+					<div class="module">
+						<h4>Classes <a href="treeview.html">(treeview)</a></h4>
+						<ul class="content">
+							
+								<li class="selected">
+								
+									<a href="inputEx.html">inputEx</a></li>
+							
+								
+								<li>
+									<a href="inputEx.AutoComplete.html">inputEx.AutoComplete</a></li>
+							
+								
+								<li>
+									<a href="inputEx.BirthdateField.html">inputEx.BirthdateField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.CheckBox.html">inputEx.CheckBox</a></li>
+							
+								
+								<li>
+									<a href="inputEx.ColorField.html">inputEx.ColorField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.ColorField2.html">inputEx.ColorField2</a></li>
+							
+								
+								<li>
+									<a href="inputEx.CombineField.html">inputEx.CombineField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.DateField.html">inputEx.DateField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.DatePickerField.html">inputEx.DatePickerField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.DateSplitField.html">inputEx.DateSplitField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.DateTimeField.html">inputEx.DateTimeField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.DSSelectField.html">inputEx.DSSelectField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.EmailField.html">inputEx.EmailField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.Field.html">inputEx.Field</a></li>
+							
+								
+								<li>
+									<a href="inputEx.FileField.html">inputEx.FileField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.Form.html">inputEx.Form</a></li>
+							
+								
+								<li>
+									<a href="inputEx.formForMethod.html">inputEx.formForMethod</a></li>
+							
+								
+								<li>
+									<a href="inputEx.FrenchDate.html">inputEx.FrenchDate</a></li>
+							
+								
+								<li>
+									<a href="inputEx.FrenchPhone.html">inputEx.FrenchPhone</a></li>
+							
+								
+								<li>
+									<a href="inputEx.generateServiceForm.html">inputEx.generateServiceForm</a></li>
+							
+								
+								<li>
+									<a href="inputEx.Group.html">inputEx.Group</a></li>
+							
+								
+								<li>
+									<a href="inputEx.HiddenField.html">inputEx.HiddenField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.ImagemapField.html">inputEx.ImagemapField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.InPlaceEdit.html">inputEx.InPlaceEdit</a></li>
+							
+								
+								<li>
+									<a href="inputEx.IntegerField.html">inputEx.IntegerField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.IPv4Field.html">inputEx.IPv4Field</a></li>
+							
+								
+								<li>
+									<a href="inputEx.JsonSchema.html">inputEx.JsonSchema</a></li>
+							
+								
+								<li>
+									<a href="inputEx.JsonSchema.Builder.html">inputEx.JsonSchema.Builder</a></li>
+							
+								
+								<li>
+									<a href="inputEx.ListField.html">inputEx.ListField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.MapField.html">inputEx.MapField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.MenuField.html">inputEx.MenuField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.MultiAutoComplete.html">inputEx.MultiAutoComplete</a></li>
+							
+								
+								<li>
+									<a href="inputEx.MultiSelectField.html">inputEx.MultiSelectField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.NumberField.html">inputEx.NumberField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.PairField.html">inputEx.PairField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.PasswordField.html">inputEx.PasswordField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.RadioButton.html">inputEx.RadioButton</a></li>
+							
+								
+								<li>
+									<a href="inputEx.RadioField.html">inputEx.RadioField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.RTEField.html">inputEx.RTEField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.SelectField.html">inputEx.SelectField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.SliderField.html">inputEx.SliderField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.StringField.html">inputEx.StringField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.Textarea.html">inputEx.Textarea</a></li>
+							
+								
+								<li>
+									<a href="inputEx.TimeField.html">inputEx.TimeField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.TreeField.html">inputEx.TreeField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.TypeField.html">inputEx.TypeField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.UneditableField.html">inputEx.UneditableField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.UpperCaseField.html">inputEx.UpperCaseField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.UrlField.html">inputEx.UrlField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.VectorField.html">inputEx.VectorField</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.html">inputEx.widget</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.DataTable.html">inputEx.widget.DataTable</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.DDList.html">inputEx.widget.DDList</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.DDListItem.html">inputEx.widget.DDListItem</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.Dialog.html">inputEx.widget.Dialog</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.InputExCellEditor.html">inputEx.widget.InputExCellEditor</a></li>
+							
+								
+								<li>
+									<a href="inputEx.widget.JsonTreeInspector.html">inputEx.widget.JsonTreeInspector</a></li>
+							
+								
+						</ul>
+					</div>
+					
+					<div class="module">
+						<h4>Files</h4>
+						<ul class="content">
+							
+								
+								<li>
+								<a href="AutoComplete.js.html">AutoComplete.js</a></li>
+							
+								
+								<li>
+								<a href="BirthdateField.js.html">BirthdateField.js</a></li>
+							
+								
+								<li>
+								<a href="CheckBox.js.html">CheckBox.js</a></li>
+							
+								
+								<li>
+								<a href="ColorField.js.html">ColorField.js</a></li>
+							
+								
+								<li>
+								<a href="ColorField2.js.html">ColorField2.js</a></li>
+							
+								
+								<li>
+								<a href="CombineField.js.html">CombineField.js</a></li>
+							
+								
+								<li>
+								<a href="DataTable-beta.js.html">DataTable-beta.js</a></li>
+							
+								
+								<li>
+								<a href="DateField.js.html">DateField.js</a></li>
+							
+								
+								<li>
+								<a href="DatePickerField.js.html">DatePickerField.js</a></li>
+							
+								
+								<li>
+								<a href="DateSplitField.js.html">DateSplitField.js</a></li>
+							
+								
+								<li>
+								<a href="DateTimeField.js.html">DateTimeField.js</a></li>
+							
+								
+								<li>
+								<a href="ddlist.js.html">ddlist.js</a></li>
+							
+								
+								<li>
+								<a href="Dialog-beta.js.html">Dialog-beta.js</a></li>
+							
+								
+								<li>
+								<a href="DSSelectField.js.html">DSSelectField.js</a></li>
+							
+								
+								<li>
+								<a href="EmailField.js.html">EmailField.js</a></li>
+							
+								
+								<li>
+								<a href="Field.js.html">Field.js</a></li>
+							
+								
+								<li>
+								<a href="FileField-beta.js.html">FileField-beta.js</a></li>
+							
+								
+								<li>
+								<a href="Form.js.html">Form.js</a></li>
+							
+								
+								<li>
+								<a href="fr.js.html">fr.js</a></li>
+							
+								
+								<li>
+								<a href="FrenchDate.js.html">FrenchDate.js</a></li>
+							
+								
+								<li>
+								<a href="FrenchPhone.js.html">FrenchPhone.js</a></li>
+							
+								
+								<li>
+								<a href="Group.js.html">Group.js</a></li>
+							
+								
+								<li>
+								<a href="HiddenField.js.html">HiddenField.js</a></li>
+							
+								
+								<li>
+								<a href="ImagemapField.js.html">ImagemapField.js</a></li>
+							
+								
+								<li>
+								<a href="InPlaceEdit.js.html">InPlaceEdit.js</a></li>
+							
+								
+								<li>
+								<a href="inputex-loader.js.html">inputex-loader.js</a></li>
+							
+								
+								<li>
+								<a href="inputex-rpc.js.html">inputex-rpc.js</a></li>
+							
+								
+								<li>
+								<a href="inputex.js.html">inputex.js</a></li>
+							
+								
+								<li>
+								<a href="IntegerField.js.html">IntegerField.js</a></li>
+							
+								
+								<li>
+								<a href="IPv4Field.js.html">IPv4Field.js</a></li>
+							
+								
+								<li>
+								<a href="it.js.html">it.js</a></li>
+							
+								
+								<li>
+								<a href="json-schema.js.html">json-schema.js</a></li>
+							
+								
+								<li>
+								<a href="json-tree-inspector.js.html">json-tree-inspector.js</a></li>
+							
+								
+								<li>
+								<a href="ListField.js.html">ListField.js</a></li>
+							
+								
+								<li>
+								<a href="MapField.js.html">MapField.js</a></li>
+							
+								
+								<li>
+								<a href="MenuField.js.html">MenuField.js</a></li>
+							
+								
+								<li>
+								<a href="MultiAutoComplete.js.html">MultiAutoComplete.js</a></li>
+							
+								
+								<li>
+								<a href="MultiSelectField.js.html">MultiSelectField.js</a></li>
+							
+								
+								<li>
+								<a href="NumberField.js.html">NumberField.js</a></li>
+							
+								
+								<li>
+								<a href="PairField.js.html">PairField.js</a></li>
+							
+								
+								<li>
+								<a href="PasswordField.js.html">PasswordField.js</a></li>
+							
+								
+								<li>
+								<a href="RadioButton.js.html">RadioButton.js</a></li>
+							
+								
+								<li>
+								<a href="RadioField.js.html">RadioField.js</a></li>
+							
+								
+								<li>
+								<a href="RTEField.js.html">RTEField.js</a></li>
+							
+								
+								<li>
+								<a href="SelectField.js.html">SelectField.js</a></li>
+							
+								
+								<li>
+								<a href="SliderField.js.html">SliderField.js</a></li>
+							
+								
+								<li>
+								<a href="StringField.js.html">StringField.js</a></li>
+							
+								
+								<li>
+								<a href="Textarea.js.html">Textarea.js</a></li>
+							
+								
+								<li>
+								<a href="TimeField.js.html">TimeField.js</a></li>
+							
+								
+								<li>
+								<a href="TreeField.js.html">TreeField.js</a></li>
+							
+								
+								<li>
+								<a href="TypeField.js.html">TypeField.js</a></li>
+							
+								
+								<li>
+								<a href="UneditableField.js.html">UneditableField.js</a></li>
+							
+								
+								<li>
+								<a href="UpperCaseField.js.html">UpperCaseField.js</a></li>
+							
+								
+								<li>
+								<a href="UrlField.js.html">UrlField.js</a></li>
+							
+								
+								<li>
+								<a href="VectorField.js.html">VectorField.js</a></li>
+							
+								
+								<li>
+								<a href="Visus.js.html">Visus.js</a></li>
+							
+						</ul>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		
+		<div id="ft">
+			<hr/>
+			Copyright (c) 2007-2009 <a href='http://javascript.neyric.com' target='_new'>Eric Abouaf</a>. All rights reserved.<br />
+			Generated by <a href="http://jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.0 on Wed, 04 Mar 2009 15:41:30 GMT using <a href="http://code.google.com/p/neyricjslibs-template/" target="_blank">neyricjslibs-template</a>.
+		</div>
+		
+	</div>
+
+<script src="js/dpSyntaxHighlighter.js" type="text/javascript"></script>
+<script language="javascript"> 
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</body>
+</html>

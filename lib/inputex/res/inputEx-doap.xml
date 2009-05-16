@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Project rdf:about="#Project" xmlns="http://usefulinc.com/ns/doap#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <name>inputEx</name>
+  <created>2007-08-26</created>
+  <shortdesc xml:lang="en">Javascript framework to build forms and fields</shortdesc>
+  <description xml:lang="en">Javascript framework to build forms and fields</description>
+  <bug-database rdf:resource="http://code.google.com/p/inputex/issues/list" />
+  <download-page rdf:resource="http://javascript.neyric.com/inputex" />
+  <homepage rdf:resource="http://javascript.neyric.com/inputex" />
+  <license rdf:resource="http://javascript.neyric.com/inputex/license.txt" />
+  <wiki rdf:resource="http://wiki.github.com/neyric/inputex/home" />
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Eric Abouaf</foaf:name>
+      <foaf:homepage rdf:resource="http://javascript.neyric.com" />
+      <foaf:mbox_sha1sum>cbc9cef234ee9118eee1e4a0f21b8cf723172184</foaf:mbox_sha1sum>
+    </foaf:Person>
+  </maintainer>
+<repository>
+    <SVNRepository>
+      <location rdf:resource="http://inputex.googlecode.com/svn/trunk/" />
+      <browse rdf:resource="http://code.google.com/p/inputex/source/browse/" />
+    </SVNRepository>
+  </repository>
+<release>
+	<Version>
+    <name>inputEx-0.2.2</name>
+    <created>03/06/2009</created>
+    <revision>0.2.2</revision>
+    <file-release rdf:resource="http://cloud.github.com/downloads/neyric/inputex/inputex-0.2.2.zip" />
+  </Version>
+	<Version>
+    <name>inputEx-0.2.1</name>
+    <created>01/22/2009</created>
+    <revision>0.2.1</revision>
+    <file-release rdf:resource="http://cloud.github.com/downloads/neyric/inputex/inputex-0.2.1.zip" />
+  </Version>
+	<Version>
+    <name>inputEx-0.2.0</name>
+    <created>11/01/2008</created>
+    <revision>0.2.0</revision>
+  </Version>
+    <Version>
+      <name>inputEx-0.1.0</name>
+      <created>05/07/2008</created>
+      <revision>0.1.0</revision>
+    </Version>
+  </release>
+</Project>

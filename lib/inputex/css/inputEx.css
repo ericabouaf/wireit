@@ -1,0 +1,581 @@
+
+/**
+ * inputEx.Field
+ */
+div.inputEx-fieldWrapper {
+   position: relative;
+   margin-bottom:0.2em;
+}
+
+div.inputEx-label {
+   float: left;
+   color: #505050;
+   text-align: right;
+   padding: 0.2em 0.5em 0 0;
+}
+
+div.inputEx-Group div.inputEx-label {
+   width: 130px;
+}
+
+div.inputEx-Field {
+   float: left;
+   position: relative;
+}
+
+div.inputEx-description {
+   clear:both;
+   color: #505050;
+   font-size: 75%;
+   margin-top: 2px;
+}
+
+div.inputEx-message {
+   float: left;
+   margin: 4px;
+   font-size: 85%;
+}
+
+
+/**
+ * VALID, INVALID, EMPTY states (and focused)
+ */
+
+div.inputEx-invalid > div.inputEx-message {
+   color:#C00E0C;
+   font-weight:bold;
+}
+
+div.inputEx-invalid > div.inputEx-label {
+   color:#C00E0C;
+   font-weight:bold;
+}
+
+div.inputEx-invalid > div.inputEx-label label {
+   background:transparent url(../images/error_bang.gif) no-repeat scroll 0 1px;
+   padding-left:20px;
+}
+
+div.inputEx-valid > div.inputEx-message {
+   color:#505050;
+   font-weight: normal;
+}
+
+div.inputEx-valid > div.inputEx-label {
+   color:#505050;
+   font-weight:normal;
+}
+
+/* Properties set by an invalid higher hierarchy field are disabled for valid or empty subfields */
+div.inputEx-valid > div.inputEx-label label,
+div.inputEx-empty > div.inputEx-label label {
+   background: none;
+   padding-left: inherit;
+   font-weight:normal;
+   color: #505050;
+}
+
+
+div.inputEx-typeInvite > div.inputEx-Field input, div.inputEx-typeInvite > div.inputEx-Field textarea {
+   color: #aaa;
+}
+div.inputEx-empty div.inputEx-valid div.inputEx-Field input, div.inputEx-empty div.inputEx-valid div.inputEx-Field textarea {
+   color: black;
+}
+
+inputEx-focused div.inputEx-Field input, inputEx-focused div.inputEx-Field textarea {
+   color: black;
+}
+
+
+/**
+ * inputEx.StringField
+ */
+div.inputEx-StringField-wrapper {
+   float: none;
+}
+
+/**
+ * inputEx.Group
+ */
+
+legend.inputEx-Group-legend {
+   color:#63126B;
+   font-weight: bold;
+}
+
+div.inputEx-Group div.inputEx-Group-collapseImg {
+   width: 14px;
+   height: 14px;
+   background-image: url(../images/sprite-menu.gif);
+   background-color: transparent;
+   background-repeat: no-repeat;
+   background-attachment: scroll;
+   float: left;
+}
+
+div.inputEx-Group fieldset.inputEx-Expanded legend ,
+div.inputEx-Group fieldset.inputEx-Collapsed legend {
+   cursor: pointer;
+}
+
+div.inputEx-Group fieldset.inputEx-Expanded legend div.inputEx-Group-collapseImg {
+   background-position: -8px 2px;
+}
+
+div.inputEx-Group fieldset.inputEx-Expanded legend:hover div.inputEx-Group-collapseImg {
+   background-position: -8px -78px;
+}
+
+div.inputEx-Group fieldset.inputEx-Collapsed legend div.inputEx-Group-collapseImg {
+   background-position: -8px -317px;
+}
+
+div.inputEx-Group fieldset.inputEx-Collapsed legend:hover div.inputEx-Group-collapseImg {
+   background-position: -8px -397px;
+}
+
+div.inputEx-Group fieldset.inputEx-Collapsed div.inputEx-fieldWrapper {
+   display: none;
+}
+
+
+/**
+ * inputEx.Form
+ */
+
+label.inputExForm-checkbox-rightLabel {
+   margin-left: 4px;
+}
+
+div.inputEx-Form-buttonBar {
+   margin: 3px 0 0 137px;
+}
+
+div.inputEx-Form-Mask {
+   height:275px;
+   left:0pt;
+   position:absolute;
+   top:0pt;
+   width:180px;
+}
+
+div.inputEx-Form-Mask div.inputEx-Form-Mask-bg {
+   background-color:#FFFFFF;
+   height:100%;
+   left:0pt;
+   opacity:0.9;
+   position:absolute;
+   top:0pt;
+   width:100%;
+}
+div.inputEx-Form-Mask div.inputEx-Form-Mask-spinner {
+   width: 36px;
+   height: 36px;
+   background-image: url(../images/spinner.gif);
+}
+div.inputEx-Form-Mask span {
+   color:#666666;
+}
+
+
+
+
+/**
+ * UrlField
+ */
+div.inputEx-UrlField input {
+   padding-left: 20px;
+}
+
+div.inputEx-UrlField input.nofavicon {
+   padding-left: 0px;
+}
+
+div.inputEx-UrlField img {
+   position: absolute;
+   top: 3px;
+   left: 2px;
+   width: 16px;
+   height: 16px;
+}
+
+
+/**
+ * inputEx-ListField
+ */
+
+/* Buttons */
+img.inputEx-ListField-addButton {
+    background: transparent url(../images/add.png) no-repeat scroll 0%;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+ }
+
+img.inputEx-ListField-delButton {
+   background: transparent url(../images/delete.png) no-repeat scroll 0%;
+   width: 16px;
+   height: 16px;
+   float: left;
+   cursor: pointer;
+}
+
+/* Arrows */
+div.inputEx-ListField-Arrow {
+   width: 16px;
+   height: 16px;
+   float: left;
+   cursor: pointer;
+}
+
+div.inputEx-ListField-ArrowUp {
+   background: transparent url(../images/bullet_arrow_up.png) no-repeat scroll 0%;
+}
+div.inputEx-ListField-ArrowDown {
+   background: transparent url(../images/bullet_arrow_down.png) no-repeat scroll 0%;
+}
+
+a.inputEx-List-link {
+   color: blue;
+   cursor: pointer;
+   margin-left: 10px;
+}
+
+a.inputEx-List-link:hover {
+   text-decoration: underline;
+}
+
+
+/**
+ * inputEx.InPlaceEdit
+ */
+div.inputEx-InPlaceEdit-visu {
+   cursor: pointer;
+   padding: 3px;
+}
+
+div.inputEx-InPlaceEdit-visu:hover {
+   background-color: #ffff99;
+}
+
+input.inputEx-InPlaceEdit-OkButton {
+   margin-left: 5px;
+}
+
+a.inputEx-InPlaceEdit-CancelLink {
+   margin-left:5px;
+   margin-top:2px;
+}
+
+/**
+ * inputEx.AutoComplete
+ */
+.yui-skin-sam div.inputEx-AutoComplete .yui-ac-input {
+   width: auto;
+   position: relative;
+}
+.yui-skin-sam div.inputEx-AutoComplete .yui-ac-content {
+   width: auto;
+}
+div.inputEx-AutoComplete div.yui-ac-container {
+   margin-bottom:2em;
+   width:25em;
+}
+
+/**
+ * DateField
+ */
+
+div.inputEx-DateField {
+   background: transparent url(../images/calendar.gif) no-repeat scroll left center;
+   padding-left: 20px;
+}
+
+div.inputEx-DateField input {
+   width: 75px;
+}
+
+/**
+ * Picker fields
+ */
+div.inputEx-PickerField, div.inputEx-PickerField input {
+   vertical-align: top;
+}
+
+div.inputEx-PickerField {
+   background: none;
+   padding-left: inherit;
+}
+
+div.inputEx-PickerField .yui-menu-button button {
+    background-position: center center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    font-size: 9px;
+    padding: 2px;
+    width:20px;
+    height:16px;
+}
+
+/*
+* Date Picker
+*/
+div.inputEx-DatePickerField .yui-menu-button button {
+    background-image: url(../images/calendar.gif);
+}
+
+div.inputEx-DatePickerField div.yui-overlay {
+   width: 210px;
+}
+
+/*
+* Color Picker
+*/
+
+div.inputEx-ColorField .yui-menu-button button {
+    background-image: url(../images/palette.png);
+}
+
+div.inputEx-ColorField-button {
+	height: 18px;
+	width: 100px;
+	border: 1px solid #B5B8C8;
+	margin-left: 0px;
+	cursor: pointer;
+	float:left; /* to display color picker icon on the right */
+}
+
+div.inputEx-ColorField-square {
+   float:left;
+   cursor: pointer;
+}
+
+div.inputEx-ColorField div.yui-overlay div.bd {
+   background:white no-repeat scroll 5px 5px;
+   border:1px solid #AAAAAA;
+}
+
+
+
+
+/**
+ * SliderField
+ */
+div.inputEx-SliderField {
+}
+
+div.inputEx-SliderField div.inputEx-SliderField-bg {
+   position: relative;
+   background:url('../images/slider-bg-h.gif') 5px 0 no-repeat;
+   height:28px;
+   width:112px;
+   float: left;
+}
+
+div.inputEx-SliderField div.inputEx-SliderField-thumb {
+   background: url('../images/thumb-n.gif') 0px 0px no-repeat;
+   cursor: pointer;
+   position: absolute;
+   top: 4px;
+   width: 17px;
+   height: 21px;
+}
+
+div.inputEx-SliderField div.inputEx-SliderField-value {
+   float: left;
+   margin-top:6px;
+   margin-left: 5px;
+}
+
+
+/**
+ * Password Field
+ */
+
+div.inputEx-PasswordField input {
+   float: left;
+}
+
+div.inputEx-PasswordField div.capsLockWarning {
+   float: left;
+   margin:3px 4px;
+   color: #505050;
+   font-size: 85%;
+}
+
+div.inputEx-Password-StrengthIndicator {
+    float: left;
+    color: #505050;
+    font-size: 70%;
+    margin-left:10px;
+    width:83px;
+}
+
+div.inputEx-Password-StrengthIndicator div.inputEx-Password-StrengthIndicatorBlock {
+   background-color: white;
+   width: 1.4em;
+   height: 7px;
+   border: 1px solid #aaaaaa;
+   float: left;
+   margin-left: 2px;
+}
+
+/**
+ * Checkbox
+ */
+div.inputEx-CheckBox input {
+   float: left;
+   margin: 2px 0 4px 0;
+}
+
+label.inputEx-CheckBox-rightLabel {
+   margin: 3px;
+}
+
+/**
+ * CombineField
+ */
+div.inputEx-CombineField {
+}
+
+div.inputEx-CombineField-separator {
+   float: left;
+   margin-top:2px;
+}
+
+/**
+ * DDList
+ */
+.inputEx-DDList-item {
+   padding: 5px;
+   background-color: #DDDDDD;
+   cursor: move;
+   border: 1px solid #BBBBBB;
+   width: 300px;
+   position: relative;
+}
+
+.inputEx-DDList-item span.inputEx-DDList-label {
+}
+
+.inputEx-DDList-item a {
+   color:#D05D00;
+   padding: 3px 5px;
+   position:absolute;
+   right:0;
+   top:0;
+   cursor: pointer;
+}
+
+.inputEx-DDList-item a:hover {
+   text-decoration: underline;
+}
+
+
+/**
+ * Radio Field
+ */
+label.inputEx-RadioField-rightLabel {
+   cursor: pointer;
+   margin: 3px;
+}
+
+div.inputEx-RadioField-choice {
+   float: left;
+   margin-left: 10px;
+}
+
+/**
+ * Datatable
+ */
+
+div.inputEx-DataTable-formContainer {
+	float: left;
+}
+div.inputEx-DataTable-formContainer div.inputEx-DataTable-formWrapper {
+   position:absolute;
+	width: 300px;
+	background-color: white;
+	-moz-border-radius-bottomright: 10px;
+	-moz-border-radius-topright: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+	border: 1px solid #7F7F7F;
+	padding: 10px;
+}
+
+
+/**
+ * inputEx.TypeField
+ */
+div.inputEx-TypeField-EditButton {
+   width: 16px;
+   height: 16px;
+   background-image: url(../images/pencil.png);
+   cursor: pointer;
+   float: left;
+   margin-left:4px;
+   position: relative;
+}
+
+div.inputEx-TypeField-EditButton.opened {
+   background-image: url(../images/pencil_delete.png);
+}
+
+div.inputEx-TypeField-FieldValueWrapper {
+   float: left;
+   margin-left: 4px;
+}
+
+div.inputEx-TypeField-PropertiesPanel {
+   border: 1px solid #aaa;
+   padding: 3px;
+   background-color: white;
+   position: absolute;
+   top: 0px;
+   left: 16px;
+   z-index:1;
+   width: 380px;
+}
+
+/**
+ * inputEx.MenuField
+ */
+
+div.inputEx-MenuField div.inputEx-Result {background-color:#FFFFFF; border:1px solid #CCCCCC; padding:2px 25px 2px 5px; cursor:pointer}
+div.inputEx-MenuField div.inputEx-RightArrow {background-image:url(../images/menu-right-arrow.png);background-position:right center;background-repeat:no-repeat;}
+div.inputEx-MenuField div.inputEx-DownArrow {background-image:url(../images/menu-down-arrow.png);background-position:right center;background-repeat:no-repeat;}
+
+
+/**
+ * inputEx-JsonTreeInspector
+ */
+ul.inputEx-JsonTreeInspector li {
+   padding-left: 20px;
+}
+ 
+ul.inputEx-JsonTreeInspector li.collapsed {
+   background:transparent url(../images/plus.gif) no-repeat scroll 0 0;
+   cursor: pointer;
+}
+
+ul.inputEx-JsonTreeInspector li.expanded {
+   background:transparent url(../images/minus.gif) no-repeat scroll 0 0;
+   cursor: pointer;
+}
+
+ul.inputEx-JsonTreeInspector li span {
+   padding-left: 20px;
+   color: green;
+}
+
+ul.inputEx-JsonTreeInspector li span.type-number,
+ul.inputEx-JsonTreeInspector li span.type-boolean {
+   color: blue;
+}
+
+ul.inputEx-JsonTreeInspector li span.type-null {
+   color: red;
+}
+

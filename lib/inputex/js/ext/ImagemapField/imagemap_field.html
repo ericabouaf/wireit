@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+ <head>
+  <title>inputEx - ImagemapField Usage</title>
+
+<!-- YUI CSS -->
+<link rel="stylesheet" type="text/css" href="../../../lib/yui/reset/reset-min.css">
+<link rel="stylesheet" type="text/css" href="../../../lib/yui/fonts/fonts-min.css">
+<link rel="stylesheet" type="text/css" href="../../../lib/yui/container/assets/container.css"> 
+<link rel="stylesheet" type="text/css" href="../../../lib/yui/assets/skins/sam/skin.css">
+
+<!-- InputEx CSS -->
+<link type='text/css' rel='stylesheet' href='../../../css/inputEx.css' />
+
+
+<link type='text/css' rel='stylesheet' href='ImagemapField.css' />
+
+<!-- Demo CSS -->
+<link rel="stylesheet" type="text/css" href="../../../examples/css/demo.css"/>
+<link rel="stylesheet" type="text/css" href="../../../examples/css/dpSyntaxHighlighter.css">
+
+ </head>
+
+ <body>
+
+<p class='demoTitle'>inputEx - ImagemapField Usage</p>
+
+
+<!-- Example 1 -->
+<div class='exampleDiv'>
+
+	<p class="title">Basic Imagemap creation</p>
+	
+	<p></p>
+
+	<div class='demoContainer' id='container1'></div>
+
+	<div class='codeContainer'>
+		<form>
+		<textarea name="code" class="JScript">
+			new YAHOO.inputEx.ImagemapField({
+				parentEl: 'container1', 
+				orgimgsrc: 'http://www.w3schools.com/TAGS/planets.gif', 
+				tgimgsrc: 'http://www.w3schools.com/TAGS/planets.gif', 
+				tgmapcoords: [ 
+					['rect',[0,0,82,126],'http://www.w3schools.com/images/pic_http_2.jpg'],
+					['circle',[90,58,3],'http://www.w3schools.com/images/logo_new2.jpg'],
+					['circle',[124,58,8],'http://www.w3schools.com/images/pic_keybmouse_2.jpg']
+				]
+			});
+		</textarea>
+		</form>
+	</div>
+
+</div>
+
+
+<!-- YUI Library -->
+<script type="text/javascript" src="../../../lib/yui/yahoo/yahoo-min.js"></script> 
+<script type="text/javascript" src="../../../lib/yui/dom/dom-min.js"></script> 
+<script type="text/javascript" src="../../../lib/yui/event/event-min.js"></script>
+<script type="text/javascript" src="../../../lib/yui/container/container-min.js"></script>
+
+<!-- InputEx -->
+<script src="../../inputex.js"  type='text/javascript'></script>
+<script src="../../Field.js"  type='text/javascript'></script>
+<script src="../../fields/StringField.js"  type='text/javascript'></script>
+
+<script src="ImagemapField.js" type="text/javascript"></script>
+
+<script>
+
+YAHOO.util.Event.addListener(window, 'load', function() {
+
+	// Example 1
+  new YAHOO.inputEx.ImagemapField({
+		parentEl: 'container1', 
+		orgimgsrc: 'http://www.w3schools.com/TAGS/planets.gif', 
+		tgimgsrc: 'http://www.w3schools.com/TAGS/planets.gif', 
+		tgmapcoords: [ 
+			['rect',[0,0,82,126],'http://www.w3schools.com/images/pic_http_2.jpg'],
+			['circle',[90,58,3],'http://www.w3schools.com/images/logo_new2.jpg'],
+			['circle',[124,58,8],'http://www.w3schools.com/images/pic_keybmouse_2.jpg']
+		]
+	});
+	
+	
+});
+
+</script>
+
+<script src="../../../examples/js/dpSyntaxHighlighter.js"></script>
+<script language="javascript"> 
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+
+ </body>
+</html>

@@ -6,18 +6,18 @@ yuidoc_home=~/Outils/yuidoc
 # there are duplicate file names in these directories.  You can specify multiple
 # source trees:
 #     parser_in="%HOME/www/yui/src %HOME/www/event/src"
-parser_in="$HOME/Projets/WireIt/js"
+parser_in="$HOME/Projets/WireIt/master/js"
 
 # The location to output the parser data.  This output is a file containing a 
 # json string, and copies of the parsed files.
-parser_out=~/Projets/WireIt/build/doc-parser
+parser_out=~/Projets/WireIt/master/build/doc-parser
 
 # The directory to put the html file outputted by the generator
-generator_out=~/Projets/WireIt/doc/
+generator_out=~/Projets/WireIt/master/doc/
 
 # The location of the template files.  Any subdirectories here will be copied
 # verbatim to the destination directory.
-template=~/Projets/WireIt/build/doc-template
+template=~/Projets/WireIt/master/build/doc-template
 
 # The version of your project to display within the documentation.
 version=0.4.0

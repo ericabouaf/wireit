@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+ <head>
+  <title>inputEx - HiddenField Usage</title>
+
+<!-- YUI CSS -->
+<link rel="stylesheet" type="text/css" href="../lib/yui/reset/reset-min.css">
+<link rel="stylesheet" type="text/css" href="../lib/yui/fonts/fonts-min.css">
+
+<!-- InputEx CSS -->
+<link type='text/css' rel='stylesheet' href='../css/inputEx.css' />
+
+<!-- Demo CSS -->
+<link rel="stylesheet" type="text/css" href="css/demo.css"/>
+<link rel="stylesheet" type="text/css" href="css/dpSyntaxHighlighter.css">
+
+ </head>
+
+ <body>
+
+<p class='demoTitle'>inputEx - HiddenField Usage</p>
+
+
+<!-- Example 1 -->
+<div class='exampleDiv'>
+
+	<p class="title">Basic HiddenField creation</p>
+	
+	<p>The hidden field is by definition 'invisible', so there isn't a lot to see. However, it can be useful to keep an id :</p>
+
+	<div class='demoContainer' id='container1'></div>
+
+	<div class='codeContainer'>
+				<textarea name="code" class="JScript">
+			var exampleDiv = YAHOO.util.Dom.get('container1');
+			var group = new YAHOO.inputEx.Group({
+				 	fields: [ 
+						{type: 'hidden', inputParams: {name: 'id', value: 12 } }, 
+						{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } } 
+					], 
+					parentEl: exampleDiv
+			});
+			var button=YAHOO.inputEx.cn('button',null,null, 'Get Value'); 
+			exampleDiv.appendChild(button); 
+			YAHOO.util.Event.addListener(button, 'click', function(){ alert(YAHOO.lang.JSON.stringify(group.getValue()) ); });
+		</textarea>
+			</div>
+
+</div>
+
+
+<!-- YUI Library -->
+<script type="text/javascript" src="../lib/yui/yahoo/yahoo-min.js"></script> 
+<script type="text/javascript" src="../lib/yui/dom/dom-min.js"></script> 
+<script type="text/javascript" src="../lib/yui/event/event-min.js"></script>
+<script type="text/javascript" src="../lib/yui/json/json-min.js"></script>
+
+<!-- InputEx -->
+<script src="../js/inputex.js"  type='text/javascript'></script>
+<script src="../js/Field.js"  type='text/javascript'></script>
+<script src="../js/Group.js"  type='text/javascript'></script>
+<script src="../js/fields/StringField.js"  type='text/javascript'></script>
+<script src="../js/fields/HiddenField.js"  type='text/javascript'></script>
+
+<script>
+
+YAHOO.util.Event.addListener(window, 'load', function() {
+
+	// Example 1
+	var exampleDiv = YAHOO.util.Dom.get('container1');
+	var group = new YAHOO.inputEx.Group({
+		 	fields: [ 
+				{ type: 'hidden', inputParams: {name: 'id', value: 12 } }, 
+				{ inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } } 
+			], 
+			parentEl: exampleDiv
+	});
+	var button=YAHOO.inputEx.cn('button',null,null, 'Get Value'); 
+	exampleDiv.appendChild(button); 
+	YAHOO.util.Event.addListener(button, 'click', function(){ alert(YAHOO.lang.JSON.stringify(group.getValue()) ); });
+	
+});
+
+</script>
+
+<script src="js/dpSyntaxHighlighter.js"></script>
+<script language="javascript"> 
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+
+ </body>
+</html>
