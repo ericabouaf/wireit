@@ -4,7 +4,7 @@
 
 
 /**
- * Module Proxy handle the drag/dropping from the module list to the layer
+ * Module Proxy handle the drag/dropping from the module list to the layer (in the WiringEditor)
  * @class ModuleProxy
  * @constructor
  * @param {HTMLElement} el

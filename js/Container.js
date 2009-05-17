@@ -8,7 +8,7 @@
  * @class Container
  * @namespace WireIt
  * @constructor
- * @param {Object}   options      Configuration object (see properties)
+ * @param {Object}   options      Configuration object (see options property)
  * @param {WireIt.Layer}   layer The WireIt.Layer (or subclass) instance that contains this container
  */
 WireIt.Container = function(options, layer) {
@@ -120,9 +120,9 @@ WireIt.Container.prototype = {
        *    <li>height: initial height of the container (default 100)</li>
        *    <li>close: display a button to close the container (default true)</li>
        *    <li>closeButtonClassName: CSS class name for the close button (default "WireIt-Container-closebutton")</li>
-       *    <li>title</li>
-       *    <li>icon</li>
-       *    <li>preventSelfWiring: option to prevent connections between terminals of this same container</li>
+       *    <li>title: text that will appear in the module header</li>
+       *    <li>icon: image url to be displayed in the module header</li>
+       *    <li>preventSelfWiring: option to prevent connections between terminals of this same container (default true)</li>
        * </ul>
        * @property options
        * @type {Object}
@@ -409,14 +409,18 @@ WireIt.Container.prototype = {
    },
    
    /**
+    * Subclasses should override this method.
     * @method getValue
+    * @return {Object} value
     */
    getValue: function() {
       return {};
    },
 
    /**
+    * Subclasses should override this method.
     * @method setValue
+    * @param {Any} val Value 
     */
    setValue: function(val) {
    },

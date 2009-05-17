@@ -1,5 +1,5 @@
-#
-# This is the command line to create a zip file
-#
+#!/bin/sh
+# This is the command line to create the wireit distribution zip file
 cd ../..
-zip -vr WireIt-x.x.x.zip WireIt -x "*.git*" "*.DS_Store*" "*build.sh" "*makeZip.sh" "*summary.txt" "*logo-wireit.xcf" "*generateDoc.sh" "*Dfly*"
+zip -vr WireIt-0.4.0.zip WireIt-0.4.0 -x "*.git*" "*.DS_Store*" "*build.sh" "*makeZip.sh" "*/res/*" "*yuidoc.sh" "*/xproc/*" "*/ExhibitMaker/*" "*/jsWireTalk/*" "*/wireitbuilder/*" "*/ExhibitMaker/*" "*/jsWireTalk/*" "*/wireitbuilder/*" "*/doc-parser/*" "*/doc-template/*" "*/PersistingTooltip.js" "*/lib/yui-accordion/*"
+

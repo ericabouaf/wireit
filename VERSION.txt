@@ -3,7 +3,7 @@ To get the latest version, please visit http://javascript.neyric.com/wireit
 ---------------------------------------------------------------------------
 
 Version 0.4.0
-february ?, 2009
+May 17, 2009
 
 Changeset:
 
@@ -11,6 +11,7 @@ Changeset:
  * WiringEditor:
 		- base example
 		- logicGates example
+		- jsBox example
  * inputEx FormContainer: create a container from an inputEx field definition
  * inputEx wirable option: make the inputEx fields wirable
  * LayerMap leave beta (indicate visible region, move layer on click)

@@ -20,12 +20,10 @@ WireIt is mostly a bunch of static files.
 WiringEditor installation
 -------------------------
 
-	* Install the  inputEx library:
-		* download the latest inputEx zip (http://javascript.neyric.com/inputEx)
-		* uncompress it to the wireit/lib/inputex directory
+ (PHP only yet, but you can add your own !)
 
 	* Configure the backend:
-	  	* copy the backend/"language you want to use" directory to your wireit directory
-		* edit the config script with your database access
-		* make sure the backend files are accessible by your webserver and that the language module is loaded 
-		  (the php backend requires a working php installation...)
+	  	* copy the backend/php directory to your wireit directory
+		* edit the script with your database access config (backend/php/WiringEditor.php)
+		* make sure the backend files are accessible by your webserver and that the php module is loaded 
+

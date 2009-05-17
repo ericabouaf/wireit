@@ -165,6 +165,22 @@ WireIt.util = {};
       },
       
       /**
+       * Purge all event listeners and remove the component from the dom
+       * @method destroy
+       */
+      destroy: function() {
+         var el = this.element;
+
+         // Remove from DOM
+         if(YAHOO.util.Dom.inDocument(el)) {
+            el.parentNode.removeChild(el);
+         }
+
+         // recursively purge element
+         Event.purgeElement(el, true);
+      },
+      
+      /**
        * Set the canvas position and size.
        * <b>Warning:</b> This method changes the <i>element</i> property under some brother. Don't copy references !
        * @method SetCanvasRegion
@@ -210,7 +226,7 @@ WireIt.util = {};
  * @param  {WireIt.Terminal}    terminal1   Source terminal
  * @param  {WireIt.Terminal}    terminal2   Target terminal
  * @param  {HTMLElement} parentEl    Container of the CANVAS tag
- * @param  {Obj}                options      Styling configuration
+ * @param  {Obj}                options      Wire configuration (see options property)
  */
 WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
    
@@ -253,6 +269,7 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
 YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    
    /**
+    * Build options object and set default properties
     * @method setOptions
     */
    setOptions: function(options) {
@@ -579,6 +596,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    },
    
    /**
+    * Redraw the canvas (according to the drawingMethod option)
     * @method redraw
     */
    redraw: function() {
@@ -594,14 +612,119 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       else {
          throw new Error("WireIt.Wire unable to find '"+this.drawingMethod+"' drawing method.");
       }
+   },
+   
+   /**
+    * Determine if the wire is drawn at position (x,y) relative to the canvas element. This is used for mouse events.
+    * @method wireDrawnAt
+    * @return {Boolean} true if the wire is drawn at position (x,y) relative to the canvas element
+    */
+   wireDrawnAt: function(x,y) {
+      var ctxt = this.getContext();
+	   var imgData = ctxt.getImageData(x,y,1,1);
+	   var pixel = imgData.data;
+	   return !( pixel[0] == 0 && pixel[1] == 0 && pixel[2] == 0 && pixel[3] == 0 );
+   },
+   
+   /**
+    * Called by the Layer when the mouse moves over the canvas element.
+    * Note: the event is not listened directly, to receive the event event if the wire is behind another wire
+    * @method onMouseMove
+    * @param {Integer} x left position of the mouse (relative to the canvas)
+    * @param {Integer} y top position of the mouse (relative to the canvas)
+    */
+   onMouseMove: function(x,y) {
+      
+      if(typeof this.mouseInState === undefined) {
+         this.mouseInState = false;
+      }
+
+	   if( this.wireDrawnAt(x,y) ) {
+			if(!this.mouseInState) {
+			   this.mouseInState=true;
+			   this.onWireIn(x,y);
+			}	
+			// should we call both ??
+			// else {
+			this.onWireMove(x,y);
+			// }
+	   }
+	   else {
+	      if(this.mouseInState) {
+	         this.mouseInState=false;
+			   this.onWireOut(x,y);
+	      }
+	   }
+      
+   },
+   
+   /**
+    * When the mouse moves over a wire
+    * Note: this will only work within a layer
+    * @method onWireMove
+    * @param {Integer} x left position of the mouse (relative to the canvas)
+    * @param {Integer} y top position of the mouse (relative to the canvas)
+    */
+   onWireMove: function(x,y) {
+      //console.log("onWireMove",x,y);
+   },
+   
+   /**
+    * When the mouse comes into the wire
+    * Note: this will only work within a layer
+    * @method onWireIn
+    * @param {Integer} x left position of the mouse (relative to the canvas)
+    * @param {Integer} y top position of the mouse (relative to the canvas)
+    */
+   onWireIn: function(x,y) {
+      //this.options.color = 'rgb(255, 0, 0)';
+      //this.redraw();
+   },
+   
+   /**
+    * When the mouse comes out of the wire
+    * Note: this will only work within a layer
+    * @method onWireOut
+    * @param {Integer} x left position of the mouse (relative to the canvas)
+    * @param {Integer} y top position of the mouse (relative to the canvas)
+    */
+   onWireOut: function(x,y) {
+      //this.options.color = 'rgb(173, 216, 230)';
+      //this.redraw();
+   },
+   
+   /**
+    * When the mouse clicked on the canvas
+    * Note: this will only work within a layer
+    * @method onClick
+    * @param {Integer} x left position of the mouse (relative to the canvas)
+    * @param {Integer} y top position of the mouse (relative to the canvas)
+    */
+   onClick: function(x,y) {
+ 	   if( this.wireDrawnAt(x,y) ) {
+ 	      this.onWireClick(x,y);
+      }
+   },
+   
+   /**
+    * When the mouse clicked on the wire
+    * Note: this will only work within a layer
+    * @method onWireClick
+    * @param {Integer} x left position of the mouse (relative to the canvas)
+    * @param {Integer} y top position of the mouse (relative to the canvas)
+    */
+   onWireClick: function(x,y) {
+ 	   //console.log("onWireClick",x,y);
    }
+   
 
 
 });
 
 (function() {
 
-   var Event = YAHOO.util.Event, lang = YAHOO.lang, Dom = YAHOO.util.Dom, CSS_PREFIX = "WireIt-";
+   var util = YAHOO.util;
+   var Event = util.Event, lang = YAHOO.lang, Dom = util.Dom, CSS_PREFIX = "WireIt-";
 
 
    /**
@@ -625,7 +748,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       
       this.initScissors();
    };
-   lang.extend(WireIt.Scissors, YAHOO.util.Element, {
+   lang.extend(WireIt.Scissors, util.Element, {
       
       /**
        * Init the scissors
@@ -710,7 +833,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
  * @extends YAHOO.util.DDProxy
  * @constructor
  * @param {WireIt.Terminal} terminal Parent terminal
- * @param {Object} options Configuration object (see in properties for details)
+ * @param {Object} options Configuration object (see "termConfig" property for details)
  */
 WireIt.TerminalProxy = function(terminal, options) {
    
@@ -724,11 +847,14 @@ WireIt.TerminalProxy = function(terminal, options) {
     * <ul>
     *   <li>type: 'type' of this terminal. If no "allowedTypes" is specified in the options, the terminal will only connect to the same type of terminal</li>
     *   <li>allowedTypes: list of all the allowed types that we can connect to.</li>
+    *   <li>{Integer} terminalProxySize: size of the drag drop proxy element. default is 10 for "10px"</li>
     * </ul>
     * @property termConfig
     */
    // WARNING: the object config cannot be called "config" because YAHOO.util.DDProxy already has a "config" property
    this.termConfig = options || {};
+   
+   this.terminalProxySize = options.terminalProxySize || 10;
    
    /**
     * Object that emulate a terminal which is following the mouse
@@ -736,13 +862,51 @@ WireIt.TerminalProxy = function(terminal, options) {
    this.fakeTerminal = null;
    
    // Init the DDProxy
-   WireIt.TerminalProxy.superclass.constructor.call(this,this.terminal.el);
+   WireIt.TerminalProxy.superclass.constructor.call(this,this.terminal.el, undefined, {
+      dragElId: "WireIt-TerminalProxy",
+      resizeFrame: false,
+      centerFrame: true
+   });
 };
 
 // Mode Intersect to get the DD objects
-YAHOO.util.DDM.mode = YAHOO.util.DDM.INTERSECT;
+util.DDM.mode = util.DDM.INTERSECT;
 
-YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
+lang.extend(WireIt.TerminalProxy, util.DDProxy, {
+   
+   /**
+    * Took this method from the YAHOO.util.DDProxy class
+    * to overwrite the creation of the proxy Element with our custom size
+    * @method createFrame
+    */
+   createFrame: function() {
+        var self=this, body=document.body;
+        if (!body || !body.firstChild) {
+            setTimeout( function() { self.createFrame(); }, 50 );
+            return;
+        }
+        var div=this.getDragEl(), Dom=YAHOO.util.Dom;
+        if (!div) {
+            div    = document.createElement("div");
+            div.id = this.dragElId;
+            var s  = div.style;
+            s.position   = "absolute";
+            s.visibility = "hidden";
+            s.cursor     = "move";
+            s.border     = "2px solid #aaa";
+            s.zIndex     = 999;
+            var size = this.terminalProxySize+"px";
+            s.height     = size; 
+            s.width      = size;
+            var _data = document.createElement('div');
+            Dom.setStyle(_data, 'height', '100%');
+            Dom.setStyle(_data, 'width', '100%');
+            Dom.setStyle(_data, 'background-color', '#ccc');
+            Dom.setStyle(_data, 'opacity', '0');
+            div.appendChild(_data);
+            body.insertBefore(div, body.firstChild);
+        }
+    },
    
    /**
     * @method startDrag
@@ -758,16 +922,17 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
          return;
       }
       
+      var halfProxySize = this.terminalProxySize/2;
       this.fakeTerminal = {
          options: {direction: this.terminal.options.fakeDirection},
          pos: [200,200], 
          addWire: function() {},
          removeWire: function() {},
          getXY: function() { 
-            var layers = YAHOO.util.Dom.getElementsByClassName('WireIt-Layer');
+            var layers = Dom.getElementsByClassName('WireIt-Layer');
             if(layers.length > 0) {
-               var orig = YAHOO.util.Dom.getXY(layers[0]);
-               return [this.pos[0]-orig[0], this.pos[1]-orig[1]]; 
+               var orig = Dom.getXY(layers[0]);
+               return [this.pos[0]-orig[0]+halfProxySize, this.pos[1]-orig[1]+halfProxySize]; 
             }
             return this.pos;
          }
@@ -860,68 +1025,76 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
       
       this.onDragOut(e,ddTargets);
       
+      // Connect to the FIRST target terminal
       var targetTerminalProxy = null;
       for(var i = 0 ; i < ddTargets.length ; i++) {
-         if( ddTargets[i].isWireItTerminal ) {
+         if( this.isValidWireTerminal(ddTargets[i]) ) {
             targetTerminalProxy =  ddTargets[i];
+            break;
+         }
+      }
+
+      // Quit if no valid terminal found
+      if( !targetTerminalProxy ) { 
+         return;
+      }
+      
+      // Remove the editing wire
+      this.editingWire.remove();
+      this.editingWire = null;
+         
+      // Don't create the wire if it already exists between the 2 terminals !!
+      var termAlreadyConnected = false;
+      for(var i = 0 ; i < this.terminal.wires.length ; i++) {
+         if(this.terminal.wires[i].terminal1 == this.terminal) {
+            if( this.terminal.wires[i].terminal2 == targetTerminalProxy.terminal) {
+               termAlreadyConnected = true;
+               break;
+            }
+         }
+         else if(this.terminal.wires[i].terminal2 == this.terminal) {
+            if( this.terminal.wires[i].terminal1 == targetTerminalProxy.terminal) {
+               termAlreadyConnected = true;
+               break;
+            }
          }
       }
       
-      // Connect to the FIRST target terminal
-      if( targetTerminalProxy ) {
-         if( this.isValidWireTerminal(targetTerminalProxy) ) { 
-            
-            this.editingWire.remove();
-            this.editingWire = null;
-               
-            // Don't create the wire if it already exists between the 2 terminals !!
-            var termAlreadyConnected = false;
-            for(var i = 0 ; i < this.terminal.wires.length ; i++) {
-               if(this.terminal.wires[i].terminal1 == this.terminal) {
-                  if( this.terminal.wires[i].terminal2 == targetTerminalProxy.terminal) {
-                     termAlreadyConnected = true;
-                     break;
-                  }
-               }
-               else if(this.terminal.wires[i].terminal2 == this.terminal) {
-                  if( this.terminal.wires[i].terminal1 == targetTerminalProxy.terminal) {
-                     termAlreadyConnected = true;
-                     break;
-                  }
-               }
-            }
-            
-            // Create the wire only if the terminals aren't connected yet
-            if(!termAlreadyConnected) {
-               
-               
-               var parentEl = this.terminal.parentEl.parentNode;
-               if(this.terminal.container) {
-                  parentEl = this.terminal.container.layer.el;
-               }
-               
-               // Check the number of wires for this terminal
-               if( targetTerminalProxy.terminal.options.nMaxWires == 1) {
-                  if(targetTerminalProxy.terminal.wires.length > 0) {
-                     targetTerminalProxy.terminal.wires[0].remove();
-                  }
-                  
-                  var w = new WireIt.Wire(this.terminal, targetTerminalProxy.terminal, parentEl, this.terminal.options.wireConfig);
-                  w.redraw();
-               }
-               else if(targetTerminalProxy.terminal.wires.length < targetTerminalProxy.terminal.options.nMaxWires) {
-                  var w = new WireIt.Wire(this.terminal, targetTerminalProxy.terminal, parentEl, this.terminal.options.wireConfig);
-                  w.redraw();
-               }
-               else {
-                  //console.log("Cannot connect to this terminal: nMaxWires = ", ddTargets[0].terminal.options.nMaxWires);
-               }
-            }
-            else {
-               //console.log("terminals already connected ");
-            }
-         }
+      // Create the wire only if the terminals aren't connected yet
+      if(termAlreadyConnected) {
+         //console.log("terminals already connected ");
+         return;
       }
+         
+      var parentEl = this.terminal.parentEl.parentNode;
+      if(this.terminal.container) {
+         parentEl = this.terminal.container.layer.el;
+      }
+      
+      // Switch the order of the terminals if tgt as the "alwaysSrc" property
+      var term1 = this.terminal;
+      var term2 = targetTerminalProxy.terminal;
+      if(term2.options.alwaysSrc) {
+         term1 = targetTerminalProxy.terminal;
+         term2 = this.terminal;
+      }
+      
+      // Check the number of wires for this terminal
+      var tgtTerm = targetTerminalProxy.terminal;
+      if( tgtTerm.options.nMaxWires == 1) {
+         if(tgtTerm.wires.length > 0) {
+            tgtTerm.wires[0].remove();
+         }
+         var w = new WireIt.Wire(term1, term2, parentEl, term1.options.wireConfig);
+         w.redraw();
+      }
+      else if(tgtTerm.wires.length < tgtTerm.options.nMaxWires) {
+         var w = new WireIt.Wire(term1, term2, parentEl, term1.options.wireConfig);
+         w.redraw();
+      }
+      /*else {
+         console.log("Cannot connect to this terminal: nMaxWires = ", ddTargets[0].terminal.options.nMaxWires);
+      }*/
       
    },
    
@@ -961,6 +1134,15 @@ YAHOO.extend(WireIt.TerminalProxy,YAHOO.util.DDProxy, {
          }
          else {
             if(this.termConfig.type != DDterminal.termConfig.type) {
+               return false;
+            }
+         }
+      }
+      
+      // Check the allowSelfWiring
+      if(this.terminal.container) {
+         if(this.terminal.container.options.preventSelfWiring) {
+            if(DDterminal.terminal.container == this.terminal.container) {
                return false;
             }
          }
@@ -1012,14 +1194,14 @@ WireIt.Terminal = function(parentEl, options, container) {
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventAddWire
     */
-   this.eventAddWire = new YAHOO.util.CustomEvent("eventAddWire");
+   this.eventAddWire = new util.CustomEvent("eventAddWire");
    
    /**
     * Event that is fired when a wire is removed
     * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventRemoveWire
     */
-   this.eventRemoveWire = new YAHOO.util.CustomEvent("eventRemoveWire");
+   this.eventRemoveWire = new util.CustomEvent("eventRemoveWire");
    
    /**
     * DIV dom element that will display the Terminal
@@ -1055,8 +1237,9 @@ WireIt.Terminal.prototype = {
        *   <li><b>fakeDirection</b>: direction vector of the "editing" wire when it started from this terminal (default to -direction)</li>
        *   <li><b>editable</b>: boolean that makes the terminal editable (default to true)</li>
        *   <li><b>nMaxWires</b>: maximum number of wires for this terminal (default to Infinity)</li>
-       *   <li><b>offsetPosition</b>: offset position from the parentEl position (default to [0,0])</li>
+       *   <li><b>offsetPosition</b>: offset position from the parentEl position. Can be an array [top,left] or an object {left: 100, bottom: 20} or {right: 10, top: 5} etc... (default to [0,0])</li>
        *   <li><b>ddConfig</b>: configuration of the WireIt.TerminalProxy object (only if editable)</li>
+       *   <li><b>alwaysSrc</b>: alwaysSrc forces this terminal to be the src terminal in the wire config (default false, only if editable)</li>
        *   <li><b>className</b>: CSS class name of the terminal (default to "WireIt-Terminal")</li>
        *   <li><b>connectedClassName</b>: CSS class added to the terminal when it is connected (default to "WireIt-Terminal-connected")</li>
        *   <li><b>dropinviteClassName</b>: CSS class added for drop invitation (default to "WireIt-Terminal-dropinvite")</li>
@@ -1070,11 +1253,13 @@ WireIt.Terminal.prototype = {
       this.options.className = options.className || CSS_PREFIX+'Terminal';
       this.options.connectedClassName = options.connectedClassName || CSS_PREFIX+'Terminal-connected';
       this.options.dropinviteClassName = options.dropinviteClassName || CSS_PREFIX+'Terminal-dropinvite';
-      this.options.editable = YAHOO.lang.isUndefined(options.editable) ? true : options.editable;
+      this.options.editable = lang.isUndefined(options.editable) ? true : options.editable;
       this.options.nMaxWires = options.nMaxWires || Infinity;
       this.options.wireConfig = options.wireConfig || {};
       this.options.editingWireConfig = options.editingWireConfig || this.options.wireConfig;
       this.options.offsetPosition = options.offsetPosition;
+      this.options.alwaysSrc = lang.isUndefined(options.alwaysSrc) ? false : options.alwaysSrc;
+      this.options.ddConfig = options.ddConfig || {};
    },
 
    /**
@@ -1102,9 +1287,21 @@ WireIt.Terminal.prototype = {
       if(this.options.name) { this.el.title = this.options.name; }
    
       // Set the offset position
-      if(this.options.offsetPosition) {
-         this.el.style.left = this.options.offsetPosition[0]+"px";
-         this.el.style.top = this.options.offsetPosition[1]+"px";
+      var pos = this.options.offsetPosition;
+      if(pos) {
+         // Kept old version [x,y] for retro-compatibility
+         if( lang.isArray(pos) ) {
+            this.el.style.left = pos[0]+"px";
+            this.el.style.top = pos[1]+"px";
+         }
+         // New version: {top: 32, left: 23}
+         else if( lang.isObject(pos) ) {
+            for(var key in pos) {
+               if(pos.hasOwnProperty(key) && pos[key] != ""){
+                  this.el.style[key] = pos[key]+"px";
+               }
+            }
+         }
       }
    
       // Append the element to the parent
@@ -1135,8 +1332,11 @@ WireIt.Terminal.prototype = {
     * @param {WireIt.Wire} wire Wire instance to remove
     */
    removeWire: function(wire) {
-      var index = WireIt.indexOf(wire, this.wires);   
+      var index = WireIt.indexOf(wire, this.wires), w;   
       if( index != -1 ) {
+         
+         this.wires[index].destroy();
+         
          this.wires[index] = null;
          this.wires = WireIt.compact(this.wires);
       
@@ -1251,7 +1451,7 @@ WireIt.Terminal.prototype = {
 WireIt.util.TerminalInput = function(parentEl, options, container) {
    WireIt.util.TerminalInput.superclass.constructor.call(this,parentEl, options, container);
 };
-YAHOO.extend(WireIt.util.TerminalInput, WireIt.Terminal, {
+lang.extend(WireIt.util.TerminalInput, WireIt.Terminal, {
    
    /**
     * Override setOptions to add the default options for TerminalInput
@@ -1287,7 +1487,7 @@ YAHOO.extend(WireIt.util.TerminalInput, WireIt.Terminal, {
 WireIt.util.TerminalOutput = function(parentEl, options, container) {
    WireIt.util.TerminalOutput.superclass.constructor.call(this,parentEl, options, container);
 };
-YAHOO.extend(WireIt.util.TerminalOutput, WireIt.Terminal, {
+lang.extend(WireIt.util.TerminalOutput, WireIt.Terminal, {
    
    /**
     * Override setOptions to add the default options for TerminalOutput
@@ -1300,9 +1500,10 @@ YAHOO.extend(WireIt.util.TerminalOutput, WireIt.Terminal, {
       this.options.direction = options.direction || [0,1];
       this.options.fakeDirection = options.fakeDirection || [0,-1];
       this.options.ddConfig = {
-          type: "output",
-          allowedTypes: ["input"]
-       };
+         type: "output",
+         allowedTypes: ["input"]
+      };
+      this.options.alwaysSrc = true;
    }
    
 });
@@ -1434,14 +1635,15 @@ YAHOO.extend(WireIt.util.DDResize, YAHOO.util.DragDrop, {
 });
 (function() {
    
-   var Dom = YAHOO.util.Dom, Event = YAHOO.util.Event, CSS_PREFIX = "WireIt-";
+   var util = YAHOO.util;
+   var Dom = util.Dom, Event = util.Event, CSS_PREFIX = "WireIt-";
    
 /**
  * Visual module that contains terminals. The wires are updated when the module is dragged around.
  * @class Container
  * @namespace WireIt
  * @constructor
- * @param {Object}   options      Configuration object (see properties)
+ * @param {Object}   options      Configuration object (see options property)
  * @param {WireIt.Layer}   layer The WireIt.Layer (or subclass) instance that contains this container
  */
 WireIt.Container = function(options, layer) {
@@ -1489,14 +1691,14 @@ WireIt.Container = function(options, layer) {
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventAddWire
     */
-   this.eventAddWire = new YAHOO.util.CustomEvent("eventAddWire");
+   this.eventAddWire = new util.CustomEvent("eventAddWire");
    
    /**
     * Event that is fired when a wire is removed
     * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventRemoveWire
     */
-   this.eventRemoveWire = new YAHOO.util.CustomEvent("eventRemoveWire");
+   this.eventRemoveWire = new util.CustomEvent("eventRemoveWire");
    
    // Render the div object
    this.render();
@@ -1553,8 +1755,9 @@ WireIt.Container.prototype = {
        *    <li>height: initial height of the container (default 100)</li>
        *    <li>close: display a button to close the container (default true)</li>
        *    <li>closeButtonClassName: CSS class name for the close button (default "WireIt-Container-closebutton")</li>
-       *    <li>title</li>
-       *    <li>icon</li>
+       *    <li>title: text that will appear in the module header</li>
+       *    <li>icon: image url to be displayed in the module header</li>
+       *    <li>preventSelfWiring: option to prevent connections between terminals of this same container (default true)</li>
        * </ul>
        * @property options
        * @type {Object}
@@ -1580,6 +1783,8 @@ WireIt.Container.prototype = {
       this.options.title = options.title; // no default
       
       this.options.icon = options.icon;
+      
+      this.options.preventSelfWiring = (typeof options.preventSelfWiring == "undefined") ? true : options.preventSelfWiring;
    },
 
    /**
@@ -1821,9 +2026,13 @@ WireIt.Container.prototype = {
       // Position
       obj.position = Dom.getXY(this.el);
       if(this.layer) {
+         // remove the layer position to the container position
          var layerPos = Dom.getXY(this.layer.el);
          obj.position[0] -= layerPos[0];
          obj.position[1] -= layerPos[1];
+         // add the scroll position of the layer to the container position
+         obj.position[0] += this.layer.el.scrollLeft;
+         obj.position[1] += this.layer.el.scrollTop;
       }
    
       // xtype
@@ -1835,16 +2044,35 @@ WireIt.Container.prototype = {
    },
    
    /**
+    * Subclasses should override this method.
     * @method getValue
+    * @return {Object} value
     */
    getValue: function() {
       return {};
    },
 
    /**
+    * Subclasses should override this method.
     * @method setValue
+    * @param {Any} val Value 
     */
    setValue: function(val) {
+   },
+   
+   
+   /**
+    * @method getTerminal
+    */
+   getTerminal: function(name) {
+      var term;
+      for(var i = 0 ; i < this.terminals.length ; i++) {
+         term = this.terminals[i];
+         if(term.options.name == name) {
+            return term;
+         }
+      }
+      return null;
    }
 
 };
@@ -1963,6 +2191,7 @@ WireIt.Layer.prototype = {
       this.options.wires = options.wires || [];
       this.options.layerMap = YAHOO.lang.isUndefined(options.layerMap) ? false : options.layerMap;
       this.options.layerMapOptions = options.layerMapOptions;
+      this.options.enableMouseEvents = YAHOO.lang.isUndefined(options.enableMouseEvents) ? true : options.enableMouseEvents;
    },
 
    /**
@@ -2009,10 +2238,9 @@ WireIt.Layer.prototype = {
       var src = wireConfig.src;
       var tgt = wireConfig.tgt;
    
-      var terminal1 = this.containers[src.moduleId].terminals[src.terminalId];
-      var terminal2 = this.containers[tgt.moduleId].terminals[tgt.terminalId];
-   
-      var wire = new type( terminal1, terminal2, this.el);
+      var terminal1 = this.containers[src.moduleId].getTerminal(src.terminal);
+      var terminal2 = this.containers[tgt.moduleId].getTerminal(tgt.terminal);
+      var wire = new type( terminal1, terminal2, this.el, wireConfig);
       wire.redraw();
    
       return wire;
@@ -2081,6 +2309,12 @@ WireIt.Layer.prototype = {
       // add the wire to the list if it isn't in
       if( WireIt.indexOf(wire, this.wires) == -1 ) {
          this.wires.push(wire);
+         
+         if(this.options.enableMouseEvents) {
+            YAHOO.util.Event.addListener(wire.element, "mousemove", this.onWireMouseMove, this, true);
+            YAHOO.util.Event.addListener(wire.element, "click", this.onWireClick, this, true);
+         }
+         
          // Re-Fire an event at the layer level
          this.eventAddWire.fire(wire);
       }
@@ -2131,8 +2365,8 @@ WireIt.Layer.prototype = {
          var wire = this.wires[i];
       
          var wireObj = { 
-            src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.containers), terminalId: WireIt.indexOf(wire.terminal1, wire.terminal1.container.terminals)}, 
-            tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.containers), terminalId: WireIt.indexOf(wire.terminal2, wire.terminal2.container.terminals)} 
+            src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.containers), terminal: wire.terminal1.name }, 
+            tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.containers), terminal: wire.terminal2.name }
          };
          obj.wires.push(wireObj);
       }
@@ -2168,6 +2402,57 @@ WireIt.Layer.prototype = {
       this.removeAllContainers();
    },
    
+   /**
+    * Returns a position relative to the layer from a mouse event
+    * @method _getMouseEvtPos
+    * @param {Event} e Mouse event
+    * @return {Array} position
+    */
+   _getMouseEvtPos: function(e) {
+   	var tgt = YAHOO.util.Event.getTarget(e);
+   	var tgtPos = [tgt.offsetLeft, tgt.offsetTop];
+   	return [tgtPos[0]+e.layerX, tgtPos[1]+e.layerY];
+   },
+
+   /**
+    * Handles click on any wire canvas
+    * Note: we treat mouse events globally so that wires behind others can still receive the events
+    * @method onWireClick
+    * @param {Event} e Mouse click event
+    */
+   onWireClick: function(e) {
+      var p = this._getMouseEvtPos(e);
+   	var lx = p[0], ly = p[1], n = this.wires.length, w;
+   	for(var i = 0 ; i < n ; i++) {
+   	   w = this.wires[i];
+      	var elx = w.element.offsetLeft, ely = w.element.offsetTop;
+      	// Check if the mouse is within the canvas boundaries
+   	   if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
+   	      var rx = lx-elx, ry = ly-ely; // relative to the canvas
+   			w.onClick(rx,ry);
+   	   }
+   	}
+   },
+
+   /**
+    * Handles mousemove events on any wire canvas
+    * Note: we treat mouse events globally so that wires behind others can still receive the events
+    * @method onWireMouseMove
+    * @param {Event} e Mouse click event
+    */
+   onWireMouseMove: function(e) {
+      var p = this._getMouseEvtPos(e);
+   	var lx = p[0], ly = p[1], n = this.wires.length, w;
+   	for(var i = 0 ; i < n ; i++) {
+   	   w = this.wires[i];
+      	var elx = w.element.offsetLeft, ely = w.element.offsetTop;
+      	// Check if the mouse is within the canvas boundaries
+   	   if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
+   	      var rx = lx-elx, ry = ly-ely; // relative to the canvas
+   			w.onMouseMove(rx,ry);
+   	   }
+   	}
+   },
    
    
    /**
@@ -2204,7 +2489,8 @@ WireIt.Layer.prototype = {
    }
    
 
-};/**
+};
+/**
  * WireIt.util.Anim is a wrapper class for YAHOO.util.Anim, to redraw the wires associated with the given terminals while running the animation.
  * @class Anim
  * @namespace WireIt.util

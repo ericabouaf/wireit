@@ -7,7 +7,7 @@
  * @param  {WireIt.Terminal}    terminal1   Source terminal
  * @param  {WireIt.Terminal}    terminal2   Target terminal
  * @param  {HTMLElement} parentEl    Container of the CANVAS tag
- * @param  {Obj}                options      Styling configuration
+ * @param  {Obj}                options      Wire configuration (see options property)
  */
 WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
    
@@ -50,6 +50,7 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
 YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    
    /**
+    * Build options object and set default properties
     * @method setOptions
     */
    setOptions: function(options) {
@@ -376,6 +377,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    },
    
    /**
+    * Redraw the canvas (according to the drawingMethod option)
     * @method redraw
     */
    redraw: function() {
@@ -394,8 +396,9 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    },
    
    /**
+    * Determine if the wire is drawn at position (x,y) relative to the canvas element. This is used for mouse events.
     * @method wireDrawnAt
-    * @return {Boolean} true if the wire is at x,y
+    * @return {Boolean} true if the wire is drawn at position (x,y) relative to the canvas element
     */
    wireDrawnAt: function(x,y) {
       var ctxt = this.getContext();
@@ -407,7 +410,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    /**
     * Called by the Layer when the mouse moves over the canvas element.
     * Note: the event is not listened directly, to receive the event event if the wire is behind another wire
-    * @method onWireMove
+    * @method onMouseMove
     * @param {Integer} x left position of the mouse (relative to the canvas)
     * @param {Integer} y top position of the mouse (relative to the canvas)
     */
@@ -455,8 +458,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @param {Integer} y top position of the mouse (relative to the canvas)
     */
    onWireIn: function(x,y) {
-      this.options.color = 'rgb(255, 0, 0)';
-      this.redraw();
+      //this.options.color = 'rgb(255, 0, 0)';
+      //this.redraw();
    },
    
    /**
@@ -467,8 +470,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @param {Integer} y top position of the mouse (relative to the canvas)
     */
    onWireOut: function(x,y) {
-       this.options.color = 'rgb(173, 216, 230)';
-      this.redraw();
+      //this.options.color = 'rgb(173, 216, 230)';
+      //this.redraw();
    },
    
    /**
