@@ -25,6 +25,15 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
    },
    
    /**
+    * The render method is overrided to call renderForm
+    * @method render
+    */
+   render: function() {
+      WireIt.FormContainer.superclass.render.call(this);
+      this.renderForm();
+   },
+   
+   /**
     * Render the form
     * @method renderForm
     */
@@ -37,7 +46,7 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
    
 	/**
 	 * When creating wirable input fields, the field configuration (inputParams) must have a reference to the current container (this is used for positionning).
-	 * For complex fields (like object or list), the reference is set recursively AFTER the field creation
+	 * For complex fields (like object or list), the reference is set recursively AFTER the field creation.
 	 * @method setBackReferenceOnFieldOptionsRecursively
 	 */
    setBackReferenceOnFieldOptionsRecursively: function(fieldArray) {
@@ -60,19 +69,6 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
     		  }
     	  }
       }
-   },
-   
-   
-   /**
-    * Render the form
-    * @method renderForm
-    */
-   renderForm: function() {
-      for(var i = 0 ; i < this.options.fields.length ; i++) {
-         this.options.fields[i].inputParams.container = this;
-      }
-      var groupParams = {parentEl: this.bodyEl, fields: this.options.fields, legend: this.options.legend, collapsible: this.options.collapsible};
-      this.form = new YAHOO.inputEx.Group(groupParams);
    },
    
    /**

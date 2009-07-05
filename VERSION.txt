@@ -2,6 +2,15 @@
 To get the latest version, please visit http://javascript.neyric.com/wireit
 ---------------------------------------------------------------------------
 
+Version 0.4.1
+not released yet
+
+Changeset:
+
+	* Bug fix for wire positioning using FormContainer
+
+----------------------------------------------------
+
 Version 0.4.0
 May 17, 2009
 
