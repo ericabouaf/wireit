@@ -25,13 +25,43 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
    },
    
    /**
-    * The render method is overrided to call renderForm
-    * @method render
+    * Render the form
+    * @method renderForm
     */
-   render: function() {
-      WireIt.FormContainer.superclass.render.call(this);
-      this.renderForm();
+   renderForm: function() {
+	  this.setBackReferenceOnFieldOptionsRecursively(this.options.fields);
+      
+      var groupParams = {parentEl: this.bodyEl, fields: this.options.fields, legend: this.options.legend, collapsible: this.options.collapsible};
+      this.form = new YAHOO.inputEx.Group(groupParams);
    },
+   
+	/**
+	 * When creating wirable input fields, the field configuration (inputParams) must have a reference to the current container (this is used for positionning).
+	 * For complex fields (like object or list), the reference is set recursively AFTER the field creation
+	 * @method setBackReferenceOnFieldOptionsRecursively
+	 */
+   setBackReferenceOnFieldOptionsRecursively: function(fieldArray) {
+      for(var i = 0 ; i < fieldArray.length ; i++) {
+    	  var inputParams = fieldArray[i].inputParams;
+    	  inputParams.container = this;
+
+    	  // Checking for group sub elements
+    	  if(inputParams.fields && typeof inputParams.fields == 'object') {
+    		  this.setBackReferenceOnFieldOptionsRecursively(inputParams.fields);
+    	  }
+
+    	  // Checking for list sub elements
+    	  if(inputParams.elementType) {
+    		  inputParams.elementType.inputParams.container = this;
+
+    		  // Checking for group elements within list elements
+    		  if(inputParams.elementType.inputParams.fields && typeof inputParams.elementType.inputParams.fields == 'object') {
+    			  this.setBackReferenceOnFieldOptionsRecursively(inputParams.elementType.inputParams.fields);
+    		  }
+    	  }
+      }
+   },
+   
    
    /**
     * Render the form
