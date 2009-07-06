@@ -8,6 +8,7 @@ not released yet
 Changeset:
 
 	* Bug fix for wire positioning using FormContainer
+	* Added drawing method 'bezierArrows' (early alpha)
 
 ----------------------------------------------------
 

@@ -31,6 +31,37 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
     * @type WireIt.Terminal || WireIt.TerminalProxy
     */
    this.terminal2 = terminal2;
+
+	
+   /**
+    * Event that is fired when a wire is clicked (on the wire, not the canvas)
+    * You can register this event with myWire.eventWireClick.subscribe(function(e,params) { var wire = params[0], xy = params[1];}, scope);
+    * @event eventMouseClick
+    */
+   this.eventMouseClick = new YAHOO.util.CustomEvent("eventMouseClick");
+
+	/**
+    * Event that is fired when the mouse enter the wire
+    * You can register this event with myWire.eventMouseIn.subscribe(function(e,params) { var wire = params[0], xy = params[1];}, scope);
+    * @event eventMouseIn
+    */
+	this.eventMouseIn = new YAHOO.util.CustomEvent("eventMouseIn");
+	
+	/**
+    * Event that is fired when the mouse exits the wire
+    * You can register this event with myWire.eventMouseOut.subscribe(function(e,params) { var wire = params[0], xy = params[1];}, scope);
+    * @event eventMouseOut
+    */
+	this.eventMouseOut = new YAHOO.util.CustomEvent("eventMouseOut");
+	
+	/**
+    * Event that is fired when the mouse moves inside the wire
+    * You can register this event with myWire.eventMouseMove.subscribe(function(e,params) { var wire = params[0], xy = params[1];}, scope);
+    * @event eventMouseMove
+    */
+	this.eventMouseMove = new YAHOO.util.CustomEvent("eventMouseMove");
+
+
    
    // Init the options property
    this.setOptions(options || {});
@@ -422,7 +453,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 
    	var z = [0,0]; //point on the wire with constant distance (dlug) from terminal2
    	var dlug = 20; //arrow length
-   	var t = 1-(dlug/distance);
+   	var t = (distance == 0) ? 0 : 1-(dlug/distance);
    	z[0] = Math.abs( t1[0] +  t*(t2[0]-t1[0]) );
    	z[1] = Math.abs( t1[1] + t*(t2[1]-t1[1]) );	
 
@@ -438,7 +469,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    		a = 0;
    	}
    	//line perpendicular to the main line: y = aProst*x + b
-   	if (a === 0) {
+   	if (a == 0) {
    		aProst = 0;
    	}
    	else {
@@ -608,7 +639,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @param {Integer} y top position of the mouse (relative to the canvas)
     */
    onWireMove: function(x,y) {
-      //console.log("onWireMove",x,y);
+		this.eventMouseMove.fire(this, [x,y]);
    },
    
    /**
@@ -619,8 +650,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @param {Integer} y top position of the mouse (relative to the canvas)
     */
    onWireIn: function(x,y) {
-      //this.options.color = 'rgb(255, 0, 0)';
-      //this.redraw();
+		this.eventMouseIn.fire(this, [x,y]);
    },
    
    /**
@@ -631,8 +661,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @param {Integer} y top position of the mouse (relative to the canvas)
     */
    onWireOut: function(x,y) {
-      //this.options.color = 'rgb(173, 216, 230)';
-      //this.redraw();
+		this.eventMouseOut.fire(this, [x,y]);
    },
    
    /**
@@ -656,9 +685,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @param {Integer} y top position of the mouse (relative to the canvas)
     */
    onWireClick: function(x,y) {
- 	   //console.log("onWireClick",x,y);
+		this.eventMouseClick.fire(this, [x,y]);
    }
-   
 
 
 });

@@ -144,7 +144,10 @@ body {
  * Dialogs
  */
 #loadPanelBody {
-   text-align: left;
+	max-height:300px;
+	overflow-y:scroll;
+	overflow-x:none;
+	text-align:left;
 }
 
 #loadPanelBody ul {
