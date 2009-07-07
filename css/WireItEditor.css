@@ -30,12 +30,12 @@ body {
 /* Toolbar */
 #toolbar {
    position: absolute;
-   top: 7px;
+   top: 10px;
    left: 300px;
 }
 
 #toolbar .yui-button {
-   margin: 5px;
+   margin: 0px;
 }
 #toolbar .yui-button button {
    padding-left: 2em;

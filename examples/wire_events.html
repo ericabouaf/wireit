@@ -48,7 +48,7 @@ window.onload = function() {
 	var layer = new WireIt.Layer({});
 	for(var i = 0 ; i < 5 ; i++) {
 		layer.addContainer({
-			terminals: [ {direction: [0,1], offsetPosition: {bottom: -13, left: 25}, editable: false }],
+			terminals: [ {direction: [0,1], offsetPosition: {bottom: -13, left: 25} }],
 			title: "Block #"+i,
 			position: [ Math.floor(Math.random()*800)+30, Math.floor(Math.random()*300)+30 ]
 		});

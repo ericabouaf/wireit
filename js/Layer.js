@@ -257,14 +257,24 @@ WireIt.Layer.prototype = {
       }
    },
 
+
    /**
     * Remove all the containers in this layer (and the associated terminals and wires)
+    * @method clear
+    */
+   clear: function() {
+		while(this.containers.length > 0) {
+         this.removeContainer(this.containers[0]);
+      }
+   },
+
+   /**
+    * Alias for clear
+    * @deprecated
     * @method removeAllContainers
     */
    removeAllContainers: function() {
-      while(this.containers.length > 0) {
-         this.removeContainer(this.containers[0]);
-      }
+      this.clear();
    },
 
 
@@ -301,7 +311,7 @@ WireIt.Layer.prototype = {
     * @param {Object} wiring layer configuration
     */
    setWiring: function(wiring) {
-      this.removeAllContainers();
+      this.clear();
       
       if(YAHOO.lang.isArray(wiring.containers)) {
          for(var i = 0 ; i < wiring.containers.length ; i++) {
@@ -313,14 +323,6 @@ WireIt.Layer.prototype = {
             this.addWire(wiring.wires[i]);
          }
        }
-   },
-
-   /**
-    * Alias for removeAllContainers
-    * @method clear
-    */
-   clear: function() {
-      this.removeAllContainers();
    },
    
    /**

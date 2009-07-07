@@ -29,8 +29,8 @@ YAHOO.extend(WireIt.ModuleProxy,YAHOO.util.DDProxy, {
     */
    startDrag: function(e) {
       WireIt.ModuleProxy.superclass.startDrag.call(this,e);
-       var del = this.getDragEl();
-       var lel = this.getEl();
+       var del = this.getDragEl(),
+			  lel = this.getEl();
        del.innerHTML = lel.innerHTML;
        del.className = lel.className;
    },
@@ -47,11 +47,11 @@ YAHOO.extend(WireIt.ModuleProxy,YAHOO.util.DDProxy, {
     */
    onDragDrop: function(e, ddTargets) { 
       // The layer is the only target :
-      var layerTarget = ddTargets[0];
-      var layer = ddTargets[0]._layer;
-      var del = this.getDragEl();
-      var pos = YAHOO.util.Dom.getXY(del);
-      var layerPos = YAHOO.util.Dom.getXY(layer.el);
+      var layerTarget = ddTargets[0],
+			 layer = ddTargets[0]._layer,
+			 del = this.getDragEl(),
+			 pos = YAHOO.util.Dom.getXY(del),
+			 layerPos = YAHOO.util.Dom.getXY(layer.el);
       this._WiringEditor.addModule( this._module ,[pos[0]-layerPos[0], pos[1]-layerPos[1]]);
     }
    
@@ -65,7 +65,14 @@ YAHOO.extend(WireIt.ModuleProxy,YAHOO.util.DDProxy, {
  * @param {Object} options
  */
 WireIt.WiringEditor = function(options) {
-   
+	
+	 /**
+	  * Hash object to reference module definitions by their name
+	  * @property modulesByName
+	  * @type {Object}
+	  */
+    this.modulesByName = {};
+
     // set the default options
     this.setOptions(options);
     
@@ -86,6 +93,26 @@ WireIt.WiringEditor = function(options) {
         modal: true
      });
      this.helpPanel.render();
+
+	
+		this.alertPanel = new widget.Panel('WiringEditor-alertPanel', {
+         fixedcenter: true,
+         draggable: true,
+         width: '500px',
+         visible: false,
+         modal: true
+      });
+      this.alertPanel.setHeader("Message");
+      this.alertPanel.setBody("<div id='alertPanelBody'></div>");
+      this.alertPanel.render(document.body);
+		Event.onAvailable('alertPanelBody', function() {
+			var button = WireIt.cn('button', null, null, "Ok");
+			Dom.get('alertPanelBody').appendChild(button);
+			Event.addListener(button,'click', function() {
+				this.alertPanel.hide();
+			}, this, true);
+		}, this, true);
+		
     
     /**
      * @property layout
@@ -100,6 +127,12 @@ WireIt.WiringEditor = function(options) {
      */
     this.layer = new WireIt.Layer(this.options.layerOptions);
 
+	 /**
+	  * @property leftEl
+	  * @type {DOMElement}
+	  */
+    this.leftEl = Dom.get('left');
+
     // Render module list
     this.buildModulesList();
 
@@ -108,10 +141,9 @@ WireIt.WiringEditor = function(options) {
     
     // Properties Form
     this.renderPropertiesForm();
-    
-    // Load Service
-    this.loadSMD();
-    
+
+	 // LoadWirings
+	 this.load();
 };
 
 WireIt.WiringEditor.prototype = {
@@ -130,28 +162,27 @@ WireIt.WiringEditor.prototype = {
     
     // Load the modules from options
     this.modules = options.modules || ([]);
-    this.modulesByName = {};
     for(var i = 0 ; i < this.modules.length ; i++) {
        var m = this.modules[i];
        this.modulesByName[m.name] = m;
     }
 
+	 this.adapter = options.adapter || WireIt.WiringEditor.adapters.JsonRpc;
      
     this.options.languageName = options.languageName || 'anonymousLanguage';
-     
-    this.options.smdUrl = options.smdUrl || 'WiringEditor.smd';
+
     
     this.options.propertiesFields = options.propertiesFields;
     
     this.options.layoutOptions = options.layoutOptions || {
-	        units: [
-	          { position: 'top', height: 50, body: 'top'},
-	          { position: 'left', width: 200, resize: true, body: 'left', gutter: '5px', collapse: true, 
-	            collapseSize: 25, header: 'Modules', scroll: true, animate: true },
-	          { position: 'center', body: 'center', gutter: '5px' },
-	          { position: 'right', width: 320, resize: true, body: 'right', gutter: '5px', collapse: true, 
-	             collapseSize: 25, header: 'Properties', scroll: true, animate: true }
-	        ]
+	 	units: [
+	   	{ position: 'top', height: 50, body: 'top'},
+	      { position: 'left', width: 200, resize: true, body: 'left', gutter: '5px', collapse: true, 
+	        collapseSize: 25, header: 'Modules', scroll: true, animate: true },
+	      { position: 'center', body: 'center', gutter: '5px' },
+	      { position: 'right', width: 320, resize: true, body: 'right', gutter: '5px', collapse: true, 
+	        collapseSize: 25, header: 'Properties', scroll: true, animate: true }
+	   ]
 	};
      
     this.options.layerOptions = {};
@@ -177,20 +208,10 @@ WireIt.WiringEditor.prototype = {
   * @method buildModulesList
   */
  buildModulesList: function() {
-    
-    var left = Dom.get('left');
 
      var modules = this.modules;
      for(var i = 0 ; i < modules.length ; i++) {
-        var module = modules[i];
-        var div = WireIt.cn('div', {className: "WiringEditor-module"});
-        if(module.container.icon) {
-           div.appendChild( WireIt.cn('img',{src: module.container.icon}) );
-        }
-        div.appendChild( WireIt.cn('span', null, null, module.name) );
-        var ddProxy = new WireIt.ModuleProxy(div, this);
-        ddProxy._module = module;
-        left.appendChild(div);
+		  this.addModuleToList(modules[i]);
      }
 
      // Make the layer a drag drop target
@@ -199,6 +220,23 @@ WireIt.WiringEditor.prototype = {
        this.ddTarget._layer = this.layer;
      }
      
+ },
+
+ /**
+  * Add a module definition to the left list
+  */
+ addModuleToList: function(module) {
+	
+		var div = WireIt.cn('div', {className: "WiringEditor-module"});
+      if(module.container.icon) {
+         div.appendChild( WireIt.cn('img',{src: module.container.icon}) );
+      }
+      div.appendChild( WireIt.cn('span', null, null, module.name) );
+
+      var ddProxy = new WireIt.ModuleProxy(div, this);
+      ddProxy._module = module;
+
+      this.leftEl.appendChild(div);
  },
  
  /**
@@ -228,7 +266,7 @@ WireIt.WiringEditor.prototype = {
     newButton.on("click", this.onNew, this, true);
 
     var loadButton = new widget.Button({ label:"Load", id:"WiringEditor-loadButton", container: toolbar });
-    loadButton.on("click", this.onLoad, this, true);
+    loadButton.on("click", this.load, this, true);
 
     var saveButton = new widget.Button({ label:"Save", id:"WiringEditor-saveButton", container: toolbar });
     saveButton.on("click", this.onSave, this, true);
@@ -240,37 +278,6 @@ WireIt.WiringEditor.prototype = {
     helpButton.on("click", this.onHelp, this, true);
  },
 
-
- /**
-  * WiringEditor uses a SMD to connect to the backend
-  * @method loadSMD
-  */
- loadSMD: function() {
-    
-     this.service = new YAHOO.rpc.Service(this.options.smdUrl,{
- 				success: this.onSMDsuccess,
- 				failure: this.onSMDfailure,
- 				scope: this
- 		});
- 		
- },
- 
- /**
-  * callback for loadSMD request
-  * @method onSMDsuccess
-  */
- onSMDsuccess: function() {
-    //console.log("onSMDsuccess",this.service);
- },
- 
- /**
-  * callback for loadSMD request
-  * @method onSMDfailure
-  */
- onSMDfailure: function() { 
-    //console.log("onSMDfailure", this.service);
- },
-
  /**
   * save the current module
   * @method saveModule
@@ -279,12 +286,14 @@ WireIt.WiringEditor.prototype = {
     
     var value = this.getValue();
     
-    if(value.name == "") {
+    if(value.name === "") {
        alert("Please choose a name");
        return;
     }
+
+	this.tempSavedWiring = {name: value.name, working: JSON.stringify(value.working), language: this.options.languageName };
                 
-    this.service.saveWiring({name: value.name, working: JSON.stringify(value.working), language: this.options.languageName }, {
+    this.adapter.saveWiring(this.tempSavedWiring, {
        success: this.saveModuleSuccess,
        failure: this.saveModuleFailure,
        scope: this
@@ -297,7 +306,19 @@ WireIt.WiringEditor.prototype = {
   * @method saveModuleSuccess
   */
  saveModuleSuccess: function(o) {
+
     alert("Saved !");
+
+	 console.log(this.tempSavedWiring);
+	var name = this.tempSavedWiring.name;
+	
+	if(this.modulesByName.hasOwnProperty(name) ) {
+		console.log("already exists !");
+	}
+	else {
+		console.log("new one !");
+	}
+	
  },
 
  /**
@@ -308,6 +329,9 @@ WireIt.WiringEditor.prototype = {
     alert("error while saving! ");
  },
 
+	alert: function() {
+		this.alertPanel.show();
+	},
 
  /**
   * Create a help panel
@@ -321,7 +345,7 @@ WireIt.WiringEditor.prototype = {
   * @method onNew
   */
  onNew: function() {
-    this.layer.removeAllContainers();
+    this.layer.clear();
     
      this.propertiesForm.clear();
  },
@@ -333,7 +357,7 @@ WireIt.WiringEditor.prototype = {
     if( confirm("Are you sure you want to delete this wiring ?") ) {
        
       var value = this.getValue();
- 		this.service.deleteWiring({name: value.name, language: this.options.languageName},{
+ 		this.adapter.deleteWiring({name: value.name, language: this.options.languageName},{
  			success: function(result) {
  				alert("Deleted !");
  			}
@@ -367,6 +391,7 @@ WireIt.WiringEditor.prototype = {
     }
  },
 
+
  /**
   * @method updateLoadPanelList
   */
@@ -396,11 +421,11 @@ WireIt.WiringEditor.prototype = {
  },
 
  /**
-  * @method onLoad
+  * @method load
   */
- onLoad: function() {
+ load: function() {
     
-    this.service.listWirings({language: this.options.languageName},{
+    this.adapter.listWirings({language: this.options.languageName},{
 			success: function(result) {
 				this.pipes = result.result;
 				this.pipesByName = {};
@@ -446,7 +471,7 @@ WireIt.WiringEditor.prototype = {
     var pipe = this.getPipeByName(name), i;
     
     // TODO: check if current pipe is saved...
-    this.layer.removeAllContainers();
+    this.layer.clear();
     
     this.propertiesForm.setValue(pipe.properties);
     
@@ -513,6 +538,51 @@ WireIt.WiringEditor.prototype = {
  }
 
 
+};
+
+
+/**
+ * WiringEditor Adapters
+ * @static
+ */
+WireIt.WiringEditor.adapters = {};
+
+
+
+/**
+ * JsonRpc Adapter (using ajax)
+ * @static 
+ */
+WireIt.WiringEditor.adapters.JsonRpc = {
+	
+	saveWiring: function(val, callbacks) {
+		this._sendJsonRpcRequest("saveWiring", val, callbacks);
+	},
+	
+	deleteWiring: function(val, callbacks) {
+		this._sendJsonRpcRequest("deleteWiring", val, callbacks);
+	},
+	
+	listWirings: function(val, callbacks) {
+		this._sendJsonRpcRequest("listWirings", val, callbacks);
+	},
+	
+	// private method to send a json-rpc request using ajax
+	_sendJsonRpcRequest: function(method, value, callbacks) {
+		var postData = YAHOO.lang.JSON.stringify({"id":(this._requestId++),"method":method,"params":value,"version":"json-rpc-2.0"});
+
+		YAHOO.util.Connect.asyncRequest('POST', '../../backend/php/WiringEditor.php', {
+			success: function(o) {
+				var s = o.responseText,
+					 r = YAHOO.lang.JSON.parse(s);
+			 	callbacks.success.call(callbacks.scope, r);
+			},
+			failure: function() {
+				callbacks.failure.call(callbacks.scope, r);
+			}
+		},postData);
+	},
+	_requestId: 1
 };
 
 })();
