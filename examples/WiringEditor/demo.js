@@ -109,7 +109,19 @@ var demoLanguage = {
 	               			{"name": "FOLLOWUPS", "direction": [0,1], "offsetPosition": {"left": 100, "bottom": -15}}
 	               			]
 	         	}
-	         }
+	         },
+	
+	
+				{
+		         "name": "InOut test",
+		         "container": {
+		      		"xtype":"WireIt.InOutContainer", 
+		      		"icon": "http://dev.tarpipe.com/img/tumblr.png",
+						"inputs": ["text1", "text2", "option1"],
+						"outputs": ["result", "error"]
+		      	}
+		      }
+				
 			]
 
 };

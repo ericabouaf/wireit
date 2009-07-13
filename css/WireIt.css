@@ -80,7 +80,8 @@ div.WireIt-Container-ddhandle {
 	font-size: 10pt;
 } 
 div.WireIt-Container-ddhandle span {
-   margin-right: 32px;
+   /*margin-right: 32px;*/
+	text-align:center;
 }
 
 img.WireIt-Container-icon {
@@ -136,6 +137,19 @@ div.WireIt-ImageContainer div.WireIt-Container-closebutton {
 }
 div.WireIt-ImageContainer:hover div.WireIt-Container-closebutton {
 	display: block;
+}
+
+/**
+ * InOutContainer
+ */
+
+div.WireIt-InOutContainer {	
+	width: 150px;
+}
+
+div.WireIt-InOutContainer div.body {	
+	padding: 5px 10px;
+	font-size: 10pt;
 }
  
 /**
