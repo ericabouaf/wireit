@@ -562,7 +562,7 @@ WireIt.Terminal.prototype = {
       // Create the DIV element
       this.el = WireIt.cn('div', {className: this.options.className} );
       if(this.options.name) { this.el.title = this.options.name; }
-   
+
       // Set the offset position
       var pos = this.options.offsetPosition;
       if(pos) {

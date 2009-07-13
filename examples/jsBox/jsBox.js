@@ -5,7 +5,6 @@ var jsBox = {
    
    language: {
 	   languageName: "jsBox",
-		smdUrl: '../../backend/php/WiringEditor.smd',
 		propertiesFields: [
 			{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
 			{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30} }

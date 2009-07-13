@@ -19,10 +19,10 @@ body {
 }
 
 #top .logo {
-   font-family: cursive;
+   /*font-family: cursive;
+   color:  #3366CC;*/
    font-size: 30px;
    font-weight: bold;
-   color:  #3366CC;
    padding-left: 10px;
    padding-top: 4px;
 }

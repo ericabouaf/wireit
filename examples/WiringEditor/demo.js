@@ -1,16 +1,17 @@
 var demoLanguage = {
 	
+	// Set a unique name for the language
 	languageName: "meltingpotDemo",
-	
-	smdUrl: '../../backend/php/WiringEditor.smd',
 
+	// inputEx fields for pipes properties
 	propertiesFields: [
 		{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
 		{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30} }
 	],
 	
+	// List of node types definition
 	modules: [
-
+	
 	   {
 	      "name": "FormContainer",
 	      "container": {

@@ -5,8 +5,14 @@ To get the latest version, please visit http://javascript.neyric.com/wireit
 Version 0.4.1
 not released yet
 
+TODO:
+	* Layer.onChangeEvt (+implementation in WiringEditor for saved state, + implementation in Layouts)
+
 Changeset:
 
+	* Spring Layout (experimental) (+examples)
+	* Wire mouse events
+	* Adapters for WiringEditor (removed the complicated SMD & YUI-RPC stuff)
 	* Bug fix for wire positioning using FormContainer
 	* Added drawing method 'bezierArrows' (early alpha)
 

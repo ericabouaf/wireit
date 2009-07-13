@@ -18,10 +18,10 @@ ul li {	font-size: 13px;}
 
 #headbar { background-image: url(res/logo-wireit.jpg);	height: 223px; margin: 0;	padding: 0; }
 
-#navigation { position: absolute; margin: 6px 0 0 380px; }
-#navigation li { margin: 0; display: inline; margin-right: 30px;}
-#navigation li a { color: white; text-decoration: none;	font-size: 14px; }
-#navigation li a:hover { color: #cccc33; text-decoration: underline; }
+/*.navigation { }*/
+.navigation li { margin: 0; display: inline; margin-right: 30px;}
+.navigation li a { color: #999999; text-decoration: none;	font-size: 14px; }
+.navigation li a:hover { color: #cccc33; text-decoration: underline; }
 
 #layout { width: 80%; }
 #layout td.left { width: 55%;}
@@ -31,11 +31,11 @@ ul li {	font-size: 13px;}
 p.title { font-weight: bold; font-size: 22px;}
 td.left ul { list-style-image: url(res/star.png); }
 
-div.appBox { width: 100%;  height: 144px; position: relative;  margin-top: 10px; }
-div.appBox p { position: absolute; left: 160px;  top: 10px; 	font-size: 18px; text-decoration: none;}
+div.appBox { width: 100%;  /*height: 144px;*/ position: relative;  margin-top: 10px; }
+div.appBox p { position: absolute; left: 130px;  top: 0px; 	font-size: 18px; text-decoration: none;}
 div.appBox a {text-decoration: none;}
-div.appBox p span {color: #aaa;font-size: 12pt;}
-div.appBox p span.big { color: #ffb73e; font-size: 20pt; font-weight: bold;}
+div.appBox p span {color: #aaa;font-size: 11pt;}
+div.appBox p span.big { color: #ffb73e; font-size: 16pt; font-weight: bold;}
   </style>
 
  </head>
@@ -44,15 +44,21 @@ div.appBox p span.big { color: #ffb73e; font-size: 20pt; font-weight: bold;}
 	
 <div id='headbar'>
 		
-	<ul id="navigation">
+	<ul class="navigation" style=" position: absolute; margin: 6px 0 0 380px;">
 		<li><a href="http://javascript.neyric.com/wireit">Home</a></li>	
 		<li><a href="http://github.com/neyric/wireit/">GitHub[Git]</a></li>
-		<li><a href="http://neyric.lighthouseapp.com/projects/25048-wireit/tickets?q=all">Issues</a></li>
+		<li><a href="http://neyric.lighthouseapp.com/projects/25048-wireit">Issues</a></li>
 		<li><a href="doc/index.html">Documentation</a></li>		
 		<li><a href="http://javascript.neyric.com/blog/category/wireit/">Blog</a> 
 			  <a href="http://javascript.neyric.com/blog/feed/"><img src="doc/rss.png" border="0"/></a></li>	
 		<li><a href="http://groups.google.com/group/wireit/">Forums</a></li>
 	</ul>
+	
+	<div style="position: absolute; top: 80px; left: 750px; font-size: 90%; line-height: 30px;">
+		<img src='http://www.twitter.com/favicon.ico' alt="twitter" /> follow <a href="http://twitter.com/wireit">WireIt on Twitter</a><br />
+		<img src="http://delicious.com/favicon.ico"> bookmark on <a href="http://del.icio.us/url/651a56650c753830645ecf46fb036db6">Del.icio.us</a><br />
+		<img src='http://github.com/favicon.ico' alt="twitter" /> follow <a href="http://github.com/neyric/wireit/tree/master"> on GitHub</a>
+	</div>
 
 </div>
 	
@@ -61,18 +67,11 @@ div.appBox p span.big { color: #ffb73e; font-size: 20pt; font-weight: bold;}
 	<tr>
 		<td class="left">
 			
-		 <p class="title">About</p>
+		 <!--p class="title">About</p-->
 		
-		 <p>&nbsp;&nbsp;&nbsp;WireIt is an open-source javascript library to create <b>web wirable interfaces</b> for <b>dataflow applications</b>, <b>visual programming languages</b> or <b>graphical modeling</b>.</p>
-			
-			 <p>&nbsp;&nbsp;&nbsp;It supports all <a href="http://developer.yahoo.com/yui/articles/gbs/">A-Grade Browsers</a>. Please report your issues with specific browsers in <a href="http://groups.google.com/group/wireit/">the forum</a>.</p>
-			 <p>&nbsp;&nbsp;&nbsp;It uses the <a href="http://developer.yahoo.com/yui/">YUI library</a> (2.7.0) for DOM and events manipulation, and <a href="http://excanvas.sourceforge.net/">excanvas</a> for IE support of the canvas tag.</p>
-		
-			<p class="title">What's new in 0.4 ?</p>
-			<ul>
-				<li>The <a href="examples/WiringEditor/">WiringEditor</a>, a full-blown interface to use <i>visual languages</i>.</li>
-			</ul>
-		 
+		 <p style="font-size: 130%;">WireIt is an open-source javascript library to create <b>web wirable interfaces</b> for <b>dataflow applications</b>, <b>visual programming languages</b>, <b>graphical modeling</b>, or <b>graph editors</b>.</p>
+	
+		<br />
 
 		<center>
 		<div style="width:425px;text-align:left" id="__ss_1057012">
@@ -84,40 +83,49 @@ div.appBox p span.big { color: #ffb73e; font-size: 20pt; font-weight: bold;}
 			</object>
 		</div>
 		</center>
+		
+		
+		 <p class="title">Presentation</p>
+
+			<p>Here are the main component classes (bottom-up order):</p>
+				
+			<ul>
+				<li>Wire - create wires in browsers</li>
+				<li>Terminal - wire endpoints and edition widget</li>
+				<li>Container - general "box" containing one or more terminals</li>
+				<li>Layer - handle multiple containers and wires</li>
+				<li>WiringEditor - single-page editor for your <i>visual language</i>.</li>
+			</ul>
+			
+			<p>Different types of Container are provided :</p>
+			<ul>
+				<li>ImageContainer - use images as graph nodes</li>
+				<li>FormContainer - build form containers based on <a href="http://javascript.neyric.com/inputex/">inputEx</a> forms</li>
+			</ul>
+			
+			<p>You can create your own container by subclassing the base <i>Container</i> class, and still benefit from the drop-in use of the WiringEditor in your web application.</p>
+			
+			<p>The WiringEditor requires a connection to a database to use save/load features. You can customize it using adapters. A default adapter is provided, which uses JSON-RPC through ajax calls, and a PHP/MySQL backend.</p>
+		
+			<p>WireIt supports all <a href="http://developer.yahoo.com/yui/articles/gbs/">A-Grade Browsers</a>. Please report your issues with specific browsers in <a href="http://groups.google.com/group/wireit/">the forum</a>. It uses the <a href="http://developer.yahoo.com/yui/">YUI library</a> (2.7.0) for DOM and events manipulation, and <a href="http://excanvas.sourceforge.net/">excanvas</a> for IE support of the canvas tag.</p>
+		
+		
 
 		 <p class="title">Documentation</p>
 		
-		 <p>&nbsp;&nbsp;&nbsp;WireIt comes with an exhaustive <a href="doc/index.html">API documentation</a> built with <a href="http://developer.yahoo.com/yui/yuidoc/">YUI Doc</a>,<br/> and the following <b>examples</b> :</p>
 		
-			
-			<!-- Learn Wires, Terminals -->
-			 <div class="appBox" style="margin-left: 30px;margin-top: 30px;">
-				<a href="examples/wires_and_terminals.html">
-				<img src="res/demo1.png" class="reflect" border="0" alt="Learn Wires, Terminals"/>
-				<p><span>learn</span><br/><span class="big">Wires, Terminals</span></p>
-				</a>
-			 </div>
-			
-			
-			<!-- Learn Containers, WiringEditor -->
-			 <div class="appBox" style="margin-left: 30px;">
-				<a href="examples/WiringEditor/">
-				<img src="res/wiringEditor.png" class="reflect" border="0" alt="Learn Containers, WiringEditor"/>
-				<p><span>learn</span><br/><span class="big">Containers, WiringEditor</span></p>
-				</a>
-			 </div>
-		
-			<ul>
-				<!--li><b>New:</b> <a href="examples/inputex/">inputEx containers (beta)</a></li>
-				<li><b>New:</b> <a href="examples/WiringEditor/">Wiring Editor (beta)</a></li>
-				<li><b>New:</b> <a href="examples/logicGates/index.html">Logic Gates (show image containers)</a></li>
-				<li><a href="examples/creating_terminals.html">Creating terminals and wires</a></li>
-				<li><a href="examples/changing_directions.html">Changing terminal direction</a></li-->
-				<li><a href="examples/presentation.html">Interactive presentation</a></li>
-				<li><a href="examples/dd_and_animation.html">Using animation</a></li>
-				<li><a href="examples/wire_events.html">Using events</a></li>
+		  	<ul>
+				<li><a href="doc/index.html">API documentation</a> built with <a href="http://developer.yahoo.com/yui/yuidoc/">YUI Doc</a></li>
+				<li><a href="http://wiki.github.com/neyric/wireit">Wiki</a></li>
 			</ul>
-			
+		
+			<p>You can also get some help on the <a href="">forum</a>. Please report your issues or feature request at <a href="http://neyric.lighthouseapp.com/projects/25048-wireit">LightHouse</a>.</p>
+		
+			<p>Deeper hacking into WireIt might require some knowledge in the libraries used :</p>
+			 	<ul>
+					<li><a href="http://javascript.neyric.com/inputex">inputEx documentation</a></li>
+					<li><a href="http://developer.yahoo.com/yui/">YUI documentation</a></li>
+				</ul>
 		
 		</td>
 		
@@ -126,18 +134,85 @@ div.appBox p span.big { color: #ffb73e; font-size: 20pt; font-weight: bold;}
 			
 			<!-- Updates changeset -->
 			<p class="title">Download</p>
-			<p style="text-align:center;font-weight:bold; font-size:15px;background-color:#EEEEEE;-moz-border-radius: 10px; padding: 5px;-webkit-border-radius: 10px;"><a href="http://cloud.github.com/downloads/neyric/wireit/WireIt-0.4.0.zip">Download WireIt 0.4.0</a><br/><span style="font-size: 70%; font-weight: normal;">(WireIt-0.4.0.zip - 7.8MB - <a href="VERSION.txt">changeset</a>)</span></p>
+			
+			<div style="text-align:center;font-weight:bold; font-size:15px;background-color:#EEEEEE;-moz-border-radius: 10px; padding: 10px;-webkit-border-radius: 10px;">
+				<a href="http://cloud.github.com/downloads/neyric/wireit/WireIt-0.4.0.zip">Download WireIt 0.4.0</a><br/>
+				<span style="font-size: 70%; font-weight: normal;">(WireIt-0.4.0.zip - 7.8MB - <a href="VERSION.txt">changeset</a>)</span>
+			</div>
 			
 			<!-- License -->
 			<p>WireIt is released under the <a href="license.txt">MIT License</a>.</p>
 			
 			<p>Clone from <a href="http://github.com/neyric/wireit/">GitHub</a>: <span style="font-size: 80%;">git clone git://github.com/neyric/wireit.git</span></p>
 			
-			<!-- Sponsoring 
+			<p>If you wish to support this project, Donate at PayPal !</p>
 			<center>
-				<p style="margin-bottom: 0;">Sponsored by</p>
-				<a href="http://tarpipe.com/"><img src="res/tarpipe-logo.png" border="0"/></a>
-			</center>-->
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+			<input type="hidden" name="cmd" value="_s-xclick">
+			<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+			">
+			<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+			<img alt="" border="0" src="https://www.paypal.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+			</form>
+			</center>
+			
+			<p class="title">Featured examples</p>
+			
+			<!-- Planar Game -->
+			 <div class="appBox">
+				<a href="examples/planarGame/planarGame.html">
+				<img src="res/planar.gif" class="reflect" border="0" alt="Click to play now !" width="107" height="81" />
+				<p><span>Play the</span><br/><span class="big">Planar Game</span></p>
+				</a>
+			 </div>
+			
+
+			<!-- jsBox -->
+			 <div class="appBox">
+				<a href="examples/jsBox/jsBox.html">
+				<img src="res/jsBox.gif" class="reflect" border="0" alt="Click to try jsBox !"  width="107" height="81" />
+				<p><span>visual javascript demo</span><br/><span class="big">jsBox</span></p>
+				</a>
+			 </div>
+			
+			<!-- logicGates -->
+			 <div class="appBox">
+				<a href="examples/logicGates/index.html">
+				<img src="res/logicGates.png" class="reflect" border="0" alt="Click to try jsBox !"  width="107" height="81" />
+				<p><span>WiringEditor demo</span><br/><span class="big">Logic Gates</span></p>
+				</a>
+			 </div>
+			
+			<!-- Learn Wires, Terminals -->
+			 <div class="appBox">
+				<a href="examples/wires_and_terminals.html">
+				<img src="res/demo1.png" class="reflect" border="0" alt="Learn Wires, Terminals" width="107" height="81" />
+				<p><span>learn</span><br/><span class="big">Wires, Terminals</span></p>
+				</a>
+			 </div>
+
+
+			<!-- Learn Containers, WiringEditor -->
+			 <div class="appBox">
+				<a href="examples/WiringEditor/">
+				<img src="res/wiringEditor.png" class="reflect" border="0" alt="Learn Containers, WiringEditor" width="107" height="81" />
+				<p><span>learn</span><br/><span class="big">Containers, WiringEditor</span></p>
+				</a>
+			 </div>
+			
+			<p>More examples :</p>
+
+				<ul>
+					<li><a href="examples/inputex/">inputEx containers (beta)</a></li>
+					<li><a href="examples/creating_terminals.html">Creating terminals and wires</a></li>
+					<li><a href="examples/changing_directions.html">Changing terminal direction</a></li>
+					<li><a href="examples/presentation.html">Interactive presentation</a></li>
+					<li><a href="examples/dd_and_animation.html">Using animation</a></li>
+					<li><a href="examples/wire_events.html">Wire mouse events</a></li>
+					<li><a href="examples/wire_tooltips.html">Wire context menu</a></li>
+					<li><a href="examples/spring_layout.html">Spring Layout</a></li>
+					<li><a href="examples/dotparser/">Dot parser</a></li>
+				</ul>
 			
 			
 			<p class="title">WireIt-based projects</p>
@@ -147,41 +222,41 @@ div.appBox p span.big { color: #ffb73e; font-size: 20pt; font-weight: bold;}
 				<li><a href="http://graphpipes.de/">Graphpipes</a> - easy way to aggregate semantic data</li>
 			</ul>
 			
-			<p class="title">Applications</p>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="left">
+			<p class="title">Community</p>
 			
-			<!-- Planar Game -->
-			 <div class="appBox">
-				<a href="examples/planarGame/planarGame.html">
-				<img src="res/planar.gif" class="reflect" border="0" alt="Click to play now !"/>
-				<p><span>Play the</span><br/><span class="big">Planar Game</span></p>
-				</a>
-			 </div>
-			
-
-			<!-- jsBox -->
-			 <div class="appBox">
-				<a href="examples/jsBox/jsBox.html">
-				<img src="res/jsBox.gif" class="reflect" border="0" alt="Click to try jsBox !"/>
-				<p><span>visual javascript demo</span><br/><span class="big">jsBox</span></p>
-				</a>
-			 </div>
-			
-			<!-- logicGates -->
-			 <div class="appBox">
-				<a href="examples/logicGates/index.html">
-				<img src="res/logicGates.png" class="reflect" border="0" alt="Click to try jsBox !"/>
-				<p><span>WiringEditor demo</span><br/><span class="big">Logic Gates</span></p>
-				</a>
-			 </div>
-
-			<img src='http://www.twitter.com/favicon.ico' alt="twitter" /> Follow <a href="http://twitter.com/wireit">WireIt on Twitter</a><br /><br />
-			<img src="http://delicious.com/favicon.ico"> Bookmarks on <a href="http://del.icio.us/url/651a56650c753830645ecf46fb036db6">Del.icio.us</a><br /><br />
-			<img src='http://github.com/favicon.ico' alt="twitter" /> Follow <a href="http://github.com/neyric/wireit/tree/master"> on Github</a>
-			
+			<div style="width: 400px; margin: 0 auto;">
+				<!-- WireIt Blog -->
+				<script src="http://pipes.yahoo.com/js/listbadge.js">{"pipe_id":"LobH_yRv3hGeK14sIDfpSg","_btype":"list"}</script>
+			</div>
+		</td>
+		<td class="right">
+			<div style="width: 400px; margin-top: 70px;">
+				<!-- WireIt Forum -->
+				<script src="http://pipes.yahoo.com/js/listbadge.js">{"pipe_id":"9rzgvyVv3hG33WbbU1y0Jw","_btype":"list"}</script>
+			</div>
 		</td>
 	</tr>
 </table>
-<p style="font-size: 8pt;">Copyright (c) 2007-2009 <a href="http://javascript.neyric.com/">Eric Abouaf</a></p>
+
+<div style="font-size: 8pt; color: #999999; background-color: #222222; border-top: 2px solid black; padding: 10px; margin-top: 20px;">
+	
+	<ul class="navigation">
+		<li><a href="http://javascript.neyric.com/wireit">Home</a></li>	
+		<li><a href="http://github.com/neyric/wireit/">GitHub[Git]</a></li>
+		<li><a href="http://neyric.lighthouseapp.com/projects/25048-wireit">Issues</a></li>
+		<li><a href="doc/index.html">Documentation</a></li>		
+		<li><a href="http://javascript.neyric.com/blog/category/wireit/">Blog</a></a></li>	
+		<li><a href="http://groups.google.com/group/wireit/">Forums</a></li>
+	</ul>
+	
+	<p style="font-size: 90%; margin-top: 20px;">Rails is released under the <a href="license.txt" style="color: white;">MIT license</a>.</p>
+</div>
+
 </center>
 
 <script type="text/javascript">
