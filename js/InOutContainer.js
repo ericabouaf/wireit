@@ -43,8 +43,7 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
 				"ddConfig": {
              	"type": "input",
              	"allowedTypes": ["output"]
-          	},
-				"alwaysSrc": true
+          	}
  			});
 			this.bodyEl.appendChild(WireIt.cn('div', null, {lineHeight: "30px"}, input));
 		}
@@ -58,7 +57,8 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
 				"ddConfig": {
              "type": "output",
              "allowedTypes": ["input"]
-          	}
+          	},
+				"alwaysSrc": true
 			});
 			this.bodyEl.appendChild(WireIt.cn('div', null, {lineHeight: "30px", textAlign: "right"}, output));
 		}
