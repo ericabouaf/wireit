@@ -126,48 +126,53 @@ jsBox.WiringEditor = function(options) {
 
 YAHOO.lang.extend(jsBox.WiringEditor, WireIt.WiringEditor, {
    
-   /**
-    * Update the module list right after loading the SMD
-    */
-   onSMDsuccess: function() {
-      
-      this.service.listWirings({language: this.options.languageName},{
-   			success: function(result) {
-   				this.pipes = result.result;
-   				this.pipesByName = {};
-   				this.renderLoadPanel();
-               this.updateLoadPanelList();
-               //this.loadPanel.show();
-   			},
-   			scope: this
-   	});
-   },
-   
    
    /**
     * Add the "run" button
     */
    renderButtons: function() {
       jsBox.WiringEditor.superclass.renderButtons.call(this);
+
+		// Add the run button
       var toolbar = YAHOO.util.Dom.get('toolbar');
       var runButton = new YAHOO.widget.Button({ label:"Run", id:"WiringEditor-runButton", container: toolbar });
       runButton.on("click", jsBox.run, jsBox, true);
    },
-   
-   /**
-    * Overwrite updateLoadPanelList to add Composed modules to the module list
-    */
-   updateLoadPanelList: function() { 
-      try {
-       var left = YAHOO.util.Dom.get('left');
-       var list = WireIt.cn("ul");
-       if(YAHOO.lang.isArray(this.pipes)) {
-          for(var i = 0 ; i < this.pipes.length ; i++) {
-             var module = this.pipes[i];
 
-             this.pipesByName[module.name] = module;
-             
-             // Add the module to the list
+
+	load: function() {
+
+	    this.adapter.listWirings({language: this.options.languageName},{
+				success: function(result) {
+					this.pipes = result.result;
+					this.pipesByName = {};
+					this.renderLoadPanel();
+	            this.updateLoadPanelList();
+	            this.loadPanel.show();
+	
+					//  Customize to display composed module in the left list
+					this.updateComposedModuleList();
+				},
+				scope: this
+			}
+			);
+
+	 },
+	
+	
+	updateComposedModuleList: function() {
+		
+		var l = YAHOO.util.Dom.getElementsByClassName("ComposedModule", "div", this.leftEl);
+		for(var i = 0 ; i < l.length ; i++) {
+			this.leftEl.removeChild(l[i]);
+		}
+		
+		if(YAHOO.lang.isArray(this.pipes)) {
+	       for(i = 0 ; i < this.pipes.length ; i++) {
+	          var module = this.pipes[i];
+	          this.pipesByName[module.name] = module;
+	
+				// Add the module to the list
              var div = WireIt.cn('div', {className: "WiringEditor-module ComposedModule"});
              div.appendChild( WireIt.cn('span', null, null, module.name) );
              var ddProxy = new WireIt.ModuleProxy(div, this);
@@ -178,27 +183,13 @@ YAHOO.lang.extend(jsBox.WiringEditor, WireIt.WiringEditor, {
                    "title": module.name
                 }
              };
-             left.appendChild(div);
-               
+             this.leftEl.appendChild(div);
 
-             var li = WireIt.cn('li',null,{cursor: 'pointer'},module.name);
-             YAHOO.util.Event.addListener(li, 'click', function(e,args) {
-                try {
-                   this.loadPipe(YAHOO.util.Event.getTarget(e).innerHTML);
-                }
-                catch(ex) {
-                   console.log(ex);
-                }
-             }, this, true);
-             list.appendChild(li);
-          }
-       }
-       var panelBody = YAHOO.util.Dom.get('loadPanelBody');
-       panelBody.innerHTML = "";
-       panelBody.appendChild(list);
-       
-      }catch(ex){console.log(ex);}
-    }
+	       }
+	    }
+	
+	}
+	
    
 });
 

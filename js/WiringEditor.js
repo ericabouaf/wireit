@@ -93,26 +93,7 @@ WireIt.WiringEditor = function(options) {
         modal: true
      });
      this.helpPanel.render();
-
 	
-		this.alertPanel = new widget.Panel('WiringEditor-alertPanel', {
-         fixedcenter: true,
-         draggable: true,
-         width: '500px',
-         visible: false,
-         modal: true
-      });
-      this.alertPanel.setHeader("Message");
-      this.alertPanel.setBody("<div id='alertPanelBody'></div>");
-      this.alertPanel.render(document.body);
-		Event.onAvailable('alertPanelBody', function() {
-			var button = WireIt.cn('button', null, null, "Ok");
-			Dom.get('alertPanelBody').appendChild(button);
-			Event.addListener(button,'click', function() {
-				this.alertPanel.hide();
-			}, this, true);
-		}, this, true);
-		
     
     /**
      * @property layout
@@ -126,6 +107,7 @@ WireIt.WiringEditor = function(options) {
      * @type {WireIt.Layer}
      */
     this.layer = new WireIt.Layer(this.options.layerOptions);
+	 this.layer.eventChanged.subscribe(this.onLayerChanged, this, true);
 
 	 /**
 	  * @property leftEl
@@ -170,7 +152,6 @@ WireIt.WiringEditor.prototype = {
 	 this.adapter = options.adapter || WireIt.WiringEditor.adapters.JsonRpc;
      
     this.options.languageName = options.languageName || 'anonymousLanguage';
-
     
     this.options.propertiesFields = options.propertiesFields;
     
@@ -287,7 +268,7 @@ WireIt.WiringEditor.prototype = {
     var value = this.getValue();
     
     if(value.name === "") {
-       alert("Please choose a name");
+       this.alert("Please choose a name");
        return;
     }
 
@@ -307,7 +288,7 @@ WireIt.WiringEditor.prototype = {
   */
  saveModuleSuccess: function(o) {
 
-    alert("Saved !");
+    this.alert("Saved !");
 
 	 console.log(this.tempSavedWiring);
 	var name = this.tempSavedWiring.name;
@@ -326,10 +307,12 @@ WireIt.WiringEditor.prototype = {
   * @method saveModuleFailure
   */
  saveModuleFailure: function(o) {
-    alert("error while saving! ");
+    this.alert("error while saving! ");
  },
 
-	alert: function() {
+	alert: function(txt) {
+		if(!this.alertPanel){ this.renderAlertPanel(); }
+		Dom.get('alertPanelBody').innerHTML = txt;
 		this.alertPanel.show();
 	},
 
@@ -345,9 +328,12 @@ WireIt.WiringEditor.prototype = {
   * @method onNew
   */
  onNew: function() {
-    this.layer.clear();
-    
-     this.propertiesForm.clear();
+	this.preventLayerChangedEvent = true;
+	
+   this.layer.clear(); 
+   this.propertiesForm.clear();
+
+	this.preventLayerChangedEvent = false;
  },
 
  /**
@@ -359,8 +345,10 @@ WireIt.WiringEditor.prototype = {
       var value = this.getValue();
  		this.adapter.deleteWiring({name: value.name, language: this.options.languageName},{
  			success: function(result) {
- 				alert("Deleted !");
- 			}
+				this.onNew();
+ 				this.alert("Deleted !");
+ 			},
+			scope: this
  		});
        
     }
@@ -386,38 +374,56 @@ WireIt.WiringEditor.prototype = {
           modal: true
        });
        this.loadPanel.setHeader("Select module");
-       this.loadPanel.setBody("<div id='loadPanelBody'></div>");
+       this.loadPanel.setBody("Search: <input type='text' id='loadFilter' /><div id='loadPanelBody'></div>");
        this.loadPanel.render(document.body);
+
+		// Listen the keyup event to filter the module list
+		Event.onAvailable('loadFilter', function() {
+			Event.addListener('loadFilter', "keyup", this.inputFilterTimer, this, true);
+		}, this, true);
+
     }
  },
+
+	/**
+	 * Method called from each keyup on the search filter in load panel.
+	 * The real filtering occurs only after 500ms so that the filter process isn't called too often
+	 */
+	inputFilterTimer: function() {
+		if(this.inputFilterTimeout) {
+			clearTimeout(this.inputFilterTimeout);
+			this.inputFilterTimeout = null;
+		}
+		var that = this;
+		this.inputFilterTimeout = setTimeout(function() {
+				that.updateLoadPanelList(Dom.get('loadFilter').value);
+		}, 500);
+	},
 
 
  /**
   * @method updateLoadPanelList
   */
- updateLoadPanelList: function() {
+ updateLoadPanelList: function(filter) {
+	
     var list = WireIt.cn("ul");
     if(lang.isArray(this.pipes)) {
        for(var i = 0 ; i < this.pipes.length ; i++) {
           var module = this.pipes[i];
-          
           this.pipesByName[module.name] = module;
-          
-          var li = WireIt.cn('li',null,{cursor: 'pointer'},module.name);
-          Event.addListener(li, 'click', function(e,args) {
-             try {
-                this.loadPipe(Event.getTarget(e).innerHTML);
-             }
-             catch(ex) {
-                console.log(ex);
-             }
-          }, this, true);
-          list.appendChild(li);
+          if(!filter || filter === "" || module.name.match(new RegExp(filter,"i")) ) {
+	          list.appendChild( WireIt.cn('li',null,{cursor: 'pointer'},module.name) );
+			}
        }
     }
     var panelBody = Dom.get('loadPanelBody');
     panelBody.innerHTML = "";
     panelBody.appendChild(list);
+
+    Event.addListener(list, 'click', function(e,args) {
+    	this.loadPipe(Event.getTarget(e).innerHTML);
+    }, this, true);
+
  },
 
  /**
@@ -429,6 +435,7 @@ WireIt.WiringEditor.prototype = {
 			success: function(result) {
 				this.pipes = result.result;
 				this.pipesByName = {};
+				
 				this.renderLoadPanel();
             this.updateLoadPanelList();
             this.loadPanel.show();
@@ -468,6 +475,13 @@ WireIt.WiringEditor.prototype = {
   * @param {String} name Pipe name
   */
  loadPipe: function(name) {
+	
+	try {
+	
+		this.preventLayerChangedEvent = true;
+	
+     this.loadPanel.hide();
+	
     var pipe = this.getPipeByName(name), i;
     
     // TODO: check if current pipe is saved...
@@ -502,9 +516,52 @@ WireIt.WiringEditor.prototype = {
         }
      }
      
-     this.loadPanel.hide();
+
+	this.preventLayerChangedEvent = true;
+	
+  	}
+  	catch(ex) {
+     	this.alert(ex);
+  	}
  },
- 
+
+ 	renderAlertPanel: function() {
+		
+ 	 /**
+     * @property alertPanel
+     * @type {YAHOO.widget.Panel}
+     */
+		this.alertPanel = new widget.Panel('WiringEditor-alertPanel', {
+         fixedcenter: true,
+         draggable: true,
+         width: '500px',
+         visible: false,
+         modal: true
+      });
+      this.alertPanel.setHeader("Message");
+      this.alertPanel.setBody("<div id='alertPanelBody'></div><button id='alertPanelButton'>Ok</button>");
+      this.alertPanel.render(document.body);
+		Event.addListener('alertPanelButton','click', function() {
+			this.alertPanel.hide();
+		}, this, true);
+	},
+
+
+	onLayerChanged: function() {
+		if(!this.preventLayerChangedEvent) {
+			console.log("layer changed !");
+			this.markUnsaved();
+		}
+	},
+
+	markSaved: function() {
+		
+	},
+	
+	markUnsaved: function() {
+		
+	},
+
  
  /**
   * This method return a wiring within the given vocabulary described by the modules list
@@ -555,6 +612,10 @@ WireIt.WiringEditor.adapters = {};
  */
 WireIt.WiringEditor.adapters.JsonRpc = {
 	
+	config: {
+		url: '../../backend/php/WiringEditor.php'
+	},
+	
 	saveWiring: function(val, callbacks) {
 		this._sendJsonRpcRequest("saveWiring", val, callbacks);
 	},
@@ -571,7 +632,7 @@ WireIt.WiringEditor.adapters.JsonRpc = {
 	_sendJsonRpcRequest: function(method, value, callbacks) {
 		var postData = YAHOO.lang.JSON.stringify({"id":(this._requestId++),"method":method,"params":value,"version":"json-rpc-2.0"});
 
-		YAHOO.util.Connect.asyncRequest('POST', '../../backend/php/WiringEditor.php', {
+		YAHOO.util.Connect.asyncRequest('POST', this.config.url, {
 			success: function(o) {
 				var s = o.responseText,
 					 r = YAHOO.lang.JSON.parse(s);

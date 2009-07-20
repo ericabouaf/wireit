@@ -1,7 +1,7 @@
 /*
 Distributed under the MIT License :
 
-Copyright (c) 2007-2008, Eric Abouaf <neyric@via.ecp.fr>
+Copyright (c) 2007-2009, Eric Abouaf <eric.abouaf at gmail>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

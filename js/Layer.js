@@ -29,7 +29,13 @@ WireIt.Layer = function(options) {
     * @type {HTMLElement}
     */
    this.el = null;
-   
+
+	/**
+    * Event that is fired when the layer has been changed
+    * You can register this event with myTerminal.eventChanged.subscribe(function(e,params) { }, scope);
+    * @event eventChanged
+    */
+   this.eventChanged = new YAHOO.util.CustomEvent("eventChanged");
    
    /**
     * Event that is fired when a wire is added
@@ -44,7 +50,6 @@ WireIt.Layer = function(options) {
     * @event eventRemoveWire
     */
    this.eventRemoveWire = new YAHOO.util.CustomEvent("eventRemoveWire");
-   
    
    /**
     * Event that is fired when a container is added
@@ -73,7 +78,6 @@ WireIt.Layer = function(options) {
     * @event eventContainerResized
     */
    this.eventContainerResized = new YAHOO.util.CustomEvent("eventContainerResized");
-   
    
    this.render();
    
@@ -190,15 +194,19 @@ WireIt.Layer.prototype = {
       if(container.ddResize) {
          container.ddResize.on('endDragEvent', function() {
             this.eventContainerResized.fire(container);
+				this.eventChanged.fire(this);
          }, this, true);
       }
       if(container.dd) {
          container.dd.on('endDragEvent', function() {
             this.eventContainerDragged.fire(container);
+				this.eventChanged.fire(this);
          }, this, true);
       }
    
       this.eventAddContainer.fire(container);
+
+		this.eventChanged.fire(this);
    
       return container;
    },
@@ -216,6 +224,8 @@ WireIt.Layer.prototype = {
          this.containers = WireIt.compact(this.containers);
       
          this.eventRemoveContainer.fire(container);
+
+			this.eventChanged.fire(this);
       }
    },
 
@@ -238,6 +248,9 @@ WireIt.Layer.prototype = {
          
          // Re-Fire an event at the layer level
          this.eventAddWire.fire(wire);
+
+			// Fire the layer changed event
+			this.eventChanged.fire(this);
       }
    },
 
@@ -254,6 +267,7 @@ WireIt.Layer.prototype = {
          this.wires[index] = null;
          this.wires = WireIt.compact(this.wires);
          this.eventRemoveWire.fire(wire);
+			this.eventChanged.fire(this);
       }
    },
 

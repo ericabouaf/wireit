@@ -5,39 +5,12 @@
   <title>WireIt - a Javascript Wiring Library</title>
 	<meta name="author" content="Eric Abouaf" />
 	<meta name="copyright" content="Copyright 2006-2009 Eric Abouaf" />
-	<meta name="keywords" content="wireit,javascript,library,pipes,visualization,yui,programming,canvas,wire,wires,framework" />
+	<meta name="keywords" content="wireit,javascript,library,pipes,visualization,yui,programming,canvas,wire,wires,framework,webdev,ajax,ui,web,graphics,graph,graphs,opensource,tools" />
 	<meta name="description" content="WireIt is an open-source javascript library to create web wirable interfaces for dataflow applications, visual programming languages or graphical modeling." />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="alternate" type="application/rss+xml" title="WireIt blog" href="http://javascript.neyric.com/blog/feed/" />
 	<link rel="shortcut icon" type="images/x-icon" href="res/favicon.ico" />
-  <style>
-
-body { background-color: white; margin: 0; padding: 0; font-family:"Trebuchet MS",Helvetica,Arial,Verdana; font-size: 13px; }
-p {	font-size: 13px; }
-ul li {	font-size: 13px;}
-
-#headbar { background-image: url(res/logo-wireit.jpg);	height: 223px; margin: 0;	padding: 0; }
-
-/*.navigation { }*/
-.navigation li { margin: 0; display: inline; margin-right: 30px;}
-.navigation li a { color: #999999; text-decoration: none;	font-size: 14px; }
-.navigation li a:hover { color: #cccc33; text-decoration: underline; }
-
-#layout { width: 80%; }
-#layout td.left { width: 55%;}
-#layout td.right { width: 45%;}
-#layout td.left, #layout td.right { padding: 15px 30px; vertical-align: top; }
-
-p.title { font-weight: bold; font-size: 22px;}
-td.left ul { list-style-image: url(res/star.png); }
-
-div.appBox { width: 100%;  /*height: 144px;*/ position: relative;  margin-top: 10px; }
-div.appBox p { position: absolute; left: 130px;  top: 0px; 	font-size: 18px; text-decoration: none;}
-div.appBox a {text-decoration: none;}
-div.appBox p span {color: #aaa;font-size: 11pt;}
-div.appBox p span.big { color: #ffb73e; font-size: 16pt; font-weight: bold;}
-  </style>
-
+	<link rel="stylesheet" type="text/css" href="res/style.css" />
  </head>
 
  <body>
@@ -48,7 +21,8 @@ div.appBox p span.big { color: #ffb73e; font-size: 16pt; font-weight: bold;}
 		<li><a href="http://javascript.neyric.com/wireit">Home</a></li>	
 		<li><a href="http://github.com/neyric/wireit/">GitHub[Git]</a></li>
 		<li><a href="http://neyric.lighthouseapp.com/projects/25048-wireit">Issues</a></li>
-		<li><a href="doc/index.html">Documentation</a></li>		
+		<li><a href="guide.html">Guide</a></li>		
+		<li><a href="doc/index.html">API Documentation</a></li>		
 		<li><a href="http://javascript.neyric.com/blog/category/wireit/">Blog</a> 
 			  <a href="http://javascript.neyric.com/blog/feed/"><img src="doc/rss.png" border="0"/></a></li>	
 		<li><a href="http://groups.google.com/group/wireit/">Forums</a></li>
@@ -99,8 +73,9 @@ div.appBox p span.big { color: #ffb73e; font-size: 16pt; font-weight: bold;}
 			
 			<p>Different types of Container are provided :</p>
 			<ul>
-				<li>ImageContainer - use images as graph nodes</li>
+				<li>InOutContainer - simple module with named inputs and outputs</li>
 				<li>FormContainer - build form containers based on <a href="http://javascript.neyric.com/inputex/">inputEx</a> forms</li>
+				<li>ImageContainer - use images as graph nodes</li>
 			</ul>
 			
 			<p>You can create your own container by subclassing the base <i>Container</i> class, and still benefit from the drop-in use of the WiringEditor in your web application.</p>
@@ -115,6 +90,7 @@ div.appBox p span.big { color: #ffb73e; font-size: 16pt; font-weight: bold;}
 		
 		
 		  	<ul>
+				<li><a href="guide.html">WireIt's Guide</a> - the ultimate ressource</li>
 				<li><a href="doc/index.html">API documentation</a> built with <a href="http://developer.yahoo.com/yui/yuidoc/">YUI Doc</a></li>
 				<li><a href="http://wiki.github.com/neyric/wireit">Wiki</a></li>
 			</ul>
@@ -132,10 +108,8 @@ div.appBox p span.big { color: #ffb73e; font-size: 16pt; font-weight: bold;}
 		<!-- Right Column -->
 		<td class="right">
 			
-			<!-- Updates changeset -->
-			<p class="title">Download</p>
-			
-			<div style="text-align:center;font-weight:bold; font-size:15px;background-color:#EEEEEE;-moz-border-radius: 10px; padding: 10px;-webkit-border-radius: 10px;">
+			<!-- Download -->
+			<div style="text-align:center;font-weight:bold; font-size:17px;background-color:#EEEEEE;-moz-border-radius: 10px; padding: 10px;-webkit-border-radius: 10px;">
 				<a href="http://cloud.github.com/downloads/neyric/wireit/WireIt-0.4.0.zip">Download WireIt 0.4.0</a><br/>
 				<span style="font-size: 70%; font-weight: normal;">(WireIt-0.4.0.zip - 7.8MB - <a href="VERSION.txt">changeset</a>)</span>
 			</div>
@@ -250,12 +224,13 @@ div.appBox p span.big { color: #ffb73e; font-size: 16pt; font-weight: bold;}
 		<li><a href="http://javascript.neyric.com/wireit">Home</a></li>	
 		<li><a href="http://github.com/neyric/wireit/">GitHub[Git]</a></li>
 		<li><a href="http://neyric.lighthouseapp.com/projects/25048-wireit">Issues</a></li>
-		<li><a href="doc/index.html">Documentation</a></li>		
+		<li><a href="guide.html">Guide</a></li>	
+		<li><a href="doc/index.html">API Documentation</a></li>		
 		<li><a href="http://javascript.neyric.com/blog/category/wireit/">Blog</a></a></li>	
 		<li><a href="http://groups.google.com/group/wireit/">Forums</a></li>
 	</ul>
 	
-	<p style="font-size: 90%; margin-top: 20px;">Rails is released under the <a href="license.txt" style="color: white;">MIT license</a>.</p>
+	<p style="font-size: 90%; margin-top: 20px;">WireIt is released under the <a href="license.txt" style="color: white;">MIT license</a>.</p>
 </div>
 
 </center>
