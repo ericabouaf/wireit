@@ -32,7 +32,12 @@
 
 div.WireIt-Terminal {
 	background-image: none;
-	cursor: move;
+	width: 0px;
+	height: 0px;
+}
+
+div.WireIt-Container {
+	width: 90px
 }
 
 </style>
@@ -57,7 +62,7 @@ run = function(graph) {
 	layer = new WireIt.Layer({});
 	for(var i = 0 ; i < graph.nodes.length ; i++) {
 		layer.addContainer({
-			terminals: [ { offsetPosition: {bottom: 5, left: 25}, editable: false }],
+			terminals: [ { offsetPosition: {bottom: 34, left: 25}, editable: false }],
 			title: graph.nodes[i],
 			position: [ Math.floor(Math.random()*800)+30, Math.floor(Math.random()*300)+30 ],
 			close: false

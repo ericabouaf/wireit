@@ -107,9 +107,6 @@ DotParser = (function() {
 		
 		graph();
 		
-		//console.log(this._graph);
-		//console.log(this._log);
-		
 		return _graph;
 	}
 	
@@ -148,9 +145,23 @@ DotParser = (function() {
 	}
 	
 	
-	function stmt_list() { stmt(); stmt_list1(); }
-	function stmt_list1() {  while( tokenizer.recoA(";") ) { stmt(); } }
-	function stmt () { if(tokenizer.reco('}')) return;	_graph.edges.push( edge_stmt() ); }
+	function stmt_list() { 
+		stmt(); 
+		stmt_list1(); 
+	}
+	
+	function stmt_list1() {  
+		while( tokenizer.recoA(";") ) { 
+			stmt(); 
+		} 
+	}
+	
+	function stmt () { 
+		if(tokenizer.reco('}')) {
+			return;
+		} 
+		_graph.edges.push( edge_stmt() ); 
+	}
 	
 	function edge_stmt() {
 		return {
@@ -167,8 +178,6 @@ DotParser = (function() {
 		}
 		return id;
 	}
-
-	
 	
 	return {
 		parse: parse
