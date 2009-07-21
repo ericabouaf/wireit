@@ -1,29 +1,3 @@
-WireIt installation
---------------------
+see guide.html in a web browser
 
-WireIt is mostly a bunch of static files.
-
-	* download the latest WireIt zip (from http://javascript.neyric.com/wireit)
-		or
-	  clone the WireIt repository (http://github.com/neyric/wireit/tree/master)
-	
-	* Copy the following directory structure to your project's library directory:
-
-	wireit/
- 	 - build/
- 	 - css/
- 	 - images/
- 	 - js/
- 	 - lib/
-
-
-WiringEditor installation
--------------------------
-
- (PHP only yet, but you can add your own !)
-
-	* Configure the backend:
-	  	* copy the backend/php directory to your wireit directory
-		* edit the script with your database access config (backend/php/WiringEditor.php)
-		* make sure the backend files are accessible by your webserver and that the php module is loaded 
-
+or go to http://javascript.neyric.com/wireit/guide.html

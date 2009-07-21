@@ -32,7 +32,7 @@ WireIt.WiringEditor.adapters.JsonRpc = {
 			success: function(o) {
 				var s = o.responseText,
 					 r = YAHOO.lang.JSON.parse(s);
-			 	callbacks.success.call(callbacks.scope, r);
+			 	callbacks.success.call(callbacks.scope, r.result);
 			},
 			failure: function() {
 				callbacks.failure.call(callbacks.scope, r);

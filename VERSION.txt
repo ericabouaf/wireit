@@ -7,30 +7,47 @@ not released yet
 
 Current:
 	* Layer.onChangeEvt (+implementation in WiringEditor for saved state, + implementation in Layouts to reinit the layout)
+	* Wire Labels
+	* Default language propertiesForm (guide + examples)
+	* document autoload feature
 
 TODO:
 
-	* Guide
-	* Do Ajax + REST adapter
+	* Adapters:
+		* Ajax (3 different actions)
+		* REST
+		* XML REST Adapter
+	* BUG: WiringEditor: Containers are mispositionned when the layer is scrolled
 	* BUG: jsBox: form values in input fields are overriden !!
-	* Autoload in WiringEditor: example, si http://.../editor/?name=test/math => charger "test/math"
-	* Default language propertiesForm
-	* Provide XML Adapter using REST Adapter
-	* Gears adapter if no backend usable
+	* BUG: jsBox should be broken (because of autoload)
 	* BUG: if terminal not visible, give the offset of the first parent DOM element visible
 	
-LATER
+Before release:
 
+	* API Doc
+	* Rollup files for wireit-base and wiringEditor	
+	* Presentation 
+	
+Later:
 	* Uneditable layer
-	* Only one cissor
+	*
 
 Changeset:
 
-	* filter box in load panel
+	* WiringEditor:
+		* AccordionView on right panel
+		* filter box in load panel
+		* alert panel
+		* Autoload: example, http://.../editor/?autoload=myWiring  autoloads the "myWiring" layout
+		* Adapters: (removed the complicated SMD & YUI-RPC stuff)
+			* JSON-RPC (the old adapter)
+			* Gears (if no backend usable)
+			
+	* WireIt Guide
+	* Show only one scissor at a time
 	* InOutContainer
 	* Spring Layout (experimental) (+examples)
 	* Wire mouse events
-	* Adapters for WiringEditor (removed the complicated SMD & YUI-RPC stuff)
 	* Bug fix for wire positioning using FormContainer
 	* Added drawing method 'bezierArrows' (early alpha)
 

@@ -25,6 +25,7 @@
       
       this.initScissors();
    };
+	WireIt.Scissors.visibleInstance = null;
    lang.extend(WireIt.Scissors, util.Element, {
       
       /**
@@ -81,6 +82,13 @@
       show: function() {
          this.setPosition();
          this.setStyle('display','');
+			
+			if(WireIt.Scissors.visibleInstance && WireIt.Scissors.visibleInstance != this) {
+				if(WireIt.Scissors.visibleInstance.terminalTimeout) { WireIt.Scissors.visibleInstance.terminalTimeout.cancel(); }
+				WireIt.Scissors.visibleInstance.hideNow(); 
+			}
+			WireIt.Scissors.visibleInstance = this;
+			
          if(this.terminalTimeout) { this.terminalTimeout.cancel(); }
       },
       /**
@@ -93,6 +101,7 @@
        * @method hideNow
        */
       hideNow: function() {
+			WireIt.Scissors.visibleInstance = null;
          this.setStyle('display','none');
       }
 

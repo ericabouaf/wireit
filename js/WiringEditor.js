@@ -159,7 +159,10 @@ WireIt.WiringEditor.prototype = {
      
     this.options.languageName = options.languageName || 'anonymousLanguage';
     
-    this.options.propertiesFields = options.propertiesFields;
+    this.options.propertiesFields = options.propertiesFields || [
+		{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
+		{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30, rows: 4} }
+	 ];
     
     this.options.layoutOptions = options.layoutOptions || {
 	 	units: [
@@ -256,7 +259,7 @@ WireIt.WiringEditor.prototype = {
        Dom.addClass(container.el, "WiringEditor-module-"+module.name);
     }
     catch(ex) {
-       console.log("Error Layer.addContainer", ex.message);
+       this.alert("Error Layer.addContainer: "+ ex.message);
     }    
  },
 
@@ -314,14 +317,14 @@ WireIt.WiringEditor.prototype = {
 
     this.alert("Saved !");
 
-	 console.log(this.tempSavedWiring);
+	 //console.log(this.tempSavedWiring);
 	var name = this.tempSavedWiring.name;
 	
 	if(this.modulesByName.hasOwnProperty(name) ) {
-		console.log("already exists !");
+		//console.log("already exists !");
 	}
 	else {
-		console.log("new one !");
+		//console.log("new one !");
 	}
 	
  },
@@ -457,19 +460,41 @@ WireIt.WiringEditor.prototype = {
     
     this.adapter.listWirings({language: this.options.languageName},{
 			success: function(result) {
-				this.pipes = result.result;
-				this.pipesByName = {};
-				
-				this.renderLoadPanel();
-            this.updateLoadPanelList();
-            this.loadPanel.show();
+				this.onLoadSuccess(result);
 			},
 			scope: this
 		}
 		);
 
  },
- 
+
+ /**
+  * @method onLoadSuccess
+  */
+ onLoadSuccess: function(wirings) {
+		this.pipes = wirings;
+		this.pipesByName = {};
+		
+		this.renderLoadPanel();
+    	this.updateLoadPanelList();
+
+		if(!this.afterFirstRun) {
+			var p = window.location.search.substr(1).split('&');
+			var oP = {};
+			for(var i = 0 ; i < p.length ; i++) {
+				var v = p[i].split('=');
+				oP[v[0]]=window.decodeURIComponent(v[1]);
+			}
+			this.afterFirstRun = true;
+			if(oP.autoload) {
+				this.loadPipe(oP.autoload);
+				return;
+			}
+		}
+
+    this.loadPanel.show();
+	},
+
  /**
   * @method getPipeByName
   * @param {String} name Pipe's name
@@ -485,7 +510,7 @@ WireIt.WiringEditor.prototype = {
              return ret;
           }
           catch(ex) {
-             console.log("Unable to eval working json for module "+name);
+             this.alert("Unable to eval working json for module "+name);
              return null;
           }
        }
@@ -573,7 +598,7 @@ WireIt.WiringEditor.prototype = {
 
 	onLayerChanged: function() {
 		if(!this.preventLayerChangedEvent) {
-			console.log("layer changed !");
+			//console.log("layer changed !");
 			this.markUnsaved();
 		}
 	},

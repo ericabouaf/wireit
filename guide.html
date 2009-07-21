@@ -11,7 +11,7 @@
 	<link rel="alternate" type="application/rss+xml" title="WireIt blog" href="http://javascript.neyric.com/blog/feed/" />
 	<link rel="shortcut icon" type="images/x-icon" href="res/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="res/style.css" />
-	<!--link rel="stylesheet" type="text/css" href="res/guide.css" /-->
+	<link rel="stylesheet" type="text/css" href="res/guide.css" />
 
 	<link rel="stylesheet" type="text/css" href="res/SyntaxHighlighter/shCore.css" />	
 	<link type="text/css" rel="stylesheet" href="res/SyntaxHighlighter/shThemeDefault.css" id="shTheme"/>
@@ -68,67 +68,66 @@
 <div id='book'>
 	<ol class="topLevel">
 		<li>
-			<span>Overview</span>
+			<a href="#overview"><span>Overview</span></a>
 			
 			<ol class="secondLevel">
-	    		<li>Presentation</li>
-				<li>Components/Widgets</li>
-	    		<li>WireIt applications</li>
-				<li>Directory structure</li>
+	    		<li><a href="#presentation">Presentation</a></li>
+				<li><a href="#components">Components/Widgets</a></li>
+	    		<li><a href="#WireItApplication">WireIt applications</a></li>
+				<li><a href="#directoryStructure">Directory structure</a></li>
 			</ol>
 		</li>	
 		
 		<li>
-			<span>Getting Started</span>
+			<a href="#GettingStarted"><span>Getting Started</span></a>
 
 			<ol class="secondLevel">
-	    		<li>Overview</li>
-				<li>Installation</li>
-	    		<li>Create Your First WireIt App</li>
+	    		<li><a href="#installation">Installation</a></li>
+				<li><a href="#WiringEditorInstallation">WiringEditor installation</a></li>
+	    		<li><a href="#firstApp">Create Your First WireIt Application</a></li>
 			</ol>
 		</li>
 		
 		<li>
-			<span>Create your visual language</span>
+			<a href="#visualLanguage"><span>Create your visual language</span></a>
 			
 			<ol class="secondLevel">
-			 	<li>Choosing the right Containers</li>
-				<li>Using the standard Container</li>
-				<li>Using InOutContainer</li>
-				<li>Using InputExContainer</li>
-				<li>Using ImageContainer</li>
+				<li><a href="#otherContainers">Using other Containers</a></li>
+				<li><a href="#InOutContainer">Using InOutContainer</a></li>
+				<li><a href="#FormContainer">Using FormContainer</a></li>
+				<li><a href="#ImageContainer">Using ImageContainer</a></li>
 			</ol>
 		</li>
 		
 		
 		<li>
-			<span>Adapters - Connecting to another database or backend</span>
+			<a href="#adapters"><span>Adapters - Connecting to another database or backend</span></a>
 
 			<ol class="secondLevel">
-				<li>Available adapters</li>
-	    		<li>Create an adapter</li>
+				<li><a href="#adaptersIntroduction">Introduction</a></li>
+				<li><a href="#adaptersConfiguration">Configuring the adapter</a></li>
+	    		<li><a href="#adaptersCreation">Create an adapter</a></li>
 			</ol>
 		</li>
 		
 		<li>
-			<span>Advanced Topics</span>
+			<a href="#advancedTopics"><span>Advanced Topics</span></a>
 
 			<ol class="secondLevel">
-				<li>Handling Wire mouse events</li>
-				<li>Creating new Containers / Extending existing containers</li>
-				<li>notes on production</li>
+				<li><a href="#mouseEvents">Handling Wire mouse events</a></li>
+				<li><a href="#createContainers">Creating new Containers / Extending existing containers</a></li>
+				<li><a href="#production">notes on production</a></li>
 			</ol>
 		</li>
 		
 		<li>
-			<span>More information</span>
+			<a href="#moreInformation"><span>More information</span></a>
 			
 			<ol class="secondLevel">
-				<li>Contribute</li>
-				<li>Roadmap</li>
-				<li>API References</li>
-				<li>Other resources</li>
-				<li>WireIt-based projects</li>
+				<li><a href="#apiReferences">API References</a></li>
+				<li><a href="#otherResources">Other resources</a></li>
+				<li><a href="#projects">WireIt-based projects</a></li>
+				<li><a href="#contribute">Contribute</a></li>
 			</ol>
 		</li>
 		
@@ -141,9 +140,9 @@
 	
 	
 
-<h1>Overview</h1>
+<a name="overview"><h1>Overview</h1></a>
 
-<h2>Presentation</h2>
+<a name="presentation"><h2>Presentation</h2></a>
 
 <p>WireIt is an open-source javascript library to create <i>web wirable interfaces</i> for <b>dataflow applications</b>, <b>visual programming languages, graphical modeling,</b> or <b>graph editors</b>.</p>
 
@@ -155,7 +154,7 @@
 <p>The code for Wireit is provided under a <a href="license.txt">MIT license</a>.</p>
 
 
-<h2>Components/Widgets</h2>
+<a name="components"><h2>Components/Widgets</h2></a>
 
 <p>Here are the main widget classes :</p>
 	
@@ -176,7 +175,8 @@
 <p>You can create your own container by subclassing the base <i>Container</i> class, and still benefit from the drop-in use of the WiringEditor in your web application.</p>
 
 
-<h2>WireIt applications</h2>	
+
+<a name="WireItApplication"><h2>WireIt applications</h2>	
 
 <p>WireIt provides another useful component: the <b>WiringEditor</b>, a single-page editor for your <i>visual language</i>.</p>
 
@@ -185,7 +185,7 @@
 <p>The WiringEditor requires a connection to a database to use save/load features. You can customize it using adapters. A default adapter is provided, which uses JSON-RPC through ajax calls, and a PHP/MySQL backend.</p>
 
 
-<h2>Directory structure</h2>	
+<a name="directoryStructure"><h2>Directory structure</h2></a>
 
 <table>
 	<thead>
@@ -253,69 +253,67 @@
 
 
 
-<h1>Getting Started</h1>
+<a name="GettingStarted"><h1>Getting Started</h1></a>
 
-<h2>Installation</h2>
 
-<p>Create a directory for your project.</p>
 
-<p>WireIt is mostly a bunch of static files.</p>
 
-<pre>
-	* download the latest WireIt zip (from http://javascript.neyric.com/wireit)
-		or
-	  clone the WireIt repository (http://github.com/neyric/wireit/tree/master)
+
+<a name="installation"><h2>Installation</h2></a>
+
+<p>WireIt is mostly a bunch of static javascript, css, and image files, so you can just <a href="http://javascript.neyric.com/wireit">download the library</a> and put the files in your project library directory.</p>
 	
-	* Copy the following directory structure to your project's library directory:
-
-	wireit/
- 	 - build/
- 	 - css/
- 	 - images/
- 	 - js/
- 	 - lib/
-</pre>
+<p>However, the WiringEditor requires a database connection to use the save/load features. (see <a href="#WiringEditorInstallation">WiringEditor installation</a>)</p>
 
 
-<h3>WiringEditor installation</h3>
+<p class="advanced">You could also clone the <a href="http://github.com/neyric/wireit/tree/master">development repository</a> to get the edge version.</p>
 
- (PHP only yet, but you can add your own !)
+<p class="advanced">In a production environment, documentation and examples are not necessary. More on this in <a href="#production">production</p>
 
-	* Configure the backend:
-	  	* copy the backend/php directory to your wireit directory
+
+
+
+
+
+<a name="WiringEditorInstallation"><h3>WiringEditor installation</h3></a>
+
+<p>WireIt provides two default (adapter+backends) for the WiringEditor</p>
+
+<ul>
+	<li>
+		<p>Json-RPC Adapter + PHP backend</p>
+		<pre>
+		* copy the backend/php directory to your wireit directory
 		* edit the script with your database access config (backend/php/WiringEditor.php)
 		* make sure the backend files are accessible by your webserver and that the php module is loaded 
+		</pre>
+	</li>
+	<li>
+		<p>Gears Adapter</p>
+		<p>Requires <a href="http://gears.google.com">google gears installation</a>.</p>
+		<p>This adapter is very useful for prototyping your project, since it can be used without any installation.</p>
+	</li>
+</ul>
+
+<p class="advanced">You can <a href="#adapters">create your own adapters</a>.</p>
+
+
+<a name="firstApp"><h2>Create Your First WireIt Application</h2></a>
+
+<p>Depending on which default adapter you decided to use, copy the examples/gearsAdapter/ or examples/WiringEditor/ files into your project directory.</p>
+
+<p>Edit the index.html file you copied to check that the paths to javascript and css files are correct. (You might want to create your project directory directly in the examples/ folder so that the paths remain unchanged.)</p>
+
+<p>Launch the index.html file in your browser. You're ready to create your <a href="#visualLanguage">visual language</a>.</p>
 
 
 
-<h2>Create Your First WireIt App</h2>
-
-<p>Copy examples/WiringEditor/index.html into your file</p>
-
-<pre class="brush:js">
-	
-    alert("Hello world");
-
-	var myObject = {
-		super: "Cool !"
-	};
-
-</pre>
 
 
 
+<a name="visualLanguage"><h1>Create your visual language</h1></a>
 
-
-
-
-
-<h1>Create your visual language</h1>
-
-<h2>Choosing the right Containers</h2>
-
-<p>TODO</p>
-
-<h2>Defining your visual language</h2>
+<a name="visualLanguageDefinition"><h2>Defining your visual language</h2></a>
 
 <p>The visual language is defined in a JSON format</p>
 
@@ -335,7 +333,7 @@
 
 <p>The values are automatically saved with your pipes.</p>
 
-<p><u>Advanced :</u> The HiddenField can be used to store additional wirings informations.</p>
+<p class="advanced">The HiddenField can be used to store additional wirings informations.</p>
 
 <p>Using inputEx. For a list of available fields please refer to <a href="http://javascript.neyric.com/inputex">inputEx documentation.</a></p>
 
@@ -383,7 +381,7 @@
 <p>Of course, you can use containers provided in WireIt (ImageContainer, FormContainer, InOutContainer), or a <a href="#customContainer">custom container</a>.</p>
 
 
-<h2>Using InOutContainer</h2>
+<a name="InOutContainer"><h2>Using InOutContainer</h2></a>
 
 <p>Set "xtype": "WireIt.InOutContainer". Provide inputs/outputs. see inputEx. Example: </p>
 
@@ -398,7 +396,8 @@
 }
 </pre>
 
-<h2>Using FormContainer</h2>
+
+<a name="FormContainer"><h2>Using FormContainer</h2></a>
 
 <p>Set "xtype": "WireIt.FormContainer". Provide fields. see inputEx. Example: </p>
 
@@ -425,7 +424,7 @@
 </pre>	
 
 
-<h2>Using ImageContainer</h2>
+<a name="ImageContainer"><h2>Using ImageContainer</h2></a>
 
 <p>Set "xtype": "WireIt.ImageContainer". Provide image. Example: </p>
 
@@ -447,45 +446,79 @@
 
 
 
-<h2>Adapters - Connecting to another database or backend</h2>
+<a name="adapters"><h2>Adapters - Connecting to another database or backend</h2></a>
 
-<p>TODO</p>
+<a name="adaptersIntroduction"><h2>Introduction</h2></a>
 
-<h2>Available adapters</h2>
+<p>Adapters are used by the WiringEditor to provide the loading/saving features. It makes it easy to "plug" the WiringEditor into your application. They usually connect to a database of some kind through Ajax calls to store the wirings and bring them back.</p>
+
+<p>WireIt provides two default adapters :</p>
+
+<ul>
+	<li>Gears</li>
+	<li>Json-rpc + php</li>
+</ul>
+
+<p>Why would you build your own ?</p>
+
+<ul>
+	<li>You use a different language</li>
+	<li>You probably use a framework to develop your website, which provides its own models (ex: Django,Rails,Symfony,...)</li>
+	<li>Convert the wirings into another workflow model. (ex: XProc XML)</li>
+</ul>
+
+
+<a name="adaptersConfiguration"><h2>Configuring the adapter</h2></a>
+
+<pre class="brush:js">
+	
+	// Override 
+	WireIt.WiringEditor.adapters.MyAdapter.config.configParam1 = value1;
+	
+	new WireIt.WiringEditor({
+		...
+		adapter: WireIt.WiringEditor.adapters.MyAdapter
+		...
+	})
+
+</pre>
 
 
 
+<a name="adaptersCreation"><h2>Create an adapter</h2></a>
 
-<p>General case: you don't use PHP</p>
-
-<p>Use "adapters" to connect to the storage of your choice</p>
-
-
-
-<h2>Create an adapter</h2>
-
-<p>You can convert data client-side or server-side, plug it to your framework.</p>
-
-<p>example:</p>
+<p>Here is the skeleton of an adapter :</p>
 
 <pre class="brush:js">
 
 WireIt.WiringEditor.adapters.MyAdapter = {
-
+	
+	// adapter default options
 	config: {
-		// general configuration options
+		// ...
 	},
 
+	// Initialization method called by the WiringEditor
+	init: function() {
+		
+	},
+
+	/**
+	 * save/list/delete asynchronous methods
+	 */
 	saveWiring: function(val, callbacks) {
 		// ...
+		// don't forget to call the callbacks !
 	},
 
 	deleteWiring: function(val, callbacks) {
 		// ...
+		// don't forget to call the callbacks !
 	},
 
 	listWirings: function(val, callbacks) {
 		// ...
+		// don't forget to call the callbacks !
 	}
 
 	// + private methods or properties
@@ -494,41 +527,92 @@ WireIt.WiringEditor.adapters.MyAdapter = {
 })();
 </pre>
 
-<p>All 3 methods of these adapters use asynchronous callbacks.</p>
+<p>The main three methods use asynchronous callbacks to push back the results to the WiringEditor. Here is the structure of the callbacks that are passed to these methods : </p>
 
 <pre class="brush:js">
 	var callbacks = {
 		success: function() {
-			
 		},
 		failure: function() {
-			
 		},
-		scope: this // optional
+		scope: this
 	};
 </pre>
 
-<p>Then, you would just have to instantiate the WiringEditor with your custom adapter:</p>
+
+<p>To call the callbacks, in a synchronous way, use something like :</p>
 
 <pre class="brush:js">
-new WiringEditor({
-   ...,
-   adapter: WireIt.WiringEditor.adapters.MyAdapter,
-   ...
-});
-</pre>		
+	function(val, callbacks) {
+		
+		if(everythingGoesFine) {
+			callbacks.success.call(callbacks.scope, results);
+		}
+		else {
+			callbacks.failure.call(callbacks.scope, results);
+		}
+		
+	}
+</pre>
+
+
+<p>The asynchronous pattern is particularly useful for ajax-based adapters. Here is an example with YUI :</p>
+
+<pre class="brush:js">
+	function(val, callbacks) {
+		
+		YAHOO.util.Connect.asyncRequest('POST', 'myUrl', {
+			success: function(r) {
+				//...
+				
+				callbacks.success.call(callbacks.scope, results);
+			},
+			failure: function(r) {
+				callbacks.failure.call(callbacks.scope, error);
+			}
+		});
+		
+	}
+</pre>
 
 
 
 
+<a name="advancedTopics"><h1>Advanced Topics</h1></a>
 
-<h1>Advanced Topics</h1>
+
+<a name="mouseEvents"><h2>Handling Wire mouse events</h2></a>
+
+<p>There are two methods to handle wire mouse events :</p>
+
+<ul>
+	<li>
+		<p>Listen to wire events (recommanded)</p>
+		
+		<pre class="brush:js">
+		wire.eventMouseIn.subscribe(wireRed, wire, true);
+		wire.eventMouseOut.subscribe(wireBlue, wire, true);
+		wire.eventMouseClick.subscribe(wireClick, wire, true);
+		</pre>
+		
+	</li>
+	<li>
+		<p>Override Wire.prototype methods</p>
+		<pre class="brush:js">
+			Wire.prototype.onWireIn = function(x,y) {
+			};
+			
+			Wire.prototype.onWireOut = function(x,y) {
+			};
+			
+			Wire.prototype.onWireClick = function(x,y) {
+			};
+		</pre>
+	</li>
+</ul>
 
 
-<h2>Handling Wire mouse events</h2>
-
-<p>2 methods: Override Wire.prototype.onMouseClick , or listen to wire events.</p>
-
+<p>Here is an example to create a random layer and lister for wire events :</p>
 
 <pre class="brush:js">
 	
@@ -547,7 +631,7 @@ new WiringEditor({
 	
 	// Generate a random layer
 	var layer = new WireIt.Layer({});
-	for(var i = 0 ; i < 5 ; i++) {
+	for(var i = 0 ; i &lt; 5 ; i++) {
 		layer.addContainer({
 			terminals: [ {direction: [0,1], offsetPosition: {bottom: -13, left: 25} }],
 			title: "Block #"+i,
@@ -555,7 +639,7 @@ new WiringEditor({
 		});
 	}
 	
-	for(var i = 0 ; i < 7 ; i++) {
+	for(var i = 0 ; i &lt; 7 ; i++) {
 	
 		var w = layer.addWire({
 			src: {moduleId: Math.floor(Math.random()*5), terminalId: 0},
@@ -571,7 +655,7 @@ new WiringEditor({
 
 
 
-<a name="customContainer"><h2>Creating new Containers / Extending existing containers</h2></a>
+<a name="createContainers"><h2>Creating new Containers / Extending existing containers</h2></a>
 
 <p>The general way to create a new <i>Container</i> class is to extend the WireIt.Container class. We do this YUI-style :</p>
 
@@ -601,7 +685,7 @@ WireIt.ImageContainer.myMethod = function () {
 
 
 
-<h2>notes on production</h2>
+<a name="production"><h2>notes on production</h2></a>
 
 <p>You might mant to use rollup versions. The advantage is to reduce the number of HTTP requests on page load.</p>
 
@@ -614,6 +698,16 @@ WireIt.ImageContainer.myMethod = function () {
 </pre>
 
 
+<p>The WireIt zip file contains example, guides, documentation, which are not necessary. We recommend you only copy this files on your webserver :</p>
+
+<pre>
+	wireit/
+ 	 - build/
+ 	 - css/
+ 	 - images/
+ 	 - js/
+ 	 - lib/
+</pre>
 
 
 
@@ -624,34 +718,32 @@ WireIt.ImageContainer.myMethod = function () {
 
 
 
-<h1>More information</h2>
+<a name="moreInformation"><h1>More information</h2></a>
 
-<h2>API References</h2>
+<a name="apiReferences"><h2>API References</h2></a>
 
 <p>Deeper hacking into WireIt might require some knowledge in the libraries used :</p>
 	
 <ul class="secondLevel">
-	<li><a href="doc/index.html">WireIt API Documentation</a></li>
+	<li><a href="doc/index.html" style="font-size: 120%;">WireIt API Documentation</a></li>
 	<li><a href="http://javascript.neyric.com/inputex/">inputEx Documentation</a></li>
 	<li><a href="http://developer.yahoo.com/yui/">YUI Documentation</a></li>
 </ul>
 
 
-<h2>Other resources</h2>
+<a name="otherResources"><h2>Other resources</h2></a>
 		
 <ul>
-	<li><a href="doc/index.html">API documentation</a> built with <a href="http://developer.yahoo.com/yui/yuidoc/">YUI Doc</a></li>
-	<li>You can also get some help on the <a href="">forum</a>.</li>
-	<li>Please report your issues or feature request at <a href="http://neyric.lighthouseapp.com/projects/25048-wireit">LightHouse</a>.</li>
-	<li>Project home page  http://javascript.neyric.com/wireit/</li>
-	<li>Source code: http://github.com/neyric/wireit</li>
-	<li>Issue tracker: http://neyric.lighthouseapp.com/projects/25048-wireit/tickets?q=all</li>
-	<li>Blog: http://javascript.neyric.com/blog/category/wireit/</li>
+	<li>You can get some help on the <a href="http://groups.google.com/group/wireit/">forum</a>.</li>
+	<li><a href="http://javascript.neyric.com/wireit/">Project home page</a></li>
+	<li><a href="http://github.com/neyric/wireit">Source code repository</a> on GitHub</li>
+	<li><a href="http://neyric.lighthouseapp.com/projects/25048-wireit/">Issue tracker</a> on LightHouse</li>
+	<li><a href="http://javascript.neyric.com/blog/category/wireit/">WireIt Blog</a></li>
 	<li><a href="http://wiki.github.com/neyric/wireit">Wiki</a></li>
 	<li><a href="http://twitter.com/wireit">WireIt changelog on twitter</a></li>
 </ul>
 			
-<h2>WireIt-based projects</h2>
+<a name="projects"><h2>WireIt-based projects</h2></a>
 
 <ul>
 	<li><a href="http://tarpipe.com">Tarpipe</a> - share content across social applications</li>
@@ -659,15 +751,30 @@ WireIt.ImageContainer.myMethod = function () {
 	<li><a href="http://graphpipes.de/">Graphpipes</a> - easy way to aggregate semantic data</li>
 </ul>
 
+<p>Email me your own: &lt;eric.abouaf at gmail&gt;</p>
 
-<h2>Contribute</h2>
+<a name="contribute"><h2>Contribute</h2></a>
 
-<p>Code examples, new features, styling</p>
+<p>You can contribute in a lot of different ways :</p>
+
+<ul>
+	<li>Design/Styling - images or css</li>
+	<li>Adapters/backend code</li>
+	<li>write new examples</li>
+	<li>improve documentation</li>
+</ul>
+
+<p>If you use this project in a commercial application, or simply wish to see this project continue, you can donate on PayPal. Donations will be used for WireIt development and promotion.</p>
+	
+	<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+	<input type="hidden" name="cmd" value="_s-xclick">
+	<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+	">
+	<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+	<img alt="" border="0" src="https://www.paypal.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+	</form>
 
 
-<h2>Roadmap</h2>
-
-				
 <!-- END OF THE GUIDE -->
 
 

@@ -152,3 +152,7 @@ body {
 #loadPanelBody ul li {
    list-style-type: disc;
 }
+
+#alertPanelBody {
+	padding: 10px 0;
+}

@@ -564,7 +564,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       ctxt.lineTo(p2[0],p2[1]);
       ctxt.stroke();
    },
-   
+
    /**
     * Redraw the canvas (according to the drawingMethod option)
     * @method redraw

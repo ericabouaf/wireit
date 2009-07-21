@@ -4,10 +4,10 @@ var demoLanguage = {
 	languageName: "meltingpotDemo",
 
 	// inputEx fields for pipes properties
-	propertiesFields: [
+	/*propertiesFields: [
 		{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
 		{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30} }
-	],
+	],*/
 	
 	// List of node types definition
 	modules: [
