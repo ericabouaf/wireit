@@ -22,6 +22,7 @@ TODO:
 LATER
 
 	* Uneditable layer
+	* Only one cissor
 
 Changeset:
 

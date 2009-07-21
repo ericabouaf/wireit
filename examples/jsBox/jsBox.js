@@ -101,7 +101,9 @@ var jsBox = {
     */
    init: function() {
    	this.editor = new jsBox.WiringEditor(this.language);
-   	this.editor.onHelp();
+
+		// Open the infos panel
+		editor.accordionView.openPanel(2);
    },
    
    /**

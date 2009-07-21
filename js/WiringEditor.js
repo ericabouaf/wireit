@@ -102,6 +102,9 @@ WireIt.WiringEditor = function(options) {
     this.layout = new widget.Layout(this.el, this.options.layoutOptions);
     this.layout.render();
 
+	 // Right accordion
+    this.renderAccordion();
+
     /**
      * @property layer
      * @type {WireIt.Layer}
@@ -120,7 +123,7 @@ WireIt.WiringEditor = function(options) {
 
     // Render buttons
     this.renderButtons();
-    
+
     // Properties Form
     this.renderPropertiesForm();
 
@@ -165,7 +168,7 @@ WireIt.WiringEditor.prototype = {
 	        collapseSize: 25, header: 'Modules', scroll: true, animate: true },
 	      { position: 'center', body: 'center', gutter: '5px' },
 	      { position: 'right', width: 320, resize: true, body: 'right', gutter: '5px', collapse: true, 
-	        collapseSize: 25, header: 'Properties', scroll: true, animate: true }
+	        collapseSize: 25, /*header: 'Properties', scroll: true,*/ animate: true }
 	   ]
 	};
      
@@ -174,7 +177,25 @@ WireIt.WiringEditor.prototype = {
     this.options.layerOptions.parentEl = layerOptions.parentEl ? layerOptions.parentEl : Dom.get('center');
     this.options.layerOptions.layerMap = YAHOO.lang.isUndefined(layerOptions.layerMap) ? true : layerOptions.layerMap;
     this.options.layerOptions.layerMapOptions = layerOptions.layerMapOptions || { parentEl: 'layerMap' };
+
+	 this.options.accordionViewParams = options.accordionViewParams || {
+												collapsible: true, 
+												expandable: true, // remove this parameter to open only one panel at a time
+												width: '308px', 
+												expandItem: 0, 
+												animationSpeed: '0.3', 
+												animate: true, 
+												effect: YAHOO.util.Easing.easeBothStrong
+											};
  },
+
+	
+	/**
+	 * Render the accordion using yui-accordion
+  	 */
+	renderAccordion: function() {
+		this.accordionView = new YAHOO.widget.AccordionView('accordionView', this.options.accordionViewParams);
+	},
  
  /**
   * Render the properties form

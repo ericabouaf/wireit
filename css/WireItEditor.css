@@ -117,13 +117,8 @@ body {
  * RIGHT
  */
  
-#right {
+#right #propertiesForm {
 	font-size: 10px;
-}
- 
-#right h2 {
-	font-size: 130%;
-	font-weight: bold;
 }
 
 #layerMap {
