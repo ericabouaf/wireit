@@ -531,18 +531,23 @@ WireIt.WiringEditor.prototype = {
 	
      this.loadPanel.hide();
 	
-    var pipe = this.getPipeByName(name), i;
+    var wiring = this.getPipeByName(name), i;
+
+	 if(!wiring) {
+		this.alert("The wiring '"+name+"' was not found.");
+		return;
+  	 }
     
-    // TODO: check if current pipe is saved...
+    // TODO: check if current wiring is saved...
     this.layer.clear();
     
-    this.propertiesForm.setValue(pipe.properties);
+    this.propertiesForm.setValue(wiring.properties);
     
-    if(lang.isArray(pipe.modules)) {
+    if(lang.isArray(wiring.modules)) {
       
        // Containers
-       for(i = 0 ; i < pipe.modules.length ; i++) {
-          var m = pipe.modules[i];
+       for(i = 0 ; i < wiring.modules.length ; i++) {
+          var m = wiring.modules[i];
           if(this.modulesByName[m.name]) {
              var baseContainerConfig = this.modulesByName[m.name].container;
              YAHOO.lang.augmentObject(m.config, baseContainerConfig); 
@@ -557,10 +562,10 @@ WireIt.WiringEditor.prototype = {
        }
        
        // Wires
-       if(lang.isArray(pipe.wires)) {
-           for(i = 0 ; i < pipe.wires.length ; i++) {
+       if(lang.isArray(wiring.wires)) {
+           for(i = 0 ; i < wiring.wires.length ; i++) {
               // On doit chercher dans la liste des terminaux de chacun des modules l'index des terminaux...
-              this.layer.addWire(pipe.wires[i]);
+              this.layer.addWire(wiring.wires[i]);
            }
         }
      }

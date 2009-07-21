@@ -114,6 +114,7 @@
 			<a href="#advancedTopics"><span>Advanced Topics</span></a>
 
 			<ol class="secondLevel">
+				<li><a href="#autoload">WiringEditor autoload feature</a></li>
 				<li><a href="#mouseEvents">Handling Wire mouse events</a></li>
 				<li><a href="#createContainers">Creating new Containers / Extending existing containers</a></li>
 				<li><a href="#production">notes on production</a></li>
@@ -128,6 +129,7 @@
 				<li><a href="#otherResources">Other resources</a></li>
 				<li><a href="#projects">WireIt-based projects</a></li>
 				<li><a href="#contribute">Contribute</a></li>
+				<li><a href="#roadmap">Roadmap</a></li>
 			</ol>
 		</li>
 		
@@ -581,6 +583,20 @@ WireIt.WiringEditor.adapters.MyAdapter = {
 <a name="advancedTopics"><h1>Advanced Topics</h1></a>
 
 
+
+
+<a name="autoload"><h2>WiringEditor autoload feature</h2></a>
+
+<p>The WiringEditor has an option called <i>autoload</i>. <br />
+   This is a parameter passed in the URL that tells the WiringEditor which <i>wiring</i> to open when the editor is displayed.</p>
+
+<pre>
+	http://myhost.com/editor/?autoload=myWiring
+</pre>
+
+<p>For example, here is a direct link to the "guideAutoloadDemo" wiring of the WiringEditor example :<br />
+	<a href="examples/WiringEditor/?autoload=guideAutoloadDemo">examples/WiringEditor/?autoload=guideAutoloadDemo</a></p>
+
 <a name="mouseEvents"><h2>Handling Wire mouse events</h2></a>
 
 <p>There are two methods to handle wire mouse events :</p>
@@ -722,12 +738,14 @@ WireIt.ImageContainer.myMethod = function () {
 
 <a name="apiReferences"><h2>API References</h2></a>
 
+<p><a href="doc/index.html" style="font-size: 130%;">WireIt API Documentation</a></p>
+
 <p>Deeper hacking into WireIt might require some knowledge in the libraries used :</p>
 	
 <ul class="secondLevel">
-	<li><a href="doc/index.html" style="font-size: 120%;">WireIt API Documentation</a></li>
 	<li><a href="http://javascript.neyric.com/inputex/">inputEx Documentation</a></li>
 	<li><a href="http://developer.yahoo.com/yui/">YUI Documentation</a></li>
+	<li><a href="http://www.i-marco.nl/weblog/yui-accordion/">yui-accordion</a></li>
 </ul>
 
 
@@ -753,6 +771,11 @@ WireIt.ImageContainer.myMethod = function () {
 
 <p>Email me your own: &lt;eric.abouaf at gmail&gt;</p>
 
+
+
+
+
+
 <a name="contribute"><h2>Contribute</h2></a>
 
 <p>You can contribute in a lot of different ways :</p>
@@ -762,6 +785,7 @@ WireIt.ImageContainer.myMethod = function () {
 	<li>Adapters/backend code</li>
 	<li>write new examples</li>
 	<li>improve documentation</li>
+	<li>core contributions (see the <a href="#roadmap">roadmap</a>)</li>
 </ul>
 
 <p>If you use this project in a commercial application, or simply wish to see this project continue, you can donate on PayPal. Donations will be used for WireIt development and promotion.</p>
@@ -773,6 +797,39 @@ WireIt.ImageContainer.myMethod = function () {
 	<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 	<img alt="" border="0" src="https://www.paypal.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
 	</form>
+
+
+
+
+	<a name="roadmap"><h2>Roadmap</h2></a>
+
+	<p>Here is a list of the main requested features. Please note that this is a wish-list, it's not always what the developers are currently working on.</p>
+
+	<ul>
+		<li>
+			<b>Improve Layout</b>
+			<p>WireIt has proven useful for graph editing, but it is also very good at data visualization.<br />
+			   However, the current layout engine still has a long way to go...</p>
+		</li>
+		<li>
+			<b>Wire labels/properties</b>
+			<p>Adding labels to the wires. This will now be easier thanks to the <a href="http://code.google.com/p/canvas-text/">Canvas-Text library</a>.</p>
+		</li>
+		<li>
+			<b>Improve the WiringEditor</b>
+			<p>Keep improving this strong application framework.</p>
+		</li>
+		<li>
+			<b>Progressive enhancement</b>
+			<p>The idea is to generate containers/terminals/wires from existing HTML. This is especially useful for <i>wirings</i> to be <b>indexable by search engines</b>.</p>
+		</li>
+		<li>
+			<b>Provide more backends/adapters</b>
+			<p>New backends/code generators to increase development speed. <br />
+			 Although the backend largely depends on your project, it would be nice to have one for each major framework: <b>Rails, Django, Symfony, AppEngine, ...</b></p>
+		</li>
+	</ul>
+
 
 
 <!-- END OF THE GUIDE -->
