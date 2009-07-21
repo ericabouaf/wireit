@@ -19,6 +19,7 @@
 	<script type="text/javascript" src="res/SyntaxHighlighter/shCore.js"></script>
 	<script type="text/javascript" src="res/SyntaxHighlighter/shBrushJScript.js"></script>
 	<script type="text/javascript" src="res/SyntaxHighlighter/shBrushXml.js"></script>
+	<script type="text/javascript" src="res/SyntaxHighlighter/shBrushCss.js"></script>
 	<script type="text/javascript">SyntaxHighlighter.config.clipboardSwf = 'res/SyntaxHighlighter/clipboard.swf';SyntaxHighlighter.all();</script>
 	
 	
@@ -92,10 +93,13 @@
 			<a href="#visualLanguage"><span>Create your visual language</span></a>
 			
 			<ol class="secondLevel">
-				<li><a href="#otherContainers">Using other Containers</a></li>
+				<li><a href="#visualLanguageDefinition">Visual Language Definition</a></li>
+				<li><a href="#moduleDefinition">Module Definition</a></li>
+				<li><a href="#BaseContainer">Using the basic Container</a></li>
 				<li><a href="#InOutContainer">Using InOutContainer</a></li>
 				<li><a href="#FormContainer">Using FormContainer</a></li>
 				<li><a href="#ImageContainer">Using ImageContainer</a></li>
+				<li><a href="#propertiesForm">Edit the "Properties" form</a></li>
 			</ol>
 		</li>
 		
@@ -114,6 +118,8 @@
 			<a href="#advancedTopics"><span>Advanced Topics</span></a>
 
 			<ol class="secondLevel">
+				<li><a href="#outputFormat">WiringEditor ouput format</a></li>
+				<li><a href="#stylingContainers">Styling containers</a></li>
 				<li><a href="#autoload">WiringEditor autoload feature</a></li>
 				<li><a href="#mouseEvents">Handling Wire mouse events</a></li>
 				<li><a href="#createContainers">Creating new Containers / Extending existing containers</a></li>
@@ -125,6 +131,7 @@
 			<a href="#moreInformation"><span>More information</span></a>
 			
 			<ol class="secondLevel">
+				<li><a href="#examples">All examples</a></li>
 				<li><a href="#apiReferences">API References</a></li>
 				<li><a href="#otherResources">Other resources</a></li>
 				<li><a href="#projects">WireIt-based projects</a></li>
@@ -315,9 +322,9 @@
 
 <a name="visualLanguage"><h1>Create your visual language</h1></a>
 
-<a name="visualLanguageDefinition"><h2>Defining your visual language</h2></a>
+<a name="visualLanguageDefinition"><h2>Visual Language Definition</h2></a>
 
-<p>The visual language is defined in a JSON format</p>
+<p>The visual language is defined in a JSON format :</p>
 
 <pre class="brush:js">
 	var myLanguage = {
@@ -331,61 +338,74 @@
 	};
 </pre>
 
-<p>To add properties to the <i>Wirings</i>, we configure the <i>propertiesFields</i> property of the language definition. This property defines the fields as they will appear in the "Property" form on the right in the WiringEditor.</p>
-
-<p>The values are automatically saved with your pipes.</p>
-
-<p class="advanced">The HiddenField can be used to store additional wirings informations.</p>
-
-<p>Using inputEx. For a list of available fields please refer to <a href="http://javascript.neyric.com/inputex">inputEx documentation.</a></p>
-
-<pre class="brush:js">
-	var myLanguage = {
-		
-		languageName: "myLanguage",
-		
-		// inputEx fields for pipes properties
-		propertiesFields: [
-		
-			// default fields
-			{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
-			{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30} },
-			
-			// custom field :
-			{"type": "select", inputParams: {"name": "category", label: "Category", "selectValues": ["Work", "Home"] } }
-			
-		],
-
-		modules: [
-		]
-	};
-</pre>
 
 
 
-<a name="otherContainers"><h2>Using other Containers</h2></a>
+<a name="moduleDefinition"><h2>Module Definition</h2></a>
 
-<p>To declare a module using a different <i>Container</i> class, you'll have to set the container <i>xtype</i> property.</p>
-
-<p>The xtype property is a string representing the class. This had to be a string to remain JSON compliant.</p>
+<p>Here is the skeleton of a module definition :</p>
 
 <pre class="brush:js">
 {
- "name": "InOut test",
+ "name": "moduleName",
  "container": {
+	
+	// which container class to use
 	"xtype":"WireIt.InOutContainer",
+	
+	// Depends of the container
 	"inputs": ["text1", "text2", "option1"],
 	"outputs": ["result", "error"]
   }
 }
 </pre>
 
+
+<p>To declare a module using a different <i>Container</i> class, you'll have to set the container <i>xtype</i> property.</p>
+
+<p class="advanced">The xtype property is a string representing the class. This had to be a string to remain JSON compliant.</p>
+
 <p>Of course, you can use containers provided in WireIt (ImageContainer, FormContainer, InOutContainer), or a <a href="#customContainer">custom container</a>.</p>
+
+
+<a name="BaseContainer"><h2>Using the basic Container</h2></a>
+
+
+<p>Set "xtype": "WireIt.Container" (optional). The parameters are :</p>
+
+<ul>
+	<li><i>icon</i> - url of the icon (relative or absolute)</li>
+	<li><i>terminals</i> - list of terminals configuration</li>
+</ul>
+
+<pre class="brush:js">
+    {
+       "name": "demoModule",
+       "container": {
+    		"xtype":"WireIt.Container", 
+
+			"icon": "../../res/icons/application_edit.png",
+    		"terminals": [
+    			{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": {"left": -3, "top": 2 }},
+    			{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": {"left": -3, "top": 37 }},
+    			{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": {"left": 103, "top": 20 }}
+    		]
+    	}
+    }
+</pre>
+
 
 
 <a name="InOutContainer"><h2>Using InOutContainer</h2></a>
 
-<p>Set "xtype": "WireIt.InOutContainer". Provide inputs/outputs. see inputEx. Example: </p>
+<p>Set "xtype": "WireIt.InOutContainer". Additional parameters are :</p>
+
+<ul>
+	<li><i>inputs</i> - list of inputs as strings</li>
+	<li><i>outputs</i> - list of outputs as strings</li>
+</ul>
+
+<p>Example: </p>
 
 <pre class="brush:js">
 {
@@ -401,16 +421,17 @@
 
 <a name="FormContainer"><h2>Using FormContainer</h2></a>
 
-<p>Set "xtype": "WireIt.FormContainer". Provide fields. see inputEx. Example: </p>
+<p>Set "xtype": "WireIt.FormContainer". Additional parameters are all those used in inputEx.Group. (see <a href="http://javascript.neyric.com/inputex/">inputEx</a>)</p>
+
 
 <pre class="brush:js">
 	{
 	  "name": "MyModule",
 	  "container": {
 		"xtype": "WireIt.FormContainer",
-		"title": "WireIt.FormContainer demo",    
-		"icon": "http://dev.tarpipe.com/img/flickr.png",
-
+		
+		// inputEx options :
+		"title": "WireIt.FormContainer demo",
 		"collapsible": true,
 		"fields": [ 
 			{"type": "select", "inputParams": {"label": "Title", "name": "title", "selectValues": ["Mr","Mrs","Mme"] } },
@@ -421,6 +442,7 @@
 			{"type":"url", "inputParams": {"label": "Website", "name":"website", "size": 25}} 
 		],
 		"legend": "Tell us about yourself..."
+		
 	  }
 	}
 </pre>	
@@ -428,7 +450,11 @@
 
 <a name="ImageContainer"><h2>Using ImageContainer</h2></a>
 
-<p>Set "xtype": "WireIt.ImageContainer". Provide image. Example: </p>
+<p>Set "xtype": "WireIt.ImageContainer". Additional parameters are :</p>
+
+<ul>
+	<li><i>image</i> - url of the image (relative or absolute)</li>
+</ul>
 
 <pre class="brush:js">
     {
@@ -436,7 +462,6 @@
        "container": {
     		"xtype":"WireIt.ImageContainer", 
     		"image": "../logicGates/images/gate_and.png",
-    		"icon": "http://dev.tarpipe.com/img/tumblr.png",
     		"terminals": [
     			{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": {"left": -3, "top": 2 }},
     			{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": {"left": -3, "top": 37 }},
@@ -445,6 +470,49 @@
     	}
     }
 </pre>
+
+
+
+
+
+<a name="propertiesForm"><h2>Edit the "Properties" form</h2></a>
+
+<p>To add properties to the <i>Wirings</i>, we configure the <i>propertiesFields</i> property of the language definition.<br />
+   This property defines the fields as they will appear in the "Properties" form on the right in the WiringEditor.</p>
+
+<p>The form is created using the <a href="http://javascript.neyric.com/inputex/">inputEx form library</a>. The <i>propertiesFields</i> array is directly used to instantiate a inputEx.Group class. Please refer to inputEx documentation to learn how to configure your fields.</p>
+
+<p>When you use the save/load fetures of the WiringEditor, the form values are automatically saved within your <i>wirings</i> before being sent back to the server.</p>
+
+<pre class="brush:js">
+	var demoLanguage = {
+		
+		languageName: "meltingpotDemo",
+		
+		// inputEx fields for pipes properties
+		propertiesFields: [
+			// default fields (the "name" field is required by the WiringEditor):
+			{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
+			{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30} },
+
+			// Additional fields
+			{"type": "boolean", inputParams: {"name": "isTest", value: true, label: "Test"}},
+			{"type": "select", inputParams: {"name": "category", label: "Category", selectValues: ["Demo", "Test", "Other"]} }
+		],
+
+		modules: [
+			//...
+		]
+	};
+</pre>
+
+<p class="advanced">The HiddenField can be used to store additional wirings informations.</p>
+
+
+
+
+
+
 
 
 
@@ -584,6 +652,92 @@ WireIt.WiringEditor.adapters.MyAdapter = {
 
 
 
+<a name="outputFormat"><h2>WiringEditor ouput format</h2></a>
+
+<p>First, here is the JSON output of the WiringEditor :</p>
+
+<pre class="brush:js">
+var working = {
+	"modules":[
+		{
+			"config":{
+				"position":[166,195],
+				"xtype":"WireIt.ImageContainer"
+			},
+			"name":"AND gate",
+			"value":{}
+		},
+		{
+			"config":{
+				"position":[454,271],
+				"xtype":"WireIt.ImageContainer"
+			},
+			"name":"AND gate",
+			"value":{}
+		},
+		{
+			"config":{
+				"position":[149,403],
+				"xtype":"WireIt.ImageContainer"
+			},
+			"name":"AND gate",
+			"value":{}
+		}
+	],
+
+	"wires":[
+		{
+			"src":{"moduleId":0,"terminal":"_OUTPUT"},
+			"tgt":{"moduleId":1,"terminal":"_INPUT1"}
+		},
+		{
+			"src":{"moduleId":2,"terminal":"_OUTPUT"},
+			"tgt":{"moduleId":1,"terminal":"_INPUT2"}
+		}
+	],
+	
+	"properties":{	
+		"name":"demo",
+		"description":"",
+		"isTest":true,
+		"category":"Demo"
+	}
+};
+</pre>
+
+<p>First comes the list of instantiated modules. The <i>name</i> is set to the module name, <i>config.xtype</i> indicates the container class, <i>config.position</i> is pretty self-explanatory, and <i>value</i> contains the exported value for this instance (in this case it is empty, but for a FormContainer, it will contain the form value.)</p>
+
+<p>Secondly, the wires instances, composed of a <i>src</i> (source) terminal and a <i>tgt</i> (target) terminal.<br /> 
+   Each terminal is referenced by its moduleId (module index in the above definition) and its name (terminal).</p>
+
+<p>Finally, the <i>properties</i> object contains the value of the "Properties" form on the right of the editor.</p>
+
+<p class="advanced">The examples store directly the JSON in a TEXT column in the database. Almost all programming languages provide built-in JSON stringify/parse methods, so you can parse this tree to convert to another format.</p>
+
+
+<a name="stylingContainers"><h2>Styling containers</h2></a>
+
+<p>The WiringEditor adds a CSS class for each module instance in your layer: <b>WiringEditor-module-<i>moduleName</i></b>.</p>
+
+<p>You can therefore style all the descending structure using cascaded style sheets. <br />
+   Here is an exemple for the "comment" module of the <a href="examples/WiringEditor/">WiringEditor demo</a>.</p>
+
+<pre class="brush:css">
+	
+/* Comment Module */
+div.WireIt-Container.WiringEditor-module-comment { 
+	width: 200px; 
+}
+div.WireIt-Container.WiringEditor-module-comment div.body { 
+	background-color: #EEEE66; 
+}
+div.WireIt-Container.WiringEditor-module-comment div.body textarea { 
+	background-color: transparent; font-weight: bold; border: 0; 
+}
+
+</pre>
+
+
 
 <a name="autoload"><h2>WiringEditor autoload feature</h2></a>
 
@@ -696,7 +850,7 @@ WireIt.ImageContainer.myMethod = function () {
 };
 </pre>
 
-<p>To use your new Container in a language definition go to <a href="#otherContainers">Using other Containers</a>.</p>
+<p>To use your new Container in a language definition go to <a href="#moduleDefinition">Module Definition</a>.</p>
 
 
 
@@ -735,6 +889,41 @@ WireIt.ImageContainer.myMethod = function () {
 
 
 <a name="moreInformation"><h1>More information</h2></a>
+
+
+
+
+<a name="examples"><h2>All examples</h2></a>
+	<ul>
+		<li><a href="examples/presentation.html">Interactive presentation</a></li>
+		<li><a href="examples/creating_terminals.html">Creating terminals and wires</a></li>
+		<li><a href="examples/changing_directions.html">Changing terminal direction</a></li>
+		<li><a href="examples/wires_and_terminals.html">Wire and Terminals configuration</a></li>
+		<li><a href="examples/dd_and_animation.html">Using animation</a></li>
+		<li><a href="examples/planarGame/planarGame.html">Planar game</a></li>
+		<li><a href="examples/inputex/">FormContainers</a></li>
+	</ul>
+	
+	<p>WiringEditor :</p>
+	<ul>
+		<li><a href="examples/WiringEditor/">WiringEditor demo</a></li>
+		<li><a href="examples/jsBox/jsBox.html">jsBox</a></li>
+		<li><a href="examples/logicGates/index.html">Logic Gates demo</a></li>
+		<li><a href="examples/gearsAdapter/">Gears Adapter</a></li>
+	</ul>
+	
+	<p>Beta/Experimental :</p>
+	<ul>
+		<li><a href="examples/wire_events.html">Wire mouse events</a></li>
+		<li><a href="examples/wire_tooltips.html">Wire context menu</a></li>
+		<li><a href="examples/spring_layout.html">Spring Layout</a></li>
+		<li><a href="examples/dotparser/">Dot parser</a></li>
+	</ul>
+
+
+
+
+
 
 <a name="apiReferences"><h2>API References</h2></a>
 

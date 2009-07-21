@@ -4,10 +4,15 @@ var demoLanguage = {
 	languageName: "meltingpotDemo",
 
 	// inputEx fields for pipes properties
-	/*propertiesFields: [
+	propertiesFields: [
+		// default fields (the "name" field is required by the WiringEditor):
 		{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
-		{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30} }
-	],*/
+		{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30} },
+		
+		// Additional fields
+		{"type": "boolean", inputParams: {"name": "isTest", value: true, label: "Test"}},
+		{"type": "select", inputParams: {"name": "category", label: "Category", selectValues: ["Demo", "Test", "Other"]} }
+	],
 	
 	// List of node types definition
 	modules: [
@@ -17,7 +22,7 @@ var demoLanguage = {
 	      "container": {
 	   		"xtype": "WireIt.FormContainer",
 	   		"title": "WireIt.FormContainer demo",    
-	   		"icon": "http://dev.tarpipe.com/img/flickr.png",
+	   		"icon": "../../res/icons/application_edit.png",
 
 	   		"collapsible": true,
 	   		"fields": [ 
@@ -31,13 +36,31 @@ var demoLanguage = {
 	   		"legend": "Tell us about yourself..."
 	   	}
 	   },
+	
+		{
+	      "name": "comment",
+	
+	      "container": {
+	         "xtype": "WireIt.FormContainer",
+				"icon": "../../res/icons/comment.png",
+	   		"title": "Comment",
+	   		"fields": [
+	            {"type": "text", "inputParams": {"label": "", "name": "comment", "wirable": false }}
+	         ]
+	      },
+	      "value": {
+	         "input": {
+	            "type":"url","inputParams":{}
+	         }
+	      }
+	   },
 
 	      {
 	         "name": "AND gate",
 	         "container": {
 	      		"xtype":"WireIt.ImageContainer", 
 	      		"image": "../logicGates/images/gate_and.png",
-	      		"icon": "http://dev.tarpipe.com/img/tumblr.png",
+	      		"icon": "../../res/icons/arrow_join.png",
 	      		"terminals": [
 	      			{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": {"left": -3, "top": 2 }},
 	      			{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": {"left": -3, "top": 37 }},
@@ -52,7 +75,7 @@ var demoLanguage = {
 					"container": {
 	         		"xtype":"WireIt.ImageContainer", 
 	         		"className": "WireIt-Container WireIt-ImageContainer Bubble",
-	            	"icon": "http://dev.tarpipe.com/img/photobucket.png",
+	            	"icon": "../../res/icons/color_wheel.png",
 	         		"image": "../images/bubble.png",
 	         		"terminals": [
 	         				{"direction": [-1,-1], "offsetPosition": {"left": -10, "top": -10 }, "name": "tl"},
@@ -64,9 +87,9 @@ var demoLanguage = {
 		      },
 
 				{
-					"name": "Plurk",
+					"name": "Other form module",
 					"container": {
-	   				"icon": "http://dev.tarpipe.com/img/plurk.png",
+	   				"icon": "../../res/icons/application_edit.png",
 	   				"xtype": "WireIt.FormContainer",
 	   				"outputTerminals": [],
 	   				"propertiesForm": [],
@@ -86,7 +109,7 @@ var demoLanguage = {
 	            "container": {
 	         		"xtype": "WireIt.FormContainer",
 	         		"title": "Post",    
-	         		"icon": "http://dev.tarpipe.com/img/flickr.png",
+	         		"icon": "../../res/icons/comments.png",
 
 	         		"fields": [ 
 
@@ -116,7 +139,7 @@ var demoLanguage = {
 		         "name": "InOut test",
 		         "container": {
 		      		"xtype":"WireIt.InOutContainer", 
-		      		"icon": "http://dev.tarpipe.com/img/tumblr.png",
+		      		"icon": "../../res/icons/arrow_right.png",
 						"inputs": ["text1", "text2", "option1"],
 						"outputs": ["result", "error"]
 		      	}

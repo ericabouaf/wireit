@@ -4,11 +4,9 @@
 var jsBox = {
    
    language: {
+	
 	   languageName: "jsBox",
-		propertiesFields: [
-			{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
-			{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30} }
-		],
+	
 		modules: [
 		   {
 		      "name": "jsBox",

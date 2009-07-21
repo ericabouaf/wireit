@@ -4,12 +4,6 @@ var logicGatesLang = {
 	// Set a unique name for the language
 	languageName: "logicGates",
 
-	// inputEx fields for pipes properties
-	propertiesFields: [
-		{"type": "string", inputParams: {"name": "name", label: "Name", typeInvite: "Enter a title"} },
-		{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30} }
-	],
-
 	// List of node types definition
 	modules: [
 		{

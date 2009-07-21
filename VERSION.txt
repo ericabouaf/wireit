@@ -7,22 +7,18 @@ not released yet
 
 Current:
 
-	* Layer.onChangeEvt (+implementation in WiringEditor for saved state, + implementation in Layouts to reinit the layout)
-	* Default language propertiesForm (guide + examples)
-	* document Layout
-
+	* Layer.onChangeEvt (+implementation in WiringEditor for saved state)
 	* Adapters:
-		* Ajax (3 different actions)
-		* REST
-		* XML REST Adapter
+		* Ajax (3 different actions) / REST adapter
+		* XML Conversion Adapter
 	
 	* BUG: WiringEditor: Containers are mispositionned when the layer is scrolled
-	
 	* BUG: jsBox: form values in input fields are overriden !!
 	* BUG: jsBox should be broken (because of autoload)
 	
 Before release:
 
+	* Rebuild homepage from guide
 	* API Doc
 	* Rollup files for wireit-base and wiringEditor	
 	* Presentation 
@@ -38,6 +34,7 @@ Changeset:
 		* Adapters: (removed the complicated SMD & YUI-RPC stuff)
 			* JSON-RPC (the old adapter)
 			* Gears (if no backend usable)
+		* propertiesFields default value (becomes optional)
 			
 	* WireIt Guide
 	* Show only one scissor at a time
