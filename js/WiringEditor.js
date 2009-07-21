@@ -333,8 +333,8 @@ WireIt.WiringEditor.prototype = {
   * saveModule failure callback
   * @method saveModuleFailure
   */
- saveModuleFailure: function(o) {
-    this.alert("error while saving! ");
+ saveModuleFailure: function(errorStr) {
+    this.alert("Unable to save the wiring : "+errorStr);
  },
 
 	alert: function(txt) {
@@ -375,6 +375,9 @@ WireIt.WiringEditor.prototype = {
 				this.onNew();
  				this.alert("Deleted !");
  			},
+			failure: function(errorStr) {
+				this.alert("Unable to delete wiring: "+errorStr);
+			},
 			scope: this
  		});
        
@@ -461,6 +464,9 @@ WireIt.WiringEditor.prototype = {
     this.adapter.listWirings({language: this.options.languageName},{
 			success: function(result) {
 				this.onLoadSuccess(result);
+			},
+			failure: function(errorStr) {
+				this.alert("Unable to load the wirings: "+errorStr);
 			},
 			scope: this
 		}

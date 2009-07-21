@@ -8,8 +8,6 @@ not released yet
 Current:
 
 	* Layer.onChangeEvt (+implementation in WiringEditor for saved state)
-	* Adapters:
-		* Ajax (3 different actions) / REST adapter
 		* XML Conversion Adapter
 	
 	* BUG: WiringEditor: Containers are mispositionned when the layer is scrolled
@@ -34,6 +32,7 @@ Changeset:
 		* Adapters: (removed the complicated SMD & YUI-RPC stuff)
 			* JSON-RPC (the old adapter)
 			* Gears (if no backend usable)
+			* Ajax adapter - configurable XHR calls. Can be configured to do REST or something else...
 		* propertiesFields default value (becomes optional)
 			
 	* WireIt Guide
