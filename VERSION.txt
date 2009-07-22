@@ -8,9 +8,8 @@ not released yet
 Current:
 
 	* Layer.onChangeEvt (+implementation in WiringEditor for saved state)
-		* XML Conversion Adapter
+	* documentation for ajax controller, especially how to do REST
 	
-	* BUG: WiringEditor: Containers are mispositionned when the layer is scrolled
 	* BUG: jsBox: form values in input fields are overriden !!
 	* BUG: jsBox should be broken (because of autoload)
 	
@@ -39,9 +38,12 @@ Changeset:
 	* Show only one scissor at a time
 	* InOutContainer
 	* Spring Layout (experimental) (+examples)
-	* Wire mouse events
-	* Bug fix for wire positioning using FormContainer
-	* Added drawing method 'bezierArrows' (early alpha)
+	* Wire mouse events (experimental) (+examples)
+	* Added drawing method 'bezierArrows' (experimental)
+	
+	Bugfixes:
+	* WiringEditor: Containers were mispositionned when the layer was scrolled
+	* Wire positioning for wirables fields in FormContainer
 
 ----------------------------------------------------
 

@@ -52,7 +52,7 @@ YAHOO.extend(WireIt.ModuleProxy,YAHOO.util.DDProxy, {
 			 del = this.getDragEl(),
 			 pos = YAHOO.util.Dom.getXY(del),
 			 layerPos = YAHOO.util.Dom.getXY(layer.el);
-      this._WiringEditor.addModule( this._module ,[pos[0]-layerPos[0], pos[1]-layerPos[1]]);
+      this._WiringEditor.addModule( this._module ,[pos[0]-layerPos[0]+layer.el.scrollLeft, pos[1]-layerPos[1]+layer.el.scrollTop]);
     }
    
 });
