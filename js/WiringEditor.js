@@ -124,6 +124,9 @@ WireIt.WiringEditor = function(options) {
     // Render buttons
     this.renderButtons();
 
+ 	 // Saved status
+	 this.renderSavedStatus();
+
     // Properties Form
     this.renderPropertiesForm();
 
@@ -209,6 +212,10 @@ WireIt.WiringEditor.prototype = {
        parentEl: YAHOO.util.Dom.get('propertiesForm'),
        fields: this.options.propertiesFields
     });
+
+	this.propertiesForm.updatedEvt.subscribe(function() {
+		this.markUnsaved();
+	}, this, true);
  },
  
  /**
@@ -286,6 +293,15 @@ WireIt.WiringEditor.prototype = {
     helpButton.on("click", this.onHelp, this, true);
  },
 
+	/**
+	 * @method renderSavedStatus
+	 */
+	renderSavedStatus: function() {
+		var top = Dom.get('top');
+		this.savedStatusEl = WireIt.cn('div', {className: 'savedStatus', title: 'Not saved'}, {display: 'none'}, "*");
+		top.appendChild(this.savedStatusEl);
+	},
+
  /**
   * save the current module
   * @method saveModule
@@ -315,17 +331,17 @@ WireIt.WiringEditor.prototype = {
   */
  saveModuleSuccess: function(o) {
 
-    this.alert("Saved !");
+	this.markSaved();
 
-	 //console.log(this.tempSavedWiring);
-	var name = this.tempSavedWiring.name;
-	
+   this.alert("Saved !");
+
+	/*var name = this.tempSavedWiring.name;	
 	if(this.modulesByName.hasOwnProperty(name) ) {
 		//console.log("already exists !");
 	}
 	else {
 		//console.log("new one !");
-	}
+	}*/
 	
  },
 
@@ -358,7 +374,10 @@ WireIt.WiringEditor.prototype = {
 	this.preventLayerChangedEvent = true;
 	
    this.layer.clear(); 
-   this.propertiesForm.clear();
+
+   this.propertiesForm.clear(false); // false to tell inputEx to NOT send the updatedEvt
+
+	this.markSaved();
 
 	this.preventLayerChangedEvent = false;
  },
@@ -547,7 +566,7 @@ WireIt.WiringEditor.prototype = {
     // TODO: check if current wiring is saved...
     this.layer.clear();
     
-    this.propertiesForm.setValue(wiring.properties);
+    this.propertiesForm.setValue(wiring.properties, false); // the false tells inputEx to NOT fire the updatedEvt
     
     if(lang.isArray(wiring.modules)) {
       
@@ -576,8 +595,9 @@ WireIt.WiringEditor.prototype = {
         }
      }
      
-
-	this.preventLayerChangedEvent = true;
+	this.markSaved();
+	
+	this.preventLayerChangedEvent = false;
 	
   	}
   	catch(ex) {
@@ -606,20 +626,18 @@ WireIt.WiringEditor.prototype = {
 		}, this, true);
 	},
 
-
 	onLayerChanged: function() {
 		if(!this.preventLayerChangedEvent) {
-			//console.log("layer changed !");
 			this.markUnsaved();
 		}
 	},
 
 	markSaved: function() {
-		
+		this.savedStatusEl.style.display = 'none';
 	},
 	
 	markUnsaved: function() {
-		
+		this.savedStatusEl.style.display = '';
 	},
 
  

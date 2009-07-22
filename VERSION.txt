@@ -7,7 +7,6 @@ not released yet
 
 Current:
 
-	* Layer.onChangeEvt (+implementation in WiringEditor for saved state)
 	* documentation for ajax controller, especially how to do REST
 	
 	* BUG: jsBox: form values in input fields are overriden !!
@@ -33,10 +32,13 @@ Changeset:
 			* Gears (if no backend usable)
 			* Ajax adapter - configurable XHR calls. Can be configured to do REST or something else...
 		* propertiesFields default value (becomes optional)
+		* saved status indicator
 			
-	* WireIt Guide
-	* Show only one scissor at a time
+	* WireIt Guide	
 	* InOutContainer
+
+	* Layer.onChangeEvt
+	* Show only one scissor at a time
 	* Spring Layout (experimental) (+examples)
 	* Wire mouse events (experimental) (+examples)
 	* Added drawing method 'bezierArrows' (experimental)
