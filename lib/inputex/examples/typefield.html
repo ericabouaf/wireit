@@ -98,7 +98,20 @@ YAHOO.util.Event.addListener(window, 'load', function() {
 	YAHOO.inputEx.spacerUrl = "../images/space.gif";
 
 	// Example 1
-	new YAHOO.inputEx.TypeField({parentEl: 'container1'});
+	new YAHOO.inputEx.TypeField({parentEl: 'container1', 
+	
+		value: {
+            "inputParams":
+            {
+                "description":"all right",
+                //"typeInvite":"input name",
+                "value":"test"
+            },
+            "type":"string"
+        }
+	
+	});
+	
 	
 	
 	// Example 2
