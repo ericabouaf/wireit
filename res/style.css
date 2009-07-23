@@ -13,8 +13,8 @@ ul li {	font-size: 13px;}
 .navigation li a:hover { color: #cccc33; text-decoration: underline; }
 
 #layout { width: 80%; }
-#layout td.left { width: 55%;}
-#layout td.right { width: 45%;}
+#layout td.left { width: 55%; text-align: left;}
+#layout td.right { width: 45%; text-align: left;}
 #layout td.left, #layout td.right { padding: 15px 30px; vertical-align: top; }
 
 p.title { font-weight: bold; font-size: 22px;}

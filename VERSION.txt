@@ -5,17 +5,12 @@ To get the latest version, please visit http://javascript.neyric.com/wireit
 Version 0.5.0
 not released yet
 
-Current:
-	
-	* BUG: jsBox: form values in input fields are overriden !!
-	* BUG: jsBox should be broken (because of autoload)
-	
 Before release:
 
 	* Rebuild homepage from guide
 	* API Doc
 	* Rollup files for wireit-base and wiringEditor	
-	* Presentation 
+	* Update Presentation 
 	
 
 Changeset:

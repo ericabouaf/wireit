@@ -337,10 +337,10 @@ WireIt.WiringEditor.prototype = {
 
 	/*var name = this.tempSavedWiring.name;	
 	if(this.modulesByName.hasOwnProperty(name) ) {
-		//console.log("already exists !");
+		//already exists
 	}
 	else {
-		//console.log("new one !");
+		//new one
 	}*/
 	
  },
@@ -429,8 +429,8 @@ WireIt.WiringEditor.prototype = {
           visible: false,
           modal: true
        });
-       this.loadPanel.setHeader("Select module");
-       this.loadPanel.setBody("Search: <input type='text' id='loadFilter' /><div id='loadPanelBody'></div>");
+       this.loadPanel.setHeader("Select the wiring to load");
+       this.loadPanel.setBody("Filter: <input type='text' id='loadFilter' /><div id='loadPanelBody'></div>");
        this.loadPanel.render(document.body);
 
 		// Listen the keyup event to filter the module list

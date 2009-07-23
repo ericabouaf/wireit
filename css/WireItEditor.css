@@ -160,7 +160,16 @@ div.savedStatus {
 }
 
 #loadPanelBody ul li {
-   list-style-type: disc;
+	background-color:#FFFFFF;
+	list-style-type:none;
+	margin:2px;
+	padding:2px 10px;
+	-moz-border-radius:7px;
+	-webkit-border-radius: 7px;
+}
+
+#loadPanelBody ul li:hover {
+	background-color: #CCCCFF;
 }
 
 #alertPanelBody {

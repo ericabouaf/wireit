@@ -139,29 +139,24 @@ YAHOO.lang.extend(jsBox.WiringEditor, WireIt.WiringEditor, {
       runButton.on("click", jsBox.run, jsBox, true);
    },
 
-
-	load: function() {
-
-	    this.adapter.listWirings({language: this.options.languageName},{
-				success: function(result) {
-					this.pipes = result.result;
-					this.pipesByName = {};
-					this.renderLoadPanel();
-	            this.updateLoadPanelList();
-	            this.loadPanel.show();
+	/**
+	 * Customize the load success handler for the composed module list
+	 */
+	onLoadSuccess: function(wirings) {
+		jsBox.WiringEditor.superclass.onLoadSuccess.call(this,wirings);
 	
-					//  Customize to display composed module in the left list
-					this.updateComposedModuleList();
-				},
-				scope: this
-			}
-			);
-
-	 },
+		//  Customize to display composed module in the left list
+		this.updateComposedModuleList();
+	},
 	
-	
+	/**
+	 * All the saved wirings are reusable modules :
+	 */
 	updateComposedModuleList: function() {
 		
+		// to optimize:
+		
+		// Remove all previous module with the ComposedModule class
 		var l = YAHOO.util.Dom.getElementsByClassName("ComposedModule", "div", this.leftEl);
 		for(var i = 0 ; i < l.length ; i++) {
 			this.leftEl.removeChild(l[i]);
@@ -187,10 +182,7 @@ YAHOO.lang.extend(jsBox.WiringEditor, WireIt.WiringEditor, {
 
 	       }
 	    }
-	
 	}
-	
-   
 });
 
 
@@ -322,7 +314,7 @@ YAHOO.extend(jsBox.Container, WireIt.Container, {
  * ComposedContainer is a class for Container representing Pipes.
  * It automatically generates the inputEx Form from the input Params.
  * @class ComposedContainer
- * @extends WireIt.inputExContainer
+ * @extends WireIt.FormContainer
  * @constructor
  */
 jsBox.ComposedContainer = function(options, layer) {
@@ -355,6 +347,4 @@ jsBox.ComposedContainer = function(options, layer) {
    
    jsBox.ComposedContainer.superclass.constructor.call(this, options, layer);
 };
-
-YAHOO.extend(jsBox.ComposedContainer, WireIt.FormContainer, {
-});
+YAHOO.extend(jsBox.ComposedContainer, WireIt.FormContainer);
