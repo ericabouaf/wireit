@@ -23,6 +23,9 @@ WireIt.WiringEditor.adapters.Ajax = {
 		}
 	},
 	
+	init: function() {
+		YAHOO.util.Connect.setDefaultPostHeader('application/json');
+	},
 	
 	saveWiring: function(val, callbacks) {
 		this._sendRequest("saveWiring", val, callbacks);

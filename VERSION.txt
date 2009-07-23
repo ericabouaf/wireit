@@ -7,6 +7,7 @@ not released yet
 
 Before release:
 
+	* document existing Adapters (ajax, gears, json-rpc)
 	* Rebuild homepage from guide
 	* API Doc
 	* Rollup files for wireit-base and wiringEditor	
@@ -39,6 +40,7 @@ Changeset:
 	Bugfixes:
 	* WiringEditor: Containers were mispositionned when the layer was scrolled
 	* Wire positioning for wirables fields in FormContainer
+	* Updating Excanvas to R3 - now works in IE8
 
 ----------------------------------------------------
 
