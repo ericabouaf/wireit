@@ -371,6 +371,13 @@ WireIt.WiringEditor.prototype = {
   * @method onNew
   */
  onNew: function() {
+	
+	if(!this.isSaved()) {
+		if( !confirm("Warning: Your work is not saved yet ! Press ok to continue anyway.") ) {
+			return;
+		}
+	}
+	
 	this.preventLayerChangedEvent = true;
 	
    this.layer.clear(); 
@@ -550,6 +557,12 @@ WireIt.WiringEditor.prototype = {
   */
  loadPipe: function(name) {
 	
+	if(!this.isSaved()) {
+		if( !confirm("Warning: Your work is not saved yet ! Press ok to continue anyway.") ) {
+			return;
+		}
+	}
+	
 	try {
 	
 		this.preventLayerChangedEvent = true;
@@ -640,6 +653,9 @@ WireIt.WiringEditor.prototype = {
 		this.savedStatusEl.style.display = '';
 	},
 
+	isSaved: function() {
+		return (this.savedStatusEl.style.display == 'none');
+	},
  
  /**
   * This method return a wiring within the given vocabulary described by the modules list

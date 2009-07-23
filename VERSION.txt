@@ -6,8 +6,6 @@ Version 0.5.0
 not released yet
 
 Current:
-
-	* documentation for ajax controller, especially how to do REST
 	
 	* BUG: jsBox: form values in input fields are overriden !!
 	* BUG: jsBox should be broken (because of autoload)
@@ -32,7 +30,7 @@ Changeset:
 			* Gears (if no backend usable)
 			* Ajax adapter - configurable XHR calls. Can be configured to do REST or something else...
 		* propertiesFields default value (becomes optional)
-		* saved status indicator
+		* saved status indicator + confirmation
 			
 	* WireIt Guide	
 	* InOutContainer
