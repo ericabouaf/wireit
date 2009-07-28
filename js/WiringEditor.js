@@ -121,11 +121,27 @@ WireIt.WiringEditor = function(options) {
     // Render module list
     this.buildModulesList();
 
-    // Render buttons
-    this.renderButtons();
 
- 	 // Saved status
-	 this.renderSavedStatus();
+    var toolbarOptions = options.toolbar
+    this.toolbar.element = Dom.get('toolbar');
+    if (toolbarOptions)
+    {
+      if (toolbarOptions.enabled && toolbarOptions.buttons)
+      {
+	for (var b in toolbarOptions.buttons)
+	{
+	  this.toolbar.add(toolbarOptions.buttons[b]);  
+	}
+      }
+    }
+    else
+    {
+      // Render buttons
+      this.toolbar.renderDefaultButtons();
+    }
+    
+    // Saved status
+    this.renderSavedStatus();
 
     // Properties Form
     this.renderPropertiesForm();
@@ -138,7 +154,8 @@ WireIt.WiringEditor = function(options) {
 };
 
 WireIt.WiringEditor.prototype = {
-
+  editor : this,
+  
  /**
   * @method setOptions
   * @param {Object} options
@@ -270,28 +287,51 @@ WireIt.WiringEditor.prototype = {
     }    
  },
 
- /**
-  * Toolbar
-  * @method renderButtons
-  */
- renderButtons: function() {
-    var toolbar = Dom.get('toolbar');
-    // Buttons :
-    var newButton = new widget.Button({ label:"New", id:"WiringEditor-newButton", container: toolbar });
-    newButton.on("click", this.onNew, this, true);
+  toolbar : {
+    element : null,
+    
+    /*
+    button = {label : <label>, id : <id>, events : [ {name: <name e.g. click>, callback : <callback e.g. function() { alert('test') }> } ]}
+    */
+    add: function(button)
+    {
+      // Buttons :
+      var wButton = new widget.Button({ label:button.label, id: button.id, container: this.element });
 
-    var loadButton = new widget.Button({ label:"Load", id:"WiringEditor-loadButton", container: toolbar });
-    loadButton.on("click", this.load, this, true);
+      for (var e in button.events)
+      {
+	var event = button.events[e];
+	
+	wButton.on(event.name, event.callback, this.editor, true);
+      }
+    },
 
-    var saveButton = new widget.Button({ label:"Save", id:"WiringEditor-saveButton", container: toolbar });
-    saveButton.on("click", this.onSave, this, true);
 
-    var deleteButton = new widget.Button({ label:"Delete", id:"WiringEditor-deleteButton", container: toolbar });
-    deleteButton.on("click", this.onDelete, this, true);
+    /**
+      * Toolbar
+      * @method renderDefaultButtons
+      */
+    renderDefaultButtons: function() {
+      try {
+	// Buttons :
+	var newButton = new widget.Button({ label:"New", id:"WiringEditor-newButton", container: this.element });
+	newButton.on("click", WireIt.WiringEditor.prototype.onNew, this.editor, true);
 
-    var helpButton = new widget.Button({ label:"Help", id:"WiringEditor-helpButton", container: toolbar });
-    helpButton.on("click", this.onHelp, this, true);
- },
+	var loadButton = new widget.Button({ label:"Load", id:"WiringEditor-loadButton", container: this.element });
+	loadButton.on("click", WireIt.WiringEditor.prototype.load, this.editor, true);
+
+	var saveButton = new widget.Button({ label:"Save", id:"WiringEditor-saveButton", container: this.element });
+	saveButton.on("click", WireIt.WiringEditor.prototype.onSave, this.editor, true);
+
+	var deleteButton = new widget.Button({ label:"Delete", id:"WiringEditor-deleteButton", container: this.element });
+	deleteButton.on("click", WireIt.WiringEditor.prototype.onDelete, this.editor, true);
+
+	var helpButton = new widget.Button({ label:"Help", id:"WiringEditor-helpButton", container: this.element });
+	helpButton.on("click", WireIt.WiringEditor.prototype.onHelp, this.editor, true);
+	} catch (ex) { console.log(ex) }
+    },
+
+  },
 
 	/**
 	 * @method renderSavedStatus
