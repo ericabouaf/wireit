@@ -8,7 +8,6 @@ not released yet
 
 Before release:
 
-	* Rollup files for wireit-base and wiringEditor
 	* BUG: editing wire mis-positionned in Layer
 	
 	* Lot of IE6 bugs...

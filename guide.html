@@ -110,6 +110,9 @@
 			<ol class="secondLevel">
 				<li><a href="#adaptersIntroduction">Introduction</a></li>
 				<li><a href="#adaptersConfiguration">Configuring the adapter</a></li>
+				<li><a href="#ajaxAdapter">Ajax adapter</a></li>
+				<li><a href="#jsonRPCAdapter">Json-RPC Adapter</a></li>
+				<li><a href="#gearsAdapter">Gears adapter</a></li>
 	    		<li><a href="#adaptersCreation">Create an adapter</a></li>
 			</ol>
 		</li>
@@ -925,18 +928,33 @@ WireIt.ImageContainer.myMethod = function () {
 
 <a name="production"><h2>notes on production</h2></a>
 
-<p>You might mant to use rollup versions. The advantage is to reduce the number of HTTP requests on page load.</p>
+<p>In a production environment, it is preferable to use rollup files: The javascript files are concatenated into a single javascript file (to reduce the number of HTTP requests) then compressed using the YUI compressor (to reduce file size).</p>
 
-<p>Additionally, you should minify your code. We suggest using the YUI Compressor.</p>
-
-<p>Some rollup files are provided in the wireit build directory :</p>
+<p>Some rollup files are provided in the <i>wireit/build</i> directory :</p>
 
 <pre class="brush:html">
 	&lt;script type="text/javascript" src="lib/wireit/build/wireit-min.js"&gt;&lt;/script&gt;
 </pre>
 
+<p>or</p>
 
-<p>The WireIt zip file contains example, guides, documentation, which are not necessary. We recommend you only copy this files on your webserver :</p>
+<pre class="brush:html">
+	&lt;script type="text/javascript" src="lib/wireit/build/wiring-editor-min.js"&gt;&lt;/script&gt;
+</pre>
+
+<p><u>Warning :</u>The rollup files <b>don't</b> include the excanvas.js library <b>required by Internet Explorer</b>, because this file is conditionally loaded using the "if IE" hack :</p>
+
+<pre class="brush:html">
+	&lt;!--[if IE]&gt;&lt;script type="text/javascript" src="../../lib/excanvas.js"&gt;&lt;/script&gt;&lt;![endif]--&gt;
+</pre>
+
+<p><u>Warning :</u>The wiring-editor-min.js file <b>doesn't</b> include any adapter, and only includes <b>some</b> fields of the inputEx library.</p>
+
+<p class="advanced">It is strongly recommended to build your custom rollup file for production. You can then include the adapter you use, the visual language definition, or even the YUI library dependencies. The script to build those files is available at build/rollups.sh (only in source, not in the zipped library)</p>
+
+<p class="advanced">The YUI library is included in the zip file, but the YUI files can be served from Yahoo or Google servers.</p>
+
+<p>Moreover, the WireIt zip file contains example, guides, documentation, which are not necessary in a production environment. We recommend you to copy only the required files on your webserver :</p>
 
 <pre>
 	wireit/
