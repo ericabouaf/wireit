@@ -5,13 +5,18 @@ To get the latest version, please visit http://javascript.neyric.com/wireit
 Version 0.5.0
 not released yet
 
+
 Before release:
 
-	* document existing Adapters (ajax, gears, json-rpc)
+	* Rollup files for wireit-base and wiringEditor
+	* BUG: editing wire mis-positionned in Layer
+	
+	* Lot of IE6 bugs...
 	* Rebuild homepage from guide
-	* API Doc
-	* Rollup files for wireit-base and wiringEditor	
-	* Update Presentation 
+	* Update homepage Presentation 
+	
+	* Move issues/bug tracker to github
+	* Rebuild API Doc
 	
 
 Changeset:
