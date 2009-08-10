@@ -8,15 +8,13 @@ not released yet
 
 Before release:
 
-	* BUG: editing wire mis-positionned in Layer
-	
-	* Lot of IE6 bugs...
-	* Rebuild homepage from guide
-	* Update homepage Presentation 
-	
+	* Update homepage Presentation
 	* Move issues/bug tracker to github
+	* BUG: editing wire mis-positionned in Layer
+	* Lot of IE6 bugs...
+	* Rebuild homepage from guide	
 	* Rebuild API Doc
-	
+	* zip file
 
 Changeset:
 
@@ -31,6 +29,7 @@ Changeset:
 			* Ajax adapter - configurable XHR calls. Can be configured to do REST or something else...
 		* propertiesFields default value (becomes optional)
 		* saved status indicator + confirmation
+		* rollup file wiring-editor-min.js (includes some inputEx and yui-accordionview)
 			
 	* WireIt Guide	
 	* InOutContainer
