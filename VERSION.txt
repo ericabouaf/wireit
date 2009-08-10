@@ -9,8 +9,6 @@ not released yet
 Before release:
 
 	* Update homepage Presentation
-	* Rebuild homepage from guide	
-	* Rebuild API Doc
 	* zip file
 
 Changeset:

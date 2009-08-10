@@ -152,7 +152,7 @@ WireIt.WiringEditor.prototype = {
     this.options = {};
     
     // Load the modules from options
-    this.modules = options.modules || ([]);
+    this.options.modules = options.modules || [];
     for(var i = 0 ; i < this.modules.length ; i++) {
        var m = this.modules[i];
        this.modulesByName[m.name] = m;
@@ -335,6 +335,7 @@ WireIt.WiringEditor.prototype = {
 
    this.alert("Saved !");
 
+	// TODO:
 	/*var name = this.tempSavedWiring.name;	
 	if(this.modulesByName.hasOwnProperty(name) ) {
 		//already exists

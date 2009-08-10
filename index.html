@@ -78,9 +78,17 @@
 				<li>ImageContainer - use images as graph nodes</li>
 			</ul>
 			
-			<p>You can create your own container by subclassing the base <i>Container</i> class, and still benefit from the drop-in use of the WiringEditor in your web application.</p>
+			<p>You can <a href="guide.html#createContainers">create your own container</a> by subclassing the base <i>Container</i> class, and still benefit from the drop-in use of the WiringEditor in your web application.</p>
 			
-			<p>The WiringEditor requires a connection to a database to use save/load features. You can customize it using adapters. A default adapter is provided, which uses JSON-RPC through ajax calls, and a PHP/MySQL backend.</p>
+			<p>The WiringEditor requires a connection to a database to use save/load features. You can customize it using <a href="guide.html#adapters">adapters</a>. WireIt provides default adapters to get you started :</p>
+
+			<ul>
+				<li><a href="guide.html#ajaxAdapter">Ajax Adapter (no backend provided)</a></li>
+				<li><a href="guide.html#jsonRPCAdapter">Json-RPC Adapter + a sample PHP/MySQL backend</a></li>
+				<li><a href="guide.html#gearsAdapter">Gears Adapter (no backend required)</a></li>
+			</ul>
+				
+				
 		
 			<p>WireIt supports all <a href="http://developer.yahoo.com/yui/articles/gbs/">A-Grade Browsers</a>. Please report your issues with specific browsers in <a href="http://groups.google.com/group/wireit/">the forum</a>. It uses the <a href="http://developer.yahoo.com/yui/">YUI library</a> (2.7.0) for DOM and events manipulation, and <a href="http://excanvas.sourceforge.net/">excanvas</a> for IE support of the canvas tag.</p>
 		
@@ -110,8 +118,8 @@
 			
 			<!-- Download -->
 			<div style="text-align:center;font-weight:bold; font-size:17px;background-color:#EEEEEE;-moz-border-radius: 10px; padding: 10px;-webkit-border-radius: 10px;">
-				<a href="http://cloud.github.com/downloads/neyric/wireit/WireIt-0.4.0.zip">Download WireIt 0.4.0</a><br/>
-				<span style="font-size: 70%; font-weight: normal;">(WireIt-0.4.0.zip - 7.8MB - <a href="VERSION.txt">changeset</a>)</span>
+				<a href="http://cloud.github.com/downloads/neyric/wireit/WireIt-0.5.0.zip">Download WireIt 0.5.0</a><br/>
+				<span style="font-size: 70%; font-weight: normal;">(WireIt-0.5.0.zip - 7.8MB - <a href="VERSION.txt">changeset</a>)</span>
 			</div>
 			
 			<!-- License -->
