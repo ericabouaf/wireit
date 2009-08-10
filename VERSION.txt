@@ -9,9 +9,6 @@ not released yet
 Before release:
 
 	* Update homepage Presentation
-	* Move issues/bug tracker to github
-	* BUG: editing wire mis-positionned in Layer
-	* Lot of IE6 bugs...
 	* Rebuild homepage from guide	
 	* Rebuild API Doc
 	* zip file
@@ -39,6 +36,8 @@ Changeset:
 	* Spring Layout (experimental) (+examples)
 	* Wire mouse events (experimental) (+examples)
 	* Added drawing method 'bezierArrows' (experimental)
+	
+	* Move issues/bug tracker to github
 	
 	Bugfixes:
 	* WiringEditor: Containers were mispositionned when the layer was scrolled
