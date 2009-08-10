@@ -152,7 +152,7 @@ WireIt.WiringEditor.prototype = {
     this.options = {};
     
     // Load the modules from options
-    this.options.modules = options.modules || [];
+    this.modules = options.modules || [];
     for(var i = 0 ; i < this.modules.length ; i++) {
        var m = this.modules[i];
        this.modulesByName[m.name] = m;
