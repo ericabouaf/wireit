@@ -185,6 +185,9 @@ WireIt.Layer.prototype = {
       }
       var container = new type(containerConfig, this);
    
+      return this.addContainerDirect(container);
+   },
+   addContainerDirect: function(container) {
       this.containers.push( container );
    
       // Event listeners
@@ -208,7 +211,14 @@ WireIt.Layer.prototype = {
 
 		this.eventChanged.fire(this);
    
-      return container;
+      return container;	
+   },
+   
+   addContainerUI: function(container) {
+       this.containers.push(container);
+       container.addUI();
+       
+       this.eventChanged.fire(this)
    },
 
    /**
@@ -216,16 +226,22 @@ WireIt.Layer.prototype = {
     * @method removeContainer
     * @param {WireIt.Container} container Container instance to remove
     */
-   removeContainer: function(container) {
+   removeContainer: function(container, uiOnly) {
       var index = WireIt.indexOf(container, this.containers);
       if( index != -1 ) {
-         container.remove();
+	  
+	 if (uiOnly == true)
+	    container.removeUI();
+	 else
+	    container.remove();
+	    
          this.containers[index] = null;
          this.containers = WireIt.compact(this.containers);
       
-         this.eventRemoveContainer.fire(container);
+	 if (uiOnly != true)
+	    this.eventRemoveContainer.fire(container);
 
-			this.eventChanged.fire(this);
+	this.eventChanged.fire(this);
       }
    },
 

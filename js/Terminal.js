@@ -659,19 +659,21 @@ WireIt.Terminal.prototype = {
      	return [curleft+15,curtop+15];
    },
 
-
+   remove: function() {
+       this.removeUI();
+       this.removeModel();
+   },
 
    /**
     * Remove the terminal from the DOM
     * @method remove
     */
-   remove: function() {
+   removeModel: function() {
       // This isn't very nice but...
       // the method Wire.remove calls Terminal.removeWire to remove the reference
       while(this.wires.length > 0) {
          this.wires[0].remove();
       }
-      this.parentEl.removeChild(this.el);
       
       // Remove all event listeners
       Event.purgeElement(this.el);
@@ -683,7 +685,21 @@ WireIt.Terminal.prototype = {
       
    },
 
+    removeUI: function() {
+       for (var i in this.wires) {
+         this.wires[i].remove(true);
+       }
+	
+	this.parentEl.removeChild(this.el);
+    },
 
+    addUI: function() {
+	this.parentEl.appendChild(this.el);
+	
+       for (var i in this.wires) {
+         this.wires[i].show();
+       }
+    },
 
    /**
     * Returns a list of all the terminals connecter to this terminal through its wires.

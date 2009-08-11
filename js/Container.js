@@ -51,6 +51,8 @@ WireIt.Container = function(options, layer) {
     */
    this.bodyEl = null;
    
+   this.grouper = GLOBAL.grouper;
+   
    /**
     * Event that is fired when a wire is added
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
@@ -188,7 +190,7 @@ WireIt.Container.prototype = {
       	
          // Set title
          if(this.options.title) {
-            this.ddHandle.appendChild( WireIt.cn('span', null, null, this.options.title) );
+            this.ddHandle.appendChild( WireIt.cn('span', {className: 'floatleft'}, null, this.options.title) );
          }
          
          // Icon
@@ -208,11 +210,17 @@ WireIt.Container.prototype = {
       	this.ddResizeHandle = WireIt.cn('div', {className: this.options.resizeHandleClassName} );
       	this.el.appendChild(this.ddResizeHandle);
       }
-   
+
+      //if(this.options.groupable) {
+         this.groupButton = WireIt.cn('div', {className: 'WireIt-Container-groupbutton'} );
+	 this.ddHandle.appendChild(this.groupButton)
+	 Event.addListener(this.groupButton, "click", this.onGroupButton, this, true);
+      //}
+
       if(this.options.close) {
          // Close button
          this.closeButton = WireIt.cn('div', {className: this.options.closeButtonClassName} );
-         this.el.appendChild(this.closeButton);
+         this.ddHandle.appendChild(this.closeButton);
          Event.addListener(this.closeButton, "click", this.onCloseButton, this, true);
       }
    
@@ -278,22 +286,44 @@ WireIt.Container.prototype = {
       this.layer.removeContainer(this);
    },
 
+   onGroupButton: function(e, args) {
+       Event.stopEvent(e);
+
+       this.grouper.toggle(this)
+   },
+
+   addedToGroup: function() {
+       this.ddHandle.style.backgroundColor = "red";
+   },
+
+    removedFromGroup: function() {
+	this.ddHandle.style.backgroundColor = "";
+    },
+
    /**
     * Remove this container from the dom
     * @method remove
     */
    remove: function() {
-   
-      // Remove the terminals (and thus remove the wires)
-      this.removeAllTerminals();
-   
-      // Remove from the dom
-      this.layer.el.removeChild(this.el);
-      
-      // Remove all event listeners
-      Event.purgeElement(this.el);
+       this.removeUI();
+       this.removeModel();
    },
 
+    removeModel: function() {
+	this.removeAllTerminalsModel();
+	Event.purgeElement(this.el);
+    },
+
+   removeUI: function() {
+       this.removeAllTerminalsUI();
+       
+       this.layer.el.removeChild(this.el);
+   },
+
+    addUI: function() {
+	this.addAllTerminalsUI();
+	this.layer.el.appendChild(this.el);
+    },
 
    /**
     * Call the addTerminal method for each terminal configuration.
@@ -364,12 +394,25 @@ WireIt.Container.prototype = {
     * Remove all terminals
     * @method removeAllTerminals
     */
-   removeAllTerminals: function() {
+   removeAllTerminalsModel: function() {
       for(var i = 0 ; i < this.terminals.length ; i++) {
-         this.terminals[i].remove();
+         this.terminals[i].removeModel();
       }
       this.terminals = [];
    },
+
+   removeAllTerminalsUI: function() {
+      for(var i = 0 ; i < this.terminals.length ; i++) {
+         this.terminals[i].removeUI();
+      } 
+   },
+
+   addAllTerminalsUI: function() {
+      for(var i = 0 ; i < this.terminals.length ; i++) {
+         this.terminals[i].addUI();
+      } 
+   },
+
 
    /**
     * Redraw all the wires connected to the terminals of this container
