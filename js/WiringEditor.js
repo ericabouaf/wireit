@@ -198,7 +198,23 @@ WireIt.WiringEditor.prototype = {
     var layerOptions = options.layerOptions || {};
     
     var temp = this;
-    this.options.layerOptions.grouper = {"baseConfigFunction": function(name) { return temp.modulesByName[name].container; } };
+    var baseConfigFunction = function(name) 
+	{ 
+	    if (name == "Group")
+		return {
+		    "xtype": "WireIt.GroupFormContainer",
+		    "title": "Group",    
+
+		    "collapsible": true,
+		    "fields": [ ],
+		    "legend": "Inner group fields",
+		    "getBaseConfigFunction" : baseConfigFunction
+		}
+	    else
+		return temp.modulesByName[name].container
+	}
+	
+    this.options.layerOptions.grouper = {"baseConfigFunction": baseConfigFunction };
     
     this.options.layerOptions.parentEl = layerOptions.parentEl ? layerOptions.parentEl : Dom.get('center');
     this.options.layerOptions.layerMap = YAHOO.lang.isUndefined(layerOptions.layerMap) ? true : layerOptions.layerMap;

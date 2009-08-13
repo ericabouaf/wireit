@@ -134,7 +134,7 @@ YAHOO.util.Event.onDOMReady( function() {
 	// Open the infos panel
 	editor.accordionView.openPanel(2);
 	alert("hi")
-	editor.toolbar.add({label : "Bob", id: "WireIt-Bob", events : [ {name : "click", callback: function() { alert(this) } } ] })
+	editor.toolbar.add({label : "Bob", id: "WireIt-Bob", events : [ {name : "click", callback: function() { editor.layer.grouper.collapse(); } } ] })
 	/*
     var util = YAHOO.util,lang = YAHOO.lang;
     var Event = util.Event, Dom = util.Dom, Connect = util.Connect,JSON = lang.JSON,widget = YAHOO.widget;
