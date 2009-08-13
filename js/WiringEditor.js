@@ -110,7 +110,7 @@ WireIt.WiringEditor = function(options) {
      * @type {WireIt.Layer}
      */
     this.layer = new WireIt.Layer(this.options.layerOptions);
-	 this.layer.eventChanged.subscribe(this.onLayerChanged, this, true);
+	this.layer.eventChanged.subscribe(this.onLayerChanged, this, true);
 
 	 /**
 	  * @property leftEl
@@ -120,7 +120,6 @@ WireIt.WiringEditor = function(options) {
 
     // Render module list
     this.buildModulesList();
-
 
     var toolbarOptions = options.toolbar
     this.toolbar.element = Dom.get('toolbar');
@@ -197,6 +196,10 @@ WireIt.WiringEditor.prototype = {
      
     this.options.layerOptions = {};
     var layerOptions = options.layerOptions || {};
+    
+    var temp = this;
+    this.options.layerOptions.grouper = {"baseConfigFunction": function(name) { return temp.modulesByName[name].container; } };
+    
     this.options.layerOptions.parentEl = layerOptions.parentEl ? layerOptions.parentEl : Dom.get('center');
     this.options.layerOptions.layerMap = YAHOO.lang.isUndefined(layerOptions.layerMap) ? true : layerOptions.layerMap;
     this.options.layerOptions.layerMapOptions = layerOptions.layerMapOptions || { parentEl: 'layerMap' };
@@ -271,6 +274,11 @@ WireIt.WiringEditor.prototype = {
       this.leftEl.appendChild(div);
  },
  
+ getCurrentGrouper: function(editor)
+ {
+     return editor.currentGrouper;
+ },
+ 
  /**
   * add a module at the given pos
   */
@@ -279,6 +287,8 @@ WireIt.WiringEditor.prototype = {
        var containerConfig = module.container;
        containerConfig.position = pos;
        containerConfig.title = module.name;
+       var temp = this;
+       containerConfig.getGrouper = function() { return temp.getCurrentGrouper(temp); }
        var container = this.layer.addContainer(containerConfig);
        Dom.addClass(container.el, "WiringEditor-module-"+module.name);
     }
@@ -302,10 +312,10 @@ WireIt.WiringEditor.prototype = {
       {
 	var event = button.events[e];
 	
-	wButton.on(event.name, event.callback, this.editor, true);
+	wButton.on(event.name, event.callback, event.context, true);
       }
-    },
 
+    },
 
     /**
       * Toolbar

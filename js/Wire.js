@@ -117,36 +117,22 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * Remove a Wire from the Dom
     * @method remove
     */
-   remove: function(uiOnly) {
+   remove: function() {
    
       // Remove the canvas from the dom
-      try {
-	this.parentEl.removeChild(this.element);
-      }
-      catch (ex)
-      {
-	  if (!(ex.name && ex.name == "NS_ERROR_DOM_NOT_FOUND_ERR"))
-	    throw ex
-      }
+      this.parentEl.removeChild(this.element);
    
-      if (uiOnly != true)
-      {
-	// Remove the wire reference from the connected terminals
-	if(this.terminal1 && this.terminal1.removeWire) {
-	    this.terminal1.removeWire(this);
-	}
-	if(this.terminal2 && this.terminal2.removeWire) {
-	    this.terminal2.removeWire(this);
-	}
-    
-	// Remove references to old terminals
-	this.terminal1 = null;
-	this.terminal2 = null;
-      }
-   },
+      // Remove the wire reference from the connected terminals
+    if(this.terminal1 && this.terminal1.removeWire) {
+	this.terminal1.removeWire(this);
+    }
+    if(this.terminal2 && this.terminal2.removeWire) {
+	this.terminal2.removeWire(this);
+    }
 
-   show: function() {
-       this.parentEl.appendChild(this.element);
+    // Remove references to old terminals
+    this.terminal1 = null;
+    this.terminal2 = null;
    },
 
    /**

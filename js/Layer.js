@@ -79,6 +79,8 @@ WireIt.Layer = function(options) {
     */
    this.eventContainerResized = new YAHOO.util.CustomEvent("eventContainerResized");
    
+   this.grouper = new WireIt.Grouper(this, this.options.grouper.baseConfigFunction);
+   
    this.render();
    
    this.initContainers();
@@ -117,6 +119,7 @@ WireIt.Layer.prototype = {
       this.options.layerMap = YAHOO.lang.isUndefined(options.layerMap) ? false : options.layerMap;
       this.options.layerMapOptions = options.layerMapOptions;
       this.options.enableMouseEvents = YAHOO.lang.isUndefined(options.enableMouseEvents) ? true : options.enableMouseEvents;
+      this.options.grouper = options.grouper
    },
 
    /**
@@ -214,32 +217,21 @@ WireIt.Layer.prototype = {
       return container;	
    },
    
-   addContainerUI: function(container) {
-       this.containers.push(container);
-       container.addUI();
-       
-       this.eventChanged.fire(this)
-   },
-
    /**
     * Remove a container
     * @method removeContainer
     * @param {WireIt.Container} container Container instance to remove
     */
-   removeContainer: function(container, uiOnly) {
+   removeContainer: function(container) {
       var index = WireIt.indexOf(container, this.containers);
       if( index != -1 ) {
 	  
-	 if (uiOnly == true)
-	    container.removeUI();
-	 else
-	    container.remove();
+	container.remove();
 	    
-         this.containers[index] = null;
-         this.containers = WireIt.compact(this.containers);
+        this.containers[index] = null;
+        this.containers = WireIt.compact(this.containers);
       
-	 if (uiOnly != true)
-	    this.eventRemoveContainer.fire(container);
+	this.eventRemoveContainer.fire(container);
 
 	this.eventChanged.fire(this);
       }

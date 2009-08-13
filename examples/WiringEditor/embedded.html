@@ -101,11 +101,13 @@ div.Bubble div.body {
 <script type="text/javascript" src="../../js/Layer.js"></script>
 <script type="text/javascript" src="../../js/util/inputex/FormContainer-beta.js"></script>
 <script type="text/javascript" src="../../js/LayerMap.js"></script>
+<script type="text/javascript" src="../../js/Grouper.js"></script>
 <script type="text/javascript" src="../../js/WiringEditor.js"></script>
 <script type="text/javascript" src="../../js/ImageContainer.js"></script>
 <script type="text/javascript" src="../../js/InOutContainer.js"></script>
 <script type="text/javascript" src="../../js/adapters/json-rpc.js"></script>
 
+<script type="text/javascript" src="../../js/GroupFormContainer.js"></script>
 
 <script type="text/javascript" src="embedded.js"></script>
 
@@ -123,7 +125,7 @@ div.WireIt-Container.WiringEditor-module-comment div.body textarea { background-
 // InputEx needs a correct path to this image
 inputEx.spacerUrl = "/inputex/trunk/images/space.gif";
 
-var editor;
+var editor, layer;
 
 YAHOO.util.Event.onDOMReady( function() {
 	
@@ -133,6 +135,17 @@ YAHOO.util.Event.onDOMReady( function() {
 	editor.accordionView.openPanel(2);
 	alert("hi")
 	editor.toolbar.add({label : "Bob", id: "WireIt-Bob", events : [ {name : "click", callback: function() { alert(this) } } ] })
+	/*
+    var util = YAHOO.util,lang = YAHOO.lang;
+    var Event = util.Event, Dom = util.Dom, Connect = util.Connect,JSON = lang.JSON,widget = YAHOO.widget;
+
+    var layerOptions = {};
+    layerOptions.parentEl = Dom.get('center');
+    layerOptions.layerMap = false; //YAHOO.lang.isUndefined(layerOptions.layerMap) ? true : layerOptions.layerMap;
+    //layerOptions.layerMapOptions = layerOptions.layerMapOptions || { parentEl: 'layerMap' };
+    
+    layer = new WireIt.Layer(layerOptions);
+    */
 });
 
 </script>
