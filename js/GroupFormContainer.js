@@ -56,12 +56,17 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	
 	var offset = this.layer.containers.length;
 	
+	var thisConfig = this.getConfig();
+	var position = [thisConfig.position[0], thisConfig.position[1]];
+	
 	for (var mI in this.group.modules)
 	{
 	    var m = this.group.modules[mI]
-	    var baseContainerConfig = this.getBaseConfig(m.name)
-	    YAHOO.lang.augmentObject(m.config, baseContainerConfig); 
+	    var baseContainerConfig = this.getBaseConfig(m.name);
+	    YAHOO.lang.augmentObject(m.config, baseContainerConfig); //TODO: Might not want to modify the module config here (in case the group can be reshrunk and old vars are used)
 	    m.config.title = m.name;
+	    var newPos = this.translatePosition(m.config.position, position);
+	    m.config.position = newPos;
 	    var container = this.layer.addContainer(m.config);
 	    //Dom.addClass(container.el, "WiringEditor-module-"+m.name);
 	    container.setValue(m.value);
@@ -116,6 +121,11 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	}
 	
 	this.layer.removeContainer(this);
+    },
+
+    translatePosition: function(modulePosition, position)
+    {
+	return [ Math.max(0, modulePosition[0]+position[0]), Math.max(0, modulePosition[1]+position[1]) ];
     },
 
    /**

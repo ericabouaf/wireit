@@ -20,8 +20,7 @@
 		draggable: true,
 		width: '500px',
 		visible: false,
-		modal: true,
-		close: false
+		modal: true
 	    });
 	this.panel.panelElement = pel;
 	
@@ -33,7 +32,7 @@
 	this.panel.buttonsElement = WireIt.cn("div");
 	outer.appendChild(this.panel.buttonsElement);
 	
-	var okButton = WireIt.cn("button", {}, {}, "OK");
+	var okButton = WireIt.cn("button", {}, {}, "Make Group");
 	okButton.id = "groupPanelOkButton";
 	this.panel.buttonsElement.appendChild(okButton);
 	
@@ -52,6 +51,7 @@
 	row.appendChild(WireIt.cn("th", {}, {}, "Name"));
 	row.appendChild(WireIt.cn("th", {}, {}, "Visible"));
 	row.appendChild(WireIt.cn("th", {}, {}, "New name"));
+	row.appendChild(WireIt.cn("th", {}, {}, "Show"));
 	
 	pel.render(document.body);
 	
@@ -80,15 +80,22 @@
     
     collapse: function()
     {
+	if (this.containers.length == 0)
+	{
+	    alert("No containers selected, use the G in the top right corner to select containers");
+	    return;
+	}
+	
 	var list = this.panel.list;
 	configUITerminalMap = [];
+	var layer = this.layer;
 	
 	var addTerminal = function(t, moduleId)
 	    {
 		var addTds = function(terminalDiv) {
 			tds = [];
 			
-			for(var i = 0; i < 3; i++)
+			for(var i = 0; i < 4; i++)
 			{
 			    var td = WireIt.cn("td")
 			    tds.push(td);
@@ -108,7 +115,33 @@
 		tds[0].innerHTML = internalName;
 		tds[1].appendChild(visible);
 		tds[2].appendChild(externalName);
-
+		
+		var showButton = WireIt.cn("button", {}, {}, "Show")
+		
+		var centerLayer = function (elem, layerElem)
+		    {
+			/*
+			eR = elem.getBoundingClientRect();
+			lR = layerElem.getBoundingClientRect();
+			
+			layerElem.scrollTop = ((eR.top+eR.bottom)/2) - ((lR.top+lR.bottom)/2) - lR.top
+			layerElem.scrollLeft = ((eR.left+eR.right)/2) - ((lR.left+lR.right)/2) - lR.left
+			*/
+			layerElem.scrollTop = elem.offsetTop+elem.offsetHeight-(layerElem.offsetHeight/2);
+			layerElem.scrollLeft = elem.offsetLeft+elem.offsetWidth-(layerElem.offsetWidth/2);
+		    }
+		    
+		showButton.onmousedown = function()
+		    { 
+			centerLayer(t.container.el, layer.el);
+			t.setDropInvitation(true); 
+		    };
+		var cancel = function () { t.setDropInvitation(false);  };
+		
+		showButton.onmouseup = cancel; 
+		showButton.onmouseout = cancel;
+		
+		tds[3].appendChild(showButton);
 		list.appendChild(terminalDiv)
 
 		configUITerminalMap.push({"visible": visible, "externalName":  externalName, "terminal": t, "moduleId" : moduleId, "internalName" : internalName});
@@ -159,7 +192,8 @@
 			    "collapsible": true,
 			    "fields": [ ],
 			    "legend": "Inner group fields",
-			    "getBaseConfigFunction" : this.baseConfigFunction
+			    "getBaseConfigFunction" : this.baseConfigFunction,
+			    position : working.container.position
 		}
 	    )
 
@@ -327,12 +361,18 @@
 	var group = {wires : [], modules: [], externalToInternalTerminalMap : {}, terminals : []};
 	var terminals = group.terminals;
 	
+	var center = this.workOutCenter(containers);
+		
 	for (var cI in containers)
 	{
 	    var c = containers[cI];
+	    var config = c.getConfig();
+	    
+	    config.position[0] = center[0] - config.position[0];
+	    config.position[1] = center[1] - config.position[1];
 	    
 	    //Add container to group
-	    group.modules.push( {name: c.options.title, value: c.getValue(), config: c.getConfig()});
+	    group.modules.push( {name: c.options.title, value: c.getValue(), config: config});
 	}
 	
 	
@@ -374,9 +414,42 @@
 	}
 	
 	return {
+		"container" : {"position" : center},
 		"group" : group,
 		"wires" : {"external" : externalWires, "cut" : cutWires}
 	    };
+    },
+    
+    workOutCenter: function(containers)
+    {
+	var bounds = {};
+	
+	for (var cI in containers)
+	{
+	    var c = containers[cI]
+	    var config = c.getConfig();
+	    
+	    var left, top;
+	    left = config.position[0];
+	    top = config.position[1];
+	
+	    if ((typeof bounds["left"] == "undefined") || bounds["left"] > left)
+		bounds["left"] = left;
+		
+	    if ((typeof bounds["right"] == "undefined") || bounds["right"] < left)
+		bounds["right"] = left;
+
+	    if ((typeof bounds["top"] == "undefined") || bounds["top"] > top)
+		bounds["top"] = top;
+
+	    if ((typeof bounds["bottom"] == "undefined") || bounds["bottom"] < top)
+		bounds["bottom"] = top;
+	}
+	
+	return [
+		((bounds.right + bounds.left)/2),
+		((bounds.top + bounds.bottom)/2)
+	    ];
     },
     
     expand: function()

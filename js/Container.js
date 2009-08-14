@@ -213,7 +213,7 @@ WireIt.Container.prototype = {
       	this.el.appendChild(this.ddResizeHandle);
       }
 
-      if(this.options.groupable) {
+      if(this.options.groupable && this.options.ddHandle) {
          this.groupButton = WireIt.cn('div', {className: 'WireIt-Container-groupbutton'} );
 	 this.ddHandle.appendChild(this.groupButton)
 	 Event.addListener(this.groupButton, "click", this.onGroupButton, this, true);
@@ -222,7 +222,10 @@ WireIt.Container.prototype = {
       if(this.options.close) {
          // Close button
          this.closeButton = WireIt.cn('div', {className: this.options.closeButtonClassName} );
-         this.ddHandle.appendChild(this.closeButton);
+	 if (this.options.ddHandle)
+	    this.ddHandle.appendChild(this.closeButton);
+	 else
+	    this.el.appendChild(this.closeButton);
          Event.addListener(this.closeButton, "click", this.onCloseButton, this, true);
       }
    
