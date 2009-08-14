@@ -8,6 +8,12 @@
 	this.baseConfigFunction = baseConfigFunction;
 	this.containers = []
 	this.setupPanel();
+	this.collapsing = false;
+	layer.eventRemoveContainer.subscribe(function(eventName, container) 
+	    { 
+		if (!this.collapsing)
+		    this.remove(container);
+	    }, this, true);
     },
 
     WireIt.Grouper.prototype = {
@@ -47,7 +53,7 @@
 	this.panel.listHeadRow = row;
 	
 	list.appendChild(row);
-	
+	row.appendChild(WireIt.cn("th", {}, {}, "Container"));
 	row.appendChild(WireIt.cn("th", {}, {}, "Name"));
 	row.appendChild(WireIt.cn("th", {}, {}, "Visible"));
 	row.appendChild(WireIt.cn("th", {}, {}, "New name"));
@@ -80,6 +86,8 @@
     
     collapse: function()
     {
+	
+	
 	if (this.containers.length == 0)
 	{
 	    alert("No containers selected, use the G in the top right corner to select containers");
@@ -87,64 +95,89 @@
 	}
 	
 	var list = this.panel.list;
-	configUITerminalMap = [];
+	var configUITerminalMap = [];
+	var configUIFieldMap = [];
 	var layer = this.layer;
 	
-	var addTerminal = function(t, moduleId)
+	var centerLayer = function (elem, layerElem)
+		{
+
+		    layerElem.scrollTop = elem.offsetTop+elem.offsetHeight-(layerElem.offsetHeight/2);
+		    layerElem.scrollLeft = elem.offsetLeft+elem.offsetWidth-(layerElem.offsetWidth/2);
+		}
+	
+	var addRemapInput = function(name, moduleId, moduleTitle, showOn, showCancel, defaultVisible, defaultName)
 	    {
-		var addTds = function(terminalDiv) {
+		var addTds = function(row) {
 			tds = [];
 			
-			for(var i = 0; i < 4; i++)
+			for(var i = 0; i < 5; i++)
 			{
 			    var td = WireIt.cn("td")
 			    tds.push(td);
-			    terminalDiv.appendChild(td);
+			    row.appendChild(td);
 			}
 			
 			return tds;
 		    }
 		
-		var terminalDiv = WireIt.cn("tr")
+		var row = WireIt.cn("tr")
 		
 		var visible = WireIt.cn("input", {"type" : "checkbox"});
-		var externalName = WireIt.cn("input", {"type" : "text"});
+		visible.checked = (typeof defaultVisible == "undefined") ? "" : defaultVisible;
 		
-		var tds = addTds(terminalDiv);
-		var internalName = t.options.name
-		tds[0].innerHTML = internalName;
-		tds[1].appendChild(visible);
-		tds[2].appendChild(externalName);
+		var externalName = WireIt.cn("input", {"type" : "text"});
+		externalName.value = (typeof defaultName == "undefined") ? "" : defaultName
+		
+		var tds = addTds(row);
+		
+		tds[0].innerHTML = moduleTitle;
+		tds[1].innerHTML = name;
+		tds[2].appendChild(visible);
+		tds[3].appendChild(externalName);
 		
 		var showButton = WireIt.cn("button", {}, {}, "Show")
+		showButton.onmousedown = showOn
+		showButton.onmouseup = showCancel; 
+		showButton.onmouseout = showCancel;
 		
-		var centerLayer = function (elem, layerElem)
-		    {
-			/*
-			eR = elem.getBoundingClientRect();
-			lR = layerElem.getBoundingClientRect();
+		tds[4].appendChild(showButton);
+		list.appendChild(row)
+		
+		return {"visible": visible, "externalName":  externalName, "moduleId" : moduleId, "internalName" : name};
+	    }
+	
+	
+	var addTerminal = function(t, moduleId)
+	    {
+		showOn = function()
+			{ 
+			    centerLayer(t.container.el, layer.el);
+			    t.setDropInvitation(true); 
+			};
 			
-			layerElem.scrollTop = ((eR.top+eR.bottom)/2) - ((lR.top+lR.bottom)/2) - lR.top
-			layerElem.scrollLeft = ((eR.left+eR.right)/2) - ((lR.left+lR.right)/2) - lR.left
-			*/
-			layerElem.scrollTop = elem.offsetTop+elem.offsetHeight-(layerElem.offsetHeight/2);
-			layerElem.scrollLeft = elem.offsetLeft+elem.offsetWidth-(layerElem.offsetWidth/2);
-		    }
+		showCancel = function () { t.setDropInvitation(false);  };
+		var fragment = addRemapInput(t.options.name, moduleId, t.container.options.title, showOn, showCancel, false,  t.options.name);
+		
+		fragment.terminal = t;
+		configUITerminalMap.push(fragment);
+	    }
+	
+	var addField = function(field, moduleId)
+	    {
+		var bg = field.divEl.style.backgroundColor;
 		    
-		showButton.onmousedown = function()
+		showOn = function()
 		    { 
-			centerLayer(t.container.el, layer.el);
-			t.setDropInvitation(true); 
+			centerLayer(field.options.container.el, layer.el);
+			field.divEl.style.backgroundColor = "yellow"; 
 		    };
-		var cancel = function () { t.setDropInvitation(false);  };
+		showCancel = function () { field.divEl.style.backgroundColor = bg;  };
 		
-		showButton.onmouseup = cancel; 
-		showButton.onmouseout = cancel;
+		var fragment = addRemapInput(field.options.name, moduleId, field.options.container.options.title, showOn, showCancel, false,  field.options.name);
 		
-		tds[3].appendChild(showButton);
-		list.appendChild(terminalDiv)
-
-		configUITerminalMap.push({"visible": visible, "externalName":  externalName, "terminal": t, "moduleId" : moduleId, "internalName" : internalName});
+		fragment.field = field;
+		configUIFieldMap.push(fragment)
 	    }
 	
 	this.panel.list.innerHTML = "";
@@ -154,6 +187,15 @@
 	{
 	    var c = this.containers[cI]
 	    
+	    if ((typeof c.form) == "object")
+	    {
+		for (var fI in c.form.inputs)
+		{
+		    var f = c.form.inputs[fI]
+		    
+		    addField(f, cI)
+		}
+	    }
 	    for (var tI in c.terminals)
 	    {
 		var t = c.terminals[tI]
@@ -163,6 +205,8 @@
 	}
 	
 	this.configUITerminalMap = configUITerminalMap;
+	this.configUIFieldMap = configUIFieldMap;
+	
 	console.log("from collapse");
 	console.log(this);
 	this.panel.panelElement.show();
@@ -201,15 +245,13 @@
 
 	    this.addExternalWires(gc, working.wires.external);
 	    
-	    if (this.containers.length > 0)
+	    this.collapsing = true;
+	    for (var i in this.containers)
 	    {
-		for (var i in this.containers)
-		{
-		    var elem = this.containers[i]
-		    
-		    this.layer.removeContainer(elem);
-		}
+		var elem = this.containers[i]
+		this.layer.removeContainer(elem);
 	    }
+	    this.collapsing = false;
 	    
 	    this.containers = [];
 	    this.configUITerminalMap = [];
@@ -366,13 +408,13 @@
 	for (var cI in containers)
 	{
 	    var c = containers[cI];
-	    var config = c.getConfig();
+	    var mConfig = c.getConfig();
 	    
-	    config.position[0] = center[0] - config.position[0];
-	    config.position[1] = center[1] - config.position[1];
+	    mConfig.position[0] = mConfig.position[0] - center[0];
+	    mConfig.position[1] = mConfig.position[1] - center[1];
 	    
 	    //Add container to group
-	    group.modules.push( {name: c.options.title, value: c.getValue(), config: config});
+	    group.modules.push( {name: c.options.title, value: c.getValue(), config: mConfig});
 	}
 	
 	

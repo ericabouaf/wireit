@@ -299,7 +299,7 @@ WireIt.Container.prototype = {
    },
 
    addedToGroup: function() {
-       this.ddHandle.style.backgroundColor = "red";
+       this.ddHandle.style.backgroundColor = "green";
    },
 
     removedFromGroup: function() {
