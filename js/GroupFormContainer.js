@@ -59,6 +59,8 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	var thisConfig = this.getConfig();
 	var position = [thisConfig.position[0], thisConfig.position[1]];
 	
+	var expandedContainers = [];
+	
 	for (var mI in this.group.modules)
 	{
 	    var m = this.group.modules[mI]
@@ -70,6 +72,18 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	    var container = this.layer.addContainer(m.config);
 	    //Dom.addClass(container.el, "WiringEditor-module-"+m.name);
 	    container.setValue(m.value);
+	    
+	    expandedContainers.push(container);
+	}
+	
+	for (var fI in this.form.inputsNames)
+	{
+	    var f = this.form.inputsNames[fI];
+	    var internal = this.group.externalToInternalFieldMap[fI];
+	    
+	    var container = expandedContainers[internal.moduleId];
+	    
+	    container.form.inputsNames[internal.name].setValue(f.getValue());
 	}
 	
 	for (var wI in this.group.wires)
@@ -119,6 +133,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 		this.layer.addWire(wire);
 	    }
 	}
+
 	
 	this.layer.removeContainer(this);
     },
@@ -140,10 +155,16 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
     */
    setValue: function(val) {
       this.group = val;
-      //Potentially do fields in the form
+    
+      //Terminals
       this.removeAllTerminals();
       this.initTerminals(val.terminals);
       this.dd.setTerminals(this.terminals);
+      
+    //Fields - have to go after terminal stuff since fields create their own terminals and above stuff would destroy them
+      this.options.fields = val.fields;
+      this.form.destroy();
+      this.renderForm();      
    }
    
 });

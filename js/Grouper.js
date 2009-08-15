@@ -98,6 +98,7 @@
 	var configUITerminalMap = [];
 	var configUIFieldMap = [];
 	var layer = this.layer;
+	var self = this;
 	
 	var centerLayer = function (elem, layerElem)
 		{
@@ -106,12 +107,12 @@
 		    layerElem.scrollLeft = elem.offsetLeft+elem.offsetWidth-(layerElem.offsetWidth/2);
 		}
 	
-	var addRemapInput = function(name, moduleId, moduleTitle, showOn, showCancel, defaultVisible, defaultName)
+	var addRemapInput = function(name, moduleId, moduleTitle, showOn, showCancel, defaultVisible, defaultName, nameReadOnly, visibleReadOnly)
 	    {
 		var addTds = function(row) {
 			tds = [];
 			
-			for(var i = 0; i < 5; i++)
+			for(var i = 0; i < 6; i++)
 			{
 			    var td = WireIt.cn("td")
 			    tds.push(td);
@@ -125,9 +126,13 @@
 		
 		var visible = WireIt.cn("input", {"type" : "checkbox"});
 		visible.checked = (typeof defaultVisible == "undefined") ? "" : defaultVisible;
+		visible.disabled = visibleReadOnly
 		
 		var externalName = WireIt.cn("input", {"type" : "text"});
+		externalName.disabled = nameReadOnly;
 		externalName.value = (typeof defaultName == "undefined") ? "" : defaultName
+		
+		
 		
 		var tds = addTds(row);
 		
@@ -136,19 +141,27 @@
 		tds[2].appendChild(visible);
 		tds[3].appendChild(externalName);
 		
+		var sideSelect = WireIt.cn("select");
+		sideSelect.appendChild(WireIt.cn("option", {value: "top"}, {}, "Top"));
+		sideSelect.appendChild(WireIt.cn("option", {value: "bottom"}, {}, "Bottom"));
+		sideSelect.appendChild(WireIt.cn("option", {value: "left"}, {}, "Left"));
+		sideSelect.appendChild(WireIt.cn("option", {value: "right"}, {}, "Right"));
+		
+		tds[4].appendChild(sideSelect);
+		
 		var showButton = WireIt.cn("button", {}, {}, "Show")
 		showButton.onmousedown = showOn
 		showButton.onmouseup = showCancel; 
 		showButton.onmouseout = showCancel;
 		
-		tds[4].appendChild(showButton);
+		tds[5].appendChild(showButton);
 		list.appendChild(row)
 		
-		return {"visible": visible, "externalName":  externalName, "moduleId" : moduleId, "internalName" : name};
+		return {"visible": visible, "externalName":  externalName, "moduleId" : moduleId, "internalName" : name, "side" : sideSelect};
 	    }
 	
 	
-	var addTerminal = function(t, moduleId)
+	var addTerminal = function(t, moduleId, fieldTerminals)
 	    {
 		showOn = function()
 			{ 
@@ -157,13 +170,22 @@
 			};
 			
 		showCancel = function () { t.setDropInvitation(false);  };
-		var fragment = addRemapInput(t.options.name, moduleId, t.container.options.title, showOn, showCancel, false,  t.options.name);
 		
-		fragment.terminal = t;
-		configUITerminalMap.push(fragment);
+		var visibleReadOnly = false;
+		var defaultVisible = false;
+		var nameReadOnly = false;
+		
+		var fieldTerminal = fieldTerminals[t.options.name];
+		if (!lang.isValue(fieldTerminal))
+		{
+		    var fragment = addRemapInput(t.options.name, moduleId, t.container.options.title, showOn, showCancel, false,  t.options.name);
+		
+		    fragment.terminal = t;
+		    configUITerminalMap.push(fragment);
+		}
 	    }
 	
-	var addField = function(field, moduleId)
+	var addField = function(field, fieldConfig, moduleId, fieldTerminals)
 	    {
 		var bg = field.divEl.style.backgroundColor;
 		    
@@ -174,9 +196,29 @@
 		    };
 		showCancel = function () { field.divEl.style.backgroundColor = bg;  };
 		
-		var fragment = addRemapInput(field.options.name, moduleId, field.options.container.options.title, showOn, showCancel, false,  field.options.name);
 		
+		var visibleReadOnly = false;
+		var defaultVisible = false;
+		if (lang.isObject(f.terminal))
+		{
+		    if (f.terminal.wires.length > 0)
+		    {
+			var wire = f.terminal.wires[0];
+			if ((self.containers.indexOf(wire.terminal1.container) != -1) && (self.containers.indexOf(wire.terminal2.container) != -1))
+			{
+			    visibleReadOnly = true;
+			    defaultVisible = false;
+			}
+		    }
+			
+		    fieldTerminals[f.terminal.options.name] = f.terminal;
+		}
+		
+		var fragment = addRemapInput(field.options.name, moduleId, field.options.container.options.title, showOn, showCancel, defaultVisible,  field.options.name, false, visibleReadOnly);
+		
+		fragment.fieldConfig = fieldConfig;
 		fragment.field = field;
+		
 		configUIFieldMap.push(fragment)
 	    }
 	
@@ -187,20 +229,22 @@
 	{
 	    var c = this.containers[cI]
 	    
+	    var fieldTerminals = {};
+	    
 	    if ((typeof c.form) == "object")
 	    {
 		for (var fI in c.form.inputs)
 		{
 		    var f = c.form.inputs[fI]
 		    
-		    addField(f, cI)
+		    addField(f, c.form.inputConfigs[fI], cI, fieldTerminals)
 		}
 	    }
 	    for (var tI in c.terminals)
 	    {
 		var t = c.terminals[tI]
 		
-		addTerminal(t, cI)
+		addTerminal(t, cI, fieldTerminals)
 	    }
 	}
 	
@@ -217,8 +261,6 @@
 	try
 	{
 	    var mappingConfig = this.processMappingConfig();
-	
-	
 	    var working = this.groupConfig(this.containers, mappingConfig)
 	    
 	    if (working.wires.cut.length > 0)
@@ -262,7 +304,7 @@
 	{
 	    if ((typeof(ex) == "object") && (typeof ex.type != "undefined"))
 	    {
-		if (ex.type == "TerminalMappingError")
+		if (ex.type == "MappingError")
 		{
 		    alert(ex.message);
 		    return;
@@ -275,6 +317,19 @@
     
     processMappingConfig: function()
     {
+	var visibleTerminalNames = {};
+	var config = {}
+	
+	config.fields = this.processFieldMappings(visibleTerminalNames);
+	config.terminals = this.processTerminalMappings(visibleTerminalNames);
+	
+	return config;
+    },
+    
+    processTerminalMappings: function(visibleNames)
+    {
+	var terminals = [];
+	
 	var positionByNumber = function(n,N) {
 			// n is expected to run from 0 to N-1, where N is the number of terminals on an edge
 			var terminal_width = 30;
@@ -286,8 +341,6 @@
 			return pos-offset; // position in centre of terminal
 		};
 	
-	var config = { "terminals" : [] }
-	var visibleNames = {};
 	var list = this.panel.list;
 	
 	console.log("terminal map thing is ")
@@ -310,10 +363,10 @@
 	    if (visible)
 	    {
 		if (name == null || name.length == 0)
-		    throw {"type" : "TerminalMappingError", "message" : "External terminal name was blank (" + tMap.internalName + ")"}
+		    throw {"type" : "MappingError", "message" : "External terminal name was blank (" + tMap.internalName + ")"}
 		
 		if ((typeof visibleNames[name]) != "undefined")
-		    throw {"type": "TerminalMappingError", "message": "Duplicate terminal name (" + name + ")"}
+		    throw {"type": "MappingError", "message": "Duplicate terminal name (" + name + ")"}
 		else
 		    visibleNames[name] = true;
 	    }
@@ -333,10 +386,53 @@
 	    
 	    
 	    
-	    config.terminals.push(terminalConfig);
+	    terminals.push(terminalConfig);
 	}
 	
-	return config;
+	return terminals;
+    },
+    
+    processFieldMappings: function(visibleTerminalNames)
+    {
+	var fields = [];
+	var visibleNames = {};
+	
+	var i, N;
+	N = this.configUIFieldMap.length;
+	for (var nI = 0; nI < N; nI++)
+	{
+	    var fMap = this.configUIFieldMap[nI];
+	    
+	    var name = fMap.externalName.value;
+	    var visible = fMap.visible.checked;
+	    
+	    if (visible)
+	    {
+		if (name == null || name.length == 0)
+		    throw {"type" : "MappingError", "message" : "External field name was blank (" + fMap.internalName + ")"}
+		
+		if ((typeof visibleNames[name]) != "undefined")
+		    throw {"type": "MappingError", "message": "Duplicate field name (" + name + ")"}
+		else
+		    visibleNames[name] = true;
+	    }
+	    
+	    var fieldConfig = {}
+	    fieldConfig.field = fMap.field;
+	    fieldConfig.moduleId = fMap.moduleId;
+	    fieldConfig.external = visible;
+	    fieldConfig.config = YAHOO.lang.merge(fMap.fieldConfig);
+	    fieldConfig.config.inputParams = YAHOO.lang.merge(fMap.fieldConfig.inputParams);
+	    fieldConfig.config.inputParams.name = name;
+	    fieldConfig.config.inputParams.value = fMap.field.getValue();
+	    
+	    fields.push(fieldConfig);
+	    
+	    if (lang.isValue(fMap.field.terminal))
+		visibleTerminalNames[name] = true;
+	}
+	
+	return fields;
     },
     
     addExternalWires: function(groupContainer, wireMap)
@@ -400,39 +496,17 @@
 	    
 	var externalWires = [];
 	var cutWires = [];
-	var group = {wires : [], modules: [], externalToInternalTerminalMap : {}, terminals : []};
+	var group = {wires : [], modules: [], 
+	    externalToInternalTerminalMap : {}, terminals : [],
+	    externalToInternalFieldMap : {}, fields : []};
 	var terminals = group.terminals;
 	
 	var center = this.workOutCenter(containers);
-		
-	for (var cI in containers)
-	{
-	    var c = containers[cI];
-	    var mConfig = c.getConfig();
-	    
-	    mConfig.position[0] = mConfig.position[0] - center[0];
-	    mConfig.position[1] = mConfig.position[1] - center[1];
-	    
-	    //Add container to group
-	    group.modules.push( {name: c.options.title, value: c.getValue(), config: mConfig});
-	}
+	var self = this;
 	
-	
-	for (var tI in config.terminals)
-	{
-	    var tConfig = config.terminals[tI]
-	    var t = tConfig.terminal;
-	    if (tConfig.external)
+	var processWire = function(w, terminalName, terminalVisible)
 	    {
-		terminals.push(tConfig.config);
-		group.externalToInternalTerminalMap[tConfig.config.name] = {moduleId : tConfig.moduleId, name: t.options.name}
-	    }
-	    
-	    for (var wI in t.wires)
-	    {
-		var w = t.wires[wI];
-		
-		var wType = getWireType(w, this.layer);
+		var wType = getWireType(w, self.layer);
 		
 		if (wType.internal)
 		{
@@ -445,13 +519,66 @@
 		}
 		else
 		{
-		    var wireFragment = {groupTerminalName : tConfig.config.name, groupIsSource : wType.groupIsSource, "external" : wType.external}
-		    if (tConfig.external)
+		    var wireFragment = {groupTerminalName : terminalName, groupIsSource : wType.groupIsSource, "external" : wType.external}
+		    if (terminalVisible)
 			externalWires.push(wireFragment);
 		    else
 			cutWires.push(wireFragment);
 		}
+	    };
+	
+	for (var cI in containers)
+	{
+	    var c = containers[cI];
+	    var mConfig = c.getConfig();
+	    
+	    mConfig.position[0] = mConfig.position[0] - center[0];
+	    mConfig.position[1] = mConfig.position[1] - center[1];
+	    
+	    //Add container to group
+	    group.modules.push( {name: c.options.title, value: c.getValue(), config: mConfig});
+	}
+	
+	for (var fI in config.fields)
+	{
+	    var fConfig = config.fields[fI];
+	    var f = fConfig.field;
+	    
+	    if (fConfig.external)
+	    {
+		fConfig.config.inputParams.value = f.getValue();
 		
+		group.fields.push(fConfig.config);
+		var name = fConfig.config.inputParams.name;
+		group.externalToInternalFieldMap[name] = {moduleId : fConfig.moduleId, name: f.options.name}
+		
+	    }
+	    
+	    if (lang.isValue(f.terminal))
+	    {
+		group.externalToInternalTerminalMap[name] = {moduleId : fConfig.moduleId, name: f.options.name}
+		for (var wI in f.terminal.wires)
+		    processWire(f.terminal.wires[wI], name, fConfig.external);
+	    }
+	}
+	
+	
+	for (var tI in config.terminals)
+	{
+	    var tConfig = config.terminals[tI]
+	    var t = tConfig.terminal;
+	    if (tConfig.external)
+	    {
+		terminals.push(tConfig.config);
+		    
+		group.externalToInternalTerminalMap[tConfig.config.name] = {moduleId : tConfig.moduleId, name: t.options.name}
+	    }
+	    
+	    for (var wI in t.wires)
+	    {
+		var w = t.wires[wI];
+		
+		processWire(w, tConfig.config.name, tConfig.external);
 	    }
 	}
 	
