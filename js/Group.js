@@ -3,16 +3,126 @@
     var Event = util.Event, Dom = util.Dom, Connect = util.Connect,JSON = lang.JSON,widget = YAHOO.widget;
 
     
-    WireIt.Group = function (containers) {
-		this.config = {};
-		this.containers = [];
-		
-		if (lang.isArray(containers))
+    WireIt.Group = {
+		generateFields: function(fieldConfigs, overrides)
 		{
-			for (var cI in containers)
+			var fields = [];
+			var neededFields = [];
+			var terminalNamesUsed  = [];
+			
+			var addFiledToUsed = function(name, fieldConfig)
+				{
+					usedNames[name] = true;
+					
+					if (fieldConfig.inputParams.wirable)
+						terminalNamesUsed[name] = true;
+				}
+		
+			for (var fI in fieldConfigs)
 			{
-				this.addContainer(containers[cI])
+				var f = fieldConfigs[fI];
+				var o = overrides[fI + f.inputParams.name];
+				var needNames = {};
+				
+				if (lang.isObject(o) && o.visible)
+				{
+					if (lang.isValue(o.rename))
+					{
+						var field = {}
+						lang.augmentObject(field, f);
+						field.inputParams = lang.augmentObject({"label" : o.rename, "name" : o.rename}, field.inputParams);
+						fields.push( field );
+						usedNames[o.rename] = true;
+					}
+					else
+						neededFields.push(f);
+				}
 			}
+			
+			for (var fI in neededFields)
+			{
+				var f = neededFields[fI];
+				var freshName = this.generateNextName(f.inputParams.name, usedNames);
+				
+				usedNames[freshName] = true;
+				
+				var field = {}
+				lang.augmentObject(field, f);
+				field.inputParams.name = freshName;
+				fields.push( field );
+			}
+			
+			return {
+				"fields" : fields, 
+				"usedTerminalNames" : terminalNamesUsed
+			}
+		},
+		
+		generateTerminals: function(terminalConfigs, overrides, usedNames)
+		{
+			var terminals = [];
+			
+			for (var tI in terminalConfigs)
+			{
+				var t = terminalConfigs[tI];
+				var o = overrides[t.name]
+				
+				if (lang.isObject(o) && o.visible)
+				{
+					if (lang.isValue(o.rename))
+					{
+						var terminal = {};
+						lang.augmentObject(terminal, t);
+						terminal.name = o.rename;
+						//TODO: check if name already used?
+						usedNames[o.rename] = true;
+						terminals.push(terminal);
+					}
+					else
+					{
+						visibleTerminals.push(t);
+					}
+				}
+			}
+			
+			for (var tI in visibleTerminals)
+			{
+				var t = visibleTerminals[tI];
+				var freshName = this.generateNextName(t.name, usedNames);
+				
+				usedNames[freshName] = true;
+				
+				var terminal = {};
+				lang.augmentObject(terminal, t);
+				terminal.name = freshName;
+				
+				terminals.push(terminal);
+			}
+			
+			return terminals;
+		},
+		
+		generateNextName: function(name, usedNames)
+		{
+			var used = function(name)
+				{
+					return lang.isValue(usedNames[name]);
+				};
+			
+			var freshName = name;
+					
+			if (used(freshName))
+			{
+				var i = 1;
+				var current = freshName;
+			
+				do
+					freshName = current + i;
+					i++;
+				while(used(freshName))
+			}
+			
+			usedNames[freshName] = true;
 		}
     },
 
