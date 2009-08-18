@@ -67,6 +67,10 @@ WireIt.Container = function(options, layer) {
     */
    this.eventRemoveWire = new util.CustomEvent("eventRemoveWire");
    
+   this.eventFocus = new util.CustomEvent("eventFocus");
+   
+   this.eventBlur = new util.CustomEvent("eventBlur");
+   
    // Render the div object
    this.render();
    
@@ -256,7 +260,7 @@ WireIt.Container.prototype = {
     * Called when the user made a mouse down on the container and sets the focus to this container (only if within a Layer)
     * @method onMouseDown
     */
-   onMouseDown: function() {
+   onMouseDown: function(event) {
       if(this.layer) {
          if(this.layer.focusedContainer && this.layer.focusedContainer != this) {
             this.layer.focusedContainer.removeFocus();
@@ -272,6 +276,8 @@ WireIt.Container.prototype = {
     */
    setFocus: function() {
       Dom.addClass(this.el, CSS_PREFIX+"Container-focused");
+      
+      this.eventFocus.fire(this);
    },
 
    /**
@@ -280,6 +286,8 @@ WireIt.Container.prototype = {
     */
    removeFocus: function() {
       Dom.removeClass(this.el, CSS_PREFIX+"Container-focused");
+      
+      this.eventBlur.fire(this);
    },
 
    /**

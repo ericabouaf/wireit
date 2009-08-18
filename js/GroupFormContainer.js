@@ -61,15 +61,17 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	
 	var expandedContainers = [];
 	
-	for (var mI in this.group.modules)
+	for (var mI in this.group.internalConfig.modules)
 	{
-	    var m = this.group.modules[mI]
+	    var m = this.group.internalConfig.modules[mI];
+	    
 	    var baseContainerConfig = this.getBaseConfig(m.name);
-	    YAHOO.lang.augmentObject(m.config, baseContainerConfig); //TODO: Might not want to modify the module config here (in case the group can be reshrunk and old vars are used)
-	    m.config.title = m.name;
-	    var newPos = this.translatePosition(m.config.position, position);
-	    m.config.position = newPos;
-	    var container = this.layer.addContainer(m.config);
+	    var newConfig = YAHOO.lang.JSON.parse( YAHOO.lang.JSON.stringify( m.config ) ) //TODO: nasty deep clone, probably breaks if you have DOM elements in your config or something
+	    YAHOO.lang.augmentObject(newConfig , baseContainerConfig);
+	    newConfig.title = m.name;
+	    var newPos = this.translatePosition(newConfig.position, position);
+	    newConfig.position = newPos;
+	    var container = this.layer.addContainer(newConfig);
 	    //Dom.addClass(container.el, "WiringEditor-module-"+m.name);
 	    container.setValue(m.value);
 	    
@@ -79,16 +81,16 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	for (var fI in this.form.inputsNames)
 	{
 	    var f = this.form.inputsNames[fI];
-	    var internal = this.group.externalToInternalFieldMap[fI];
+	    var internal = this.group.externalToInternalMap.fields[fI];
 	    
 	    var container = expandedContainers[internal.moduleId];
 	    
 	    container.form.inputsNames[internal.name].setValue(f.getValue());
 	}
 	
-	for (var wI in this.group.wires)
+	for (var wI in this.group.internalConfig.wires)
 	{
-	    var w = this.group.wires[wI]
+	    var w = this.group.internalConfig.wires[wI]
 
 	    this.layer.addWire(
 		{
@@ -113,7 +115,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	    {
 		var w = t.wires[wI]
 		
-		var internal = this.group.externalToInternalTerminalMap[t.options.name];
+		var internal = this.group.externalToInternalMap.terminals[t.options.name];
 		
 		var wire = {}
 		
