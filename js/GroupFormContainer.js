@@ -1,6 +1,6 @@
 (function() {
    
-   var util = YAHOO.util;
+   var util = YAHOO.util,lang = YAHOO.lang;
    var Dom = util.Dom, Event = util.Event, CSS_PREFIX = "WireIt-";
 
 /**
@@ -13,12 +13,16 @@
  * @param {WireIt.Layer}   layer The WireIt.Layer (or subclass) instance that contains this container
  */
 WireIt.GroupFormContainer = function(options, layer) {
+   /*var fieldConfigs = WireIt.Group.fieldConfigsFromModules(options.groupConfig.modules, options.getBaseConfigFunction);
+   
+   var intermediate = WireIt.Group.generateFields(fieldConfigs, {fields: {}, terminals: {}}, {fields: {"0email" : true}, terminals: {}}); //TODO: wrong arguments
+   options.fields = intermediate.fields;
+   var terminalConfigs = WireIt.Group.terminalConfigsFromModules(options.groupConfig.modules, options.getBaseConfigFunction);
+   
+   options.terminals = WireIt.Group.generateTerminals(terminalConfigs , {fields: {}, terminals: {}}, {fields: {}, terminals: {}}, intermediate.usedTerminalNames);
+    */ 
    WireIt.GroupFormContainer.superclass.constructor.call(this, options, layer);
-  
    this.getBaseConfig = this.options.getBaseConfigFunction;
-   var intermediate = WireIt.Group.generateFields(this.options.groupConfig); //TODO: wrong arguments
-   this.options.fields = intermediate.fields;
-   this.options.terminals = WireIt.Group.generateTerminals(this.options.groupConfig, intermediate.usedTerminalNames);
 };
 
 YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
@@ -30,7 +34,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
       WireIt.GroupFormContainer.superclass.setOptions.call(this, options);
       
       this.options.getBaseConfigFunction = options.getBaseConfigFunction
-	  this.options.groupConfig = options.groupConfig;
+      this.options.groupConfig = options.groupConfig;
    },
 
    /**
@@ -52,116 +56,234 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 
     expand: function() 
     {
-		var expandedContainers = WireIt.Group.expand(this.options.groupConfig, this, this.layer);
-		/*
-		var mapModuleId = function(offset, moduleId)
-		    {
-			return parseInt(offset)+parseInt(moduleId);
-		    };
-		
-		var offset = this.layer.containers.length;
-		
-		var thisConfig = this.getConfig();
-		var position = [thisConfig.position[0], thisConfig.position[1]];
-		
-		var expandedContainers = [];
-		
-		for (var mI in this.group.internalConfig.modules)
-		{
-		    var m = this.group.internalConfig.modules[mI];
-		    
-		    var baseContainerConfig = this.getBaseConfig(m.name);
-		    var newConfig = YAHOO.lang.JSON.parse( YAHOO.lang.JSON.stringify( m.config ) ) //TODO: nasty deep clone, probably breaks if you have DOM elements in your config or something
-		    YAHOO.lang.augmentObject(newConfig , baseContainerConfig);
-		    newConfig.title = m.name;
-		    var newPos = this.translatePosition(newConfig.position, position);
-		    newConfig.position = newPos;
-		    var container = this.layer.addContainer(newConfig);
-		    //Dom.addClass(container.el, "WiringEditor-module-"+m.name);
-		    container.setValue(m.value);
-		    
-		    expandedContainers.push(container);
-		}
-		
-		for (var fName in this.form.inputsNames)
-		{
-		    var f = this.form.inputsNames[fName];
-		    var internal = WireIt.Group.getInternalField(this.options.groupConfig, fName);
-		    
-		    var container = expandedContainers[internal.moduleId];
-		    
-		    container.form.inputsNames[internal.name].setValue(f.getValue());
-		}
-		
-		for (var wI in this.group.internalConfig.wires)
-		{
-		    var w = this.group.internalConfig.wires[wI]
+	//For each module add it to the layer
+	//For each wire wire up the new containers
+	//For each internal group add to layer groups, remap from serialised 
+	//For each wire on group container make wire to new containers
+	//Remove group container
+	
+	//var expandedContainers = WireIt.Group.expand(this.options.groupConfig, this, this.layer);
+	
+	var mapModuleId = function(offset, moduleId)
+	    {
+		return parseInt(offset)+parseInt(moduleId);
+	    };
+	
+	var offset = this.layer.containers.length;
+	
+	var thisConfig = this.getConfig();
+	var position = [thisConfig.position[0], thisConfig.position[1]];
+	
+	var expandedContainers = [];
+	
+	for (var mI in this.options.groupConfig.modules)
+	{
+	    var m = this.options.groupConfig.modules[mI];
+	    
+	    var baseContainerConfig = this.getBaseConfig(m.name);
+	    var newConfig = YAHOO.lang.JSON.parse( YAHOO.lang.JSON.stringify( m.config ) ) //TODO: nasty deep clone, probably breaks if you have DOM elements in your config or something
+	    YAHOO.lang.augmentObject(newConfig , baseContainerConfig);
+	    newConfig.title = m.name;
+	    var newPos = this.translatePosition(newConfig.position, position);
+	    newConfig.position = newPos;
+	    var container = this.layer.addContainer(newConfig);
+	    //Dom.addClass(container.el, "WiringEditor-module-"+m.name);
+	    container.setValue(m.value);
+	    
+	    expandedContainers.push(container);
+	}
 
-		    this.layer.addWire(
-			{
-				"src":{
-					"moduleId": mapModuleId(offset, w.src.moduleId),
-					"terminal": w.src.terminal
-				},
-				"tgt":{
-					"moduleId": mapModuleId(offset, w.tgt.moduleId),
-					"terminal": w.tgt.terminal
-				}
-			}
-		    );
-		}
+	var deserialise = function(sGroup)
+	{
+	    var group = {"properties" : sGroup.properties}; //TODO: copy rather than reference?
+	    
+	    if (lang.isValue(sGroup.groupContainer))
+		group.groupContainer = expandedContainers[sGroup.groupContainer];
+	    else
+	    {
+		group.containers = [];
+		group.groups = [];
 		
-		
-		//Remap current external wires to their corresponding internal containers
-		for (var tI in this.terminals)
+		for (var cI in sGroup.containers)
 		{
-		    var t = this.terminals[tI]
+		    var co = sGroup.containers[cI];
 		    
-		    for (var wI in t.wires)
+		    group.containers.push({"container" : expandedContainers[co.container], "overrides" : co.overrides});
+		}
+
+		for (var gI in sGroup.groups)
+		{
+		    var go = sGroup.groups[gI]
+		    
+		    group.groups.push({"group" : deserialise(go.group), "overrides" : go.overrides});
+		}
+	    }
+	    return group;
+	}
+
+	var group = deserialise(this.options.groupConfig.group);
+
+	var getTerminalByName = function (terminals, name)
+	    {
+		for (var tI in terminals)
+		{
+		    var t = terminals[tI];
+		    
+		    if (t.options.name == name)
+			return t;
+		}
+	    };
+	var self = this;
+	var reconnectTerminal = function(terminal, internalId, internalName)
+	    {
+		for (var wI in terminal.wires)
+		{
+		    var w = terminal.wires[wI];
+		    
+		    var wire = {}
+			    
+		    var thisC = {"moduleId" : mapModuleId(offset, internalId), "terminal" : internalName}
+		    
+		    if (w.terminal1 == terminal)
 		    {
-				var w = t.wires[wI]
-				
-				var internal = WireIt.Group.getInternalTerminal(this.options.groupConfig, t.options.name);
-				
-				var wire = {}
-				
-				var thisC = {"moduleId" : mapModuleId(offset, internal.moduleId), "terminal" : internal.name}
-				
-				if (w.terminal1 == t)
-				{
-				    wire.src = thisC
-				    wire.tgt = {"moduleId" : this.layer.containers.indexOf(w.terminal2.container), "terminal" : w.terminal2.options.name}
-				}
-				else
-				{
-				    wire.tgt = thisC
-				    wire.src = {"moduleId" : this.layer.containers.indexOf(w.terminal1.container), "terminal" : w.terminal1.options.name}		    
-				}
-				
-				this.layer.addWire(wire);
+			wire.src = thisC
+			wire.tgt = {"moduleId" : self.layer.containers.indexOf(w.terminal2.container), "terminal" : w.terminal2.options.name}
 		    }
+		    else
+		    {
+			wire.tgt = thisC
+			wire.src = {"moduleId" : self.layer.containers.indexOf(w.terminal1.container), "terminal" : w.terminal1.options.name}		    
+		    }
+		    
+		    self.layer.addWire(wire);
 		}
+	    };
+	
+	var reconnect = function (tfMap, getInternalConfig, offset)
+	{
+	    for (var fName in tfMap.fields)
+	    {
+		var fMap = tfMap.fields[fName];
+		var f = self.form.inputsNames[fName];
+		var internal = getInternalConfig(fMap.containerId, fMap.name);
+		
+		internal.setValue(f.getValue());
+		
+		if (lang.isObject(f.terminal))
+		    reconnectTerminal(f.terminal, fMap.containerId+offset, fMap.name);
+	    }
+	    
+	    for (var tName in tfMap.terminals)
+	    {
+		var tMap = tfMap.terminals[tName];
+		var t = getTerminalByName(self.terminals, tName);
+		
+		reconnectTerminal(t, tMap.containerId+offset, tMap.name);
+	    }
+	}
+	
+	reconnect(this.options.groupConfig.map.containerMap, function(id, name) { return group.containers[id].container.form.inputsNames[name]; });
+	reconnect(this.options.groupConfig.map.groupMap, function(id, name) { return group.groups[id].group.groupContainer.form.inputsNames[name] }, group.containers.length);
+	//Deserialise groups
+	
+	//Set Field values
+	/*
+	for (var fName in this.form.inputsNames)
+	{
+	    var f = this.form.inputsNames[fName];
+	    var internal = WireIt.Group.getInternalField(this.options.groupConfig, fName);
+	    
+	    var container = expandedContainers[internal.moduleId];
+	    
+	    container.form.inputsNames[internal.name].setValue(f.getValue());
+	}
+	*/
+	for (var wI in this.options.groupConfig.wires)
+	{
+	    var w = this.options.groupConfig.wires[wI]
 
-		*/
-		this.layer.removeContainer(this);
+	    this.layer.addWire(
+		{
+			"src":{
+				"moduleId": mapModuleId(offset, w.src.moduleId),
+				"terminal": w.src.terminal
+			},
+			"tgt":{
+				"moduleId": mapModuleId(offset, w.tgt.moduleId),
+				"terminal": w.tgt.terminal
+			}
+		}
+	    );
+	}
+	
+	
+	//Remap current external wires to their corresponding internal containers
+	/*
+	for (var tI in this.terminals)
+	{
+	    var t = this.terminals[tI]
+	    
+	    for (var wI in t.wires)
+	    {
+			var w = t.wires[wI]
+			
+			var internal = WireIt.Group.getInternalTerminal(this.options.groupConfig, t.options.name);
+			
+			var wire = {}
+			
+			var thisC = {"moduleId" : mapModuleId(offset, internal.moduleId), "terminal" : internal.name}
+			
+			if (w.terminal1 == t)
+			{
+			    wire.src = thisC
+			    wire.tgt = {"moduleId" : this.layer.containers.indexOf(w.terminal2.container), "terminal" : w.terminal2.options.name}
+			}
+			else
+			{
+			    wire.tgt = thisC
+			    wire.src = {"moduleId" : this.layer.containers.indexOf(w.terminal1.container), "terminal" : w.terminal1.options.name}		    
+			}
+			
+			this.layer.addWire(wire);
+	    }
+	}
+
+	*/
+	this.layer.removeContainer(this);
+	
+	for (var gI in group.groups)
+	{
+	    var g = group.groups[gI].group;
+	    
+	    if (g.properties.expanded && lang.isValue(g.groupContainer))
+		g.groupContainer.expand();
+	}
     },
 
     translatePosition: function(modulePosition, position)
     {
-		return [ Math.max(0, modulePosition[0]+position[0]), Math.max(0, modulePosition[1]+position[1]) ];
+	return [ Math.max(0, modulePosition[0]+position[0]), Math.max(0, modulePosition[1]+position[1]) ];
     },
+
+    getConfig : function()
+    {
+	var config = WireIt.GroupFormContainer.superclass.getConfig.call(this);
+	lang.augmentObject(config, {"fields" : this.options.fields, "terminals" : this.options.terminals, "groupConfig" : this.options.groupConfig});
+	
+	return config;
+    }
 
    /**
     * @method getValue
     */
-   getValue: function() {
+/*   getValue: function() {
       return this.group;
    },
-   
+  */ 
    /**
     * @method setValue
     */
-   setValue: function(val) {
+   /*setValue: function(val) {
       this.group = val;
     
       //Terminals
@@ -173,7 +295,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
       this.options.fields = val.fields;
       this.form.destroy();
       this.renderForm();      
-   }
+   }*/
    
 });
 })();

@@ -32,6 +32,7 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
       
       this.options.wirable = lang.isUndefined(options.wirable) ? false : options.wirable;
       this.options.container = options.container;
+      options.container = null;
    },
    
    /**

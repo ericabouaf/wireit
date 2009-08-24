@@ -23,6 +23,8 @@ WireIt.Layer = function(options) {
     */
    this.wires = [];
    
+   this.groups = [];
+   
    /**
     * Layer DOM element
     * @property el

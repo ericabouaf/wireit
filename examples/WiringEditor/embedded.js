@@ -119,7 +119,7 @@ var embeddedLanguage = {
 	    },
 	    
 	    init: function() {
-		    alert("FAKE adapter init")
+		    
 	    },
 	    
 	    saveWiring: function(val, callbacks) {
@@ -131,7 +131,7 @@ var embeddedLanguage = {
 	    },
 	    
 	    listWirings: function(val, callbacks) {
-		    alert("adapter list")
+		    
 	    }
 	    
 	},
