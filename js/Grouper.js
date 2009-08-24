@@ -38,6 +38,14 @@
 	    this.display.buttonsElement.appendChild(collapseButton);
 	    Event.addListener('groupConfigCollapseButton','click', this.groupCollapse, this, true);
 	    
+	    var groupSelect = WireIt.cn("select");
+	    this.display.groupSelect = groupSelect;
+	    groupSelect.id = "groupConfigGroupSelect";
+	    this.display.buttonsElement.appendChild(groupSelect);
+	    
+	    Event.addListener('groupConfigGroupSelect','change', function () { this.selectGroup.call(this, groupSelect); } , this, true);
+	    
+	    
 	    var body = WireIt.cn("div");
 	    displayDiv.appendChild(body);
 	    
@@ -75,6 +83,20 @@
     {
 	if (lang.isValue(this.selectedGroup))
 	    this.collapse(this.selectedGroup);
+    },
+    
+    selectGroup: function(select)
+    {
+	var index = select.selectedIndex;
+	if (index >= 0 && lang.isArray(this.selectedGroups) && index < this.selectedGroups.length)
+	{
+	    var group = this.selectedGroups[index];
+	    this.showGroupConfigure(group);
+	}
+	else
+	{
+	    alert("index wrong (" + index);
+	}
     },
     
     addContainer: function(container) {
@@ -159,12 +181,13 @@
 	    var display = this.display;
 	    c.eventFocus.subscribe(function(eventName, containers, a3, a4, a5, a6) 
 		{ 
-		    var map = WireIt.Group.getMap(group);
+		    var container = containers[0];
+		    var group = container.group;
+		    if (lang.isValue(group.group))
+			group = group.group;
 		    
-		    var things = this.generateFieldAndTerminalControls(map);
-	
-		    this.setDisplay(things.listRows);
-		    this.selectedGroup = group;
+		    this.showGroupConfigure.call(this, group, null);
+		    this.setupSelectedGroups(container.group);
 		}, this, true);
 	    	    
 	    tempContainers.push(c);
@@ -209,6 +232,39 @@
 	
 	*/
 	
+    },
+    
+    setupSelectedGroups: function(bottomGroup)
+    {
+	var selectedGroups = [];
+	this.selectedGroups = selectedGroups;
+	
+	var display = this.display;
+	display.groupSelect.innerHTML = "";
+	var selectedGroup = this.selectedGroup;
+	
+	WireIt.Group.getOuterGroup(bottomGroup, function(current)
+	    {
+		var option = WireIt.cn("option", {value: "N" + selectedGroups.length}, {}, "N" + selectedGroups.length);
+		selectedGroups.push(current);
+		
+		display.groupSelect.appendChild(option);
+		
+		if (selectedGroup == current)
+		    option.selected = true;
+	    }
+	    );
+    },
+    
+    showGroupConfigure: function(group, map)
+    {
+	if (!lang.isValue(map))
+	    map = WireIt.Group.getMap(group)
+	
+	var things = this.generateFieldAndTerminalControls(map);
+	this.setDisplay(things.listRows);
+	
+	this.selectedGroup = group;
     },
     
     collapse: function(group, expanded)
@@ -299,6 +355,11 @@
     
     removeGroupFromLayer: function(group)
     {
+	var index = this.layer.groups.indexOf(group);
+	
+	if (index != -1)
+	    this.layer.groups.splice(index, 1);
+	
 	if (lang.isValue(group.groupContainer))
 	{
 	    this.layer.removeContainer(group.groupContainer)

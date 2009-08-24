@@ -5,7 +5,7 @@
     
     WireIt.Group = {
 	
-	    getOuterGroup: function(group)
+	    getOuterGroup: function(group, groupCallback)
 	    {
 		var last = group;
 		var current = last;
@@ -13,6 +13,9 @@
 		{
 		    last = current;
 		    current = current.group;
+		    
+		    if (lang.isFunction(groupCallback))
+			groupCallback(last);
 		}
 		while (lang.isValue(current))
 		
@@ -596,7 +599,7 @@
 				
 				    var f = g.containers[fMap.containerId].container.form.inputsNames[fMap.name]
 				
-				    if (self.isFieldExternal.call(this, f, inGroup))
+				    if (self.isFieldExternal.call(self, f, inGroup))
 					return true;
 				}
 				
