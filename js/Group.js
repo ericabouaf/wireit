@@ -5,6 +5,44 @@
     
     WireIt.Group = {
 	
+	    applyToContainers: function(group, deep, func, context)
+	    {
+		if (!lang.isValue(context))
+		    context = this;
+		
+		if (lang.isValue(group.groupContainer))
+		    func.call(context, group.groupContainer);
+		else
+		{
+		    for (var cI in group.containers)
+			func.call(context, group.containers[cI].container)
+			
+		    if (deep)
+		    {
+			for (var gI in group.groups)
+			    WireIt.Group.applyToContainers(group.groups[gI].group, deep, func, context);
+		    }
+		}
+	    },
+	
+	    addContainer: function(group, container, overrides)
+	    {
+		if (!lang.isObject(overrides))
+		    overrides = {"fields" : {}, "terminals" : {}};
+		
+		group.containers.push({"container" : container, "overrides" : overrides});
+		container.group = group;
+	    },
+	    
+	    addGroup: function(group, innerGroup, overrides)
+	    {
+		if (!lang.isObject(overrides))
+		    overrides = {"fields" : {}, "terminals" : {}};
+		
+		group.groups.push({"group" : innerGroup, "overrides" : overrides});
+		innerGroup.group = group;
+	    },
+	
 	    getOuterGroup: function(group, groupCallback)
 	    {
 		var last = group;
@@ -36,7 +74,7 @@
 		}
 	    },
 	
-	    serialiseGroup: function(group, containers)
+	    serialiseGroup: function(group, containers, groups)
 	    {
 		var sGroup = {};
 		sGroup.properties = {};
@@ -174,18 +212,11 @@
 		    ];
 	    },
 	
-	    getExternalToInteralMap: function(map)
+	    getExternalToInternalMap: function(map)
 	    {
 		var containerMap = {"fields" : {}, "terminals" : {}};
 		var groupMap = {"fields" : {}, "terminals" : {}};
-		
-		var flattened = []
-		//flatten
-		for (var cI in map.containerMap)
-		{
-		    flattened.push(map.containerMap[cI])
-		}
-		
+				
 		for (var cI in map.containerMap)
 		{
 		    var c = map.containerMap[cI];
@@ -336,14 +367,14 @@
 				lang.augmentObject(mergedUsedNames, usedNames.fields);
 				lang.augmentObject(mergedUsedNames, usedNames.terminals);
 				
-				f.externalName = this.generateFreshName(fName, mergedUsedNames);
+				f.externalName = WireIt.Group.generateFreshName(fName, mergedUsedNames);
 			    
 				usedNames.fields[f.externalName] = true;
 				usedNames.terminals[f.externalName] = true;
 			    }
 			    else
 			    {
-				f.externalName = generateFreshName(fName, usedNames.fields);
+				f.externalName = WireIt.Group.generateFreshName(fName, usedNames.fields);
 			    
 				usedNames.fields[f.externalName] = true;
 			    }
@@ -424,7 +455,7 @@
 			    return self.isTerminalExternal(terminal, inGroup);
 			}
 			
-		    mergeTerminalOverrides(terminalConfigs, os, usedNames, forceVisible, cm);
+		    mergeTerminalOverrides(terminalConfigs, os.terminals, usedNames, forceVisible, cm, c.options.title);
 		    
 		    containerMap[cI].terminals = cm;
 		    
@@ -464,7 +495,7 @@
 		    }
 		    else
 		    {
-			var externalToInternalMap = WireIt.Group.getExternalToInteralMap(map);
+			var externalToInternalMap = WireIt.Group.getExternalToInternalMap(map);
 			
 			forceVisible = function(name)
 			    {
@@ -493,7 +524,7 @@
 		    }
 		    
 		    
-		    mergeTerminalOverrides(terminalConfigs, os, usedNames, forceVisible, gm);
+		    mergeTerminalOverrides(terminalConfigs, os.terminals, usedNames, forceVisible, gm);
 		    
 		    groupMap[gI].terminals = gm;
 		}
@@ -559,7 +590,7 @@
 			    {
 				return self.isFieldExternal.call(self, c.form.inputsNames[name], inGroup);
 			    }
-			this.mergeFieldOverrides(fieldConfigs, os, usedNames, forceVisible, cm);
+			this.mergeFieldOverrides(fieldConfigs, os.fields, usedNames, forceVisible, cm);
 		    }
 		    containerMap[cI] = {};
 		    
@@ -589,25 +620,38 @@
 		    }
 		    else
 		    {
-			var externalToInternalMap = WireIt.Group.getExternalToInteralMap(map);
-			//TODO: is this right???
-			forceVisible = function(name)
+			var forceVisible2;
+			
+			forceVisible2 = function(name, group, map)
 			    {
-				for (var fName in externalToInternalMap.containerMap.fields)
-				{
-				    var fMap = externalToInternalMap.containerMap.fields[fName]
+				if (!lang.isValue(map))
+				    map = WireIt.Group.getMap(group);
+				    
+				var externalToInternalMap = WireIt.Group.getExternalToInternalMap(map);
 				
-				    var f = g.containers[fMap.containerId].container.form.inputsNames[fMap.name]
+				var fMap = externalToInternalMap.containerMap.fields[name]
+				
+				if (lang.isValue(fMap))
+				{
+				    var f = group.containers[fMap.containerId].container.form.inputsNames[fMap.name]
 				
 				    if (self.isFieldExternal.call(self, f, inGroup))
 					return true;
 				}
-				
+				else
+				{
+				    var fMap = externalToInternalMap.groupMap.fields[name];
+				 
+				    if (lang.isValue(fMap))
+					return forceVisible2(name, group.groups[fMap.containerId].group);
+				}
 				return false;
 			    }
+			    
+			forceVisible = function(name) { return forceVisible2(name, g, map); };
 		    }
 		    
-		    this.mergeFieldOverrides(fieldConfigs, os, usedNames, forceVisible, gm);
+		    this.mergeFieldOverrides(fieldConfigs, os.fields, usedNames, forceVisible, gm);
 		    
 		    groupMap[gI] = {}
 		    groupMap[gI].fields = gm;
@@ -660,7 +704,7 @@
 			    usedNames.fields[o.rename] = true;
 			    
 			    if (f.inputParams.wirable)
-				userNames.terminals[name] = true;
+				usedNames.terminals[name] = true;
 				
 			    map.externalName = o.rename;
 			}

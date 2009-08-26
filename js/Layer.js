@@ -156,6 +156,25 @@ WireIt.Layer.prototype = {
       }
    },
 
+    setSuperHighlighted: function(containers)
+    {
+	this.unsetSuperHighlighted();
+	
+	for (var i in containers)
+	    containers[i].superHighlight();
+	    
+	this.superHighlighted = containers;
+    },
+    
+    unsetSuperHighlighted: function()
+    {
+	if (YAHOO.lang.isValue(this.superHighlighted))
+	    for (var i in this.superHighlighted)
+	        this.superHighlighted[i].highlight()
+	    
+	this.superHighlighted = null;
+    },
+
    /**
     * Instanciate a wire given its "xtype" (default to WireIt.Wire)
     * @method addWire

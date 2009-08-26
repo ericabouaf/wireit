@@ -98,7 +98,10 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	    var group = {"properties" : sGroup.properties}; //TODO: copy rather than reference?
 	    
 	    if (lang.isValue(sGroup.groupContainer))
+	    {
 		group.groupContainer = expandedContainers[sGroup.groupContainer];
+		group.groupContainer.group = group;
+	    }
 	    else
 	    {
 		group.containers = [];
@@ -107,21 +110,32 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 		for (var cI in sGroup.containers)
 		{
 		    var co = sGroup.containers[cI];
+		    var c = expandedContainers[co.container];
 		    
-		    group.containers.push({"container" : expandedContainers[co.container], "overrides" : co.overrides});
+		    group.containers.push({"container" : c, "overrides" : co.overrides});
+		    c.group = this.group;
 		}
 
 		for (var gI in sGroup.groups)
 		{
 		    var go = sGroup.groups[gI]
+		    var g = deserialise(go.group);
 		    
-		    group.groups.push({"group" : deserialise(go.group), "overrides" : go.overrides});
+		    group.groups.push({"group" : g, "overrides" : go.overrides});
+		    g.group = this.group;
 		}
 	    }
+	    
 	    return group;
 	}
 
-	var group = deserialise(this.options.groupConfig.group);
+	var group = deserialise.call(this, this.options.groupConfig.group);
+/*
+	for (var cI in expandedContainers)
+	{
+	    var c = expandedContainers[cI]
+	    c.group = this.innerGroup;
+	}*/
 
 	var getTerminalByName = function (terminals, name)
 	    {
@@ -250,10 +264,15 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 
 	*/
 	this.layer.removeContainer(this);
+
+	this.group.groupContainer = null;
+	this.group.containers = group.containers;
+	this.group.groups = group.groups;
 	
-	for (var gI in group.groups)
+	var POPIgI = 0;
+	for (POPIgI = 0; POPIgI < group.groups.length; POPIgI++)
 	{
-	    var g = group.groups[gI].group;
+	    var g = group.groups[POPIgI].group;
 	    
 	    if (g.properties.expanded && lang.isValue(g.groupContainer))
 		g.groupContainer.expand();

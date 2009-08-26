@@ -299,6 +299,21 @@ WireIt.Container.prototype = {
       this.layer.removeContainer(this);
    },
 
+    highlight: function()
+    {
+	this.el.style.border = "2px solid blue";
+    },
+
+    dehighlight: function()
+    {
+	this.el.style.border = "";
+    },
+    
+    superHighlight: function()
+    {
+	this.el.style.border = "4px outset blue";
+    },
+    
    onGroupButton: function(e, args) {
        Event.stopEvent(e);
 

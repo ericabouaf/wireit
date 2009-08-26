@@ -10,11 +10,39 @@
 	this.groups = [];
 	this.setupWidget(Dom.get("groupConfig"));
 	this.collapsing = false;
-	//this.group = new WireIt.Group();
-	layer.eventRemoveContainer.subscribe(function(eventName, container) 
+	
+	//If a container is removed from the layer then remove it from the currently selected groups
+	layer.eventRemoveContainer.subscribe(function(eventName, containers) 
 	    { 
 		if (!this.collapsing)
-		    this.remove(container);
+		    this.removeContainer(containers[0]);
+	    }, this, true);
+	
+	//If a container is added to the layer then we want to listen to the focus event so we can show group information
+	layer.eventAddContainer.subscribe(function(eventName, container)
+	    {
+		var display = this.display;
+		container[0].eventFocus.subscribe(function(eventName, containers) 
+		{ 
+		    var container = containers[0];
+		    
+		    if (lang.isValue(container.group))
+		    {
+			var group = container.group;
+			if (lang.isValue(group.group))
+			    group = group.group;
+			
+			this.showGroupConfigure.call(this, group);
+			this.setupSelectedGroups(container.group);
+			
+			this.display.mainDiv.style.display = "block"; //TODO: safter visibility toggle?
+		    }
+		    else
+		    {
+			this.display.mainDiv.style.display = "none";//safter visibility toggle?
+		    }
+		}, this, true);
+
 	    }, this, true);
     },
 
@@ -31,7 +59,7 @@
 	    var okButton = WireIt.cn("button", {}, {}, "Save");
 	    okButton.id = "groupConfigOkButton";
 	    this.display.buttonsElement.appendChild(okButton);
-	    Event.addListener('groupConfigOkButton','click', this.groupCollapse, this, true);
+	    Event.addListener('groupConfigOkButton','click', this.setGroupOptions, this, true);
 	    
     	    var collapseButton = WireIt.cn("button", {}, {}, "Collapse");
 	    collapseButton.id = "groupConfigCollapseButton";
@@ -44,6 +72,11 @@
 	    this.display.buttonsElement.appendChild(groupSelect);
 	    
 	    Event.addListener('groupConfigGroupSelect','change', function () { this.selectGroup.call(this, groupSelect); } , this, true);
+	    
+	    var ungroupButton = WireIt.cn("button", {}, {}, "Ungroup");
+	    ungroupButton .id = "groupUngroupButton";
+	    this.display.buttonsElement.appendChild(ungroupButton);
+	    Event.addListener('groupUngroupButton','click', this.unGroup, this, true);
 	    
 	    
 	    var body = WireIt.cn("div");
@@ -99,6 +132,119 @@
 	}
     },
     
+    unGroup: function()
+    {
+	if (lang.isValue(this.selectedGroup))
+	{
+	    if (lang.isValue(this.selectedGroup.groupContainer))
+	    {
+		this.selectedGroup.groupContainer.group = null
+	    }
+	    else
+	    {
+		for (var cI in this.selectedGroup.containers)
+		{
+		    var co = this.selectedGroup.containers[cI];
+		    
+		    if (lang.isValue(this.selectedGroup.group))
+			WireIt.Group.addContainer(this.selectedGroup.group, co.container, co.overrides);
+		    else
+			c.container.group = null;
+		}
+		
+		for (var gI in this.selectedGroup.groups)
+		{
+		    var go = this.selectedGroup.groups[gI];
+		    
+		    if (lang.isValue(this.selectedGroup.group))
+			WireIt.Group.addGroup(this.selectedGroup.group, go.group, go.overrides);
+		    else
+			c.group.group = null;
+		}
+	    }
+	    
+	    if (lang.isValue(this.selectedGroup.group))
+	    {
+		this.selectedGroup.group.groups.splice(this.selectedGroup.group.groups.indexOf(this.selectedGroup), 1);
+		this.selectedGroup.group = null;
+	    }
+	    else
+		this.layer.groups.splice(this.layer.groups.indexOf(this.selectedGroup), 1);
+	}
+    },
+    
+    setGroupOptions: function()
+    {
+	var containerUIMap = this.display.containerUIMap;
+	var groupUIMap = this.display.groupUIMap;
+	var group = this.selectedGroup;
+	
+	//for the moment set all overrides
+	for (var cI in containerUIMap)
+	{
+	    var c = containerUIMap[cI]
+	    
+	    for (var fName in c.fields)
+	    {
+		var f = c.fields[fName];
+		var o = {}
+		o.visible = f.visible.checked;
+		var rename = f.externalName.value;
+		
+		if (rename.length > 0)
+		    o.rename = rename;
+				
+		group.containers[cI].overrides.fields[fName] = o;
+	    }
+	    
+	    
+	    for (var tName in c.terminals)
+	    {
+		var t = c.terminals[tName];
+		var o = {}
+		o.visible = t.visible.checked;
+		var rename = t.externalName.value;
+		
+		if (rename.length > 0)
+		    o.rename = rename;
+				
+		group.containers[cI].overrides.terminals[tName] = o;
+	    }
+	}
+	
+	for (var gI in groupUIMap)
+	{
+	    var g = groupUIMap[cI]
+	    
+	    for (var fName in g.fields)
+	    {
+		var f = g.fields[fName];
+		var o = {}
+		o.visible = f.visible.checked;
+		var rename = f.externalName.value;
+		
+		if (rename.length > 0)
+		    o.rename = rename;
+				
+		group.groups[cI].overrides.fields[fName] = o;
+	    }
+	    
+	    
+	    for (var tName in g.terminals)
+	    {
+		var t = g.terminals[tName];
+		var o = {}
+		o.visible = t.visible.checked;
+		var rename = t.externalName.value;
+		
+		if (rename.length > 0)
+		    o.rename = rename;
+				
+		group.groups[cI].overrides.terminals[tName] = o;
+	    }
+	}
+    },
+    
     addContainer: function(container) {
 	if (lang.isValue(container.group))
 	{
@@ -119,6 +265,9 @@
     },
 	
     removeContainer: function(container, index) {
+	if (!lang.isValue(index))
+	    index = this.containers.indexOf(container)
+	    
 	this.containers.splice(index, 1)
 	//this.group.removeContainer(container);
 	container.removedFromGroup();
@@ -176,30 +325,17 @@
 	{
 	    var c = this.containers[cI];
 	
-	    group.containers.push({"container" : c, "overrides" : {}});
-	    c.group = group;
-	    var display = this.display;
-	    c.eventFocus.subscribe(function(eventName, containers, a3, a4, a5, a6) 
-		{ 
-		    var container = containers[0];
-		    var group = container.group;
-		    if (lang.isValue(group.group))
-			group = group.group;
-		    
-		    this.showGroupConfigure.call(this, group, null);
-		    this.setupSelectedGroups(container.group);
-		}, this, true);
-	    	    
+	    WireIt.Group.addContainer(group, c);
+
 	    tempContainers.push(c);
 	}
 	
 	for (var gI in this.groups)
 	{
 	    var g = this.groups[gI];
-	    
-	    group.groups.push({"group" : g, "overrides" : {}});
-	    g.group = group;
-	    
+
+	    WireIt.Group.addGroup(group, g);
+
 	    tempGroups.push(g);
 	}
 	
@@ -261,10 +397,22 @@
 	if (!lang.isValue(map))
 	    map = WireIt.Group.getMap(group)
 	
-	var things = this.generateFieldAndTerminalControls(map);
+	var things = this.generateFieldAndTerminalControls(map, group);
 	this.setDisplay(things.listRows);
 	
+	this.setSelectedGroup(group);
+	this.display.containerUIMap = things.containerUIMap;
+	this.display.groupUIMap = things.groupUIMap;
+    },
+    
+    setSelectedGroup: function(group)
+    {
+	if (lang.isValue(this.selectedGroup))
+	    WireIt.Group.applyToContainers(this.selectedGroup, true, function(c) { c.dehighlight(); });
+	
 	this.selectedGroup = group;
+	
+	WireIt.Group.applyToContainers(this.selectedGroup, true, function(c) { c.highlight(); });
     },
     
     collapse: function(group, expanded)
@@ -329,7 +477,7 @@
 					    "terminals" : collapsedConfig.terminals,
 					    "legend": "Inner group fields",
 					    "getBaseConfigFunction" : this.baseConfigFunction,
-					    groupConfig : {"group" : sGroup, "center": collapsedConfig.center, "modules" : modules, "wires" : wires.internal, "map" : WireIt.Group.getExternalToInteralMap(map)},
+					    groupConfig : {"group" : sGroup, "center": collapsedConfig.center, "modules" : modules, "wires" : wires.internal, "map" : WireIt.Group.getExternalToInternalMap(map)},
 					    position : collapsedConfig.position
 				}
 			)
@@ -381,7 +529,7 @@
     },
     
     
-    generateFieldAndTerminalControls: function(map)
+    generateFieldAndTerminalControls: function(map, group)
     {
 	listRows = [];
 	var configUITerminalMap = {};
@@ -394,7 +542,7 @@
 		var addTds = function(row) {
 			tds = [];
 			
-			for(var i = 0; i < 6; i++)
+			for(var i = 0; i < 5; i++)
 			{
 			    var td = WireIt.cn("td")
 			    tds.push(td);
@@ -405,16 +553,21 @@
 		    }
 		
 		var row = WireIt.cn("tr")
+		row.onmouseover = showOn
+		row.onmouseout = showCancel
+		
+		var focusable = []
 		
 		var visible = WireIt.cn("input", {"type" : "checkbox"});
 		visible.checked = (typeof defaultVisible == "undefined") ? "" : defaultVisible;
 		visible.disabled = visibleReadOnly
+		focusable.push(visible);
 		
 		var externalName = WireIt.cn("input", {"type" : "text"});
 		externalName.disabled = nameReadOnly;
 		externalName.value = (typeof defaultName == "undefined") ? "" : defaultName
 		
-		
+		focusable.push(externalName);
 		
 		var tds = addTds(row);
 		
@@ -429,30 +582,31 @@
 		sideSelect.appendChild(WireIt.cn("option", {value: "left"}, {}, "Left"));
 		sideSelect.appendChild(WireIt.cn("option", {value: "right"}, {}, "Right"));
 		
-		tds[4].appendChild(sideSelect);
+		focusable.push(sideSelect)
 		
+		tds[4].appendChild(sideSelect);
+		/*
 		var showButton = WireIt.cn("button", {}, {}, "Show")
 		showButton.onmousedown = showOn
 		showButton.onmouseup = showCancel; 
 		showButton.onmouseout = showCancel;
 		
-		tds[5].appendChild(showButton);
+		tds[5].appendChild(showButton);*/
 		listRows.push(row)
-		
+
+		for (var i in focusable)
+		{
+		    var f = focusable[i];
+		    f.onfocus = showOn
+		    f.onblur = showCancel
+		}
+
 		return {"visible": visible, "externalName":  externalName, "side" : sideSelect};
 	    }
     
     
-	var addTerminal = function(internalName, tMap, moduleId, fieldTerminals)
+	var addTerminal = function(internalName, tMap, moduleId, fieldTerminals, showOn, showOff)
 	    {
-		showOn = function()
-			{ 
-			    /*centerLayer(t.container.el, layer.el);
-			    t.setDropInvitation(true); */
-			};
-			
-		showCancel = function () { /*t.setDropInvitation(false);*/  };
-		
 		var visibleReadOnly = false;
 		var defaultVisible = false;
 		var nameReadOnly = false;
@@ -460,16 +614,17 @@
 		var fieldTerminal = fieldTerminals[internalName];
 		if (!lang.isValue(fieldTerminal))
 		{
-		    var fragment = addRemapInput(internalName, moduleId, showOn, showCancel, tMap.visible,  lang.isValue(tMap.externalName) ? tMap.externalName : "");
+		    var fragment = addRemapInput(internalName, moduleId, function() { showOn(moduleId) }, function() { showOff(moduleId) }, tMap.visible,  lang.isValue(tMap.externalName) ? tMap.externalName : "");
 		
-		    if (!lang.isValue(configUITerminalMap[moduleId]))
-			configUITerminalMap[moduleId] = {};
+		    //if (!lang.isValue(configUITerminalMap[moduleId]))
+		    // configUITerminalMap[moduleId] = {};
 			
-		    configUITerminalMap[moduleId][internalName] = fragment;
+		    //configUITerminalMap[moduleId][internalName] = fragment;
+		    return fragment;
 		}
 	    }
 	
-	var addField = function(internalName, fMap, moduleId, fieldTerminals)
+	var addField = function(internalName, fMap, moduleId, fieldTerminals, showOn, showOff)
 	    {
 		var visibleReadOnly = false;
 		var defaultVisible = false;
@@ -478,47 +633,79 @@
 		    fieldTerminals[internalName] = true;
 		}
 		
-		var fragment = addRemapInput(internalName, moduleId, function() { }, function() { }, fMap.visible, lang.isValue(fMap.externalName) ? fMap.externalName : "");
+		var fragment = addRemapInput(internalName, moduleId, function() { showOn(moduleId) }, function() { showOff(moduleId) }, fMap.visible, lang.isValue(fMap.externalName) ? fMap.externalName : "");
 		
-		if (!lang.isValue(configUIFieldMap[moduleId]))
-			configUIFieldMap[moduleId] = {};
+		//if (!lang.isValue(configUIFieldMap[moduleId]))
+		//	configUIFieldMap[moduleId] = {};
 			
-		configUIFieldMap[moduleId][internalName] = fragment
+		//configUIFieldMap[moduleId][internalName] = fragment
+		return fragment
 	    }
 	
-	var addControls = function (fieldsAndTerminals)
+	var containerUIMap = [];
+	var groupUIMap = [];
+	
+	var addControls = function (fieldsAndTerminals, results, showOnByIndex, showOffByIndex)
 	{
 	    for (var cI in fieldsAndTerminals)
 	    {
 		var c = fieldsAndTerminals[cI];
 		var fieldTerminals = {};
+		var index = cI;
+		
+		var fields = {}
+		var terminals = {}
 		
 		for (var fName in c.fields)
 		{
 		    var fMap = c.fields[fName];
 		    
-		    addField(fName, fMap, cI, fieldTerminals);
+		    fields[fName] = addField(fName, fMap, cI, fieldTerminals, showOnByIndex, showOffByIndex);
 		}
 		
 		for (var tName in c.terminals)
 		{
 		    var tMap = c.terminals[tName];
 		    
-		    addTerminal(tName, tMap, cI, fieldTerminals);
+		    var tFragment = addTerminal(tName, tMap, cI, fieldTerminals, showOnByIndex, showOffByIndex);
+		    
+		    if (lang.isValue(tFragment))
+			terminals[tName] = tFragment;
 		}
+		
+		results.push({"fields" : fields, "terminals" : terminals});
 	    }
 	};
 	
-	addControls(map.containerMap)
-	addControls(map.groupMap);
 	
-	this.configUITerminalMap = configUITerminalMap;
-	this.configUIFieldMap = configUIFieldMap;
+	addControls(map.containerMap, containerUIMap, function(index) 
+	    { 
+		self.layer.setSuperHighlighted([group.containers[index].container]) 
+	    }, function(index) 
+		{ 
+		    self.layer.unsetSuperHighlighted(); 
+		}
+	    );
+	    
+	addControls(map.groupMap, groupUIMap, function(index) 
+	    { 
+		var containers = [];
+		WireIt.Group.applyToContainers(group.groups[index].group, true, function(c) { containers.push(c) });
+		self.layer.setSuperHighlighted(containers);
+		
+	    }, function(index) 
+		{ 
+		    self.layer.unsetSuperHighlighted();
+		}
+	    );
+	
+	//this.configUITerminalMap = configUITerminalMap;
+	//this.configUIFieldMap = configUIFieldMap;
 	    
 	return { 
 		"listRows" : listRows,
-		"terminalMap": configUITerminalMap,
-		"fieldMap": configUIFieldMap
+		"containerUIMap": containerUIMap,
+		"groupUIMap": groupUIMap
 	    };
     },
     /*
