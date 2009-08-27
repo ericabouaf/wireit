@@ -26,11 +26,7 @@
 		    
 		    if (lang.isValue(container.group))
 		    {
-			var group = container.group;
-			if (lang.isValue(group.group))
-			    group = group.group;
-			
-			this.showGroup(group);
+			this.showGroup(container.group);
 		    }
 		    else
 		    {
@@ -269,13 +265,19 @@
 	    
 	    this.layer.groups.push(group);
 	    
-	    this.showGroup(group);
+	    this.showGroup(group, true);
 	}
     },
     
-    showGroup: function(group)
+    showGroup: function(group, forceThisGroup)
     {
-	this.showGroupConfigure.call(this, group);
+	var g;
+	if (forceThisGroup)
+	    g = group;
+	else
+	    g = WireIt.GroupUtils.getOuterGroup(group);
+	    
+	this.showGroupConfigure.call(this, g);
 	this.setupSelectedGroups(group);
     },
     

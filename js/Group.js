@@ -105,8 +105,8 @@
 		this.grouper.removeGroupFromLayer(this.groups[index].group)
 
 	    gc.group = this
-	    this.containers = null;
-	    this.groups = null;
+	    this.containers = [];
+	    this.groups = [];
 	    this.groupContainer = gc;
 	    this.properties.expanded = lang.isValue(expanded) ? expanded : false;
 	    
