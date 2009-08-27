@@ -87,7 +87,7 @@ div.Bubble div.body {
 <script src="../../lib/inputex/js/fields/InPlaceEdit.js"  type='text/javascript'></script>
 
 <!-- YUI-Accordion -->
-<script src="../../lib/accordionview/accordionview-min.js"  type='text/javascript'></script>
+<script src="../../lib/accordionview/accordionview.js"  type='text/javascript'></script>
 
 <!-- WireIt -->
 <!--[if IE]><script type="text/javascript" src="../../lib/excanvas.js"></script><![endif]-->
@@ -107,6 +107,7 @@ div.Bubble div.body {
 <script type="text/javascript" src="../../js/InOutContainer.js"></script>
 <script type="text/javascript" src="../../js/adapters/json-rpc.js"></script>
 
+<script type="text/javascript" src="../../js/GroupUtils.js"></script>
 <script type="text/javascript" src="../../js/GroupFormContainer.js"></script>
 <script type="text/javascript" src="../../js/Group.js"></script>
 
@@ -135,7 +136,7 @@ YAHOO.util.Event.onDOMReady( function() {
 	// Open the infos panel
 	editor.accordionView.openPanel(2);
 	
-	editor.toolbar.add({label : "Bob", id: "WireIt-Bob", events : [ {name : "click", callback: function() { editor.layer.grouper.makeGroup(); } } ] })
+	editor.toolbar.add({label : "A Custom button", id: "WireIt-Bob", events : [ {name : "click", callback: function() { alert("This button does what I want"); } } ] })
 	/*
     var util = YAHOO.util,lang = YAHOO.lang;
     var Event = util.Event, Dom = util.Dom, Connect = util.Connect,JSON = lang.JSON,widget = YAHOO.widget;
@@ -197,6 +198,11 @@ YAHOO.util.Event.onDOMReady( function() {
 		<li>
 			<h2>Grouping</h2>
 			<div>
+				<div id="groupBody">
+				    Select some containers using the G in the top right corner then click to make the group
+				    <button id="makeGroupButton" onclick="editor.layer.grouper.makeGroup()">Make</button>
+				</div>
+				<br />
 				<div id="groupConfig"></div>
 			</div>
 		</li>		

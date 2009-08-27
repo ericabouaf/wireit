@@ -13,16 +13,18 @@
  * @param {WireIt.Layer}   layer The WireIt.Layer (or subclass) instance that contains this container
  */
 WireIt.GroupFormContainer = function(options, layer) {
-   /*var fieldConfigs = WireIt.Group.fieldConfigsFromModules(options.groupConfig.modules, options.getBaseConfigFunction);
+   /*var fieldConfigs = WireIt.GroupUtils.fieldConfigsFromModules(options.groupConfig.modules, options.getBaseConfigFunction);
    
-   var intermediate = WireIt.Group.generateFields(fieldConfigs, {fields: {}, terminals: {}}, {fields: {"0email" : true}, terminals: {}}); //TODO: wrong arguments
+   var intermediate = WireIt.GroupUtils.generateFields(fieldConfigs, {fields: {}, terminals: {}}, {fields: {"0email" : true}, terminals: {}}); //TODO: wrong arguments
    options.fields = intermediate.fields;
-   var terminalConfigs = WireIt.Group.terminalConfigsFromModules(options.groupConfig.modules, options.getBaseConfigFunction);
+   var terminalConfigs = WireIt.GroupUtils.terminalConfigsFromModules(options.groupConfig.modules, options.getBaseConfigFunction);
    
-   options.terminals = WireIt.Group.generateTerminals(terminalConfigs , {fields: {}, terminals: {}}, {fields: {}, terminals: {}}, intermediate.usedTerminalNames);
+   options.terminals = WireIt.GroupUtils.generateTerminals(terminalConfigs , {fields: {}, terminals: {}}, {fields: {}, terminals: {}}, intermediate.usedTerminalNames);
     */ 
    WireIt.GroupFormContainer.superclass.constructor.call(this, options, layer);
    this.getBaseConfig = this.options.getBaseConfigFunction;
+   
+   this.positionTerminals();
 };
 
 YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
@@ -46,7 +48,88 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
       this.renderExpand();
    },
 
-    renderExpand: function() {
+    positionTerminals: function()
+    {
+	var terminals = {};
+	
+	for (var i in this.options.terminals)
+	{
+	    var elem = this.options.terminals[i];
+	    
+	    var side = elem.side;
+	    if (!lang.isValue(side))
+		side = "top";
+
+	    if (!lang.isArray(terminals[side]))
+		terminals[side] = [];
+		
+	    terminals[side].push(elem);
+	}
+
+	var terminal_width = 30;
+
+	var getRange = function(N) { return terminal_width * (N-1);  };
+
+	var positionByNumber = function(n,N, size) {
+			// n is expected to run from 0 to N-1, where N is the number of terminals on an edge
+			var range = getRange(N);
+			var half_range = range / 2;
+			var pos = size / 2;
+			pos -= half_range - n*terminal_width;
+			var offset = terminal_width / 2;
+			return pos-offset; // position in centre of terminal
+		};
+
+	var height = this.el.offsetHeight;
+	var width = this.el.offsetWidth;	    
+	var horizontalMax = Math.max(WireIt.GroupUtils.valueOr(terminals["top"], []).length, WireIt.GroupUtils.valueOr(terminals["bottom"], []).length);
+	var verticalMax = Math.max(WireIt.GroupUtils.valueOr(terminals["left"], []).length, WireIt.GroupUtils.valueOr(terminals["right"], []).length);
+
+	if (height < getRange(verticalMax))
+	{
+	    this.bodyEl.style.minHeight = new String(getRange(verticalMax)) + "px";
+	    height = this.el.offsetHeight;
+	}
+
+	if (width < getRange(horizontalMax))
+	{
+	    this.bodyEl.style.minWidth = new String(getRange(horizontalMax)) + "px";
+	    width = this.el.offsetWidth;
+	}
+
+	for (var side in terminals)
+	{
+	    var sTerminals = terminals[side];
+	    var count = sTerminals.length;
+	    
+	    var variable, fixed, size;
+	    
+	    
+	    if (side == "left" || side == "right")
+	    {
+		variable = "top";
+		size = height;
+	    } else
+	    {
+		variable = "left";
+		size = width;
+	    }
+	    
+	    fixed = side;
+	    
+	    for (var i = 0; i < count; i++)
+	    {
+		var terminal = this.getTerminal(sTerminals[i].name);
+		var pos = new Object();
+		pos[fixed] = -15;
+		pos[variable] = new String(positionByNumber(i, count, size));
+		    
+		terminal.setPosition(pos);
+	    }
+	}
+    },
+
+   renderExpand: function() {
 	buttonEl = inputEx.cn('button');
 	buttonEl.appendChild(document.createTextNode("Expand"));
 	Event.addListener(buttonEl, "click", this.expand, this, true);
@@ -62,7 +145,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	//For each wire on group container make wire to new containers
 	//Remove group container
 	
-	//var expandedContainers = WireIt.Group.expand(this.options.groupConfig, this, this.layer);
+	//var expandedContainers = WireIt.GroupUtils.expand(this.options.groupConfig, this, this.layer);
 	
 	var mapModuleId = function(offset, moduleId)
 	    {
@@ -95,7 +178,8 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 
 	var deserialise = function(sGroup)
 	{
-	    var group = {"properties" : sGroup.properties}; //TODO: copy rather than reference?
+	    var group = new WireIt.Group(this.group.grouper, this.layer)
+	    group.properties = sGroup.properties; //TODO: copy rather than reference?
 	    
 	    if (lang.isValue(sGroup.groupContainer))
 	    {
@@ -119,7 +203,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 		for (var gI in sGroup.groups)
 		{
 		    var go = sGroup.groups[gI]
-		    var g = deserialise(go.group);
+		    var g = deserialise.call(this, go.group);
 		    
 		    group.groups.push({"group" : g, "overrides" : go.overrides});
 		    g.group = this.group;
@@ -184,7 +268,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 		internal.setValue(f.getValue());
 		
 		if (lang.isObject(f.terminal))
-		    reconnectTerminal(f.terminal, fMap.containerId+offset, fMap.name);
+		    reconnectTerminal(f.terminal, mapModuleId(offset, fMap.containerId), fMap.name);
 	    }
 	    
 	    for (var tName in tfMap.terminals)
@@ -192,11 +276,11 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 		var tMap = tfMap.terminals[tName];
 		var t = getTerminalByName(self.terminals, tName);
 		
-		reconnectTerminal(t, tMap.containerId+offset, tMap.name);
+		reconnectTerminal(t, mapModuleId(offset, tMap.containerId), tMap.name);
 	    }
 	}
 	
-	reconnect(this.options.groupConfig.map.containerMap, function(id, name) { return group.containers[id].container.form.inputsNames[name]; });
+	reconnect(this.options.groupConfig.map.containerMap, function(id, name) { return group.containers[id].container.form.inputsNames[name]; }, 0);
 	reconnect(this.options.groupConfig.map.groupMap, function(id, name) { return group.groups[id].group.groupContainer.form.inputsNames[name] }, group.containers.length);
 	//Deserialise groups
 	
@@ -205,7 +289,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	for (var fName in this.form.inputsNames)
 	{
 	    var f = this.form.inputsNames[fName];
-	    var internal = WireIt.Group.getInternalField(this.options.groupConfig, fName);
+	    var internal = WireIt.GroupUtils.getInternalField(this.options.groupConfig, fName);
 	    
 	    var container = expandedContainers[internal.moduleId];
 	    
@@ -241,7 +325,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	    {
 			var w = t.wires[wI]
 			
-			var internal = WireIt.Group.getInternalTerminal(this.options.groupConfig, t.options.name);
+			var internal = WireIt.GroupUtils.getInternalTerminal(this.options.groupConfig, t.options.name);
 			
 			var wire = {}
 			
@@ -277,6 +361,8 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	    if (g.properties.expanded && lang.isValue(g.groupContainer))
 		g.groupContainer.expand();
 	}
+	
+	this.group.grouper.showGroup.call(this.group.grouper, this.group);
     },
 
     translatePosition: function(modulePosition, position)

@@ -104,7 +104,8 @@ WireIt.WiringEditor = function(options) {
 
 	 // Right accordion
     this.renderAccordion();
-
+    this.accordionView.openPanel(3);
+    
     /**
      * @property layer
      * @type {WireIt.Layer}
@@ -223,12 +224,13 @@ WireIt.WiringEditor.prototype = {
 	 this.options.accordionViewParams = options.accordionViewParams || {
 												collapsible: true, 
 												expandable: true, // remove this parameter to open only one panel at a time
-												width: '308px', 
+												width: '', 
 												expandItem: 0, 
 												animationSpeed: '0.3', 
 												animate: true, 
 												effect: YAHOO.util.Easing.easeBothStrong
 											};
+											
  },
 
 	
