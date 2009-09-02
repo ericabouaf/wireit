@@ -81,8 +81,6 @@ WireIt.Layer = function(options) {
     */
    this.eventContainerResized = new YAHOO.util.CustomEvent("eventContainerResized");
    
-   this.grouper = new WireIt.Grouper(this, this.options.grouper.baseConfigFunction);
-   
    this.render();
    
    this.initContainers();
@@ -93,6 +91,18 @@ WireIt.Layer = function(options) {
       new WireIt.LayerMap(this, this.options.layerMapOptions);
    }
    
+   this.grouper = new WireIt.Grouper(this, this.options.grouper.baseConfigFunction);
+   
+   var rb = this.grouper.rubberband;
+   var self = this;
+   this.el.onmousedown = function(event) { return rb.layerMouseDown.call(rb, event); }
+   //this.el.onmouseup = 
+   var grouper = this.grouper;
+   this.el.addEventListener("mouseup", function (event) 
+	{ 
+	    rb.finish(); 
+	    grouper.rubberbandSelect.call(grouper); 
+	}, false);
 };
 
 WireIt.Layer.prototype = {
@@ -257,6 +267,36 @@ WireIt.Layer.prototype = {
 	this.eventChanged.fire(this);
       }
    },
+
+    removeGroup: function(group, containersAsWell) 
+    {
+	var index = this.groups.indexOf(group);
+
+	if (index != -1)
+	    this.groups.splice(index, 1);
+
+	if (containersAsWell)
+	{
+	    if (lang.isValue(group.groupContainer))
+	    {
+		this.removeContainer(group.groupContainer)
+	    }
+	    else
+	    {
+		for (var i in group.containers)
+		{
+		    var elem = group.containers[i].container
+		    this.removeContainer(elem);
+		}
+
+		for (var i in group.groups)
+		{
+		    var g = group.groups[i].group;
+		    this.removeGroup(g);
+		}
+	    }
+	}
+    },
 
    /**
     * Update the wire list when any of the containers fired the eventAddWire

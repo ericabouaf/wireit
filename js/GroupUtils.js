@@ -250,6 +250,92 @@
 	    return {"containerMap" : containerMap, "groupMap" : groupMap};
 	},
     
+	/**
+	* Set the override options for the group (e.g. rename fields)
+	* Currently sets all overrides not just the ones that are actually changed by the user
+	* @method getOverridesFromUI
+	*/
+	getOverridesFromUI: function(containerUIMap, groupUIMap)
+	{
+	    containerOverrides = [];
+	    groupOverrides = [];
+	    
+	    //for the moment set all overrides
+	    for (var cI in containerUIMap)
+	    {
+		var c = containerUIMap[cI]
+		var overrides = {"fields" : {}, "terminals" : {}};
+		
+		for (var fName in c.fields)
+		{
+		    var f = c.fields[fName];
+		    var o = {}
+		    o.visible = f.visible.checked;
+		    var rename = f.externalName.value;
+		    
+		    if (rename.length > 0)
+			o.rename = rename;
+
+		    overrides.fields[fName] = o;
+		}
+		
+		
+		for (var tName in c.terminals)
+		{
+		    var t = c.terminals[tName];
+		    var o = {}
+		    o.visible = t.visible.checked;
+		    var rename = t.externalName.value;
+		    
+		    if (rename.length > 0)
+			o.rename = rename;
+
+		    o.side = t.side.value;
+		    
+		    overrides.terminals[tName] = o;
+		}
+		
+		containerOverrides.push(overrides);
+	    }
+	    
+	    for (var gI in groupUIMap)
+	    {
+		var g = groupUIMap[cI]
+		var overrides = {"fields" : {}, "terminals" : {}};
+		
+		for (var fName in g.fields)
+		{
+		    var f = g.fields[fName];
+		    var o = {}
+		    o.visible = f.visible.checked;
+		    var rename = f.externalName.value;
+		    
+		    if (rename.length > 0)
+			o.rename = rename;
+
+		    overrides.fields[fName] = o;
+		}
+		
+		
+		for (var tName in g.terminals)
+		{
+		    var t = g.terminals[tName];
+		    var o = {}
+		    o.visible = t.visible.checked;
+		    var rename = t.externalName.value;
+		    
+		    if (rename.length > 0)
+			o.rename = rename;
+
+		    o.side = t.side.value;
+
+		    overrides.terminals[tName] = o;
+		}
+	    }
+	    
+	    return {"containerOverrides" : containerOverrides, "groupOverrides" : groupOverrides};
+	},
+    
 	getMap: function(group)
 	{
 	    
@@ -391,6 +477,9 @@
 			    
 			    if (lang.isValue(o.rename))
 			    {
+				if (lang.isValue(usedNames.terminals[o.rename]))
+				    throw {"type" : "MappingError", "message" : "Two identical terminal names specified (" + o.rename + ")"}
+				
 				usedNames.terminals[o.rename] = true;
 				
 				map.externalName = o.rename;
@@ -696,6 +785,9 @@
 		    
 		    if (lang.isValue(o.rename))
 		    {
+			if (lang.isValue(usedNames.fields[o.rename]))
+			    throw {"type" : "MappingError", "message" : "Two identical field names specified (" + o.rename + ")"}
+			
 			usedNames.fields[o.rename] = true;
 			
 			if (f.inputParams.wirable)

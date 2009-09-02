@@ -36,10 +36,15 @@
 		}, this, true);
 
 	    }, this, true);
+	    
+	this.rubberband = new WireIt.RubberBand(this);
+	
+	this.rubberband.style = {};
+	this.rubberband.style.position = "absolute";
     },
 
     WireIt.Grouper.prototype = {
-        
+
     setupWidget: function(displayDiv)
 	{
 	    this.display = {};
@@ -85,35 +90,6 @@
 	    this.hideGroupConfigure();
 	},
     
-	removeGroupFromLayer: function(group)
-	{
-	    var index = this.layer.groups.indexOf(group);
-
-	    if (index != -1)
-		this.layer.groups.splice(index, 1);
-
-	    if (lang.isValue(group.groupContainer))
-	    {
-		this.layer.removeContainer(group.groupContainer)
-	    }
-	    else
-	    {
-		for (var i in group.containers)
-		{
-		    var elem = group.containers[i].container
-		    this.layer.removeContainer(elem);
-		}
-
-		for (var i in group.groups)
-		{
-		    var g = group.groups[i].group;
-		    this.removeGroupFromLayer(g);
-		}
-	    }
-	    return group.collapse();
-	},
-
-    
     setDisplay: function (rows)
     {
 	this.display.list.innerHTML = "";
@@ -147,8 +123,9 @@
     {
 	if (lang.isValue(this.selectedGroup))
 	{
-	    this.selectedGroup.unGroup();
+	    var selGroup = this.selectedGroup;
 	    this.deselectGroup();
+	    selGroup.unGroup();
 	}
     },
     
@@ -158,7 +135,12 @@
 	var groupUIMap = this.display.groupUIMap;
 	var group = this.selectedGroup;
 	
-	group.setGroupOptions(containerUIMap, groupUIMap);
+	var checkedOverrides = group.getAndCheckOverrides(containerUIMap, groupUIMap);
+	
+	if (checkedOverrides.valid)
+	    group.setGroupOptions(checkedOverrides.overrides);
+	else
+	    alert("Validation error, " + checkedOverrides.error.message);
     },
     
     addContainer: function(container) {
@@ -166,16 +148,12 @@
 	{
 	   var group = WireIt.GroupUtils.outerGroup(container.group);
 	   
-	   this.groups.push(group);
-	   var containers = [];
-	   var allContainers = WireIt.GroupUtils.addAllContainers(group, containers);
-	   
-	   for (var cI in containers)
-	       containers[cI].addedToGroup();
+	   this.addGroup(group);
 	}
-	else
+	else if (this.containers.indexOf(container) == -1)
 	{
 	    this.containers.push(container);
+	    
 	    container.addedToGroup()	    
 	}
     },
@@ -184,29 +162,48 @@
 	if (!lang.isValue(index))
 	    index = this.containers.indexOf(container)
 	    
-	this.containers.splice(index, 1)
-	//this.group.removeContainer(container);
-	container.removedFromGroup();
+	if (index != -1)
+	{
+	    this.containers.splice(index, 1)
+	    //this.group.removeContainer(container);
+	    container.removedFromGroup();
+	}
+	/*else
+	    alert("not here");*/
     },
 	
     addGroup: function(group)
     {
-	this.groups.push(group);
-	var containers = [];
-	WireIt.GroupUtils.addAllContainers(group, containers);
-	
-	for (var cI in containers)
-	    containers[cI].addedToGroup();
+	if (this.groups.indexOf(group) == -1)
+	{
+	    this.groups.push(group);
+	    var groupSelect = function(g) { WireIt.GroupUtils.applyToContainers(g, true, function(c) { c.addedToGroup() }) };
+	    
+	    groupSelect(group);
+	    
+	    group.events.groupEmptied.subscribe(function() { this.removeGroup(group); }, this, true);
+	    group.events.containerAdded.subscribe(function(eventName, containers) { containers[0].addedToGroup(); }, this, true);
+	    group.events.groupAdded.subscribe(function(eventName, groups) { groupSelect(groups[0]); }, this, true);
+	    
+	    group.events.containerRemoved.subscribe(function(eventName, containers) { this.addContainer(containers[0]); }, this, true);
+	    group.events.groupRemoved.subscribe(function(eventName, groups) { this.addGroup(groups[0]); }, this, true);
+	}
     },
 
     removeGroup: function(group, index)
     {
-	this.groups.splice(index, 1);
-	var containers = [];
-	WireIt.GroupUtils.addAllContainers(group, containers);
+	if (!lang.isValue(index))
+	    index = this.groups.indexOf(group)
 	
-	for (var cI in containers)
-	    containers[cI].removedFromGroup();
+	if (index != -1)
+	{
+	    this.groups.splice(index, 1);
+	    var containers = [];
+	    WireIt.GroupUtils.addAllContainers(group, containers);
+	    
+	    for (var cI in containers)
+		containers[cI].removedFromGroup();
+	}
     },
 
     toggle: function(container) 
@@ -253,17 +250,19 @@
 		var g = this.groups[gI];
 
 		group.addGroup(g);
+		this.layer.removeGroup(g);
 
 		tempGroups.push(g);
 	    }
 	    
 	    for (var tcI in tempContainers)
-		this.removeContainer(tempContainers[tcI], this.containers.indexOf(tcI));
+		this.removeContainer(tempContainers[tcI]);
 	    for (var tgI in tempGroups)
-		this.removeGroup(tempGroups[tgI], this.groups.indexOf(tgI));
+		this.removeGroup(tempGroups[tgI]);
 		
 	    
 	    this.layer.groups.push(group);
+	    group.events.groupEmptied.subscribe(function() { this.layer.removeGroup.call(this.layer, group); }, this, true);	    
 	    
 	    this.showGroup(group, true);
 	}
@@ -582,6 +581,42 @@
 		//this.group = new WireIt.Group();
     },
     */
+
+    rubberbandSelect: function()
+    {
+	for (var cI in this.layer.containers)
+	{
+	    var c = this.layer.containers[cI];
+	    
+	    var checkPoints = this.getContainerCorners(c);
+	    var inside = true;
+	    
+	    for (var i in checkPoints)
+		inside &= this.rubberband.pointIsInside(checkPoints[i].x, checkPoints[i].y);
+		
+	    if (inside)
+	    {
+		this.addContainer(c);
+	    }
+	}
+	
+    },
+    
+    getContainerCorners: function(container)
+    {
+	var top = container.el.offsetTop;
+	var bottom = top+container.el.offsetHeight;
+	
+	var left = container.el.offsetLeft;
+	var right = left+container.el.offsetWidth;
+	
+	return [
+	    {x : left, y: top},
+	    {x : left, y: bottom},
+	    {x : right, y: top},
+	    {x : right, y: bottom}
+	];
+    },
 
     workOutCenter: function(containers)
     {

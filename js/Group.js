@@ -18,14 +18,27 @@
 	this.events.containerRemoved = new YAHOO.util.CustomEvent("containerRemoved");    
 	this.events.groupAdded = new YAHOO.util.CustomEvent("groupAdded");
 	this.events.groupRemoved = new YAHOO.util.CustomEvent("groupRemoved");
+	this.events.groupEmptied = new YAHOO.util.CustomEvent("groupEmptied");
 	
 	this.events.stateChanged = new YAHOO.util.CustomEvent("stateChanged");
-	this.stateChangeFunc = function (eventName, objects) { this.events.stateChanged.fire({"event" : eventName, "objects" : objects}) };
+	this.stateChangeFunc = function (eventName, objects) 
+	    { 
+		this.events.stateChanged.fire({"event" : eventName, "objects" : objects}) 
+	    };
+	    
 	this.events.containerAdded.subscribe(this.stateChangeFunc, this, true);
 	this.events.containerRemoved.subscribe(this.stateChangeFunc, this, true);
 	this.events.groupAdded.subscribe(this.stateChangeFunc, this, true);
 	this.events.groupRemoved.subscribe(this.stateChangeFunc, this, true);
 	
+	this.events.containerRemoved.subscribe(this.checkGroupEmpty, this, true);
+	this.events.groupRemoved.subscribe(this.checkGroupEmpty, this, true);
+		
+	//If a container is removed from the layer then remove it from the currently selected groups
+	layer.eventRemoveContainer.subscribe(function(eventName, containers) 
+	    { 
+		this.removeContainer(containers[0]);
+	    }, this, true);
     };
     
     WireIt.Group.prototype = {
@@ -113,6 +126,15 @@
 	    return gc;
 	},
 
+	checkGroupEmpty: function()
+	{
+	    //Check the group is empty
+	    if (!lang.isValue(this.groupContainer) && this.containers.length == 0 && this.groups.length == 0)
+	    {
+		this.events.groupEmptied.fire(this);
+	    }
+	},
+
 	expand: function()
 	{
 	    if (lang.isValue(this.groupContainer))
@@ -146,8 +168,9 @@
 	    this.groups.push(go);
 	    group.group = this;
 	    
+	    //Listen to the inner group's state change (so we can fire our one)
 	    group.events.stateChanged.subscribe(this.stateChangeFunc, this, true);
-	    
+	    group.events.groupEmptied.subscribe(function() { this.removeGroup(group); }, this, true);
 	    this.events.containerAdded.fire(go);
 	},
 	
@@ -157,7 +180,12 @@
 		index = WireIt.GroupUtils.firstTestSucess(this.containers, function (co) { return co.container == container; });
 	
 	    if (index != -1)
-		this.events.containerRemoved(this.containers.splice(index, 1));
+	    {
+		this.containers.splice(index, 1);
+		
+		container.group = null;
+		this.events.containerRemoved.fire(container);
+	    }
 	},
 	
 	removeGroup: function(group, index)
@@ -166,7 +194,10 @@
 		index = WireIt.GroupUtils.firstTestSucess(this.groups, function (go) { return go.group == group });
 	
 	    if (index != -1)
-		this.events.groupRemoved(this.groups.splice(index, 1));
+	    {
+		group.group = null;
+		this.events.groupRemoved.fire(this.groups.splice(index, 1));
+	    }
 	},
 	
 	unGroup: function()
@@ -176,26 +207,32 @@
 		this.expand();
 	    }
 	    
+	    var temp = {};
+	    temp.containers = [];
+	    lang.augmentObject(temp.containers, this.containers);
+	    temp.groups = [];
+	    lang.augmentObject(temp.groups, this.groups);
+	    
 	    
 	    {
-		for (var cI in this.containers)
+		for (var cI in temp.containers)
 		{
-		    var co = this.containers[cI];
-		    
+		    var co = temp.containers[cI];
+
+		    this.removeContainer(co.container);
+
 		    if (lang.isValue(this.group))
 			this.group.addContainer(co.container, co.overrides); //TODO: name conflicts?
-		    else
-			co.container.group = null;
 		}
 		
-		for (var gI in this.groups)
+		for (var gI in temp.groups)
 		{
-		    var go = this.groups[gI];
+		    var go = temp.groups[gI];
+		    
+		    this.removeGroup(go.group);
 		    
 		    if (lang.isValue(this.group))
 			this.group.addGroup(go.group, go.overrides);
-		    else
-			go.group.group = null;
 		}
 	    }
 	    
@@ -205,7 +242,7 @@
 		this.group = null;
 	    }
 	    else
-		this.layer.groups.splice(this.layer.groups.indexOf(this), 1);
+		this.layer.removeGroup(this);
 		
 	    this.events.stateChanged.fire(this);
 	},
@@ -408,80 +445,67 @@
 		};
 	},
 	
-	/**
-	* Set the override options for the group (e.g. rename fields)
-	* Currently sets all overrides not just the ones that are actually changed by the user
-	* @method geOptions
-	*/
-	setGroupOptions: function(containerUIMap, groupUIMap)
+	getAndCheckOverrides: function(containerUIMap, groupUIMap)
 	{
-	    //for the moment set all overrides
-	    for (var cI in containerUIMap)
+	    var tempGroup = {};
+	    lang.augmentObject(tempGroup, this);
+	    tempGroup.containers = {};
+	    lang.augmentObject(tempGroup.containers, this.containers);
+	    tempGroup.groups = {};
+	    lang.augmentObject(tempGroup.groups, this.groups);
+	    
+	    var overrides = WireIt.GroupUtils.getOverridesFromUI(containerUIMap, groupUIMap);
+	    
+	    for (var cI in tempGroup.containers)
 	    {
-		var c = containerUIMap[cI]
+		var co = {};
+		co.container = this.containers[cI].container;
+		co.overrides = overrides.containerOverrides[cI];
 		
-		for (var fName in c.fields)
+		tempGroup.containers[cI] = co;
+	    }
+	    for (var gI in tempGroup.groups)
+	    {
+		var go = {};
+		go.group = this.groups[gI].group;
+		go.overrides = overrides.groupOverrides[gI];
+		
+		tempGroup.groups[gI] = go;
+	    }
+   
+	    var map;
+	    
+	    try
+	    {
+		map = WireIt.GroupUtils.getMap(tempGroup);
+	    }
+	    catch (err)
+	    {
+		if (lang.isObject(err) && lang.isValue(err.type) && err.type == "MappingError")
 		{
-		    var f = c.fields[fName];
-		    var o = {}
-		    o.visible = f.visible.checked;
-		    var rename = f.externalName.value;
-		    
-		    if (rename.length > 0)
-			o.rename = rename;
-
-		    this.containers[cI].overrides.fields[fName] = o;
+		    return {"overrides" : overrides, "valid" : false, "error" : err};
 		}
-		
-		
-		for (var tName in c.terminals)
-		{
-		    var t = c.terminals[tName];
-		    var o = {}
-		    o.visible = t.visible.checked;
-		    var rename = t.externalName.value;
-		    
-		    if (rename.length > 0)
-			o.rename = rename;
-
-		    o.side = t.side.value;
-		    
-		    this.containers[cI].overrides.terminals[tName] = o;
-		}
+		else
+		    throw err
 	    }
 	    
-	    for (var gI in groupUIMap)
+	    return {"overrides" : overrides, "valid" : true};
+	},
+	
+	setGroupOptions: function(overrides)
+	{
+	    for (var cI in overrides.containerOverrides)
 	    {
-		var g = groupUIMap[cI]
+		var o =  overrides.containerOverrides[cI];
 		
-		for (var fName in g.fields)
-		{
-		    var f = g.fields[fName];
-		    var o = {}
-		    o.visible = f.visible.checked;
-		    var rename = f.externalName.value;
-		    
-		    if (rename.length > 0)
-			o.rename = rename;
-
-		    this.groups[cI].overrides.fields[fName] = o;
-		}
+		this.containers[cI].overrides = o;
+	    }
+	    
+	    for (var gI in overrides.groupOverrides)
+	    {
+		var o =  overrides.groupOverrides[cI];
 		
-		
-		for (var tName in g.terminals)
-		{
-		    var t = g.terminals[tName];
-		    var o = {}
-		    o.visible = t.visible.checked;
-		    var rename = t.externalName.value;
-		    
-		    if (rename.length > 0)
-			o.rename = rename;
-
-		    o.side = t.side.value;
-
-		    this.groups[cI].overrides.terminals[tName] = o;
-		}
+		this.groups[gI].overrides = o;
 	    }
 	},
 	
