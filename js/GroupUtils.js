@@ -29,6 +29,23 @@
 	    return lang.isValue(obj) ? obj : def;
 	},
     
+	removeGroupFromLayer : function(group, layer)
+	{
+	    group.collapsing = true;
+	    
+	    if (lang.isValue(group.groupContainer))
+		layer.removeContainer(group.groupContainer);
+	    else
+	    {
+		for (var i in group.containers)
+		    layer.removeContainer(group.containers[i])
+		    
+		for (var i in group.groups)
+		    WireIt.GroupUtils.removeGroupFromLayer(group.groups[i], layer);
+	    }
+	    group.collapsing = false;
+	},
+    
 	getOuterGroup: function(group, groupCallback)
 	{
 	    var last = group;

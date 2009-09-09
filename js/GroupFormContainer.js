@@ -176,9 +176,12 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	    expandedContainers.push(container);
 	}
 
-	var deserialise = function(sGroup)
+	var deserialise = function(sGroup, groupToSet)
 	{
-	    var group = new WireIt.Group(this.group.grouper, this.layer)
+	    var group = groupToSet;
+	    if (!lang.isValue(group))
+		group = new WireIt.Group(this.group.grouper, this.layer)
+		
 	    group.properties = sGroup.properties; //TODO: copy rather than reference?
 	    
 	    if (lang.isValue(sGroup.groupContainer))
@@ -213,7 +216,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	    return group;
 	}
 
-	var group = deserialise.call(this, this.options.groupConfig.group);
+	var group = deserialise.call(this, this.options.groupConfig.group, this.group);
 /*
 	for (var cI in expandedContainers)
 	{
@@ -350,9 +353,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	this.layer.removeContainer(this);
 
 	this.group.groupContainer = null;
-	this.group.containers = group.containers;
-	this.group.groups = group.groups;
-	
+
 	var POPIgI = 0;
 	for (POPIgI = 0; POPIgI < group.groups.length; POPIgI++)
 	{

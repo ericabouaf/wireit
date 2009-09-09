@@ -322,11 +322,13 @@ WireIt.Container.prototype = {
    },
 
    addedToGroup: function() {
-       this.ddHandle.style.backgroundColor = "green";
+       if (YAHOO.lang.isValue(this.ddHandle))
+	    this.ddHandle.style.backgroundColor = "green";
    },
 
     removedFromGroup: function() {
-	this.ddHandle.style.backgroundColor = "";
+	if (YAHOO.lang.isValue(this.ddHandle))
+	    this.ddHandle.style.backgroundColor = "";
     },
 
    /**

@@ -33,11 +33,14 @@
 	
 	this.events.containerRemoved.subscribe(this.checkGroupEmpty, this, true);
 	this.events.groupRemoved.subscribe(this.checkGroupEmpty, this, true);
-		
+	
+	this.collapsing = false;
+	
 	//If a container is removed from the layer then remove it from the currently selected groups
 	layer.eventRemoveContainer.subscribe(function(eventName, containers) 
-	    { 
-		this.removeContainer(containers[0]);
+	    {
+		if (!this.collapsing)
+		    this.removeContainer.call(this, containers[0]);
 	    }, this, true);
     };
     
@@ -47,10 +50,10 @@
 	    if (lang.isValue(this.groupContainer))
 		return this.groupContainer; //This group is already collapsed
 	    
-	    var popoporujrnr
-	    for (popoporujrnr in this.groups)
+	    for (var gI in this.groups)
 	    {
-		this.groups[popoporujrnr].group.collapse(true);
+		var go = this.groups[gI];
+		go.group.collapse.call(go.group, true);
 	    }
 	    
 	    var map = WireIt.GroupUtils.getMap(this);
@@ -109,13 +112,17 @@
 	    this.addExternalWires(gc, wires.external);
 	    //TODO: place in tempory vars since removing from layer could remove from group in future
 
+	    this.collapsing = true;
+
 	    var index;
 	    for (index in this.containers)
 		this.layer.removeContainer(this.containers[index].container);
 		
 		
 	    for (index in this.groups)
-		this.grouper.removeGroupFromLayer(this.groups[index].group)
+		WireIt.GroupUtils.removeGroupFromLayer(this.groups[index].group, this.layer);
+
+	    this.collapsing = false;
 
 	    gc.group = this
 	    this.containers = [];
@@ -449,14 +456,14 @@
 	{
 	    var tempGroup = {};
 	    lang.augmentObject(tempGroup, this);
-	    tempGroup.containers = {};
-	    lang.augmentObject(tempGroup.containers, this.containers);
-	    tempGroup.groups = {};
-	    lang.augmentObject(tempGroup.groups, this.groups);
+	    tempGroup.containers = [];
+	    //lang.augmentObject(tempGroup.containers, this.containers);
+	    tempGroup.groups = [];
+	    //lang.augmentObject(tempGroup.groups, this.groups);
 	    
 	    var overrides = WireIt.GroupUtils.getOverridesFromUI(containerUIMap, groupUIMap);
 	    
-	    for (var cI in tempGroup.containers)
+	    for (var cI in this.containers)
 	    {
 		var co = {};
 		co.container = this.containers[cI].container;
@@ -464,7 +471,7 @@
 		
 		tempGroup.containers[cI] = co;
 	    }
-	    for (var gI in tempGroup.groups)
+	    for (var gI in this.groups)
 	    {
 		var go = {};
 		go.group = this.groups[gI].group;
