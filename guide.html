@@ -33,7 +33,7 @@
 	<ul class="navigation" style=" position: absolute; margin: 6px 0 0 380px;">
 		<li><a href="index.html">Home</a></li>	
 		<li><a href="http://github.com/neyric/wireit/">GitHub[Git]</a></li>
-		<li><a href="http://neyric.lighthouseapp.com/projects/25048-wireit">Issues</a></li>
+		<li><a href="http://github.com/neyric/wireit/issues">Issues</a></li>
 		<li><a href="guide.html">Guide</a></li>
 		<li><a href="doc/index.html">API Documentation</a></li>		
 		<li><a href="http://javascript.neyric.com/blog/category/wireit/">Blog</a> 
@@ -110,6 +110,9 @@
 			<ol class="secondLevel">
 				<li><a href="#adaptersIntroduction">Introduction</a></li>
 				<li><a href="#adaptersConfiguration">Configuring the adapter</a></li>
+				<li><a href="#ajaxAdapter">Ajax adapter</a></li>
+				<li><a href="#jsonRPCAdapter">Json-RPC Adapter</a></li>
+				<li><a href="#gearsAdapter">Gears adapter</a></li>
 	    		<li><a href="#adaptersCreation">Create an adapter</a></li>
 			</ol>
 		</li>
@@ -277,7 +280,7 @@
 
 <p class="advanced">You could also clone the <a href="http://github.com/neyric/wireit/tree/master">development repository</a> to get the edge version.</p>
 
-<p class="advanced">In a production environment, documentation and examples are not necessary. More on this in <a href="#production">production</p>
+<p class="advanced">In a production environment, documentation and examples are not necessary. More on this in <a href="#production">production</a>.</p>
 
 
 
@@ -286,25 +289,14 @@
 
 <a name="WiringEditorInstallation"><h3>WiringEditor installation</h3></a>
 
-<p>WireIt provides two default (adapter+backends) for the WiringEditor</p>
+<p>The WiringEditor requires a database connection to use the save/load features. <br />
+   The database connection can be adapted to your project though <a href="#adapters">adapters</a>.</p> 
 
-<ul>
-	<li>
-		<p>Json-RPC Adapter + PHP backend</p>
-		<pre>
-		* copy the backend/php directory to your wireit directory
-		* edit the script with your database access config (backend/php/WiringEditor.php)
-		* make sure the backend files are accessible by your webserver and that the php module is loaded 
-		</pre>
-	</li>
-	<li>
-		<p>Gears Adapter</p>
-		<p>Requires <a href="http://gears.google.com">google gears installation</a>.</p>
-		<p>This adapter is very useful for prototyping your project, since it can be used without any installation.</p>
-	</li>
-</ul>
+<p>Adapters themselves don't require any particular installation, however, they are connected to a <i>backend</i>, which often require a specific server environment.</p>
 
-<p class="advanced">You can <a href="#adapters">create your own adapters</a>.</p>
+<p>Please refer to the <a href="#adapters">adapters documentation</a> to install the associated backends.</p>
+	
+<p class="advanced">You can <a href="#adaptersCreation">create your own adapters</a>.</p>
 
 
 <a name="firstApp"><h2>Create Your First WireIt Application</h2></a>
@@ -522,40 +514,119 @@
 
 <p>Adapters are used by the WiringEditor to provide the loading/saving features. It makes it easy to "plug" the WiringEditor into your application. They usually connect to a database of some kind through Ajax calls to store the wirings and bring them back.</p>
 
-<p>WireIt provides two default adapters :</p>
+
+<p>WireIt provides default adapters to get you started :</p>
+
 
 <ul>
-	<li>Gears</li>
-	<li>Json-rpc + php</li>
+	<li><a href="#ajaxAdapter">Ajax Adapter (no backend provided)</a></li>
+	<li><a href="#jsonRPCAdapter">Json-RPC Adapter + a sample PHP/MySQL backend</a></li>
+	<li><a href="#gearsAdapter">Gears Adapter (no backend required)</a></li>
 </ul>
-
-<p>Why would you build your own ?</p>
-
-<ul>
-	<li>You use a different language</li>
-	<li>You probably use a framework to develop your website, which provides its own models (ex: Django,Rails,Symfony,...)</li>
-	<li>Convert the wirings into another workflow model. (ex: XProc XML)</li>
-</ul>
+	
 
 
 <a name="adaptersConfiguration"><h2>Configuring the adapter</h2></a>
 
 <pre class="brush:js">
 	
-	// Override 
+	// Override adapter default parameters
 	WireIt.WiringEditor.adapters.MyAdapter.config.configParam1 = value1;
 	
+	// Instantiate the WiringEditor with a custom adapter
 	new WireIt.WiringEditor({
 		...
 		adapter: WireIt.WiringEditor.adapters.MyAdapter
 		...
 	})
 
+</pre>	
+
+	
+	
+<a name="ajaxAdapter"><h2>Ajax Adapter</h2></a>
+
+<p>This adapter is the general way to connect to a custom backend through Ajax (or XHR) calls. It uses a JSON representation.</p>
+
+<p>You can use it to connect to a REST resource store or any HTTP-based RPC backend.</p>
+
+<p>The <a href="examples/ajaxAdapter/">ajaxAdapter example</a> connects to a fake backend (the queried URLs are static files), but demonstrate how to configure the adapter :</p>
+
+<pre class="brush:js">
+	
+	WireIt.WiringEditor.adapters.Ajax.config = 	{
+		saveWiring: {
+			method: 'GET',
+			// The url can be hard-coded
+			url: 'fakeSaveDelete.json'
+		},
+		deleteWiring: {
+			method: 'GET',
+			/**
+			 * 'url' can also be a function that returns the URL as a string.
+			 * For exemple, to connect to a REST store, you might want to send a DELETE /resource/wirings/moduleName
+			 * (moduleName is present in the "value" parameter)
+			 */
+			url: function(value) {
+				return "fakeSaveDelete.json";
+			}
+		},
+		listWirings: {
+			method: 'GET',
+			url: 'listWirings.json'
+		}
+	};
 </pre>
 
 
 
+
+<a name="jsonRPCAdapter"><h2>Json-RPC Adapter</h2></a>
+
+<p>This adapter uses Ajax calls as the previous one, but wraps http requests in a JSON-RPC envelope.</p>
+
+<p>This adapter is used in the <a href="examples/WiringEditor/">WiringEditor demo</a>.</p>
+
+<p>It is connected to a sample PHP/MySQL backend, which requires the following installtion steps :</p>
+
+<ul>
+	<li>copy the backend/php directory to your wireit directory</li>
+	<li>edit the script with your database access config (backend/php/WiringEditor.php)</li>
+	<li>make sure the backend files are accessible by your webserver and that the php module is loaded </li>
+</ul>
+
+<p>The JSON-RPC adapter configuration resides in the single service url :</p>
+
+<pre class="brush:js">
+	WireIt.WiringEditor.adapters.JsonRpc.config.url = '/my/json-rpc/serviceUrl';
+</pre>
+
+
+
+<a name="gearsAdapter"><h2>Gears Adapter</h2></a>
+
+<p>This adapter uses the <i>database</i> component of Google Gears to store the <i>wirings</i> in a SQLite table <b>client-side</b> (in the browser).</p>
+
+<p>This adapter is very useful for prototyping your project, since it can be used without any server installation.</p>
+
+<p>To use this adapter, you must install <a href="http://gears.google.com">google gears</a>.</p>
+
+<p>A demo of this adapter is showed in the <a href="examples/gearsAdapter/">gears adapter example</a>.</p>
+
+<p>This adapter doesn't have any noticeable configuration except <i>WireIt.WiringEditor.adapters.Gears.config.dbName</i> which contains the gears database name (default is 'database-test').</p>
+
+<p class="advanced">The gears adapter already includes gears-init.js</p>
+
+
 <a name="adaptersCreation"><h2>Create an adapter</h2></a>
+
+<p>Why would you build your own ?</p>
+
+<ul>
+	<li>You use a different server-side language</li>
+	<li>You probably use a framework to develop your website, which provides its own models (ex: Django,Rails,Symfony,...)</li>
+	<li>Convert the wirings into another workflow model. (ex: XProc XML)</li>
+</ul>
 
 <p>Here is the skeleton of an adapter :</p>
 
@@ -845,7 +916,7 @@ div.WireIt-Container.WiringEditor-module-comment div.body textarea {
 <p>To extend or modify the behavior of an existing Container.</p>
 
 <pre class="brush:js">
-WireIt.ImageContainer.myMethod = function () {
+WireIt.ImageContainer.prototype.myMethod = function () {
 	// new code
 };
 </pre>
@@ -857,18 +928,33 @@ WireIt.ImageContainer.myMethod = function () {
 
 <a name="production"><h2>notes on production</h2></a>
 
-<p>You might mant to use rollup versions. The advantage is to reduce the number of HTTP requests on page load.</p>
+<p>In a production environment, it is preferable to use rollup files: The javascript files are concatenated into a single javascript file (to reduce the number of HTTP requests) then compressed using the YUI compressor (to reduce file size).</p>
 
-<p>Additionally, you should minify your code. We suggest using the YUI Compressor.</p>
-
-<p>Some rollup files are provided in the wireit build directory :</p>
+<p>Some rollup files are provided in the <i>wireit/build</i> directory :</p>
 
 <pre class="brush:html">
 	&lt;script type="text/javascript" src="lib/wireit/build/wireit-min.js"&gt;&lt;/script&gt;
 </pre>
 
+<p>or</p>
 
-<p>The WireIt zip file contains example, guides, documentation, which are not necessary. We recommend you only copy this files on your webserver :</p>
+<pre class="brush:html">
+	&lt;script type="text/javascript" src="lib/wireit/build/wiring-editor-min.js"&gt;&lt;/script&gt;
+</pre>
+
+<p><u>Warning :</u>The rollup files <b>don't</b> include the excanvas.js library <b>required by Internet Explorer</b>, because this file is conditionally loaded using the "if IE" hack :</p>
+
+<pre class="brush:html">
+	&lt;!--[if IE]&gt;&lt;script type="text/javascript" src="../../lib/excanvas.js"&gt;&lt;/script&gt;&lt;![endif]--&gt;
+</pre>
+
+<p><u>Warning :</u>The wiring-editor-min.js file <b>doesn't</b> include any adapter, and only includes <b>some</b> fields of the inputEx library.</p>
+
+<p class="advanced">It is strongly recommended to build your custom rollup file for production. You can then include the adapter you use, the visual language definition, or even the YUI library dependencies. The script to build those files is available at build/rollups.sh (only in source, not in the zipped library)</p>
+
+<p class="advanced">The YUI library is included in the zip file, but the YUI files can be served from Yahoo or Google servers.</p>
+
+<p>Moreover, the WireIt zip file contains example, guides, documentation, which are not necessary in a production environment. We recommend you to copy only the required files on your webserver :</p>
 
 <pre>
 	wireit/
@@ -945,7 +1031,7 @@ WireIt.ImageContainer.myMethod = function () {
 	<li>You can get some help on the <a href="http://groups.google.com/group/wireit/">forum</a>.</li>
 	<li><a href="http://javascript.neyric.com/wireit/">Project home page</a></li>
 	<li><a href="http://github.com/neyric/wireit">Source code repository</a> on GitHub</li>
-	<li><a href="http://neyric.lighthouseapp.com/projects/25048-wireit/">Issue tracker</a> on LightHouse</li>
+	<li><a href="http://github.com/neyric/wireit/issues">Issue tracker</a></li>
 	<li><a href="http://javascript.neyric.com/blog/category/wireit/">WireIt Blog</a></li>
 	<li><a href="http://wiki.github.com/neyric/wireit">Wiki</a></li>
 	<li><a href="http://twitter.com/wireit">WireIt changelog on twitter</a></li>
@@ -1043,7 +1129,7 @@ WireIt.ImageContainer.myMethod = function () {
 	<ul class="navigation">
 		<li><a href="index.html">Home</a></li>	
 		<li><a href="http://github.com/neyric/wireit/">GitHub[Git]</a></li>
-		<li><a href="http://neyric.lighthouseapp.com/projects/25048-wireit">Issues</a></li>
+		<li><a href="http://github.com/neyric/wireit/issues">Issues</a></li>
 		<li><a href="guide.html">Guide</a></li>		
 		<li><a href="doc/index.html">API Documentation</a></li>		
 		<li><a href="http://javascript.neyric.com/blog/category/wireit/">Blog</a></a></li>	

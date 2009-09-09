@@ -15,7 +15,7 @@ Source code:
     http://github.com/neyric/wireit
 
 Issue tracker:
-	 http://neyric.lighthouseapp.com/projects/25048-wireit/tickets?q=all
+	 http://github.com/neyric/wireit/issues
 	
 Blog: 
     http://javascript.neyric.com/blog/category/wireit/

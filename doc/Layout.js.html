@@ -2,7 +2,7 @@
 <html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<title>API: WireIt   CanvasElement.js </title>
+	<title>API: WireIt   Layout.js </title>
 
 	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=" />
 	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=" />
@@ -20,7 +20,7 @@
         <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
                 
-                 &gt; CanvasElement.js (source view) 
+                 &gt; Layout.js (source view) 
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -47,103 +47,210 @@
                         <style>
                             #doc3 .classopts { display:none; }
                         </style>
-<div class="highlight"><pre><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-   
-   <span class="c">// Shortcuts</span>
-   <span class="kd">var</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">,</span> <span class="nx">UA</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ua</span><span class="o">;</span>
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * Calculate the new position for the given layout and animate the layer to this position</span>
+<span class="c"> */</span>
+<span class="nx">WireIt</span><span class="p">.</span><span class="nx">Layer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">layoutAnim</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">sLayout</span><span class="o">,</span> <span class="nx">duration</span><span class="p">)</span> <span class="p">{</span>
+	
+	<span class="kd">var</span> <span class="nx">layout</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Layout</span><span class="p">[</span><span class="nx">sLayout</span> <span class="o">||</span> <span class="s2">&quot;Spring&quot;</span><span class="p">](</span><span class="k">this</span><span class="p">);</span>
+	
+	<span class="kd">var</span> <span class="nx">newPositions</span> <span class="o">=</span> <span class="nx">layout</span><span class="p">.</span><span class="nx">run</span><span class="p">()</span><span class="o">,</span>
+	 	 <span class="nx">n</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">containers</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span>
+	
+	<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">containers</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">,</span>
+			 <span class="nx">p</span> <span class="o">=</span> <span class="nx">newPositions</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">,</span>
+		<span class="nx">anim</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Anim</span><span class="p">(</span> <span class="nx">c</span><span class="p">.</span><span class="nx">terminals</span><span class="o">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="p">{</span>  <span class="nx">left</span><span class="o">:</span> <span class="p">{</span> <span class="nx">to</span><span class="o">:</span> <span class="nx">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">}</span><span class="o">,</span> <span class="nx">top</span><span class="o">:</span> <span class="p">{</span><span class="nx">to</span><span class="o">:</span> <span class="nx">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]}</span> <span class="p">}</span><span class="o">,</span> <span class="nx">duration</span> <span class="o">||</span> <span class="mi">1</span><span class="o">,</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Easing</span><span class="p">.</span><span class="nx">easeOut</span><span class="p">);</span>
+		<span class="nx">anim</span><span class="p">.</span><span class="nx">animate</span><span class="p">();</span>
+	<span class="p">}</span>	
+	
+	<span class="nx">delete</span> <span class="nx">layout</span><span class="o">;</span>
+<span class="p">};</span>
 
-   <span class="c">/**</span>
-<span class="c">    * Create a canvas element and wrap cross-browser hacks to resize it</span>
-<span class="c">    * @class CanvasElement</span>
-<span class="c">    * @namespace WireIt</span>
-<span class="c">    * @constructor</span>
-<span class="c">    * @param {HTMLElement} parentNode The canvas tag will be append to this parent DOM node.</span>
-<span class="c">    */</span>
-   <span class="nx">WireIt</span><span class="p">.</span><span class="nx">CanvasElement</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">parentNode</span><span class="p">)</span> <span class="p">{</span>
-      
-      <span class="c">/**</span>
-<span class="c">       * The canvas element</span>
-<span class="c">       * @property element</span>
-<span class="c">       * @type HTMLElement</span>
-<span class="c">       */</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;canvas&#39;</span><span class="p">);</span>
-      
-      <span class="c">// Append to parentNode</span>
-      <span class="nx">parentNode</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">);</span>
-      
-      <span class="c">// excanvas.js for dynamic canvas tags</span>
-      <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="p">(</span><span class="nx">G_vmlCanvasManager</span><span class="p">)</span><span class="o">!=</span><span class="s2">&quot;undefined&quot;</span><span class="p">){</span>
-         <span class="k">this</span><span class="p">.</span><span class="nx">element</span> <span class="o">=</span> <span class="nx">G_vmlCanvasManager</span><span class="p">.</span><span class="nx">initElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">);</span>
-      <span class="p">}</span>
-      
-   <span class="p">};</span>
-   
-   <span class="nx">WireIt</span><span class="p">.</span><span class="nx">CanvasElement</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
-      
-      <span class="c">/**</span>
-<span class="c">       * Get a drawing context</span>
-<span class="c">       * @method getContext</span>
-<span class="c">       * @param {String} [mode] Context mode (default &quot;2d&quot;)</span>
-<span class="c">       * @return {CanvasContext} the context</span>
-<span class="c">       */</span>
-      <span class="nx">getContext</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">mode</span><span class="p">)</span> <span class="p">{</span>
-       <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="nx">mode</span> <span class="o">||</span> <span class="s2">&quot;2d&quot;</span><span class="p">);</span>
-      <span class="p">}</span><span class="o">,</span>
-      
-      <span class="c">/**</span>
-<span class="c">       * Purge all event listeners and remove the component from the dom</span>
-<span class="c">       * @method destroy</span>
-<span class="c">       */</span>
-      <span class="nx">destroy</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-         <span class="kd">var</span> <span class="nx">el</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="o">;</span>
+<span class="c">/**</span>
+<span class="c"> * Start a dynamic layout</span>
+<span class="c"> */</span>
+<span class="nx">WireIt</span><span class="p">.</span><span class="nx">Layer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">startDynamicLayout</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">sLayout</span><span class="o">,</span> <span class="nx">interval</span><span class="p">)</span> <span class="p">{</span>
+	
+	<span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">dynamicLayout</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">stopDynamicLayout</span><span class="p">();</span>
+	<span class="p">}</span>
+	
+	<span class="k">this</span><span class="p">.</span><span class="nx">dynamicLayout</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Layout</span><span class="p">[</span><span class="nx">sLayout</span> <span class="o">||</span> <span class="s2">&quot;Spring&quot;</span><span class="p">](</span><span class="k">this</span><span class="p">);</span>
 
-         <span class="c">// Remove from DOM</span>
-         <span class="k">if</span><span class="p">(</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">inDocument</span><span class="p">(</span><span class="nx">el</span><span class="p">))</span> <span class="p">{</span>
-            <span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
-         <span class="p">}</span>
+	<span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">dynamicTimer</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+		<span class="nx">that</span><span class="p">.</span><span class="nx">_runDynamicLayout</span><span class="p">();</span> 
+	<span class="p">}</span><span class="o">,</span> <span class="nx">interval</span> <span class="o">||</span> <span class="mi">50</span><span class="p">);</span>
+	
+	<span class="k">this</span><span class="p">.</span><span class="nx">_runDynamicLayout</span><span class="p">();</span>
+<span class="p">};</span>
 
-         <span class="c">// recursively purge element</span>
-         <span class="nx">Event</span><span class="p">.</span><span class="nx">purgeElement</span><span class="p">(</span><span class="nx">el</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-      <span class="p">}</span><span class="o">,</span>
-      
-      <span class="c">/**</span>
-<span class="c">       * Set the canvas position and size.</span>
-<span class="c">       * &lt;b&gt;Warning:&lt;/b&gt; This method changes the &lt;i&gt;element&lt;/i&gt; property under some brother. Don&#39;t copy references !</span>
-<span class="c">       * @method SetCanvasRegion</span>
-<span class="c">       * @param {Number} left Left position</span>
-<span class="c">       * @param {Number} top Top position</span>
-<span class="c">       * @param {Number} width New width</span>
-<span class="c">       * @param {Number} height New height</span>
-<span class="c">       */</span>
-      <span class="nx">SetCanvasRegion</span><span class="o">:</span> <span class="nx">UA</span><span class="p">.</span><span class="nx">ie</span> <span class="o">?</span> 
-               <span class="c">// IE</span>
-               <span class="kd">function</span><span class="p">(</span><span class="nx">left</span><span class="o">,</span><span class="nx">top</span><span class="o">,</span><span class="nx">width</span><span class="o">,</span><span class="nx">height</span><span class="p">){</span>
-                  <span class="kd">var</span> <span class="nx">el</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="o">;</span>
-                  <span class="nx">WireIt</span><span class="p">.</span><span class="nx">sn</span><span class="p">(</span><span class="nx">el</span><span class="o">,</span><span class="kc">null</span><span class="o">,</span><span class="p">{</span><span class="nx">left</span><span class="o">:</span><span class="nx">left</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">,</span><span class="nx">top</span><span class="o">:</span><span class="nx">top</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">,</span><span class="nx">width</span><span class="o">:</span><span class="nx">width</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">,</span><span class="nx">height</span><span class="o">:</span><span class="nx">height</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="p">});</span>
-                  <span class="nx">el</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">).</span><span class="nx">clearRect</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="nx">width</span><span class="o">,</span><span class="nx">height</span><span class="p">);</span>
-                  <span class="k">this</span><span class="p">.</span><span class="nx">element</span> <span class="o">=</span> <span class="nx">el</span><span class="o">;</span>
-               <span class="p">}</span> <span class="o">:</span> 
-               <span class="p">(</span> <span class="p">(</span><span class="nx">UA</span><span class="p">.</span><span class="nx">webkit</span> <span class="o">||</span> <span class="nx">UA</span><span class="p">.</span><span class="nx">opera</span><span class="p">)</span> <span class="o">?</span> 
-                  <span class="c">// Webkit (Safari &amp; Chrome) and Opera</span>
-                  <span class="kd">function</span><span class="p">(</span><span class="nx">left</span><span class="o">,</span><span class="nx">top</span><span class="o">,</span><span class="nx">width</span><span class="o">,</span><span class="nx">height</span><span class="p">){</span>
-                     <span class="kd">var</span> <span class="nx">el</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="o">;</span>
-                     <span class="kd">var</span> <span class="nx">newCanvas</span><span class="o">=</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="o">,</span><span class="p">{</span><span class="nx">className</span><span class="o">:</span><span class="nx">el</span><span class="p">.</span><span class="nx">className</span> <span class="o">||</span> <span class="nx">el</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span><span class="o">,</span><span class="nx">width</span><span class="o">:</span><span class="nx">width</span><span class="o">,</span><span class="nx">height</span><span class="o">:</span><span class="nx">height</span><span class="p">}</span><span class="o">,</span><span class="p">{</span><span class="nx">left</span><span class="o">:</span><span class="nx">left</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">,</span><span class="nx">top</span><span class="o">:</span><span class="nx">top</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="p">});</span>
-                     <span class="kd">var</span> <span class="nx">listeners</span><span class="o">=</span><span class="nx">Event</span><span class="p">.</span><span class="nx">getListeners</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
-                     <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">listener</span> <span class="k">in</span> <span class="nx">listeners</span><span class="p">){</span>
-                        <span class="kd">var</span> <span class="nx">l</span><span class="o">=</span><span class="nx">listeners</span><span class="p">[</span><span class="nx">listener</span><span class="p">];</span>
-                        <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="nx">newCanvas</span><span class="o">,</span><span class="nx">l</span><span class="p">.</span><span class="nx">type</span><span class="o">,</span><span class="nx">l</span><span class="p">.</span><span class="nx">fn</span><span class="o">,</span><span class="nx">l</span><span class="p">.</span><span class="nx">obj</span><span class="o">,</span><span class="nx">l</span><span class="p">.</span><span class="nx">adjust</span><span class="p">);</span>
-                     <span class="p">}</span>
-                     <span class="nx">Event</span><span class="p">.</span><span class="nx">purgeElement</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
-                     <span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">replaceChild</span><span class="p">(</span><span class="nx">newCanvas</span><span class="o">,</span><span class="nx">el</span><span class="p">);</span>
-                     <span class="k">this</span><span class="p">.</span><span class="nx">element</span> <span class="o">=</span> <span class="nx">newCanvas</span><span class="o">;</span>
-                  <span class="p">}</span> <span class="o">:</span>  
-                  <span class="c">// Other (Firefox)</span>
-                  <span class="kd">function</span><span class="p">(</span><span class="nx">left</span><span class="o">,</span><span class="nx">top</span><span class="o">,</span><span class="nx">width</span><span class="o">,</span><span class="nx">height</span><span class="p">){</span>
-                     <span class="nx">WireIt</span><span class="p">.</span><span class="nx">sn</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="o">,</span><span class="p">{</span><span class="nx">width</span><span class="o">:</span><span class="nx">width</span><span class="o">,</span><span class="nx">height</span><span class="o">:</span><span class="nx">height</span><span class="p">}</span><span class="o">,</span><span class="p">{</span><span class="nx">left</span><span class="o">:</span><span class="nx">left</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">,</span><span class="nx">top</span><span class="o">:</span><span class="nx">top</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="p">});</span>
-                  <span class="p">})</span>
-   <span class="p">};</span>
-   
-<span class="p">})();</span>
+<span class="nx">WireIt</span><span class="p">.</span><span class="nx">Layer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_runDynamicLayout</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="p">)</span> <span class="p">{</span>
+	
+	<span class="kd">var</span> <span class="nx">newPositions</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">dynamicLayout</span><span class="p">.</span><span class="nx">run</span><span class="p">()</span><span class="o">,</span>
+	    <span class="nx">n</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">containers</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span>
+
+	<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">containers</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">,</span>
+			 <span class="nx">p</span> <span class="o">=</span> <span class="nx">newPositions</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+			
+			<span class="c">// TODO: this test should be: isDragging &amp;&amp; container focused</span>
+			<span class="k">if</span><span class="p">(</span><span class="o">!</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">hasClass</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="s2">&quot;WireIt-Container-focused&quot;</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+				<span class="nx">c</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">;</span>
+				<span class="nx">c</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">;</span>
+				<span class="nx">c</span><span class="p">.</span><span class="nx">redrawAllWires</span><span class="p">();</span>
+			<span class="p">}</span>
+	<span class="p">}</span>
+
+<span class="p">};</span>
+
+
+<span class="c">/**</span>
+<span class="c"> * Stop the dynamic layout</span>
+<span class="c"> */</span>
+<span class="nx">WireIt</span><span class="p">.</span><span class="nx">Layer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">stopDynamicLayout</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">clearInterval</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">dynamicTimer</span><span class="p">);</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">dynamicTimer</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">dynamicLayout</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="p">};</span>
+
+
+
+
+
+<span class="nx">WireIt</span><span class="p">.</span><span class="nx">Layout</span> <span class="o">=</span> <span class="p">{};</span>
+	
+	
+<span class="c">/** </span>
+<span class="c"> * Spring Layout</span>
+<span class="c"> * TODO: use different eges k</span>
+<span class="c"> */</span>
+<span class="nx">WireIt</span><span class="p">.</span><span class="nx">Layout</span><span class="p">.</span><span class="nx">Spring</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">layer</span><span class="p">)</span> <span class="p">{</span>	
+	<span class="k">this</span><span class="p">.</span><span class="nx">layer</span> <span class="o">=</span> <span class="nx">layer</span><span class="o">;</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="nx">WireIt</span><span class="p">.</span><span class="nx">Layout</span><span class="p">.</span><span class="nx">Spring</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+		
+	<span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+		
+		<span class="k">this</span><span class="p">.</span><span class="nx">nodes</span> <span class="o">=</span> <span class="p">[];</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">edges</span> <span class="o">=</span> <span class="p">[];</span>
+		
+		<span class="c">// Extract wires</span>
+		<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">wires</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			<span class="kd">var</span> <span class="nx">wire</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">wires</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">edges</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">containers</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">wire</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">container</span><span class="p">)</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">containers</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">wire</span><span class="p">.</span><span class="nx">terminal2</span><span class="p">.</span><span class="nx">container</span><span class="p">)</span> <span class="p">]);</span>
+		<span class="p">}</span>	
+		
+	<span class="p">}</span><span class="o">,</span>
+	
+	<span class="nx">run</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+		
+		<span class="kd">var</span> <span class="nx">i</span><span class="o">,</span> <span class="nx">j</span><span class="o">,</span> <span class="nx">l</span><span class="o">;</span>
+		
+		<span class="c">// Extract nodes positions</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">nodes</span> <span class="o">=</span> <span class="p">[];</span>
+		<span class="k">for</span><span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">containers</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			<span class="kd">var</span> <span class="nx">pos</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">containers</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">terminals</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">getXY</span><span class="p">();</span>
+			
+			<span class="k">this</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+				<span class="nx">layoutPosX</span><span class="o">:</span> <span class="p">(</span><span class="nx">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">400</span><span class="p">)</span><span class="o">/</span><span class="mi">200</span><span class="o">,</span>
+		      <span class="nx">layoutPosY</span><span class="o">:</span> <span class="p">(</span><span class="nx">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">400</span><span class="p">)</span><span class="o">/</span><span class="mi">200</span><span class="o">,</span>
+		      <span class="nx">layoutForceX</span><span class="o">:</span> <span class="mi">0</span><span class="o">,</span>
+		      <span class="nx">layoutForceY</span><span class="o">:</span> <span class="mi">0</span>
+			<span class="p">});</span>
+		<span class="p">}</span>
+		
+		<span class="c">// Spring layout parameters</span>
+	   <span class="kd">var</span> <span class="nx">iterations</span> <span class="o">=</span> <span class="mi">100</span><span class="o">,</span>
+			 <span class="nx">maxRepulsiveForceDistance</span> <span class="o">=</span> <span class="mi">6</span><span class="o">,</span>
+			 <span class="nx">k</span> <span class="o">=</span> <span class="mf">0.4</span><span class="o">,</span>
+			 <span class="nx">c</span> <span class="o">=</span> <span class="mf">0.01</span><span class="o">;</span>
+		
+		<span class="kd">var</span> <span class="nx">d</span><span class="o">,</span><span class="nx">dx</span><span class="o">,</span><span class="nx">dy</span><span class="o">,</span><span class="nx">d2</span><span class="o">,</span><span class="nx">node</span><span class="o">,</span><span class="nx">node1</span><span class="o">,</span><span class="nx">node2</span><span class="o">;</span>
+		
+		 <span class="c">// Iterations</span>
+	    <span class="k">for</span> <span class="p">(</span><span class="nx">l</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="nx">l</span> <span class="o">&lt;</span> <span class="nx">iterations</span><span class="o">;</span> <span class="nx">l</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+	    		    
+				<span class="c">// Forces on nodes due to node-node repulsions</span>
+			   <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			   	<span class="nx">node1</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodes</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+			      <span class="k">for</span> <span class="p">(</span><span class="nx">j</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			      	<span class="nx">node2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodes</span><span class="p">[</span><span class="nx">j</span><span class="p">];</span>
+						<span class="nx">dx</span> <span class="o">=</span> <span class="nx">node2</span><span class="p">.</span><span class="nx">layoutPosX</span> <span class="o">-</span> <span class="nx">node1</span><span class="p">.</span><span class="nx">layoutPosX</span><span class="o">;</span>
+						<span class="nx">dy</span> <span class="o">=</span> <span class="nx">node2</span><span class="p">.</span><span class="nx">layoutPosY</span> <span class="o">-</span> <span class="nx">node1</span><span class="p">.</span><span class="nx">layoutPosY</span><span class="o">;</span>
+						<span class="nx">d2</span> <span class="o">=</span> <span class="nx">dx</span> <span class="o">*</span> <span class="nx">dx</span> <span class="o">+</span> <span class="nx">dy</span> <span class="o">*</span> <span class="nx">dy</span><span class="o">;</span>
+						<span class="k">if</span><span class="p">(</span><span class="nx">d2</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">)</span> <span class="p">{</span>
+							<span class="nx">dx</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">;</span>
+							<span class="nx">dy</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">;</span>
+							<span class="nx">d2</span> <span class="o">=</span> <span class="nx">dx</span> <span class="o">*</span> <span class="nx">dx</span> <span class="o">+</span> <span class="nx">dy</span> <span class="o">*</span> <span class="nx">dy</span><span class="o">;</span>
+						<span class="p">}</span>
+						<span class="nx">d</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="nx">d2</span><span class="p">);</span>
+						<span class="k">if</span><span class="p">(</span><span class="nx">d</span> <span class="o">&lt;</span> <span class="nx">maxRepulsiveForceDistance</span><span class="p">)</span> <span class="p">{</span>
+							<span class="kd">var</span> <span class="nx">repulsiveForce</span> <span class="o">=</span> <span class="nx">k</span> <span class="o">*</span> <span class="nx">k</span> <span class="o">/</span> <span class="nx">d</span><span class="o">;</span>
+							<span class="nx">node2</span><span class="p">.</span><span class="nx">layoutForceX</span> <span class="o">+=</span> <span class="nx">repulsiveForce</span> <span class="o">*</span> <span class="nx">dx</span> <span class="o">/</span> <span class="nx">d</span><span class="o">;</span>
+							<span class="nx">node2</span><span class="p">.</span><span class="nx">layoutForceY</span> <span class="o">+=</span> <span class="nx">repulsiveForce</span> <span class="o">*</span> <span class="nx">dy</span> <span class="o">/</span> <span class="nx">d</span><span class="o">;</span>
+							<span class="nx">node1</span><span class="p">.</span><span class="nx">layoutForceX</span> <span class="o">-=</span> <span class="nx">repulsiveForce</span> <span class="o">*</span> <span class="nx">dx</span> <span class="o">/</span> <span class="nx">d</span><span class="o">;</span>
+							<span class="nx">node1</span><span class="p">.</span><span class="nx">layoutForceY</span> <span class="o">-=</span> <span class="nx">repulsiveForce</span> <span class="o">*</span> <span class="nx">dy</span> <span class="o">/</span> <span class="nx">d</span><span class="o">;</span>
+						<span class="p">}</span>
+					<span class="p">}</span>
+				<span class="p">}</span>
+			
+			
+			    <span class="c">// Forces on this.nodes due to edge attractions</span>
+			    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">edges</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			        <span class="kd">var</span> <span class="nx">edge</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">edges</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+					  <span class="nx">node1</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodes</span><span class="p">[</span> <span class="nx">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">];</span>
+			        <span class="nx">node2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodes</span><span class="p">[</span> <span class="nx">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">];</span>
+
+			        <span class="nx">dx</span> <span class="o">=</span> <span class="nx">node2</span><span class="p">.</span><span class="nx">layoutPosX</span> <span class="o">-</span> <span class="nx">node1</span><span class="p">.</span><span class="nx">layoutPosX</span><span class="o">;</span>
+			        <span class="nx">dy</span> <span class="o">=</span> <span class="nx">node2</span><span class="p">.</span><span class="nx">layoutPosY</span> <span class="o">-</span> <span class="nx">node1</span><span class="p">.</span><span class="nx">layoutPosY</span><span class="o">;</span>
+			        <span class="nx">d2</span> <span class="o">=</span> <span class="nx">dx</span> <span class="o">*</span> <span class="nx">dx</span> <span class="o">+</span> <span class="nx">dy</span> <span class="o">*</span> <span class="nx">dy</span><span class="o">;</span>
+			        <span class="k">if</span><span class="p">(</span><span class="nx">d2</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">)</span> <span class="p">{</span>
+			         	<span class="nx">dx</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">;</span>
+			            <span class="nx">dy</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">;</span>
+			            <span class="nx">d2</span> <span class="o">=</span> <span class="nx">dx</span> <span class="o">*</span> <span class="nx">dx</span> <span class="o">+</span> <span class="nx">dy</span> <span class="o">*</span> <span class="nx">dy</span><span class="o">;</span>
+			        <span class="p">}</span>
+			        <span class="nx">d</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="nx">d2</span><span class="p">);</span>
+			        <span class="k">if</span><span class="p">(</span><span class="nx">d</span> <span class="o">&gt;</span> <span class="nx">maxRepulsiveForceDistance</span><span class="p">)</span> <span class="p">{</span>
+			                <span class="nx">d</span> <span class="o">=</span> <span class="nx">maxRepulsiveForceDistance</span><span class="o">;</span>
+			                <span class="nx">d2</span> <span class="o">=</span> <span class="nx">d</span> <span class="o">*</span> <span class="nx">d</span><span class="o">;</span>
+			        <span class="p">}</span>
+			        <span class="kd">var</span> <span class="nx">attractiveForce</span> <span class="o">=</span> <span class="p">(</span><span class="nx">d2</span> <span class="o">-</span> <span class="nx">k</span> <span class="o">*</span> <span class="nx">k</span><span class="p">)</span> <span class="o">/</span> <span class="nx">k</span><span class="o">;</span>
+
+			        <span class="nx">node2</span><span class="p">.</span><span class="nx">layoutForceX</span> <span class="o">-=</span> <span class="nx">attractiveForce</span> <span class="o">*</span> <span class="nx">dx</span> <span class="o">/</span> <span class="nx">d</span><span class="o">;</span>
+			        <span class="nx">node2</span><span class="p">.</span><span class="nx">layoutForceY</span> <span class="o">-=</span> <span class="nx">attractiveForce</span> <span class="o">*</span> <span class="nx">dy</span> <span class="o">/</span> <span class="nx">d</span><span class="o">;</span>
+			        <span class="nx">node1</span><span class="p">.</span><span class="nx">layoutForceX</span> <span class="o">+=</span> <span class="nx">attractiveForce</span> <span class="o">*</span> <span class="nx">dx</span> <span class="o">/</span> <span class="nx">d</span><span class="o">;</span>
+			        <span class="nx">node1</span><span class="p">.</span><span class="nx">layoutForceY</span> <span class="o">+=</span> <span class="nx">attractiveForce</span> <span class="o">*</span> <span class="nx">dy</span> <span class="o">/</span> <span class="nx">d</span><span class="o">;</span>
+			    <span class="p">}</span>
+
+			    <span class="c">// Move by the given force</span>
+			    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			    	<span class="nx">node</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodes</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+			      <span class="kd">var</span> <span class="nx">xmove</span> <span class="o">=</span> <span class="nx">c</span> <span class="o">*</span> <span class="nx">node</span><span class="p">.</span><span class="nx">layoutForceX</span><span class="o">;</span>
+			      <span class="kd">var</span> <span class="nx">ymove</span> <span class="o">=</span> <span class="nx">c</span> <span class="o">*</span> <span class="nx">node</span><span class="p">.</span><span class="nx">layoutForceY</span><span class="o">;</span>
+
+			      <span class="nx">node</span><span class="p">.</span><span class="nx">layoutPosX</span> <span class="o">+=</span> <span class="nx">xmove</span><span class="o">;</span>
+			      <span class="nx">node</span><span class="p">.</span><span class="nx">layoutPosY</span> <span class="o">+=</span> <span class="nx">ymove</span><span class="o">;</span>
+			      <span class="nx">node</span><span class="p">.</span><span class="nx">layoutForceX</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+			      <span class="nx">node</span><span class="p">.</span><span class="nx">layoutForceY</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+			    <span class="p">}</span>
+	    <span class="p">}</span>
+	
+		 <span class="kd">var</span> <span class="nx">newPositions</span> <span class="o">=</span> <span class="p">[];</span>
+		 <span class="k">for</span><span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">containers</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">node</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodes</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+			<span class="nx">newPositions</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="nx">node</span><span class="p">.</span><span class="nx">layoutPosX</span><span class="o">*</span><span class="mi">200</span><span class="o">+</span><span class="mi">400</span><span class="o">-</span><span class="mi">40</span><span class="o">,</span> <span class="nx">node</span><span class="p">.</span><span class="nx">layoutPosY</span><span class="o">*</span><span class="mi">200</span><span class="o">+</span><span class="mi">400</span><span class="o">-</span><span class="mi">20</span><span class="p">]);</span>
+		 <span class="p">}</span>
+		 <span class="k">return</span> <span class="nx">newPositions</span><span class="o">;</span>
+		
+	<span class="p">}</span>
+	
+	
+	
+<span class="p">};</span>
 </pre></div>
                     </div>
 			</div>
@@ -190,7 +297,7 @@
                         <ul class="content">        
                                 <li class=""><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
                                 <li class=""><a href="Anim.js.html" title="Anim.js">Anim.js</a></li>
-                                <li class="selected"><a href="CanvasElement.js.html" title="CanvasElement.js">CanvasElement.js</a></li>
+                                <li class=""><a href="CanvasElement.js.html" title="CanvasElement.js">CanvasElement.js</a></li>
                                 <li class=""><a href="Container.js.html" title="Container.js">Container.js</a></li>
                                 <li class=""><a href="DD.js.html" title="DD.js">DD.js</a></li>
                                 <li class=""><a href="DDResize.js.html" title="DDResize.js">DDResize.js</a></li>
@@ -201,7 +308,7 @@
                                 <li class=""><a href="json-rpc.js.html" title="json-rpc.js">json-rpc.js</a></li>
                                 <li class=""><a href="Layer.js.html" title="Layer.js">Layer.js</a></li>
                                 <li class=""><a href="LayerMap.js.html" title="LayerMap.js">LayerMap.js</a></li>
-                                <li class=""><a href="Layout.js.html" title="Layout.js">Layout.js</a></li>
+                                <li class="selected"><a href="Layout.js.html" title="Layout.js">Layout.js</a></li>
                                 <li class=""><a href="Terminal.js.html" title="Terminal.js">Terminal.js</a></li>
                                 <li class=""><a href="WirableField-beta.js.html" title="WirableField-beta.js">WirableField-beta.js</a></li>
                                 <li class=""><a href="Wire.js.html" title="Wire.js">Wire.js</a></li>

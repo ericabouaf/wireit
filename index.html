@@ -20,7 +20,7 @@
 	<ul class="navigation" style=" position: absolute; margin: 6px 0 0 380px;">
 		<li><a href="http://javascript.neyric.com/wireit">Home</a></li>	
 		<li><a href="http://github.com/neyric/wireit/">GitHub[Git]</a></li>
-		<li><a href="http://neyric.lighthouseapp.com/projects/25048-wireit">Issues</a></li>
+		<li><a href="http://github.com/neyric/wireit/issues">Issues</a></li>
 		<li><a href="guide.html">Guide</a></li>		
 		<li><a href="doc/index.html">API Documentation</a></li>		
 		<li><a href="http://javascript.neyric.com/blog/category/wireit/">Blog</a> 
@@ -40,20 +40,18 @@
 <table id="layout">
 	<tr>
 		<td class="left">
-			
-		 <!--p class="title">About</p-->
-		
+					
 		 <p style="font-size: 130%;">WireIt is an open-source javascript library to create <b>web wirable interfaces</b> for <b>dataflow applications</b>, <b>visual programming languages</b>, <b>graphical modeling</b>, or <b>graph editors</b>.</p>
 	
 		<br />
 
 		<center>
-		<div style="width:425px;text-align:left" id="__ss_1057012">
+		<div style="width:425px;text-align:left" id="__ss_1835190">
 			<object style="margin:0px" width="425" height="355">
-				<param name="movie" value="http://static.slideshare.net/swf/ssplayer2.swf?doc=WireItpresentation-090222125100-phpapp02&stripped_title=wire-it-presentation-1057012" />
+				<param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=wireitpresentation-090810065216-phpapp02&stripped_title=wire-it-050-presentation" />
 				<param name="allowFullScreen" value="true"/>
 				<param name="allowScriptAccess" value="always"/>
-				<embed src="http://static.slideshare.net/swf/ssplayer2.swf?doc=WireItpresentation-090222125100-phpapp02&stripped_title=wire-it-presentation-1057012" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed>
+				<embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=wireitpresentation-090810065216-phpapp02&stripped_title=wire-it-050-presentation" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed>
 			</object>
 		</div>
 		</center>
@@ -78,9 +76,17 @@
 				<li>ImageContainer - use images as graph nodes</li>
 			</ul>
 			
-			<p>You can create your own container by subclassing the base <i>Container</i> class, and still benefit from the drop-in use of the WiringEditor in your web application.</p>
+			<p>You can <a href="guide.html#createContainers">create your own container</a> by subclassing the base <i>Container</i> class, and still benefit from the drop-in use of the WiringEditor in your web application.</p>
 			
-			<p>The WiringEditor requires a connection to a database to use save/load features. You can customize it using adapters. A default adapter is provided, which uses JSON-RPC through ajax calls, and a PHP/MySQL backend.</p>
+			<p>The WiringEditor requires a connection to a database to use save/load features. You can customize it using <a href="guide.html#adapters">adapters</a>. WireIt provides default adapters to get you started :</p>
+
+			<ul>
+				<li><a href="guide.html#ajaxAdapter">Ajax Adapter (no backend provided)</a></li>
+				<li><a href="guide.html#jsonRPCAdapter">Json-RPC Adapter + a sample PHP/MySQL backend</a></li>
+				<li><a href="guide.html#gearsAdapter">Gears Adapter (no backend required)</a></li>
+			</ul>
+				
+				
 		
 			<p>WireIt supports all <a href="http://developer.yahoo.com/yui/articles/gbs/">A-Grade Browsers</a>. Please report your issues with specific browsers in <a href="http://groups.google.com/group/wireit/">the forum</a>. It uses the <a href="http://developer.yahoo.com/yui/">YUI library</a> (2.7.0) for DOM and events manipulation, and <a href="http://excanvas.sourceforge.net/">excanvas</a> for IE support of the canvas tag.</p>
 		
@@ -95,7 +101,7 @@
 				<li><a href="http://wiki.github.com/neyric/wireit">Wiki</a></li>
 			</ul>
 		
-			<p>You can also get some help on the <a href="">forum</a>. Please report your issues or feature request at <a href="http://neyric.lighthouseapp.com/projects/25048-wireit">LightHouse</a>.</p>
+			<p>You can also get some help on the <a href="">forum</a>. Please report your issues or feature request on <a href="http://github.com/neyric/wireit/issues">the issue tracker</a>.</p>
 		
 			<p>Deeper hacking into WireIt might require some knowledge in the libraries used :</p>
 			 	<ul>
@@ -110,8 +116,8 @@
 			
 			<!-- Download -->
 			<div style="text-align:center;font-weight:bold; font-size:17px;background-color:#EEEEEE;-moz-border-radius: 10px; padding: 10px;-webkit-border-radius: 10px;">
-				<a href="http://cloud.github.com/downloads/neyric/wireit/WireIt-0.4.0.zip">Download WireIt 0.4.0</a><br/>
-				<span style="font-size: 70%; font-weight: normal;">(WireIt-0.4.0.zip - 7.8MB - <a href="VERSION.txt">changeset</a>)</span>
+				<a href="http://cloud.github.com/downloads/neyric/wireit/WireIt-0.5.0.zip">Download WireIt 0.5.0</a><br/>
+				<span style="font-size: 70%; font-weight: normal;">(WireIt-0.5.0.zip - 8.0MB - <a href="VERSION.txt">changeset</a>)</span>
 			</div>
 			
 			<!-- License -->
@@ -238,7 +244,7 @@
 	<ul class="navigation">
 		<li><a href="http://javascript.neyric.com/wireit">Home</a></li>	
 		<li><a href="http://github.com/neyric/wireit/">GitHub[Git]</a></li>
-		<li><a href="http://neyric.lighthouseapp.com/projects/25048-wireit">Issues</a></li>
+		<li><a href="http://github.com/neyric/wireit/issues">Issues</a></li>
 		<li><a href="guide.html">Guide</a></li>	
 		<li><a href="doc/index.html">API Documentation</a></li>		
 		<li><a href="http://javascript.neyric.com/blog/category/wireit/">Blog</a></a></li>	

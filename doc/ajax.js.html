@@ -2,7 +2,7 @@
 <html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<title>API: WireIt   CanvasElement.js </title>
+	<title>API: WireIt   ajax.js </title>
 
 	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=" />
 	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=" />
@@ -20,7 +20,7 @@
         <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
                 
-                 &gt; CanvasElement.js (source view) 
+                 &gt; ajax.js (source view) 
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -47,103 +47,88 @@
                         <style>
                             #doc3 .classopts { display:none; }
                         </style>
-<div class="highlight"><pre><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-   
-   <span class="c">// Shortcuts</span>
-   <span class="kd">var</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">,</span> <span class="nx">UA</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ua</span><span class="o">;</span>
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * Ajax Adapter. Expect JSON response for all queries.</span>
+<span class="c"> * @static </span>
+<span class="c"> */</span>
+<span class="nx">WireIt</span><span class="p">.</span><span class="nx">WiringEditor</span><span class="p">.</span><span class="nx">adapters</span><span class="p">.</span><span class="nx">Ajax</span> <span class="o">=</span> <span class="p">{</span>
+	
+	<span class="c">/**</span>
+<span class="c">	 * You can configure this adapter to different schemas.</span>
+<span class="c">	 * url can be functions !</span>
+<span class="c">	 */</span>
+	<span class="nx">config</span><span class="o">:</span> <span class="p">{</span>
+		<span class="nx">saveWiring</span><span class="o">:</span> <span class="p">{</span>
+			<span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="o">,</span>
+			<span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;saveWiring&#39;</span>
+		<span class="p">}</span><span class="o">,</span>
+		<span class="nx">deleteWiring</span><span class="o">:</span> <span class="p">{</span>
+			<span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;DELETE&#39;</span><span class="o">,</span>
+			<span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;deleteWiring&#39;</span>
+		<span class="p">}</span><span class="o">,</span>
+		<span class="nx">listWirings</span><span class="o">:</span> <span class="p">{</span>
+			<span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;GET&#39;</span><span class="o">,</span>
+			<span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;listWirings&#39;</span>
+		<span class="p">}</span>
+	<span class="p">}</span><span class="o">,</span>
+	
+	<span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Connect</span><span class="p">.</span><span class="nx">setDefaultPostHeader</span><span class="p">(</span><span class="s1">&#39;application/json&#39;</span><span class="p">);</span>
+	<span class="p">}</span><span class="o">,</span>
+	
+	<span class="nx">saveWiring</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="o">,</span> <span class="nx">callbacks</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">_sendRequest</span><span class="p">(</span><span class="s2">&quot;saveWiring&quot;</span><span class="o">,</span> <span class="nx">val</span><span class="o">,</span> <span class="nx">callbacks</span><span class="p">);</span>
+	<span class="p">}</span><span class="o">,</span>
+	
+	<span class="nx">deleteWiring</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="o">,</span> <span class="nx">callbacks</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">_sendRequest</span><span class="p">(</span><span class="s2">&quot;deleteWiring&quot;</span><span class="o">,</span> <span class="nx">val</span><span class="o">,</span> <span class="nx">callbacks</span><span class="p">);</span>
+	<span class="p">}</span><span class="o">,</span>
+	
+	<span class="nx">listWirings</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="o">,</span> <span class="nx">callbacks</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">_sendRequest</span><span class="p">(</span><span class="s2">&quot;listWirings&quot;</span><span class="o">,</span> <span class="nx">val</span><span class="o">,</span> <span class="nx">callbacks</span><span class="p">);</span>
+	<span class="p">}</span><span class="o">,</span>
+	
+	
+	<span class="nx">_sendRequest</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">action</span><span class="o">,</span> <span class="nx">value</span><span class="o">,</span> <span class="nx">callbacks</span><span class="p">)</span> <span class="p">{</span>
+	
+		<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">[];</span>
+		<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">if</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+				<span class="nx">params</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;=&quot;</span><span class="o">+</span><span class="nb">window</span><span class="p">.</span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">value</span><span class="p">[</span><span class="nx">key</span><span class="p">]));</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+		<span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">);</span>
+		
+		<span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
+		<span class="k">if</span><span class="p">(</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">action</span><span class="p">].</span><span class="nx">url</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+			<span class="nx">url</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">action</span><span class="p">].</span><span class="nx">url</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+		<span class="p">}</span>
+		<span class="k">else</span> <span class="p">{</span>
+			<span class="nx">url</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">action</span><span class="p">].</span><span class="nx">url</span><span class="o">;</span>
+		<span class="p">}</span>
+		
+		<span class="kd">var</span> <span class="nx">method</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
+		<span class="k">if</span><span class="p">(</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">action</span><span class="p">].</span><span class="nx">url</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+			<span class="nx">method</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">action</span><span class="p">].</span><span class="nx">method</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+		<span class="p">}</span>
+		<span class="k">else</span> <span class="p">{</span>
+			<span class="nx">method</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">action</span><span class="p">].</span><span class="nx">method</span><span class="o">;</span>
+		<span class="p">}</span>
 
-   <span class="c">/**</span>
-<span class="c">    * Create a canvas element and wrap cross-browser hacks to resize it</span>
-<span class="c">    * @class CanvasElement</span>
-<span class="c">    * @namespace WireIt</span>
-<span class="c">    * @constructor</span>
-<span class="c">    * @param {HTMLElement} parentNode The canvas tag will be append to this parent DOM node.</span>
-<span class="c">    */</span>
-   <span class="nx">WireIt</span><span class="p">.</span><span class="nx">CanvasElement</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">parentNode</span><span class="p">)</span> <span class="p">{</span>
-      
-      <span class="c">/**</span>
-<span class="c">       * The canvas element</span>
-<span class="c">       * @property element</span>
-<span class="c">       * @type HTMLElement</span>
-<span class="c">       */</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;canvas&#39;</span><span class="p">);</span>
-      
-      <span class="c">// Append to parentNode</span>
-      <span class="nx">parentNode</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">);</span>
-      
-      <span class="c">// excanvas.js for dynamic canvas tags</span>
-      <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="p">(</span><span class="nx">G_vmlCanvasManager</span><span class="p">)</span><span class="o">!=</span><span class="s2">&quot;undefined&quot;</span><span class="p">){</span>
-         <span class="k">this</span><span class="p">.</span><span class="nx">element</span> <span class="o">=</span> <span class="nx">G_vmlCanvasManager</span><span class="p">.</span><span class="nx">initElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">);</span>
-      <span class="p">}</span>
-      
-   <span class="p">};</span>
-   
-   <span class="nx">WireIt</span><span class="p">.</span><span class="nx">CanvasElement</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
-      
-      <span class="c">/**</span>
-<span class="c">       * Get a drawing context</span>
-<span class="c">       * @method getContext</span>
-<span class="c">       * @param {String} [mode] Context mode (default &quot;2d&quot;)</span>
-<span class="c">       * @return {CanvasContext} the context</span>
-<span class="c">       */</span>
-      <span class="nx">getContext</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">mode</span><span class="p">)</span> <span class="p">{</span>
-       <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="nx">mode</span> <span class="o">||</span> <span class="s2">&quot;2d&quot;</span><span class="p">);</span>
-      <span class="p">}</span><span class="o">,</span>
-      
-      <span class="c">/**</span>
-<span class="c">       * Purge all event listeners and remove the component from the dom</span>
-<span class="c">       * @method destroy</span>
-<span class="c">       */</span>
-      <span class="nx">destroy</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-         <span class="kd">var</span> <span class="nx">el</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="o">;</span>
-
-         <span class="c">// Remove from DOM</span>
-         <span class="k">if</span><span class="p">(</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">inDocument</span><span class="p">(</span><span class="nx">el</span><span class="p">))</span> <span class="p">{</span>
-            <span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
-         <span class="p">}</span>
-
-         <span class="c">// recursively purge element</span>
-         <span class="nx">Event</span><span class="p">.</span><span class="nx">purgeElement</span><span class="p">(</span><span class="nx">el</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-      <span class="p">}</span><span class="o">,</span>
-      
-      <span class="c">/**</span>
-<span class="c">       * Set the canvas position and size.</span>
-<span class="c">       * &lt;b&gt;Warning:&lt;/b&gt; This method changes the &lt;i&gt;element&lt;/i&gt; property under some brother. Don&#39;t copy references !</span>
-<span class="c">       * @method SetCanvasRegion</span>
-<span class="c">       * @param {Number} left Left position</span>
-<span class="c">       * @param {Number} top Top position</span>
-<span class="c">       * @param {Number} width New width</span>
-<span class="c">       * @param {Number} height New height</span>
-<span class="c">       */</span>
-      <span class="nx">SetCanvasRegion</span><span class="o">:</span> <span class="nx">UA</span><span class="p">.</span><span class="nx">ie</span> <span class="o">?</span> 
-               <span class="c">// IE</span>
-               <span class="kd">function</span><span class="p">(</span><span class="nx">left</span><span class="o">,</span><span class="nx">top</span><span class="o">,</span><span class="nx">width</span><span class="o">,</span><span class="nx">height</span><span class="p">){</span>
-                  <span class="kd">var</span> <span class="nx">el</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="o">;</span>
-                  <span class="nx">WireIt</span><span class="p">.</span><span class="nx">sn</span><span class="p">(</span><span class="nx">el</span><span class="o">,</span><span class="kc">null</span><span class="o">,</span><span class="p">{</span><span class="nx">left</span><span class="o">:</span><span class="nx">left</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">,</span><span class="nx">top</span><span class="o">:</span><span class="nx">top</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">,</span><span class="nx">width</span><span class="o">:</span><span class="nx">width</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">,</span><span class="nx">height</span><span class="o">:</span><span class="nx">height</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="p">});</span>
-                  <span class="nx">el</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">).</span><span class="nx">clearRect</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="nx">width</span><span class="o">,</span><span class="nx">height</span><span class="p">);</span>
-                  <span class="k">this</span><span class="p">.</span><span class="nx">element</span> <span class="o">=</span> <span class="nx">el</span><span class="o">;</span>
-               <span class="p">}</span> <span class="o">:</span> 
-               <span class="p">(</span> <span class="p">(</span><span class="nx">UA</span><span class="p">.</span><span class="nx">webkit</span> <span class="o">||</span> <span class="nx">UA</span><span class="p">.</span><span class="nx">opera</span><span class="p">)</span> <span class="o">?</span> 
-                  <span class="c">// Webkit (Safari &amp; Chrome) and Opera</span>
-                  <span class="kd">function</span><span class="p">(</span><span class="nx">left</span><span class="o">,</span><span class="nx">top</span><span class="o">,</span><span class="nx">width</span><span class="o">,</span><span class="nx">height</span><span class="p">){</span>
-                     <span class="kd">var</span> <span class="nx">el</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="o">;</span>
-                     <span class="kd">var</span> <span class="nx">newCanvas</span><span class="o">=</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="o">,</span><span class="p">{</span><span class="nx">className</span><span class="o">:</span><span class="nx">el</span><span class="p">.</span><span class="nx">className</span> <span class="o">||</span> <span class="nx">el</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span><span class="o">,</span><span class="nx">width</span><span class="o">:</span><span class="nx">width</span><span class="o">,</span><span class="nx">height</span><span class="o">:</span><span class="nx">height</span><span class="p">}</span><span class="o">,</span><span class="p">{</span><span class="nx">left</span><span class="o">:</span><span class="nx">left</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">,</span><span class="nx">top</span><span class="o">:</span><span class="nx">top</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="p">});</span>
-                     <span class="kd">var</span> <span class="nx">listeners</span><span class="o">=</span><span class="nx">Event</span><span class="p">.</span><span class="nx">getListeners</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
-                     <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">listener</span> <span class="k">in</span> <span class="nx">listeners</span><span class="p">){</span>
-                        <span class="kd">var</span> <span class="nx">l</span><span class="o">=</span><span class="nx">listeners</span><span class="p">[</span><span class="nx">listener</span><span class="p">];</span>
-                        <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="nx">newCanvas</span><span class="o">,</span><span class="nx">l</span><span class="p">.</span><span class="nx">type</span><span class="o">,</span><span class="nx">l</span><span class="p">.</span><span class="nx">fn</span><span class="o">,</span><span class="nx">l</span><span class="p">.</span><span class="nx">obj</span><span class="o">,</span><span class="nx">l</span><span class="p">.</span><span class="nx">adjust</span><span class="p">);</span>
-                     <span class="p">}</span>
-                     <span class="nx">Event</span><span class="p">.</span><span class="nx">purgeElement</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
-                     <span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">replaceChild</span><span class="p">(</span><span class="nx">newCanvas</span><span class="o">,</span><span class="nx">el</span><span class="p">);</span>
-                     <span class="k">this</span><span class="p">.</span><span class="nx">element</span> <span class="o">=</span> <span class="nx">newCanvas</span><span class="o">;</span>
-                  <span class="p">}</span> <span class="o">:</span>  
-                  <span class="c">// Other (Firefox)</span>
-                  <span class="kd">function</span><span class="p">(</span><span class="nx">left</span><span class="o">,</span><span class="nx">top</span><span class="o">,</span><span class="nx">width</span><span class="o">,</span><span class="nx">height</span><span class="p">){</span>
-                     <span class="nx">WireIt</span><span class="p">.</span><span class="nx">sn</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="o">,</span><span class="p">{</span><span class="nx">width</span><span class="o">:</span><span class="nx">width</span><span class="o">,</span><span class="nx">height</span><span class="o">:</span><span class="nx">height</span><span class="p">}</span><span class="o">,</span><span class="p">{</span><span class="nx">left</span><span class="o">:</span><span class="nx">left</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">,</span><span class="nx">top</span><span class="o">:</span><span class="nx">top</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="p">});</span>
-                  <span class="p">})</span>
-   <span class="p">};</span>
-   
-<span class="p">})();</span>
+		<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Connect</span><span class="p">.</span><span class="nx">asyncRequest</span><span class="p">(</span><span class="nx">method</span><span class="o">,</span> <span class="nx">url</span><span class="o">,</span> <span class="p">{</span>
+			<span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+				<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">responseText</span><span class="o">,</span>
+					 <span class="nx">r</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+			 	<span class="nx">callbacks</span><span class="p">.</span><span class="nx">success</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">callbacks</span><span class="p">.</span><span class="nx">scope</span><span class="o">,</span> <span class="nx">r</span><span class="p">);</span>
+			<span class="p">}</span><span class="o">,</span>
+			<span class="nx">failure</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+				<span class="kd">var</span> <span class="nx">error</span> <span class="o">=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">status</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nx">o</span><span class="p">.</span><span class="nx">statusText</span><span class="o">;</span>
+				<span class="nx">callbacks</span><span class="p">.</span><span class="nx">failure</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">callbacks</span><span class="p">.</span><span class="nx">scope</span><span class="o">,</span> <span class="nx">error</span><span class="p">);</span>
+			<span class="p">}</span>
+		<span class="p">}</span><span class="o">,</span><span class="nx">postData</span><span class="p">);</span>
+	<span class="p">}</span>
+	
+<span class="p">};</span>
 </pre></div>
                     </div>
 			</div>
@@ -188,9 +173,9 @@
                     <div id="fileList" class="module">
                         <h4>Files</h4>
                         <ul class="content">        
-                                <li class=""><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
+                                <li class="selected"><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
                                 <li class=""><a href="Anim.js.html" title="Anim.js">Anim.js</a></li>
-                                <li class="selected"><a href="CanvasElement.js.html" title="CanvasElement.js">CanvasElement.js</a></li>
+                                <li class=""><a href="CanvasElement.js.html" title="CanvasElement.js">CanvasElement.js</a></li>
                                 <li class=""><a href="Container.js.html" title="Container.js">Container.js</a></li>
                                 <li class=""><a href="DD.js.html" title="DD.js">DD.js</a></li>
                                 <li class=""><a href="DDResize.js.html" title="DDResize.js">DDResize.js</a></li>

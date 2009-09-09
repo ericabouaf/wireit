@@ -3,16 +3,7 @@ To get the latest version, please visit http://javascript.neyric.com/wireit
 ---------------------------------------------------------------------------
 
 Version 0.5.0
-not released yet
-
-Before release:
-
-	* document existing Adapters (ajax, gears, json-rpc)
-	* Rebuild homepage from guide
-	* API Doc
-	* Rollup files for wireit-base and wiringEditor	
-	* Update Presentation 
-	
+August 10, 2009
 
 Changeset:
 
@@ -27,6 +18,7 @@ Changeset:
 			* Ajax adapter - configurable XHR calls. Can be configured to do REST or something else...
 		* propertiesFields default value (becomes optional)
 		* saved status indicator + confirmation
+		* rollup file wiring-editor-min.js (includes some inputEx and yui-accordionview)
 			
 	* WireIt Guide	
 	* InOutContainer
@@ -36,6 +28,8 @@ Changeset:
 	* Spring Layout (experimental) (+examples)
 	* Wire mouse events (experimental) (+examples)
 	* Added drawing method 'bezierArrows' (experimental)
+	
+	* Move issues/bug tracker to github
 	
 	Bugfixes:
 	* WiringEditor: Containers were mispositionned when the layer was scrolled

@@ -58,7 +58,13 @@ WireIt.WiringEditor.adapters.Ajax = {
 			url = this.config[action].url;
 		}
 		
-		var method = this.config[action].method;
+		var method = "";
+		if( YAHOO.lang.isFunction(this.config[action].url) ) {
+			method = this.config[action].method(value);
+		}
+		else {
+			method = this.config[action].method;
+		}
 
 		YAHOO.util.Connect.asyncRequest(method, url, {
 			success: function(o) {
