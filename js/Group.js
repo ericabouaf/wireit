@@ -118,7 +118,6 @@
 	    for (index in this.containers)
 		this.layer.removeContainer(this.containers[index].container);
 		
-		
 	    for (index in this.groups)
 		WireIt.GroupUtils.removeGroupFromLayer(this.groups[index].group, this.layer);
 

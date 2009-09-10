@@ -2,8 +2,21 @@
     var util = YAHOO.util,lang = YAHOO.lang;
     var Event = util.Event, Dom = util.Dom, Connect = util.Connect,JSON = lang.JSON,widget = YAHOO.widget;
 
-    
+    /**
+    * Contains utility functions to do with groups (also one or two more general ones)
+    * @class GroupUtils
+    * @namespace WireIt
+    */    
     WireIt.GroupUtils = {
+	
+	/**
+	* Applys the given function to all containers in the group.
+	* @method applyToContainers
+	* @param {WireIt.Group} group The group object to work with
+	* @param {boolean} deep Whether to recurse down into sub groups applying to their containers as well
+	* @param {Function} func The function to apply (takes 1 arg, the container)
+	* @param {Object} context The context to call the function with
+	*/
 	applyToContainers: function(group, deep, func, context)
 	{
 	    if (!lang.isValue(context))
@@ -24,11 +37,22 @@
 	    }
 	},
     
-	valueOr: function(obj, def)
+	/**
+	* Gives the argument back or a default if the argument is not a value
+	* @param {any} The argument to check
+	* @param {any} The default value
+	* @return {any} The argument if it is a value or the default
+	*/
+	valueOr: function(arg, def)
 	{
-	    return lang.isValue(obj) ? obj : def;
+	    return lang.isValue(arg) ? arg : def;
 	},
     
+	/**
+	* Removes the group's containers and sub groups from the layer
+	* @param {WireIt.Group} The group to remove
+	* @param {WireIt.Layer} The layer to remove them from
+	*/
 	removeGroupFromLayer : function(group, layer)
 	{
 	    group.collapsing = true;
@@ -46,6 +70,12 @@
 	    group.collapsing = false;
 	},
     
+	/**
+	* Gets the outer most group (e.g. if this group is inside another one it gives you that one (or its parent group if it has one etc etc))
+	* @param {WireIt.Group} The group to get the outer group for
+	* @param {Function} Optional callback function for each group found (including the given one)
+	* @return {WireIt.Group} The outermost group
+	*/
 	getOuterGroup: function(group, groupCallback)
 	{
 	    var last = group;
@@ -63,6 +93,11 @@
 	    return last;
 	},
     
+	/**
+	* Adds all(recurses down) the containers in a group to the given array
+	* @param {WireIt.Group} The group to get the containers from
+	* @param {Array} The array to add all the containers to
+	*/
 	addAllContainers: function(group, containers)
 	{
 	    if (lang.isObject(group.groupContainer))
@@ -77,7 +112,13 @@
 	    }
 	},
     
-	serialiseGroup: function(group, containers, groups)
+	/**
+	* Removes direct references to group and container objects (replaces with an index), is applied recursively to sub groups
+	* @param {WiteIt.Group} group The group to serialise
+	* @param {Array} containers The array of containers from the group (for generating indexes)
+	* @return {Object} The seriliased group
+	*/
+	serialiseGroup: function(group, containers)
 	{
 	    var sGroup = {};
 	    sGroup.properties = {};
@@ -105,6 +146,12 @@
 	    return sGroup;
 	},
     
+	/**
+	* Get the configuration to pass to a group container
+	* @param {WireIt.Group} group The group to get the config for
+	* @param {object} map Optional The group's map (obtained by WireIt.GroupUtils.getMap(group))
+	* @return {object} The collapsed config
+	*/
 	getCollapsedConfig: function(group, map)
 	{
 	    if (!lang.isObject(map))
@@ -167,6 +214,11 @@
 	    return { "fields" : fieldConfigs, "terminals" : terminalConfigs, "position" :  center, "center" : center};
 	},
     
+	/**
+	* Works out the center point of a group
+	* @param {WireIt.Group} group The group to get the center of
+	* @return {Array} the x, y position of the center
+	*/
 	workOutCenter: function(group)
 	{
 	    var bounds = {};
