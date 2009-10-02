@@ -12,16 +12,12 @@ WireIt.FormContainer = function(options, layer) {
 };
 
 YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
-   
+	   
    /**
     * @method setOptions
     */
    setOptions: function(options) {
       WireIt.FormContainer.superclass.setOptions.call(this, options);
-      
-      this.options.legend = options.legend; 
-      this.options.collapsible = options.collapsible; 
-      this.options.fields = options.fields;
    },
    
    /**

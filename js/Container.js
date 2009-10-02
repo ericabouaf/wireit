@@ -97,6 +97,7 @@ WireIt.Container = function(options, layer) {
    
 };
 
+
 WireIt.Container.prototype = {
    
    /**
@@ -127,29 +128,19 @@ WireIt.Container.prototype = {
        * @property options
        * @type {Object}
        */
-      this.options = {};
-      this.options.terminals = options.terminals || [];
-      this.options.draggable = (typeof options.draggable == "undefined") ? true : options.draggable ;
-      this.options.position = options.position || [100,100];
-      this.options.className = options.className || CSS_PREFIX+'Container';
-
-      this.options.ddHandle = (typeof options.ddHandle == "undefined") ? true : options.ddHandle;
-      this.options.ddHandleClassName = options.ddHandleClassName || CSS_PREFIX+"Container-ddhandle";
-
-      this.options.resizable = (typeof options.resizable == "undefined") ? true : options.resizable;
-      this.options.resizeHandleClassName = options.resizeHandleClassName || CSS_PREFIX+"Container-resizehandle";
-
-      this.options.width = options.width; // no default
-      this.options.height = options.height;
-
-      this.options.close = (typeof options.close == "undefined") ? true : options.close;
-      this.options.closeButtonClassName = options.closeButtonClassName || CSS_PREFIX+"Container-closebutton";
-
-      this.options.title = options.title; // no default
-      
-      this.options.icon = options.icon;
-      
-      this.options.preventSelfWiring = (typeof options.preventSelfWiring == "undefined") ? true : options.preventSelfWiring;
+      this.options= YAHOO.lang.merge({ 
+        terminals: [],
+        draggable: true,
+        position: [100,100],
+        className: CSS_PREFIX+"Container",
+        ddHandle: true,
+        ddHandleClassName: CSS_PREFIX+"Container-ddhandle",
+        resizable: true,
+        resizeHandleClassName: CSS_PREFIX+"Container-resizehandle",
+        close: true,
+        closeButtonClassName: CSS_PREFIX+"Container-closebutton",
+        preventSelfWiring:true
+        }, options);
    },
 
    /**
