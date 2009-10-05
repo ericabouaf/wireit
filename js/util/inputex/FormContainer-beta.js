@@ -45,10 +45,13 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
 	 * For complex fields (like object or list), the reference is set recursively AFTER the field creation.
 	 * @method setBackReferenceOnFieldOptionsRecursively
 	 */
-   setBackReferenceOnFieldOptionsRecursively: function(fieldArray) {
+   setBackReferenceOnFieldOptionsRecursively: function(fieldArray, container) {
+       if (YAHOO.lang.isUndefined(container))
+	container = this;
+	
       for(var i = 0 ; i < fieldArray.length ; i++) {
     	  var inputParams = fieldArray[i].inputParams;
-    	  inputParams.container = this;
+    	  inputParams.container = container;
 
     	  // Checking for group sub elements
     	  if(inputParams.fields && typeof inputParams.fields == 'object') {
@@ -57,7 +60,7 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
 
     	  // Checking for list sub elements
     	  if(inputParams.elementType) {
-    		  inputParams.elementType.inputParams.container = this;
+    		  inputParams.elementType.inputParams.container = container;
 
     		  // Checking for group elements within list elements
     		  if(inputParams.elementType.inputParams.fields && typeof inputParams.elementType.inputParams.fields == 'object') {
