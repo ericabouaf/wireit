@@ -1148,8 +1148,28 @@
 		return {"external" : externalWires, "internal" : internalWires};
 	},
 	
+	
+	
 	addWireConfig: function(group, getInternalContainerId, getExternalTerminalName, externalWires, internalWires, groupIndex)
 	{
+	    var pushUniqueWireConfig = function(wires, newWire) {
+    	  var foundWire= false;
+    	  var wire;
+    	  for(var w in wires) {
+    	      wire= wires[w];
+    	      if( wire.src.moduleId == newWire.src.moduleId && 
+    	          wire.tgt.moduleId == newWire.tgt.moduleId &&
+    	          wire.src.terminal == newWire.src.terminal &&
+    	          wire.tgt.terminal == newWire.tgt.terminal) {
+    	              foundWire=true;
+    	              break;
+    	          }
+    	  }
+    	  if(!foundWire) {
+    	      wires.push(newWire);  
+          }
+    	};
+    	
 		var addWiresForContainer = function(c, getExternalName)
 		    {
 			for (var wI in c.wires)
@@ -1161,12 +1181,10 @@
 			    
 			    if (srcIndex != -1 && tgtIndex != -1)
 			    {
-				internalWires.push(
-					{
+				    pushUniqueWireConfig(internalWires,{
 					    src: {moduleId: srcIndex, terminal: w.terminal1.options.name}, 
 					    tgt: {moduleId: tgtIndex, terminal: w.terminal2.options.name}
-					}
-				    );
+					});
 			    }
 			    else
 			    {
