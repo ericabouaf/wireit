@@ -80,7 +80,7 @@ div.WireIt-Container-ddhandle {
 	font-size: 10pt;
    float : none;
    padding-left : 2px;
-   padding-right : 2px;
+
 } 
 div.WireIt-Container-ddhandle span {
    /*margin-right: 32px;*/
@@ -106,27 +106,39 @@ div.WireIt-Container-resizehandle {
 }
 
 div.WireIt-Container-closebutton {
-   background-image: url(../images/close.png);
-   width: 25px;
-   height: 15px;/*
+   background-image: url(../images/cancel.png);
+   width: 16px;
+   height: 16px;/*
    position: absolute;
    top: 4px;
    right: 4px;*/
    float : right;
    cursor: pointer;
+   margin-right: 4px;
 }
 
 div.WireIt-Container-groupbutton {
-   background-image: url(../images/group.png);
-   width: 25px;
-   height: 15px;/*
+   background-image: url(../images/brick_add.png);
+   width: 16px;
+   height: 16px;/*
    position: absolute;
    top: 4px;
    right: 4px;*/
    float : right;
    cursor: pointer;
+   margin-right: 4px;
 }
-
+div.WireIt-Container-ungroupbutton {
+   background-image: url(../images/brick_edit.png);
+   width: 16px;
+   height: 16px;/*
+   position: absolute;
+   top: 4px;
+   right: 4px;*/
+   float : right;
+   cursor: pointer;
+   margin-right: 4px;
+}
 div.WireIt-Container-toolbar {
 
 }

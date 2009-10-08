@@ -130,11 +130,10 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
     },
 
    renderExpand: function() {
-	buttonEl = inputEx.cn('button');
-	buttonEl.appendChild(document.createTextNode("Expand"));
-	Event.addListener(buttonEl, "click", this.expand, this, true);
-	
-	this.bodyEl.insertBefore(buttonEl, this.bodyEl.childNodes[0]);
+        this.unGroupButton = WireIt.cn('div', {className: 'WireIt-Container-ungroupbutton'} );
+        Event.addListener(this.unGroupButton, "click", this.expand, this, true);
+
+        this.ddHandle.appendChild(this.unGroupButton)
     },
 
     expand: function() 
