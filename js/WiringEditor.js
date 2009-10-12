@@ -124,6 +124,7 @@ WireIt.WiringEditor = function(options) {
 
     var toolbarOptions = options.toolbar
     this.toolbar.element = Dom.get('toolbar');
+    this.toolbar.editor= this;
     if (toolbarOptions)
     {
       if (toolbarOptions.enabled && toolbarOptions.buttons)
@@ -154,7 +155,6 @@ WireIt.WiringEditor = function(options) {
 };
 
 WireIt.WiringEditor.prototype = {
-  editor : this,
   
  /**
   * @method setOptions
