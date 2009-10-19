@@ -401,8 +401,10 @@
 		    for (var fName in c.fields)
 		    {
 			var fMap = c.fields[fName];
-			
-			fields[fName] = addField(fName, fMap, WireIt.GroupUtils.valueOr(overrides[cI].overrides.fields[fName], {}), cI, fieldTerminals, showOnByIndex, showOffByIndex);
+			var fieldValue= overrides[cI].container.getValue();
+			if( fieldValue[fName] == undefined || ( fieldValue[fName] != undefined && fieldValue[fName] != "[wired]") ) { // Skip wired fields, we won't want them exposed.
+			    fields[fName] = addField(fName, fMap, WireIt.GroupUtils.valueOr(overrides[cI].overrides.fields[fName], {}), cI, fieldTerminals, showOnByIndex, showOffByIndex);
+		    }
 		    }
 		    
 		    for (var tName in c.terminals)
