@@ -217,7 +217,6 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
       ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]);
       ctxt.stroke();
-   
    },
 
 	/**
@@ -380,6 +379,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    	ctxt.lineTo(t2[0],t2[1]);
    	ctxt.stroke();
 
+		
+		return [p1,p2,t1,t2];
    },
 
 
@@ -570,6 +571,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @method redraw
     */
    redraw: function() {
+		//var positions;
       if(this.options.drawingMethod == 'straight') {
          this.drawStraight();
       }
@@ -577,7 +579,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
          this.drawArrows();
       }
       else if(this.options.drawingMethod == 'bezier') {
-         this.drawBezierCurve();
+         //positions = this.drawBezierArrows();
+			this.drawBezierCurve();
       }
 	   else if(this.options.drawingMethod == 'bezierArrows') {
          this.drawBezierArrows();
@@ -585,7 +588,51 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       else {
          throw new Error("WireIt.Wire unable to find '"+this.drawingMethod+"' drawing method.");
       }
+
+		//this.drawLabel(positions);
    },
+
+	drawLabel: function(positions) {
+		
+		var p1 = positions[0];
+		var p2 = positions[1];
+		var t1 = positions[2];
+		var t2 = positions[3];
+		
+		var winkel = 0;
+		var distance = 20;
+		
+   	var ctxt=this.getContext();
+		ctxt.save();
+		
+		//1.Quadrant
+      if ((p1[0]<p2[0])&&(p1[1]>p2[1])){
+         winkel=Math.PI*1.5+winkel;
+         ctxt.translate(t1[0],t1[1]);
+      }
+      //2. Quadrant
+      else if ((p1[0]<p2[0])&&(p1[1]<p2[1])){
+         winkel = Math.PI/2-winkel;
+         ctxt.translate(t1[0],t1[1]);
+      }
+      //3. Quadrant
+      else if ((p1[0]>p2[0])&&(p1[1]<p2[1])){
+         //winkel = Math.PI/2+winkel;
+        winkel = Math.PI*1.5+winkel;
+        ctxt.translate(t2[0],t2[1]);
+      }
+      //4. Quadrant
+      else if ((p1[0]>p2[0])&&(p1[1]>p2[1])){
+         winkel=Math.PI*0.5-winkel;
+         ctxt.translate(t2[0],t2[1]);
+      }
+       ctxt.rotate(winkel);
+      ctxt.font = "14px Arial";
+      ctxt.fillStyle = "Black";
+      ctxt.translate((distance-(ctxt.measureText("Sample String")).width)/2,0);
+      ctxt.fillText("Sample String", 0, 0);
+      ctxt.restore();
+	},
    
    /**
     * Determine if the wire is drawn at position (x,y) relative to the canvas element. This is used for mouse events.

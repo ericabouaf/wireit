@@ -8,7 +8,7 @@ var logicGatesLang = {
 	modules: [
 		{
 			"name": "AND",
-
+			"category": "gate",
 			"container" : {
 				"xtype":"WireIt.ImageContainer", 
 				"image": "../logicGates/images/gate_and.png",
@@ -22,8 +22,8 @@ var logicGatesLang = {
 		},
 
 		{
-		  "name": "OR",
-
+		  "name": "OR",	
+			"category": "gate",
 			"container": {
 		   		"xtype":"WireIt.ImageContainer", 
 		   		"image": "../logicGates/images/gate_or.png",
@@ -36,7 +36,8 @@ var logicGatesLang = {
 		},
 
 		{
-		  "name": "NOT",
+		  "name": "NOT",	
+			"category": "gate",
 		  "container": {
 				"xtype":"WireIt.ImageContainer", 
 			   "image": "../logicGates/images/gate_not.png",
@@ -49,6 +50,7 @@ var logicGatesLang = {
 
 		{
 		   "name": "NAND",
+			"category": "gate",
 		   "container": {
 			   "xtype":"WireIt.ImageContainer", 
 			   "image": "../logicGates/images/gate_nand.png",
@@ -62,6 +64,7 @@ var logicGatesLang = {
 
 		{
 		   "name": "XOR",
+			"category": "gate",
 		   "container": {
 		   	"xtype":"WireIt.ImageContainer", 
 		   	"image": "../logicGates/images/gate_xor.png",
@@ -75,6 +78,7 @@ var logicGatesLang = {
 
 		{
 			"name": "A",
+			"category": "variable",
 			"container" : {
 				"xtype":"WireIt.ImageContainer", 
 				"image": "../logicGates/images/A.png",
@@ -86,6 +90,7 @@ var logicGatesLang = {
 
 		{
 			"name": "B",
+			"category": "variable",
 			"container" : {
 				"xtype":"WireIt.ImageContainer", 
 				"image": "../logicGates/images/B.png",
@@ -97,6 +102,7 @@ var logicGatesLang = {
 
 		{
 			"name": "C",
+			"category": "variable",
 			"container" : {
 				"xtype":"WireIt.ImageContainer", 
 				"image": "../logicGates/images/C.png",

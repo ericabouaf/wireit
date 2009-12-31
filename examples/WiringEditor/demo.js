@@ -19,6 +19,7 @@ var demoLanguage = {
 	
 	   {
 	      "name": "FormContainer",
+			"category": "form",
 	      "container": {
 	   		"xtype": "WireIt.FormContainer",
 	   		"title": "WireIt.FormContainer demo",    
@@ -57,6 +58,7 @@ var demoLanguage = {
 
 	      {
 	         "name": "AND gate",
+				"category": "images",
 	         "container": {
 	      		"xtype":"WireIt.ImageContainer", 
 	      		"image": "../logicGates/images/gate_and.png",
@@ -72,6 +74,7 @@ var demoLanguage = {
 
 				{
 					"name": "Bubble",
+					"category": "images",
 					"container": {
 	         		"xtype":"WireIt.ImageContainer", 
 	         		"className": "WireIt-Container WireIt-ImageContainer Bubble",
@@ -88,6 +91,7 @@ var demoLanguage = {
 
 				{
 					"name": "Other form module",
+					"category": "form",
 					"container": {
 	   				"icon": "../../res/icons/application_edit.png",
 	   				"xtype": "WireIt.FormContainer",
@@ -106,6 +110,7 @@ var demoLanguage = {
 
 				{
 	            "name": "PostContainer",
+					"category": "form",
 	            "container": {
 	         		"xtype": "WireIt.FormContainer",
 	         		"title": "Post",    

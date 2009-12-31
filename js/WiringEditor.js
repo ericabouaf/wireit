@@ -82,53 +82,10 @@ WireIt.WiringEditor = function(options) {
      */
     this.el = Dom.get(options.parentEl);
     
-    /**
-     * @property helpPanel
-     * @type {YAHOO.widget.Panel}
-     */
-    this.helpPanel = new widget.Panel('helpPanel', {
-        fixedcenter: true,
-        draggable: true,
-        visible: false,
-        modal: true
-     });
-     this.helpPanel.render();
-	
-    
-    /**
-     * @property layout
-     * @type {YAHOO.widget.Layout}
-     */
-    this.layout = new widget.Layout(this.el, this.options.layoutOptions);
-    this.layout.render();
 
-	 // Right accordion
-    this.renderAccordion();
+	 // Rendering
+	 this.render();
 
-    /**
-     * @property layer
-     * @type {WireIt.Layer}
-     */
-    this.layer = new WireIt.Layer(this.options.layerOptions);
-	 this.layer.eventChanged.subscribe(this.onLayerChanged, this, true);
-
-	 /**
-	  * @property leftEl
-	  * @type {DOMElement}
-	  */
-    this.leftEl = Dom.get('left');
-
-    // Render module list
-    this.buildModulesList();
-
-    // Render buttons
-    this.renderButtons();
-
- 	 // Saved status
-	 this.renderSavedStatus();
-
-    // Properties Form
-    this.renderPropertiesForm();
 
 	 // LoadWirings
 	 if( this.adapter.init && YAHOO.lang.isFunction(this.adapter.init) ) {
@@ -187,19 +144,101 @@ WireIt.WiringEditor.prototype = {
 	 this.options.accordionViewParams = options.accordionViewParams || {
 												collapsible: true, 
 												expandable: true, // remove this parameter to open only one panel at a time
-												width: '308px', 
+												//width: '308px', 
+												width: 'auto', 
 												expandItem: 0, 
 												animationSpeed: '0.3', 
 												animate: true, 
 												effect: YAHOO.util.Easing.easeBothStrong
 											};
+											
+		this.options.modulesAccordionViewParams = options.modulesAccordionViewParams || {
+													collapsible: true, 
+													expandable: true, // remove this parameter to open only one panel at a time
+													width: 'auto', 
+													expandItem: 0, 
+													animationSpeed: '0.3', 
+													animate: true, 
+													effect: YAHOO.util.Easing.easeBothStrong
+												};
  },
 
+
+  render: function() {
+	
+	    /**
+	     * @property helpPanel
+	     * @type {YAHOO.widget.Panel}
+	     */
+	    this.helpPanel = new widget.Panel('helpPanel', {
+	        fixedcenter: true,
+	        draggable: true,
+	        visible: false,
+	        modal: true
+	     });
+	     this.helpPanel.render();
+
+
+	    /**
+	     * @property layout
+	     * @type {YAHOO.widget.Layout}
+	     */
+	    this.layout = new widget.Layout(this.el, this.options.layoutOptions);
+	    this.layout.render();
+
+		 // Right accordion
+	    this.renderPropertiesAccordion();
+
+	    /**
+	     * @property layer
+	     * @type {WireIt.Layer}
+	     */
+	    this.layer = new WireIt.Layer(this.options.layerOptions);
+		 this.layer.eventChanged.subscribe(this.onLayerChanged, this, true);
+
+		 // Left Accordion
+		 this.renderModulesAccordion();
+
+	    // Render module list
+	    this.buildModulesList();
+	
+		 
+	    // Render buttons
+	    this.renderButtons();
+
+	 	 // Saved status
+		 this.renderSavedStatus();
+
+	    // Properties Form
+	    this.renderPropertiesForm();
+	
+  },
+
+	renderModulesAccordion: function() {
+		
+		// Create the modules accordion DOM if not found
+		if(!Dom.get('modulesAccordionView')) {
+			Dom.get('left').appendChild( WireIt.cn('ul', {id: 'modulesAccordionView'}) );
+			var li = WireIt.cn('li');
+			li.appendChild(WireIt.cn('h2',null,null,"Main"));
+			var d = WireIt.cn('div');
+			d.appendChild( WireIt.cn('div', {id: "module-category-main"}) );
+			li.appendChild(d);
+			Dom.get('modulesAccordionView').appendChild(li);
+		}
+		
+		this.modulesAccordionView = new YAHOO.widget.AccordionView('modulesAccordionView', this.options.modulesAccordionViewParams);
+		
+		// Open all panels
+		for(var l = 1, n = this.modulesAccordionView.getPanels().length; l < n ; l++) {
+			this.modulesAccordionView.openPanel(l);
+		}
+	},
 	
 	/**
 	 * Render the accordion using yui-accordion
   	 */
-	renderAccordion: function() {
+	renderPropertiesAccordion: function() {
 		this.accordionView = new YAHOO.widget.AccordionView('accordionView', this.options.accordionViewParams);
 	},
  
@@ -251,7 +290,19 @@ WireIt.WiringEditor.prototype = {
       var ddProxy = new WireIt.ModuleProxy(div, this);
       ddProxy._module = module;
 
-      this.leftEl.appendChild(div);
+		// Get the category element in the accordion or create a new one
+		var category = module.category || "main";
+		var el = Dom.get("module-category-"+category);
+		if( !el ) {
+			this.modulesAccordionView.addPanel({
+				label: category,
+				content: "<div id='module-category-"+category+"'></div>"
+			});
+			this.modulesAccordionView.openPanel(this.modulesAccordionView._panels.length-1);
+			el = Dom.get("module-category-"+category);
+		}
+		
+		el.appendChild(div);
  },
  
  /**

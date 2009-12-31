@@ -87,7 +87,7 @@ div.savedStatus {
  */
  
 .WiringEditor-module {
-   cursor: pointer;
+   cursor: move;
    background-color: #AADDDD;
    margin: 5px;
    padding: 2px;
