@@ -1,0 +1,211 @@
+ _                   _   _____      
+(_)_ __  _ __  _   _| |_| ____|_  __
+| | '_ \| '_ \| | | | __|  _| \ \/ /		version 0.4.0
+| | | | | |_) | |_| | |_| |___ >  < 		Distributed under the MIT License (see license.txt)
+|_|_| |_| .__/ \____|\__|_____/_/\_\
+        |_|                         
+
+
+Release Notes:
+==============
+
+version 0.4.0 :
+---------------
+
+not released yet
+
+	- Various
+		* Upgrading to YUI 2.8.0r4
+		* Switching to yuidoc for documentation
+		* Tickets moved to GitHub
+
+	- Added Fields
+		* Lens (beta)
+		* TimeInterval field to enter a duration
+		* ColorPickerField - wrapper for YUI's ColorPicker widget
+		* KeyValueField and KeyOpValueField - fields to build search forms from an inputEx definition
+		
+	- Field enhancements:
+		* CombineField now inherits Group instead of Field
+		* added minItems/maxItems options on ListField
+		* DDList items now have separate value & labels
+		* added returnLabel option to MultiAutocomplete (method to format list label)
+		* Adding an "insert" method to Textarea
+		* Form can send data using x-www-form-urlencoded
+		* Form wrapObject option (ajax only)
+		* Password confirmation field defined in json
+	 	* DateField and DatePicker support for string formatting
+		* InPlaceEdit ok button is now a skinnable link
+		* Moved VectorField, MapField, IPv4Field, UpperCaseField from ext/ to fields/ (watch you references !)
+		* BirthdateField renamed to DateSelectMonthField
+		* FileField out of beta
+		* Group/Form setErrors method to display custom messages
+		
+	- Widget enhancements
+		* JsonTreeInspector: expand methods and JSONPath filter
+		* Dialog widget out of beta
+		* Datatables out of beta
+		
+	- JSON-Schema
+		* implementation of inputEx.JsonSchema.inputExToSchema (beta)
+
+	- RPC	
+		* integrate yui-rpc as inputEx.RPC
+		* Moved inputEx RPC methods to inputEx.RPC namespace (generateServiceForm and formForMethod)
+		* new SMD examples: freebase, tinyurl
+		* Added an example using inputEx SMD support and the Flickr API
+		* added YQL utility to make YQL queries using JSONP
+		
+	- Tools
+		* Providing a dependency-configurator based on yui-dependency-configurator
+		* added yql-trimpath page utility to create pages using YQL queries and trimpath templates
+	 	* added a tool to generate yql-trimpath-page built on the YUI Grids builder
+
+	- Bug fixes
+		* fixing broken examples (YUI element is not beta anymore)
+		* fix on CombineField to contain Group or Form fields
+		* fix on Datatable widget (broken since switch to YUI 2.7.0)
+		* fix on DSSelectField (broken since switch to YUI 2.7.0)
+		* fix on MultiSelectField
+		* fix empty test for Integer and Number Fields
+		* fix on DatePickerField: we had to click twice to select a date the first time
+		
+	- Fields removed
+		* FrenchDate (use the french locale instead)
+		* FrenchPhone (pass the regular expression to StringField instead)
+		* PairField (deprecated for a long time)
+
+version 0.2.2:
+--------------
+
+released on March, 6th 2009
+
+	- RPC:
+		* uses yui-rpc (http://github.com/neyric/yui-rpc/) that implements the Service Mapping Description
+		  http://groups.google.com/group/json-schema/web/service-mapping-description-proposal
+		
+		* inputex-rpc : automatically build forms to call methods defined in a SMD
+		
+		* SMD-tester example
+
+	- Field enhancements:
+		* added "collapsed" option for Group/Form
+		* added "className" option for Group/Form
+		* added listAddLabel/listRemoveLabel options for List
+        * added addOption/removeOption methods on SelectField
+      
+ 	- Widgets:
+		* Added JsonTreeInspector widget
+
+	- Various	
+	   * moving to github (git repository)
+	   * moving tickets to Lighthouse
+	   * new page for examples
+	   * some fixes on inputex-loader
+	   * updates on json-schema
+	   * fixing first json-schema example
+
+
+version 0.2.1:
+--------------
+
+released on January, 22nd 2009
+
+	- API changes:
+		* setValue takes a second argument (sendUpdatedEvt) to prevent firing the updatedEvt if false
+		* setOptions takes the options object as argument so we don't have to make a copy of the object.
+			this method should be mandatory in surclassing ?
+		* inputEx-required CSS class is permanently set on required fields (allow custom style for required fields, labels...)
+		   inputEx-invalid class is added on required fields that are empty to mark them as invalid (no more CSS rules for inputEx-required class)
+		   'empty' state still in use
+		* ColorField : colors option must be provided in ["#FFCEA5",...] format instead of ["FFCEA5",...] (so palettes are also modified)
+
+	- Added Fields
+		* MenuField : new field to perform a selection in a multi-level selector (menu style)
+		* VectorField : returns an array of number
+		* FileField-beta : for file upload using standard form post upload
+		* MapField from David Janes
+
+	- Field enhancements:
+		* Datatable: added options and CSS
+		* TypeField has been changed. Many bugfixes + cleaner way to defined fields parameters
+
+	- Various: 
+		* Switching to GIT repository
+		* Better examples (dialog, yuiloader, multiselect)
+		* inputExBuilder much better (now with page generation !)
+		* stylesheet for IE6 css fix (still not full support)
+		* field.destroy was buggy
+		* RTEField fixed (doesn't ignore name option anymore, accept initial value and setValue just after init)
+		* Form does not send values in ajax when doesn't validate
+		* italian localization
+
+
+version 0.2.0:
+--------------
+
+released on November 1st 2008
+
+	- Added fields:
+	 	* RadioField
+		* DatePickerField (type: datepicker)
+		* DateTimeField (type: datetime)
+		* IntegerField (type: integer) and removed the "numbersOnly" option from StringField
+		* NumberField (type: number)
+		* TimeField	(type: time)
+		* MultiAutoComplete
+		* MultiSelectField
+		* CombineField: replace PairField, but for N fields
+		* SliderField (type: slider)
+		* DSSelectField (type: dsselect) : uses YUI datasources to populate a SelectField
+
+	- Added widgets:	
+		* DDList widget: sortable list widget
+		* Datatable (beta): combine YUI datatable widget with inputEx forms
+		* Dialog (beta): create a panel from a inputEx type definition
+		
+	- Field enhancements:
+		* Field: Added a "destroy" method, focus method to set the focus on inputs
+		* StringField: added typeInvitation, maxLength, minLength, readonly attributes
+		* Group: flatten option on type JSON, getFieldByName method, collapsible option
+	 	* Form mask
+		* PasswordField: Strength indicator, CapsLock indicator
+ 		* PairField inherit from CombineField (deprecated, kept for compatibility)
+		* TypeField: implemented setValue, the builder can now "load" a group config
+		* UrlField: case sensitive URLs, make favicon optional otherwise it breaks https
+	 	* ListField: set the focus to the added element, use links or buttons
+		* RTEField: added SimpleEditor support and "opts" option to configure the toolbar (added by Dav Glass)
+		* TypeField/FormBuilder update: includes more options for more fields
+	
+	- Various:
+		* module definitions for the YUI loader
+		* Markup and CSS refactoring: the "description" and "label" attributes are now in the field JSON, uses "label" and "fieldset" tags
+		* small visualization/templating engine (Visus.js)
+		* Added an inputEx.importJsonSchema (experimental) method to create a form from a JSON Schema
+		* Documentation now uses JsDocToolkit 2 and http://code.google.com/p/neyricjslibs-template/
+		* alias namespace from inputEx to YAHOO.inputEx
+		* enclosed components in anonymous functions with shortcuts
+		* use YAHOO.lang.extend(...,...,{ methods: }) to save some bytes
+		* moved build/inputex-all.js to build/inputex.js for YUI loader
+		* VERSION added in inputEx object
+		* Moved the two functions (Array.prototype compact & indexOf) into the inputEx namespace as static functions
+		* use YAHOO.lang.isMethods instead of typeof
+		* inputExChart example
+	
+
+version 0.1.0
+-------------
+
+released on Wed May 07 2008
+
+	- Initial public release
+	- Added Fields: Group,Form,AutoComplete,CheckBox,Color,Date,Email
+						 Hidden,InPlaceEdit,IPv4,List,Pair,Password,RTE,Select
+						 String,Text,Tree,Type,Uneditable,UpperCase,Url
+							
+	- Application examples:
+				* inputExBuilder
+				* inputExHTML
+				* TaskManager
+	
+		

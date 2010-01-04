@@ -1,0 +1,23 @@
+<html>
+<head>
+	
+</head>
+<body>
+	
+<script>
+loader = new YAHOO.util.YUILoader({
+          require: ["inputex-hiddenfield","inputex-datefield","inputex-datepickerfield", "inputex-selectfield", "inputex-form","inputex-checkbox", "inputex-textarea", "json", "connection"],
+          base: '/phploader/lib/2.8.0r4/build/',
+          filter: 'debug' //,
+          //onSuccess: createDialog
+      });
+
+      /**
+       * Important: this functions declares all inputEx Modules to YUI
+       */
+      YAHOO.addInputExModules(loader, '/phploader/lib/neyric-inputex-9f081f4/');
+      loader.insert();
+</script>
+
+</body>
+</html>
