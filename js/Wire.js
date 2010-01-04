@@ -111,6 +111,9 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       this.options.borderwidth = options.borderwidth || 1;
       this.options.color = options.color || 'rgb(173, 216, 230)';
       this.options.bordercolor = options.bordercolor || '#0000ff';
+
+		// Label
+		this.options.label = options.label;
    },
    
    /**
@@ -571,7 +574,9 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @method redraw
     */
    redraw: function() {
-		//var positions;
+		
+		var positions;
+		
       if(this.options.drawingMethod == 'straight') {
          this.drawStraight();
       }
@@ -579,17 +584,18 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
          this.drawArrows();
       }
       else if(this.options.drawingMethod == 'bezier') {
-         //positions = this.drawBezierArrows();
 			this.drawBezierCurve();
       }
 	   else if(this.options.drawingMethod == 'bezierArrows') {
-         this.drawBezierArrows();
+         positions = this.drawBezierArrows();
 	   }
       else {
          throw new Error("WireIt.Wire unable to find '"+this.drawingMethod+"' drawing method.");
       }
 
-		//this.drawLabel(positions);
+		if(this.options.label) {
+			this.drawLabel(positions);
+		}
    },
 
 	drawLabel: function(positions) {
@@ -600,7 +606,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 		var t2 = positions[3];
 		
 		var winkel = 0;
-		var distance = 20;
+		var distance = 15;
 		
    	var ctxt=this.getContext();
 		ctxt.save();
@@ -626,11 +632,13 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
          winkel=Math.PI*0.5-winkel;
          ctxt.translate(t2[0],t2[1]);
       }
+
        ctxt.rotate(winkel);
+
       ctxt.font = "14px Arial";
       ctxt.fillStyle = "Black";
-      ctxt.translate((distance-(ctxt.measureText("Sample String")).width)/2,0);
-      ctxt.fillText("Sample String", 0, 0);
+      ctxt.translate((distance-(ctxt.measureText(this.options.label)).width)/2,0);
+      ctxt.fillText(this.options.label, 0, 0);
       ctxt.restore();
 	},
    

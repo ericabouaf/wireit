@@ -126,7 +126,7 @@ WireIt.WiringEditor.prototype = {
     
     this.options.layoutOptions = options.layoutOptions || {
 	 	units: [
-	   	{ position: 'top', height: 50, body: 'top'},
+	   	{ position: 'top', height: 57, body: 'top'},
 	      { position: 'left', width: 200, resize: true, body: 'left', gutter: '5px', collapse: true, 
 	        collapseSize: 25, header: 'Modules', scroll: true, animate: true },
 	      { position: 'center', body: 'center', gutter: '5px' },
@@ -282,6 +282,11 @@ WireIt.WiringEditor.prototype = {
  addModuleToList: function(module) {
 	
 		var div = WireIt.cn('div', {className: "WiringEditor-module"});
+		
+		if(module.description) {
+			div.title = module.description;
+		}
+		
       if(module.container.icon) {
          div.appendChild( WireIt.cn('img',{src: module.container.icon}) );
       }
@@ -348,9 +353,8 @@ WireIt.WiringEditor.prototype = {
 	 * @method renderSavedStatus
 	 */
 	renderSavedStatus: function() {
-		var top = Dom.get('top');
 		this.savedStatusEl = WireIt.cn('div', {className: 'savedStatus', title: 'Not saved'}, {display: 'none'}, "*");
-		top.appendChild(this.savedStatusEl);
+		Dom.get('toolbar').appendChild(this.savedStatusEl);
 	},
 
  /**
@@ -752,4 +756,3 @@ WireIt.WiringEditor.adapters = {};
 
 
 })();
-   

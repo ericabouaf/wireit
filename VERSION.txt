@@ -2,6 +2,20 @@
 To get the latest version, please visit http://javascript.neyric.com/wireit
 ---------------------------------------------------------------------------
 
+Version 0.6.0
+Not released yet
+
+Changeset:
+
+	* WiringEditor:
+		* AccordionView on left panel for module categories
+		* Toolbar
+
+	* Wires:
+		* Label for wires (beta)
+
+----------------------------------------------------
+
 Version 0.5.0
 August 10, 2009
 
