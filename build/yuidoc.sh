@@ -20,11 +20,11 @@ generator_out=~/Projets/WireIt/master/doc/
 template=~/Projets/WireIt/master/build/doc-template
 
 # The version of your project to display within the documentation.
-version=0.5.0
+version=0.6.0
 
 # The version of YUI the project is using.  This effects the output for
 # YUI configuration attributes.  This should start with '2' or '3'.
-yuiversion=2.7.0
+yuiversion=2.8.0r4
 
 projectName="WireItLibrary"
 
