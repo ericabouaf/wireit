@@ -1,5 +1,6 @@
 /**
  * JsonRpc Adapter (using ajax)
+ * @class WireIt.WiringEditor.adapters.JsonRpc
  * @static 
  */
 WireIt.WiringEditor.adapters.JsonRpc = {

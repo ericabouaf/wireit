@@ -9,7 +9,9 @@ Changeset:
 
 	* WiringEditor:
 		* AccordionView on left panel for module categories
-		* Toolbar
+		* Toolbar positionning
+		* ModuleProxy.js into its own file
+		* WiringEditor now inherits from BaseEditor, which wraps general full-page editor functionnality
 
 	* Wires:
 		* Label for wires (beta)

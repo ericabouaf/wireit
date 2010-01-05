@@ -5,6 +5,7 @@
 /**
  * The WiringEditor class provides a full page interface 
  * @class WiringEditor
+ * @extends WireIt.BaseEditor
  * @constructor
  * @param {Object} options
  */

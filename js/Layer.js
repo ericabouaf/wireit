@@ -283,8 +283,7 @@ WireIt.Layer.prototype = {
    },
 
    /**
-    * Alias for clear
-    * @deprecated
+    * @deprecated Alias for clear
     * @method removeAllContainers
     */
    removeAllContainers: function() {

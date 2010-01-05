@@ -1,12 +1,13 @@
 /**
  * Ajax Adapter. Expect JSON response for all queries.
+ * @class WireIt.WiringEditor.adapters.Ajax
  * @static 
  */
 WireIt.WiringEditor.adapters.Ajax = {
 	
 	/**
 	 * You can configure this adapter to different schemas.
-	 * url can be functions !
+	 * TIP: "url" can be a function !
 	 */
 	config: {
 		saveWiring: {
@@ -23,23 +24,47 @@ WireIt.WiringEditor.adapters.Ajax = {
 		}
 	},
 	
+	/**
+	 * init the adapter 
+	 * @method init
+	 * @static
+	 */
 	init: function() {
 		YAHOO.util.Connect.setDefaultPostHeader('application/json');
 	},
 	
+	/**
+	 * called when saved
+	 * @method saveWiring
+	 * @static
+	 */
 	saveWiring: function(val, callbacks) {
 		this._sendRequest("saveWiring", val, callbacks);
 	},
 	
+	/**
+	 * called when deleted
+	 * @method deleteWiring
+	 * @static
+	 */
 	deleteWiring: function(val, callbacks) {
 		this._sendRequest("deleteWiring", val, callbacks);
 	},
 	
+	/**
+	 * called to load the wirings
+	 * @method listWirings
+	 * @static
+	 */
 	listWirings: function(val, callbacks) {
 		this._sendRequest("listWirings", val, callbacks);
 	},
 	
-	
+	/**
+	 * send a request in JSON
+	 * @method _sendRequest
+	 * @static
+	 */
 	_sendRequest: function(action, value, callbacks) {
 	
 		var params = [];

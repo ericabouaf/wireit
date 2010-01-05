@@ -4,9 +4,10 @@
 
 /**
  * The BaseEditor class provides a full page interface 
- * @class BaseEditor
+ * @class BaseEditor	
+ * @namespace WireIt
  * @constructor
- * @param {Object} options
+ * @param {Object} options (layoutOptions,propertiesFields,accordionViewParams)
  */
 WireIt.BaseEditor = function(options) {
 	
@@ -24,6 +25,9 @@ WireIt.BaseEditor = function(options) {
 	
 };
 
+/**
+ * Default options for the BaseEditor
+ */
 WireIt.BaseEditor.defaultOptions = {
 	layoutOptions: {
 	 	units: [
@@ -76,8 +80,10 @@ WireIt.BaseEditor.prototype = {
 	 	 this.options.accordionViewParams = options.accordionViewParams || WireIt.BaseEditor.defaultOptions.accordionViewParams;
 	},
 	
-
-  render: function() {
+	/**
+	 * Render the layout & panels
+	 */
+  	render: function() {
 
 		 // Render the help panel
 	    this.renderHelpPanel();
@@ -103,7 +109,9 @@ WireIt.BaseEditor.prototype = {
 
   },
 
-
+	/**
+	 * Render the help dialog
+	 */
 	renderHelpPanel: function() {
 		/**
 	     * @property helpPanel
@@ -118,6 +126,9 @@ WireIt.BaseEditor.prototype = {
 	     this.helpPanel.render();
 	},
 
+	/**
+	 * Render the alert panel
+	 */
  	renderAlertPanel: function() {
 		
  	 /**
@@ -139,28 +150,28 @@ WireIt.BaseEditor.prototype = {
 		}, this, true);
 	},
 	
- /**
-  * Toolbar
-  * @method renderButtons
-  */
- renderButtons: function() {
-    var toolbar = Dom.get('toolbar');
-    // Buttons :
-    var newButton = new widget.Button({ label:"New", id:"WiringEditor-newButton", container: toolbar });
-    newButton.on("click", this.onNew, this, true);
+	 /**
+	  * Toolbar
+	  * @method renderButtons
+	  */
+	 renderButtons: function() {
+	    var toolbar = Dom.get('toolbar');
+	    // Buttons :
+	    var newButton = new widget.Button({ label:"New", id:"WiringEditor-newButton", container: toolbar });
+	    newButton.on("click", this.onNew, this, true);
 
-    var loadButton = new widget.Button({ label:"Load", id:"WiringEditor-loadButton", container: toolbar });
-    loadButton.on("click", this.load, this, true);
+	    var loadButton = new widget.Button({ label:"Load", id:"WiringEditor-loadButton", container: toolbar });
+	    loadButton.on("click", this.load, this, true);
 
-    var saveButton = new widget.Button({ label:"Save", id:"WiringEditor-saveButton", container: toolbar });
-    saveButton.on("click", this.onSave, this, true);
+	    var saveButton = new widget.Button({ label:"Save", id:"WiringEditor-saveButton", container: toolbar });
+	    saveButton.on("click", this.onSave, this, true);
 
-    var deleteButton = new widget.Button({ label:"Delete", id:"WiringEditor-deleteButton", container: toolbar });
-    deleteButton.on("click", this.onDelete, this, true);
+	    var deleteButton = new widget.Button({ label:"Delete", id:"WiringEditor-deleteButton", container: toolbar });
+	    deleteButton.on("click", this.onDelete, this, true);
 
-    var helpButton = new widget.Button({ label:"Help", id:"WiringEditor-helpButton", container: toolbar });
-    helpButton.on("click", this.onHelp, this, true);
- },
+	    var helpButton = new widget.Button({ label:"Help", id:"WiringEditor-helpButton", container: toolbar });
+	    helpButton.on("click", this.onHelp, this, true);
+	 },
 
 
 	/**
@@ -171,32 +182,36 @@ WireIt.BaseEditor.prototype = {
 		Dom.get('toolbar').appendChild(this.savedStatusEl);
 	},
 
+	 /**
+	  * @method onSave
+	  */
+	 onSave: function() {
+	    this.save();
+	 },
 
- /**
-  * @method onSave
-  */
- onSave: function() {
-    this.save();
- },
-
+	/**
+	 * Save method (empty)
+	 */
 	save: function() {
 		// override
 	},
 
-
+	/**
+	 * Displays a message
+	 */
 	alert: function(txt) {
 		if(!this.alertPanel){ this.renderAlertPanel(); }
 		Dom.get('alertPanelBody').innerHTML = txt;
 		this.alertPanel.show();
 	},
 
- /**
-  * Create a help panel
-  * @method onHelp
-  */
- onHelp: function() {
-    this.helpPanel.show();
- },
+	 /**
+	  * Create a help panel
+	  * @method onHelp
+	  */
+	 onHelp: function() {
+	    this.helpPanel.show();
+	 },
 
 	
 	/**
@@ -206,32 +221,41 @@ WireIt.BaseEditor.prototype = {
 		this.accordionView = new YAHOO.widget.AccordionView('accordionView', this.options.accordionViewParams);
 	},
  
- /**
-  * Render the properties form
-  * @method renderPropertiesForm
-  */
- renderPropertiesForm: function() {
-    this.propertiesForm = new inputEx.Group({
-       parentEl: YAHOO.util.Dom.get('propertiesForm'),
-       fields: this.options.propertiesFields
-    });
+	 /**
+	  * Render the properties form
+	  * @method renderPropertiesForm
+	  */
+	 renderPropertiesForm: function() {
+	    this.propertiesForm = new inputEx.Group({
+	       parentEl: YAHOO.util.Dom.get('propertiesForm'),
+	       fields: this.options.propertiesFields
+	    });
 
-	this.propertiesForm.updatedEvt.subscribe(function() {
-		this.markUnsaved();
-	}, this, true);
- },
+		this.propertiesForm.updatedEvt.subscribe(function() {
+			this.markUnsaved();
+		}, this, true);
+	 },
 
+	/** 
+	 * Hide the save indicator
+	 */
 	markSaved: function() {
 		this.savedStatusEl.style.display = 'none';
 	},
 	
+	/** 
+	 * Show the save indicator
+	 */
 	markUnsaved: function() {
 		this.savedStatusEl.style.display = '';
 	},
 
+	/** 
+	 * Is saved ?
+	 */
 	isSaved: function() {
 		return (this.savedStatusEl.style.display == 'none');
-	},
+	}
 	
 };
 

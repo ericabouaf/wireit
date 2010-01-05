@@ -17,7 +17,7 @@ generator_out=~/Projets/WireIt/master/doc/
 
 # The location of the template files.  Any subdirectories here will be copied
 # verbatim to the destination directory.
-template=~/Projets/WireIt/master/scripts/doc-template
+template="$yuidoc_home/template"
 
 # The version of your project to display within the documentation.
 version=0.6.0
@@ -33,4 +33,5 @@ projectUrl="http://javascript.neyric.com/wireit"
 ##############################################################################
 # add -s to the end of the line to show items marked private
 
-$yuidoc_home/bin/yuidoc.py $parser_in -p $parser_out -o $generator_out -t $template -v $version -Y $yuiversion --project $projectName --projecturl $projectUrl
+$yuidoc_home/bin/yuidoc.py $parser_in -p $parser_out -o $generator_out -t $template -v $version -Y $yuiversion --project $projectName --projecturl $projectUrl  --copyright="Eric Abouaf"
+rm -rf $parser_out
