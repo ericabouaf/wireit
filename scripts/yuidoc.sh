@@ -10,14 +10,14 @@ parser_in="$HOME/Projets/WireIt/master/js"
 
 # The location to output the parser data.  This output is a file containing a 
 # json string, and copies of the parsed files.
-parser_out=~/Projets/WireIt/master/build/doc-parser
+parser_out=~/Projets/WireIt/master/scripts/doc-parser
 
 # The directory to put the html file outputted by the generator
 generator_out=~/Projets/WireIt/master/doc/
 
 # The location of the template files.  Any subdirectories here will be copied
 # verbatim to the destination directory.
-template=~/Projets/WireIt/master/build/doc-template
+template=~/Projets/WireIt/master/scripts/doc-template
 
 # The version of your project to display within the documentation.
 version=0.6.0
