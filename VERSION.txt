@@ -12,6 +12,7 @@ Changeset:
 		* Toolbar positionning
 		* ModuleProxy.js into its own file
 		* WiringEditor now inherits from BaseEditor, which wraps general full-page editor functionnality
+		* Example for a non-fullscreen editor
 
 	* Wires:
 		* Label for wires (beta)
