@@ -13,6 +13,9 @@ Changeset:
 		* ModuleProxy.js into its own file
 		* WiringEditor now inherits from BaseEditor, which wraps general full-page editor functionnality
 		* Example for a non-fullscreen editor
+		
+	* Added Composable WiringEditor extension 
+		* Usage is demonstrated in the "jsBox" example
 
 	* Wires:
 		* Label for wires (beta)

@@ -2,7 +2,7 @@
  * jsBox
  */
 var jsBox = {
-   
+	   
    language: {
 	
 	   languageName: "jsBox",
@@ -26,43 +26,6 @@ var jsBox = {
 		         "input": {
 		            "type":"url","inputParams":{}
 		         }
-		      }
-		   },
-		   
-		   {
-		      "name": "input",
-		      "container": {
-		         "xtype": "WireIt.FormContainer",
-		   		"title": "input",
-		   		"fields": [
-		   			{"type": "type", "inputParams": {"label": "Value", "name": "input", "wirable": false, "value": { "type":"string","inputParams":{"typeInvite": "input name"}} }}
-		   		],
-		   		"terminals": [
-      			   {"name": "out", "direction": [0,1], "offsetPosition": {"left": 86, "bottom": -15}, "ddConfig": {
-                      "type": "output",
-                      "allowedTypes": ["input"]
-                   }
-                  }
-      		   ]
-		      }
-		   },
-		   
-		   {
-		      "name": "output",
-		      "container": {
-		         "xtype": "WireIt.FormContainer",
-		   		"title": "output",
-		   		"fields": [ 
-		   			{"type": "string", "inputParams": {"label": "name", "name": "name", "wirable": false}}
-		   		],
-   		   	"terminals": [
-	      		   {"name": "in", "direction": [0,-1], "offsetPosition": {"left": 82, "top": -15 }, "ddConfig": {
-                      "type": "input",
-                      "allowedTypes": ["output"]
-                   },
-                   "nMaxWires": 1
-                  }
-	      		]
 		      }
 		   },
 		   
@@ -124,65 +87,18 @@ jsBox.WiringEditor = function(options) {
    jsBox.WiringEditor.superclass.constructor.call(this, options);
 };
 
-YAHOO.lang.extend(jsBox.WiringEditor, WireIt.WiringEditor, {
-   
-   
+YAHOO.lang.extend(jsBox.WiringEditor, WireIt.ComposableWiringEditor, {
    /**
     * Add the "run" button
     */
    renderButtons: function() {
       jsBox.WiringEditor.superclass.renderButtons.call(this);
 
-		// Add the run button
+		// Add the run button to the toolbar
       var toolbar = YAHOO.util.Dom.get('toolbar');
       var runButton = new YAHOO.widget.Button({ label:"Run", id:"WiringEditor-runButton", container: toolbar });
       runButton.on("click", jsBox.run, jsBox, true);
-   },
-
-	/**
-	 * Customize the load success handler for the composed module list
-	 */
-	onLoadSuccess: function(wirings) {
-		jsBox.WiringEditor.superclass.onLoadSuccess.call(this,wirings);
-	
-		//  Customize to display composed module in the left list
-		this.updateComposedModuleList();
-	},
-	
-	/**
-	 * All the saved wirings are reusable modules :
-	 */
-	updateComposedModuleList: function() {
-		
-		// to optimize:
-		
-		// Remove all previous module with the ComposedModule class
-		var l = YAHOO.util.Dom.getElementsByClassName("ComposedModule", "div", this.leftEl);
-		for(var i = 0 ; i < l.length ; i++) {
-			this.leftEl.removeChild(l[i]);
-		}
-		
-		if(YAHOO.lang.isArray(this.pipes)) {
-	       for(i = 0 ; i < this.pipes.length ; i++) {
-	          var module = this.pipes[i];
-	          this.pipesByName[module.name] = module;
-	
-				// Add the module to the list
-             var div = WireIt.cn('div', {className: "WiringEditor-module ComposedModule"});
-             div.appendChild( WireIt.cn('span', null, null, module.name) );
-             var ddProxy = new WireIt.ModuleProxy(div, this);
-             ddProxy._module = {
-                name: module.name,
-                container: {
-                   "xtype": "jsBox.ComposedContainer",
-                   "title": module.name
-                }
-             };
-             this.leftEl.appendChild(div);
-
-	       }
-	    }
-	}
+   }
 });
 
 
@@ -302,49 +218,3 @@ YAHOO.extend(jsBox.Container, WireIt.Container, {
    }
    
 });
-
-
-
-
-
-
-
-
-/**
- * ComposedContainer is a class for Container representing Pipes.
- * It automatically generates the inputEx Form from the input Params.
- * @class ComposedContainer
- * @extends WireIt.FormContainer
- * @constructor
- */
-jsBox.ComposedContainer = function(options, layer) {
-   
-   if(!options.fields) {
-      
-      options.fields = [];
-      options.terminals = [];
-   
-      var pipe = jsBox.editor.getPipeByName(options.title);
-      for(var i = 0 ; i < pipe.modules.length ; i++) {
-         var m = pipe.modules[i];
-         if( m.name == "input") {
-            m.value.input.inputParams.wirable = true;
-            options.fields.push(m.value.input);
-         }
-         else if(m.name == "output") {
-            options.terminals.push({
-               name: m.value.name,
-               "direction": [0,1], 
-               "offsetPosition": {"left": options.terminals.length*40, "bottom": -15}, 
-               "ddConfig": {
-                   "type": "output",
-                   "allowedTypes": ["input"]
-                }
-            });
-         }
-      }
-   }
-   
-   jsBox.ComposedContainer.superclass.constructor.call(this, options, layer);
-};
-YAHOO.extend(jsBox.ComposedContainer, WireIt.FormContainer);

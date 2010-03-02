@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>WireIt - jsBox example</title>
 	<link rel="icon" href="../../res/favicon.ico" type="image/png" />
-  <link rel="SHORTCUT ICON" href="../../res/favicon.ico" type="image/png" />
+  <link rel="shortcut icon" href="../../res/favicon.ico" type="image/png" />
 
 <!-- YUI -->
 <link rel="stylesheet" type="text/css" href="../../lib/yui/reset-fonts-grids/reset-fonts-grids.css" />
@@ -107,6 +107,10 @@ div.ComposedModule { background-color: #DDDDAA; }
 <script type="text/javascript" src="../../js/adapters/json-rpc.js"></script>
 <script type="text/javascript" src="../../js/ImageContainer.js"></script>
 
+
+<script type="text/javascript" src="../../js/extensions/composable/ComposableWiringEditor.js"></script>
+<script type="text/javascript" src="../../js/extensions/composable/ComposedContainer.js"></script>
+
 <script type="text/javascript" src="jsBox.js"></script>
 <script type="text/javascript" src="ExecutionFrame.js"></script>
 <script>
@@ -178,7 +182,7 @@ YAHOO.util.Event.onDOMReady( jsBox.init, jsBox, true);
 	</div>
 
 	
-
+	<!-- This is the content of the HELP panel -->
 	<div id="helpPanel">
 	    <div class="hd">Welcome to jsBox</div>
 	    <div class="bd" style="text-align: left;">

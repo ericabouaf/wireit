@@ -329,6 +329,10 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	       }
 	    }
 	    var panelBody = Dom.get('loadPanelBody');
+	
+		 // Purge element (remove listeners on panelBody and childNodes recursively)
+	    YAHOO.util.Event.purgeElement(panelBody, true);
+
 	    panelBody.innerHTML = "";
 	    panelBody.appendChild(list);
 
