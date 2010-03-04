@@ -91,18 +91,20 @@ WireIt.Layer = function(options) {
       new WireIt.LayerMap(this, this.options.layerMapOptions);
    }
    
-   this.grouper = new WireIt.Grouper(this, this.options.grouper.baseConfigFunction);
+	if(WireIt.Grouper) {
+	   this.grouper = new WireIt.Grouper(this, this.options.grouper.baseConfigFunction);
    
-   var rb = this.grouper.rubberband;
-   var self = this;
-   this.el.onmousedown = function(event) { return rb.layerMouseDown.call(rb, event); }
-   //this.el.onmouseup = 
-   var grouper = this.grouper;
-   this.el.addEventListener("mouseup", function (event) 
-	{ 
-	    rb.finish(); 
-	    grouper.rubberbandSelect.call(grouper); 
-	}, false);
+	   var rb = this.grouper.rubberband;
+	   var self = this;
+	   this.el.onmousedown = function(event) { return rb.layerMouseDown.call(rb, event); }
+	   //this.el.onmouseup = 
+	   var grouper = this.grouper;
+	   this.el.addEventListener("mouseup", function (event) 
+		{ 
+		    rb.finish(); 
+		    grouper.rubberbandSelect.call(grouper); 
+		}, false);
+	}
 };
 
 WireIt.Layer.prototype = {

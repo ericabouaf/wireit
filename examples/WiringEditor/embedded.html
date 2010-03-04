@@ -102,6 +102,8 @@ div.Bubble div.body {
 <script type="text/javascript" src="../../js/util/inputex/FormContainer-beta.js"></script>
 <script type="text/javascript" src="../../js/LayerMap.js"></script>
 <script type="text/javascript" src="../../js/Grouper.js"></script>
+<script type="text/javascript" src="../../js/BaseEditor.js"></script>
+<script type="text/javascript" src="../../js/ModuleProxy.js"></script>
 <script type="text/javascript" src="../../js/WiringEditor.js"></script>
 <script type="text/javascript" src="../../js/ImageContainer.js"></script>
 <script type="text/javascript" src="../../js/InOutContainer.js"></script>
@@ -137,18 +139,6 @@ YAHOO.util.Event.onDOMReady( function() {
 	// Open the infos panel
 	editor.accordionView.openPanel(2);
 	
-	editor.toolbar.add({label : "A Custom button", id: "WireIt-Bob", events : [ {name : "click", callback: function() { alert("This button does what I want"); } } ] })
-	/*
-    var util = YAHOO.util,lang = YAHOO.lang;
-    var Event = util.Event, Dom = util.Dom, Connect = util.Connect,JSON = lang.JSON,widget = YAHOO.widget;
-
-    var layerOptions = {};
-    layerOptions.parentEl = Dom.get('center');
-    layerOptions.layerMap = false; //YAHOO.lang.isUndefined(layerOptions.layerMap) ? true : layerOptions.layerMap;
-    //layerOptions.layerMapOptions = layerOptions.layerMapOptions || { parentEl: 'layerMap' };
-    
-    layer = new WireIt.Layer(layerOptions);
-    */
 });
 
 </script>
@@ -168,6 +158,30 @@ YAHOO.util.Event.onDOMReady( function() {
 
 
 	<div id="left">
+		
+		 <ul id="modulesAccordionView">
+			<li>
+				<h2>Main</h2>
+				<div>
+					<div id='module-category-main'></div>
+				</div>
+			</li>
+			
+			<li>
+				<h2>Form Modules</h2>
+				<div>
+					<div id='module-category-form'></div>
+				</div>
+			</li>
+			
+			<li>
+				<h2>Image Modules</h2>
+				<div>
+					<div id='module-category-images'></div>
+				</div>
+			</li>
+		</ul>
+		
 	</div>
 	
 	<div id="right">

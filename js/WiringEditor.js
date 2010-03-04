@@ -20,23 +20,6 @@ WireIt.WiringEditor = function(options) {
 	
 	WireIt.WiringEditor.superclass.constructor.call(this, options);
 
-
-    var toolbarOptions = options.toolbar;
-    this.toolbar.element = Dom.get('toolbar');
-    this.toolbar.editor= this;
-    if (toolbarOptions) {
-    	if (toolbarOptions.enabled && toolbarOptions.buttons) {
-			for (var b in toolbarOptions.buttons) {
-	  			this.toolbar.add(toolbarOptions.buttons[b]);  
-			}
-      }
-    }
-    else {
-      // Render buttons
-      this.toolbar.renderDefaultButtons();
-    }
-    
-
 	 // LoadWirings
 	 if( this.adapter.init && YAHOO.lang.isFunction(this.adapter.init) ) {
 			this.adapter.init();
@@ -86,7 +69,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 		 // Grouping options
 	    var temp = this;
 	    var baseConfigFunction = function(name)  { 
-				return (name == "Group") ? {
+				return (name == "Group") ? ({
 			    "xtype": "WireIt.GroupFormContainer",
 			    "title": "Group",    
 
@@ -94,7 +77,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 			    "fields": [ ],
 			    "legend": "Inner group fields",
 			    "getBaseConfigFunction" : baseConfigFunction
-				} : temp.modulesByName[name].container;
+				}) : temp.modulesByName[name].container;
 		};
 
 	    this.options.layerOptions.grouper = {"baseConfigFunction": baseConfigFunction };
@@ -170,7 +153,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
   	 * Add a module definition to the left list
   	 */
  	addModuleToList: function(module) {
-	
+	try {
 		var div = WireIt.cn('div', {className: "WiringEditor-module"});
 		
 		if(module.description) {
@@ -198,6 +181,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 		}
 		
 		el.appendChild(div);
+	}catch(ex){ console.log(ex);}
  	},
  
  
@@ -222,25 +206,6 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	       this.alert("Error Layer.addContainer: "+ ex.message);
 	    }    
 	},
-
-	// For grouping ?
-  toolbar : {
-    element : null,
-
-    /**
-     * button = {label : <label>, id : <id>, events : [ {name: <name e.g. click>, callback : <callback e.g. function() { alert('test') }> } ]}
-     */
-    add: function(button) {
-      // Buttons :
-      var wButton = new widget.Button({ label:button.label, id: button.id, container: this.element });
-
-      for (var e in button.events) {
-			var event = button.events[e];
-			wButton.on(event.name, event.callback, event.context, true);
-      }
-
-    },
-
 
  	/**
   	 * save the current module
