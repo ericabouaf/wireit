@@ -20,12 +20,12 @@
 
  <body>
 
-<p class='demoTitle'>inputEx - CheckBox Usage</p>
+<h1>inputEx - CheckBox Usage</h1>
 
 
 <!-- Example 1 -->
 <div class='exampleDiv'>
-	<p class="title">Basic CheckBox creation</p>
+	<h2>Basic CheckBox creation</h2>
 	<p>Use the following code to create a basic inputEx CheckBox.</p>
 	<div class='demoContainer' id='container1'></div>
 	<div class='codeContainer'>
@@ -38,7 +38,7 @@
 
 <!-- Example 2 -->
 <div class='exampleDiv'>
-	<p class="title">With a label</p>
+	<h2>With a label</h2>
 	<p>Add the label</p>
 	<div class='demoContainer' id='container2'></div>
 	<div class='codeContainer'>
@@ -51,7 +51,7 @@
 
 <!-- Example 3 -->
 <div class='exampleDiv'>
-	<p class="title">Default returned values</p>
+	<h2>Default returned values</h2>
 	<p>In its simplest form, the CheckBox returns <i>true</i> if checked, <i>false</i> otherwise.</p>
 	<div class='demoContainer' id='container3'></div>
 	<div class='codeContainer'>
@@ -68,16 +68,22 @@
 
 <!-- Example 4 -->
 <div class='exampleDiv'>
-	<p class="title">Changing the returned values</p>
+	<h2>Changing the returned values</h2>
 	<p>You can return different values if needed.</p>
 	<div class='demoContainer' id='container4'></div>
 	<div class='codeContainer'>
 		<textarea name="code" class="JScript">
 			var exampleDiv = YAHOO.util.Dom.get('container4');
-			var field2 = new inputEx.CheckBox({sentValues: ['Yes', 'No'], rightLabel: 'Do you agree ?', parentEl: exampleDiv, value: 'No'});
+			var field2 = new inputEx.CheckBox({sentValues: ['Yes', 'No'], rightLabel: 'Do you agree ?', parentEl: exampleDiv, value: 'Yes'});
 			var button = inputEx.cn('button', null, null, 'getValue()');
+			var button2 = inputEx.cn('button', null, null, 'setValue("No")');
+			var button3 = inputEx.cn('button', null, null, 'setValue("Yes")');
 			exampleDiv.appendChild(button); 
+			exampleDiv.appendChild(button2); 
+			exampleDiv.appendChild(button3); 
 			YAHOO.util.Event.addListener(button, 'click', function() { alert(field2.getValue()); });
+			YAHOO.util.Event.addListener(button2, 'click', function() { field2.setValue('No'); });
+			YAHOO.util.Event.addListener(button3, 'click', function() { field2.setValue('Yes'); });
 		</textarea>
 	</div>
 </div>
@@ -86,7 +92,7 @@
 
 <!-- Example 5 -->
 <div class='exampleDiv'>
-	<p class="title">Updated event</p>
+	<h2>Updated event</h2>
 	<p>How to listen to the updated event :</p>
 	<div class='demoContainer' id='container5'></div>
 	<div class='codeContainer'>
@@ -96,7 +102,7 @@
 			var logDiv = inputEx.cn('div', null, null, "Log :");
 			el.appendChild(logDiv);
 			field.updatedEvt.subscribe(function() {
-				logDiv.innerHTML += "Updated at "+(new Date());
+				logDiv.innerHTML += "Updated at "+(new Date())+" with value : "+field.getValue();
 				logDiv.appendChild(inputEx.cn('br'));
 			});
 		</textarea>
@@ -107,7 +113,7 @@
 
 <!-- Example 6 -->
 <div class='exampleDiv'>
-	<p class="title">Disabling checkboxes</p>
+	<h2>Disabling checkboxes</h2>
 	<p>How to enable/disable a checkbox :</p>
 	<div class='demoContainer' id='container6'></div>
 	<div class='codeContainer'>

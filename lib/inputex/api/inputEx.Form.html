@@ -15,8 +15,8 @@
 
 <div id="doc3" class="yui-t2">
 	<div id="hd">
-        <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
-        <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
+        <h1><a href="http://neyric.github.com/inputex" title="inputEx-library">inputEx-library</a></h1>
+        <h3>inputEx&nbsp; <span class="subtitle">0.5.0</span></h3>
         <a href="./index.html" title="inputEx-library">inputEx-library</a> 
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
                  &gt; inputEx.Form 
@@ -136,6 +136,36 @@
                                         
                                         <div class="description" property="yui:description">
                                             Send the form value in JSON through an ajax request
+                                        </div>
+
+                                        <div class="description">
+
+
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_destroy">
+                                    <h4>
+                                        <a name="method_destroy">destroy</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">destroy</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Purge all event listeners and remove the component from the dom
                                         </div>
 
                                         <div class="description">
@@ -436,7 +466,7 @@ If the ajax option object is set, use YUI async Request to send the form
                                                         <code><span property="yui:name">options</span>
                                                         &lt;<span property="yui:type">Object</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> Options object (inputEx inputParams) as passed to the constructor</span>
+                                                        <span property="yui:description"> Options object as passed to the constructor</span>
                                                         </dd>
                                                 </dl>
 
@@ -514,6 +544,9 @@ If the ajax option object is set, use YUI async Request to send the form
                                             <span rel="yui:method" resource="inputEx.Field.html#method_getEl">                                        
                                             <a class="" href="inputEx.Field.html#method_getEl" property="yui:name" title="getEl">getEl</a><span class="">,</span>
                                             </span>
+                                            <span rel="yui:method" resource="inputEx.Field.html#method_getParentField">                                        
+                                            <a class="" href="inputEx.Field.html#method_getParentField" property="yui:name" title="getParentField">getParentField</a><span class="">,</span>
+                                            </span>
                                             <span rel="yui:method" resource="inputEx.Field.html#method_getState">                                        
                                             <a class="" href="inputEx.Field.html#method_getState" property="yui:name" title="getState">getState</a><span class="">,</span>
                                             </span>
@@ -553,6 +586,9 @@ If the ajax option object is set, use YUI async Request to send the form
                                             <span rel="yui:method" resource="inputEx.Field.html#method_setOptions">                                        
                                             <a class="" href="inputEx.Field.html#method_setOptions" property="yui:name" title="setOptions">setOptions</a><span class="">,</span>
                                             </span>
+                                            <span rel="yui:method" resource="inputEx.Field.html#method_setParentField">                                        
+                                            <a class="" href="inputEx.Field.html#method_setParentField" property="yui:name" title="setParentField">setParentField</a><span class="">,</span>
+                                            </span>
                                             <span rel="yui:method" resource="inputEx.Field.html#method_setValue">                                        
                                             <a class="" href="inputEx.Field.html#method_setValue" property="yui:name" title="setValue">setValue</a><span class="">,</span>
                                             </span>
@@ -575,6 +611,9 @@ If the ajax option object is set, use YUI async Request to send the form
                                             <span rel="yui:method" resource="inputEx.Group.html#method_close">                                        
                                             <a class="" href="inputEx.Group.html#method_close" property="yui:name" title="close">close</a><span class="">,</span>
                                             </span>
+                                            <span rel="yui:method" resource="inputEx.Group.html#method_destroy">                                        
+                                            <a class="" href="inputEx.Group.html#method_destroy" property="yui:name" title="destroy">destroy</a><span class="">,</span>
+                                            </span>
                                             <span rel="yui:method" resource="inputEx.Group.html#method_disable">                                        
                                             <a class="" href="inputEx.Group.html#method_disable" property="yui:name" title="disable">disable</a><span class="">,</span>
                                             </span>
@@ -586,6 +625,9 @@ If the ajax option object is set, use YUI async Request to send the form
                                             </span>
                                             <span rel="yui:method" resource="inputEx.Group.html#method_getFieldByName">                                        
                                             <a class="" href="inputEx.Group.html#method_getFieldByName" property="yui:name" title="getFieldByName">getFieldByName</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="inputEx.Group.html#method_getFieldsStates">                                        
+                                            <a class="" href="inputEx.Group.html#method_getFieldsStates" property="yui:name" title="getFieldsStates">getFieldsStates</a><span class="">,</span>
                                             </span>
                                             <span rel="yui:method" resource="inputEx.Group.html#method_getValue">                                        
                                             <a class="" href="inputEx.Group.html#method_getValue" property="yui:name" title="getValue">getValue</a><span class="">,</span>
@@ -719,6 +761,8 @@ If the ajax option object is set, use YUI async Request to send the form
                                 <li class=""><a href="inputEx.RPC.Transport.html" title="inputEx.RPC.Transport">inputEx.RPC.Transport</a></li>
                                 <li class=""><a href="inputEx.RTEField.html" title="inputEx.RTEField">inputEx.RTEField</a></li>
                                 <li class=""><a href="inputEx.SelectField.html" title="inputEx.SelectField">inputEx.SelectField</a></li>
+                                <li class=""><a href="inputEx.SerializeField.html" title="inputEx.SerializeField">inputEx.SerializeField</a></li>
+                                <li class=""><a href="inputEx.SerializeField.serializers.html" title="inputEx.SerializeField.serializers">inputEx.SerializeField.serializers</a></li>
                                 <li class=""><a href="inputEx.SliderField.html" title="inputEx.SliderField">inputEx.SliderField</a></li>
                                 <li class=""><a href="inputEx.StringField.html" title="inputEx.StringField">inputEx.StringField</a></li>
                                 <li class=""><a href="inputEx.Textarea.html" title="inputEx.Textarea">inputEx.Textarea</a></li>
@@ -731,6 +775,7 @@ If the ajax option object is set, use YUI async Request to send the form
                                 <li class=""><a href="inputEx.UrlField.html" title="inputEx.UrlField">inputEx.UrlField</a></li>
                                 <li class=""><a href="inputEx.VectorField.html" title="inputEx.VectorField">inputEx.VectorField</a></li>
                                 <li class=""><a href="inputEx.visus.html" title="inputEx.visus">inputEx.visus</a></li>
+                                <li class=""><a href="inputEx.widget.Button.html" title="inputEx.widget.Button">inputEx.widget.Button</a></li>
                                 <li class=""><a href="inputEx.widget.CellEditor.html" title="inputEx.widget.CellEditor">inputEx.widget.CellEditor</a></li>
                                 <li class=""><a href="inputEx.widget.DataTable.html" title="inputEx.widget.DataTable">inputEx.widget.DataTable</a></li>
                                 <li class=""><a href="inputEx.widget.DDList.html" title="inputEx.widget.DDList">inputEx.widget.DDList</a></li>
@@ -746,6 +791,7 @@ If the ajax option object is set, use YUI async Request to send the form
                         <h4>Files</h4>
                         <ul class="content">        
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
+                                <li class=""><a href="Button.js.html" title="Button.js">Button.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>
                                 <li class=""><a href="ColorPickerField.js.html" title="ColorPickerField.js">ColorPickerField.js</a></li>
@@ -793,12 +839,14 @@ If the ajax option object is set, use YUI async Request to send the form
                                 <li class=""><a href="RadioField.js.html" title="RadioField.js">RadioField.js</a></li>
                                 <li class=""><a href="RTEField.js.html" title="RTEField.js">RTEField.js</a></li>
                                 <li class=""><a href="SelectField.js.html" title="SelectField.js">SelectField.js</a></li>
+                                <li class=""><a href="SerializeField-beta.js.html" title="SerializeField-beta.js">SerializeField-beta.js</a></li>
                                 <li class=""><a href="SliderField.js.html" title="SliderField.js">SliderField.js</a></li>
                                 <li class=""><a href="smdTester.js.html" title="smdTester.js">smdTester.js</a></li>
                                 <li class=""><a href="StringField.js.html" title="StringField.js">StringField.js</a></li>
                                 <li class=""><a href="Textarea.js.html" title="Textarea.js">Textarea.js</a></li>
                                 <li class=""><a href="TimeField.js.html" title="TimeField.js">TimeField.js</a></li>
                                 <li class=""><a href="TimeIntervalField.js.html" title="TimeIntervalField.js">TimeIntervalField.js</a></li>
+                                <li class=""><a href="TimeRange.js.html" title="TimeRange.js">TimeRange.js</a></li>
                                 <li class=""><a href="TreeField.js.html" title="TreeField.js">TreeField.js</a></li>
                                 <li class=""><a href="TypeField.js.html" title="TypeField.js">TypeField.js</a></li>
                                 <li class=""><a href="UneditableField.js.html" title="UneditableField.js">UneditableField.js</a></li>
@@ -815,6 +863,7 @@ If the ajax option object is set, use YUI async Request to send the form
                         <h4>Methods</h4>
                         <ul class="content">        
                                 <li class=""><a href="#method_asyncRequest" title="asyncRequest">asyncRequest</a></li>
+                                <li class=""><a href="#method_destroy" title="destroy">destroy</a></li>
                                 <li class=""><a href="#method_disable" title="disable">disable</a></li>
                                 <li class=""><a href="#method_enable" title="enable">enable</a></li>
                                 <li class=""><a href="#method_hideMask" title="hideMask">hideMask</a></li>
@@ -839,8 +888,8 @@ If the ajax option object is set, use YUI async Request to send the form
 	</div>
 </div>
 <script type="text/javascript">
-    var ALL_YUI_PROPS = [{"url": "inputEx.Form.html#method_asyncRequest", "access": "", "host": "inputEx.Form", "type": "method", "name": "asyncRequest"}, {"url": "inputEx.Field.html#method_clear", "access": "", "host": "inputEx.Field", "type": "method", "name": "clear"}, {"url": "inputEx.Field.html#method_close", "access": "", "host": "inputEx.Field", "type": "method", "name": "close"}, {"url": "inputEx.Field.html#method_destroy", "access": "", "host": "inputEx.Field", "type": "method", "name": "destroy"}, {"url": "inputEx.Field.html#method_disable", "access": "", "host": "inputEx.Field", "type": "method", "name": "disable"}, {"url": "inputEx.Form.html#method_disable", "access": "", "host": "inputEx.Form", "type": "method", "name": "disable"}, {"url": "inputEx.Field.html#method_displayMessage", "access": "", "host": "inputEx.Field", "type": "method", "name": "displayMessage"}, {"url": "inputEx.Field.html#method_enable", "access": "", "host": "inputEx.Field", "type": "method", "name": "enable"}, {"url": "inputEx.Form.html#method_enable", "access": "", "host": "inputEx.Form", "type": "method", "name": "enable"}, {"url": "inputEx.Field.html#method_fireUpdatedEvt", "access": "", "host": "inputEx.Field", "type": "method", "name": "fireUpdatedEvt"}, {"url": "inputEx.Field.html#method_focus", "access": "", "host": "inputEx.Field", "type": "method", "name": "focus"}, {"url": "inputEx.Field.html#method_getEl", "access": "", "host": "inputEx.Field", "type": "method", "name": "getEl"}, {"url": "inputEx.Field.html#method_getState", "access": "", "host": "inputEx.Field", "type": "method", "name": "getState"}, {"url": "inputEx.Field.html#method_getStateString", "access": "", "host": "inputEx.Field", "type": "method", "name": "getStateString"}, {"url": "inputEx.Field.html#method_getValue", "access": "", "host": "inputEx.Field", "type": "method", "name": "getValue"}, {"url": "inputEx.Field.html#method_hide", "access": "", "host": "inputEx.Field", "type": "method", "name": "hide"}, {"url": "inputEx.Form.html#method_hideMask", "access": "", "host": "inputEx.Form", "type": "method", "name": "hideMask"}, {"url": "inputEx.Field.html#method_initEvents", "access": "", "host": "inputEx.Field", "type": "method", "name": "initEvents"}, {"url": "inputEx.Form.html#method_initEvents", "access": "", "host": "inputEx.Form", "type": "method", "name": "initEvents"}, {"url": "inputEx.Field.html#method_isEmpty", "access": "", "host": "inputEx.Field", "type": "method", "name": "isEmpty"}, {"url": "inputEx.Field.html#method_onBlur", "access": "", "host": "inputEx.Field", "type": "method", "name": "onBlur"}, {"url": "inputEx.Field.html#method_onChange", "access": "", "host": "inputEx.Field", "type": "method", "name": "onChange"}, {"url": "inputEx.Field.html#method_onFocus", "access": "", "host": "inputEx.Field", "type": "method", "name": "onFocus"}, {"url": "inputEx.Form.html#method_onSubmit", "access": "", "host": "inputEx.Form", "type": "method", "name": "onSubmit"}, {"url": "inputEx.Field.html#property_options", "access": "", "host": "inputEx.Field", "type": "property", "name": "options"}, {"url": "inputEx.Field.html#method_render", "access": "", "host": "inputEx.Field", "type": "method", "name": "render"}, {"url": "inputEx.Form.html#method_render", "access": "", "host": "inputEx.Form", "type": "method", "name": "render"}, {"url": "inputEx.Form.html#method_renderButtons", "access": "", "host": "inputEx.Form", "type": "method", "name": "renderButtons"}, {"url": "inputEx.Field.html#method_renderComponent", "access": "", "host": "inputEx.Field", "type": "method", "name": "renderComponent"}, {"url": "inputEx.Form.html#method_renderMask", "access": "", "host": "inputEx.Form", "type": "method", "name": "renderMask"}, {"url": "inputEx.Field.html#method_setClassFromState", "access": "", "host": "inputEx.Field", "type": "method", "name": "setClassFromState"}, {"url": "inputEx.Field.html#method_setOptions", "access": "", "host": "inputEx.Field", "type": "method", "name": "setOptions"}, {"url": "inputEx.Form.html#method_setOptions", "access": "", "host": "inputEx.Form", "type": "method", "name": "setOptions"}, {"url": "inputEx.Field.html#method_setValue", "access": "", "host": "inputEx.Field", "type": "method", "name": "setValue"}, {"url": "inputEx.Field.html#method_show", "access": "", "host": "inputEx.Field", "type": "method", "name": "show"}, {"url": "inputEx.Form.html#method_showMask", "access": "", "host": "inputEx.Form", "type": "method", "name": "showMask"}, {"url": "inputEx.Field.html#event_updatedEvt", "access": "", "host": "inputEx.Field", "type": "event", "name": "updatedEvt"}, {"url": "inputEx.Field.html#method_validate", "access": "", "host": "inputEx.Field", "type": "method", "name": "validate"}];
-    YAHOO.yuidoc.init();
+
+    var ALL_YUI_PROPS = [{"url": "inputEx.Form.html#method_asyncRequest", "access": "", "host": "inputEx.Form", "type": "method", "name": "asyncRequest"}, {"url": "inputEx.Field.html#method_clear", "access": "", "host": "inputEx.Field", "type": "method", "name": "clear"}, {"url": "inputEx.Field.html#method_close", "access": "", "host": "inputEx.Field", "type": "method", "name": "close"}, {"url": "inputEx.Field.html#method_destroy", "access": "", "host": "inputEx.Field", "type": "method", "name": "destroy"}, {"url": "inputEx.Form.html#method_destroy", "access": "", "host": "inputEx.Form", "type": "method", "name": "destroy"}, {"url": "inputEx.Field.html#method_disable", "access": "", "host": "inputEx.Field", "type": "method", "name": "disable"}, {"url": "inputEx.Form.html#method_disable", "access": "", "host": "inputEx.Form", "type": "method", "name": "disable"}, {"url": "inputEx.Field.html#method_displayMessage", "access": "", "host": "inputEx.Field", "type": "method", "name": "displayMessage"}, {"url": "inputEx.Field.html#method_enable", "access": "", "host": "inputEx.Field", "type": "method", "name": "enable"}, {"url": "inputEx.Form.html#method_enable", "access": "", "host": "inputEx.Form", "type": "method", "name": "enable"}, {"url": "inputEx.Field.html#method_fireUpdatedEvt", "access": "", "host": "inputEx.Field", "type": "method", "name": "fireUpdatedEvt"}, {"url": "inputEx.Field.html#method_focus", "access": "", "host": "inputEx.Field", "type": "method", "name": "focus"}, {"url": "inputEx.Field.html#method_getEl", "access": "", "host": "inputEx.Field", "type": "method", "name": "getEl"}, {"url": "inputEx.Field.html#method_getParentField", "access": "", "host": "inputEx.Field", "type": "method", "name": "getParentField"}, {"url": "inputEx.Field.html#method_getState", "access": "", "host": "inputEx.Field", "type": "method", "name": "getState"}, {"url": "inputEx.Field.html#method_getStateString", "access": "", "host": "inputEx.Field", "type": "method", "name": "getStateString"}, {"url": "inputEx.Field.html#method_getValue", "access": "", "host": "inputEx.Field", "type": "method", "name": "getValue"}, {"url": "inputEx.Field.html#method_hide", "access": "", "host": "inputEx.Field", "type": "method", "name": "hide"}, {"url": "inputEx.Form.html#method_hideMask", "access": "", "host": "inputEx.Form", "type": "method", "name": "hideMask"}, {"url": "inputEx.Field.html#method_initEvents", "access": "", "host": "inputEx.Field", "type": "method", "name": "initEvents"}, {"url": "inputEx.Form.html#method_initEvents", "access": "", "host": "inputEx.Form", "type": "method", "name": "initEvents"}, {"url": "inputEx.Field.html#method_isEmpty", "access": "", "host": "inputEx.Field", "type": "method", "name": "isEmpty"}, {"url": "inputEx.Field.html#method_onBlur", "access": "", "host": "inputEx.Field", "type": "method", "name": "onBlur"}, {"url": "inputEx.Field.html#method_onChange", "access": "", "host": "inputEx.Field", "type": "method", "name": "onChange"}, {"url": "inputEx.Field.html#method_onFocus", "access": "", "host": "inputEx.Field", "type": "method", "name": "onFocus"}, {"url": "inputEx.Form.html#method_onSubmit", "access": "", "host": "inputEx.Form", "type": "method", "name": "onSubmit"}, {"url": "inputEx.Field.html#property_options", "access": "", "host": "inputEx.Field", "type": "property", "name": "options"}, {"url": "inputEx.Field.html#method_render", "access": "", "host": "inputEx.Field", "type": "method", "name": "render"}, {"url": "inputEx.Form.html#method_render", "access": "", "host": "inputEx.Form", "type": "method", "name": "render"}, {"url": "inputEx.Form.html#method_renderButtons", "access": "", "host": "inputEx.Form", "type": "method", "name": "renderButtons"}, {"url": "inputEx.Field.html#method_renderComponent", "access": "", "host": "inputEx.Field", "type": "method", "name": "renderComponent"}, {"url": "inputEx.Form.html#method_renderMask", "access": "", "host": "inputEx.Form", "type": "method", "name": "renderMask"}, {"url": "inputEx.Field.html#method_setClassFromState", "access": "", "host": "inputEx.Field", "type": "method", "name": "setClassFromState"}, {"url": "inputEx.Field.html#method_setOptions", "access": "", "host": "inputEx.Field", "type": "method", "name": "setOptions"}, {"url": "inputEx.Form.html#method_setOptions", "access": "", "host": "inputEx.Form", "type": "method", "name": "setOptions"}, {"url": "inputEx.Field.html#method_setParentField", "access": "", "host": "inputEx.Field", "type": "method", "name": "setParentField"}, {"url": "inputEx.Field.html#method_setValue", "access": "", "host": "inputEx.Field", "type": "method", "name": "setValue"}, {"url": "inputEx.Field.html#method_show", "access": "", "host": "inputEx.Field", "type": "method", "name": "show"}, {"url": "inputEx.Form.html#method_showMask", "access": "", "host": "inputEx.Form", "type": "method", "name": "showMask"}, {"url": "inputEx.Field.html#event_updatedEvt", "access": "", "host": "inputEx.Field", "type": "event", "name": "updatedEvt"}, {"url": "inputEx.Field.html#method_validate", "access": "", "host": "inputEx.Field", "type": "method", "name": "validate"}];
 </script>
 </body>
 </html>

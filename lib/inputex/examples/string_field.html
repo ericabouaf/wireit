@@ -24,12 +24,12 @@
 
  <body>
 
-<p class='demoTitle'>inputEx - StringField Usage</p>
+<h1>inputEx - StringField Usage</h1>
 
 
 <!-- Example 1 -->
 <div class='exampleDiv'>
-	<p class="title">Basic StringField creation</p>
+	<h2>Basic StringField creation</h2>
 	<p>Use the following code to create a basic inputEx field.</p>
 	<div class='demoContainer' id='container1'></div>
 	<div class='codeContainer'>
@@ -42,7 +42,7 @@
 
 <!-- Example 2 -->
 <div class='exampleDiv'>
-	<p class="title">With a default value</p>
+	<h2>With a default value</h2>
 	<p>You can set a default value by specifying the 'value' property in the options object.</p>
 	<div class='demoContainer' id='container2'></div>
 	<div class='codeContainer'>
@@ -55,7 +55,7 @@
 
 <!-- Example 3 -->
 <div class='exampleDiv'>
-	<p class="title">Changing the size</p>
+	<h2>Changing the size</h2>
 	<p>You can set the size of the input.</p>
 	<div class='demoContainer' id='container3'></div>
 	<div class='codeContainer'>
@@ -68,7 +68,7 @@
 
 <!-- Example 4 -->
 <div class='exampleDiv'>
-	<p class="title">Maximum and minimum length</p>
+	<h2>Maximum and minimum length</h2>
 	<p>You can add a maximum/minimum length on string fields :</p>
 	<div class='demoContainer' id='container4'></div>
 	<div class='codeContainer'>
@@ -81,7 +81,7 @@
 
 <!-- Example 5 -->
 <div class='exampleDiv'>
-	<p class="title">Required</p>
+	<h2>Required</h2>
 	<p>If the 'required' property is set, the 'validate' method will return false if the field is empty. In a form, the 'validate' method will be called on each field and will return false if at least one field doesn't validate.</p>
 	<div class='demoContainer' id='container5'></div>
 	<div class='codeContainer'>
@@ -94,7 +94,7 @@
 
 <!-- Example 6 -->
 <div class='exampleDiv'>
-	<p class="title">Regular Expression 1</p>
+	<h2>Regular Expression 1</h2>
 	<p>Here is an example on how to check the value with a regular expression. (It is better to use the IntegerField, but this is a simple example.)</p>
 	<div class='demoContainer' id='container6'></div>
 	<div class='codeContainer'>
@@ -108,7 +108,7 @@
 
 <!-- Example 7 -->
 <div class='exampleDiv'>
-	<p class="title">Regular Expression 2</p>
+	<h2>Regular Expression 2</h2>
 	<p>The basic Field class can use regular expressions to validate the field content. Here is an example with this wonderful email regular expression (note that there is an Email Field class).</p>
 	<div class='demoContainer' id='container7'></div>
 	<div class='codeContainer'>
@@ -122,7 +122,7 @@
 
 <!-- Example 8 -->
 <div class='exampleDiv'>
-	<p class="title">Enabling/Disabling inputs</p>
+	<h2>Enabling/Disabling inputs</h2>
 	<p>You can call the methods 'disable' or 'enable' to set the state of the field.</p>
 	<div class='demoContainer' id='container8'></div>
 	<div class='codeContainer'>
@@ -136,7 +136,7 @@
 
 <!-- Example 9 -->
 <div class='exampleDiv'>
-	<p class="title">Updated event</p>	
+	<h2>Updated event</h2>	
 	<p>How to listen to the updated event :</p>
 	<div class='demoContainer' id='container9'></div>
 	<div class='codeContainer'>
@@ -157,7 +157,7 @@
 
 <!-- Example 10 -->
 <div class='exampleDiv'>
-	<p class="title">Type invitation</p>
+	<h2>Type invitation</h2>
 	<p>Display a text when the field is empty.</p>
 	<div class='demoContainer' id='container10'></div>
 	<div class='codeContainer'>
@@ -171,8 +171,8 @@
 
 <!-- Example 11 -->
 <div class='exampleDiv'>
-	<p class="title">Multiple options</p>
-	<p>Check multiple options config : typeInvite, required, minLength  &nbsp;--&nbsp; Test setValue and getValue methods</p>
+	<h2>Various options</h2>
+	<p>Config with various options : typeInvite, required, minLength, trim  &nbsp;--&nbsp; Test setValue and getValue methods</p>
 	<div class='demoContainer' id='container11'></div>
 	<div class='codeContainer'>
 		<textarea name="code" class="JScript" cols="60" rows="1">
@@ -181,6 +181,7 @@
 				typeInvite: 'lastname', 
 				description: 'Enter your lastname', 
 				minLength:10, 
+				trim:true, // getValue will return a trimed value
 				required:true, 
 				showMsg:true
 			});
@@ -205,7 +206,7 @@
 
 <!-- Example 12 -->
 <div class='exampleDiv'>
-	<p class="title">Focus the field</p>
+	<h2>Focus the field</h2>
 	<p>Use the focus method</p>
 	<div class='demoContainer' id='container12'></div>
 	<div class='codeContainer'>

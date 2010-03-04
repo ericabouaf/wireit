@@ -21,13 +21,13 @@
 
  <body>
 
-<p class='demoTitle'>inputEx - Styling Labels</p>
+<h1>inputEx - Styling Labels</h1>
 
 
 <!-- Example 1 -->
 <div class='exampleDiv'>
 
-	<p class="title">Styling the labels</p>
+	<h2>Styling the labels</h2>
 	
 	<p>Let's place the labels on top of the fields</p>
 
@@ -80,12 +80,12 @@ YAHOO.util.Event.addListener(window, 'load', function() {
 	
 	// Example 1
 	var descriptedFields = [ 
-			{type: 'select', inputParams: {label: 'A select', selectValues: ['One','Two','Three'] } },
-			{ inputParams: {label: 'StringField', value:'Jacques' } }, 
-			{type:'boolean', inputParams: {label: 'Happy to be there ?', name: 'email'}}, 
-			{ type:'url', inputParams: { label: 'Website', name:'website'}},
-			{ type: 'radio', inputParams: {label: 'Radio', name: 'example1', choices: ['Ajaxian','YUI blog','other']}},
-			{ type: 'text', inputParams: {label: 'Comments'}}
+			{type: 'select', label: 'A select', selectValues: ['One','Two','Three'] },
+			{label: 'StringField', value:'Jacques' },
+			{type:'boolean', label: 'Happy to be there ?', name: 'email'},
+			{ type:'url', label: 'Website', name:'website'},
+			{ type: 'radio', label: 'Radio', name: 'example1', choices: ['Ajaxian','YUI blog','other']},
+			{ type: 'text', label: 'Comments'}
 	];
 	new inputEx.Group({id:'sampleGroup', parentEl: 'container1', fields: descriptedFields, legend: 'User Informations'});
 	

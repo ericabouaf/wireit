@@ -1,6 +1,6 @@
  _                   _   _____      
 (_)_ __  _ __  _   _| |_| ____|_  __
-| | '_ \| '_ \| | | | __|  _| \ \/ /		version 0.4.0
+| | '_ \| '_ \| | | | __|  _| \ \/ /		build fields and forms for web applications
 | | | | | |_) | |_| | |_| |___ >  < 		Distributed under the MIT License (see license.txt)
 |_|_| |_| .__/ \____|\__|_____/_/\_\
         |_|                         
@@ -9,10 +9,66 @@
 Release Notes:
 ==============
 
-version 0.4.0 :
+
+version 0.5.0 :
 ---------------
 
-not released yet
+- <!> Warning <!> important API changes:
+   * remove "inputParams" syntax when defining fields inside a group or form definition
+			this means you no longer have to type { type: 'string', inputParams: { name: 'lastname' } }
+			but simply: { type: 'string', name: 'lastname' }
+			
+			The 'type' property is therefore prohibited as an attribute name for a Field.
+			
+   * form buttons extracted into a widget class : inputEx.widget.Button 
+			(3 types : 'submit', 'submit-link', 'link') 
+			
+			The inputEx-button module is REQUIRED for Form usage. (any page requiring js/Form.js should include js/widgets/button.js)
+
+	 * Form buttons 'onClick' handlers should now return false to stop the submit event
+	
+	 * Form buttons 'onSubmit' handlers should now return false to stop the submit event
+
+   * Adding setParentField/getParentField methods to all fields + 
+     implementation in meta-fields: Group (+Form,Combine), InPlaceEdit, ListField, TreeField and TypeField
+
+- Added Fields:
+   * TimeRange field
+   * SerializeField
+
+- Field enhancements:
+	* id, className, and disabled options on buttons
+	* event facade for form submit : form.submitEvent
+	* event facades for buttons : button.clickEvent, button.submitEvent
+	* destroy method on group and form fields
+	* getFieldsStates method on group to know which fields do not validate (+error messages)
+	* trim option on StringField
+	* RTEField: Changing the "type" option to "editorType"
+	* Group: Adding a span element to group labels
+	* Overridable readonly option in DatePickerField
+	* InPlaceEdit editor now rely on inputEx.widget.Button
+	* RadioField option to display inputs inline or vertically
+	* MenuField accepts a menuConfig option, this object will be passed
+	  as the config of the generated YUI Menu
+
+- Widgets:
+   * new normalized buttons : inputEx.widget.Button
+
+- Bug fixes:
+	* fix setValue bug on checkboxes
+	* fix typeInvite on emailField
+	* Fixing all standard parameters for KeyValueField and KeyOpValueField and changing the API
+	* Fixing enable/disable functions for RadioField and DatePickerField
+	* Fixed bug in checkbox where a string of "true" is passed and compared to 
+	the default of a type boolean, hence always returning false.  Added test 
+	to convert type if needed.
+	
+- Various:
+   * cross-browser CSS improvements on Radios and Checkboxes
+
+
+version 0.4.0 :
+---------------
 
 	- Various
 		* Upgrading to YUI 2.8.0r4

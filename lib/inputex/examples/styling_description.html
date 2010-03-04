@@ -19,11 +19,11 @@
  </head>
 <body>
 
-<p class='demoTitle'>inputEx - Styling descriptions</p>
+<h1>inputEx - Styling descriptions</h1>
 
 <!-- Example 1 -->
 <div class='exampleDiv'>
-	<p class="title">Styling the field descriptions</p>
+	<h2>Styling the field descriptions</h2>
 	<p>You can style the description to appear when the field is focused :</p>
 	<div class='demoContainer' id='container1'></div>
 	<style>
@@ -33,12 +33,12 @@
 	<div class='codeContainer'>
 		<textarea name="code" class="JScript">
 			var descriptedFields = [ 
-					{type: 'select', inputParams: {label: 'A select', description: 'Select one',  selectValues: ['One','Two','Three'] } },
-					{ inputParams: {label: 'StringField', description: 'Here is the description', value:'Jacques' } }, 
-					{type:'boolean', inputParams: {description: 'Check this box if you are happy to be there', label: 'Happy to be there ?', name: 'email'}}, 
-					{ type:'url', inputParams: {description: 'Your blog url', label: 'Website', name:'website'}},
-					{ type: 'radio', inputParams: {label: 'Radio', description: 'My favorite is YUI', name: 'example1', choices: ['Ajaxian','YUI blog','other']}},
-					{ type: 'text', inputParams: {label: 'Comments', description: 'Enter your comment'}}
+					{type: 'select', label: 'A select', description: 'Select one',  selectValues: ['One','Two','Three'] },
+					{label: 'StringField', description: 'Here is the description', value:'Jacques' },
+					{type:'boolean', description: 'Check this box if you are happy to be there', label: 'Happy to be there ?', name: 'email'},
+					{ type:'url', description: 'Your blog url', label: 'Website', name:'website'},
+					{ type: 'radio', label: 'Radio', description: 'My favorite is YUI', name: 'example1', choices: ['Ajaxian','YUI blog','other']},
+					{ type: 'text', label: 'Comments', description: 'Enter your comment'}
 			];
 			new inputEx.Group({id:'sampleGroup', parentEl: 'container1', fields: descriptedFields, legend: 'User Informations'});
 			

@@ -14,7 +14,7 @@
 <style>
 #htmlFormContainer {
 	background-color: #ccccff;
-	width: 300px;
+	width: 350px;
 	margin: 30px;
 	padding: 30px;
 	border: 15px solid #eeeeff;
@@ -34,13 +34,13 @@ div.inputEx-Group div.inputEx-label {
 <body class="yui-skin-sam">
 	
 	<div id='htmlFormContainer'>
-		<p class="title">inputExHTML</p>
+		<h2>inputExHTML</h2>
 		<p class="description">
 			inputExHTML is a form to create HTML elements dynamically. 
 			Select a tagName, enter its attributes, and click on the "Create !" button.
 			(We make the element draggable and resizeable for more fun)<br />
 			<br />
-			This is an example for the <a href="http://javascript.neyric.com/inputex/">inputEx library</a>.<br />
+			This is an example for the <a href="http://neyric.github.com/inputex/">inputEx library</a>.<br />
 			Note: CSS style properties must be camelCased (ie you write "borderColor" for "border-color")<br /><br />
 		</p>
 	</div>
@@ -61,13 +61,13 @@ YAHOO.util.Event.onDOMReady( function() {
 
      var val = form.getValue();
      val.cssStyles.position = "absolute";
-		 val.cssStyles.top = "30px";
-		 val.cssStyles.left = "450px";
+     val.cssStyles.top = "30px";
+     val.cssStyles.left = "500px";
      var el = inputEx.cn(val.tagName, val.attributes, val.cssStyles, val.innerHTML);
 
-		 document.body.appendChild(el);
+     document.body.appendChild(el);
 
-		 // Make the element draggable and resizable
+     // Make the element draggable and resizable
      var resize = new YAHOO.util.Resize(el);
      new YAHOO.util.DD(resize._wrap); 
   };
@@ -75,11 +75,10 @@ YAHOO.util.Event.onDOMReady( function() {
 	form = new inputEx.Form({
 		parentEl: 'htmlFormContainer',
 		fields: [
-	      { type: 'select', inputParams: {label: 'Tag', name: 'tagName', 
-											 selectValues: ["div", "script", "img", "a", "input", "p", "br", "span", "b", "iframe"]} },
-				{ type: 'object', inputParams: {label: ' ', listLabel: 'attributes', name: 'attributes'} },
-				{ type: 'object', inputParams: {label: ' ', listLabel: 'css attributes', name: 'cssStyles'} },
-	      { type: 'text', inputParams: {label: 'innerHTML', name: 'innerHTML'}}
+	      { type: 'select', label: 'Tag', name: 'tagName', selectValues: ["div", "script", "img", "a", "input", "p", "br", "span", "b", "iframe"] },
+			{ type: 'object', label: 'Attributes', listLabel: 'attributes', name: 'attributes'},
+			{ type: 'object', label: 'CSS Attr.', listLabel: 'css attributes', name: 'cssStyles'},
+	      { type: 'text', label: 'innerHTML', name: 'innerHTML'}
 		],
 	  buttons: [
 	      {type: 'button', value: 'Create !', onClick: createHTMLElement },

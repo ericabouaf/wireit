@@ -1,0 +1,51 @@
+<div class="highlight"><pre><span class="c">// InputEx Italian localization (Big Thanks to alexodus !)</span>
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+   <span class="kd">var</span> <span class="nx">msgs</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="o">;</span>
+
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">required</span> <span class="o">=</span> <span class="s2">&quot;Questo campo è obbligatorio&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">invalid</span> <span class="o">=</span> <span class="s2">&quot;Questo campo non è stato validato&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">valid</span> <span class="o">=</span> <span class="s2">&quot;Questo campo è stato validato&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">invalidEmail</span> <span class="o">=</span> <span class="s2">&quot;Email non valida; es: antonio.rossi@fai.it&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">selectColor</span> <span class="o">=</span> <span class="s2">&quot;Seleziona un colore:&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">invalidPassword</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;La password deve contenere almeno &quot;</span><span class="o">,</span><span class="s2">&quot;numeri o lettere&quot;</span><span class="p">];</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">invalidPasswordConfirmation</span> <span class="o">=</span> <span class="s2">&quot;le password sono differenti !&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">capslockWarning</span> <span class="o">=</span> <span class="s2">&quot;Attenzione: tasto maiuscole attive&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">invalidDate</span> <span class="o">=</span> <span class="s2">&quot;Data non valida; es: 25/01/2007&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">defaultDateFormat</span> <span class="o">=</span> <span class="s2">&quot;d/m/Y&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">shortMonths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Gen&quot;</span><span class="o">,</span> <span class="s2">&quot;Feb&quot;</span><span class="o">,</span> <span class="s2">&quot;Mar&quot;</span><span class="o">,</span> <span class="s2">&quot;Apr&quot;</span><span class="o">,</span> <span class="s2">&quot;Mag&quot;</span><span class="o">,</span> <span class="s2">&quot;Giu&quot;</span><span class="o">,</span><span class="s2">&quot;Lug&quot;</span><span class="o">,</span> <span class="s2">&quot;Ago&quot;</span><span class="o">,</span> <span class="s2">&quot;Set&quot;</span><span class="o">,</span> <span class="s2">&quot;Ott&quot;</span><span class="o">,</span> <span class="s2">&quot;Nov&quot;</span><span class="o">,</span> <span class="s2">&quot;Dic&quot;</span><span class="p">];</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">months</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Gennaio&quot;</span><span class="o">,</span> <span class="s2">&quot;Febbraio&quot;</span><span class="o">,</span> <span class="s2">&quot;Marzo&quot;</span><span class="o">,</span> <span class="s2">&quot;Aprile&quot;</span><span class="o">,</span> <span class="s2">&quot;Maggio&quot;</span><span class="o">,</span><span class="s2">&quot;Giugno&quot;</span><span class="o">,</span> <span class="s2">&quot;Luglio&quot;</span><span class="o">,</span> <span class="s2">&quot;Agosto&quot;</span><span class="o">,</span> <span class="s2">&quot;Settembre&quot;</span><span class="o">,</span> <span class="s2">&quot;Ottobre&quot;</span><span class="o">,</span> <span class="s2">&quot;Novembre&quot;</span><span class="o">,</span><span class="s2">&quot;Dicembre&quot;</span><span class="p">];</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">weekdays1char</span> <span class="o">=</span>  <span class="p">[</span><span class="s2">&quot;D&quot;</span><span class="o">,</span> <span class="s2">&quot;L&quot;</span><span class="o">,</span> <span class="s2">&quot;M&quot;</span><span class="o">,</span> <span class="s2">&quot;M&quot;</span><span class="o">,</span> <span class="s2">&quot;G&quot;</span><span class="o">,</span> <span class="s2">&quot;V&quot;</span><span class="o">,</span> <span class="s2">&quot;S&quot;</span><span class="p">];</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">shortWeekdays</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Do&quot;</span><span class="o">,</span><span class="s2">&quot;Lu&quot;</span><span class="o">,</span><span class="s2">&quot;Ma&quot;</span><span class="o">,</span><span class="s2">&quot;Me&quot;</span><span class="o">,</span><span class="s2">&quot;Gi&quot;</span><span class="o">,</span><span class="s2">&quot;Ve&quot;</span><span class="o">,</span><span class="s2">&quot;Sa&quot;</span><span class="p">];</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">selectMonth</span> <span class="o">=</span> <span class="s2">&quot;- Seleziona Mese -&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">dayTypeInvite</span> <span class="o">=</span> <span class="s2">&quot;Giorno&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">monthTypeInvite</span> <span class="o">=</span> <span class="s2">&quot;Mese&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">yearTypeInvite</span> <span class="o">=</span> <span class="s2">&quot;Anno&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">cancelEditor</span> <span class="o">=</span> <span class="s2">&quot;Annulla&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">okEditor</span> <span class="o">=</span> <span class="s2">&quot;Ok&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">defautCalendarOpts</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">navigator</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">strings</span> <span class="o">:</span> <span class="p">{</span>
+            <span class="nx">month</span><span class="o">:</span> <span class="s2">&quot;Seleziona un mese&quot;</span><span class="o">,</span>
+            <span class="nx">year</span><span class="o">:</span> <span class="s2">&quot;Digita un anno&quot;</span><span class="o">,</span>
+            <span class="nx">submit</span><span class="o">:</span> <span class="s2">&quot;Ok&quot;</span><span class="o">,</span>
+            <span class="nx">cancel</span><span class="o">:</span> <span class="s2">&quot;Annulla&quot;</span><span class="o">,</span>
+            <span class="nx">invalidYear</span><span class="o">:</span> <span class="s2">&quot;Anno non valido&quot;</span>
+         <span class="p">}</span>
+      <span class="p">}</span><span class="o">,</span>
+      <span class="nx">start_weekday</span><span class="o">:</span> <span class="mi">1</span> <span class="c">// la semaine commence un lundi</span>
+   <span class="p">};</span>
+
+   <span class="c">// Datatable</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">saveText</span> <span class="o">=</span> <span class="s2">&quot;Salva&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">cancelText</span> <span class="o">=</span> <span class="s2">&quot;Annulla&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">modifyText</span> <span class="o">=</span> <span class="s2">&quot;Modifica&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">deleteText</span> <span class="o">=</span> <span class="s2">&quot;Elimina&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">insertItemText</span> <span class="o">=</span> <span class="s2">&quot;Aggiungi&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">confirmDeletion</span> <span class="o">=</span> <span class="s2">&quot;Sei sicuro?&quot;</span><span class="o">;</span>
+
+	<span class="c">// for YUI loader </span>
+   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">lang_it</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+<span class="p">})();</span>
+</pre></div>

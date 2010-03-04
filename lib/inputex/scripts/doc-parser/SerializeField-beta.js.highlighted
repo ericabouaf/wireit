@@ -1,0 +1,175 @@
+<div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+   <span class="kd">var</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">,</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="o">,</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">;</span>
+
+<span class="c">/**</span>
+<span class="c"> * SerializeField allows to serialize/deserialize a complex sub-group to a string</span>
+<span class="c"> * @class inputEx.SerializeField</span>
+<span class="c"> * @extends inputEx.Field</span>
+<span class="c"> * @constructor</span>
+<span class="c"> * @param {Object} options  Standard inputEx options definition</span>
+<span class="c"> */</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">SerializeField</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">SerializeField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+   
+<span class="p">};</span>
+
+<span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">SerializeField</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Field</span><span class="o">,</span> <span class="p">{</span>
+	
+	<span class="c">/**</span>
+<span class="c">    * Adds some options: subfield &amp; serializer</span>
+<span class="c">    * @param {Object} options Options object as passed to the constructor</span>
+<span class="c">    */</span>
+   <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">inputEx</span><span class="p">.</span><span class="nx">SerializeField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+   	<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">||</span> <span class="s1">&#39;inputEx-SerializedField&#39;</span><span class="o">;</span>
+
+		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">subfield</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">subfield</span> <span class="o">||</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;string&#39;</span><span class="p">};</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">serializer</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">serializer</span> <span class="o">||</span> <span class="s2">&quot;json&quot;</span><span class="o">;</span>
+	<span class="p">}</span><span class="o">,</span>
+	
+   <span class="c">/**</span>
+<span class="c">    * Render the subfield</span>
+<span class="c">    */</span>
+   <span class="nx">renderComponent</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	
+      <span class="k">this</span><span class="p">.</span><span class="nx">subfieldWrapper</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s2">&quot;inputEx-SerializedField-SubFieldWrapper&quot;</span><span class="p">});</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">subfieldWrapper</span> <span class="p">);</span>
+      
+		<span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span><span class="nx">parentEl</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">subfieldWrapper</span><span class="p">};</span>
+		<span class="nx">lang</span><span class="p">.</span><span class="nx">augmentObject</span><span class="p">(</span><span class="nx">config</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">subfield</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">subField</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">(</span> <span class="nx">config</span><span class="o">,</span> <span class="k">this</span><span class="p">);</span>
+   <span class="p">}</span><span class="o">,</span>
+
+	<span class="c">/**</span>
+<span class="c">	 * Subscribe the subField</span>
+<span class="c">	 */</span>
+	<span class="nx">initEvents</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">inputEx</span><span class="p">.</span><span class="nx">SerializeField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">initEvents</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span> 
+      <span class="k">this</span><span class="p">.</span><span class="nx">subField</span><span class="p">.</span><span class="nx">updatedEvt</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+   <span class="p">}</span><span class="o">,</span>
+
+	<span class="c">/**</span>
+<span class="c">	 * Use the subField getValue and serialize it with the selected serializing method</span>
+<span class="c">	 */</span>
+	<span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">val</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">subField</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
+		<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">serialize</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
+	<span class="p">}</span><span class="o">,</span>
+	
+	<span class="c">/**</span>
+<span class="c">	 * Use the deserialize method and set the value of the subField</span>
+<span class="c">	 */</span>
+	<span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sValue</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">deserialize</span><span class="p">(</span><span class="nx">sValue</span><span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">subField</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">);</span>
+	<span class="p">}</span><span class="o">,</span>
+	
+	<span class="c">/**</span>
+<span class="c">	 * Use the configured serializer</span>
+<span class="c">	 */</span>
+	<span class="nx">serialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">SerializeField</span><span class="p">.</span><span class="nx">serializers</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">serializer</span><span class="p">].</span><span class="nx">serialize</span><span class="p">(</span><span class="nx">o</span><span class="p">);</span>
+	<span class="p">}</span><span class="o">,</span>
+	
+	<span class="c">/**</span>
+<span class="c">	 * Use the configured deserializer</span>
+<span class="c">	 */</span>
+	<span class="nx">deserialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sValue</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">SerializeField</span><span class="p">.</span><span class="nx">serializers</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">serializer</span><span class="p">].</span><span class="nx">deserialize</span><span class="p">(</span><span class="nx">sValue</span><span class="p">);</span>
+	<span class="p">}</span><span class="o">,</span>
+	
+	<span class="c">/**</span>
+<span class="c">	 * Sets the focus on this field</span>
+<span class="c">	 */</span>
+	<span class="nx">focus</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">subField</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+	<span class="p">}</span>
+	
+<span class="p">});</span>
+
+<span class="c">/**</span>
+<span class="c"> * Default serializers for the SerializeField</span>
+<span class="c"> * @class inputEx.SerializeField.serializers</span>
+<span class="c"> * @static</span>
+<span class="c"> */</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">SerializeField</span><span class="p">.</span><span class="nx">serializers</span> <span class="o">=</span> <span class="p">{</span>
+
+	<span class="c">/**</span>
+<span class="c">	 * JSON Serializer</span>
+<span class="c">	 * @static</span>
+<span class="c">	 */</span>
+	<span class="nx">json</span><span class="o">:</span> <span class="p">{</span>
+		
+		<span class="c">/**</span>
+<span class="c">		 * serialize to JSON</span>
+<span class="c">		 * @static</span>
+<span class="c">		 */</span>
+		<span class="nx">serialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">o</span><span class="p">);</span>
+		<span class="p">}</span><span class="o">,</span>
+
+		<span class="c">/**</span>
+<span class="c">		 * deserialize from JSON</span>
+<span class="c">		 * @static</span>
+<span class="c">		 */</span>
+		<span class="nx">deserialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sValue</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">sValue</span><span class="p">);</span>
+		<span class="p">}</span>
+	<span class="p">}</span><span class="o">,</span>
+	
+	<span class="c">/**</span>
+<span class="c">	 * XML Serializer (uses the ObjTree library)</span>
+<span class="c">	 * @static</span>
+<span class="c">	 */</span>
+	<span class="nx">xml</span><span class="o">:</span> <span class="p">{</span>
+		
+		<span class="c">/**</span>
+<span class="c">		 * serialize to XML</span>
+<span class="c">		 * @static</span>
+<span class="c">		 */</span>
+		<span class="nx">serialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">XML</span> <span class="o">||</span> <span class="o">!</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nx">XML</span><span class="p">.</span><span class="nx">ObjTree</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+				<span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;ObjTree.js not loaded.&quot;</span><span class="p">);</span>
+				<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+			<span class="p">}</span>
+			<span class="kd">var</span> <span class="nx">xotree</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XML</span><span class="p">.</span><span class="nx">ObjTree</span><span class="p">();</span>
+			<span class="k">return</span> <span class="nx">xotree</span><span class="p">.</span><span class="nx">writeXML</span><span class="p">(</span><span class="nx">o</span><span class="p">);</span>
+		<span class="p">}</span><span class="o">,</span>
+
+		<span class="c">/**</span>
+<span class="c">		 * deserialize from XML </span>
+<span class="c">		 * @static</span>
+<span class="c">		 */</span>
+		<span class="nx">deserialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sValue</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">XML</span> <span class="o">||</span> <span class="o">!</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nx">XML</span><span class="p">.</span><span class="nx">ObjTree</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+				<span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;ObjTree.js not loaded.&quot;</span><span class="p">);</span>
+				<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+			<span class="p">}</span>
+			<span class="kd">var</span> <span class="nx">xotree</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XML</span><span class="p">.</span><span class="nx">ObjTree</span><span class="p">();</span>
+		  	<span class="kd">var</span> <span class="nx">tree</span> <span class="o">=</span> <span class="nx">xotree</span><span class="p">.</span><span class="nx">parseXML</span><span class="p">(</span> <span class="nx">sValue</span> <span class="p">);</span>
+			<span class="k">return</span> <span class="nx">tree</span><span class="o">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span><span class="c">/*,</span>
+<span class="c">	</span>
+<span class="c">	flatten: {</span>
+<span class="c">		serialize: function(o) {</span>
+<span class="c">			// TODO: </span>
+<span class="c">		},</span>
+
+<span class="c">		deserialize: function(sValue) {</span>
+<span class="c">			// TODO: </span>
+<span class="c">		}</span>
+<span class="c">	}*/</span>
+	
+<span class="p">};</span>
+
+
+<span class="c">// Register this class as &quot;serialize&quot; type</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">registerType</span><span class="p">(</span><span class="s2">&quot;serialize&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">SerializeField</span><span class="o">,</span> <span class="p">[</span>
+	<span class="p">{</span> <span class="nx">type</span><span class="o">:</span><span class="s1">&#39;type&#39;</span><span class="o">,</span> <span class="kd">label</span><span class="o">:</span> <span class="s1">&#39;SubField&#39;</span><span class="o">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;subfield&#39;</span><span class="p">}</span><span class="o">,</span>
+	<span class="p">{</span> <span class="nx">type</span><span class="o">:</span><span class="s1">&#39;select&#39;</span><span class="o">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;serializer&#39;</span><span class="o">,</span> <span class="kd">label</span><span class="o">:</span> <span class="s1">&#39;Serializer&#39;</span><span class="o">,</span> <span class="nx">selectValues</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;json&#39;</span><span class="o">,</span><span class="s1">&#39;xml&#39;</span><span class="c">/*,&#39;flatten&#39;*/</span><span class="p">]</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;json&#39;</span><span class="p">}</span>
+<span class="p">]);</span>
+
+<span class="p">})();</span>
+</pre></div>

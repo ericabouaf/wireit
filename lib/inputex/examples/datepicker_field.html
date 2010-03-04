@@ -20,12 +20,12 @@
 
  <body class="yui-skin-sam">
 
-<p class='demoTitle'>inputEx - DatePickerField Usage</p>
+<h1>inputEx - DatePickerField Usage</h1>
 
 
 <!-- Example 1 -->
 <div class='exampleDiv'>
-	<p class="title">Basic DatePickerField creation</p>
+	<h2>Basic DatePickerField creation</h2>
 	<p>Use the following code to create a basic inputEx DatePickerField.</p>
 	<div class='demoContainer' id='container1'></div>
 	<div class='codeContainer'>
@@ -38,7 +38,7 @@
 
 <!-- Example 2 -->
 <div class='exampleDiv'>
-	<p class="title">Change DatePickerField date format</p>
+	<h2>Change DatePickerField date format</h2>
 	<p>Use the following code to select another date format</p>
 	<div class='demoContainer' id='container2'></div>
 	<div class='codeContainer'>
@@ -51,7 +51,7 @@
 
 <!-- Example 3 -->
 <div class='exampleDiv'>
-	<p class="title">DatePickerField Updated event</p>
+	<h2>DatePickerField Updated event</h2>
 	<p>Listening for the updatedEvt</p>
 	<div class='demoContainer' id='container3'></div>
 	<div class='codeContainer'>
@@ -70,7 +70,7 @@
 
 <!-- Example 4 -->
 <div class='exampleDiv'>
-	<p class="title">Use a string input/output formatting</p>
+	<h2>Use a string input/output formatting</h2>
 	<p>The setValue/getValue methods will parse/format the dates to the <i>valueFormat</i> option.</p>
 	<div class='demoContainer' id='container4'></div>
 	<div class='codeContainer'>
@@ -83,6 +83,45 @@
 		</textarea>
 	</div>
 </div>
+
+
+<!-- Example 5 -->
+<div class='exampleDiv'>
+	<h2>Disable DatePicker</h2>
+	<p>Disable method</p>
+	<div class='demoContainer' id='container5'></div>
+	<div class='codeContainer'>
+		<textarea name="code" class="JScript">
+			var f = new inputEx.DatePickerField({parentEl: 'container5'});
+			
+			var exampleDiv = YAHOO.util.Dom.get('container5');
+			
+			var button1 = inputEx.cn('button', null, null, 'disable()');
+			exampleDiv.appendChild(button1); 
+			YAHOO.util.Event.addListener(button1, 'click', function() { f.disable(); });
+
+			var button2 = inputEx.cn('button', null, null, 'enable()');
+			exampleDiv.appendChild(button2); 
+			YAHOO.util.Event.addListener(button2, 'click', function() { f.enable(); });
+			
+		</textarea>
+	</div>
+</div>
+
+
+
+<!-- Example 6 -->
+<div class='exampleDiv'>
+	<h2>Disable readonly option</h2>
+	<p>If you want to let users enter the date manually</p>
+	<div class='demoContainer' id='container6'></div>
+	<div class='codeContainer'>
+		<textarea name="code" class="JScript">
+			new inputEx.DatePickerField({parentEl: 'container6', readonly: false, showMsg: true});
+		</textarea>
+	</div>
+</div>
+
 
 
 <!-- YUI Library -->

@@ -17,12 +17,12 @@
 <body>
 	
 	
-	<p class='demoTitle'>inputEx - Using the YUI loader</p>
+	<h1>inputEx - Using the YUI loader</h1>
 	
 	<!-- Example 1 -->
 	<div class='exampleDiv'>
 
-		<p class="title">How to use the YUI loader</p>
+		<h2>How to use the YUI loader</h2>
 
 		<p>InputEx modules and dependencies are defined in the inputex-loader.js file. See <a  href="http://developer.yahoo.com/yui/yuiloader/">the YUI loader page</a> for more informations.</p>
 
@@ -46,11 +46,11 @@
 
 					new inputEx.Form( { 
 						fields: [ 
-							{type: 'select', inputParams: {label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] } },
-							{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } }, 
-							{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } }, 
-							{type:'email', inputParams: {label: 'Email', name: 'email'}}, 
-							{type:'url', inputParams: {label: 'Website',name:'website'}} 
+							{type: 'select', label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] },
+							{label: 'Firstname', name: 'firstname', required: true, value:'Jacques' },
+							{label: 'Lastname', name: 'lastname', value:'Dupont' },
+							{type:'email', label: 'Email', name: 'email'},
+							{type:'url', label: 'Website',name:'website'}
 						], 
 						buttons: [{type: 'submit', value: 'Change'}], 	
 						parentEl: 'container1' 
@@ -91,11 +91,11 @@ function init() {
 
 	new inputEx.Form( { 
 		fields: [ 
-			{type: 'select', inputParams: {label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] } },
-			{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } }, 
-			{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } }, 
-			{type:'email', inputParams: {label: 'Email', name: 'email'}}, 
-			{type:'url', inputParams: {label: 'Website',name:'website'}} 
+			{type: 'select', label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] },
+			{label: 'Firstname', name: 'firstname', required: true, value:'Jacques' },
+			{label: 'Lastname', name: 'lastname', value:'Dupont' },
+			{type:'email', label: 'Email', name: 'email'},
+			{type:'url', label: 'Website',name:'website'}
 		], 
 		buttons: [{type: 'submit', value: 'Change'}], 	
 		parentEl: 'container1' 

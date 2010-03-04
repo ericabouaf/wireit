@@ -19,11 +19,11 @@
  </head>
 <body>
 
-<p class='demoTitle'>inputEx - TypeField Usage</p>
+<h1>inputEx - TypeField Usage</h1>
 
 <!-- Example 1 -->
 <div class='exampleDiv'>
-	<p class="title">Basic TypeField creation</p>
+	<h2>Basic TypeField creation</h2>
 	<p>The TypeField provide an interface to create a custom form.</p>
 	<div class='demoContainer' id='container1'></div>
 	<div class='codeContainer'>
@@ -36,7 +36,7 @@
 
 <!-- Example 2 -->
 <div class='exampleDiv'>
-	<p class="title">Setting the value</p>
+	<h2>Setting the value</h2>
 	<p>The value returned by a TypeField is a JSON configuration for an inputEx field. Here's how to load such a value :</p>
 	<div class='demoContainer' id='container2'></div>
 	<div class='codeContainer'>
@@ -45,13 +45,11 @@
 				parentEl: 'container2', 
 				value: {
 					type:'url',
-					inputParams: {
-						label: 'Website', 
-						name:'website', 
-						typeInvite: 'Enter a URL', 
-						description: 'You can provide a default value to TypeField'
-					} 
-				} 
+					label: 'Website', 
+					name:'website', 
+					typeInvite: 'Enter a URL', 
+					description: 'You can provide a default value to TypeField'
+				}
 			});
 		</textarea>
 	</div>
@@ -66,6 +64,7 @@
 <script src="../js/Field.js"  type='text/javascript'></script>
 <script src="../js/fields/StringField.js"  type='text/javascript'></script>
 <script src="../js/Group.js"  type='text/javascript'></script>
+<script src="../js/widgets/Button.js"  type='text/javascript'></script>
 <script src="../js/Form.js"  type='text/javascript'></script>
 <script src="../js/fields/CheckBox.js"  type='text/javascript'></script>
 <script src="../js/fields/SelectField.js"  type='text/javascript'></script>

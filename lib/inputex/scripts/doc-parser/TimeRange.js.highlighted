@@ -1,0 +1,92 @@
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * Tweaking the TimeField to make a Time Range (two TimeFields)</span>
+<span class="c"> *    - doesn&#39;t show seconds</span>
+<span class="c"> *    - Minutes by group of 5</span>
+<span class="c"> */</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">TimeRange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+   
+   <span class="kd">var</span> <span class="nx">h1</span> <span class="o">=</span> <span class="p">[]</span><span class="o">,</span> <span class="nx">h2</span> <span class="o">=</span> <span class="p">[]</span><span class="o">,</span> <span class="nx">i</span><span class="o">,</span> <span class="nx">m</span> <span class="o">=</span> <span class="p">[]</span><span class="o">,</span> <span class="nx">s</span><span class="o">;</span>
+   <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">25</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> 
+		<span class="nx">s</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">;</span>
+		<span class="k">if</span> <span class="p">(</span> <span class="nx">i</span><span class="o">&lt;</span><span class="mi">10</span> <span class="p">){</span> <span class="nx">s</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="o">;</span> <span class="p">}</span> 
+		<span class="nx">s</span><span class="o">+=</span> <span class="nx">i</span><span class="o">;</span>
+		<span class="nx">h2</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+   	<span class="k">if</span> <span class="p">(</span> <span class="nx">i</span><span class="o">&lt;</span><span class="mi">24</span> <span class="p">){</span> <span class="nx">h1</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span> <span class="p">}</span> <span class="c">// First block of hours musn&#39;t contain 24</span>
+	<span class="p">}</span>
+	<span class="nx">m</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;00&quot;</span><span class="o">,</span><span class="s2">&quot;05&quot;</span><span class="o">,</span><span class="s2">&quot;10&quot;</span><span class="o">,</span><span class="s2">&quot;15&quot;</span><span class="o">,</span><span class="s2">&quot;20&quot;</span><span class="o">,</span><span class="s2">&quot;25&quot;</span><span class="o">,</span><span class="s2">&quot;30&quot;</span><span class="o">,</span><span class="s2">&quot;35&quot;</span><span class="o">,</span><span class="s2">&quot;40&quot;</span><span class="o">,</span><span class="s2">&quot;45&quot;</span><span class="o">,</span><span class="s2">&quot;50&quot;</span><span class="o">,</span><span class="s2">&quot;55&quot;</span><span class="p">];</span>
+	
+   <span class="nx">options</span><span class="p">.</span><span class="nx">fields</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;select&#39;</span><span class="o">,</span> <span class="nx">selectOptions</span><span class="o">:</span> <span class="nx">h1</span><span class="o">,</span> <span class="nx">selectValues</span><span class="o">:</span> <span class="nx">h1</span> <span class="p">}</span><span class="o">,</span>
+      <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;select&#39;</span><span class="o">,</span> <span class="nx">selectOptions</span><span class="o">:</span> <span class="nx">m</span><span class="o">,</span> <span class="nx">selectValues</span><span class="o">:</span> <span class="nx">m</span> <span class="p">}</span><span class="o">,</span>
+      <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;select&#39;</span><span class="o">,</span> <span class="nx">selectOptions</span><span class="o">:</span> <span class="nx">h2</span><span class="o">,</span> <span class="nx">selectValues</span><span class="o">:</span> <span class="nx">h2</span> <span class="p">}</span><span class="o">,</span>
+      <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;select&#39;</span><span class="o">,</span> <span class="nx">selectOptions</span><span class="o">:</span> <span class="nx">m</span><span class="o">,</span> <span class="nx">selectValues</span><span class="o">:</span> <span class="nx">m</span> <span class="p">}</span>
+   <span class="p">];</span>
+
+   <span class="nx">options</span><span class="p">.</span><span class="nx">separators</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">separators</span> <span class="o">||</span> <span class="p">[</span><span class="kc">false</span><span class="o">,</span><span class="s2">&quot;H&quot;</span><span class="o">,</span><span class="s2">&quot;&amp;nbsp; à &amp;nbsp;&quot;</span><span class="o">,</span><span class="s2">&quot;H&quot;</span><span class="o">,</span><span class="kc">false</span><span class="p">];</span>
+   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">TimeRange</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
+
+	<span class="c">// Hook toogleEndMinutes to the updatedEvt of the 3d select</span>
+	<span class="c">// Like that when the user selects/unselects 24h the minutes will toogle accordingly</span>
+	<span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">inputs</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">updatedEvt</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+		<span class="nx">that</span><span class="p">.</span><span class="nx">toogleEndMinutes</span><span class="p">();</span>
+	<span class="p">});</span>
+	
+<span class="p">};</span>
+
+<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">TimeRange</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">CombineField</span><span class="o">,</span> <span class="p">{</span>   
+   <span class="c">/**</span>
+<span class="c">    * Returns an array like [&quot;HH:MM&quot;,&quot;HH:MM&quot;]</span>
+<span class="c">    */</span>
+   <span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">values</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">TimeRange</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">getValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+
+		<span class="kd">var</span> <span class="nx">returnedValue</span> <span class="o">=</span> <span class="p">[];</span>
+		<span class="nx">returnedValue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;:&quot;</span><span class="o">+</span><span class="nx">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+		<span class="nx">returnedValue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">values</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;:&quot;</span><span class="o">+</span><span class="nx">values</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+		
+      <span class="k">return</span> <span class="nx">returnedValue</span><span class="o">;</span>
+   <span class="p">}</span><span class="o">,</span>
+
+   <span class="c">/**</span>
+<span class="c">    * Set the value </span>
+<span class="c">    * @param {array} array with 4 Hour strings in display order (format [&quot;HH&quot;,&quot;MM&quot;, &quot;HH&quot;,&quot;MM&quot;])</span>
+<span class="c">    * @param {boolean} [sendUpdatedEvt] (optional) Wether this setValue should fire the updatedEvt or not (default is true, pass false to NOT send the event)</span>
+<span class="c">    */</span>
+   <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">arr</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">values</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">).</span><span class="nx">concat</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">));</span>
+      <span class="nx">inputEx</span><span class="p">.</span><span class="nx">TimeRange</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">values</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">toogleEndMinutes</span><span class="p">();</span>
+   <span class="p">}</span><span class="o">,</span>
+
+	<span class="c">/**</span>
+<span class="c">	 * Disable the last selector and set it to &quot;00&quot; when the third one&#39;s value is 24</span>
+<span class="c">	 * (it will be inccorect to have an end superior to 24:00)</span>
+<span class="c">	 */</span>
+	<span class="nx">toogleEndMinutes</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>		
+		<span class="kd">var</span> <span class="nx">endHours</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inputs</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+		<span class="kd">var</span> <span class="nx">endMinutes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inputs</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+		
+		<span class="k">if</span><span class="p">(</span> <span class="nx">endHours</span><span class="p">.</span><span class="nx">getValue</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;24&#39;</span> <span class="p">){</span> <span class="nx">endMinutes</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="s2">&quot;00&quot;</span><span class="p">);</span> <span class="nx">endMinutes</span><span class="p">.</span><span class="nx">disable</span><span class="p">();}</span>
+		<span class="k">else</span><span class="p">{</span> <span class="nx">endMinutes</span><span class="p">.</span><span class="nx">enable</span><span class="p">();</span> <span class="p">}</span>		
+	<span class="p">}</span><span class="o">,</span>
+
+	<span class="nx">validate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+		<span class="kd">var</span> <span class="nx">values</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
+		
+		<span class="kd">var</span> <span class="nx">hm</span> <span class="o">=</span> <span class="nx">values</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">);</span>
+		<span class="k">if</span><span class="p">(</span><span class="nx">hm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;24&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">hm</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;00&#39;</span><span class="p">){</span>
+			<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+		<span class="p">}</span>
+		
+		<span class="k">if</span><span class="p">(</span><span class="nx">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="nx">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]){</span>
+			<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>	
+		<span class="p">}</span>
+		
+		<span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+	<span class="p">}</span>
+
+<span class="p">});</span>
+
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">registerType</span><span class="p">(</span><span class="s2">&quot;timerange&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">TimeRange</span><span class="p">);</span>
+</pre></div>

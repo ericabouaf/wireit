@@ -1,0 +1,475 @@
+<div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">;</span>
+
+	<span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldGlobals</span> <span class="o">=</span> <span class="p">{</span>
+		<span class="nx">yahoo_preloader_error</span> <span class="o">:</span> <span class="mi">1</span><span class="o">,</span>
+
+		<span class="nx">lat</span> <span class="o">:</span> <span class="mf">43.648565</span><span class="o">,</span>
+		<span class="nx">lon</span> <span class="o">:</span> <span class="o">-</span><span class="mf">79.385329</span><span class="o">,</span>
+		<span class="nx">uzoom</span> <span class="o">:</span> <span class="o">-</span><span class="mi">13</span><span class="o">,</span>
+		<span class="nx">api</span> <span class="o">:</span> <span class="s1">&#39;virtualearth&#39;</span><span class="o">,</span>
+		<span class="nx">api_key</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span>
+	<span class="p">};</span>
+
+	<span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldZoom</span> <span class="o">=</span> <span class="p">{</span>
+		<span class="nx">google</span> <span class="o">:</span> <span class="p">{</span>
+			<span class="nx">to_universal</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">orig</span><span class="p">)</span> <span class="p">{</span>
+				<span class="nx">orig</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">orig</span><span class="p">);</span>
+				<span class="k">return</span>	<span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="o">-</span><span class="nx">orig</span><span class="p">);</span>
+			<span class="p">}</span><span class="o">,</span>
+
+			<span class="nx">to_native</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">universal</span><span class="p">)</span> <span class="p">{</span>
+				<span class="nx">universal</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">universal</span><span class="p">);</span>
+				<span class="k">return</span>	<span class="nx">universal</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="nx">universal</span> <span class="o">:</span> <span class="o">-</span><span class="nx">universal</span><span class="o">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span><span class="o">,</span>
+
+		<span class="nx">virtual_earth</span> <span class="o">:</span> <span class="p">{</span>
+			<span class="nx">to_universal</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">orig</span><span class="p">)</span> <span class="p">{</span>
+				<span class="nx">orig</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">orig</span><span class="p">);</span>
+				<span class="k">return</span>	<span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="o">-</span><span class="nx">orig</span><span class="p">);</span>
+			<span class="p">}</span><span class="o">,</span>
+
+			<span class="nx">to_native</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">universal</span><span class="p">)</span> <span class="p">{</span>
+				<span class="nx">universal</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">universal</span><span class="p">);</span>
+				<span class="k">return</span>	<span class="nx">universal</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="nx">universal</span> <span class="o">:</span> <span class="o">-</span><span class="nx">universal</span><span class="o">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span><span class="o">,</span>
+
+		<span class="nx">yahoo</span> <span class="o">:</span> <span class="p">{</span>
+			<span class="nx">to_universal</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">orig</span><span class="p">)</span> <span class="p">{</span>
+				<span class="nx">orig</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">orig</span><span class="p">);</span>
+				<span class="k">return</span>	<span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="nx">orig</span> <span class="o">-</span> <span class="mi">18</span><span class="p">);</span>
+			<span class="p">}</span><span class="o">,</span>
+
+			<span class="nx">to_native</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">universal</span><span class="p">)</span> <span class="p">{</span>
+				<span class="nx">universal</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">universal</span><span class="p">);</span>
+				<span class="k">return</span>	<span class="nx">universal</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="nx">universal</span> <span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">universal</span> <span class="o">+</span> <span class="mi">18</span><span class="o">,</span> <span class="mi">1</span><span class="p">);</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">};</span>
+
+<span class="c">/**</span>
+<span class="c"> * Wrapper for Mapping APIs, including Google Maps, Yahoo Maps and Virtual Earth</span>
+<span class="c"> * @class inputEx.MapField</span>
+<span class="c"> * @extends inputEx.Field</span>
+<span class="c"> * @constructor</span>
+<span class="c"> * @param {Object} options Added options:</span>
+<span class="c"> * &lt;ul&gt;</span>
+<span class="c"> *    &lt;li&gt;width&lt;/li&gt;</span>
+<span class="c"> *    &lt;li&gt;height&lt;/li&gt;</span>
+<span class="c"> *    &lt;li&gt;loading&lt;/li&gt;</span>
+<span class="c"> *    &lt;li&gt;lat&lt;/li&gt;</span>
+<span class="c"> *    &lt;li&gt;lon&lt;/li&gt;</span>
+<span class="c"> *    &lt;li&gt;uzoom&lt;/li&gt;</span>
+<span class="c"> *    &lt;li&gt;api: google, yahoo or virtualearth (default)&lt;/li&gt;</span>
+<span class="c"> *    &lt;li&gt;api_key&lt;/li&gt;</span>
+<span class="c"> * &lt;/ul&gt;</span>
+<span class="c"> */</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapField</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapField</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Field</span><span class="o">,</span> <span class="p">{</span>
+	<span class="c">/**</span>
+<span class="c">	 * Adds the &#39;inputEx-MapField&#39; default className</span>
+<span class="c">	 */</span>
+	<span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span> 
+		<span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">||</span> <span class="s1">&#39;inputEx-Field inputEx-MapField&#39;</span><span class="o">;</span>
+		
+		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">width</span> <span class="o">||</span> <span class="s1">&#39;400px&#39;</span><span class="o">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">height</span> <span class="o">||</span> <span class="s1">&#39;400px&#39;</span><span class="o">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">loading</span> <span class="o">||</span> <span class="s1">&#39;loading....&#39;</span><span class="o">;</span>
+
+		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">lat</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">lat</span> <span class="o">||</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldGlobals</span><span class="p">.</span><span class="nx">lat</span><span class="o">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">lon</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">lon</span> <span class="o">||</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldGlobals</span><span class="p">.</span><span class="nx">lon</span><span class="o">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">uzoom</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">uzoom</span> <span class="o">||</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldGlobals</span><span class="p">.</span><span class="nx">uzoom</span><span class="o">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">api</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">api</span> <span class="o">||</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldGlobals</span><span class="p">.</span><span class="nx">api</span><span class="o">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">api_key</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">api_key</span> <span class="o">||</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldGlobals</span><span class="p">.</span><span class="nx">api_key</span><span class="o">;</span>
+	<span class="p">}</span><span class="o">,</span>
+
+	<span class="c">/**</span>
+<span class="c">	 * Render the field using the appropriate mapping function</span>
+<span class="c">	 */</span>
+	<span class="nx">renderComponent</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">if</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldsNumber</span> <span class="o">==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldsNumber</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span> <span class="p">}</span>
+		<span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldsNumber</span> <span class="o">+=</span> <span class="mi">1</span><span class="o">;</span>
+
+		<span class="k">this</span><span class="p">.</span><span class="nx">apid</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">virtualearth</span><span class="o">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">api</span> <span class="o">==</span> <span class="s2">&quot;virtualearth&quot;</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">apid</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">virtualearth</span><span class="o">;</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">api</span> <span class="o">==</span> <span class="s2">&quot;google&quot;</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">apid</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">google</span><span class="o">;</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">api</span> <span class="o">==</span> <span class="s2">&quot;yahoo&quot;</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">apid</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">yahoo</span><span class="o">;</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;unknown API &#39;&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">api</span> <span class="o">+</span> <span class="s2">&quot;&#39;: using &#39;virtualearth&#39;&quot;</span><span class="p">);</span>
+		<span class="p">}</span>
+
+		<span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="s2">&quot;inputEx-MapField-&quot;</span><span class="o">+</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldsNumber</span><span class="o">;</span>
+		<span class="kd">var</span> <span class="nx">idWrapper</span> <span class="o">=</span> <span class="s2">&quot;inputEx-MapFieldWrapper-&quot;</span><span class="o">+</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldsNumber</span><span class="o">;</span>
+		<span class="kd">var</span> <span class="nx">idLat</span> <span class="o">=</span> <span class="s2">&quot;inputEx-MapFieldLat-&quot;</span><span class="o">+</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldsNumber</span><span class="o">;</span>
+		<span class="kd">var</span> <span class="nx">idLon</span> <span class="o">=</span> <span class="s2">&quot;inputEx-MapFieldLon-&quot;</span><span class="o">+</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldsNumber</span><span class="o">;</span>
+		<span class="kd">var</span> <span class="nx">idUZoom</span> <span class="o">=</span> <span class="s2">&quot;inputEx-MapFieldUZoom-&quot;</span><span class="o">+</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldsNumber</span><span class="o">;</span>
+		<span class="kd">var</span> <span class="nx">idNZoom</span> <span class="o">=</span> <span class="s2">&quot;inputEx-MapFieldNZoom-&quot;</span><span class="o">+</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldsNumber</span><span class="o">;</span>
+
+		<span class="c">// the wrapper is needed for Virtual Earth</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">elWrapper</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span>
+			<span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">idWrapper</span><span class="o">,</span> <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;width: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">width</span> <span class="o">+</span> <span class="s2">&quot;; height: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">height</span> <span class="p">}</span><span class="o">,</span>
+			<span class="kc">null</span><span class="o">,</span>
+			<span class="kc">null</span>
+		<span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">elWrapper</span><span class="p">);</span>
+
+		<span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span>
+			<span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">id</span><span class="o">,</span> <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;position: relative; width: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">width</span> <span class="o">+</span> <span class="s2">&quot;; height: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">height</span> <span class="p">}</span><span class="o">,</span>
+			<span class="kc">null</span><span class="o">,</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">loading</span>
+		<span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">elWrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
+
+		<span class="k">this</span><span class="p">.</span><span class="nx">elLat</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="o">,</span> <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">idLat</span><span class="o">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;hidden&quot;</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">lat</span> <span class="p">});</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">elLat</span><span class="p">);</span>
+
+		<span class="k">this</span><span class="p">.</span><span class="nx">elLon</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="o">,</span> <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">idLon</span><span class="o">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;hidden&quot;</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">lon</span> <span class="p">});</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">elLon</span><span class="p">);</span>
+
+		<span class="k">this</span><span class="p">.</span><span class="nx">elUZoom</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="o">,</span> <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">idUZoom</span><span class="o">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;hidden&quot;</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">uzoom</span> <span class="p">});</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">elUZoom</span><span class="p">);</span>
+
+		<span class="k">this</span><span class="p">.</span><span class="nx">elNZoom</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="o">,</span> <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">idNZoom</span><span class="o">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;hidden&quot;</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">uzoom</span> <span class="p">});</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">elNZoom</span><span class="p">);</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">apid</span><span class="p">.</span><span class="nx">preload</span><span class="p">(</span><span class="k">this</span><span class="p">))</span> <span class="p">{</span>
+			<span class="k">return</span><span class="o">;</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">wait_create</span><span class="p">();</span>
+		<span class="p">}</span>
+	<span class="p">}</span><span class="o">,</span>
+
+	<span class="c">/**</span>
+<span class="c">	 * set the value: {lat: 45.23234, lon: 2.34456, uzoom: 6, nzoom: 6}</span>
+<span class="c">	 */</span>
+	<span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">any</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">uzoom</span> <span class="o">!=</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">elUZoom</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">uzoom</span><span class="o">;</span>
+			<span class="nx">any</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">nzoom</span> <span class="o">!=</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">elUZoom</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">apid</span><span class="p">.</span><span class="nx">f_zoom</span><span class="p">.</span><span class="nx">to_universal</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">uzoom</span><span class="p">);</span>
+			<span class="nx">any</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+		<span class="p">}</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">lat</span> <span class="o">!=</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">elLat</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">lat</span><span class="o">;</span>
+			<span class="nx">any</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+		<span class="p">}</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">lon</span> <span class="o">!=</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">elLon</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">lon</span><span class="o">;</span>
+			<span class="nx">any</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+		<span class="p">}</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="nx">any</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">apid</span><span class="p">.</span><span class="nx">onposition</span><span class="p">();</span>
+		<span class="p">}</span>
+	<span class="p">}</span><span class="o">,</span>
+
+	<span class="c">/**</span>
+<span class="c">	 * return the same structure as setValue</span>
+<span class="c">	 */</span>
+	<span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">elLat</span><span class="p">)</span> <span class="k">return</span> <span class="p">{};</span>
+		<span class="k">return</span> <span class="p">{</span>
+			<span class="nx">lat</span> <span class="o">:</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">elLat</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="o">,</span>
+			<span class="nx">lon</span> <span class="o">:</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">elLon</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="o">,</span>
+			<span class="nx">uzoom</span> <span class="o">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">elUZoom</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="o">,</span>
+			<span class="nx">nzoom</span> <span class="o">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">elNZoom</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
+		<span class="p">};</span>
+	<span class="p">}</span><span class="o">,</span>
+
+	<span class="c">/**</span>
+<span class="c">	 *	This will wait until the DOM element appears before completion of map rendering</span>
+<span class="c">	 */</span>
+	<span class="nx">wait_create</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">_this</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="k">this</span> <span class="o">==</span> <span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">_this</span><span class="p">.</span><span class="nx">wait_create</span><span class="p">(</span><span class="nx">_this</span><span class="p">);</span>
+			<span class="k">return</span><span class="o">;</span>
+		<span class="p">}</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">id</span><span class="p">))</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">apid</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">wait_create</span><span class="o">,</span> <span class="mf">0.1</span><span class="o">,</span> <span class="k">this</span><span class="p">);</span>
+		<span class="p">}</span>
+	<span class="p">}</span><span class="o">,</span>
+
+	<span class="nx">yahoo</span> <span class="o">:</span> <span class="p">{</span>
+		<span class="nx">y_map</span> <span class="o">:</span> <span class="kc">null</span><span class="o">,</span>
+		<span class="nx">f_zoom</span> <span class="o">:</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldZoom</span><span class="p">.</span><span class="nx">yahoo</span><span class="o">,</span>
+
+		<span class="c">/**</span>
+<span class="c">		 *	This preloaded MAY not really work -- we recommend that you use</span>
+<span class="c">		 *	the following JavaScript instead _after_ &quot;yahoo-dom-event.js&quot; (or similar)</span>
+<span class="c">		 *	is included:</span>
+<span class="c">		 *</span>
+<span class="c">		 *	script type=&quot;text/javascript&quot;</span>
+<span class="c">		 *	YMAPPID = [yourapikey]</span>
+<span class="c">		 *	/script</span>
+<span class="c">		 *	script type=&quot;text/javascript&quot; src=&quot;http://us.js2.yimg.com/us.js.yimg.com/lib/map/js/api/ymapapi_3_8_0_7.js&quot;</span>
+<span class="c">		 *	/script</span>
+<span class="c">		 *</span>
+<span class="c">		 *	Note the non-standard loading pattern! See:</span>
+<span class="c">		 *	http://yuiblog.com/blog/2006/12/14/maps-plus-yui/</span>
+<span class="c">		 */</span>
+		<span class="nx">preload</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">YMap</span><span class="p">)</span> <span class="p">{</span>
+				<span class="k">return</span><span class="o">;</span>
+			<span class="p">}</span>
+
+			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldGlobals</span><span class="p">.</span><span class="nx">yahoo_preloader_error</span><span class="p">)</span> <span class="p">{</span>
+				<span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldGlobals</span><span class="p">.</span><span class="nx">yahoo_preloader_error</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+				<span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;InputEx.MapField: we do not recommend dynamic API loading for Yahoo Maps&quot;</span><span class="p">);</span>
+			<span class="p">}</span>
+
+			<span class="kd">var</span> <span class="nx">preloader</span> <span class="o">=</span> <span class="s1">&#39;MapYahooPreloader_&#39;</span> <span class="o">+</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldsNumber</span><span class="o">;</span>
+			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">inputEx</span><span class="p">[</span><span class="nx">preloader</span><span class="p">])</span> <span class="p">{</span>
+				<span class="nx">inputEx</span><span class="p">[</span><span class="nx">preloader</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+
+				<span class="kd">var</span> <span class="nx">api_key</span> <span class="o">=</span> <span class="nx">superwrapper</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">api_key</span><span class="p">[</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hostname</span><span class="p">];</span>
+				<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">api_key</span><span class="p">)</span> <span class="p">{</span>
+					<span class="kd">var</span> <span class="nx">api_key</span> <span class="o">=</span> <span class="nx">superwrapper</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">api_key</span><span class="o">;</span>
+				<span class="p">}</span>
+				<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">api_key</span><span class="p">)</span> <span class="p">{</span>
+					<span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;No map key is defined for Yahoo Maps&quot;</span><span class="p">);</span>
+					<span class="k">return</span>	<span class="kc">true</span><span class="o">;</span>
+				<span class="p">}</span>
+				<span class="nb">window</span><span class="p">.</span><span class="nx">YMAPPID</span> <span class="o">=</span> <span class="nx">api_key</span><span class="o">;</span>
+
+				<span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">);</span>
+				<span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&quot;http://us.js2.yimg.com/us.js.yimg.com/lib/map/js/api/ymapapi_3_8_0_7.js&quot;</span><span class="o">;</span>
+				<span class="nx">script</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;text/javascript&quot;</span><span class="o">;</span>
+		
+				<span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
+			<span class="p">}</span>
+
+			<span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+				<span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">YMap</span><span class="p">)</span> <span class="p">{</span>
+					<span class="nx">superwrapper</span><span class="p">.</span><span class="nx">wait_create</span><span class="p">();</span>
+				<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+					<span class="nx">superwrapper</span><span class="p">.</span><span class="nx">yahoo</span><span class="p">.</span><span class="nx">preload</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">);</span>
+				<span class="p">}</span>
+			<span class="p">}</span><span class="o">,</span> <span class="mf">0.1</span><span class="p">);</span>
+
+			<span class="k">return</span>	<span class="kc">true</span><span class="o">;</span>
+		<span class="p">}</span><span class="o">,</span>
+
+		<span class="nx">create</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">y_map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YMap</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">y_map</span><span class="p">.</span><span class="nx">_mapField</span> <span class="o">=</span> <span class="nx">superwrapper</span><span class="o">;</span>
+
+			<span class="k">this</span><span class="p">.</span><span class="nx">y_map</span><span class="p">.</span><span class="nx">addTypeControl</span><span class="p">();</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">y_map</span><span class="p">.</span><span class="nx">addZoomLong</span><span class="p">();</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">y_map</span><span class="p">.</span><span class="nx">addPanControl</span><span class="p">();</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">y_map</span><span class="p">.</span><span class="nx">setMapType</span><span class="p">(</span><span class="nx">YAHOO_MAP_REG</span><span class="p">);</span>
+
+			<span class="nx">YEvent</span><span class="p">.</span><span class="nx">Capture</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">y_map</span><span class="o">,</span> <span class="nx">EventsList</span><span class="p">.</span><span class="nx">endMapDraw</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onposition</span><span class="p">);</span>
+			<span class="nx">YEvent</span><span class="p">.</span><span class="nx">Capture</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">y_map</span><span class="o">,</span> <span class="nx">EventsList</span><span class="p">.</span><span class="nx">changeZoom</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onposition</span><span class="p">);</span>
+			<span class="nx">YEvent</span><span class="p">.</span><span class="nx">Capture</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">y_map</span><span class="o">,</span> <span class="nx">EventsList</span><span class="p">.</span><span class="nx">endPan</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onposition</span><span class="p">);</span>
+
+			<span class="k">this</span><span class="p">.</span><span class="nx">y_map</span><span class="p">.</span><span class="nx">drawZoomAndCenter</span><span class="p">(</span>
+				<span class="k">new</span> <span class="nx">YGeoPoint</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">.</span><span class="nx">elLat</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">superwrapper</span><span class="p">.</span><span class="nx">elLon</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="o">,</span> 
+				<span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldZoom</span><span class="p">.</span><span class="nx">yahoo</span><span class="p">.</span><span class="nx">to_native</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">.</span><span class="nx">elUZoom</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
+			<span class="p">);</span>
+		<span class="p">}</span><span class="o">,</span>
+
+		<span class="nx">onposition</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+			<span class="k">try</span> <span class="p">{</span>
+				<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getCenterLatLon</span><span class="p">();</span>
+				<span class="k">this</span><span class="p">.</span><span class="nx">_mapField</span><span class="p">.</span><span class="nx">elLat</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Lat</span><span class="o">;</span>
+				<span class="k">this</span><span class="p">.</span><span class="nx">_mapField</span><span class="p">.</span><span class="nx">elLon</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Lon</span><span class="o">;</span>
+
+				<span class="kd">var</span> <span class="nx">z</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getZoomLevel</span><span class="p">();</span>
+				<span class="k">this</span><span class="p">.</span><span class="nx">_mapField</span><span class="p">.</span><span class="nx">elNZoom</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">z</span><span class="o">;</span>
+				<span class="k">this</span><span class="p">.</span><span class="nx">_mapField</span><span class="p">.</span><span class="nx">elUZoom</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldZoom</span><span class="p">.</span><span class="nx">yahoo</span><span class="p">.</span><span class="nx">to_universal</span><span class="p">(</span><span class="nx">z</span><span class="p">);</span>
+			<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+				<span class="c">//alert(x);</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span><span class="o">,</span>
+
+	<span class="nx">google</span> <span class="o">:</span> <span class="p">{</span>
+		<span class="nx">g_map</span> <span class="o">:</span> <span class="kc">null</span><span class="o">,</span>
+		<span class="nx">f_zoom</span> <span class="o">:</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldZoom</span><span class="p">.</span><span class="nx">google</span><span class="o">,</span>
+
+
+		<span class="c">/**</span>
+<span class="c">		 *	If the Google Maps API has not been explicitly loaded, this will go get</span>
+<span class="c">		 *	it on the user&#39;s behalf. They must have set &#39;api_key&#39; to be either the API Key</span>
+<span class="c">		 *	for this host, or a dictionary of { window.location.hostname : api_key }.</span>
+<span class="c">		 *</span>
+<span class="c">		 *	See: http://code.google.com/apis/ajax/documentation/#Dynamic</span>
+<span class="c">		 */</span>
+		<span class="nx">preload</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">GMap2</span><span class="p">)</span> <span class="p">{</span>
+				<span class="k">return</span><span class="o">;</span>
+			<span class="p">}</span>
+
+			<span class="kd">var</span> <span class="nx">api_key</span> <span class="o">=</span> <span class="nx">superwrapper</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">api_key</span><span class="p">[</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hostname</span><span class="p">];</span>
+			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">api_key</span><span class="p">)</span> <span class="p">{</span>
+				<span class="kd">var</span> <span class="nx">api_key</span> <span class="o">=</span> <span class="nx">superwrapper</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">api_key</span><span class="o">;</span>
+			<span class="p">}</span>
+			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">api_key</span><span class="p">)</span> <span class="p">{</span>
+				<span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;No map key is defined for Google Maps&quot;</span><span class="p">);</span>
+				<span class="k">return</span>	<span class="kc">true</span><span class="o">;</span>
+			<span class="p">}</span>
+
+			<span class="kd">var</span> <span class="nx">preloader</span> <span class="o">=</span> <span class="s1">&#39;MapGooglePreloader_&#39;</span> <span class="o">+</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldsNumber</span><span class="o">;</span>
+			<span class="nx">inputEx</span><span class="p">[</span><span class="nx">preloader</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+				<span class="nx">google</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="s2">&quot;maps&quot;</span><span class="o">,</span> <span class="s2">&quot;2&quot;</span><span class="o">,</span> <span class="p">{</span>
+					<span class="s2">&quot;callback&quot;</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+						<span class="nx">superwrapper</span><span class="p">.</span><span class="nx">wait_create</span><span class="p">();</span>
+					<span class="p">}</span>
+				<span class="p">});</span>
+			<span class="p">};</span>
+
+			<span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">google</span><span class="p">)</span> <span class="p">{</span>
+				<span class="nx">inputEx</span><span class="p">[</span><span class="nx">preloader</span><span class="p">]();</span>
+			<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+				<span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">);</span>
+				<span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&quot;http://www.google.com/jsapi?key=&quot;</span> <span class="o">+</span> <span class="nx">api_key</span> <span class="o">+</span> <span class="s2">&quot;&amp;callback=inputEx.&quot;</span> <span class="o">+</span> <span class="nx">preloader</span><span class="o">;</span>
+				<span class="nx">script</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;text/javascript&quot;</span><span class="o">;</span>
+
+				<span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
+			<span class="p">}</span>
+
+			<span class="k">return</span>	<span class="kc">true</span><span class="o">;</span>
+		<span class="p">}</span><span class="o">,</span>
+
+		<span class="nx">create</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">g_map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">GMap2</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">g_map</span><span class="p">.</span><span class="nx">_mapField</span> <span class="o">=</span> <span class="nx">superwrapper</span><span class="o">;</span>
+
+			<span class="k">this</span><span class="p">.</span><span class="nx">g_geocoder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">GClientGeocoder</span><span class="p">();</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">g_geocoder</span><span class="p">.</span><span class="nx">setBaseCountryCode</span><span class="p">(</span><span class="s2">&quot;ca&quot;</span><span class="p">);</span>
+
+			<span class="nx">GEvent</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">g_map</span><span class="o">,</span> <span class="s2">&quot;load&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onposition</span><span class="p">);</span>
+			<span class="nx">GEvent</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">g_map</span><span class="o">,</span> <span class="s2">&quot;moveend&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onposition</span><span class="p">);</span>
+			<span class="nx">GEvent</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">g_map</span><span class="o">,</span> <span class="s2">&quot;zoomend&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onposition</span><span class="p">);</span>
+
+			<span class="k">this</span><span class="p">.</span><span class="nx">g_map</span><span class="p">.</span><span class="nx">addControl</span><span class="p">(</span><span class="k">new</span> <span class="nx">GSmallMapControl</span><span class="p">());</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">g_map</span><span class="p">.</span><span class="nx">addControl</span><span class="p">(</span><span class="k">new</span> <span class="nx">GMapTypeControl</span><span class="p">());</span>
+
+			<span class="k">this</span><span class="p">.</span><span class="nx">g_map</span><span class="p">.</span><span class="nx">setCenter</span><span class="p">(</span>
+				<span class="k">new</span> <span class="nx">GLatLng</span><span class="p">(</span><span class="nb">parseFloat</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">.</span><span class="nx">elLat</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="o">,</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">.</span><span class="nx">elLon</span><span class="p">.</span><span class="nx">value</span><span class="p">))</span><span class="o">,</span>
+				<span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldZoom</span><span class="p">.</span><span class="nx">google</span><span class="p">.</span><span class="nx">to_native</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">.</span><span class="nx">elUZoom</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
+			<span class="p">);</span>
+		<span class="p">}</span><span class="o">,</span>
+
+		<span class="nx">onposition</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+			<span class="k">try</span> <span class="p">{</span>
+				<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getCenter</span><span class="p">();</span>
+				<span class="k">this</span><span class="p">.</span><span class="nx">_mapField</span><span class="p">.</span><span class="nx">elLat</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">lat</span><span class="p">();</span>
+				<span class="k">this</span><span class="p">.</span><span class="nx">_mapField</span><span class="p">.</span><span class="nx">elLon</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">lng</span><span class="p">();</span>
+
+				<span class="kd">var</span> <span class="nx">z</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getZoom</span><span class="p">();</span>
+				<span class="k">this</span><span class="p">.</span><span class="nx">_mapField</span><span class="p">.</span><span class="nx">elNZoom</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">z</span><span class="o">;</span>
+				<span class="k">this</span><span class="p">.</span><span class="nx">_mapField</span><span class="p">.</span><span class="nx">elUZoom</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldZoom</span><span class="p">.</span><span class="nx">google</span><span class="p">.</span><span class="nx">to_universal</span><span class="p">(</span><span class="nx">z</span><span class="p">);</span>
+			<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+				<span class="c">//alert(x);</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span><span class="o">,</span>
+
+	<span class="nx">virtualearth</span> <span class="o">:</span> <span class="p">{</span>
+		<span class="nx">ve_map</span> <span class="o">:</span> <span class="kc">null</span><span class="o">,</span>
+		<span class="nx">f_zoom</span> <span class="o">:</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldZoom</span><span class="p">.</span><span class="nx">virtualearth</span><span class="o">,</span>
+
+		<span class="c">/**</span>
+<span class="c">		 *	If Virtual Earth has not been added via script tag, this</span>
+<span class="c">		 *	will download it for you</span>
+<span class="c">		 *</span>
+<span class="c">		 *	http://soulsolutions.com.au/Blog/tabid/73/EntryID/519/Default.aspx</span>
+<span class="c">		 *	p_elSource.attachEvent is not a function</span>
+<span class="c">		 */</span>
+		<span class="nx">preload</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">VEMap</span><span class="p">)</span> <span class="p">{</span>
+				<span class="k">return</span><span class="o">;</span>
+			<span class="p">}</span>
+
+			<span class="kd">var</span> <span class="nx">preloader</span> <span class="o">=</span> <span class="s1">&#39;MapVEPreloader_&#39;</span> <span class="o">+</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldsNumber</span><span class="o">;</span>
+			<span class="nx">inputEx</span><span class="p">[</span><span class="nx">preloader</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+				<span class="nx">superwrapper</span><span class="p">.</span><span class="nx">wait_create</span><span class="p">();</span>
+			<span class="p">};</span>
+
+			<span class="c">/*</span>
+<span class="c">			 *	Fixes the &#39;p_elSource.attachEvent is not a function&#39; error</span>
+<span class="c">		 	 *	http://www.google.ca/search?hl=en&amp;q=p_elSource.attachEvent+is+not+a+function&amp;btnG=Google+Search&amp;meta=</span>
+<span class="c">			 *	</span>
+<span class="c">			 */</span>
+			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">)</span> <span class="p">{</span>
+				<span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">);</span>
+				<span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&quot;http://dev.virtualearth.net/mapcontrol/v6.2/js/atlascompat.js&quot;</span><span class="o">;</span>
+				<span class="nx">script</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;text/javascript&quot;</span><span class="o">;</span>
+
+				<span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
+			<span class="p">}</span>
+
+			<span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">);</span>
+			<span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&quot;http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2&amp;onScriptLoad=inputEx.&quot;</span> <span class="o">+</span> <span class="nx">preloader</span><span class="o">;</span>
+			<span class="nx">script</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;text/javascript&quot;</span><span class="o">;</span>
+
+			<span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
+
+			<span class="k">return</span>	<span class="kc">true</span><span class="o">;</span>
+		<span class="p">}</span><span class="o">,</span>
+
+		<span class="nx">create</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">superwrapper</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">position</span> <span class="o">=</span> <span class="s2">&quot;absolute&quot;</span><span class="o">;</span>
+
+			<span class="k">this</span><span class="p">.</span><span class="nx">ve_map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VEMap</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">ve_map</span><span class="p">.</span><span class="nx">_mapField</span> <span class="o">=</span> <span class="nx">superwrapper</span><span class="o">;</span>
+
+			<span class="k">this</span><span class="p">.</span><span class="nx">ve_map</span><span class="p">.</span><span class="nx">LoadMap</span><span class="p">(</span>
+				<span class="k">new</span> <span class="nx">VELatLong</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">.</span><span class="nx">elLat</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">superwrapper</span><span class="p">.</span><span class="nx">elLon</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="o">,</span>
+				<span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldZoom</span><span class="p">.</span><span class="nx">virtual_earth</span><span class="p">.</span><span class="nx">to_native</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">.</span><span class="nx">elUZoom</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="o">,</span>
+				<span class="nx">VEMapStyle</span><span class="p">.</span><span class="nx">Road</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="nx">VEMapMode</span><span class="p">.</span><span class="nx">Mode2D</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="mi">1</span><span class="p">);</span>
+
+			<span class="kd">var</span> <span class="nx">onposition</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">onposition</span><span class="o">;</span>
+			<span class="kd">var</span> <span class="nx">ve_map</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">ve_map</span><span class="o">;</span>
+
+			<span class="k">this</span><span class="p">.</span><span class="nx">ve_map</span><span class="p">.</span><span class="nx">AttachEvent</span><span class="p">(</span><span class="s2">&quot;onendzoom&quot;</span><span class="o">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">onposition</span><span class="p">(</span><span class="nx">ve_map</span><span class="p">);</span> <span class="p">});</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">ve_map</span><span class="p">.</span><span class="nx">AttachEvent</span><span class="p">(</span><span class="s2">&quot;onendpan&quot;</span><span class="o">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">onposition</span><span class="p">(</span><span class="nx">ve_map</span><span class="p">);</span> <span class="p">});</span>
+
+			<span class="k">this</span><span class="p">.</span><span class="nx">onposition</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ve_map</span><span class="p">);</span>
+		<span class="p">}</span><span class="o">,</span>
+
+		<span class="nx">onposition</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ve_map</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">ve_map</span><span class="p">)</span> <span class="k">return</span><span class="o">;</span>
+			<span class="k">try</span> <span class="p">{</span>
+				<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="nx">ve_map</span><span class="p">.</span><span class="nx">GetCenter</span><span class="p">();</span>
+				<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">c</span> <span class="o">||</span> <span class="o">!</span><span class="nx">c</span><span class="p">.</span><span class="nx">Latitude</span><span class="p">)</span> <span class="p">{</span>
+					<span class="k">return</span><span class="o">;</span>
+				<span class="p">}</span>
+
+				<span class="nx">ve_map</span><span class="p">.</span><span class="nx">_mapField</span><span class="p">.</span><span class="nx">elLat</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Latitude</span><span class="o">;</span>
+				<span class="nx">ve_map</span><span class="p">.</span><span class="nx">_mapField</span><span class="p">.</span><span class="nx">elLon</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Longitude</span><span class="o">;</span>
+
+				<span class="kd">var</span> <span class="nx">z</span> <span class="o">=</span> <span class="nx">ve_map</span><span class="p">.</span><span class="nx">GetZoomLevel</span><span class="p">();</span>
+				<span class="nx">ve_map</span><span class="p">.</span><span class="nx">_mapField</span><span class="p">.</span><span class="nx">elNZoom</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">z</span><span class="o">;</span>
+				<span class="nx">ve_map</span><span class="p">.</span><span class="nx">_mapField</span><span class="p">.</span><span class="nx">elUZoom</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldZoom</span><span class="p">.</span><span class="nx">virtual_earth</span><span class="p">.</span><span class="nx">to_universal</span><span class="p">(</span><span class="nx">z</span><span class="p">);</span>
+			<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+				<span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;MapField.virtualearth.onposition:&quot;</span> <span class="o">+</span> <span class="nx">x</span><span class="p">);</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span><span class="o">,</span>
+
+	<span class="nx">end</span> <span class="o">:</span> <span class="mi">0</span>
+<span class="p">});</span>
+
+<span class="c">// Register this class as &quot;map&quot; type</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">registerType</span><span class="p">(</span><span class="s2">&quot;map&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapField</span><span class="p">);</span>
+
+<span class="p">})();</span>
+</pre></div>

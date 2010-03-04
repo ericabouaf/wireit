@@ -20,12 +20,12 @@
 
 <body class="yui-skin-sam">
 	
-	<p class='demoTitle'>inputEx - Convert inputEx definition to json schema</p>
+	<h1>inputEx - Convert inputEx definition to json schema</h1>
 	
 
 <!-- Example 1 -->
 <div class='exampleDiv'>
-	<p class="title">Convert inputEx definition to json schema</p>
+	<h2>Convert inputEx definition to json schema</h2>
 	<p></p>
 	<div class='demoContainer' id='container1'></div>
 	<div class='codeContainer'>
@@ -54,7 +54,7 @@
 			  }
 		  });
 			var m = builder2.schemaToInputEx(communitySchema);
-			m.inputParams.parentEl = 'container1';
+			m.parentEl = 'container1';
 			var f = inputEx(m);
 		</textarea>
 	</div>

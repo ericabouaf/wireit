@@ -1,0 +1,38 @@
+<div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+<span class="c">/**</span>
+<span class="c"> * A field limited to number inputs (floating)</span>
+<span class="c"> * @class inputEx.VectorField</span>
+<span class="c"> * @extends inputEx.Field</span>
+<span class="c"> * @constructor</span>
+<span class="c"> * @param {Object} options inputEx.Field options object</span>
+<span class="c"> */</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">VectorField</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">VectorField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">VectorField</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">CombineField</span><span class="o">,</span> <span class="p">{</span>  
+   <span class="c">/**</span>
+<span class="c">    * Additional options for VectorField (dimension, size)</span>
+<span class="c">    */</span> 
+   <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">inputEx</span><span class="p">.</span><span class="nx">VectorField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+     
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">dimension</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dimension</span> <span class="o">||</span> <span class="mi">2</span><span class="o">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">size</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">size</span> <span class="o">||</span> <span class="mi">3</span><span class="o">;</span>
+     
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">fields</span> <span class="o">=</span> <span class="p">[];</span>
+      <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">dimension</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">fields</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;number&#39;</span><span class="o">,</span> <span class="nx">size</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">size</span> <span class="p">});</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c">// Register this class as &quot;2Dvector&quot; type</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">registerType</span><span class="p">(</span><span class="s2">&quot;vector&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">VectorField</span><span class="o">,</span> <span class="p">[</span>
+   <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;integer&#39;</span><span class="o">,</span> <span class="kd">label</span><span class="o">:</span> <span class="s1">&#39;Dimension&#39;</span><span class="o">,</span> <span class="nx">name</span><span class="o">:</span><span class="s1">&#39;dimension&#39;</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="mi">2</span><span class="p">}</span><span class="o">,</span>
+   <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;integer&#39;</span><span class="o">,</span> <span class="kd">label</span><span class="o">:</span> <span class="s1">&#39;Size&#39;</span><span class="o">,</span> <span class="nx">name</span><span class="o">:</span><span class="s1">&#39;size&#39;</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="mi">3</span><span class="p">}</span><span class="o">,</span>
+   <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;list&#39;</span><span class="o">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;separators&#39;</span><span class="o">,</span> <span class="kd">label</span><span class="o">:</span> <span class="s1">&#39;Separators&#39;</span><span class="o">,</span> <span class="nx">required</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+<span class="p">]);</span>
+
+<span class="p">})();</span>
+</pre></div>

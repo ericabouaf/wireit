@@ -20,7 +20,7 @@
 
  <body class="yui-skin-sam">
 
-<p class='demoTitle'>inputEx - TimeIntervalField Usage</p>
+<h1>inputEx - TimeIntervalField Usage</h1>
 
 <!-- YUI Library -->
 <script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
@@ -47,7 +47,7 @@
 
 <!-- Example 1 -->
 <div class='exampleDiv'>
- <p class="title">Basic TimeIntervalField creation</p>
+ <h2>Basic TimeIntervalField creation</h2>
  <p>Use the following code to create a basic inputEx TimeIntervalField.</p>
  <div class='demoContainer' id='container1'></div>
  <div class='codeContainer'>
@@ -66,20 +66,21 @@
 
 <!-- Example 2 -->
 <div class='exampleDiv'>
- <p class="title">TimeIntervalField options</p>
+ <h2>TimeIntervalField options</h2>
  <p>You can set the <i>fields</i> and <i>separators</i> options of the combine field to customize the field</p>
  <div class='demoContainer' id='container2'></div>
  <div class='codeContainer'>
   <textarea name="code" class="JScript">
-		var units = inputEx.TimeIntervalField.units;
+	  var units = inputEx.TimeIntervalField.units;
 	  var unitsStr = inputEx.messages.timeUnits;
-		var n=[]; for(var i=1;i !=30;i++){ n.push(i); }
+	  var n=[]; for(var i=1;i !=30;i++){ n.push(i); }
 	  var fields = [
-	       {type: 'select', inputParams: { selectValues: n }},
-	       {type: 'select', inputParams: { 
-	          selectOptions: [unitsStr.DAY, unitsStr.MONTH, unitsStr.YEAR], 
-	          selectValues: [units.DAY, units.MONTH, units.YEAR] 
-	       } }
+	       {type: 'select', selectValues: n },
+	       {
+	          type: 'select',
+	          selectOptions: [unitsStr.DAY, unitsStr.MONTH, unitsStr.YEAR],
+	          selectValues: [units.DAY, units.MONTH, units.YEAR]
+	       }
 	    ];
 
 		new inputEx.TimeIntervalField({

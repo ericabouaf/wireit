@@ -24,12 +24,12 @@
 
  <body>
 
-<p class='demoTitle'>inputEx - CombineField Usage</p>
+<h1>inputEx - CombineField Usage</h1>
 
 
 <!-- Example 1 -->
 <div class='exampleDiv'>
-	<p class="title">Basic CombineField creation</p>
+	<h2>Basic CombineField creation</h2>
 	<p></p>
 	<div class='demoContainer' id='container1'></div>
 	<div class='codeContainer'>
@@ -39,8 +39,8 @@
 				label: 'Your name',
 				description: 'Please enter your name',
 				fields: [
-					{ inputParams: {name: 'firstname', typeInvite: 'firstname'} },
-					{ inputParams: {name: 'lastname', typeInvite: 'lastname'} }
+					{ name: 'firstname', typeInvite: 'firstname' },
+					{ name: 'lastname', typeInvite: 'lastname' }
 				],
 				separators: [false,"&nbsp;&nbsp;&nbsp;",false],
 				required:true
@@ -71,7 +71,7 @@
 
 <!-- Example 2 -->
 <div class='exampleDiv'>
-	<p class="title">Basic CombineField creation</p>
+	<h2>Basic CombineField creation</h2>
 	<p></p>
 	<div class='demoContainer' id='container2'></div>
 	<div class='codeContainer'>
@@ -80,8 +80,8 @@
 				parentEl: 'container2', 
 				label:'Select Datetime :',
 				fields: [
-					{type: 'date', inputParams: {name: 'date', typeInvite: 'mm/dd/YYYY'} },
-					{type: 'time', inputParams: {name: 'time'} }
+					{type: 'date', name: 'date', typeInvite: 'mm/dd/YYYY' },
+					{type: 'time', name: 'time' }
 				],
 				separators: [false,"&nbsp;",false]
 			});
