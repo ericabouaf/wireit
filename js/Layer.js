@@ -23,6 +23,8 @@ WireIt.Layer = function(options) {
     */
    this.wires = [];
    
+   this.groups = [];
+   
    /**
     * Layer DOM element
     * @property el
@@ -89,6 +91,18 @@ WireIt.Layer = function(options) {
       new WireIt.LayerMap(this, this.options.layerMapOptions);
    }
    
+   this.grouper = new WireIt.Grouper(this, this.options.grouper.baseConfigFunction);
+   
+   var rb = this.grouper.rubberband;
+   var self = this;
+   this.el.onmousedown = function(event) { return rb.layerMouseDown.call(rb, event); }
+   //this.el.onmouseup = 
+   var grouper = this.grouper;
+   this.el.addEventListener("mouseup", function (event) 
+	{ 
+	    rb.finish(); 
+	    grouper.rubberbandSelect.call(grouper); 
+	}, false);
 };
 
 WireIt.Layer.prototype = {
@@ -117,6 +131,7 @@ WireIt.Layer.prototype = {
       this.options.layerMap = YAHOO.lang.isUndefined(options.layerMap) ? false : options.layerMap;
       this.options.layerMapOptions = options.layerMapOptions;
       this.options.enableMouseEvents = YAHOO.lang.isUndefined(options.enableMouseEvents) ? true : options.enableMouseEvents;
+      this.options.grouper = options.grouper
    },
 
    /**
@@ -150,6 +165,25 @@ WireIt.Layer.prototype = {
          this.addWire(this.options.wires[i]);
       }
    },
+
+    setSuperHighlighted: function(containers)
+    {
+	this.unsetSuperHighlighted();
+	
+	for (var i in containers)
+	    containers[i].superHighlight();
+	    
+	this.superHighlighted = containers;
+    },
+    
+    unsetSuperHighlighted: function()
+    {
+	if (YAHOO.lang.isValue(this.superHighlighted))
+	    for (var i in this.superHighlighted)
+	        this.superHighlighted[i].highlight()
+	    
+	this.superHighlighted = null;
+    },
 
    /**
     * Instanciate a wire given its "xtype" (default to WireIt.Wire)
@@ -185,6 +219,9 @@ WireIt.Layer.prototype = {
       }
       var container = new type(containerConfig, this);
    
+      return this.addContainerDirect(container);
+   },
+   addContainerDirect: function(container) {
       this.containers.push( container );
    
       // Event listeners
@@ -208,9 +245,9 @@ WireIt.Layer.prototype = {
 
 		this.eventChanged.fire(this);
    
-      return container;
+      return container;	
    },
-
+   
    /**
     * Remove a container
     * @method removeContainer
@@ -219,15 +256,47 @@ WireIt.Layer.prototype = {
    removeContainer: function(container) {
       var index = WireIt.indexOf(container, this.containers);
       if( index != -1 ) {
-         container.remove();
-         this.containers[index] = null;
-         this.containers = WireIt.compact(this.containers);
+	  
+	container.remove();
+	    
+        this.containers[index] = null;
+        this.containers = WireIt.compact(this.containers);
       
-         this.eventRemoveContainer.fire(container);
+	this.eventRemoveContainer.fire(container);
 
-			this.eventChanged.fire(this);
+	this.eventChanged.fire(this);
       }
    },
+
+    removeGroup: function(group, containersAsWell) 
+    {
+	var index = this.groups.indexOf(group);
+
+	if (index != -1)
+	    this.groups.splice(index, 1);
+
+	if (containersAsWell)
+	{
+	    if (lang.isValue(group.groupContainer))
+	    {
+		this.removeContainer(group.groupContainer)
+	    }
+	    else
+	    {
+		for (var i in group.containers)
+		{
+		    var elem = group.containers[i].container
+		    this.removeContainer(elem);
+		}
+
+		for (var i in group.groups)
+		{
+		    var g = group.groups[i].group;
+		    this.removeGroup(g);
+		}
+	    }
+	}
+    },
 
    /**
     * Update the wire list when any of the containers fired the eventAddWire

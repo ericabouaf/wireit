@@ -573,28 +573,37 @@ WireIt.Terminal.prototype = {
       if(this.options.name) { this.el.title = this.options.name; }
 
       // Set the offset position
-      var pos = this.options.offsetPosition;
-      if(pos) {
-         // Kept old version [x,y] for retro-compatibility
-         if( lang.isArray(pos) ) {
-            this.el.style.left = pos[0]+"px";
-            this.el.style.top = pos[1]+"px";
-         }
-         // New version: {top: 32, left: 23}
-         else if( lang.isObject(pos) ) {
-            for(var key in pos) {
-               if(pos.hasOwnProperty(key) && pos[key] != ""){
-                  this.el.style[key] = pos[key]+"px";
-               }
-            }
-         }
-      }
+      this.setPosition(this.options.offsetPosition);
    
       // Append the element to the parent
       this.parentEl.appendChild(this.el);
    },
 
-
+    setPosition: function(pos)
+    {
+	if(pos) {
+	    //Clear the current position
+	    this.el.style.left = "";
+	    this.el.style.top = "";
+	    this.el.style.right = "";
+	    this.el.style.bottom = "";
+	    
+	    // Kept old version [x,y] for retro-compatibility
+	    if( lang.isArray(pos) ) {
+		this.el.style.left = pos[0]+"px";
+		this.el.style.top = pos[1]+"px";
+	    }
+	    // New version: {top: 32, left: 23}
+	    else if( lang.isObject(pos) ) {
+		for(var key in pos) {
+		    if(pos.hasOwnProperty(key) && pos[key] != ""){ //This will ignore the number 0 since 0 == "" in javascript (firefox 3.0
+			this.el.style[key] = pos[key]+"px";
+		    }
+		}
+	    }
+	}
+    },
+    
    /**
     * Add a wire to this terminal.
     * @method addWire
@@ -659,8 +668,6 @@ WireIt.Terminal.prototype = {
      	return [curleft+15,curtop+15];
    },
 
-
-
    /**
     * Remove the terminal from the DOM
     * @method remove
@@ -682,8 +689,6 @@ WireIt.Terminal.prototype = {
       }
       
    },
-
-
 
    /**
     * Returns a list of all the terminals connecter to this terminal through its wires.

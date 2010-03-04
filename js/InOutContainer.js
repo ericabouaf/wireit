@@ -17,18 +17,14 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
     * @param {Object} options the options object
     */
    setOptions: function(options) {
-      WireIt.InOutContainer.superclass.setOptions.call(this, options);
+      WireIt.InOutContainer.superclass.setOptions.call(this,  YAHOO.lang.merge( {
+               resizable: false,
+               className: "WireIt-Container WireIt-InOutContainer",
+               inputs: [],
+               outputs: []
+         }, options));
       
       this.options.xtype = "WireIt.InOutContainer";
-      
-      this.options.className = options.className || "WireIt-Container WireIt-InOutContainer";
-      
-      // Overwrite default value for options:
-      this.options.resizable = (typeof options.resizable == "undefined") ? false : options.resizable;
-
-		this.options.inputs = options.inputs || [];
-		this.options.outputs = options.outputs || [];
-
    },
    
    render: function() {

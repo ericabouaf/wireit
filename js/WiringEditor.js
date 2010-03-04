@@ -20,6 +20,23 @@ WireIt.WiringEditor = function(options) {
 	
 	WireIt.WiringEditor.superclass.constructor.call(this, options);
 
+
+    var toolbarOptions = options.toolbar;
+    this.toolbar.element = Dom.get('toolbar');
+    this.toolbar.editor= this;
+    if (toolbarOptions) {
+    	if (toolbarOptions.enabled && toolbarOptions.buttons) {
+			for (var b in toolbarOptions.buttons) {
+	  			this.toolbar.add(toolbarOptions.buttons[b]);  
+			}
+      }
+    }
+    else {
+      // Render buttons
+      this.toolbar.renderDefaultButtons();
+    }
+    
+
 	 // LoadWirings
 	 if( this.adapter.init && YAHOO.lang.isFunction(this.adapter.init) ) {
 			this.adapter.init();
@@ -50,10 +67,12 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
      
 	    this.options.layerOptions = {};
 	    var layerOptions = options.layerOptions || {};
+	
+
 	    this.options.layerOptions.parentEl = layerOptions.parentEl ? layerOptions.parentEl : Dom.get('center');
 	    this.options.layerOptions.layerMap = YAHOO.lang.isUndefined(layerOptions.layerMap) ? true : layerOptions.layerMap;
 	    this.options.layerOptions.layerMapOptions = layerOptions.layerMapOptions || { parentEl: 'layerMap' };
-										
+
 	 	 this.options.modulesAccordionViewParams = YAHOO.lang.merge({
 														collapsible: true, 
 														expandable: true, // remove this parameter to open only one panel at a time
@@ -63,7 +82,25 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 														animate: true, 
 														effect: YAHOO.util.Easing.easeBothStrong
 													},options.modulesAccordionViewParams || {});
+													
+		 // Grouping options
+	    var temp = this;
+	    var baseConfigFunction = function(name)  { 
+				return (name == "Group") ? {
+			    "xtype": "WireIt.GroupFormContainer",
+			    "title": "Group",    
+
+			    "collapsible": true,
+			    "fields": [ ],
+			    "legend": "Inner group fields",
+			    "getBaseConfigFunction" : baseConfigFunction
+				} : temp.modulesByName[name].container;
+		};
+
+	    this.options.layerOptions.grouper = {"baseConfigFunction": baseConfigFunction };
+	
 	 },
+
 
 	/**
 	 * Add the rendering of the layer
@@ -163,21 +200,47 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 		el.appendChild(div);
  	},
  
+ 
+	getCurrentGrouper: function(editor) {
+     	return editor.currentGrouper;
+ 	},
+ 
  	/**
-	 * add a module at the given pos
-	 */
+  	 * add a module at the given pos
+  	 */
 	addModule: function(module, pos) {
-		try {
-	   	var containerConfig = module.container;
-	      containerConfig.position = pos;
-	      containerConfig.title = module.name;
-	      var container = this.layer.addContainer(containerConfig);
-	      Dom.addClass(container.el, "WiringEditor-module-"+module.name);
-	   }
-	   catch(ex) {
-	      this.alert("Error Layer.addContainer: "+ ex.message);
-	   }    
+	    try {
+	       var containerConfig = module.container;
+	       containerConfig.position = pos;
+	       containerConfig.title = module.name;
+	       var temp = this;
+	       containerConfig.getGrouper = function() { return temp.getCurrentGrouper(temp); };
+	       var container = this.layer.addContainer(containerConfig);
+	       Dom.addClass(container.el, "WiringEditor-module-"+module.name);
+	    }
+	    catch(ex) {
+	       this.alert("Error Layer.addContainer: "+ ex.message);
+	    }    
 	},
+
+	// For grouping ?
+  toolbar : {
+    element : null,
+
+    /**
+     * button = {label : <label>, id : <id>, events : [ {name: <name e.g. click>, callback : <callback e.g. function() { alert('test') }> } ]}
+     */
+    add: function(button) {
+      // Buttons :
+      var wButton = new widget.Button({ label:button.label, id: button.id, container: this.element });
+
+      for (var e in button.events) {
+			var event = button.events[e];
+			wButton.on(event.name, event.callback, event.context, true);
+      }
+
+    },
+
 
  	/**
   	 * save the current module

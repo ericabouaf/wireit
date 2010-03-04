@@ -51,6 +51,8 @@ WireIt.Container = function(options, layer) {
     */
    this.bodyEl = null;
    
+   this.getGrouper = this.options.getGrouper
+   
    /**
     * Event that is fired when a wire is added
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
@@ -64,6 +66,10 @@ WireIt.Container = function(options, layer) {
     * @event eventRemoveWire
     */
    this.eventRemoveWire = new util.CustomEvent("eventRemoveWire");
+   
+   this.eventFocus = new util.CustomEvent("eventFocus");
+   
+   this.eventBlur = new util.CustomEvent("eventBlur");
    
    // Render the div object
    this.render();
@@ -97,6 +103,7 @@ WireIt.Container = function(options, layer) {
    
 };
 
+
 WireIt.Container.prototype = {
    
    /**
@@ -127,29 +134,20 @@ WireIt.Container.prototype = {
        * @property options
        * @type {Object}
        */
-      this.options = {};
-      this.options.terminals = options.terminals || [];
-      this.options.draggable = (typeof options.draggable == "undefined") ? true : options.draggable ;
-      this.options.position = options.position || [100,100];
-      this.options.className = options.className || CSS_PREFIX+'Container';
-
-      this.options.ddHandle = (typeof options.ddHandle == "undefined") ? true : options.ddHandle;
-      this.options.ddHandleClassName = options.ddHandleClassName || CSS_PREFIX+"Container-ddhandle";
-
-      this.options.resizable = (typeof options.resizable == "undefined") ? true : options.resizable;
-      this.options.resizeHandleClassName = options.resizeHandleClassName || CSS_PREFIX+"Container-resizehandle";
-
-      this.options.width = options.width; // no default
-      this.options.height = options.height;
-
-      this.options.close = (typeof options.close == "undefined") ? true : options.close;
-      this.options.closeButtonClassName = options.closeButtonClassName || CSS_PREFIX+"Container-closebutton";
-
-      this.options.title = options.title; // no default
-      
-      this.options.icon = options.icon;
-      
-      this.options.preventSelfWiring = (typeof options.preventSelfWiring == "undefined") ? true : options.preventSelfWiring;
+      this.options= YAHOO.lang.merge({ 
+        terminals: [],
+        draggable: true,
+        position: [100,100],
+        className: CSS_PREFIX+"Container",
+        ddHandle: true,
+        ddHandleClassName: CSS_PREFIX+"Container-ddhandle",
+        resizable: true,
+        resizeHandleClassName: CSS_PREFIX+"Container-resizehandle",
+        close: true,
+        closeButtonClassName: CSS_PREFIX+"Container-closebutton",
+        groupable: true,
+        preventSelfWiring:true
+        }, options);
    },
 
    /**
@@ -188,7 +186,7 @@ WireIt.Container.prototype = {
       	
          // Set title
          if(this.options.title) {
-            this.ddHandle.appendChild( WireIt.cn('span', null, null, this.options.title) );
+            this.ddHandle.appendChild( WireIt.cn('span', {className: 'floatleft'}, null, this.options.title) );
          }
          
          // Icon
@@ -208,14 +206,22 @@ WireIt.Container.prototype = {
       	this.ddResizeHandle = WireIt.cn('div', {className: this.options.resizeHandleClassName} );
       	this.el.appendChild(this.ddResizeHandle);
       }
-   
+
       if(this.options.close) {
          // Close button
          this.closeButton = WireIt.cn('div', {className: this.options.closeButtonClassName} );
-         this.el.appendChild(this.closeButton);
+	 if (this.options.ddHandle)
+	    this.ddHandle.appendChild(this.closeButton);
+	 else
+	    this.el.appendChild(this.closeButton);
          Event.addListener(this.closeButton, "click", this.onCloseButton, this, true);
       }
-   
+      
+      if(this.options.groupable && this.options.ddHandle) {
+         this.groupButton = WireIt.cn('div', {className: 'WireIt-Container-groupbutton'} );
+         this.ddHandle.appendChild(this.groupButton)
+         Event.addListener(this.groupButton, "click", this.onGroupButton, this, true);
+      }   
       // Append to the layer element
       this.layer.el.appendChild(this.el);
    
@@ -243,7 +249,7 @@ WireIt.Container.prototype = {
     * Called when the user made a mouse down on the container and sets the focus to this container (only if within a Layer)
     * @method onMouseDown
     */
-   onMouseDown: function() {
+   onMouseDown: function(event) {
       if(this.layer) {
          if(this.layer.focusedContainer && this.layer.focusedContainer != this) {
             this.layer.focusedContainer.removeFocus();
@@ -259,6 +265,8 @@ WireIt.Container.prototype = {
     */
    setFocus: function() {
       Dom.addClass(this.el, CSS_PREFIX+"Container-focused");
+      
+      this.eventFocus.fire(this);
    },
 
    /**
@@ -267,6 +275,8 @@ WireIt.Container.prototype = {
     */
    removeFocus: function() {
       Dom.removeClass(this.el, CSS_PREFIX+"Container-focused");
+      
+      this.eventBlur.fire(this);
    },
 
    /**
@@ -278,22 +288,52 @@ WireIt.Container.prototype = {
       this.layer.removeContainer(this);
    },
 
+    highlight: function()
+    {
+	this.el.style.border = "2px solid blue";
+    },
+
+    dehighlight: function()
+    {
+	this.el.style.border = "";
+    },
+    
+    superHighlight: function()
+    {
+	this.el.style.border = "4px outset blue";
+    },
+    
+   onGroupButton: function(e, args) {
+       Event.stopEvent(e);
+
+       this.layer.grouper.toggle(this)
+       //TODO: link somehow to editor's group manager?
+   },
+
+   addedToGroup: function() {
+       if (YAHOO.lang.isValue(this.ddHandle))
+	    this.ddHandle.style.backgroundColor = "green";
+   },
+
+    removedFromGroup: function() {
+	if (YAHOO.lang.isValue(this.ddHandle))
+	    this.ddHandle.style.backgroundColor = "";
+    },
+
    /**
     * Remove this container from the dom
     * @method remove
     */
    remove: function() {
-   
-      // Remove the terminals (and thus remove the wires)
-      this.removeAllTerminals();
-   
-      // Remove from the dom
-      this.layer.el.removeChild(this.el);
-      
-      // Remove all event listeners
-      Event.purgeElement(this.el);
+-      // Remove the terminals (and thus remove the wires)
+-      this.removeAllTerminals();
+-   
+-      // Remove from the dom
+-      this.layer.el.removeChild(this.el);
+-      
+-      // Remove all event listeners
+-      Event.purgeElement(this.el);
    },
-
 
    /**
     * Call the addTerminal method for each terminal configuration.

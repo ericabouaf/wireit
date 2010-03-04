@@ -126,16 +126,16 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       this.parentEl.removeChild(this.element);
    
       // Remove the wire reference from the connected terminals
-      if(this.terminal1 && this.terminal1.removeWire) {
-         this.terminal1.removeWire(this);
-      }
-      if(this.terminal2 && this.terminal2.removeWire) {
-         this.terminal2.removeWire(this);
-      }
-   
-      // Remove references to old terminals
-      this.terminal1 = null;
-      this.terminal2 = null;
+    if(this.terminal1 && this.terminal1.removeWire) {
+	this.terminal1.removeWire(this);
+    }
+    if(this.terminal2 && this.terminal2.removeWire) {
+	this.terminal2.removeWire(this);
+    }
+
+    // Remove references to old terminals
+    this.terminal1 = null;
+    this.terminal2 = null;
    },
 
    /**
