@@ -2,9 +2,12 @@
     var util = YAHOO.util,lang = YAHOO.lang;
     var Event = util.Event, Dom = util.Dom, Connect = util.Connect,JSON = lang.JSON,widget = YAHOO.widget;
 
-    
-    WireIt.Group = function(grouper, layer, serialisedGroup)
-    {
+/**
+ * Handles a Group
+ * @class WireIt.Group
+ */    
+WireIt.Group = function(grouper, layer, serialisedGroup) {
+	
 	this.containers  = [];
 	this.groups = [];
 	this.properties = {};
@@ -21,10 +24,9 @@
 	this.events.groupEmptied = new YAHOO.util.CustomEvent("groupEmptied");
 	
 	this.events.stateChanged = new YAHOO.util.CustomEvent("stateChanged");
-	this.stateChangeFunc = function (eventName, objects) 
-	    { 
-		this.events.stateChanged.fire({"event" : eventName, "objects" : objects}) 
-	    };
+	this.stateChangeFunc = function (eventName, objects)  { 
+		this.events.stateChanged.fire({"event" : eventName, "objects" : objects});
+   };
 	    
 	this.events.containerAdded.subscribe(this.stateChangeFunc, this, true);
 	this.events.containerRemoved.subscribe(this.stateChangeFunc, this, true);
@@ -44,7 +46,10 @@
 	    }, this, true);
     };
     
-    WireIt.Group.prototype = {
+
+
+WireIt.Group.prototype = {
+	
 	collapse: function(expanded)
 	{
 	    if (lang.isValue(this.groupContainer))
@@ -63,13 +68,11 @@
 	    var sGroup = WireIt.GroupUtils.serialiseGroup(this, containers);
 	    
 	    var modules = WireIt.GroupUtils.getInternalModuleConfig(containers, collapsedConfig.center);
-	    var getInternalContainerId = function(container)
-		{
+	    var getInternalContainerId = function(container) {
 		    return containers.indexOf(container);
-		}
+		};
 	    
-	    var getExternalTerminalName = function(type, index, name)
-		{
+	    var getExternalTerminalName = function(type, index, name) {
 		    var submap;
 		    
 		    if (type == "container")
@@ -80,17 +83,17 @@
 		    
 		    var terminal = submap[index].terminals[name];
 		    
-		    if (lang.isObject(terminal))
-			return terminal.externalName;
-		    else
-		    {
-			var field = submap[index].fields[name]
+		    if (lang.isObject(terminal)) {
+				return terminal.externalName;
+			}
+		    else {
+				var field = submap[index].fields[name];
 			
-			if (lang.isObject(field) && field.fieldConfig.inputParams.wirable)
-			    return field.externalName;
-		    }
+				if (lang.isObject(field) && field.fieldConfig.inputParams.wirable)
+			    	return field.externalName;
+		    	}
 		    
-		};
+			};
 	    
 	    var wires = WireIt.GroupUtils.getWireConfig(this, getInternalContainerId, getExternalTerminalName);
 
@@ -132,13 +135,11 @@
 	    return gc;
 	},
 
-	checkGroupEmpty: function()
-	{
-	    //Check the group is empty
-	    if (!lang.isValue(this.groupContainer) && this.containers.length == 0 && this.groups.length == 0)
-	    {
-		this.events.groupEmptied.fire(this);
-	    }
+	checkGroupEmpty: function() {
+	   //Check the group is empty
+	   if (!lang.isValue(this.groupContainer) && this.containers.length == 0 && this.groups.length == 0) {
+			this.events.groupEmptied.fire(this);
+	   }
 	},
 
 	expand: function()
@@ -483,21 +484,18 @@
    
 	    var map;
 	    
-	    try
-	    {
-		map = WireIt.GroupUtils.getMap(tempGroup);
-	    }
-	    catch (err)
-	    {
-		if (lang.isObject(err) && lang.isValue(err.type) && err.type == "MappingError")
-		{
+	  try {
+			map = WireIt.GroupUtils.getMap(tempGroup);
+	  }
+	  catch (err) {
+			if (lang.isObject(err) && lang.isValue(err.type) && err.type == "MappingError") {
 		    return {"overrides" : overrides, "valid" : false, "error" : err};
-		}
-		else
-		    throw err
-	    }
+			}
+			else
+		    	throw err
+	  }
 	    
-	    return {"overrides" : overrides, "valid" : true};
+	  return {"overrides" : overrides, "valid" : true};
 	},
 	
 	setGroupOptions: function(overrides)
