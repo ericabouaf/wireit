@@ -1,0 +1,106 @@
+<div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+   
+   <span class="kd">var</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="o">,</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">;</span>
+   
+<span class="c">/**</span>
+<span class="c"> * Create a Dialog from an inputEx field definition</span>
+<span class="c"> * @class inputEx.widget.Dialog</span>
+<span class="c"> * @constructor</span>
+<span class="c"> * @param {Object} options Config object, options are :</span>
+<span class="c"> * &lt;ul&gt;</span>
+<span class="c"> *   &lt;li&gt;inputExDef: an inputEx type definition (ex: {type: &#39;form&#39;, inputParams: {fields: [...]}})&lt;/li&gt;</span>
+<span class="c"> *   &lt;li&gt;id: an optional id for the dialog&lt;/li&gt;</span>
+<span class="c"> *   &lt;li&gt;parentEl: optional parentEl (default document.body)&lt;/li&gt;</span>
+<span class="c"> *   &lt;li&gt;title: the dialog title&lt;/li&gt;</span>
+<span class="c"> *   &lt;li&gt;panelConfig: the YAHOO.widget.Panel userConfig object&lt;/li&gt;</span>
+<span class="c"> * &lt;/ul&gt;</span>
+<span class="c"> */</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Dialog</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+
+   <span class="c">// options</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span> <span class="o">=</span> <span class="p">{};</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">id</span> <span class="o">||</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">();</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="o">;</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">title</span> <span class="o">||</span> <span class="s1">&#39;Please fill in the form&#39;</span><span class="o">;</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">panelConfig</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">panelConfig</span> <span class="o">||</span> <span class="p">{</span>
+		<span class="nx">constraintoviewport</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> 
+		<span class="nx">underlay</span><span class="o">:</span><span class="s2">&quot;shadow&quot;</span><span class="o">,</span> 
+		<span class="nx">close</span><span class="o">:</span><span class="kc">true</span><span class="o">,</span> 
+		<span class="nx">fixedcenter</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
+		<span class="nx">visible</span><span class="o">:</span><span class="kc">false</span><span class="o">,</span> 
+		<span class="nx">draggable</span><span class="o">:</span><span class="kc">true</span>
+	<span class="p">};</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">inputExDef</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">inputExDef</span><span class="o">;</span>
+
+   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">id</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">panelConfig</span><span class="p">);</span>
+   
+   <span class="c">// Generate an id for a div inside the panel body</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">_inputExBodyId</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">();</span>
+   
+	<span class="k">this</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">setBody</span><span class="p">(</span><span class="s2">&quot;&lt;div id=&#39;&quot;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">_inputExBodyId</span><span class="o">+</span><span class="s2">&quot;&#39;&gt;&lt;/div&gt;&quot;</span><span class="p">);</span>
+	
+	<span class="nx">Event</span><span class="p">.</span><span class="nx">onAvailable</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_inputExBodyId</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildForm</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+	
+	<span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">);</span>
+	
+<span class="p">};</span>
+
+<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Dialog</span><span class="o">,</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Panel</span><span class="o">,</span> <span class="p">{</span>
+   
+	<span class="c">/**</span>
+<span class="c">	 * Render the form</span>
+<span class="c">	 */</span>
+   <span class="nx">renderForm</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      
+      <span class="c">// Retro-compatibility with deprecated inputParams Object</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">inputExDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">))</span> <span class="p">{</span>
+		   <span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">inputExDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_inputExBodyId</span><span class="o">;</span>
+		   
+		<span class="c">// New prefered syntax for field options</span>
+	   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		   <span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">inputExDef</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_inputExBodyId</span><span class="o">;</span>
+	   <span class="p">}</span>
+		
+      <span class="k">this</span><span class="p">.</span><span class="nx">_inputExFieldInstance</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">inputExDef</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">_inputExFieldInstance</span><span class="p">.</span><span class="nx">_inputExDialog</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+	<span class="p">}</span><span class="o">,</span>
+
+   <span class="c">/**</span>
+<span class="c">    * render the inputExDef as a inputEx field</span>
+<span class="c">    */</span>
+   <span class="nx">buildForm</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">renderForm</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">center</span><span class="p">();</span>
+   <span class="p">}</span><span class="o">,</span>
+	
+   <span class="c">/**</span>
+<span class="c">    * Return the inputEx field instance created</span>
+<span class="c">    * @return {inputEx.Field} the field instance</span>
+<span class="c">    */</span>
+   <span class="nx">getForm</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_inputExFieldInstance</span><span class="o">;</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * Shortcut to get value</span>
+<span class="c">    * @return {Any} the field value</span>
+<span class="c">    */</span>
+   <span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">getForm</span><span class="p">().</span><span class="nx">getValue</span><span class="p">();</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   
+   <span class="c">/**</span>
+<span class="c">    * Shortcut to set value</span>
+<span class="c">    * @param {Any} value The value to set on the field</span>
+<span class="c">    * @param {boolean} [sendUpdatedEvt] (optional) Wether this setValue should fire the updatedEvt or not (default is true, pass false to NOT send the event)</span>
+<span class="c">    */</span>
+   <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">getForm</span><span class="p">().</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">);</span>
+   <span class="p">}</span>
+   
+<span class="p">});</span>
+   
+<span class="p">})();</span>
+</pre></div>

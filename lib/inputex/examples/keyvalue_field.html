@@ -20,7 +20,7 @@
 
  <body>
 
-<p class='demoTitle'>inputEx - KeyValueField Usage</p>
+<h1>inputEx - KeyValueField Usage</h1>
 
 <!-- YUI Library -->
 <script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
@@ -45,17 +45,17 @@
 
 <!-- Example 1 -->
 <div class='exampleDiv'>
- <p class="title">Basic KeyValueField creation</p>
+ <h2>Basic KeyValueField creation</h2>
  <p>The KeyValueField makes it easy to build a search form from an existing inputEx definition</p>
  <div class='demoContainer' id='container1'></div>
  <div class='codeContainer'>
   <textarea name="code" class="JScript">
 		var field = new inputEx.KeyValueField({
 			parentEl: 'container1',
-			fields: [
-				{type: 'string', inputParams: { name: 'lastname', label: 'Lastname' } },
-				{type: 'string', inputParams: { name: 'firstname', label: 'Firstname' } },
-				{type: 'select', inputParams: { name: 'gender', label: 'Gender', selectValues: ["Mr", "Mme","Mlle"] } }
+			availableFields: [
+				{type: 'string', name: 'lastname', label: 'Lastname' },
+				{type: 'string', name: 'firstname', label: 'Firstname' },
+				{type: 'select', name: 'gender', label: 'Gender', selectValues: ["Mr", "Mme","Mlle"] }
 			]
 		});
 		

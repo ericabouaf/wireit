@@ -146,13 +146,11 @@ div.inputEx-Group fieldset.inputEx-Collapsed div.inputEx-fieldWrapper {
  * inputEx.Form
  */
 
-label.inputExForm-checkbox-rightLabel {
-   margin-left: 4px;
-}
-
 div.inputEx-Form-buttonBar {
    margin: 3px 0 0 137px;
 }
+
+.inputEx-Button { margin:0 4px 0 0; }
 
 div.inputEx-Form-Mask {
    height:275px;
@@ -254,33 +252,15 @@ a.inputEx-List-link:hover {
 /**
  * inputEx.InPlaceEdit
  */
-div.inputEx-InPlaceEdit-visu {
-   cursor: pointer;
-   padding: 3px;
+div.inputEx-InPlaceEdit-visu { cursor: pointer; padding: 3px; }
+
+.inputEx-InPlaceEdit-editor .inputEx-InPlaceEdit-editorDiv {
+  float: left;
+  margin-bottom:0; /* remove 0.2em bottom margin because no need to cumulate field and editor-field margins */
 }
 
-div.inputEx-InPlaceEdit-visu:hover {
-   background-color: #ffff99;
-}
+.inputEx-InPlaceEdit-OkButton { margin-left: 5px; }
 
-.inputEx-InPlaceEdit-editorDiv {
-   float: left;
-}
-
-a.inputEx-InPlaceEdit-OkButton {
-   margin-top: 3px;
-   margin-left: 5px;
-   float: left;
-   font-size: 120%;
-   text-decoration: none;
-}
-
-a.inputEx-InPlaceEdit-CancelLink {
-   margin-left:5px;
-   margin-top:5px;
-   float: left;
-   text-decoration: none;
-}
 
 /**
  * inputEx.AutoComplete
@@ -319,7 +299,7 @@ div.inputEx-PickerField, div.inputEx-PickerField input {
 
 div.inputEx-PickerField {
    background: none;
-   padding-left: inherit;
+   padding-left: 0;
 }
 
 div.inputEx-PickerField .yui-menu-button button {
@@ -483,20 +463,39 @@ div.inputEx-Password-StrengthIndicator div.inputEx-Password-StrengthIndicatorBlo
 /**
  * Checkbox
  */
-div.inputEx-CheckBox input {
-   float: left;
-   margin: 2px 0 4px 0;
-}
+ 
+/* Common css */
+div.inputEx-CheckBox { padding-top:0.2em; }
+div.inputEx-CheckBox input { margin-right: 0.2em; }
+label.inputExForm-checkbox-rightLabel { cursor:pointer; }
 
-label.inputEx-CheckBox-rightLabel {
-   margin: 3px;
-}
+/* Awful hack to target IE < 8 */
+div.inputEx-CheckBox { *padding-top:0; }
+
+/* Awful hack to target webkit */
+@media screen and (-webkit-min-device-pixel-ratio:0) { div.inputEx-CheckBox input {position:relative; top:1px;} }
+
+
+/**
+ * Radio Field
+ */
+label.inputEx-RadioField-rightLabel { cursor: pointer; }
+
+div.inputEx-RadioField-choice { float: left; margin-right: 10px; margin-top:0.2em; }
+
+/* Awful hack to target IE < 8 */
+div.inputEx-RadioField-choice { *margin-top:0; }
+
+/* Awful hack to target IE > 7 and modern browsers */
+html>/**/body div.inputEx-RadioField-choice input { position:relative; top:0.2em; margin-right:0.2em; }
+html>/**/body div.inputEx-RadioField-choice input, x:-moz-any-link, x:default  { top:0; } /* Re-fix for firefox 3.0+ */
+
+/* Vertical display */
+.inputEx-RadioField-Vertically .inputEx-RadioField-choice { float: none; }
 
 /**
  * CombineField
  */
-div.inputEx-CombineField {
-}
 
 div.inputEx-CombineField-separator {
    float: left;
@@ -531,19 +530,6 @@ div.inputEx-CombineField-separator {
    text-decoration: underline;
 }
 
-
-/**
- * Radio Field
- */
-label.inputEx-RadioField-rightLabel {
-   cursor: pointer;
-   margin: 3px;
-}
-
-div.inputEx-RadioField-choice {
-   float: left;
-   margin-left: 10px;
-}
 
 /**
  * inputEx.TypeField

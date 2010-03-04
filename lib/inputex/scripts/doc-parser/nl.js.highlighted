@@ -1,0 +1,57 @@
+<div class="highlight"><pre><span class="c">// Dutch translations for inputEx 0.2.2. Courtesy of Oqapi (http://www.oqapi.nl).</span>
+<span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+   <span class="kd">var</span> <span class="nx">msgs</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="o">;</span>
+
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">required</span> <span class="o">=</span> <span class="s2">&quot;Dit veld is verplicht&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">invalid</span> <span class="o">=</span> <span class="s2">&quot;Dit veld is incorrect&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">valid</span> <span class="o">=</span> <span class="s2">&quot;Dit veld is correct&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">invalidEmail</span> <span class="o">=</span> <span class="s2">&quot;Het emailadres is incorrect; bv. example@test.com&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">selectColor</span> <span class="o">=</span> <span class="s2">&quot;Kies een kleur :&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">invalidPassword</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Het paswoord moet bestaan uit minstens &quot;</span><span class="o">,</span><span class="s2">&quot; karakters (letters of cijfers).&quot;</span><span class="p">];</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">invalidPasswordConfirmation</span> <span class="o">=</span> <span class="s2">&quot;De ingevoerde paswoorden komen niet overeen!&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">capslockWarning</span> <span class="o">=</span> <span class="s2">&quot;Let op: de caps-lock staat aan.&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">invalidDate</span> <span class="o">=</span> <span class="s2">&quot;De datum is incorrect; bv: 25/01/2007&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">defaultDateFormat</span> <span class="o">=</span> <span class="s2">&quot;d/m/Y&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">shortMonths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Jan&quot;</span><span class="o">,</span> <span class="s2">&quot;Feb&quot;</span><span class="o">,</span> <span class="s2">&quot;Mrt&quot;</span><span class="o">,</span> <span class="s2">&quot;Apr&quot;</span><span class="o">,</span> <span class="s2">&quot;Mei&quot;</span><span class="o">,</span> <span class="s2">&quot;Jun&quot;</span><span class="o">,</span> <span class="s2">&quot;Jul&quot;</span><span class="o">,</span> <span class="s2">&quot;Aug&quot;</span><span class="o">,</span> <span class="s2">&quot;Sep&quot;</span><span class="o">,</span> <span class="s2">&quot;Oct&quot;</span><span class="o">,</span> <span class="s2">&quot;Nov&quot;</span><span class="o">,</span> <span class="s2">&quot;Dec&quot;</span><span class="p">];</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">months</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Januari&quot;</span><span class="o">,</span> <span class="s2">&quot;Februari&quot;</span><span class="o">,</span> <span class="s2">&quot;Maart&quot;</span><span class="o">,</span> <span class="s2">&quot;April&quot;</span><span class="o">,</span> <span class="s2">&quot;Mei&quot;</span><span class="o">,</span> <span class="s2">&quot;Juni&quot;</span><span class="o">,</span> <span class="s2">&quot;Juli&quot;</span><span class="o">,</span> <span class="s2">&quot;Augustus&quot;</span><span class="o">,</span> <span class="s2">&quot;September&quot;</span><span class="o">,</span> <span class="s2">&quot;Oktober&quot;</span><span class="o">,</span> <span class="s2">&quot;November&quot;</span><span class="o">,</span> <span class="s2">&quot;December&quot;</span><span class="p">];</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">weekdays1char</span> <span class="o">=</span>  <span class="p">[</span><span class="s2">&quot;Z&quot;</span><span class="o">,</span> <span class="s2">&quot;M&quot;</span><span class="o">,</span> <span class="s2">&quot;D&quot;</span><span class="o">,</span> <span class="s2">&quot;W&quot;</span><span class="o">,</span> <span class="s2">&quot;D&quot;</span><span class="o">,</span> <span class="s2">&quot;V&quot;</span><span class="o">,</span> <span class="s2">&quot;Z&quot;</span><span class="p">];</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">shortWeekdays</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Zo&quot;</span><span class="o">,</span><span class="s2">&quot;Ma&quot;</span><span class="o">,</span><span class="s2">&quot;Di&quot;</span><span class="o">,</span><span class="s2">&quot;Wo&quot;</span><span class="o">,</span><span class="s2">&quot;Do&quot;</span><span class="o">,</span><span class="s2">&quot;Vr&quot;</span><span class="o">,</span><span class="s2">&quot;Za&quot;</span><span class="p">];</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">selectMonth</span> <span class="o">=</span> <span class="s2">&quot;- Maak een keuze -&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">dayTypeInvite</span> <span class="o">=</span> <span class="s2">&quot;Dag&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">monthTypeInvite</span> <span class="o">=</span> <span class="s2">&quot;Maand&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">yearTypeInvite</span> <span class="o">=</span> <span class="s2">&quot;Jaar&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">cancelEditor</span> <span class="o">=</span> <span class="s2">&quot;annuleren&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">okEditor</span> <span class="o">=</span> <span class="s2">&quot;Ok&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">defautCalendarOpts</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">navigator</span><span class="o">:</span> <span class="p">{</span>
+               <span class="nx">strings</span> <span class="o">:</span> <span class="p">{</span>
+                   <span class="nx">month</span><span class="o">:</span> <span class="s2">&quot;Kies een maand&quot;</span><span class="o">,</span>
+                   <span class="nx">year</span><span class="o">:</span> <span class="s2">&quot;Voer een jaar in&quot;</span><span class="o">,</span>
+                   <span class="nx">submit</span><span class="o">:</span> <span class="s2">&quot;Ok&quot;</span><span class="o">,</span>
+                   <span class="nx">cancel</span><span class="o">:</span> <span class="s2">&quot;Annuleren&quot;</span><span class="o">,</span>
+                   <span class="nx">invalidYear</span><span class="o">:</span> <span class="s2">&quot;Jaar is incorrect&quot;</span>
+               <span class="p">}</span>
+      <span class="p">}</span><span class="o">,</span>
+      <span class="nx">start_weekday</span><span class="o">:</span> <span class="mi">0</span>
+   <span class="p">};</span>
+
+
+   <span class="c">// Datatable</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">saveText</span> <span class="o">=</span> <span class="s2">&quot;Opslaan&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">cancelText</span> <span class="o">=</span> <span class="s2">&quot;Annuleren&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">modifyText</span> <span class="o">=</span> <span class="s2">&quot;Wijzigen&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">deleteText</span> <span class="o">=</span> <span class="s2">&quot;Verwijderen&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">insertItemText</span> <span class="o">=</span> <span class="s2">&quot;Toevoegen&quot;</span><span class="o">;</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">confirmDeletion</span> <span class="o">=</span> <span class="s2">&quot;Weet u het zeker?&quot;</span><span class="o">;</span>
+
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">stringTooShort</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Dit veld moet tenminste &quot;</span><span class="o">,</span><span class="s2">&quot; nummers of karakters bevatten&quot;</span><span class="p">];</span>
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">stringTooLong</span>  <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Dit veld mag maximaal &quot;</span><span class="o">,</span><span class="s2">&quot; nummers of karakters bevatten&quot;</span><span class="p">];</span>
+
+   <span class="nx">msgs</span><span class="p">.</span><span class="nx">invalidUrl</span> <span class="o">=</span> <span class="s2">&quot;Ongeldige URL, bv: http://www.test.com&quot;</span><span class="o">;</span>
+
+	<span class="c">// for YUI loader </span>
+   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">lang_nl</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+<span class="p">})();</span>
+</pre></div>

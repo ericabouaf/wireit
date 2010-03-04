@@ -1,6 +1,6 @@
 /* 
 Distributed under the MIT License :
-Visit http://javascript.neyric.com/inputex for more informations
+Visit http://neyric.github.com/inputex for more informations
 
 Copyright (c) 2007-2010, Eric Abouaf <eric.abouaf at gmail.com>
 

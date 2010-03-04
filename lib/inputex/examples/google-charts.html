@@ -54,10 +54,10 @@
 <body class="yui-skin-sam">
 	
 	<div id='container'>
-		<p class="title">inputExChart</p>
+		<h2>inputExChart</h2>
 		<p class="description">
 			Enter the desired configuration and click the 'Update' button.<br />
-			This application is an example for the <a href="http://javascript.neyric.com/inputex">inputEx Library</a>.<br />
+			This application is an example for the <a href="http://neyric.github.com/inputex">inputEx Library</a>.<br />
 		</p>
 		
 		<table id='mainTable'>
@@ -137,20 +137,21 @@ YAHOO.util.Event.onDOMReady( function() {
 	form = new inputEx.Form({
 		parentEl: 'htmlFormContainer',
 		fields: [
-	      { inputParams: {label: 'Title', name: 'title', value: 'My Graph'} },
-				{ type: 'integer', inputParams: {label: 'Width', name: 'width', value: 320} },
-				{ type: 'integer', inputParams: {label: 'Height', name: 'height', value: 240} },
-				{ type: 'list', inputParams: {label: 'Labels', name: 'labels', value:['Q1','Q2','Q3','Q4']}},
-				{ type: 'list', inputParams: {label: 'Colors',name: 'colors', elementType: {type: 'color', inputParams:{} }, value: ['#ff0000','#00ff00','#0000ff','#ffff00'] }},
-				{ type: 'list', inputParams: {
-					label: 'Series',
-					name: 'series', 
-					elementType: {
-						type: 'list', 
-						inputParams: { type: 'integer', inputParams: {} }
-					},
-					value: [[10,20,30,40],[40,30,20,10],[15,15,15,15],[0,10,25,50]]
-				}}
+	      { label: 'Title', name: 'title', value: 'My Graph' },
+			{ type: 'integer', label: 'Width', name: 'width', value: 320 },
+			{ type: 'integer', label: 'Height', name: 'height', value: 240 },
+			{ type: 'list', label: 'Labels', name: 'labels', value:['Q1','Q2','Q3','Q4']},
+			{ type: 'list', label: 'Colors',name: 'colors', elementType: {type: 'color' }, value: ['#ff0000','#00ff00','#0000ff','#ffff00'] },
+			{
+			   type: 'list',
+				label: 'Series',
+				name: 'series', 
+				elementType: {
+					type: 'list',
+					elementType: {type:'integer'}
+				},
+				value: [[10,20,30,40],[40,30,20,10],[15,15,15,15],[0,10,25,50]]
+			}
 		]
 	});
 

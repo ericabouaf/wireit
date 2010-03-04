@@ -1,0 +1,69 @@
+<div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+   <span class="kd">var</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">,</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">;</span>
+
+<span class="c">/**</span>
+<span class="c"> * A field limited to number inputs</span>
+<span class="c"> * @class inputEx.IntegerField</span>
+<span class="c"> * @extends inputEx.StringField</span>
+<span class="c"> * @constructor</span>
+<span class="c"> * @param {Object} options Added options:</span>
+<span class="c"> * &lt;ul&gt;</span>
+<span class="c"> *    &lt;li&gt;negative: boolean indicating if we accept boolean numbers&lt;/li&gt;</span>
+<span class="c"> * &lt;/ul&gt;</span>
+<span class="c"> */</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">IntegerField</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">IntegerField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">IntegerField</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">StringField</span><span class="o">,</span> <span class="p">{</span>
+   <span class="c">/**</span>
+<span class="c">    * Adds the negative, min, and max options</span>
+<span class="c">    * @param {Object} options</span>
+<span class="c">    */</span>
+   <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">inputEx</span><span class="p">.</span><span class="nx">IntegerField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+      
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">negative</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">negative</span><span class="p">)</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">negative</span><span class="o">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">min</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">min</span><span class="p">)</span> <span class="o">?</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">negative</span> <span class="o">?</span> <span class="o">-</span><span class="kc">Infinity</span> <span class="o">:</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">min</span><span class="o">,</span><span class="mi">10</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">max</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">max</span><span class="p">)</span> <span class="o">?</span> <span class="kc">Infinity</span> <span class="o">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">max</span><span class="o">,</span><span class="mi">10</span><span class="p">);</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * Get the value</span>
+<span class="c">    * @return {int} The integer value</span>
+<span class="c">    */</span>
+   <span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c">// don&#39;t return NaN if empty field</span>
+      <span class="k">if</span> <span class="p">((</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">typeInvite</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span> <span class="o">==</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">typeInvite</span><span class="p">)</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">;</span>
+      <span class="p">}</span>
+      
+      <span class="k">return</span> <span class="nb">parseInt</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="mi">10</span><span class="p">);</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * Validate  if is a number</span>
+<span class="c">    */</span>
+   <span class="nx">validate</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">v</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
+      
+      <span class="c">// empty field</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">v</span> <span class="o">===</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span>
+         <span class="c">// validate only if not required</span>
+         <span class="k">return</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">required</span><span class="o">;</span>
+      <span class="p">}</span>
+      
+      <span class="k">if</span><span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">v</span><span class="p">))</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+      <span class="k">return</span> <span class="o">!!</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">negative</span> <span class="o">?</span> <span class="s2">&quot;^[+-]?[0-9]*$&quot;</span> <span class="o">:</span> <span class="s2">&quot;^\\+?[0-9]*$&quot;</span><span class="p">)</span> <span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">v</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">min</span> <span class="o">&amp;&amp;</span> <span class="nx">v</span> <span class="o">&lt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">max</span><span class="o">;</span>
+   <span class="p">}</span>
+   
+<span class="p">});</span>
+
+<span class="c">// Register this class as &quot;integer&quot; type</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">registerType</span><span class="p">(</span><span class="s2">&quot;integer&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">IntegerField</span><span class="o">,</span> <span class="p">[</span>
+   <span class="c">//{ type: &#39;integer&#39;, label: &#39;Radix&#39;, name: &#39;radix&#39;, value: 10},</span>
+   <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;boolean&#39;</span><span class="o">,</span> <span class="kd">label</span><span class="o">:</span> <span class="s1">&#39;Accept negative&#39;</span><span class="o">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;negative&#39;</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}</span>
+<span class="p">]);</span>
+
+<span class="p">})();</span>
+</pre></div>

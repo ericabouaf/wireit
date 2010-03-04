@@ -31,32 +31,33 @@ inputEx.spacerUrl = "../images/space.gif";
 
 var rssFormDef = {
 	type: 'group',
-	
-	inputParams: {
-		parentEl: 'formContainer',
-		fields: [
-			{type: 'number', inputParams: {label: 'Version', name: '-version'} },
-			{type: 'group', inputParams: {
-				name: 'channel',
-				fields: [
-					{type: 'string', inputParams: {label: 'Title', name: 'title'}},
-					{type: 'string', inputParams: {label: 'Description', name: 'description'}},
-					{type: 'url', inputParams: {label: 'Link', name: 'link'}},
-					{type: 'select', inputParams: {label: 'Language', name: 'language', selectValues: ['en', 'fr']}},
-					{type: 'list', inputParams: {name: 'item', useButtons: true, elementType:{
-						type: 'group',
-						inputParams: {
-							fields: [
-								{type: 'string', inputParams: {label: 'Title', name: 'title'}},
-								{type: 'string', inputParams: {label: 'Description', name: 'description'}},
-								{type: 'string', inputParams: {label: 'Link', name: 'link'}}
-							]
-						}
-					}}}
-				]
-			}}
-		]
-	}
+	parentEl: 'formContainer',
+	fields: [
+		{type: 'number', label: 'Version', name: '-version' },
+		{
+		   type: 'group',
+			name: 'channel',
+			fields: [
+				{type: 'string', label: 'Title', name: 'title'},
+				{type: 'string', label: 'Description', name: 'description'},
+				{type: 'url', label: 'Link', name: 'link'},
+				{type: 'select', label: 'Language', name: 'language', selectValues: ['en', 'fr']},
+				{
+				   type: 'list',
+				   name: 'item',
+				   useButtons: true,
+				   elementType:{
+					   type: 'group',
+   					fields: [
+   						{type: 'string', label: 'Title', name: 'title'},
+   						{type: 'string', label: 'Description', name: 'description'},
+   						{type: 'string', label: 'Link', name: 'link'}
+   					]
+				   }
+				}
+			]
+		}
+	]
 };
 
 

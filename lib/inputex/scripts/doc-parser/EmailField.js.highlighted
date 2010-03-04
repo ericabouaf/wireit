@@ -1,0 +1,48 @@
+<div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+<span class="c">/**</span>
+<span class="c"> * Field that adds the email regexp for validation. Result is always lower case.</span>
+<span class="c"> * @class inputEx.EmailField</span>
+<span class="c"> * @extends inputEx.StringField</span>
+<span class="c"> * @constructor</span>
+<span class="c"> * @param {Object} options inputEx.Field options object</span>
+<span class="c"> */</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">EmailField</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">EmailField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">EmailField</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">StringField</span><span class="o">,</span> <span class="p">{</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * Set the email regexp and invalid message</span>
+<span class="c">    * @param {Object} options Options object as passed to the constructor</span>
+<span class="c">    */</span>
+   <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">inputEx</span><span class="p">.</span><span class="nx">EmailField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+      <span class="c">// Overwrite options</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">invalid</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">invalidEmail</span><span class="o">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">regexp</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">regexps</span><span class="p">.</span><span class="nx">email</span><span class="o">;</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * Set the value to lower case since email have no case</span>
+<span class="c">    * @return {String} The email string</span>
+<span class="c">    */</span>
+   <span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      
+      <span class="kd">var</span> <span class="nx">value</span><span class="o">;</span>
+      
+      <span class="nx">value</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">EmailField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">getValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+      
+      <span class="k">return</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">removeAccents</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">());</span>
+   <span class="p">}</span>
+
+<span class="p">});</span>
+   
+<span class="c">// Specific message for the email field</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">invalidEmail</span> <span class="o">=</span> <span class="s2">&quot;Invalid email, ex: sample@test.com&quot;</span><span class="o">;</span>
+
+<span class="c">// Register this class as &quot;email&quot; type</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">registerType</span><span class="p">(</span><span class="s2">&quot;email&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">EmailField</span><span class="o">,</span> <span class="p">[]);</span>
+
+<span class="p">})();</span>
+</pre></div>

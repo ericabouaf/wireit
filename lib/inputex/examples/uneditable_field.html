@@ -20,12 +20,12 @@
 
  <body>
 
-<p class='demoTitle'>inputEx - UneditableField Usage</p>
+<h1>inputEx - UneditableField Usage</h1>
 
 
 <!-- Example 1 -->
 <div class='exampleDiv'>
-	<p class="title">UneditableField with HTML string</p>
+	<h2>UneditableField with HTML string</h2>
 	<p>To format the value of the field with an html string, use the <i>formatValue</i> function (schould return a string):</p>
 	<div class='demoContainer' id='container1'></div>
 	<div class='codeContainer'>
@@ -42,7 +42,7 @@
 
 <!-- Example 2 -->
 <div class='exampleDiv'>
-	<p class="title">UneditableField with DOM rendering</p>
+	<h2>UneditableField with DOM rendering</h2>
 	<p>To render the value of the field with a DOM element (to add a behaviour), use the <i>formatDom</i> function (schould return a dom element):</p>
 	<div class='demoContainer' id='container2'></div>
 	<div class='codeContainer'>
@@ -62,20 +62,18 @@
 
 <!-- Example 3 -->
 <div class='exampleDiv'>
-	<p class="title">UneditableField with DOM rendering</p>
+	<h2>UneditableField with DOM rendering</h2>
 	<p>Display an image from the field value :</p>
 	<div class='demoContainer' id='container3'></div>
 	<div class='codeContainer'>
 		<textarea name="code" class="JScript">
 			inputEx({
 				type: "uneditable",
-				inputParams: {
-					name: 'pagerank', 
-					value: 5, 
-					label: "Pagerank",
-					visu: {visuType: 'func', func: function(value){ return inputEx.cn('img',{src: "http://www.page-rank-lookup.com/i/style1/pagerank"+value+".png"}) } },
-					parentEl: 'container3' 
-				}
+				name: 'pagerank', 
+				value: 5, 
+				label: "Pagerank",
+				visu: {visuType: 'func', func: function(value){ return inputEx.cn('img',{src: "http://www.page-rank-lookup.com/i/style1/pagerank"+value+".png"}) } },
+				parentEl: 'container3'
 			});
 		</textarea>
 	</div>

@@ -18,13 +18,13 @@
 
  <body>
 
-<p class='demoTitle'>inputEx - HiddenField Usage</p>
+<h1>inputEx - HiddenField Usage</h1>
 
 
 <!-- Example 1 -->
 <div class='exampleDiv'>
 
-	<p class="title">Basic HiddenField creation</p>
+	<h2>Basic HiddenField creation</h2>
 	
 	<p>The hidden field is by definition 'invisible', so there isn't a lot to see. However, it can be useful to keep an id :</p>
 
@@ -35,8 +35,8 @@
 		var exampleDiv = YAHOO.util.Dom.get('container1');
 		var group = new inputEx.Group({
 			 	fields: [ 
-					{ type: 'hidden', inputParams: {name: 'id', value: 12 } }, 
-					{ inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } } 
+					{ type: 'hidden', name: 'id', value: 12 },
+					{ type: 'string', label: 'Firstname', name: 'firstname', required: true, value:'Jacques'}
 				], 
 				parentEl: exampleDiv
 		});

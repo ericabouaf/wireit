@@ -22,7 +22,7 @@
 	
 <!-- Example 1 -->
 <div class='exampleDiv'>
-	<p class="title">Create a form from a json-schema</p>
+	<h2>Create a form from a json-schema</h2>
 	<p></p>
 	<div class='demoContainer' id='container1'></div>
 	<div class='codeContainer'>
@@ -34,7 +34,7 @@
 			  }
 		  });
 			var m = builder.schemaToInputEx(base_schema_map.community);
-			m.inputParams.parentEl = 'container1';
+			m.parentEl = 'container1';
 			var f = inputEx(m);
 		</textarea>
 	</div>

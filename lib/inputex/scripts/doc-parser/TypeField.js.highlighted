@@ -1,0 +1,273 @@
+<div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+   <span class="kd">var</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">,</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="o">,</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">;</span>
+
+<span class="c">/**</span>
+<span class="c"> * TypeField is a field to create fields. The user can create any value he wants by switching fields.</span>
+<span class="c"> * @class inputEx.TypeField</span>
+<span class="c"> * @extends inputEx.Field</span>
+<span class="c"> * @constructor</span>
+<span class="c"> * @param {Object} options  Standard inputEx options definition</span>
+<span class="c"> */</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">TypeField</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">TypeField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+   
+   <span class="c">// Build the updateFieldValue</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">updateFieldValue</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">TypeField</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Field</span><span class="o">,</span> <span class="p">{</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * Render the TypeField: create a button with a property panel that contains the field options</span>
+<span class="c">    */</span>
+   <span class="nx">renderComponent</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c">// DIV element to wrap the Field &quot;default value&quot;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">fieldValueWrapper</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s2">&quot;inputEx-TypeField-FieldValueWrapper&quot;</span><span class="p">});</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">fieldValueWrapper</span> <span class="p">);</span>
+      
+      <span class="c">// Render the popup that will contain the property form</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">propertyPanel</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s2">&quot;inputEx-TypeField-PropertiesPanel&quot;</span><span class="p">}</span><span class="o">,</span> <span class="p">{</span><span class="nx">display</span><span class="o">:</span> <span class="s1">&#39;none&#39;</span><span class="p">});</span>
+      
+      <span class="c">// The list of all inputEx declared types to be used in the &quot;type&quot; selector</span>
+      <span class="kd">var</span> <span class="nx">selectOptions</span> <span class="o">=</span> <span class="p">[];</span>
+      <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">typeClasses</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">if</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">typeClasses</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">selectOptions</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">key</span> <span class="p">);</span>  
+         <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">typeSelect</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">SelectField</span><span class="p">({</span><span class="kd">label</span><span class="o">:</span> <span class="s2">&quot;Type&quot;</span><span class="o">,</span> <span class="nx">selectOptions</span><span class="o">:</span> <span class="nx">selectOptions</span><span class="o">,</span> <span class="nx">selectValues</span><span class="o">:</span> <span class="nx">selectOptions</span><span class="o">,</span> <span class="nx">parentEl</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">propertyPanel</span><span class="p">});</span>
+
+      <span class="c">// DIV element to wrap the options group</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">groupOptionsWrapper</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">propertyPanel</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">groupOptionsWrapper</span> <span class="p">);</span>
+      
+      <span class="c">// Button to switch the panel</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">button</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s2">&quot;inputEx-TypeField-EditButton&quot;</span><span class="p">});</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">propertyPanel</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">);</span>
+      
+      <span class="c">// Build the groupOptions</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">rebuildGroupOptions</span><span class="p">();</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * Adds 2 event listeners: </span>
+<span class="c">    *  - on the button to toggel the propertiesPanel</span>
+<span class="c">    */</span>
+   <span class="nx">initEvents</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">inputEx</span><span class="p">.</span><span class="nx">TypeField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">initEvents</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span> 
+      
+      <span class="c">// &quot;Toggle the properties panel&quot; button :</span>
+      <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="o">,</span> <span class="s1">&#39;click&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onTogglePropertiesPanel</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+      
+      <span class="c">// Prevent the button to receive a &quot;click&quot; event if the propertyPanel doesn&#39;t catch it</span>
+      <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">propertyPanel</span><span class="o">,</span> <span class="s1">&#39;click&#39;</span><span class="o">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="nx">Event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">(</span><span class="nx">e</span><span class="p">);}</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+      
+      <span class="c">// Listen the &quot;type&quot; selector to update the groupOptions</span>
+      <span class="c">// Hack the type selector to rebuild the group option</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">typeSelect</span><span class="p">.</span><span class="nx">updatedEvt</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">rebuildGroupOptions</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * Regenerate the property form</span>
+<span class="c">    */</span>
+   <span class="nx">rebuildGroupOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">try</span> <span class="p">{</span>
+         
+         <span class="c">// Save the previous value:</span>
+         <span class="kd">var</span> <span class="nx">previousVal</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+         
+         <span class="c">// Close a previously created group</span>
+         <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">group</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">previousVal</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">group</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">group</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">group</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">groupOptionsWrapper</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
+         <span class="p">}</span>
+      
+         <span class="c">// Get value is directly the class !!</span>
+         <span class="kd">var</span> <span class="nx">classO</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">getFieldClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">typeSelect</span><span class="p">.</span><span class="nx">getValue</span><span class="p">());</span>
+         
+         <span class="c">// Instanciate the group</span>
+         <span class="kd">var</span> <span class="nx">groupParams</span> <span class="o">=</span> <span class="p">{</span><span class="nx">fields</span><span class="o">:</span> <span class="nx">classO</span><span class="p">.</span><span class="nx">groupOptions</span><span class="o">,</span> <span class="nx">parentEl</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">groupOptionsWrapper</span><span class="p">};</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">group</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Group</span><span class="p">(</span><span class="nx">groupParams</span><span class="p">);</span>
+         
+         <span class="c">// Set the previous name/label</span>
+         <span class="k">if</span><span class="p">(</span><span class="nx">previousVal</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">group</span><span class="p">.</span><span class="nx">setValue</span><span class="p">({</span>
+               <span class="nx">name</span><span class="o">:</span> <span class="nx">previousVal</span><span class="p">.</span><span class="nx">name</span><span class="o">,</span>
+               <span class="kd">label</span><span class="o">:</span> <span class="nx">previousVal</span><span class="p">.</span><span class="kd">label</span>
+            <span class="p">});</span>
+         <span class="p">}</span>
+         
+         <span class="c">// Register the updated event</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">group</span><span class="p">.</span><span class="nx">updatedEvt</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">onChangeGroupOptions</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+            
+         <span class="c">// Create the value field</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">updateFieldValue</span><span class="p">();</span>
+         
+      <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">if</span><span class="p">(</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="nb">window</span><span class="p">[</span><span class="s2">&quot;console&quot;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nb">window</span><span class="p">[</span><span class="s2">&quot;console&quot;</span><span class="p">][</span><span class="s2">&quot;log&quot;</span><span class="p">])</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;inputEx.TypeField.rebuildGroupOptions: &quot;</span><span class="o">,</span> <span class="nx">ex</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+         
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * Toggle the property panel</span>
+<span class="c">    */</span>
+   <span class="nx">onTogglePropertiesPanel</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">propertyPanel</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">propertyPanel</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">;</span>
+         <span class="nx">Dom</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="o">,</span> <span class="s2">&quot;opened&quot;</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">propertyPanel</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="o">;</span>
+         <span class="nx">Dom</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="o">,</span> <span class="s2">&quot;opened&quot;</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * Update the fieldValue with the changed properties</span>
+<span class="c">    */</span>
+   <span class="nx">onChangeGroupOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      
+      <span class="c">// Update the field value </span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">updateFieldValue</span><span class="p">();</span>
+      
+      <span class="c">// Fire updatedEvt</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="p">();</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * Update the fieldValue</span>
+<span class="c">    */</span>
+   <span class="nx">updateFieldValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">try</span> <span class="p">{</span>
+         <span class="c">// Close previous field</span>
+         <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">fieldValue</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">fieldValue</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">fieldValue</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+            <span class="nx">delete</span> <span class="k">this</span><span class="p">.</span><span class="nx">fieldValue</span><span class="o">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">fieldValueWrapper</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">;</span>
+         <span class="p">}</span>
+      
+         <span class="c">// Re-build the fieldValue</span>
+         <span class="kd">var</span> <span class="nx">fieldOptions</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">group</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
+         
+         <span class="nx">fieldOptions</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">().</span><span class="nx">type</span><span class="o">;</span>
+         <span class="nx">fieldOptions</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">fieldValueWrapper</span><span class="o">;</span>
+         
+         <span class="k">this</span><span class="p">.</span><span class="nx">fieldValue</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">(</span><span class="nx">fieldOptions</span><span class="o">,</span><span class="k">this</span><span class="p">);</span>
+      
+         <span class="c">// Refire the event when the fieldValue is updated</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">fieldValue</span><span class="p">.</span><span class="nx">updatedEvt</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">catch</span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Error while updateFieldValue&quot;</span><span class="o">,</span> <span class="nx">ex</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   
+   <span class="c">/**</span>
+<span class="c">    * Set the value of the label, typeProperties and group</span>
+<span class="c">    * @param {Object} value Type object configuration</span>
+<span class="c">    * @param {boolean} [sendUpdatedEvt] (optional) Wether this setValue should fire the updatedEvt or not (default is true, pass false to NOT send the event)</span>
+<span class="c">    */</span>
+   <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="c">// Set type in property panel</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">typeSelect</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">type</span><span class="o">,</span> <span class="kc">false</span><span class="p">);</span>
+      
+      <span class="c">// Rebuild the panel propertues</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">rebuildGroupOptions</span><span class="p">();</span>
+      
+      <span class="c">// Set the parameters value</span>
+      
+      <span class="c">// Retro-compatibility with deprecated inputParams Object</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">))</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">group</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">inputParams</span><span class="o">,</span> <span class="kc">false</span><span class="p">);</span>
+
+      <span class="c">// New prefered way to describe a field</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">group</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="kc">false</span><span class="p">);</span>
+      <span class="p">}</span>
+      
+      <span class="c">// Rebuild the fieldValue</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">updateFieldValue</span><span class="p">();</span>
+      
+      <span class="c">// Set field value : TODO -&gt; fix it for default value (because updateFieldValue is called after first setValue)</span>
+      
+      <span class="c">// Retro-compatibility with deprecated inputParams Object</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">value</span><span class="p">))</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">fieldValue</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+         
+      <span class="c">// New prefered way to describe a field</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">value</span><span class="p">))</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">fieldValue</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+      <span class="p">}</span>
+      
+	   <span class="k">if</span><span class="p">(</span><span class="nx">sendUpdatedEvt</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+	      <span class="c">// fire update event</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="p">();</span>
+      <span class="p">}</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * Return the config for a entry in an Group</span>
+<span class="c">    * @return {Object} Type object configuration</span>
+<span class="c">    */</span>
+   <span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      
+      <span class="kd">var</span> <span class="nx">getDefaultValueForField</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">classObj</span><span class="o">,</span> <span class="nx">paramName</span><span class="p">)</span> <span class="p">{</span>
+         <span class="kd">var</span> <span class="nx">i</span><span class="o">,</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">classObj</span><span class="p">.</span><span class="nx">groupOptions</span><span class="p">.</span><span class="nx">length</span><span class="o">,</span> <span class="nx">f</span><span class="o">;</span>
+         
+         <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">f</span> <span class="o">=</span> <span class="nx">classObj</span><span class="p">.</span><span class="nx">groupOptions</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+            
+            <span class="c">// Retro-compatibility with deprecated inputParams Object</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">f</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">name</span> <span class="o">==</span> <span class="nx">paramName</span><span class="p">)</span> <span class="p">{</span>
+               <span class="k">return</span> <span class="nx">f</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">value</span><span class="o">;</span>
+               
+            <span class="c">// New prefered way to use field options</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">name</span> <span class="o">==</span> <span class="nx">paramName</span><span class="p">)</span> <span class="p">{</span>
+               <span class="k">return</span> <span class="nx">f</span><span class="p">.</span><span class="nx">value</span><span class="o">;</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+         <span class="k">return</span> <span class="kc">undefined</span><span class="o">;</span>
+      <span class="p">};</span>
+      
+      
+      <span class="c">// The field parameters</span>
+      <span class="kd">var</span> <span class="nx">fieldParams</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">group</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
+      <span class="kd">var</span> <span class="nx">classObj</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">getFieldClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">typeSelect</span><span class="p">.</span><span class="nx">getValue</span><span class="p">());</span>
+      
+      <span class="c">// + default values</span>
+      <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">fieldParams</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">if</span><span class="p">(</span> <span class="nx">fieldParams</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">value1</span> <span class="o">=</span> <span class="nx">getDefaultValueForField</span><span class="p">(</span><span class="nx">classObj</span><span class="o">,</span> <span class="nx">key</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">value2</span> <span class="o">=</span> <span class="nx">fieldParams</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">value1</span> <span class="o">==</span> <span class="nx">value2</span><span class="p">)</span> <span class="p">{</span>
+               <span class="nx">fieldParams</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="kc">undefined</span><span class="o">;</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+      
+      <span class="c">// The field type</span>
+      <span class="nx">fieldParams</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">typeSelect</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
+      
+      <span class="c">// The value defined by the fieldValue</span>
+      <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">fieldValue</span><span class="p">)</span> <span class="nx">fieldParams</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">fieldValue</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
+      
+      <span class="k">return</span> <span class="nx">fieldParams</span><span class="o">;</span>
+   <span class="p">}</span>
+   
+<span class="p">});</span>
+
+
+<span class="c">// Register this class as &quot;type&quot; type</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">registerType</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">TypeField</span><span class="o">,</span> <span class="p">[]);</span>
+
+<span class="p">})();</span>
+</pre></div>

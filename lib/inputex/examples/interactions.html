@@ -20,7 +20,7 @@
 
  <body>
 
-<p class='demoTitle'>inputEx - Group interactions</p>
+<h1>inputEx - Group interactions</h1>
 
 <!-- YUI Library -->
 <script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
@@ -48,52 +48,48 @@
 
 <!-- Example 1 -->
 <div class='exampleDiv'>
- <p class="title">Using a checkbox to show/hide another field</p>
+ <h2>Using a checkbox to show/hide another field</h2>
  <p>Use an action</p>
  <div class='demoContainer' id='container1'></div>
  <div class='codeContainer'>
   <textarea name="code" class="JScript">
 		inputEx({
 			type: "group",
-			inputParams: { 
-		   	parentEl: 'container1',
-		   	fields: [
-		       {
-					   type: 'boolean', // inputex type
-					   inputParams: {
-						    name: 'toggler',
-					      value: true,
-								rightLabel: 'Stay anonymous'
-					   },
-					   interactions: [
-					       {
-					          valueTrigger: false, // this action will run when this field value is set to false
-					          actions: [
-					             {
-					                name: 'username', // name of the field on which the action should run
-					                action: 'show' // name of the method to run on the field instance !
-					             }
-					          ]
-					       },
-					       {
-					          valueTrigger: true, // when set to true:
-					          actions: [
-					             {
-					                name: 'username', 
-					                action: 'hide'
-					             },
-											 {
-							            name: 'username', // name of the field on which the action should run
-							            action: 'clear' // name of the method to run on the field instance !
-							         }
-					          ]
-					       }
-					   ]
-					},
-		      {type: "string", inputParams: {name: "username", label: "Enter your name"} }
-		   ]
-		}
-	});
+	   	parentEl: 'container1',
+	   	fields: [
+	       {
+				   type: 'boolean', // inputex type
+					name: 'toggler',
+				   value: true,
+					rightLabel: 'Stay anonymous',
+				   interactions: [
+				       {
+				          valueTrigger: false, // this action will run when this field value is set to false
+				          actions: [
+				             {
+				                name: 'username', // name of the field on which the action should run
+				                action: 'show' // name of the method to run on the field instance !
+				             }
+				          ]
+				       },
+				       {
+				          valueTrigger: true, // when set to true:
+				          actions: [
+				             {
+				                name: 'username', 
+				                action: 'hide'
+				             },
+										 {
+						            name: 'username', // name of the field on which the action should run
+						            action: 'clear' // name of the method to run on the field instance !
+						         }
+				          ]
+				       }
+				   ]
+				},
+	         {type: "string", name: "username", label: "Enter your name" }
+	      ]
+	   });
   </textarea>
  </div>
 </div>
@@ -104,7 +100,7 @@
 
 <!-- Example 2 -->
 <div class='exampleDiv'>
- <p class="title">Basic Group Interactions</p>
+ <h2>Basic Group Interactions</h2>
  <p>Toggle a field</p>
  <div class='demoContainer' id='container2'></div>
  <div class='codeContainer'>
@@ -115,11 +111,9 @@
 		   fields: [
 		       {
 					   type: 'boolean', // inputex type
-					   inputParams: {
-						    name: 'toggler',
-					      value: true,
-								rightLabel: 'Check this box to toggle the enabled field'
-					   },
+						name: 'toggler',
+					   value: true,
+						rightLabel: 'Check this box to toggle the enabled field',
 					   interactions: [
 					       {
 					          valueTrigger: true, // this action will run when this field value is set to true
@@ -148,28 +142,24 @@
 					          ]
 					       }
 					   ]
-					},
-		       {
+				},
+		      {
 					   type: 'group',
-					   inputParams: {
-					       name: 'group1',
-					       fields: [ 
-										{ type: 'select', inputParams: {label: 'Title',name: 'title', selectValues: ['Mr','Mrs','Mme'] } },
-										{ inputParams: {label: 'Firstname',name: 'firstname', required: true, value:'Jacques' } }, 
-										{ inputParams: {label: 'Lastname',name: 'lastname', value:'Dupont' } }, 
-										{ type:'email', inputParams: {label: 'Email',name: 'email'}}
-								]
-							}
-					 },
-		       {
-					   type: 'group',
-					   inputParams: {
-							   name: 'group2',
-					       fields: [
-									 {type: 'url', inputParams: {label: "Website",  name: 'myUrl' } }
-								 ]
-					   }
-					 }
+				      name: 'group1',
+				      fields: [ 
+								{ type: 'select', label: 'Title',name: 'title', selectValues: ['Mr','Mrs','Mme'] },
+								{ label: 'Firstname', name: 'firstname', required: true, value:'Jacques' },
+								{ label: 'Lastname', name: 'lastname', value:'Dupont' },
+								{ type:'email', label: 'Email', name: 'email'}
+						]
+				},
+		      {
+				   type: 'group',
+				   name: 'group2',
+				   fields: [
+						{type: 'url', label: "Website",  name: 'myUrl' }
+					]
+				}
 		   ]
 		});
   </textarea>
@@ -181,7 +171,7 @@
 
 <!-- Example 3 -->
 <div class='exampleDiv'>
- <p class="title">Basic Group Interactions</p>
+ <h2>Basic Group Interactions</h2>
  <p>Toggle a field</p>
  <div class='demoContainer' id='container3'></div>
  <div class='codeContainer'>
@@ -192,7 +182,8 @@
 		   fields: [
 		       {
 							type: 'select', 
-							inputParams:{ label: 'Select your country', selectValues: ["France", "USA"]},
+							label: 'Select your country',
+							selectValues: ["France", "USA"],
 							interactions: [
 								{
 									valueTrigger: "France",
@@ -222,8 +213,8 @@
 								}
 							]
 					 },
-				   {type: 'select', inputParams: {label: 'Select your city', name: 'franceCitiesSelect', selectValues: ["Paris", "Lyon", "Marseille"]} },
-				   {type: 'select', inputParams: {label: 'Select your city', name: 'USACitiesSelect', selectValues: ["NewYork", "Chicago", "LA","San Francisco"]} }
+				   {type: 'select', label: 'Select your city', name: 'franceCitiesSelect', selectValues: ["Paris", "Lyon", "Marseille"] },
+				   {type: 'select', label: 'Select your city', name: 'USACitiesSelect', selectValues: ["NewYork", "Chicago", "LA","San Francisco"] }
 		   ]
 		});
   </textarea>

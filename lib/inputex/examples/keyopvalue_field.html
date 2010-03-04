@@ -20,7 +20,7 @@
 
  <body>
 
-<p class='demoTitle'>inputEx - KeyOpValueField Usage</p>
+<h1>inputEx - KeyOpValueField Usage</h1>
 
 <!-- YUI Library -->
 <script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
@@ -46,17 +46,17 @@
 
 <!-- Example 1 -->
 <div class='exampleDiv'>
- <p class="title">Basic KeyOpValueField creation</p>
+ <h2>Basic KeyOpValueField creation</h2>
  <p>The KeyOpValueField makes it easy to build a search form from an existing inputEx definition</p>
  <div class='demoContainer' id='container1'></div>
  <div class='codeContainer'>
   <textarea name="code" class="JScript">
 		var field = new inputEx.KeyOpValueField({
 			parentEl: 'container1',
-			fields: [
-				{type: 'string', inputParams: { name: 'lastname', label: 'Lastname' } },
-				{type: 'string', inputParams: { name: 'firstname', label: 'Firstname' } },
-				{type: 'select', inputParams: { name: 'gender', label: 'Gender', selectValues: ["Mr", "Mme","Mlle"] } }
+			availableFields: [
+				{type: 'string', name: 'lastname', label: 'Lastname' },
+				{type: 'string', name: 'firstname', label: 'Firstname' },
+				{type: 'select', name: 'gender', label: 'Gender', selectValues: ["Mr", "Mme","Mlle"] }
 			]
 		});
 		
@@ -73,31 +73,55 @@
 
 <!-- Example 2 -->
 <div class='exampleDiv'>
- <p class="title">List of conditions</p>
+ <h2>List of conditions</h2>
  <p>Here is a search form with multiple conditions</p>
  <div class='demoContainer' id='container2'></div>
  <div class='codeContainer'>
   <textarea name="code" class="JScript">
 	inputEx({
 		type: 'list',
-		inputParams: {
-			parentEl: 'container2',
-			elementType: {
-				type: 'keyopvalue',
-				inputParams: {
-					fields: [
-						{type: 'string', inputParams: { name: 'lastname', label: 'Lastname' } },
-						{type: 'string', inputParams: { name: 'firstname', label: 'Firstname' } },
-						{type: 'select', inputParams: { name: 'gender', label: 'Gender', selectValues: ["Mr", "Mme","Mlle"] } }
-					]
-				}
-			}
+		parentEl: 'container2',
+		elementType: {
+			type: 'keyopvalue',
+			availableFields: [
+				{type: 'string', name: 'lastname', label: 'Lastname' },
+				{type: 'string', name: 'firstname', label: 'Firstname' },
+				{type: 'select', name: 'gender', label: 'Gender', selectValues: ["Mr", "Mme","Mlle"] }
+			]
 		}
 	});
   </textarea>
  </div>
 </div>
 
+
+
+<!-- Example 3 -->
+<div class='exampleDiv'>
+ <h2>Changing the operators and setting labels for operators</h2>
+ <p>Two more options are available for this field: "operators" and "operatorLabels"</p>
+ <div class='demoContainer' id='container3'></div>
+ <div class='codeContainer'>
+  <textarea name="code" class="JScript">
+		var field = new inputEx.KeyOpValueField({
+			parentEl: 'container3',
+			availableFields: [
+				{type: 'string', name: 'lastname', label: 'Lastname' },
+				{type: 'string', name: 'firstname', label: 'Firstname' },
+				{type: 'select', name: 'gender', label: 'Gender', selectValues: ["Mr", "Mme","Mlle"] }
+			],
+			
+			operators: ["=","!="],
+			operatorLabels: ["equals", "different"]
+		});
+		
+		var button = inputEx.cn('button', null, null, 'getValue()');
+		YAHOO.util.Dom.get('container3').appendChild(button); 
+		YAHOO.util.Event.addListener(button, 'click', function() { alert( YAHOO.lang.JSON.stringify(field.getValue())); });  
+		
+  </textarea>
+ </div>
+</div>
 
  </body>
 </html>

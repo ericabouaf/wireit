@@ -15,8 +15,8 @@
 
 <div id="doc3" class="yui-t2">
 	<div id="hd">
-        <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
-        <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
+        <h1><a href="http://neyric.github.com/inputex" title="inputEx-library">inputEx-library</a></h1>
+        <h3>inputEx&nbsp; <span class="subtitle">0.5.0</span></h3>
         <a href="./index.html" title="inputEx-library">inputEx-library</a> 
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
                  &gt; inputEx.Field 
@@ -69,6 +69,9 @@
                                     </span>
                                     <span rel="yui:subclass" resource="inputEx.VectorField.html">
                                     <a href="inputEx.VectorField.html" property="yui:name" title="inputEx.VectorField">inputEx.VectorField</a>
+                                    </span>
+                                    <span rel="yui:subclass" resource="inputEx.SerializeField.html">
+                                    <a href="inputEx.SerializeField.html" property="yui:name" title="inputEx.SerializeField">inputEx.SerializeField</a>
                                     </span>
                                     <span rel="yui:subclass" resource="inputEx.RadioField.html">
                                     <a href="inputEx.RadioField.html" property="yui:name" title="inputEx.RadioField">inputEx.RadioField</a>
@@ -486,6 +489,36 @@ Escape the stack using a setTimeout
                                                     </code></dt>
                                                     <dd property="yui:returnInfo">divEl The main DIV wrapper</dd>
                                                 </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_getParentField">
+                                    <h4>
+                                        <a name="method_getParentField">getParentField</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        inputEx.Group|inputEx.Form|inputEx.ListField|inputEx.CombineField
+                                            <strong property="yui:name">getParentField</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Return the parent field instance
+                                        </div>
+
+                                        <div class="description">
+
+
 
 
              
@@ -942,7 +975,52 @@ Escape the stack using a setTimeout
                                                         <code><span property="yui:name">options</span>
                                                         &lt;<span property="yui:type">Object</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> Options object (inputEx inputParams) as passed to the constructor</span>
+                                                        <span property="yui:description"> Options object as passed to the constructor</span>
+                                                        </dd>
+                                                </dl>
+
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_setParentField">
+                                    <h4>
+                                        <a name="method_setParentField">setParentField</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">setParentField</strong>
+                                           (
+                                                
+                                                        
+                                                         parentField
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Set the parentField.
+Generally use by composable fields (ie. Group,Form,ListField,CombineField,...}
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">parentField</span>
+                                                        &lt;<span property="yui:type">inputEx.Group|inputEx.Form|inputEx.ListField|inputEx.CombineField</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> The parent field instance</span>
                                                         </dd>
                                                 </dl>
 
@@ -1201,6 +1279,8 @@ Escape the stack using a setTimeout
                                 <li class=""><a href="inputEx.RPC.Transport.html" title="inputEx.RPC.Transport">inputEx.RPC.Transport</a></li>
                                 <li class=""><a href="inputEx.RTEField.html" title="inputEx.RTEField">inputEx.RTEField</a></li>
                                 <li class=""><a href="inputEx.SelectField.html" title="inputEx.SelectField">inputEx.SelectField</a></li>
+                                <li class=""><a href="inputEx.SerializeField.html" title="inputEx.SerializeField">inputEx.SerializeField</a></li>
+                                <li class=""><a href="inputEx.SerializeField.serializers.html" title="inputEx.SerializeField.serializers">inputEx.SerializeField.serializers</a></li>
                                 <li class=""><a href="inputEx.SliderField.html" title="inputEx.SliderField">inputEx.SliderField</a></li>
                                 <li class=""><a href="inputEx.StringField.html" title="inputEx.StringField">inputEx.StringField</a></li>
                                 <li class=""><a href="inputEx.Textarea.html" title="inputEx.Textarea">inputEx.Textarea</a></li>
@@ -1213,6 +1293,7 @@ Escape the stack using a setTimeout
                                 <li class=""><a href="inputEx.UrlField.html" title="inputEx.UrlField">inputEx.UrlField</a></li>
                                 <li class=""><a href="inputEx.VectorField.html" title="inputEx.VectorField">inputEx.VectorField</a></li>
                                 <li class=""><a href="inputEx.visus.html" title="inputEx.visus">inputEx.visus</a></li>
+                                <li class=""><a href="inputEx.widget.Button.html" title="inputEx.widget.Button">inputEx.widget.Button</a></li>
                                 <li class=""><a href="inputEx.widget.CellEditor.html" title="inputEx.widget.CellEditor">inputEx.widget.CellEditor</a></li>
                                 <li class=""><a href="inputEx.widget.DataTable.html" title="inputEx.widget.DataTable">inputEx.widget.DataTable</a></li>
                                 <li class=""><a href="inputEx.widget.DDList.html" title="inputEx.widget.DDList">inputEx.widget.DDList</a></li>
@@ -1228,6 +1309,7 @@ Escape the stack using a setTimeout
                         <h4>Files</h4>
                         <ul class="content">        
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
+                                <li class=""><a href="Button.js.html" title="Button.js">Button.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>
                                 <li class=""><a href="ColorPickerField.js.html" title="ColorPickerField.js">ColorPickerField.js</a></li>
@@ -1275,12 +1357,14 @@ Escape the stack using a setTimeout
                                 <li class=""><a href="RadioField.js.html" title="RadioField.js">RadioField.js</a></li>
                                 <li class=""><a href="RTEField.js.html" title="RTEField.js">RTEField.js</a></li>
                                 <li class=""><a href="SelectField.js.html" title="SelectField.js">SelectField.js</a></li>
+                                <li class=""><a href="SerializeField-beta.js.html" title="SerializeField-beta.js">SerializeField-beta.js</a></li>
                                 <li class=""><a href="SliderField.js.html" title="SliderField.js">SliderField.js</a></li>
                                 <li class=""><a href="smdTester.js.html" title="smdTester.js">smdTester.js</a></li>
                                 <li class=""><a href="StringField.js.html" title="StringField.js">StringField.js</a></li>
                                 <li class=""><a href="Textarea.js.html" title="Textarea.js">Textarea.js</a></li>
                                 <li class=""><a href="TimeField.js.html" title="TimeField.js">TimeField.js</a></li>
                                 <li class=""><a href="TimeIntervalField.js.html" title="TimeIntervalField.js">TimeIntervalField.js</a></li>
+                                <li class=""><a href="TimeRange.js.html" title="TimeRange.js">TimeRange.js</a></li>
                                 <li class=""><a href="TreeField.js.html" title="TreeField.js">TreeField.js</a></li>
                                 <li class=""><a href="TypeField.js.html" title="TypeField.js">TypeField.js</a></li>
                                 <li class=""><a href="UneditableField.js.html" title="UneditableField.js">UneditableField.js</a></li>
@@ -1311,6 +1395,7 @@ Escape the stack using a setTimeout
                                 <li class=""><a href="#method_fireUpdatedEvt" title="fireUpdatedEvt">fireUpdatedEvt</a></li>
                                 <li class=""><a href="#method_focus" title="focus">focus</a></li>
                                 <li class=""><a href="#method_getEl" title="getEl">getEl</a></li>
+                                <li class=""><a href="#method_getParentField" title="getParentField">getParentField</a></li>
                                 <li class=""><a href="#method_getState" title="getState">getState</a></li>
                                 <li class=""><a href="#method_getStateString" title="getStateString">getStateString</a></li>
                                 <li class=""><a href="#method_getValue" title="getValue">getValue</a></li>
@@ -1324,6 +1409,7 @@ Escape the stack using a setTimeout
                                 <li class=""><a href="#method_renderComponent" title="renderComponent">renderComponent</a></li>
                                 <li class=""><a href="#method_setClassFromState" title="setClassFromState">setClassFromState</a></li>
                                 <li class=""><a href="#method_setOptions" title="setOptions">setOptions</a></li>
+                                <li class=""><a href="#method_setParentField" title="setParentField">setParentField</a></li>
                                 <li class=""><a href="#method_setValue" title="setValue">setValue</a></li>
                                 <li class=""><a href="#method_show" title="show">show</a></li>
                                 <li class=""><a href="#method_validate" title="validate">validate</a></li>
@@ -1347,8 +1433,8 @@ Escape the stack using a setTimeout
 	</div>
 </div>
 <script type="text/javascript">
-    var ALL_YUI_PROPS = [{"url": "inputEx.Field.html#method_clear", "access": "", "host": "inputEx.Field", "type": "method", "name": "clear"}, {"url": "inputEx.Field.html#method_close", "access": "", "host": "inputEx.Field", "type": "method", "name": "close"}, {"url": "inputEx.Field.html#method_destroy", "access": "", "host": "inputEx.Field", "type": "method", "name": "destroy"}, {"url": "inputEx.Field.html#method_disable", "access": "", "host": "inputEx.Field", "type": "method", "name": "disable"}, {"url": "inputEx.Field.html#method_displayMessage", "access": "", "host": "inputEx.Field", "type": "method", "name": "displayMessage"}, {"url": "inputEx.Field.html#method_enable", "access": "", "host": "inputEx.Field", "type": "method", "name": "enable"}, {"url": "inputEx.Field.html#method_fireUpdatedEvt", "access": "", "host": "inputEx.Field", "type": "method", "name": "fireUpdatedEvt"}, {"url": "inputEx.Field.html#method_focus", "access": "", "host": "inputEx.Field", "type": "method", "name": "focus"}, {"url": "inputEx.Field.html#method_getEl", "access": "", "host": "inputEx.Field", "type": "method", "name": "getEl"}, {"url": "inputEx.Field.html#method_getState", "access": "", "host": "inputEx.Field", "type": "method", "name": "getState"}, {"url": "inputEx.Field.html#method_getStateString", "access": "", "host": "inputEx.Field", "type": "method", "name": "getStateString"}, {"url": "inputEx.Field.html#method_getValue", "access": "", "host": "inputEx.Field", "type": "method", "name": "getValue"}, {"url": "inputEx.Field.html#method_hide", "access": "", "host": "inputEx.Field", "type": "method", "name": "hide"}, {"url": "inputEx.Field.html#method_initEvents", "access": "", "host": "inputEx.Field", "type": "method", "name": "initEvents"}, {"url": "inputEx.Field.html#method_isEmpty", "access": "", "host": "inputEx.Field", "type": "method", "name": "isEmpty"}, {"url": "inputEx.Field.html#method_onBlur", "access": "", "host": "inputEx.Field", "type": "method", "name": "onBlur"}, {"url": "inputEx.Field.html#method_onChange", "access": "", "host": "inputEx.Field", "type": "method", "name": "onChange"}, {"url": "inputEx.Field.html#method_onFocus", "access": "", "host": "inputEx.Field", "type": "method", "name": "onFocus"}, {"url": "inputEx.Field.html#property_options", "access": "", "host": "inputEx.Field", "type": "property", "name": "options"}, {"url": "inputEx.Field.html#method_render", "access": "", "host": "inputEx.Field", "type": "method", "name": "render"}, {"url": "inputEx.Field.html#method_renderComponent", "access": "", "host": "inputEx.Field", "type": "method", "name": "renderComponent"}, {"url": "inputEx.Field.html#method_setClassFromState", "access": "", "host": "inputEx.Field", "type": "method", "name": "setClassFromState"}, {"url": "inputEx.Field.html#method_setOptions", "access": "", "host": "inputEx.Field", "type": "method", "name": "setOptions"}, {"url": "inputEx.Field.html#method_setValue", "access": "", "host": "inputEx.Field", "type": "method", "name": "setValue"}, {"url": "inputEx.Field.html#method_show", "access": "", "host": "inputEx.Field", "type": "method", "name": "show"}, {"url": "inputEx.Field.html#event_updatedEvt", "access": "", "host": "inputEx.Field", "type": "event", "name": "updatedEvt"}, {"url": "inputEx.Field.html#method_validate", "access": "", "host": "inputEx.Field", "type": "method", "name": "validate"}];
-    YAHOO.yuidoc.init();
+
+    var ALL_YUI_PROPS = [{"url": "inputEx.Field.html#method_clear", "access": "", "host": "inputEx.Field", "type": "method", "name": "clear"}, {"url": "inputEx.Field.html#method_close", "access": "", "host": "inputEx.Field", "type": "method", "name": "close"}, {"url": "inputEx.Field.html#method_destroy", "access": "", "host": "inputEx.Field", "type": "method", "name": "destroy"}, {"url": "inputEx.Field.html#method_disable", "access": "", "host": "inputEx.Field", "type": "method", "name": "disable"}, {"url": "inputEx.Field.html#method_displayMessage", "access": "", "host": "inputEx.Field", "type": "method", "name": "displayMessage"}, {"url": "inputEx.Field.html#method_enable", "access": "", "host": "inputEx.Field", "type": "method", "name": "enable"}, {"url": "inputEx.Field.html#method_fireUpdatedEvt", "access": "", "host": "inputEx.Field", "type": "method", "name": "fireUpdatedEvt"}, {"url": "inputEx.Field.html#method_focus", "access": "", "host": "inputEx.Field", "type": "method", "name": "focus"}, {"url": "inputEx.Field.html#method_getEl", "access": "", "host": "inputEx.Field", "type": "method", "name": "getEl"}, {"url": "inputEx.Field.html#method_getParentField", "access": "", "host": "inputEx.Field", "type": "method", "name": "getParentField"}, {"url": "inputEx.Field.html#method_getState", "access": "", "host": "inputEx.Field", "type": "method", "name": "getState"}, {"url": "inputEx.Field.html#method_getStateString", "access": "", "host": "inputEx.Field", "type": "method", "name": "getStateString"}, {"url": "inputEx.Field.html#method_getValue", "access": "", "host": "inputEx.Field", "type": "method", "name": "getValue"}, {"url": "inputEx.Field.html#method_hide", "access": "", "host": "inputEx.Field", "type": "method", "name": "hide"}, {"url": "inputEx.Field.html#method_initEvents", "access": "", "host": "inputEx.Field", "type": "method", "name": "initEvents"}, {"url": "inputEx.Field.html#method_isEmpty", "access": "", "host": "inputEx.Field", "type": "method", "name": "isEmpty"}, {"url": "inputEx.Field.html#method_onBlur", "access": "", "host": "inputEx.Field", "type": "method", "name": "onBlur"}, {"url": "inputEx.Field.html#method_onChange", "access": "", "host": "inputEx.Field", "type": "method", "name": "onChange"}, {"url": "inputEx.Field.html#method_onFocus", "access": "", "host": "inputEx.Field", "type": "method", "name": "onFocus"}, {"url": "inputEx.Field.html#property_options", "access": "", "host": "inputEx.Field", "type": "property", "name": "options"}, {"url": "inputEx.Field.html#method_render", "access": "", "host": "inputEx.Field", "type": "method", "name": "render"}, {"url": "inputEx.Field.html#method_renderComponent", "access": "", "host": "inputEx.Field", "type": "method", "name": "renderComponent"}, {"url": "inputEx.Field.html#method_setClassFromState", "access": "", "host": "inputEx.Field", "type": "method", "name": "setClassFromState"}, {"url": "inputEx.Field.html#method_setOptions", "access": "", "host": "inputEx.Field", "type": "method", "name": "setOptions"}, {"url": "inputEx.Field.html#method_setParentField", "access": "", "host": "inputEx.Field", "type": "method", "name": "setParentField"}, {"url": "inputEx.Field.html#method_setValue", "access": "", "host": "inputEx.Field", "type": "method", "name": "setValue"}, {"url": "inputEx.Field.html#method_show", "access": "", "host": "inputEx.Field", "type": "method", "name": "show"}, {"url": "inputEx.Field.html#event_updatedEvt", "access": "", "host": "inputEx.Field", "type": "event", "name": "updatedEvt"}, {"url": "inputEx.Field.html#method_validate", "access": "", "host": "inputEx.Field", "type": "method", "name": "validate"}];
 </script>
 </body>
 </html>

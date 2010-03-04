@@ -29,13 +29,14 @@
 <script src="../js/fields/UrlField.js"  type='text/javascript'></script>
 <script src="../js/fields/SelectField.js"  type='text/javascript'></script>
 <script src="../js/Group.js"  type='text/javascript'></script>
+<script src="../js/widgets/Button.js"  type='text/javascript'></script>
 <script src="../js/Form.js"  type='text/javascript'></script>
 
  </head>
 
  <body class="yui-skin-sam">
 	
-<p class='demoTitle'>Float + position relative issues (missing hasLayout)</p>
+<h1>Float + position relative issues (missing hasLayout)</h1>
 
 <div style="margin-left:20px;">
   <p style="margin-bottom:5px;">As said by <a target="_new" href="http://www.satzansatz.de/cssd/rpfloat.html" title="Satzansatz">Ingo Chao</a> :</p>
@@ -49,7 +50,7 @@
 <!-- Example 1 -->
 <div class='exampleDiv'>
 
-	<p class="title">Test the bug</p>
+	<h2>Test the bug</h2>
 
 	<p>Try to click the "Move the forms" button (you must use IE 6 or 7)</p>
 
@@ -58,7 +59,7 @@
 
 		<style type="text/css">
 			div.block1 { padding:10px; background-color:#FFFFFF; }
-			div.block2 { border: 2px solid #888888; padding:15px; width:370px;}
+			div.block2 { border: 2px solid #888888; padding:15px; width:570px;}
          
 			div.container { margin-right:10px;}
 			div#firstContainer { position:relative; }
@@ -74,11 +75,11 @@
 			// Example 1
 			new inputEx.Form( { 
 				fields: [ 
-					{type: 'select', inputParams: {label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] } },
-					{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } }, 
-					{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } }, 
-					{type:'email', inputParams: {label: 'Email', name: 'email'}}, 
-					{type:'url', inputParams: {label: 'Website',name:'website'}} 
+					{type: 'select', label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] },
+					{label: 'Firstname', name: 'firstname', required: true, value:'Jacques' },
+					{label: 'Lastname', name: 'lastname', value:'Dupont' },
+					{type:'email', label: 'Email', name: 'email'},
+					{type:'url', label: 'Website',name:'website'}
 				], 
 				buttons: [{type: 'submit', value: 'Change'}], 	
 				parentEl: 'leftBlock2' 
@@ -87,11 +88,11 @@
 			// Example 2
 			new inputEx.Form( { 
 				fields: [ 
-					{type: 'select', inputParams: {label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] } },
-					{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } }, 
-					{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } }, 
-					{type:'email', inputParams: {label: 'Email', name: 'email'}}, 
-					{type:'url', inputParams: {label: 'Website',name:'website'}} 
+					{type: 'select', label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] },
+					{label: 'Firstname', name: 'firstname', required: true, value:'Jacques' },
+					{label: 'Lastname', name: 'lastname', value:'Dupont' },
+					{type:'email', label: 'Email', name: 'email'},
+					{type:'url', label: 'Website',name:'website'}
 				], 
 				buttons: [{type: 'submit', value: 'Change'}], 	
 				parentEl: 'rightBlock2' 

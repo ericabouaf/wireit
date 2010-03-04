@@ -76,7 +76,7 @@ margin: 10px;
 	
 	<div id="pageTitle"><h1>inputEx: Form Builder utility</h1></div>
 	
-	<p style="margin: 10px;">inputEx Builder is a tool to create forms using the <a href="http://javascript.neyric.com/inputex/">inputEx library</a></p>
+	<p style="margin: 10px;">inputEx Builder is a tool to create forms using the <a href="http://neyric.github.com/inputex/">inputEx library</a></p>
 	
 	<table id='mainTable' style="width: 100%;">
 		<tr>
@@ -113,6 +113,7 @@ margin: 10px;
 <script src="../../js/Visus.js"  type='text/javascript'></script>
 <script src="../../js/Field.js"  type='text/javascript'></script>
 <script src="../../js/Group.js"  type='text/javascript'></script>
+<script src="../../js/widgets/Button.js"  type='text/javascript'></script>
 <script src="../../js/Form.js"  type='text/javascript'></script>
 <script src="../../js/fields/StringField.js"  type='text/javascript'></script>
 <script src="../../js/fields/RadioField.js"  type='text/javascript'></script>
@@ -158,27 +159,21 @@ YAHOO.util.Event.onDOMReady(function() {
    	"fields" : [
 		  {
    			"type" : "string",
-   			"inputParams" : {
-   				"typeInvite" : "firstname",
-   				"name" : "firstname",
-   				"label" : "Firstname"
-   			}
+				"typeInvite" : "firstname",
+				"name" : "firstname",
+				"label" : "Firstname"
    		},
    		{
    			"type" : "string",
-   			"inputParams" : {
-   				"typeInvite" : "lastname",
-   				"name" : "lastname",
-   				"label" : "Lastname"
-   			}
+				"typeInvite" : "lastname",
+				"name" : "lastname",
+				"label" : "Lastname"
    		},
    		{
    			"type" : "email",
-   			"inputParams" : {
-	   			"label" : "Email",
-   				"name" : "",
-   				"required" : false
-   			}
+   			"label" : "Email",
+				"name" : "",
+				"required" : false
    		}
    	],
    	"collapsible" : true,
@@ -240,6 +235,7 @@ YAHOO.util.Event.onDOMReady(function() {
 			"<scr"+"ipt src='../../js/Visus.js'  type='text/javascript'></scr"+"ipt>",
 			"<scr"+"ipt src='../../js/Field.js'  type='text/javascript'></scr"+"ipt>",
 			"<scr"+"ipt src='../../js/Group.js'  type='text/javascript'></scr"+"ipt>",
+			"<scr"+"ipt src='../../js/widgets/Button.js'  type='text/javascript'></scr"+"ipt>",
 			"<scr"+"ipt src='../../js/Form.js'  type='text/javascript'></scr"+"ipt>",
 			"<scr"+"ipt src='../../js/fields/StringField.js'  type='text/javascript'></scr"+"ipt>",
 			"<scr"+"ipt src='../../js/fields/RadioField.js'  type='text/javascript'></scr"+"ipt>",
@@ -299,57 +295,55 @@ YAHOO.util.Event.onDOMReady(function() {
 	oButton.addListener("click", function() {Example1.myPanel.show();}); 
 	var formConfig = {
        type: 'form',
-       inputParams: {
-          fields: [ 
-						{type: 'text', inputParams: {name: 'code', cols: 50, rows: 10} },
-						{type: "radio",inputParams: {
-										label : "Format",
-										name : "format",
-										choices : ["inputEx JSON","JSON Schema"],
-										value: "inputEx JSON"
-									}
-						}
-					],
-          buttons: [
-             {type: 'button', value: 'Load', onClick: function() { 
-	
-							  var value = Example1.myPanel.getForm().getValue();
-							
+       fields: [ 
+					{type: 'text', name: 'code', cols: 50, rows: 10 },
+					{
+					   type: "radio",
+						label : "Format",
+						name : "format",
+						choices : ["inputEx JSON","JSON Schema"],
+						value: "inputEx JSON"
+					}
+				],
+       buttons: [
+          {type: 'button', value: 'Load', onClick: function() { 
+
+						  var value = Example1.myPanel.getForm().getValue();
+						
+							try {
+						  	var code = eval('('+value.code+')');
+							} catch(ex) {
+								alert("Error during JSON evaluation");
+								return;
+							}
+						
+							// Build using JSON Schema
+							if(value.format == "JSON Schema") {
+								
 								try {
-							  	var code = eval('('+value.code+')');
+								var builder = new inputEx.JsonSchema.Builder({
+									'schemaIdentifierMap': code,
+								  'defaultOptions':{
+								     'showMsg':true
+								  }
+							  });
+								var lastSchema = (function(o){var r;for(var k in o){if(o.hasOwnProperty(k))r = o[k];} return r;})(code);
+								var m = builder.schemaToInputEx(lastSchema);
+								g.setValue(m);
+								
 								} catch(ex) {
-									alert("Error during JSON evaluation");
 									return;
 								}
-							
-								// Build using JSON Schema
-								if(value.format == "JSON Schema") {
-									
-									try {
-									var builder = new inputEx.JsonSchema.Builder({
-										'schemaIdentifierMap': code,
-									  'defaultOptions':{
-									     'showMsg':true
-									  }
-								  });
-									var lastSchema = (function(o){var r;for(var k in o){if(o.hasOwnProperty(k))r = o[k];} return r;})(code);
-									var m = builder.schemaToInputEx(lastSchema);
-									g.setValue(m.inputParams);
-									
-									} catch(ex) {
-										return;
-									}
-									
-								} // OR standard inputEx JSON
-								else { // value.format == "inputEx JSON"
-									g.setValue(value);
-								}
 								
-								Example1.myPanel.hide();
-					 }},
-             {type: 'button', value: 'Cancel', onClick: function() { Example1.myPanel.hide(); } }
-          ]
-       }
+							} // OR standard inputEx JSON
+							else { // value.format == "inputEx JSON"
+								g.setValue(value);
+							}
+							
+							Example1.myPanel.hide();
+				 }},
+          {type: 'button', value: 'Cancel', onClick: function() { Example1.myPanel.hide(); } }
+       ]
     };
 		Example1.myPanel = new inputEx.widget.Dialog({
 			inputExDef: formConfig,

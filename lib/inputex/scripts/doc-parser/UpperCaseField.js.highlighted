@@ -1,0 +1,45 @@
+<div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+<span class="c">/**</span>
+<span class="c"> * A field where the value is always uppercase</span>
+<span class="c"> * @class inputEx.UpperCaseField</span>
+<span class="c"> * @extends inputEx.StringField</span>
+<span class="c"> * @constructor</span>
+<span class="c"> * @param {Object} options inputEx.Field options object</span>
+<span class="c"> */</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">UpperCaseField</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">UpperCaseField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">UpperCaseField</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">StringField</span><span class="o">,</span> <span class="p">{</span>
+
+   <span class="c">/**</span>
+<span class="c">    * Set the value and call toUpperCase</span>
+<span class="c">    * @param {String} val The string</span>
+<span class="c">    * @param {boolean} [sendUpdatedEvt] (optional) Wether this setValue should fire the updatedEvt or not (default is true, pass false to NOT send the event)</span>
+<span class="c">    */</span>
+   <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c">// don&#39;t always rewrite the value to able selections with Ctrl+A</span>
+      <span class="kd">var</span> <span class="nx">uppered</span> <span class="o">=</span> <span class="nx">val</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">uppered</span> <span class="o">!=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">())</span> <span class="p">{</span>
+         <span class="nx">inputEx</span><span class="p">.</span><span class="nx">UpperCaseField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">uppered</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span><span class="o">,</span>
+
+   <span class="c">/**</span>
+<span class="c">    * Call setvalue on input to update the field with upper case value</span>
+<span class="c">    * @param {Event} e The original &#39;input&#39; event</span>
+<span class="c">    */</span>
+   <span class="nx">onKeyPress</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> 
+   	<span class="nx">inputEx</span><span class="p">.</span><span class="nx">UpperCaseField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">onKeyPress</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">e</span><span class="p">);</span>
+   	
+   	<span class="c">// Re-Apply a toUpperCase method</span>
+   	<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">later</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span><span class="k">this</span><span class="o">,</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">())</span> <span class="p">);});</span>
+   <span class="p">}</span>
+
+<span class="p">});</span>
+
+<span class="c">// Register this class as &quot;uppercase&quot; type</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">registerType</span><span class="p">(</span><span class="s2">&quot;uppercase&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">UpperCaseField</span><span class="p">);</span>
+
+<span class="p">})();</span>
+</pre></div>

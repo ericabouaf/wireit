@@ -20,12 +20,12 @@
 
 <body class="yui-skin-sam">
 
-<p class='demoTitle'>inputEx - RTEField Usage</p>
+<h1>inputEx - RTEField Usage</h1>
 
 
 <!-- Example 1 -->
 <div class='exampleDiv'>
-	<p class="title">Basic RTEField creation</p>
+	<h2>Basic RTEField creation</h2>
 	<p>Use the following code to create a basic inputEx RTEField.</p>
 	<div class='demoContainer' id='container1'></div>
 	<div class='codeContainer'>
@@ -38,7 +38,7 @@
 
 <!-- Example 2 -->
 <div class='exampleDiv'>
-	<p class="title">RTEField setValue/getValue</p>
+	<h2>RTEField setValue/getValue</h2>
 	<p>Test for setValue/getValue using the RTEField.</p>
 	<div class='demoContainer' id='container2'></div>
 	<div class='codeContainer'>
@@ -63,12 +63,12 @@
 
 <!-- Example 3 -->
 <div class='exampleDiv'>
-	<p class="title">Using the SimpleEditor</p>
+	<h2>Using the SimpleEditor</h2>
 	<p>Use the following code to create a SimpleEditor widget</p>
 	<div class='demoContainer' id='container3'></div>
 	<div class='codeContainer'>
 		<textarea name="code" class="JScript">
-			var field3 = new inputEx.RTEField({parentEl: 'container3', name: 'rteField3', type: 'simple'});
+			var field3 = new inputEx.RTEField({parentEl: 'container3', name: 'rteField3', editorType: 'simple'});
 			field3.setValue("Value set just after init...");
 		</textarea>
 	</div>

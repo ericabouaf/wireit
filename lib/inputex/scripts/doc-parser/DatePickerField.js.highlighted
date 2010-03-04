@@ -1,0 +1,217 @@
+<div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+   <span class="kd">var</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">,</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">,</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="o">;</span>
+
+<span class="c">/**</span>
+<span class="c"> * A DatePicker Field.</span>
+<span class="c"> * @class inputEx.DatePickerField</span>
+<span class="c"> * @extends inputEx.DateField</span>
+<span class="c"> * @constructor</span>
+<span class="c"> * @param {Object} options No added option for this field (same as DateField)</span>
+<span class="c"> * &lt;ul&gt;</span>
+<span class="c"> *   &lt;li&gt;calendar: yui calendar configuration object&lt;/li&gt;</span>
+<span class="c"> * &lt;/ul&gt;</span>
+<span class="c"> */</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">DatePickerField</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">DatePickerField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">DatePickerField</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">DateField</span><span class="o">,</span> <span class="p">{</span>
+   <span class="c">/**</span>
+<span class="c">    * Set the default date picker CSS classes</span>
+<span class="c">    * @param {Object} options Options object as passed to the constructor</span>
+<span class="c">    */</span>
+   <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">inputEx</span><span class="p">.</span><span class="nx">DatePickerField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+      
+      <span class="c">// Overwrite default options</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">:</span> <span class="s1">&#39;inputEx-Field inputEx-DateField inputEx-PickerField inputEx-DatePickerField&#39;</span><span class="o">;</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">readonly</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">readonly</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">readonly</span><span class="o">;</span>
+      
+      <span class="c">// Added options</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">calendar</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">calendar</span> <span class="o">||</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">defautCalendarOpts</span><span class="o">;</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * Render the input field and the minical container</span>
+<span class="c">    */</span>
+   <span class="nx">renderComponent</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      
+      <span class="nx">inputEx</span><span class="p">.</span><span class="nx">DatePickerField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">renderComponent</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+      
+      
+      <span class="c">// Create overlay</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Overlay</span><span class="p">(</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">()</span><span class="o">,</span> <span class="p">{</span> <span class="nx">visible</span><span class="o">:</span> <span class="kc">false</span> <span class="p">});</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">setBody</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">();</span>
+      
+      <span class="c">// Create button</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">button</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;menu&quot;</span><span class="o">,</span> <span class="nx">menu</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="o">,</span> <span class="kd">label</span><span class="o">:</span> <span class="s2">&quot;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&quot;</span> <span class="p">});</span>       
+      <span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">wrapEl</span><span class="p">);</span>
+            
+      <span class="c">// Render the overlay</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">wrapEl</span><span class="p">);</span>
+      <span class="c">// HACK: Set position absolute to the overlay</span>
+      <span class="nx">Dom</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">parentNode</span><span class="o">,</span> <span class="s2">&quot;position&quot;</span><span class="o">,</span> <span class="s2">&quot;absolute&quot;</span><span class="p">);</span>
+      
+      <span class="c">// Subscribe the click handler on the field only if readonly</span>
+		<span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">readonly</span><span class="p">)</span> <span class="p">{</span>
+	      <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span><span class="s1">&#39;click&#39;</span><span class="o">,</span><span class="kd">function</span><span class="p">(){</span>
+	         <span class="c">// calendar may not have been rendered yet</span>
+	         <span class="k">this</span><span class="p">.</span><span class="nx">renderCalendar</span><span class="p">();</span>
+         
+	         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">justHidden</span><span class="p">)</span> <span class="p">{</span>
+	            <span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">_showMenu</span><span class="p">();</span>
+	         <span class="p">}</span>
+	      <span class="p">}</span><span class="o">,</span><span class="k">this</span><span class="o">,</span><span class="kc">true</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">hideEvent</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">justHidden</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+         <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">later</span><span class="p">(</span><span class="mi">250</span><span class="o">,</span><span class="k">this</span><span class="o">,</span><span class="kd">function</span><span class="p">(){</span><span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">justHidden</span><span class="o">=</span><span class="kc">false</span><span class="o">;</span><span class="p">});</span>
+      <span class="p">}</span><span class="o">,</span><span class="k">this</span><span class="o">,</span><span class="kc">true</span><span class="p">);</span>
+      
+      
+      <span class="c">// Subscribe to the first click</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">renderCalendar</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+   <span class="p">}</span><span class="o">,</span>
+
+   
+   <span class="c">/**</span>
+<span class="c">    * Called ONCE to render the calendar lazily</span>
+<span class="c">    */</span>
+   <span class="nx">renderCalendar</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c">// if already rendered, ignore call</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!!</span><span class="k">this</span><span class="p">.</span><span class="nx">calendarRendered</span><span class="p">)</span> <span class="k">return</span><span class="o">;</span>
+      
+      <span class="c">// Render the calendar</span>
+      <span class="kd">var</span> <span class="nx">calendarId</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">calendar</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Calendar</span><span class="p">(</span><span class="nx">calendarId</span><span class="o">,</span><span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">id</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">calendar</span> <span class="p">);</span>
+      
+      
+      <span class="c">/*</span>
+<span class="c">      this.calendar.cfg.setProperty(&quot;DATE_FIELD_DELIMITER&quot;, &quot;/&quot;);</span>
+<span class="c">      this.calendar.cfg.setProperty(&quot;MDY_DAY_POSITION&quot;, 1);</span>
+<span class="c">      this.calendar.cfg.setProperty(&quot;MDY_MONTH_POSITION&quot;, 2);</span>
+<span class="c">      this.calendar.cfg.setProperty(&quot;MDY_YEAR_POSITION&quot;, 3);</span>
+<span class="c">      this.calendar.cfg.setProperty(&quot;MD_DAY_POSITION&quot;, 1);</span>
+<span class="c">      this.calendar.cfg.setProperty(&quot;MD_MONTH_POSITION&quot;, 2);*/</span>
+
+      <span class="c">// localization</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">shortMonths</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">calendar</span><span class="p">.</span><span class="nx">cfg</span><span class="p">.</span><span class="nx">setProperty</span><span class="p">(</span><span class="s2">&quot;MONTHS_SHORT&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">shortMonths</span><span class="p">);</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">months</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">calendar</span><span class="p">.</span><span class="nx">cfg</span><span class="p">.</span><span class="nx">setProperty</span><span class="p">(</span><span class="s2">&quot;MONTHS_LONG&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">months</span><span class="p">);</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">weekdays1char</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">calendar</span><span class="p">.</span><span class="nx">cfg</span><span class="p">.</span><span class="nx">setProperty</span><span class="p">(</span><span class="s2">&quot;WEEKDAYS_1CHAR&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">weekdays1char</span><span class="p">);</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">shortWeekdays</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">calendar</span><span class="p">.</span><span class="nx">cfg</span><span class="p">.</span><span class="nx">setProperty</span><span class="p">(</span><span class="s2">&quot;WEEKDAYS_SHORT&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">shortWeekdays</span><span class="p">);</span>
+      
+      <span class="c">// HACK to keep focus on calendar/overlay </span>
+      <span class="c">// so overlay is not hidden when changing page in calendar</span>
+      <span class="c">// (inspired by YUI examples)</span>
+      <span class="kd">var</span> <span class="nx">focusDay</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+         <span class="kd">var</span> <span class="nx">oCalendarTBody</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">calendarId</span><span class="p">).</span><span class="nx">tBodies</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span>
+            <span class="nx">aElements</span> <span class="o">=</span> <span class="nx">oCalendarTBody</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span><span class="o">,</span>
+            <span class="nx">oAnchor</span><span class="o">;</span>
+
+         <span class="k">if</span> <span class="p">(</span><span class="nx">aElements</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+         
+            <span class="nx">Dom</span><span class="p">.</span><span class="nx">batch</span><span class="p">(</span><span class="nx">aElements</span><span class="o">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+               <span class="k">if</span> <span class="p">(</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">hasClass</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">parentNode</span><span class="o">,</span> <span class="s2">&quot;today&quot;</span><span class="p">))</span> <span class="p">{</span>
+                  <span class="nx">oAnchor</span> <span class="o">=</span> <span class="nx">element</span><span class="o">;</span>
+               <span class="p">}</span>
+            <span class="p">});</span>
+            
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">oAnchor</span><span class="p">)</span> <span class="p">{</span>
+               <span class="nx">oAnchor</span> <span class="o">=</span> <span class="nx">aElements</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+            <span class="p">}</span>
+
+            <span class="c">// Focus the anchor element using a timer since Calendar will try </span>
+            <span class="c">// to set focus to its next button by default</span>
+            
+            <span class="nx">lang</span><span class="p">.</span><span class="nx">later</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="nx">oAnchor</span><span class="o">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+               <span class="k">try</span> <span class="p">{</span>
+                  <span class="nx">oAnchor</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+               <span class="p">}</span>
+               <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{}</span>
+            <span class="p">});</span>
+         
+         <span class="p">}</span>
+         
+      <span class="p">};</span>
+
+      <span class="c">// Set focus to either the current day, or first day of the month in </span>
+      <span class="c">// the Calendar when the month changes (renderEvent is fired)</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">calendar</span><span class="p">.</span><span class="nx">renderEvent</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">focusDay</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">calendar</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+      
+      <span class="c">// Open minical on correct date / month if field contains a value</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">beforeShowEvent</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">beforeShowOverlay</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+      
+      <span class="c">// Render the calendar on the right page !</span>
+      <span class="c">//    -&gt;  this.calendar.render(); is not enough...</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">beforeShowOverlay</span><span class="p">();</span>
+      
+      <span class="k">this</span><span class="p">.</span><span class="nx">calendar</span><span class="p">.</span><span class="nx">selectEvent</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">type</span><span class="o">,</span><span class="nx">args</span><span class="o">,</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+         <span class="c">// HACK: stop here if called from beforeShowOverlay</span>
+         <span class="k">if</span> <span class="p">(</span><span class="o">!!</span><span class="k">this</span><span class="p">.</span><span class="nx">ignoreBeforeShowOverlayCall</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span><span class="o">;</span> <span class="p">}</span>
+         
+         <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+         <span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+         <span class="kd">var</span> <span class="nx">year</span> <span class="o">=</span> <span class="nx">date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span> <span class="nx">month</span> <span class="o">=</span> <span class="nx">date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span> <span class="nx">day</span> <span class="o">=</span> <span class="nx">date</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+         
+         <span class="c">// set value (updatedEvt fired by setValue)</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">year</span><span class="o">,</span><span class="nx">month</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="nx">day</span><span class="p">)</span> <span class="p">);</span>
+         
+      <span class="p">}</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+      
+      <span class="c">// Unsubscribe the event so this function is called only once</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">renderCalendar</span><span class="p">);</span> 
+      
+      <span class="k">this</span><span class="p">.</span><span class="nx">calendarRendered</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c">  	 * Select the right date and display the right page on calendar, when the field has a value</span>
+<span class="c"> 	 */</span>
+   <span class="nx">beforeShowOverlay</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+	
+      <span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!!</span><span class="k">this</span><span class="p">.</span><span class="nx">calendar</span><span class="p">)</span> <span class="p">{</span>
+         
+			<span class="k">if</span><span class="p">(</span><span class="o">!!</span><span class="nx">date</span><span class="p">)</span> <span class="p">{</span>
+         	<span class="c">// HACK: don&#39;t fire Field updatedEvt when selecting date</span>
+         	<span class="k">this</span><span class="p">.</span><span class="nx">ignoreBeforeShowOverlayCall</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+         	<span class="c">// select the previous date in calendar</span>
+        		<span class="k">this</span><span class="p">.</span><span class="nx">calendar</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">date</span><span class="p">);</span>
+				<span class="k">this</span><span class="p">.</span><span class="nx">ignoreBeforeShowOverlayCall</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+         	<span class="k">this</span><span class="p">.</span><span class="nx">calendar</span><span class="p">.</span><span class="nx">cfg</span><span class="p">.</span><span class="nx">setProperty</span><span class="p">(</span><span class="s2">&quot;pagedate&quot;</span><span class="o">,</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="nx">date</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">());</span>
+			<span class="p">}</span>
+
+         <span class="k">this</span><span class="p">.</span><span class="nx">calendar</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span> <span class="c">// refresh calendar</span>
+      <span class="p">}</span>
+   <span class="p">}</span><span class="o">,</span>
+
+	<span class="c">/**</span>
+<span class="c">	 * Disable the field</span>
+<span class="c">	 */</span>
+	<span class="nx">disable</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nx">inputEx</span><span class="p">.</span><span class="nx">DatePickerField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">disable</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;disabled&#39;</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+	<span class="p">}</span><span class="o">,</span>
+	
+	<span class="c">/**</span>
+<span class="c">	 * Enable the field</span>
+<span class="c">	 */</span>
+	<span class="nx">enable</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nx">inputEx</span><span class="p">.</span><span class="nx">DatePickerField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">enable</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;disabled&#39;</span><span class="o">,</span> <span class="kc">false</span><span class="p">);</span>
+	<span class="p">}</span>
+   
+<span class="p">});</span>
+
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">defautCalendarOpts</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">navigator</span><span class="o">:</span> <span class="kc">true</span> <span class="p">};</span>
+
+<span class="c">// Register this class as &quot;datepicker&quot; type</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">registerType</span><span class="p">(</span><span class="s2">&quot;datepicker&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">DatePickerField</span><span class="p">);</span>
+
+<span class="p">})();</span>
+</pre></div>

@@ -1,0 +1,203 @@
+<div class="highlight"><pre><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+   <span class="kd">var</span> <span class="nx">util</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="o">,</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">,</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">,</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="o">;</span>
+
+<span class="c">/**</span>
+<span class="c"> * Create a button</span>
+<span class="c"> * @class inputEx.widget.Button</span>
+<span class="c"> * @constructor</span>
+<span class="c"> * @param {Object} options The following options are available for Button :</span>
+<span class="c"> * &lt;ul&gt;</span>
+<span class="c"> * 	&lt;li&gt;&lt;b&gt;id&lt;/b&gt;: id of the created A element (default is auto-generated)&lt;/li&gt;</span>
+<span class="c"> * 	&lt;li&gt;&lt;b&gt;className&lt;/b&gt;: CSS class added to the button (default is either &quot;inputEx-Button-Link&quot; or &quot;inputEx-Button-Submit-Link&quot;, depending on &quot;type&quot;)&lt;/li&gt;</span>
+<span class="c"> * 	&lt;li&gt;&lt;b&gt;parentEl&lt;/b&gt;: The DOM element where we should append the button&lt;/li&gt;</span>
+<span class="c"> * 	&lt;li&gt;&lt;b&gt;type&lt;/b&gt;: &quot;link&quot;, &quot;submit-link&quot; or &quot;submit&quot;&lt;/li&gt;</span>
+<span class="c"> * 	&lt;li&gt;&lt;b&gt;value&lt;/b&gt;: text displayed inside the button&lt;/li&gt;</span>
+<span class="c"> * 	&lt;li&gt;&lt;b&gt;disabled&lt;/b&gt;: Disable the button after creation&lt;/li&gt;</span>
+<span class="c"> * 	&lt;li&gt;&lt;b&gt;onClick&lt;/b&gt;: Custom click event handler&lt;/li&gt;</span>
+<span class="c"> * &lt;/ul&gt;</span>
+<span class="c"> */</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Button</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+   
+   <span class="k">this</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">(</span><span class="nx">options</span> <span class="o">||</span> <span class="p">{});</span>
+      
+   <span class="k">if</span> <span class="p">(</span><span class="o">!!</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">);</span>
+   <span class="p">}</span>
+   
+<span class="p">};</span>
+
+
+<span class="nx">lang</span><span class="p">.</span><span class="nx">augmentObject</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Button</span><span class="p">.</span><span class="nx">prototype</span><span class="o">,</span><span class="p">{</span>
+   
+   <span class="c">/**</span>
+<span class="c"> 	 * set the default options</span>
+<span class="c"> 	 */</span>
+   <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+      
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isString</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="o">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">id</span>  <span class="o">:</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">||</span> <span class="s2">&quot;inputEx-Button&quot;</span><span class="o">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isString</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">)</span> <span class="o">?</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">)</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="o">;</span>
+      
+      <span class="c">// default type === &quot;submit&quot;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">&quot;link&quot;</span> <span class="o">||</span> <span class="nx">options</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">&quot;submit-link&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">type</span> <span class="o">:</span> <span class="s2">&quot;submit&quot;</span><span class="o">;</span>
+      
+      <span class="c">// value is the text displayed inside the button (&lt;input type=&quot;submit&quot; value=&quot;Submit&quot; /&gt; convention...)</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="o">;</span>
+      
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="o">!!</span><span class="nx">options</span><span class="p">.</span><span class="nx">disabled</span><span class="o">;</span>
+      
+      <span class="k">if</span> <span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">onClick</span><span class="p">))</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">onClick</span> <span class="o">=</span> <span class="p">{</span><span class="nx">fn</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">onClick</span><span class="o">,</span> <span class="nx">scope</span><span class="o">:</span><span class="k">this</span><span class="p">};</span>
+         
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">onClick</span><span class="p">))</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">onClick</span> <span class="o">=</span> <span class="p">{</span><span class="nx">fn</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">onClick</span><span class="p">.</span><span class="nx">fn</span><span class="o">,</span> <span class="nx">scope</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">onClick</span><span class="p">.</span><span class="nx">scope</span> <span class="o">||</span> <span class="k">this</span><span class="p">};</span>
+      <span class="p">}</span>
+      
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c"> 	 * render the button into the parent Element</span>
+<span class="c">    * @param {DOMElement} parentEl The DOM element where the button should be rendered</span>
+<span class="c">	 * @return {DOMElement} The created button</span>
+<span class="c">	 */</span>
+   <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">parentEl</span><span class="p">)</span> <span class="p">{</span>
+      
+      <span class="kd">var</span> <span class="nx">innerSpan</span><span class="o">;</span>
+      
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">&quot;link&quot;</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">&quot;submit-link&quot;</span><span class="p">)</span> <span class="p">{</span>
+         
+         <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span><span class="o">,</span> <span class="nx">id</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">id</span><span class="o">,</span> <span class="nx">href</span><span class="o">:</span><span class="s2">&quot;#&quot;</span><span class="p">});</span>
+         <span class="nx">Dom</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">&quot;link&quot;</span> <span class="o">?</span> <span class="s2">&quot;inputEx-Button-Link&quot;</span> <span class="o">:</span> <span class="s2">&quot;inputEx-Button-Submit-Link&quot;</span><span class="p">);</span>
+         
+         <span class="nx">innerSpan</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+         
+         <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">innerSpan</span><span class="p">);</span>
+         
+      <span class="c">// default type is &quot;submit&quot; input</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+         
+         <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;submit&quot;</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">className</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span><span class="o">,</span> <span class="nx">id</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">id</span><span class="p">});</span>
+         <span class="nx">Dom</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span><span class="s2">&quot;inputEx-Button-Submit&quot;</span><span class="p">);</span>
+      <span class="p">}</span>
+      
+      <span class="nx">parentEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
+      
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">disabled</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">disable</span><span class="p">();</span>
+      <span class="p">}</span>
+      
+      <span class="k">this</span><span class="p">.</span><span class="nx">initEvents</span><span class="p">();</span>
+      
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">;</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c"> 	 * attach the listeners on &quot;click&quot; event and create the custom events</span>
+<span class="c">	 */</span>
+   <span class="nx">initEvents</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+      <span class="c">/**</span>
+<span class="c">		 * Click Event facade (YUI custom event)</span>
+<span class="c"> 		 * @event clickEvent</span>
+<span class="c">		 */</span> 
+      <span class="k">this</span><span class="p">.</span><span class="nx">clickEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">);</span>
+
+      <span class="c">/**</span>
+<span class="c">		 * Submit Event facade (YUI custom event)</span>
+<span class="c"> 		 * @event submitEvent</span>
+<span class="c">		 */</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">submitEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s2">&quot;submit&quot;</span><span class="p">);</span>
+      
+      
+      <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span><span class="s2">&quot;click&quot;</span><span class="o">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+         
+         <span class="kd">var</span> <span class="nx">fireSubmitEvent</span><span class="o">;</span>
+         
+         <span class="c">// stop click event, so :</span>
+         <span class="c">//</span>
+         <span class="c">//  1. buttons of &#39;link&#39; or &#39;submit-link&#39; type don&#39;t link to any url</span>
+         <span class="c">//  2. buttons of &#39;submit&#39; type (&lt;input type=&quot;submit&quot; /&gt;) don&#39;t fire a &#39;submit&#39; event</span>
+         <span class="nx">Event</span><span class="p">.</span><span class="nx">stopEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+         
+         <span class="c">// button disabled : don&#39;t fire clickEvent, and stop here</span>
+         <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">disabled</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">fireSubmitEvent</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+            
+         <span class="c">// button enabled : fire clickEvent</span>
+         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c">// submit event will be fired if not prevented by clickEvent</span>
+            <span class="nx">fireSubmitEvent</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">clickEvent</span><span class="p">.</span><span class="nx">fire</span><span class="p">();</span>
+         <span class="p">}</span>
+         
+         <span class="c">// link buttons should NOT fire a submit event</span>
+         <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">&quot;link&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">fireSubmitEvent</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+         <span class="p">}</span>
+         
+         <span class="k">if</span> <span class="p">(</span><span class="nx">fireSubmitEvent</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">submitEvent</span><span class="p">.</span><span class="nx">fire</span><span class="p">();</span>
+         <span class="p">}</span>
+         
+      <span class="p">}</span><span class="o">,</span><span class="k">this</span><span class="o">,</span><span class="kc">true</span><span class="p">);</span>
+      
+      <span class="c">// Subscribe onClick handler</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">onClick</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">clickEvent</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">onClick</span><span class="p">.</span><span class="nx">fn</span><span class="o">,</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">onClick</span><span class="p">.</span><span class="nx">scope</span><span class="o">,</span><span class="kc">true</span><span class="p">);</span>
+      <span class="p">}</span>
+      
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c"> 	 * Disable the button</span>
+<span class="c">	 */</span>
+   <span class="nx">disable</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      
+      <span class="k">this</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+      
+      <span class="nx">Dom</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span><span class="s2">&quot;inputEx-Button-disabled&quot;</span><span class="p">);</span>
+      
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">&quot;submit&quot;</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c"> 	 * Enable the button</span>
+<span class="c">	 */</span>
+   <span class="nx">enable</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      
+      <span class="k">this</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+      
+      <span class="nx">Dom</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span><span class="s2">&quot;inputEx-Button-disabled&quot;</span><span class="p">);</span>
+      
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">&quot;submit&quot;</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span><span class="o">,</span>
+   
+   
+   <span class="c">/**</span>
+<span class="c">    * Purge all event listeners and remove the component from the dom</span>
+<span class="c">    */</span>
+   <span class="nx">destroy</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      
+      <span class="c">// Unsubscribe all listeners to click and submit events</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">clickEvent</span><span class="p">.</span><span class="nx">unsubscribeAll</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">submitEvent</span><span class="p">.</span><span class="nx">unsubscribeAll</span><span class="p">();</span>
+      
+      <span class="c">// Purge element (remove listeners on el and childNodes recursively)</span>
+      <span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">purgeElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+      
+      <span class="c">// Remove from DOM</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">inDocument</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">))</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
+      <span class="p">}</span>
+      
+   <span class="p">}</span>
+   
+   
+<span class="p">});</span>
+
+<span class="p">})();</span>
+</pre></div>

@@ -1,0 +1,88 @@
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * Display a selectors for keys and auto-update the value field</span>
+<span class="c"> * @class inputEx.KeyValueField</span>
+<span class="c"> * @constructor</span>
+<span class="c"> * @extends inputEx.CombineField</span>
+<span class="c"> * @param {Object} options InputEx definition object with the &quot;availableFields&quot;</span>
+<span class="c"> */</span>
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">KeyValueField</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">KeyValueField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">KeyValueField</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">CombineField</span><span class="o">,</span> <span class="p">{</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * Subscribe the updatedEvt on the key selector</span>
+<span class="c">    */</span>
+   <span class="nx">initEvents</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">inputEx</span><span class="p">.</span><span class="nx">KeyValueField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">initEvents</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">updatedEvt</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">onSelectFieldChange</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span> 
+   <span class="p">}</span><span class="o">,</span>
+
+
+	<span class="c">/**</span>
+<span class="c">	 * Generate</span>
+<span class="c">	 */</span>
+	<span class="nx">generateSelectConfig</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">availableFields</span><span class="p">)</span> <span class="p">{</span>
+	
+		<span class="k">this</span><span class="p">.</span><span class="nx">nameIndex</span> <span class="o">=</span> <span class="p">{};</span>
+		
+	   <span class="kd">var</span> <span class="nx">fieldNames</span> <span class="o">=</span> <span class="p">[]</span><span class="o">,</span> <span class="nx">fieldLabels</span> <span class="o">=</span> <span class="p">[]</span><span class="o">,</span><span class="nx">i</span><span class="o">,</span> <span class="nx">field</span><span class="o">,</span> <span class="nx">fieldCopy</span><span class="o">,</span> <span class="nx">k</span><span class="o">,</span> <span class="nx">l</span><span class="o">;</span>
+	
+	   <span class="k">for</span><span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">,</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">availableFields</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+	      <span class="nx">field</span> <span class="o">=</span>  <span class="nx">availableFields</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+			<span class="nx">fieldCopy</span> <span class="o">=</span> <span class="p">{};</span>
+			<span class="k">for</span><span class="p">(</span><span class="nx">k</span> <span class="k">in</span> <span class="nx">field</span><span class="p">)</span> <span class="p">{</span>
+				<span class="k">if</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">k</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">k</span> <span class="o">!=</span> <span class="s2">&quot;label&quot;</span><span class="p">)</span> <span class="p">{</span>
+					<span class="nx">fieldCopy</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span> <span class="o">=</span> <span class="nx">field</span><span class="p">[</span><span class="nx">k</span><span class="p">];</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+	      <span class="k">this</span><span class="p">.</span><span class="nx">nameIndex</span><span class="p">[</span><span class="nx">field</span><span class="p">.</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">fieldCopy</span><span class="o">;</span>
+	      <span class="nx">fieldNames</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+			<span class="nx">fieldLabels</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="kd">label</span> <span class="o">||</span> <span class="nx">field</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+	   <span class="p">}</span>
+		
+		<span class="k">return</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;select&#39;</span><span class="o">,</span> <span class="nx">selectValues</span><span class="o">:</span> <span class="nx">fieldNames</span><span class="o">,</span> <span class="nx">selectOptions</span><span class="o">:</span> <span class="nx">fieldLabels</span> <span class="p">};</span>
+	<span class="p">}</span><span class="o">,</span>
+
+	<span class="c">/**</span>
+<span class="c">	 * Setup the options.fields from the availableFields option</span>
+<span class="c">	 */</span>
+	<span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+		
+		<span class="kd">var</span> <span class="nx">selectFieldConfig</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">generateSelectConfig</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">availableFields</span><span class="p">);</span>
+	
+		<span class="kd">var</span> <span class="nx">newOptions</span> <span class="o">=</span> <span class="p">{</span>
+			<span class="nx">fields</span><span class="o">:</span> <span class="p">[</span>
+				<span class="nx">selectFieldConfig</span><span class="o">,</span>
+				<span class="k">this</span><span class="p">.</span><span class="nx">nameIndex</span><span class="p">[</span><span class="nx">options</span><span class="p">.</span><span class="nx">availableFields</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">name</span><span class="p">]</span>
+			<span class="p">]</span>
+		<span class="p">};</span>
+		
+		<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">augmentObject</span><span class="p">(</span><span class="nx">newOptions</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+		
+		<span class="nx">inputEx</span><span class="p">.</span><span class="nx">KeyValueField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">newOptions</span><span class="p">);</span>
+	<span class="p">}</span><span class="o">,</span>
+   
+   <span class="c">/**</span>
+<span class="c">    * Rebuild the value field</span>
+<span class="c">    */</span>
+   <span class="nx">onSelectFieldChange</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span> <span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">params</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+      <span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">nameIndex</span><span class="p">[</span><span class="nx">value</span><span class="p">];</span>
+      <span class="kd">var</span> <span class="nx">lastInput</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inputs</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+      <span class="kd">var</span> <span class="nx">next</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">[</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">lastInput</span><span class="p">.</span><span class="nx">getEl</span><span class="p">()</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+      <span class="nx">lastInput</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+      <span class="kd">var</span> <span class="nx">field</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">renderField</span><span class="p">(</span><span class="nx">f</span><span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">fieldEl</span> <span class="o">=</span> <span class="nx">field</span><span class="p">.</span><span class="nx">getEl</span><span class="p">();</span>
+   	<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">fieldEl</span><span class="o">,</span> <span class="s1">&#39;float&#39;</span><span class="o">,</span> <span class="s1">&#39;left&#39;</span><span class="p">);</span>
+	   
+   	<span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">fieldEl</span><span class="o">,</span> <span class="nx">next</span><span class="p">);</span>
+   <span class="p">}</span>
+   
+<span class="p">});</span>
+
+<span class="nx">inputEx</span><span class="p">.</span><span class="nx">registerType</span><span class="p">(</span><span class="s2">&quot;keyvalue&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">KeyValueField</span><span class="o">,</span> <span class="p">{});</span>
+</pre></div>

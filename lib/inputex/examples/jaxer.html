@@ -41,12 +41,12 @@ function init() {
 
 	// Example 1
 	var contactFormFields = [ 
-			{type: 'select', inputParams: {label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] } },
-			{inputParams: {label: 'Firstname', name: 'firstname', required: true } }, 
-			{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } }, 
-			{type:'email', inputParams: {label: 'Email', name: 'email', required: true, showMsg: true}}, 
-			{type:'boolean', inputParams: {label: 'Happy to be there ?', name: 'happy'}}, 
-			{type:'url', inputParams: {label: 'Website', name:'website'}} 
+			{type: 'select', label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] },
+			{label: 'Firstname', name: 'firstname', required: true },
+			{label: 'Lastname', name: 'lastname', value:'Dupont' },
+			{type:'email', label: 'Email', name: 'email', required: true, showMsg: true},
+			{type:'boolean', label: 'Happy to be there ?', name: 'happy'},
+			{type:'url', label: 'Website', name:'website'} 
 	];
 	new inputEx.Group({parentEl: 'container1', fields: contactFormFields, legend: 'Tell us about yourself...'});
 	
@@ -58,9 +58,9 @@ function init() {
 
  <body onserverload="init()">
 
-<p class='demoTitle'>inputEx - Jaxer</p>
+<h1>inputEx - Jaxer</h1>
 <div class='exampleDiv'>
-	<p class="title">Group created server-side</p>
+	<h2>Group created server-side</h2>
 	<p>This is highly experimental. Just to test Jaxer...</p>
 	<div class='demoContainer' id='container1'></div>
 </div>
