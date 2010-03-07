@@ -3,7 +3,13 @@
 ## Bugs
 
  * Editor: Don't save/load the JSON as a string, let the adapter handle it
-					+ button to export/load to multiple formats
+					+ button to export/load to multiple formats	
+				
+ * Adapters: split "createWire" and "updateWire"
+				
+ * rest-json adapter
+ * Rename json-rpc store store
+ * Add the Wiring model to the core components <-> Layer will be able to load/save Wirings...
 					
  * DDResize on Containers should redraw wires
 

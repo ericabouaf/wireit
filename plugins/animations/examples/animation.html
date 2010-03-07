@@ -19,6 +19,9 @@
 <script type="text/javascript" src="../js/Terminal.js"></script>
 <script type="text/javascript" src="../js/DD.js"></script>
 
+<!-- Animations plugin -->
+<script type="text/javascript" src="../js/Anim.js"></script>
+
 <link rel="stylesheet" type="text/css" href="../css/WireIt.css" />
 
 <style>
@@ -64,6 +67,17 @@ window.onload = function() {
 	var w2 = new WireIt.Wire(terminals1[1], terminals2[1], document.body);
 	w2.redraw();
 	
+	// Create the animations for both blocks using WireIt.util.Anim
+	var myAnim1 = new WireIt.util.Anim(terminals1, // same constructor except constructor takes the terminals as 1st parameter
+												  block1, {  left: { to: 500 }, top: {to: 150} }, 2, YAHOO.util.Easing.easeOut);					
+	var myAnim2 = new WireIt.util.Anim(terminals2, 
+												  block2, {  left: { to: 100 } }, 1, YAHOO.util.Easing.easeOut);
+	
+	// OnClick on the button, launch both animations
+	YAHOO.util.Event.addListener('animButton','click', function() {
+		myAnim1.animate();
+		myAnim2.animate();
+	})
 };
 
 
@@ -73,7 +87,9 @@ window.onload = function() {
  <body>
 	
 	<p style="margin: 15px;"><a href="../index.html">&lt; Back</a></p>
-	<p style="margin: 15px;">Show usage of WireIt.util.DD to make terminal containers draggable</p>
+	<p style="margin: 15px;">Show usage of WireIt.util.DD and WireIt.util.Anim to make terminal containers draggable</p>
+	
+	<button id='animButton' style="margin: 15px;">Click to animate !</button>
 	
 	<div id='block1' class="blockBox" style="left: 300px; top: 100px;">Move Me !</div>
 	

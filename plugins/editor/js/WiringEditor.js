@@ -1,6 +1,6 @@
 (function() {
     var util = YAHOO.util,lang = YAHOO.lang;
-    var Event = util.Event, Dom = util.Dom, Connect = util.Connect,JSON = lang.JSON,widget = YAHOO.widget;
+    var Event = util.Event, Dom = util.Dom, Connect = util.Connect,widget = YAHOO.widget;
 
 /**
  * The WiringEditor class provides a full page interface 
@@ -219,7 +219,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
        	return;
     	}
 
-		this.tempSavedWiring = {name: value.name, working: JSON.stringify(value.working), language: this.options.languageName };
+		this.tempSavedWiring = {name: value.name, working: value.working, language: this.options.languageName };
                 
     	this.adapter.saveWiring(this.tempSavedWiring, {
        	success: this.saveModuleSuccess,
@@ -238,15 +238,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 
 	   this.alert("Saved !");
 
-		// TODO:
-		/*var name = this.tempSavedWiring.name;	
-		if(this.modulesByName.hasOwnProperty(name) ) {
-			//already exists
-		}
-		else {
-			//new one
-		}*/
-	
+		// TODO: call a saveModuleSuccess callback...
 	 },
 
 	 /**
@@ -418,24 +410,15 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	 /**
 	  * @method getPipeByName
 	  * @param {String} name Pipe's name
-	  * @return {Object} return the evaled json pipe configuration
+	  * @return {Object} return the pipe configuration
 	  */
 	 getPipeByName: function(name) {
 	    var n = this.pipes.length,ret;
 	    for(var i = 0 ; i < n ; i++) {
 	       if(this.pipes[i].name == name) {
-	          // Try to eval working property:
-	          try {
-	             ret = JSON.parse(this.pipes[i].working);
-	             return ret;
-	          }
-	          catch(ex) {
-	             this.alert("Unable to eval working json for module "+name);
-	             return null;
-	          }
+				return this.pipes[i].working;
 	       }
 	    }
-    
 	    return null;
 	 },
  

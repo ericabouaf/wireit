@@ -14,7 +14,15 @@ WireIt.WiringEditor.adapters.JsonRpc = {
 	},
 	
 	saveWiring: function(val, callbacks) {
-		this._sendJsonRpcRequest("saveWiring", val, callbacks);
+		
+		// Make a copy of the object
+		var wiring = {};
+		YAHOO.lang.augmentObject(wiring, val);
+		
+		// Encode the working field as a JSON string
+		wiring.working = YAHOO.lang.JSON.stringify(wiring.working);
+		
+		this._sendJsonRpcRequest("saveWiring", wiring, callbacks);
 	},
 	
 	deleteWiring: function(val, callbacks) {
@@ -33,6 +41,13 @@ WireIt.WiringEditor.adapters.JsonRpc = {
 			success: function(o) {
 				var s = o.responseText,
 					 r = YAHOO.lang.JSON.parse(s);
+					
+				var wirings = r.result;
+				
+				for(var i = 0 ; i < wirings.length ; i++) {
+					wirings[i].working = YAHOO.lang.JSON.parse(wirings[i].working);
+				}
+					
 			 	callbacks.success.call(callbacks.scope, r.result);
 			},
 			failure: function() {

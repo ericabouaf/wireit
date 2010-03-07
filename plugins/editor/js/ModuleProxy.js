@@ -1,6 +1,5 @@
 (function() {
-    var util = YAHOO.util,lang = YAHOO.lang;
-    var Event = util.Event, Dom = util.Dom, Connect = util.Connect,JSON = lang.JSON,widget = YAHOO.widget;
+    var util = YAHOO.util,lang = YAHOO.lang, Dom = util.Dom;
 
 
 /**
@@ -21,7 +20,7 @@ WireIt.ModuleProxy = function(el, WiringEditor) {
     
     this.isTarget = false; 
 };
-YAHOO.extend(WireIt.ModuleProxy,YAHOO.util.DDProxy, {
+lang.extend(WireIt.ModuleProxy,YAHOO.util.DDProxy, {
    
    /**
     * copy the html and apply selected classes
@@ -50,8 +49,8 @@ YAHOO.extend(WireIt.ModuleProxy,YAHOO.util.DDProxy, {
       var layerTarget = ddTargets[0],
 			 layer = ddTargets[0]._layer,
 			 del = this.getDragEl(),
-			 pos = YAHOO.util.Dom.getXY(del),
-			 layerPos = YAHOO.util.Dom.getXY(layer.el);
+			 pos = Dom.getXY(del),
+			 layerPos = Dom.getXY(layer.el);
       this._WiringEditor.addModule( this._module ,[pos[0]-layerPos[0]+layer.el.scrollLeft, pos[1]-layerPos[1]+layer.el.scrollTop]);
     }
    

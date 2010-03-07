@@ -8,7 +8,7 @@ cd ../build
 
 #	wireit-min.js:
 rm -f wireit.js wireit-min.js
-cat ../js/WireIt.js ../js/CanvasElement.js ../js/Wire.js ../js/Terminal.js ../js/util/Anim.js ../js/util/DD.js ../js/util/DDResize.js ../js/Container.js ../js/Layer.js ../js/LayerMap.js ../js/ImageContainer.js ../js/InOutContainer.js > wireit.js
+cat ../js/WireIt.js ../js/CanvasElement.js ../js/Wire.js ../js/Terminal.js ../js/DD.js ../js/DDResize.js ../js/Container.js ../js/Layer.js ../js/LayerMap.js ../js/ImageContainer.js ../js/InOutContainer.js > wireit.js
 java -jar $YUIcompressorJar  wireit.js -o wireit-min.js --charset utf8
 
 
