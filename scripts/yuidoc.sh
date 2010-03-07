@@ -28,7 +28,7 @@ yuiversion=2.8.0r4
 
 projectName="WireItLibrary"
 
-projectUrl="http://javascript.neyric.com/wireit"
+projectUrl="http://neyric.github.com/wireit"
 
 ##############################################################################
 # add -s to the end of the line to show items marked private

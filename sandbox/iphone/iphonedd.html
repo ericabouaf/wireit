@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>iPhone Events Demo</title>
+    <script type="text/javascript">
+        var currentId;
+        var objects = {};
+        var zIndex = 0;
+      
+        function init() {
+            document.addEventListener("touchstart", startmove, false);
+            document.addEventListener("touchmove", move, false);
+            document.addEventListener("touchend", endmove, false);
+
+
+            makeObjectMovable(leaf1);
+            makeObjectMovable(leaf2);
+            makeObjectMovable(leaf3);
+        }
+
+        function startmove(event) {
+            var touch = event.touches[0];
+            var id = touch.identifier;
+            currentId = id;
+            if (touch.target.className == "movable") {
+                objects[id] = {
+                    target: touch.target,
+                    beginX: touch.clientX,
+                    beginY: touch.clientY,
+                    pozX: touch.target.pozXinit,
+                    pozY: touch.target.pozYinit
+                }
+                touch.target.style.opacity = 0.5;
+                touch.target.style.zIndex = ++zIndex;
+
+	            event.preventDefault();
+            }
+        }
+
+        function endmove(event) {
+            var touch = event.touches[0];
+            var id = currentId;
+            if (objects[id] != null) {
+                if (objects[id].target.className == "movable") {
+                    objects[id].target.style.opacity = 1;
+                }
+                delete objects[id];
+event.preventDefault();
+            }
+        }
+
+        function move(event) {
+            var touch = event.touches[0];
+            var id = touch.identifier;
+            if (objects[id].target.className == "movable") {
+                objects[id].target.pozXinit = objects[id].pozX + touch.clientX - objects[id].beginX;
+                objects[id].target.pozYinit = objects[id].pozY + touch.clientY - objects[id].beginY;
+                objects[id].target.style['-webkit-transform'] = 'translate(' + objects[id].target.pozXinit + 'px,' + objects[id].target.pozYinit + 'px)';
+event.preventDefault();
+            }
+            
+        }
+
+        function makeObjectMovable(obj) {
+            obj.className = "movable";
+            obj.pozXinit = 0;
+            obj.pozYinit = 0;
+        }
+    </script>
+</head>
+
+<body onload="init();" >
+    <img src="index.htm_fichiers/nextroot.png" alt="Nextroot"><br>
+    <span style="font-family: Helvetica; font-size: 9pt;">iPhone Drag n' Drop Demo</span>
+    <img id="leaf1" src="index.htm_fichiers/leaf1.png" alt="Leaf 1" style="position: absolute; left: 10px; top: 10px;">
+    <img id="leaf2" src="index.htm_fichiers/leaf2.png" alt="Leaf 2" style="position: absolute; left: 10px; top: 150px;">
+    <img id="leaf3" src="index.htm_fichiers/leaf3.png" alt="Leaf 3" style="position: absolute; left: 80px; top: 40px;">
+</body></html>

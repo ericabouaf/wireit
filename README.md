@@ -4,13 +4,13 @@ WireIt is an open-source javascript library to create web wirable interfaces for
 
 
  * Project home page
-   <http://javascript.neyric.com/wireit/>
+   <http://neyric.github.com/wireit/>
 
  * WireIt guide
- 	 <http://javascript.neyric.com/wireit/guide.html>
+ 	 <http://neyric.github.com/wireit/guide.html>
 
  * The code for Wireit is provided under a BSD license
-   <http://javascript.neyric.com/wireit/license.txt>
+   <http://neyric.github.com/wireit/license.txt>
     
  * Source code
    <http://github.com/neyric/wireit>
