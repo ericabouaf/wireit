@@ -2,7 +2,11 @@
 
 ## Bugs
 
+ * Editor: Don't save/load the JSON as a string, let the adapter handle it
+					+ button to export/load to multiple formats
+					
  * DDResize on Containers should redraw wires
+
  * fix the close button on containers (css positionning & image)
 
  * Fix the "grouping" module
@@ -10,7 +14,6 @@
 
 ## Performance 
 
- * indexOf and compact en natif
  * remove references to inputParams
 
 ## Doc
@@ -30,6 +33,16 @@
 ## Features
 
 ### editor module
- * Make the Wiring editor with multiple tabs
+
+ * Dynamically load a language
+
+ * Editor: Undo/Redo feature on the WiringEditor (best on the BaseEditor)
+
+ * Make the Wiring editor with multiple tabs (TabView)
+
  * Make the wiring editor able to dynamically load a language definition
  * integrate the wireit builder in the wiring editor
+ * I18n
+
+ * adapter using the YUI 2 Storage Utility http://developer.yahoo.com/yui/storage/
+
