@@ -51,8 +51,6 @@ WireIt.Container = function(options, layer) {
     */
    this.bodyEl = null;
    
-   this.getGrouper = this.options.getGrouper
-   
    /**
     * Event that is fired when a wire is added
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
@@ -148,6 +146,7 @@ WireIt.Container.prototype = {
         groupable: true,
         preventSelfWiring:true
         }, options);
+
    },
 
    /**
@@ -303,36 +302,21 @@ WireIt.Container.prototype = {
 	this.el.style.border = "4px outset blue";
     },
     
-   onGroupButton: function(e, args) {
-       Event.stopEvent(e);
 
-       this.layer.grouper.toggle(this)
-       //TODO: link somehow to editor's group manager?
-   },
-
-   addedToGroup: function() {
-       if (YAHOO.lang.isValue(this.ddHandle))
-	    this.ddHandle.style.backgroundColor = "green";
-   },
-
-    removedFromGroup: function() {
-	if (YAHOO.lang.isValue(this.ddHandle))
-	    this.ddHandle.style.backgroundColor = "";
-    },
 
    /**
     * Remove this container from the dom
     * @method remove
     */
    remove: function() {
--      // Remove the terminals (and thus remove the wires)
--      this.removeAllTerminals();
--   
--      // Remove from the dom
--      this.layer.el.removeChild(this.el);
--      
--      // Remove all event listeners
--      Event.purgeElement(this.el);
+      // Remove the terminals (and thus remove the wires)
+      this.removeAllTerminals();
+   
+      // Remove from the dom
+      this.layer.el.removeChild(this.el);
+      
+      // Remove all event listeners
+      Event.purgeElement(this.el);
    },
 
    /**

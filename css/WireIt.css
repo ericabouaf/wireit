@@ -117,28 +117,6 @@ div.WireIt-Container-closebutton {
    margin-right: 4px;
 }
 
-div.WireIt-Container-groupbutton {
-   background-image: url(../images/brick_add.png);
-   width: 16px;
-   height: 16px;/*
-   position: absolute;
-   top: 4px;
-   right: 4px;*/
-   float : right;
-   cursor: pointer;
-   margin-right: 4px;
-}
-div.WireIt-Container-ungroupbutton {
-   background-image: url(../images/brick_edit.png);
-   width: 16px;
-   height: 16px;/*
-   position: absolute;
-   top: 4px;
-   right: 4px;*/
-   float : right;
-   cursor: pointer;
-   margin-right: 4px;
-}
 div.WireIt-Container-toolbar {
 
 }
@@ -205,13 +183,3 @@ canvas.WireIt-LayerMap {
    top: 0;
    right: 0;
 }
-
-
-/**
- *
- */
-div.WireIt-InputExTerminal div.WireIt-Terminal {
-   left: -21px;
-   top: -5px;
-}
-
