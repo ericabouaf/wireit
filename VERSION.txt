@@ -7,21 +7,21 @@ Not released yet
 
 Changeset:
 
-	* Splitting the WireIt core from modules
+	* Splitting the WireIt core from plugins
 	
 	* upgrading to inputEx 0.5.0 (now in the "inputex" module)
 
-	* editor module
+	* editor plugin
 		* AccordionView on left panel for module categories
 		* Toolbar positionning
 		* ModuleProxy.js into its own file
 		* WiringEditor now inherits from BaseEditor, which wraps general full-page editor functionnality
 		* Example for a non-fullscreen editor
 		
-	* Added "composable" module
+	* Added "composable" plugin
 		* Usage is demonstrated in the "jsBox" example
 		
-	* Added "grouping" module
+	* Added "grouping" plugin
 
 ----------------------------------------------------
 
