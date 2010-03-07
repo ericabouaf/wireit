@@ -52,7 +52,7 @@ body {
    padding-top: 4px;
 
 	border-bottom: 1px solid #808080;
-	background: transparent url(../lib/yui/assets/skins/sam/sprite.png) repeat-x scroll 0 -1300px;
+	background: transparent url(../../../lib/yui/assets/skins/sam/sprite.png) repeat-x scroll 0 -1300px;
 }
 
 /* Toolbar */
@@ -74,23 +74,23 @@ body {
 }
 
 #WiringEditor-saveButton button {
- background:transparent url(../images/icons/database_save.png) no-repeat scroll 10% 50%;
+ background:transparent url(database_save.png) no-repeat scroll 10% 50%;
 
 }
 #WiringEditor-deleteButton button {
- background:transparent url(../images/icons/delete.png) no-repeat scroll 10% 50%;
+ background:transparent url(delete.png) no-repeat scroll 10% 50%;
 }
 
 #WiringEditor-newButton button {
- background:transparent url(../images/icons/add.png) no-repeat scroll 10% 50%;
+ background:transparent url(add.png) no-repeat scroll 10% 50%;
 }
 
 #WiringEditor-loadButton button {
- background:transparent url(../images/icons/application_go.png) no-repeat scroll 10% 50%;
+ background:transparent url(application_go.png) no-repeat scroll 10% 50%;
 }
 
 #WiringEditor-helpButton button {
- background:transparent url(../images/icons/help.png) no-repeat scroll 10% 50%;
+ background:transparent url(help.png) no-repeat scroll 10% 50%;
 }
 
 /**

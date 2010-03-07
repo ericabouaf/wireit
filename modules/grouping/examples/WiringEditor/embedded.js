@@ -144,7 +144,7 @@ var embeddedLanguage = {
 	      "container": {
 	   		"xtype": "WireIt.FormContainer",
 	   		"title": "WireIt.FormContainer demo",    
-	   		"icon": "../../res/icons/application_edit.png",
+	   		"icon": "../../assets/application_edit.png",
 
 	   		"collapsible": true,
 	   		"fields": [ 
@@ -164,7 +164,7 @@ var embeddedLanguage = {
 	
 	      "container": {
 	         "xtype": "WireIt.FormContainer",
-				"icon": "../../res/icons/comment.png",
+				"icon": "../../assets/comment.png",
 	   		"title": "Comment",
 	   		"fields": [
 	            {"type": "text", "inputParams": {"label": "", "name": "comment", "wirable": false }}
@@ -182,7 +182,7 @@ var embeddedLanguage = {
 	         "container": {
 	      		"xtype":"WireIt.ImageContainer", 
 	      		"image": "../logicGates/images/gate_and.png",
-	      		"icon": "../../res/icons/arrow_join.png",
+	      		"icon": "../../assets/arrow_join.png",
 	      		"terminals": [
 	      			{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": {"left": -3, "top": 2 }},
 	      			{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": {"left": -3, "top": 37 }},
@@ -197,7 +197,7 @@ var embeddedLanguage = {
 					"container": {
 	         		"xtype":"WireIt.ImageContainer", 
 	         		"className": "WireIt-Container WireIt-ImageContainer Bubble",
-	            	"icon": "../../res/icons/color_wheel.png",
+	            	"icon": "../../assets/color_wheel.png",
 	         		"image": "../../../../examples/bubble.png",
 	         		"terminals": [
 	         				{"direction": [-1,-1], "offsetPosition": {"left": -10, "top": -10 }, "name": "tl"},
@@ -211,7 +211,7 @@ var embeddedLanguage = {
 				{
 					"name": "Other form module",
 					"container": {
-	   				"icon": "../../res/icons/application_edit.png",
+	   				"icon": "../../assets/application_edit.png",
 	   				"xtype": "WireIt.FormContainer",
 	   				"outputTerminals": [],
 	   				"propertiesForm": [],
@@ -231,7 +231,7 @@ var embeddedLanguage = {
 	            "container": {
 	         		"xtype": "WireIt.FormContainer",
 	         		"title": "Post",    
-	         		"icon": "../../res/icons/comments.png",
+	         		"icon": "../../assets/comments.png",
 
 	         		"fields": [ 
 
@@ -261,7 +261,7 @@ var embeddedLanguage = {
 		         "name": "InOut test",
 		         "container": {
 		      		"xtype":"WireIt.InOutContainer", 
-		      		"icon": "../../res/icons/arrow_right.png",
+		      		"icon": "../../assets/arrow_right.png",
 						"inputs": ["text1", "text2", "option1"],
 						"outputs": ["result", "error"]
 		      	}

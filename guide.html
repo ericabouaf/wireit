@@ -180,7 +180,7 @@
 <p>Different types of Container are provided :</p>
 <ul>
 	<li>InOutContainer - simple module with named inputs and outputs</li>
-	<li>FormContainer - build form containers based on <a href="http://javascript.neyric.com/inputex/">inputEx</a> forms</li>
+	<li>FormContainer - build form containers based on <a href="http://neyric.github.com/inputex/">inputEx</a> forms</li>
 	<li>ImageContainer - use images as graph nodes</li>
 </ul>
 
@@ -376,7 +376,7 @@
        "container": {
     		"xtype":"WireIt.Container", 
 
-			"icon": "../../res/icons/application_edit.png",
+			"icon": "../../assets/application_edit.png",
     		"terminals": [
     			{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": {"left": -3, "top": 2 }},
     			{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": {"left": -3, "top": 37 }},
@@ -413,7 +413,7 @@
 
 <a name="FormContainer"><h2>Using FormContainer</h2></a>
 
-<p>Set "xtype": "WireIt.FormContainer". Additional parameters are all those used in inputEx.Group. (see <a href="http://javascript.neyric.com/inputex/">inputEx</a>)</p>
+<p>Set "xtype": "WireIt.FormContainer". Additional parameters are all those used in inputEx.Group. (see <a href="http://neyric.github.com/inputex/">inputEx</a>)</p>
 
 
 <pre class="brush:js">
@@ -472,7 +472,7 @@
 <p>To add properties to the <i>Wirings</i>, we configure the <i>propertiesFields</i> property of the language definition.<br />
    This property defines the fields as they will appear in the "Properties" form on the right in the WiringEditor.</p>
 
-<p>The form is created using the <a href="http://javascript.neyric.com/inputex/">inputEx form library</a>. The <i>propertiesFields</i> array is directly used to instantiate a inputEx.Group class. Please refer to inputEx documentation to learn how to configure your fields.</p>
+<p>The form is created using the <a href="http://neyric.github.com/inputex/">inputEx form library</a>. The <i>propertiesFields</i> array is directly used to instantiate a inputEx.Group class. Please refer to inputEx documentation to learn how to configure your fields.</p>
 
 <p>When you use the save/load fetures of the WiringEditor, the form values are automatically saved within your <i>wirings</i> before being sent back to the server.</p>
 
@@ -1019,7 +1019,7 @@ WireIt.ImageContainer.prototype.myMethod = function () {
 <p>Deeper hacking into WireIt might require some knowledge in the libraries used :</p>
 	
 <ul class="secondLevel">
-	<li><a href="http://javascript.neyric.com/inputex/">inputEx Documentation</a></li>
+	<li><a href="http://neyric.github.com/inputex/">inputEx Documentation</a></li>
 	<li><a href="http://developer.yahoo.com/yui/">YUI Documentation</a></li>
 	<li><a href="http://www.i-marco.nl/weblog/yui-accordion/">yui-accordion</a></li>
 </ul>

@@ -1,5 +1,5 @@
 // This file should be placed between "inputEx/field.js" and all other inputEx fields
-// see http://javascript.neyric.com/inputex
+// see http://neyric.github.com/inputex
 (function() {
 
    var lang = YAHOO.lang;
