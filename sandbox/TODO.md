@@ -4,7 +4,7 @@
 
  * DDResize on Containers should redraw wires
  * fix the close button on containers (css positionning & image)
- * Fix the "composable" module / jsBox
+
  * Fix the "grouping" module
  * Fix the "labels" module
 

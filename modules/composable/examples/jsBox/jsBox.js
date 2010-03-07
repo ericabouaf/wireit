@@ -61,6 +61,10 @@ var jsBox = {
     * @static
     */
    init: function() {
+	
+		// Configure the adapter backend url :
+		WireIt.WiringEditor.adapters.JsonRpc.config.url = "../../../editor/backend/php/WiringEditor.php";
+	
    	this.editor = new jsBox.WiringEditor(this.language);
 
 		// Open the infos panel
