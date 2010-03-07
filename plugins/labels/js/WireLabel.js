@@ -1,3 +1,7 @@
+/**
+ * Label support for WireIt
+ * @module labels-plugin
+ */
 
 this.options.label = options.label || "Test";
 

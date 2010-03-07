@@ -1,4 +1,13 @@
 /**
+ * Include the form library inputEx + WirableField + FormContainer
+ *
+ * WARNING: This file should be placed between "inputEx/field.js" and all other inputEx fields
+ *
+ * See the inputEx website for documentation of the fields & forms: http://neyric.github.com/inputex
+ *
+ * @module inputex-plugin
+ */
+/**
  * Class used to build a container with inputEx forms
  * @class FormContainer
  * @namespace WireIt

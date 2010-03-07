@@ -1,4 +1,9 @@
 /**
+ * Extend the WiringEditor with composable wirings
+ * @module composable-plugin
+ */
+
+/**
  * The ComposableWiringEditor 
  *
  * @class ComposableWiringEditor

@@ -1,3 +1,7 @@
+/**
+ * Layout Plugin
+ * @module layout-plugin
+ */
 
 /**
  * Calculate the new position for the given layout and animate the layer to this position

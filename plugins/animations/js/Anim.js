@@ -1,4 +1,9 @@
 /**
+ * Some utility classes to provide animations in WireIt
+ * @module animations-plugin
+ */
+
+/**
  * WireIt.util.Anim is a wrapper class for YAHOO.util.Anim, to redraw the wires associated with the given terminals while running the animation.
  * @class Anim
  * @namespace WireIt.util

@@ -221,10 +221,10 @@ YAHOO.lang.extend(LightbulbContainer, LogicContainer, {
 
 YAHOO.util.Event.onDOMReady( function() { 
 	try {
-	var editor = new WireIt.WiringEditor(logicGatesLang); 
-}catch(ex) {
-	console.log(ex);
-}
+		logicGates = new WireIt.WiringEditor(logicGatesLang); 
+	}catch(ex) {
+		alert(ex);
+	}
 });
 
 

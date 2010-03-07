@@ -1,3 +1,7 @@
+/**
+ * WireIt editor
+ * @module editor-plugin
+ */
 (function() {
     var util = YAHOO.util,lang = YAHOO.lang;
     var Event = util.Event, Dom = util.Dom, Connect = util.Connect,JSON = lang.JSON,widget = YAHOO.widget;
