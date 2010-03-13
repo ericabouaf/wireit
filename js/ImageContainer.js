@@ -1,3 +1,4 @@
+/*global YAHOO,WireIt */
 /**
  * Container represented by an image
  * @class ImageContainer

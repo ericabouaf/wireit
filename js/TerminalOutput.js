@@ -1,3 +1,4 @@
+/*global YAHOO */
 /**
  * Class that extends Terminal to differenciate Input/Output terminals
  * @class WireIt.util.TerminalOutput

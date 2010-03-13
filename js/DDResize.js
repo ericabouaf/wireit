@@ -1,3 +1,4 @@
+/*global YAHOO,WireIt */
 /**
  * Make a container resizable
  * @class DDResize

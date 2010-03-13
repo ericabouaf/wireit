@@ -1,3 +1,4 @@
+/*global YAHOO,WireIt,G_vmlCanvasManager,document */
 (function () {
    
    // Shortcuts
@@ -81,8 +82,10 @@
                      var newCanvas=WireIt.cn("canvas",{className:el.className || el.getAttribute("class"),width:width,height:height},{left:left+"px",top:top+"px"});
                      var listeners=Event.getListeners(el);
                      for(var listener in listeners){
-                        var l=listeners[listener];
-                        Event.addListener(newCanvas,l.type,l.fn,l.obj,l.adjust);
+								if(listeners.hasOwnProperty(listener)) {
+									var l=listeners[listener];
+									Event.addListener(newCanvas,l.type,l.fn,l.obj,l.adjust);
+								}
                      }
                      Event.purgeElement(el);
                      el.parentNode.replaceChild(newCanvas,el);

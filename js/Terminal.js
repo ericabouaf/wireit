@@ -1,3 +1,4 @@
+/*global YAHOO */
 (function() {
 
    var util = YAHOO.util;
@@ -146,27 +147,27 @@ WireIt.Terminal.prototype = {
 	 */
    setPosition: function(pos) {
 		if(pos) {
-	    	//Clear the current position
-	    	this.el.style.left = "";
-	    	this.el.style.top = "";
-	    	this.el.style.right = "";
-	    	this.el.style.bottom = "";
+			// Clear the current position
+			this.el.style.left = "";
+			this.el.style.top = "";
+			this.el.style.right = "";
+			this.el.style.bottom = "";
 	    
-	    	// Kept old version [x,y] for retro-compatibility
-	    	if( lang.isArray(pos) ) {
+			// Kept old version [x,y] for retro-compatibility
+			if( lang.isArray(pos) ) {
 				this.el.style.left = pos[0]+"px";
 				this.el.style.top = pos[1]+"px";
-	    	}
-	    	// New version: {top: 32, left: 23}
-	    	else if( lang.isObject(pos) ) {
+			}
+			// New version: {top: 32, left: 23}
+			else if( lang.isObject(pos) ) {
 				for(var key in pos) {
-		    		if(pos.hasOwnProperty(key) && pos[key] != ""){ //This will ignore the number 0 since 0 == "" in javascript (firefox 3.0
+					if(pos.hasOwnProperty(key) && pos[key] !== ""){ //This will ignore the number 0 since 0 == "" in javascript (firefox 3.0
 						this.el.style[key] = pos[key]+"px";
-		    		}
+					}
 				}
-	    	}
+			}
 		}
-    },
+	},
     
    /**
     * Add a wire to this terminal.
@@ -191,7 +192,7 @@ WireIt.Terminal.prototype = {
     * @param {WireIt.Wire} wire Wire instance to remove
     */
    removeWire: function(wire) {
-      var index = WireIt.indexOf(wire, this.wires), w;   
+      var index = WireIt.indexOf(wire, this.wires); 
       if( index != -1 ) {
          
          this.wires[index].destroy();
@@ -200,7 +201,7 @@ WireIt.Terminal.prototype = {
          this.wires = WireIt.compact(this.wires);
       
          // Remove the connected class if it has no more wires:
-         if(this.wires.length == 0) {
+         if(this.wires.length === 0) {
             Dom.removeClass(this.el, this.options.connectedClassName);
          }
       
@@ -219,16 +220,16 @@ WireIt.Terminal.prototype = {
       var layerEl = this.container && this.container.layer ? this.container.layer.el : document.body;
 
       var obj = this.el;
-      var curleft = curtop = 0;
-     	if (obj.offsetParent) {
-     		do {
-     			curleft += obj.offsetLeft;
-     			curtop += obj.offsetTop;
-     			obj = obj.offsetParent;
-     		} while ( !!obj && obj != layerEl);
-     	}
-  	
-     	return [curleft+15,curtop+15];
+		var curleft = 0, curtop = 0;
+		if (obj.offsetParent) {
+			do {
+				curleft += obj.offsetLeft;
+				curtop += obj.offsetTop;
+				obj = obj.offsetParent;
+			} while ( !!obj && obj != layerEl);
+		}
+
+		return [curleft+15,curtop+15];
    },
 
    /**

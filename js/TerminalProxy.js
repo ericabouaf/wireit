@@ -1,12 +1,18 @@
+/*global YAHOO,window */
+(function() {
+
+   var util = YAHOO.util;
+   var lang = YAHOO.lang, CSS_PREFIX = "WireIt-";
+
 /**
-* This class is used for wire edition. It inherits from YAHOO.util.DDProxy and acts as a "temporary" Terminal.
-* @class TerminalProxy
-* @namespace WireIt
-* @extends YAHOO.util.DDProxy
-* @constructor
-* @param {WireIt.Terminal} terminal Parent terminal
-* @param {Object} options Configuration object (see "termConfig" property for details)
-*/
+ * This class is used for wire edition. It inherits from YAHOO.util.DDProxy and acts as a "temporary" Terminal.
+ * @class TerminalProxy
+ * @namespace WireIt
+ * @extends YAHOO.util.DDProxy
+ * @constructor
+ * @param {WireIt.Terminal} terminal Parent terminal
+ * @param {Object} options Configuration object (see "termConfig" property for details)
+ */
 WireIt.TerminalProxy = function(terminal, options) {
 
 	/**
@@ -45,7 +51,7 @@ WireIt.TerminalProxy = function(terminal, options) {
 // Mode Intersect to get the DD objects
 util.DDM.mode = util.DDM.INTERSECT;
 
-lang.extend(WireIt.TerminalProxy, util.DDProxy, {
+lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 
 	/**
 	 * Took this method from the YAHOO.util.DDProxy class
@@ -55,7 +61,7 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
 	createFrame: function() {
 	     var self=this, body=document.body;
 	     if (!body || !body.firstChild) {
-	         setTimeout( function() { self.createFrame(); }, 50 );
+	         window.setTimeout( function() { self.createFrame(); }, 50 );
 	         return;
 	     }
 	     var div=this.getDragEl(), Dom=YAHOO.util.Dom;
@@ -102,9 +108,9 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
 	      addWire: function() {},
 	      removeWire: function() {},
 	      getXY: function() { 
-	         var layers = Dom.getElementsByClassName('WireIt-Layer');
+	         var layers = YAHOO.util.Dom.getElementsByClassName('WireIt-Layer');
 	         if(layers.length > 0) {
-	            var orig = Dom.getXY(layers[0]);
+	            var orig = YAHOO.util.Dom.getXY(layers[0]);
 	            return [this.pos[0]-orig[0]+halfProxySize, this.pos[1]-orig[1]+halfProxySize]; 
 	         }
 	         return this.pos;
@@ -116,7 +122,7 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
 	      parentEl = this.terminal.container.layer.el;
 	   }
 	   this.editingWire = new WireIt.Wire(this.terminal, this.fakeTerminal, parentEl, this.terminal.options.editingWireConfig);
-	   Dom.addClass(this.editingWire.element, CSS_PREFIX+'Wire-editing');
+	   YAHOO.util.Dom.addClass(this.editingWire.element, CSS_PREFIX+'Wire-editing');
 	},
 
 	/**
@@ -129,16 +135,16 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
    
 	   if(this.terminal.container) {
 	      var obj = this.terminal.container.layer.el;
-	      var curleft = curtop = 0;
-	     	if (obj.offsetParent) {
-	     		do {
-	     			curleft += obj.offsetLeft;
-	     			curtop += obj.offsetTop;
-	     			obj = obj.offsetParent ;
-	     		} while ( obj = obj.offsetParent );
-	     	}
-	      this.fakeTerminal.pos = [e.clientX-curleft+this.terminal.container.layer.el.scrollLeft,
-	                               e.clientY-curtop+this.terminal.container.layer.el.scrollTop];
+	      var curleft = 0, curtop = 0;
+			if (obj.offsetParent) {
+				do {
+					curleft += obj.offsetLeft;
+					curtop += obj.offsetTop;
+					obj = obj.offsetParent ;
+					} while ( (obj = obj.offsetParent) );
+				}
+				this.fakeTerminal.pos = [e.clientX-curleft+this.terminal.container.layer.el.scrollLeft,
+												e.clientY-curtop+this.terminal.container.layer.el.scrollTop];
 	   }
 	   else {
 	      this.fakeTerminal.pos = (YAHOO.env.ua.ie) ? [e.clientX, e.clientY] : [e.clientX+window.pageXOffset, e.clientY+window.pageYOffset];
@@ -193,7 +199,7 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
 	 */
 	onDragDrop: function(e,ddTargets) {
 
-   	var i;
+		var i;
 
 	   // Prevention when the editing wire could not be created (due to nMaxWires)
 	   if(!this.editingWire) { return; }
@@ -327,3 +333,5 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
 	}
 
 });
+
+})();

@@ -1,3 +1,4 @@
+/*global YAHOO */
 /**
  * The wire widget that uses a canvas to render
  * @class Wire
@@ -229,9 +230,9 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    drawBezierArrows: function() {
 	  //From drawArrows function
 
-	 	var arrowWidth = Math.round(this.options.width * 1.5 + 20);
+		var arrowWidth = Math.round(this.options.width * 1.5 + 20);
 		var arrowLength = Math.round(this.options.width * 1.2 + 20);
-	  	var d = arrowWidth/2; // arrow width/2
+		var d = arrowWidth/2; // arrow width/2
       var redim = d+3; //we have to make the canvas a little bigger because of arrows
       var margin=[4+redim,4+redim];
 
@@ -314,74 +315,74 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 
 	//Variables from drawArrows
 		//var t1 = p1;
-		var t1 = bezierPoints[2],
-			 t2 = p2;
+		var t1 = bezierPoints[2],t2 = p2;
 
-   	var z = [0,0]; //point on the wire with constant distance (dlug) from terminal2
-   	var dlug = arrowLength; //arrow length
-   	var t = 1-(dlug/distance);
-   	z[0] = Math.abs( t1[0] +  t*(t2[0]-t1[0]) );
-   	z[1] = Math.abs( t1[1] + t*(t2[1]-t1[1]) );	
-   	
-	//line which connects the terminals: y=ax+b
-   	var W = t1[0] - t2[0];
-   	var Wa = t1[1] - t2[1];
-   	var Wb = t1[0]*t2[1] - t1[1]*t2[0];
-   	if (W !== 0) {
-   		a = Wa/W;
-   		b = Wb/W;
-   	}
-   	else {
-   		a = 0;
-   	}
-   	//line perpendicular to the main line: y = aProst*x + b
-   	if (a === 0) {
-   		aProst = 0;
-   	}
-   	else {
-   		aProst = -1/a;
-   	}
-   	bProst = z[1] - aProst*z[0]; //point z lays on this line
+		var z = [0,0]; //point on the wire with constant distance (dlug) from terminal2
+		var dlug = arrowLength; //arrow length
+		var t = 1-(dlug/distance);
+		z[0] = Math.abs( t1[0] +  t*(t2[0]-t1[0]) );
+		z[1] = Math.abs( t1[1] + t*(t2[1]-t1[1]) );	
 
-   	//we have to calculate coordinates of 2 points, which lay on perpendicular line and have the same distance (d) from point z
-   	var A = 1 + Math.pow(aProst,2),
+		// line which connects the terminals: y=ax+b
+		var a,b;
+		var W = t1[0] - t2[0];
+		var Wa = t1[1] - t2[1];
+		var Wb = t1[0]*t2[1] - t1[1]*t2[0];
+		if (W !== 0) {
+			a = Wa/W;
+			b = Wb/W;
+		}
+		else {
+			a = 0;
+		}
+		//line perpendicular to the main line: y = aProst*x + b
+		var aProst, bProst;
+		if (a === 0) {
+			aProst = 0;
+		}
+		else {
+			aProst = -1/a;
+		}
+		bProst = z[1] - aProst*z[0]; //point z lays on this line
+
+		//we have to calculate coordinates of 2 points, which lay on perpendicular line and have the same distance (d) from point z
+		var A = 1 + Math.pow(aProst,2),
 			 B = 2*aProst*bProst - 2*z[0] - 2*z[1]*aProst,
 			 C = -2*z[1]*bProst + Math.pow(z[0],2) + Math.pow(z[1],2) - Math.pow(d,2) + Math.pow(bProst,2),
 			 delta = Math.pow(B,2) - 4*A*C;
 			
-   	if (delta < 0) { return; }
+		if (delta < 0) { return; }
 	   
-   	var x1 = (-B + Math.sqrt(delta)) / (2*A),
-			 x2 = (-B - Math.sqrt(delta)) / (2*A),
-			 y1 = aProst*x1 + bProst,
-			 y2 = aProst*x2 + bProst;
-   	
-   	if(t1[1] == t2[1]) {
-   	      var o = (t1[0] > t2[0]) ? 1 : -1;
-      	   x1 = t2[0]+o*dlug;
-      	   x2 = x1;
-      	   y1 -= d;
-      	   y2 += d;
-   	}   	
+		var x1 = (-B + Math.sqrt(delta)) / (2*A),
+			x2 = (-B - Math.sqrt(delta)) / (2*A),
+			y1 = aProst*x1 + bProst,
+			y2 = aProst*x2 + bProst;
 
-   	//triangle fill
-   	ctxt.fillStyle = this.options.color;
-   	ctxt.beginPath();
-   	ctxt.moveTo(t2[0],t2[1]);
-   	ctxt.lineTo(x1,y1);
-   	ctxt.lineTo(x2,y2);
-   	ctxt.fill();
+		if(t1[1] == t2[1]) {
+			var o = (t1[0] > t2[0]) ? 1 : -1;
+			x1 = t2[0]+o*dlug;
+			x2 = x1;
+			y1 -= d;
+			y2 += d;
+		}
 
-   	//triangle border	
-   	ctxt.strokeStyle = this.options.bordercolor;
-   	ctxt.lineWidth = this.options.borderwidth;
-   	ctxt.beginPath();
-   	ctxt.moveTo(t2[0],t2[1]);
-   	ctxt.lineTo(x1,y1);
-   	ctxt.lineTo(x2,y2);
-   	ctxt.lineTo(t2[0],t2[1]);
-   	ctxt.stroke();
+		// triangle fill
+		ctxt.fillStyle = this.options.color;
+		ctxt.beginPath();
+		ctxt.moveTo(t2[0],t2[1]);
+		ctxt.lineTo(x1,y1);
+		ctxt.lineTo(x2,y2);
+		ctxt.fill();
 
+		// triangle border	
+		ctxt.strokeStyle = this.options.bordercolor;
+		ctxt.lineWidth = this.options.borderwidth;
+		ctxt.beginPath();
+		ctxt.moveTo(t2[0],t2[1]);
+		ctxt.lineTo(x1,y1);
+		ctxt.lineTo(x2,y2);
+		ctxt.lineTo(t2[0],t2[1]);
+		ctxt.stroke();
 		
 		return [p1,p2,t1,t2];
    },
@@ -403,9 +404,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * Drawing methods for arrows
     * @method drawArrows
     */
-   drawArrows: function()
-   {
-   	var d = 7; // arrow width/2
+   drawArrows: function() {
+		var d = 7; // arrow width/2
       var redim = d+3; //we have to make the canvas a little bigger because of arrows
       var margin=[4+redim,4+redim];
 
@@ -450,75 +450,75 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       ctxt.lineTo(p2[0],p2[1]);
       ctxt.stroke();
 
-   	/* start drawing arrows */
+		/* start drawing arrows */
+		var t1 = p1;
+		var t2 = p2;
 
-   	var t1 = p1;
-   	var t2 = p2;
+		var z = [0,0]; //point on the wire with constant distance (dlug) from terminal2
+		var dlug = 20; //arrow length
+		var t = (distance === 0) ? 0 : 1-(dlug/distance);
+		z[0] = Math.abs( t1[0] +  t*(t2[0]-t1[0]) );
+		z[1] = Math.abs( t1[1] + t*(t2[1]-t1[1]) );	
 
-   	var z = [0,0]; //point on the wire with constant distance (dlug) from terminal2
-   	var dlug = 20; //arrow length
-   	var t = (distance == 0) ? 0 : 1-(dlug/distance);
-   	z[0] = Math.abs( t1[0] +  t*(t2[0]-t1[0]) );
-   	z[1] = Math.abs( t1[1] + t*(t2[1]-t1[1]) );	
+		//line which connects the terminals: y=ax+b
+		var a,b;
+		var W = t1[0] - t2[0];
+		var Wa = t1[1] - t2[1];
+		var Wb = t1[0]*t2[1] - t1[1]*t2[0];
+		if (W !== 0) {
+			a = Wa/W;
+			b = Wb/W;
+		}
+		else {
+			a = 0;
+		}
+		//line perpendicular to the main line: y = aProst*x + b
+		var aProst, bProst;
+		if (a === 0) {
+			aProst = 0;
+		}
+		else {
+			aProst = -1/a;
+		}
+		bProst = z[1] - aProst*z[0]; //point z lays on this line
 
-   	//line which connects the terminals: y=ax+b
-   	var W = t1[0] - t2[0];
-   	var Wa = t1[1] - t2[1];
-   	var Wb = t1[0]*t2[1] - t1[1]*t2[0];
-   	if (W !== 0) {
-   		a = Wa/W;
-   		b = Wb/W;
-   	}
-   	else {
-   		a = 0;
-   	}
-   	//line perpendicular to the main line: y = aProst*x + b
-   	if (a == 0) {
-   		aProst = 0;
-   	}
-   	else {
-   		aProst = -1/a;
-   	}
-   	bProst = z[1] - aProst*z[0]; //point z lays on this line
+		//we have to calculate coordinates of 2 points, which lay on perpendicular line and have the same distance (d) from point z
+		var A = 1 + Math.pow(aProst,2);
+		var B = 2*aProst*bProst - 2*z[0] - 2*z[1]*aProst;
+		var C = -2*z[1]*bProst + Math.pow(z[0],2) + Math.pow(z[1],2) - Math.pow(d,2) + Math.pow(bProst,2);
+		var delta = Math.pow(B,2) - 4*A*C;
+		if (delta < 0) { return; }
 
-   	//we have to calculate coordinates of 2 points, which lay on perpendicular line and have the same distance (d) from point z
-   	var A = 1 + Math.pow(aProst,2);
-   	var B = 2*aProst*bProst - 2*z[0] - 2*z[1]*aProst;
-   	var C = -2*z[1]*bProst + Math.pow(z[0],2) + Math.pow(z[1],2) - Math.pow(d,2) + Math.pow(bProst,2);
-   	var delta = Math.pow(B,2) - 4*A*C;
-   	if (delta < 0) { return; }
-	   
-   	var x1 = (-B + Math.sqrt(delta)) / (2*A);
-   	var x2 = (-B - Math.sqrt(delta)) / (2*A);	 
-   	var y1 = aProst*x1 + bProst;
-   	var y2 = aProst*x2 + bProst;
-   	
-   	if(t1[1] == t2[1]) {
-   	      var o = (t1[0] > t2[0]) ? 1 : -1;
-      	   x1 = t2[0]+o*dlug;
-      	   x2 = x1;
-      	   y1 -= d;
-      	   y2 += d;
-   	}   	
+		var x1 = (-B + Math.sqrt(delta)) / (2*A);
+		var x2 = (-B - Math.sqrt(delta)) / (2*A);	 
+		var y1 = aProst*x1 + bProst;
+		var y2 = aProst*x2 + bProst;
 
-   	//triangle fill
-   	ctxt.fillStyle = this.options.color;
-   	ctxt.beginPath();
-   	ctxt.moveTo(t2[0],t2[1]);
-   	ctxt.lineTo(x1,y1);
-   	ctxt.lineTo(x2,y2);
-   	ctxt.fill();
+		if(t1[1] == t2[1]) {
+			var o = (t1[0] > t2[0]) ? 1 : -1;
+			x1 = t2[0]+o*dlug;
+			x2 = x1;
+			y1 -= d;
+			y2 += d;
+		}
 
-   	//triangle border	
-   	ctxt.strokeStyle = this.options.bordercolor;
-   	ctxt.lineWidth = this.options.borderwidth;
-   	ctxt.beginPath();
-   	ctxt.moveTo(t2[0],t2[1]);
-   	ctxt.lineTo(x1,y1);
-   	ctxt.lineTo(x2,y2);
-   	ctxt.lineTo(t2[0],t2[1]);
-   	ctxt.stroke();
+		//triangle fill
+		ctxt.fillStyle = this.options.color;
+		ctxt.beginPath();
+		ctxt.moveTo(t2[0],t2[1]);
+		ctxt.lineTo(x1,y1);
+		ctxt.lineTo(x2,y2);
+		ctxt.fill();
 
+		//triangle border	
+		ctxt.strokeStyle = this.options.bordercolor;
+		ctxt.lineWidth = this.options.borderwidth;
+		ctxt.beginPath();
+		ctxt.moveTo(t2[0],t2[1]);
+		ctxt.lineTo(x1,y1);
+		ctxt.lineTo(x2,y2);
+		ctxt.lineTo(t2[0],t2[1]);
+		ctxt.stroke();
    },
    
    /**
@@ -608,7 +608,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 		var winkel = 0;
 		var distance = 15;
 		
-   	var ctxt=this.getContext();
+		var ctxt=this.getContext();
 		ctxt.save();
 		
 		//1.Quadrant
@@ -727,8 +727,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @param {Integer} y top position of the mouse (relative to the canvas)
     */
    onClick: function(x,y) {
- 	   if( this.wireDrawnAt(x,y) ) {
- 	      this.onWireClick(x,y);
+		if( this.wireDrawnAt(x,y) ) {
+			this.onWireClick(x,y);
       }
    },
    

@@ -1,3 +1,4 @@
+/*global YAHOO,WireIt,window */
 /**
  * A layer encapsulate a bunch of containers and wires
  * @class Layer
@@ -88,19 +89,16 @@ WireIt.Layer = function(options) {
    this.initWires();
    
    if(this.options.layerMap) { 
-      new WireIt.LayerMap(this, this.options.layerMapOptions);
+		this.layermap = new WireIt.LayerMap(this, this.options.layerMapOptions);
    }
    
 	if(WireIt.Grouper) {
 	   this.grouper = new WireIt.Grouper(this, this.options.grouper.baseConfigFunction);
    
 	   var rb = this.grouper.rubberband;
-	   var self = this;
-	   this.el.onmousedown = function(event) { return rb.layerMouseDown.call(rb, event); }
-	   //this.el.onmouseup = 
+		this.el.onmousedown = function(event) { return rb.layerMouseDown.call(rb, event); };
 	   var grouper = this.grouper;
-	   this.el.addEventListener("mouseup", function (event) 
-		{ 
+	   this.el.addEventListener("mouseup", function (event)  { 
 		    rb.finish(); 
 		    grouper.rubberbandSelect.call(grouper); 
 		}, false);
@@ -133,7 +131,7 @@ WireIt.Layer.prototype = {
       this.options.layerMap = YAHOO.lang.isUndefined(options.layerMap) ? false : options.layerMap;
       this.options.layerMapOptions = options.layerMapOptions;
       this.options.enableMouseEvents = YAHOO.lang.isUndefined(options.enableMouseEvents) ? true : options.enableMouseEvents;
-      this.options.grouper = options.grouper
+      this.options.grouper = options.grouper;
    },
 
    /**
@@ -168,24 +166,32 @@ WireIt.Layer.prototype = {
       }
    },
 
-    setSuperHighlighted: function(containers)
-    {
-	this.unsetSuperHighlighted();
-	
-	for (var i in containers)
-	    containers[i].superHighlight();
-	    
-	this.superHighlighted = containers;
-    },
-    
-    unsetSuperHighlighted: function()
-    {
-	if (YAHOO.lang.isValue(this.superHighlighted))
-	    for (var i in this.superHighlighted)
-	        this.superHighlighted[i].highlight()
-	    
-	this.superHighlighted = null;
-    },
+	/**
+	 * TODO
+	 */
+	setSuperHighlighted: function(containers) {
+		this.unsetSuperHighlighted();
+		for (var i in containers) {
+			if(containers.hasOwnProperty(i)) {
+				containers[i].superHighlight();
+			}
+		}
+		this.superHighlighted = containers;
+	},
+
+	/**
+	 * TODO
+	 */
+	unsetSuperHighlighted: function() {
+		if (YAHOO.lang.isValue(this.superHighlighted)) {
+			for (var i in this.superHighlighted) {
+				if(this.superHighlighted.hasOwnProperty(i)) {
+					this.superHighlighted[i].highlight();
+				}
+			}
+		}
+		this.superHighlighted = null;
+	},
 
    /**
     * Instanciate a wire given its "xtype" (default to WireIt.Wire)
@@ -194,7 +200,12 @@ WireIt.Layer.prototype = {
     * @return {WireIt.Wire} Wire instance build from the xtype
     */
    addWire: function(wireConfig) {
-      var type = eval(wireConfig.xtype || "WireIt.Wire");
+		// var type = eval(wireConfig.xtype || "WireIt.Wire");
+		var path = (wireConfig.xtype || "WireIt.Wire").split('.');
+		var type = window;
+		for(var i = 0 ; i < path.length ; i++) {
+			type = type[path[i]];
+		}
    
       var src = wireConfig.src;
       var tgt = wireConfig.tgt;
@@ -215,7 +226,13 @@ WireIt.Layer.prototype = {
     */
    addContainer: function(containerConfig) {
    
-      var type = eval('('+(containerConfig.xtype || "WireIt.Container")+')');
+      //var type = eval('('+(containerConfig.xtype || "WireIt.Container")+')');
+		var path = (containerConfig.xtype || "WireIt.Container").split('.');
+		var type = window;
+		for(var i = 0 ; i < path.length ; i++) {
+			type = type[path[i]];
+		}
+
       if(!YAHOO.lang.isFunction(type)) {
          throw new Error("WireIt layer unable to add container: xtype '"+containerConfig.xtype+"' not found");
       }
@@ -270,35 +287,37 @@ WireIt.Layer.prototype = {
       }
    },
 
-    removeGroup: function(group, containersAsWell) 
-    {
-	var index = this.groups.indexOf(group);
-
-	if (index != -1)
-	    this.groups.splice(index, 1);
-
-	if (containersAsWell)
-	{
-	    if (lang.isValue(group.groupContainer))
-	    {
-		this.removeContainer(group.groupContainer)
-	    }
-	    else
-	    {
-		for (var i in group.containers)
-		{
-		    var elem = group.containers[i].container
-		    this.removeContainer(elem);
+	/**
+	 * TODO
+	 */
+	removeGroup: function(group, containersAsWell)  {
+		var index = this.groups.indexOf(group) , i;
+		
+		if (index != -1) {
+			this.groups.splice(index, 1);
 		}
 
-		for (var i in group.groups)
-		{
-		    var g = group.groups[i].group;
-		    this.removeGroup(g);
+		if (containersAsWell) {
+			if (YAHOO.lang.isValue(group.groupContainer)) {
+				this.removeContainer(group.groupContainer);
+			}
+			else {
+				for (i in group.containers) {
+					if(group.containers.hasOwnProperty(i)) {
+						var elem = group.containers[i].container;
+						this.removeContainer(elem);
+					}
+				}
+
+				for (i in group.groups) {
+					if(group.containers.hasOwnProperty(i)) {
+						var g = group.groups[i].group;
+						this.removeGroup(g);
+					}
+				}
+			}
 		}
-	    }
-	}
-    },
+	},
 
    /**
     * Update the wire list when any of the containers fired the eventAddWire
@@ -396,14 +415,14 @@ WireIt.Layer.prototype = {
     */
    setWiring: function(wiring) {
       this.clear();
-      
+      var i;
       if(YAHOO.lang.isArray(wiring.containers)) {
-         for(var i = 0 ; i < wiring.containers.length ; i++) {
+         for(i = 0 ; i < wiring.containers.length ; i++) {
             this.addContainer(wiring.containers[i]);
          }
       }
       if(YAHOO.lang.isArray(wiring.wires)) {
-         for(var i = 0 ; i < wiring.wires.length ; i++) {
+         for(i = 0 ; i < wiring.wires.length ; i++) {
             this.addWire(wiring.wires[i]);
          }
        }
@@ -416,9 +435,9 @@ WireIt.Layer.prototype = {
     * @return {Array} position
     */
    _getMouseEvtPos: function(e) {
-   	var tgt = YAHOO.util.Event.getTarget(e);
-   	var tgtPos = [tgt.offsetLeft, tgt.offsetTop];
-   	return [tgtPos[0]+e.layerX, tgtPos[1]+e.layerY];
+		var tgt = YAHOO.util.Event.getTarget(e);
+		var tgtPos = [tgt.offsetLeft, tgt.offsetTop];
+		return [tgtPos[0]+e.layerX, tgtPos[1]+e.layerY];
    },
 
    /**
@@ -429,17 +448,17 @@ WireIt.Layer.prototype = {
     */
    onWireClick: function(e) {
       var p = this._getMouseEvtPos(e);
-   	var lx = p[0], ly = p[1], n = this.wires.length, w;
-   	for(var i = 0 ; i < n ; i++) {
-   	   w = this.wires[i];
-      	var elx = w.element.offsetLeft, ely = w.element.offsetTop;
-      	// Check if the mouse is within the canvas boundaries
-   	   if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
-   	      var rx = lx-elx, ry = ly-ely; // relative to the canvas
-   			w.onClick(rx,ry);
-   	   }
-   	}
-   },
+		var lx = p[0], ly = p[1], n = this.wires.length, w;
+		for(var i = 0 ; i < n ; i++) {
+			w = this.wires[i];
+			var elx = w.element.offsetLeft, ely = w.element.offsetTop;
+			// Check if the mouse is within the canvas boundaries
+			if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
+				var rx = lx-elx, ry = ly-ely; // relative to the canvas
+				w.onClick(rx,ry);
+			}
+		}
+	},
 
    /**
     * Handles mousemove events on any wire canvas
@@ -449,16 +468,16 @@ WireIt.Layer.prototype = {
     */
    onWireMouseMove: function(e) {
       var p = this._getMouseEvtPos(e);
-   	var lx = p[0], ly = p[1], n = this.wires.length, w;
-   	for(var i = 0 ; i < n ; i++) {
-   	   w = this.wires[i];
-      	var elx = w.element.offsetLeft, ely = w.element.offsetTop;
-      	// Check if the mouse is within the canvas boundaries
-   	   if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
-   	      var rx = lx-elx, ry = ly-ely; // relative to the canvas
-   			w.onMouseMove(rx,ry);
-   	   }
-   	}
-   }
+		var lx = p[0], ly = p[1], n = this.wires.length, w;
+		for(var i = 0 ; i < n ; i++) {
+			w = this.wires[i];
+			var elx = w.element.offsetLeft, ely = w.element.offsetTop;
+			// Check if the mouse is within the canvas boundaries
+			if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
+				var rx = lx-elx, ry = ly-ely; // relative to the canvas
+				w.onMouseMove(rx,ry);
+			}
+		}
+	}
 
 };

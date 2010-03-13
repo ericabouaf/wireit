@@ -1,3 +1,4 @@
+/*global YAHOO,WireIt,window */
 (function() {
    
    var util = YAHOO.util;
@@ -79,9 +80,9 @@ WireIt.Container = function(options, layer) {
 	if(this.options.draggable) {
 		   
 	   if(this.options.resizable) {
-      	// Make resizeable   
-      	this.ddResize = new WireIt.util.DDResize(this);
-      	this.ddResize.eventResize.subscribe(this.onResize, this, true);
+			// Make resizeable   
+			this.ddResize = new WireIt.util.DDResize(this);
+			this.ddResize.eventResize.subscribe(this.onResize, this, true);
 	   }
 	   
 	   // Use the drag'n drop utility to make the container draggable
@@ -89,13 +90,13 @@ WireIt.Container = function(options, layer) {
 	   
 	   // Sets ddHandle as the drag'n drop handle
 	   if(this.options.ddHandle) {
-   	   this.dd.setHandleElId(this.ddHandle);
+			this.dd.setHandleElId(this.ddHandle);
 	   }
 	   
 	   // Mark the resize handle as an invalid drag'n drop handle and vice versa
 	   if(this.options.resizable) {
-   	   this.dd.addInvalidHandleId(this.ddResizeHandle);
-      	this.ddResize.addInvalidHandleId(this.ddHandle);
+			this.dd.addInvalidHandleId(this.ddResizeHandle);
+			this.ddResize.addInvalidHandleId(this.ddHandle);
 	   }
    }
    
@@ -180,9 +181,9 @@ WireIt.Container.prototype = {
    
       if(this.options.ddHandle) {
          // Create the drag/drop handle
-      	this.ddHandle = WireIt.cn('div', {className: this.options.ddHandleClassName});
-      	this.el.appendChild(this.ddHandle);
-      	
+			this.ddHandle = WireIt.cn('div', {className: this.options.ddHandleClassName});
+			this.el.appendChild(this.ddHandle);
+
          // Set title
          if(this.options.title) {
             this.ddHandle.appendChild( WireIt.cn('span', {className: 'floatleft'}, null, this.options.title) );
@@ -202,31 +203,33 @@ WireIt.Container.prototype = {
    
       if(this.options.resizable) {
          // Create the resize handle
-      	this.ddResizeHandle = WireIt.cn('div', {className: this.options.resizeHandleClassName} );
-      	this.el.appendChild(this.ddResizeHandle);
+			this.ddResizeHandle = WireIt.cn('div', {className: this.options.resizeHandleClassName} );
+			this.el.appendChild(this.ddResizeHandle);
       }
 
       if(this.options.close) {
          // Close button
          this.closeButton = WireIt.cn('div', {className: this.options.closeButtonClassName} );
-	 if (this.options.ddHandle)
-	    this.ddHandle.appendChild(this.closeButton);
-	 else
-	    this.el.appendChild(this.closeButton);
+			if (this.options.ddHandle) {
+				this.ddHandle.appendChild(this.closeButton);
+			}
+			else {
+				this.el.appendChild(this.closeButton);
+			}
          Event.addListener(this.closeButton, "click", this.onCloseButton, this, true);
       }
       
       if(this.options.groupable && this.options.ddHandle) {
          this.groupButton = WireIt.cn('div', {className: 'WireIt-Container-groupbutton'} );
-         this.ddHandle.appendChild(this.groupButton)
+			this.ddHandle.appendChild(this.groupButton);
          Event.addListener(this.groupButton, "click", this.onGroupButton, this, true);
       }   
       // Append to the layer element
       this.layer.el.appendChild(this.el);
    
-   	// Set the position
-   	this.el.style.left = this.options.position[0]+"px";
-   	this.el.style.top = this.options.position[1]+"px";
+		// Set the position
+		this.el.style.left = this.options.position[0]+"px";
+		this.el.style.top = this.options.position[1]+"px";
    },
 
    /**
@@ -338,7 +341,12 @@ WireIt.Container.prototype = {
    addTerminal: function(terminalConfig) {
    
       // Terminal type
-      var type = eval(terminalConfig.xtype || "WireIt.Terminal");
+		var path = (terminalConfig.xtype || "WireIt.Terminal").split('.');
+		var type = window;
+		for(var i = 0 ; i < path.length ; i++) {
+			type = type[path[i]];
+		}
+		//var type = eval(terminalConfig.xtype || "WireIt.Terminal");
    
       // Instanciate the terminal
       var term = new type(this.el, terminalConfig, this);

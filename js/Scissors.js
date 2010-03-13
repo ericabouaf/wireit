@@ -1,3 +1,9 @@
+/*global YAHOO */
+(function() {
+
+   var util = YAHOO.util;
+	var Event = util.Event, lang = YAHOO.lang, CSS_PREFIX = "WireIt-";
+
 /**
  * Scissors widget to cut wires
  * @class Scissors
@@ -22,7 +28,7 @@ WireIt.Scissors = function(terminal, oConfigs) {
 
 WireIt.Scissors.visibleInstance = null;
 
-YAHOO.lang.extend(WireIt.Scissors, YAHOO.util.Element, {
+lang.extend(WireIt.Scissors, YAHOO.util.Element, {
    
    /**
     * Init the scissors
@@ -102,3 +108,5 @@ YAHOO.lang.extend(WireIt.Scissors, YAHOO.util.Element, {
    }
 
 });
+
+})();

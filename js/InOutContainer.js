@@ -1,3 +1,4 @@
+/*global YAHOO,WireIt */
 /**
  * Container with left inputs and right outputs
  * @class InOutContainer
@@ -37,10 +38,10 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
 				"direction": [-1,0], 
 				"offsetPosition": {"left": -14, "top": 3+30*(i+1) }, 
 				"ddConfig": {
-             	"type": "input",
-             	"allowedTypes": ["output"]
-          	}
- 			});
+					"type": "input",
+					"allowedTypes": ["output"]
+				}
+			});
 			this.bodyEl.appendChild(WireIt.cn('div', null, {lineHeight: "30px"}, input));
 		}
 		
@@ -51,9 +52,9 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
 				"direction": [1,0], 
 				"offsetPosition": {"right": -14, "top": 3+30*(i+1+this.options.inputs.length) }, 
 				"ddConfig": {
-             "type": "output",
-             "allowedTypes": ["input"]
-          	},
+					"type": "output",
+					"allowedTypes": ["input"]
+				},
 				"alwaysSrc": true
 			});
 			this.bodyEl.appendChild(WireIt.cn('div', null, {lineHeight: "30px", textAlign: "right"}, output));

@@ -1,3 +1,4 @@
+/*global YAHOO */
 /**
  * WireIt provide classes to build wirable interfaces
  * @module WireIt
@@ -33,29 +34,34 @@ var WireIt = {
     */
    sn: function(el,domAttributes,styleAttributes){
       if(!el) { return; }
+		var i;
       if(domAttributes){
-         for(var i in domAttributes){
-            var domAttribute = domAttributes[i];
-            if(typeof (domAttribute)=="function"){continue;}
-            if(i=="className"){
-               i="class";
-               el.className=domAttribute;
-            }
-            if(domAttribute!==el.getAttribute(i)){
-               if(domAttribute===false){
-                  el.removeAttribute(i);
-               }else{
-                  el.setAttribute(i,domAttribute);
-               }
-            }
+         for(i in domAttributes){
+				if(domAttributes.hasOwnProperty(i)) {
+					var domAttribute = domAttributes[i];
+	            if(typeof (domAttribute)=="function"){continue;}
+	            if(i=="className"){
+	               i="class";
+	               el.className=domAttribute;
+	            }
+	            if(domAttribute!==el.getAttribute(i)){
+	               if(domAttribute===false){
+	                  el.removeAttribute(i);
+	               }else{
+	                  el.setAttribute(i,domAttribute);
+	               }
+	            }
+				}
          }
       }
       if(styleAttributes){
-         for(var i in styleAttributes){
-            if(typeof (styleAttributes[i])=="function"){ continue; }
-            if(el.style[i]!=styleAttributes[i]){
-               el.style[i]=styleAttributes[i];
-            }
+         for(i in styleAttributes){
+				if(styleAttributes.hasOwnProperty(i)) {
+					if(typeof (styleAttributes[i])=="function"){ continue; }
+					if(el.style[i]!=styleAttributes[i]){
+						el.style[i]=styleAttributes[i];
+					}
+				}
          }
       }
    
@@ -91,7 +97,7 @@ var WireIt = {
                         function(el, arr) { return arr.indexOf(el);} : 
                         function(el, arr) {
                            for(var i = 0 ;i < arr.length ; i++) {
-                              if(arr[i] == el) return i;
+                              if(arr[i] == el) {return i;}
                            }
                            return -1;
                         },
@@ -121,6 +127,7 @@ var WireIt = {
  * WireIt.util contains utility classes
  */
 WireIt.util = {};
+/*global YAHOO,WireIt,G_vmlCanvasManager,document */
 (function () {
    
    // Shortcuts
@@ -204,8 +211,10 @@ WireIt.util = {};
                      var newCanvas=WireIt.cn("canvas",{className:el.className || el.getAttribute("class"),width:width,height:height},{left:left+"px",top:top+"px"});
                      var listeners=Event.getListeners(el);
                      for(var listener in listeners){
-                        var l=listeners[listener];
-                        Event.addListener(newCanvas,l.type,l.fn,l.obj,l.adjust);
+								if(listeners.hasOwnProperty(listener)) {
+									var l=listeners[listener];
+									Event.addListener(newCanvas,l.type,l.fn,l.obj,l.adjust);
+								}
                      }
                      Event.purgeElement(el);
                      el.parentNode.replaceChild(newCanvas,el);
@@ -217,7 +226,8 @@ WireIt.util = {};
                   })
    };
    
-})();/**
+})();/*global YAHOO */
+/**
  * The wire widget that uses a canvas to render
  * @class Wire
  * @namespace WireIt
@@ -448,9 +458,9 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    drawBezierArrows: function() {
 	  //From drawArrows function
 
-	 	var arrowWidth = Math.round(this.options.width * 1.5 + 20);
+		var arrowWidth = Math.round(this.options.width * 1.5 + 20);
 		var arrowLength = Math.round(this.options.width * 1.2 + 20);
-	  	var d = arrowWidth/2; // arrow width/2
+		var d = arrowWidth/2; // arrow width/2
       var redim = d+3; //we have to make the canvas a little bigger because of arrows
       var margin=[4+redim,4+redim];
 
@@ -533,74 +543,74 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 
 	//Variables from drawArrows
 		//var t1 = p1;
-		var t1 = bezierPoints[2],
-			 t2 = p2;
+		var t1 = bezierPoints[2],t2 = p2;
 
-   	var z = [0,0]; //point on the wire with constant distance (dlug) from terminal2
-   	var dlug = arrowLength; //arrow length
-   	var t = 1-(dlug/distance);
-   	z[0] = Math.abs( t1[0] +  t*(t2[0]-t1[0]) );
-   	z[1] = Math.abs( t1[1] + t*(t2[1]-t1[1]) );	
-   	
-	//line which connects the terminals: y=ax+b
-   	var W = t1[0] - t2[0];
-   	var Wa = t1[1] - t2[1];
-   	var Wb = t1[0]*t2[1] - t1[1]*t2[0];
-   	if (W !== 0) {
-   		a = Wa/W;
-   		b = Wb/W;
-   	}
-   	else {
-   		a = 0;
-   	}
-   	//line perpendicular to the main line: y = aProst*x + b
-   	if (a === 0) {
-   		aProst = 0;
-   	}
-   	else {
-   		aProst = -1/a;
-   	}
-   	bProst = z[1] - aProst*z[0]; //point z lays on this line
+		var z = [0,0]; //point on the wire with constant distance (dlug) from terminal2
+		var dlug = arrowLength; //arrow length
+		var t = 1-(dlug/distance);
+		z[0] = Math.abs( t1[0] +  t*(t2[0]-t1[0]) );
+		z[1] = Math.abs( t1[1] + t*(t2[1]-t1[1]) );	
 
-   	//we have to calculate coordinates of 2 points, which lay on perpendicular line and have the same distance (d) from point z
-   	var A = 1 + Math.pow(aProst,2),
+		// line which connects the terminals: y=ax+b
+		var a,b;
+		var W = t1[0] - t2[0];
+		var Wa = t1[1] - t2[1];
+		var Wb = t1[0]*t2[1] - t1[1]*t2[0];
+		if (W !== 0) {
+			a = Wa/W;
+			b = Wb/W;
+		}
+		else {
+			a = 0;
+		}
+		//line perpendicular to the main line: y = aProst*x + b
+		var aProst, bProst;
+		if (a === 0) {
+			aProst = 0;
+		}
+		else {
+			aProst = -1/a;
+		}
+		bProst = z[1] - aProst*z[0]; //point z lays on this line
+
+		//we have to calculate coordinates of 2 points, which lay on perpendicular line and have the same distance (d) from point z
+		var A = 1 + Math.pow(aProst,2),
 			 B = 2*aProst*bProst - 2*z[0] - 2*z[1]*aProst,
 			 C = -2*z[1]*bProst + Math.pow(z[0],2) + Math.pow(z[1],2) - Math.pow(d,2) + Math.pow(bProst,2),
 			 delta = Math.pow(B,2) - 4*A*C;
 			
-   	if (delta < 0) { return; }
+		if (delta < 0) { return; }
 	   
-   	var x1 = (-B + Math.sqrt(delta)) / (2*A),
-			 x2 = (-B - Math.sqrt(delta)) / (2*A),
-			 y1 = aProst*x1 + bProst,
-			 y2 = aProst*x2 + bProst;
-   	
-   	if(t1[1] == t2[1]) {
-   	      var o = (t1[0] > t2[0]) ? 1 : -1;
-      	   x1 = t2[0]+o*dlug;
-      	   x2 = x1;
-      	   y1 -= d;
-      	   y2 += d;
-   	}   	
+		var x1 = (-B + Math.sqrt(delta)) / (2*A),
+			x2 = (-B - Math.sqrt(delta)) / (2*A),
+			y1 = aProst*x1 + bProst,
+			y2 = aProst*x2 + bProst;
 
-   	//triangle fill
-   	ctxt.fillStyle = this.options.color;
-   	ctxt.beginPath();
-   	ctxt.moveTo(t2[0],t2[1]);
-   	ctxt.lineTo(x1,y1);
-   	ctxt.lineTo(x2,y2);
-   	ctxt.fill();
+		if(t1[1] == t2[1]) {
+			var o = (t1[0] > t2[0]) ? 1 : -1;
+			x1 = t2[0]+o*dlug;
+			x2 = x1;
+			y1 -= d;
+			y2 += d;
+		}
 
-   	//triangle border	
-   	ctxt.strokeStyle = this.options.bordercolor;
-   	ctxt.lineWidth = this.options.borderwidth;
-   	ctxt.beginPath();
-   	ctxt.moveTo(t2[0],t2[1]);
-   	ctxt.lineTo(x1,y1);
-   	ctxt.lineTo(x2,y2);
-   	ctxt.lineTo(t2[0],t2[1]);
-   	ctxt.stroke();
+		// triangle fill
+		ctxt.fillStyle = this.options.color;
+		ctxt.beginPath();
+		ctxt.moveTo(t2[0],t2[1]);
+		ctxt.lineTo(x1,y1);
+		ctxt.lineTo(x2,y2);
+		ctxt.fill();
 
+		// triangle border	
+		ctxt.strokeStyle = this.options.bordercolor;
+		ctxt.lineWidth = this.options.borderwidth;
+		ctxt.beginPath();
+		ctxt.moveTo(t2[0],t2[1]);
+		ctxt.lineTo(x1,y1);
+		ctxt.lineTo(x2,y2);
+		ctxt.lineTo(t2[0],t2[1]);
+		ctxt.stroke();
 		
 		return [p1,p2,t1,t2];
    },
@@ -622,9 +632,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * Drawing methods for arrows
     * @method drawArrows
     */
-   drawArrows: function()
-   {
-   	var d = 7; // arrow width/2
+   drawArrows: function() {
+		var d = 7; // arrow width/2
       var redim = d+3; //we have to make the canvas a little bigger because of arrows
       var margin=[4+redim,4+redim];
 
@@ -669,75 +678,75 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       ctxt.lineTo(p2[0],p2[1]);
       ctxt.stroke();
 
-   	/* start drawing arrows */
+		/* start drawing arrows */
+		var t1 = p1;
+		var t2 = p2;
 
-   	var t1 = p1;
-   	var t2 = p2;
+		var z = [0,0]; //point on the wire with constant distance (dlug) from terminal2
+		var dlug = 20; //arrow length
+		var t = (distance === 0) ? 0 : 1-(dlug/distance);
+		z[0] = Math.abs( t1[0] +  t*(t2[0]-t1[0]) );
+		z[1] = Math.abs( t1[1] + t*(t2[1]-t1[1]) );	
 
-   	var z = [0,0]; //point on the wire with constant distance (dlug) from terminal2
-   	var dlug = 20; //arrow length
-   	var t = (distance == 0) ? 0 : 1-(dlug/distance);
-   	z[0] = Math.abs( t1[0] +  t*(t2[0]-t1[0]) );
-   	z[1] = Math.abs( t1[1] + t*(t2[1]-t1[1]) );	
+		//line which connects the terminals: y=ax+b
+		var a,b;
+		var W = t1[0] - t2[0];
+		var Wa = t1[1] - t2[1];
+		var Wb = t1[0]*t2[1] - t1[1]*t2[0];
+		if (W !== 0) {
+			a = Wa/W;
+			b = Wb/W;
+		}
+		else {
+			a = 0;
+		}
+		//line perpendicular to the main line: y = aProst*x + b
+		var aProst, bProst;
+		if (a === 0) {
+			aProst = 0;
+		}
+		else {
+			aProst = -1/a;
+		}
+		bProst = z[1] - aProst*z[0]; //point z lays on this line
 
-   	//line which connects the terminals: y=ax+b
-   	var W = t1[0] - t2[0];
-   	var Wa = t1[1] - t2[1];
-   	var Wb = t1[0]*t2[1] - t1[1]*t2[0];
-   	if (W !== 0) {
-   		a = Wa/W;
-   		b = Wb/W;
-   	}
-   	else {
-   		a = 0;
-   	}
-   	//line perpendicular to the main line: y = aProst*x + b
-   	if (a == 0) {
-   		aProst = 0;
-   	}
-   	else {
-   		aProst = -1/a;
-   	}
-   	bProst = z[1] - aProst*z[0]; //point z lays on this line
+		//we have to calculate coordinates of 2 points, which lay on perpendicular line and have the same distance (d) from point z
+		var A = 1 + Math.pow(aProst,2);
+		var B = 2*aProst*bProst - 2*z[0] - 2*z[1]*aProst;
+		var C = -2*z[1]*bProst + Math.pow(z[0],2) + Math.pow(z[1],2) - Math.pow(d,2) + Math.pow(bProst,2);
+		var delta = Math.pow(B,2) - 4*A*C;
+		if (delta < 0) { return; }
 
-   	//we have to calculate coordinates of 2 points, which lay on perpendicular line and have the same distance (d) from point z
-   	var A = 1 + Math.pow(aProst,2);
-   	var B = 2*aProst*bProst - 2*z[0] - 2*z[1]*aProst;
-   	var C = -2*z[1]*bProst + Math.pow(z[0],2) + Math.pow(z[1],2) - Math.pow(d,2) + Math.pow(bProst,2);
-   	var delta = Math.pow(B,2) - 4*A*C;
-   	if (delta < 0) { return; }
-	   
-   	var x1 = (-B + Math.sqrt(delta)) / (2*A);
-   	var x2 = (-B - Math.sqrt(delta)) / (2*A);	 
-   	var y1 = aProst*x1 + bProst;
-   	var y2 = aProst*x2 + bProst;
-   	
-   	if(t1[1] == t2[1]) {
-   	      var o = (t1[0] > t2[0]) ? 1 : -1;
-      	   x1 = t2[0]+o*dlug;
-      	   x2 = x1;
-      	   y1 -= d;
-      	   y2 += d;
-   	}   	
+		var x1 = (-B + Math.sqrt(delta)) / (2*A);
+		var x2 = (-B - Math.sqrt(delta)) / (2*A);	 
+		var y1 = aProst*x1 + bProst;
+		var y2 = aProst*x2 + bProst;
 
-   	//triangle fill
-   	ctxt.fillStyle = this.options.color;
-   	ctxt.beginPath();
-   	ctxt.moveTo(t2[0],t2[1]);
-   	ctxt.lineTo(x1,y1);
-   	ctxt.lineTo(x2,y2);
-   	ctxt.fill();
+		if(t1[1] == t2[1]) {
+			var o = (t1[0] > t2[0]) ? 1 : -1;
+			x1 = t2[0]+o*dlug;
+			x2 = x1;
+			y1 -= d;
+			y2 += d;
+		}
 
-   	//triangle border	
-   	ctxt.strokeStyle = this.options.bordercolor;
-   	ctxt.lineWidth = this.options.borderwidth;
-   	ctxt.beginPath();
-   	ctxt.moveTo(t2[0],t2[1]);
-   	ctxt.lineTo(x1,y1);
-   	ctxt.lineTo(x2,y2);
-   	ctxt.lineTo(t2[0],t2[1]);
-   	ctxt.stroke();
+		//triangle fill
+		ctxt.fillStyle = this.options.color;
+		ctxt.beginPath();
+		ctxt.moveTo(t2[0],t2[1]);
+		ctxt.lineTo(x1,y1);
+		ctxt.lineTo(x2,y2);
+		ctxt.fill();
 
+		//triangle border	
+		ctxt.strokeStyle = this.options.bordercolor;
+		ctxt.lineWidth = this.options.borderwidth;
+		ctxt.beginPath();
+		ctxt.moveTo(t2[0],t2[1]);
+		ctxt.lineTo(x1,y1);
+		ctxt.lineTo(x2,y2);
+		ctxt.lineTo(t2[0],t2[1]);
+		ctxt.stroke();
    },
    
    /**
@@ -827,7 +836,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 		var winkel = 0;
 		var distance = 15;
 		
-   	var ctxt=this.getContext();
+		var ctxt=this.getContext();
 		ctxt.save();
 		
 		//1.Quadrant
@@ -946,8 +955,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @param {Integer} y top position of the mouse (relative to the canvas)
     */
    onClick: function(x,y) {
- 	   if( this.wireDrawnAt(x,y) ) {
- 	      this.onWireClick(x,y);
+		if( this.wireDrawnAt(x,y) ) {
+			this.onWireClick(x,y);
       }
    },
    
@@ -965,15 +974,21 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 
 });
 
+/*global YAHOO,window */
+(function() {
+
+   var util = YAHOO.util;
+   var lang = YAHOO.lang, CSS_PREFIX = "WireIt-";
+
 /**
-* This class is used for wire edition. It inherits from YAHOO.util.DDProxy and acts as a "temporary" Terminal.
-* @class TerminalProxy
-* @namespace WireIt
-* @extends YAHOO.util.DDProxy
-* @constructor
-* @param {WireIt.Terminal} terminal Parent terminal
-* @param {Object} options Configuration object (see "termConfig" property for details)
-*/
+ * This class is used for wire edition. It inherits from YAHOO.util.DDProxy and acts as a "temporary" Terminal.
+ * @class TerminalProxy
+ * @namespace WireIt
+ * @extends YAHOO.util.DDProxy
+ * @constructor
+ * @param {WireIt.Terminal} terminal Parent terminal
+ * @param {Object} options Configuration object (see "termConfig" property for details)
+ */
 WireIt.TerminalProxy = function(terminal, options) {
 
 	/**
@@ -1012,7 +1027,7 @@ WireIt.TerminalProxy = function(terminal, options) {
 // Mode Intersect to get the DD objects
 util.DDM.mode = util.DDM.INTERSECT;
 
-lang.extend(WireIt.TerminalProxy, util.DDProxy, {
+lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 
 	/**
 	 * Took this method from the YAHOO.util.DDProxy class
@@ -1022,7 +1037,7 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
 	createFrame: function() {
 	     var self=this, body=document.body;
 	     if (!body || !body.firstChild) {
-	         setTimeout( function() { self.createFrame(); }, 50 );
+	         window.setTimeout( function() { self.createFrame(); }, 50 );
 	         return;
 	     }
 	     var div=this.getDragEl(), Dom=YAHOO.util.Dom;
@@ -1069,9 +1084,9 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
 	      addWire: function() {},
 	      removeWire: function() {},
 	      getXY: function() { 
-	         var layers = Dom.getElementsByClassName('WireIt-Layer');
+	         var layers = YAHOO.util.Dom.getElementsByClassName('WireIt-Layer');
 	         if(layers.length > 0) {
-	            var orig = Dom.getXY(layers[0]);
+	            var orig = YAHOO.util.Dom.getXY(layers[0]);
 	            return [this.pos[0]-orig[0]+halfProxySize, this.pos[1]-orig[1]+halfProxySize]; 
 	         }
 	         return this.pos;
@@ -1083,7 +1098,7 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
 	      parentEl = this.terminal.container.layer.el;
 	   }
 	   this.editingWire = new WireIt.Wire(this.terminal, this.fakeTerminal, parentEl, this.terminal.options.editingWireConfig);
-	   Dom.addClass(this.editingWire.element, CSS_PREFIX+'Wire-editing');
+	   YAHOO.util.Dom.addClass(this.editingWire.element, CSS_PREFIX+'Wire-editing');
 	},
 
 	/**
@@ -1096,16 +1111,16 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
    
 	   if(this.terminal.container) {
 	      var obj = this.terminal.container.layer.el;
-	      var curleft = curtop = 0;
-	     	if (obj.offsetParent) {
-	     		do {
-	     			curleft += obj.offsetLeft;
-	     			curtop += obj.offsetTop;
-	     			obj = obj.offsetParent ;
-	     		} while ( obj = obj.offsetParent );
-	     	}
-	      this.fakeTerminal.pos = [e.clientX-curleft+this.terminal.container.layer.el.scrollLeft,
-	                               e.clientY-curtop+this.terminal.container.layer.el.scrollTop];
+	      var curleft = 0, curtop = 0;
+			if (obj.offsetParent) {
+				do {
+					curleft += obj.offsetLeft;
+					curtop += obj.offsetTop;
+					obj = obj.offsetParent ;
+					} while ( (obj = obj.offsetParent) );
+				}
+				this.fakeTerminal.pos = [e.clientX-curleft+this.terminal.container.layer.el.scrollLeft,
+												e.clientY-curtop+this.terminal.container.layer.el.scrollTop];
 	   }
 	   else {
 	      this.fakeTerminal.pos = (YAHOO.env.ua.ie) ? [e.clientX, e.clientY] : [e.clientX+window.pageXOffset, e.clientY+window.pageYOffset];
@@ -1160,7 +1175,7 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
 	 */
 	onDragDrop: function(e,ddTargets) {
 
-   	var i;
+		var i;
 
 	   // Prevention when the editing wire could not be created (due to nMaxWires)
 	   if(!this.editingWire) { return; }
@@ -1293,7 +1308,15 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
 	   return true;
 	}
 
-});/**
+});
+
+})();/*global YAHOO */
+(function() {
+
+   var util = YAHOO.util;
+	var Event = util.Event, lang = YAHOO.lang, CSS_PREFIX = "WireIt-";
+
+/**
  * Scissors widget to cut wires
  * @class Scissors
  * @namespace WireIt
@@ -1317,7 +1340,7 @@ WireIt.Scissors = function(terminal, oConfigs) {
 
 WireIt.Scissors.visibleInstance = null;
 
-YAHOO.lang.extend(WireIt.Scissors, YAHOO.util.Element, {
+lang.extend(WireIt.Scissors, YAHOO.util.Element, {
    
    /**
     * Init the scissors
@@ -1396,7 +1419,10 @@ YAHOO.lang.extend(WireIt.Scissors, YAHOO.util.Element, {
       this.setStyle('display','none');
    }
 
-});(function() {
+});
+
+})();/*global YAHOO */
+(function() {
 
    var util = YAHOO.util;
    var Event = util.Event, lang = YAHOO.lang, Dom = util.Dom, CSS_PREFIX = "WireIt-";
@@ -1544,27 +1570,27 @@ WireIt.Terminal.prototype = {
 	 */
    setPosition: function(pos) {
 		if(pos) {
-	    	//Clear the current position
-	    	this.el.style.left = "";
-	    	this.el.style.top = "";
-	    	this.el.style.right = "";
-	    	this.el.style.bottom = "";
+			// Clear the current position
+			this.el.style.left = "";
+			this.el.style.top = "";
+			this.el.style.right = "";
+			this.el.style.bottom = "";
 	    
-	    	// Kept old version [x,y] for retro-compatibility
-	    	if( lang.isArray(pos) ) {
+			// Kept old version [x,y] for retro-compatibility
+			if( lang.isArray(pos) ) {
 				this.el.style.left = pos[0]+"px";
 				this.el.style.top = pos[1]+"px";
-	    	}
-	    	// New version: {top: 32, left: 23}
-	    	else if( lang.isObject(pos) ) {
+			}
+			// New version: {top: 32, left: 23}
+			else if( lang.isObject(pos) ) {
 				for(var key in pos) {
-		    		if(pos.hasOwnProperty(key) && pos[key] != ""){ //This will ignore the number 0 since 0 == "" in javascript (firefox 3.0
+					if(pos.hasOwnProperty(key) && pos[key] !== ""){ //This will ignore the number 0 since 0 == "" in javascript (firefox 3.0
 						this.el.style[key] = pos[key]+"px";
-		    		}
+					}
 				}
-	    	}
+			}
 		}
-    },
+	},
     
    /**
     * Add a wire to this terminal.
@@ -1589,7 +1615,7 @@ WireIt.Terminal.prototype = {
     * @param {WireIt.Wire} wire Wire instance to remove
     */
    removeWire: function(wire) {
-      var index = WireIt.indexOf(wire, this.wires), w;   
+      var index = WireIt.indexOf(wire, this.wires); 
       if( index != -1 ) {
          
          this.wires[index].destroy();
@@ -1598,7 +1624,7 @@ WireIt.Terminal.prototype = {
          this.wires = WireIt.compact(this.wires);
       
          // Remove the connected class if it has no more wires:
-         if(this.wires.length == 0) {
+         if(this.wires.length === 0) {
             Dom.removeClass(this.el, this.options.connectedClassName);
          }
       
@@ -1617,16 +1643,16 @@ WireIt.Terminal.prototype = {
       var layerEl = this.container && this.container.layer ? this.container.layer.el : document.body;
 
       var obj = this.el;
-      var curleft = curtop = 0;
-     	if (obj.offsetParent) {
-     		do {
-     			curleft += obj.offsetLeft;
-     			curtop += obj.offsetTop;
-     			obj = obj.offsetParent;
-     		} while ( !!obj && obj != layerEl);
-     	}
-  	
-     	return [curleft+15,curtop+15];
+		var curleft = 0, curtop = 0;
+		if (obj.offsetParent) {
+			do {
+				curleft += obj.offsetLeft;
+				curtop += obj.offsetTop;
+				obj = obj.offsetParent;
+			} while ( !!obj && obj != layerEl);
+		}
+
+		return [curleft+15,curtop+15];
    },
 
    /**
@@ -1690,7 +1716,8 @@ WireIt.Terminal.prototype = {
 
 };
 
-})();/**
+})();/*global YAHOO */
+/**
  * Class that extends Terminal to differenciate Input/Output terminals
  * @class WireIt.util.TerminalInput
  * @extends WireIt.Terminal
@@ -1721,7 +1748,8 @@ YAHOO.lang.extend(WireIt.util.TerminalInput, WireIt.Terminal, {
       this.options.nMaxWires = options.nMaxWires || 1;
    }
    
-});/**
+});/*global YAHOO */
+/**
  * Class that extends Terminal to differenciate Input/Output terminals
  * @class WireIt.util.TerminalOutput
  * @extends WireIt.Terminal
@@ -1752,7 +1780,8 @@ YAHOO.lang.extend(WireIt.util.TerminalOutput, WireIt.Terminal, {
       this.options.alwaysSrc = true;
    }
    
-});/**
+});/*global YAHOO,WireIt */
+/**
  * WireIt.util.DD is a wrapper class for YAHOO.util.DD, to redraw the wires associated with the given terminals while drag-dropping
  * @class DD
  * @namespace WireIt.util
@@ -1805,6 +1834,7 @@ YAHOO.extend(WireIt.util.DD, YAHOO.util.DD, {
    }
    
 });
+/*global YAHOO,WireIt */
 /**
  * Make a container resizable
  * @class DDResize
@@ -1876,6 +1906,7 @@ YAHOO.extend(WireIt.util.DDResize, YAHOO.util.DragDrop, {
         this.eventResize.fire([newWidth, newHeight]);
     }
 });
+/*global YAHOO,WireIt,window */
 (function() {
    
    var util = YAHOO.util;
@@ -1957,9 +1988,9 @@ WireIt.Container = function(options, layer) {
 	if(this.options.draggable) {
 		   
 	   if(this.options.resizable) {
-      	// Make resizeable   
-      	this.ddResize = new WireIt.util.DDResize(this);
-      	this.ddResize.eventResize.subscribe(this.onResize, this, true);
+			// Make resizeable   
+			this.ddResize = new WireIt.util.DDResize(this);
+			this.ddResize.eventResize.subscribe(this.onResize, this, true);
 	   }
 	   
 	   // Use the drag'n drop utility to make the container draggable
@@ -1967,13 +1998,13 @@ WireIt.Container = function(options, layer) {
 	   
 	   // Sets ddHandle as the drag'n drop handle
 	   if(this.options.ddHandle) {
-   	   this.dd.setHandleElId(this.ddHandle);
+			this.dd.setHandleElId(this.ddHandle);
 	   }
 	   
 	   // Mark the resize handle as an invalid drag'n drop handle and vice versa
 	   if(this.options.resizable) {
-   	   this.dd.addInvalidHandleId(this.ddResizeHandle);
-      	this.ddResize.addInvalidHandleId(this.ddHandle);
+			this.dd.addInvalidHandleId(this.ddResizeHandle);
+			this.ddResize.addInvalidHandleId(this.ddHandle);
 	   }
    }
    
@@ -2058,9 +2089,9 @@ WireIt.Container.prototype = {
    
       if(this.options.ddHandle) {
          // Create the drag/drop handle
-      	this.ddHandle = WireIt.cn('div', {className: this.options.ddHandleClassName});
-      	this.el.appendChild(this.ddHandle);
-      	
+			this.ddHandle = WireIt.cn('div', {className: this.options.ddHandleClassName});
+			this.el.appendChild(this.ddHandle);
+
          // Set title
          if(this.options.title) {
             this.ddHandle.appendChild( WireIt.cn('span', {className: 'floatleft'}, null, this.options.title) );
@@ -2080,31 +2111,33 @@ WireIt.Container.prototype = {
    
       if(this.options.resizable) {
          // Create the resize handle
-      	this.ddResizeHandle = WireIt.cn('div', {className: this.options.resizeHandleClassName} );
-      	this.el.appendChild(this.ddResizeHandle);
+			this.ddResizeHandle = WireIt.cn('div', {className: this.options.resizeHandleClassName} );
+			this.el.appendChild(this.ddResizeHandle);
       }
 
       if(this.options.close) {
          // Close button
          this.closeButton = WireIt.cn('div', {className: this.options.closeButtonClassName} );
-	 if (this.options.ddHandle)
-	    this.ddHandle.appendChild(this.closeButton);
-	 else
-	    this.el.appendChild(this.closeButton);
+			if (this.options.ddHandle) {
+				this.ddHandle.appendChild(this.closeButton);
+			}
+			else {
+				this.el.appendChild(this.closeButton);
+			}
          Event.addListener(this.closeButton, "click", this.onCloseButton, this, true);
       }
       
       if(this.options.groupable && this.options.ddHandle) {
          this.groupButton = WireIt.cn('div', {className: 'WireIt-Container-groupbutton'} );
-         this.ddHandle.appendChild(this.groupButton)
+			this.ddHandle.appendChild(this.groupButton);
          Event.addListener(this.groupButton, "click", this.onGroupButton, this, true);
       }   
       // Append to the layer element
       this.layer.el.appendChild(this.el);
    
-   	// Set the position
-   	this.el.style.left = this.options.position[0]+"px";
-   	this.el.style.top = this.options.position[1]+"px";
+		// Set the position
+		this.el.style.left = this.options.position[0]+"px";
+		this.el.style.top = this.options.position[1]+"px";
    },
 
    /**
@@ -2216,7 +2249,12 @@ WireIt.Container.prototype = {
    addTerminal: function(terminalConfig) {
    
       // Terminal type
-      var type = eval(terminalConfig.xtype || "WireIt.Terminal");
+		var path = (terminalConfig.xtype || "WireIt.Terminal").split('.');
+		var type = window;
+		for(var i = 0 ; i < path.length ; i++) {
+			type = type[path[i]];
+		}
+		//var type = eval(terminalConfig.xtype || "WireIt.Terminal");
    
       // Instanciate the terminal
       var term = new type(this.el, terminalConfig, this);
@@ -2344,7 +2382,8 @@ WireIt.Container.prototype = {
 
 };
 
-})();/**
+})();/*global YAHOO,WireIt,window */
+/**
  * A layer encapsulate a bunch of containers and wires
  * @class Layer
  * @namespace WireIt
@@ -2434,19 +2473,16 @@ WireIt.Layer = function(options) {
    this.initWires();
    
    if(this.options.layerMap) { 
-      new WireIt.LayerMap(this, this.options.layerMapOptions);
+		this.layermap = new WireIt.LayerMap(this, this.options.layerMapOptions);
    }
    
 	if(WireIt.Grouper) {
 	   this.grouper = new WireIt.Grouper(this, this.options.grouper.baseConfigFunction);
    
 	   var rb = this.grouper.rubberband;
-	   var self = this;
-	   this.el.onmousedown = function(event) { return rb.layerMouseDown.call(rb, event); }
-	   //this.el.onmouseup = 
+		this.el.onmousedown = function(event) { return rb.layerMouseDown.call(rb, event); };
 	   var grouper = this.grouper;
-	   this.el.addEventListener("mouseup", function (event) 
-		{ 
+	   this.el.addEventListener("mouseup", function (event)  { 
 		    rb.finish(); 
 		    grouper.rubberbandSelect.call(grouper); 
 		}, false);
@@ -2479,7 +2515,7 @@ WireIt.Layer.prototype = {
       this.options.layerMap = YAHOO.lang.isUndefined(options.layerMap) ? false : options.layerMap;
       this.options.layerMapOptions = options.layerMapOptions;
       this.options.enableMouseEvents = YAHOO.lang.isUndefined(options.enableMouseEvents) ? true : options.enableMouseEvents;
-      this.options.grouper = options.grouper
+      this.options.grouper = options.grouper;
    },
 
    /**
@@ -2514,24 +2550,32 @@ WireIt.Layer.prototype = {
       }
    },
 
-    setSuperHighlighted: function(containers)
-    {
-	this.unsetSuperHighlighted();
-	
-	for (var i in containers)
-	    containers[i].superHighlight();
-	    
-	this.superHighlighted = containers;
-    },
-    
-    unsetSuperHighlighted: function()
-    {
-	if (YAHOO.lang.isValue(this.superHighlighted))
-	    for (var i in this.superHighlighted)
-	        this.superHighlighted[i].highlight()
-	    
-	this.superHighlighted = null;
-    },
+	/**
+	 * TODO
+	 */
+	setSuperHighlighted: function(containers) {
+		this.unsetSuperHighlighted();
+		for (var i in containers) {
+			if(containers.hasOwnProperty(i)) {
+				containers[i].superHighlight();
+			}
+		}
+		this.superHighlighted = containers;
+	},
+
+	/**
+	 * TODO
+	 */
+	unsetSuperHighlighted: function() {
+		if (YAHOO.lang.isValue(this.superHighlighted)) {
+			for (var i in this.superHighlighted) {
+				if(this.superHighlighted.hasOwnProperty(i)) {
+					this.superHighlighted[i].highlight();
+				}
+			}
+		}
+		this.superHighlighted = null;
+	},
 
    /**
     * Instanciate a wire given its "xtype" (default to WireIt.Wire)
@@ -2540,7 +2584,12 @@ WireIt.Layer.prototype = {
     * @return {WireIt.Wire} Wire instance build from the xtype
     */
    addWire: function(wireConfig) {
-      var type = eval(wireConfig.xtype || "WireIt.Wire");
+		// var type = eval(wireConfig.xtype || "WireIt.Wire");
+		var path = (wireConfig.xtype || "WireIt.Wire").split('.');
+		var type = window;
+		for(var i = 0 ; i < path.length ; i++) {
+			type = type[path[i]];
+		}
    
       var src = wireConfig.src;
       var tgt = wireConfig.tgt;
@@ -2561,7 +2610,13 @@ WireIt.Layer.prototype = {
     */
    addContainer: function(containerConfig) {
    
-      var type = eval('('+(containerConfig.xtype || "WireIt.Container")+')');
+      //var type = eval('('+(containerConfig.xtype || "WireIt.Container")+')');
+		var path = (containerConfig.xtype || "WireIt.Container").split('.');
+		var type = window;
+		for(var i = 0 ; i < path.length ; i++) {
+			type = type[path[i]];
+		}
+
       if(!YAHOO.lang.isFunction(type)) {
          throw new Error("WireIt layer unable to add container: xtype '"+containerConfig.xtype+"' not found");
       }
@@ -2616,35 +2671,37 @@ WireIt.Layer.prototype = {
       }
    },
 
-    removeGroup: function(group, containersAsWell) 
-    {
-	var index = this.groups.indexOf(group);
-
-	if (index != -1)
-	    this.groups.splice(index, 1);
-
-	if (containersAsWell)
-	{
-	    if (lang.isValue(group.groupContainer))
-	    {
-		this.removeContainer(group.groupContainer)
-	    }
-	    else
-	    {
-		for (var i in group.containers)
-		{
-		    var elem = group.containers[i].container
-		    this.removeContainer(elem);
+	/**
+	 * TODO
+	 */
+	removeGroup: function(group, containersAsWell)  {
+		var index = this.groups.indexOf(group) , i;
+		
+		if (index != -1) {
+			this.groups.splice(index, 1);
 		}
 
-		for (var i in group.groups)
-		{
-		    var g = group.groups[i].group;
-		    this.removeGroup(g);
+		if (containersAsWell) {
+			if (YAHOO.lang.isValue(group.groupContainer)) {
+				this.removeContainer(group.groupContainer);
+			}
+			else {
+				for (i in group.containers) {
+					if(group.containers.hasOwnProperty(i)) {
+						var elem = group.containers[i].container;
+						this.removeContainer(elem);
+					}
+				}
+
+				for (i in group.groups) {
+					if(group.containers.hasOwnProperty(i)) {
+						var g = group.groups[i].group;
+						this.removeGroup(g);
+					}
+				}
+			}
 		}
-	    }
-	}
-    },
+	},
 
    /**
     * Update the wire list when any of the containers fired the eventAddWire
@@ -2742,14 +2799,14 @@ WireIt.Layer.prototype = {
     */
    setWiring: function(wiring) {
       this.clear();
-      
+      var i;
       if(YAHOO.lang.isArray(wiring.containers)) {
-         for(var i = 0 ; i < wiring.containers.length ; i++) {
+         for(i = 0 ; i < wiring.containers.length ; i++) {
             this.addContainer(wiring.containers[i]);
          }
       }
       if(YAHOO.lang.isArray(wiring.wires)) {
-         for(var i = 0 ; i < wiring.wires.length ; i++) {
+         for(i = 0 ; i < wiring.wires.length ; i++) {
             this.addWire(wiring.wires[i]);
          }
        }
@@ -2762,9 +2819,9 @@ WireIt.Layer.prototype = {
     * @return {Array} position
     */
    _getMouseEvtPos: function(e) {
-   	var tgt = YAHOO.util.Event.getTarget(e);
-   	var tgtPos = [tgt.offsetLeft, tgt.offsetTop];
-   	return [tgtPos[0]+e.layerX, tgtPos[1]+e.layerY];
+		var tgt = YAHOO.util.Event.getTarget(e);
+		var tgtPos = [tgt.offsetLeft, tgt.offsetTop];
+		return [tgtPos[0]+e.layerX, tgtPos[1]+e.layerY];
    },
 
    /**
@@ -2775,17 +2832,17 @@ WireIt.Layer.prototype = {
     */
    onWireClick: function(e) {
       var p = this._getMouseEvtPos(e);
-   	var lx = p[0], ly = p[1], n = this.wires.length, w;
-   	for(var i = 0 ; i < n ; i++) {
-   	   w = this.wires[i];
-      	var elx = w.element.offsetLeft, ely = w.element.offsetTop;
-      	// Check if the mouse is within the canvas boundaries
-   	   if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
-   	      var rx = lx-elx, ry = ly-ely; // relative to the canvas
-   			w.onClick(rx,ry);
-   	   }
-   	}
-   },
+		var lx = p[0], ly = p[1], n = this.wires.length, w;
+		for(var i = 0 ; i < n ; i++) {
+			w = this.wires[i];
+			var elx = w.element.offsetLeft, ely = w.element.offsetTop;
+			// Check if the mouse is within the canvas boundaries
+			if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
+				var rx = lx-elx, ry = ly-ely; // relative to the canvas
+				w.onClick(rx,ry);
+			}
+		}
+	},
 
    /**
     * Handles mousemove events on any wire canvas
@@ -2795,19 +2852,20 @@ WireIt.Layer.prototype = {
     */
    onWireMouseMove: function(e) {
       var p = this._getMouseEvtPos(e);
-   	var lx = p[0], ly = p[1], n = this.wires.length, w;
-   	for(var i = 0 ; i < n ; i++) {
-   	   w = this.wires[i];
-      	var elx = w.element.offsetLeft, ely = w.element.offsetTop;
-      	// Check if the mouse is within the canvas boundaries
-   	   if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
-   	      var rx = lx-elx, ry = ly-ely; // relative to the canvas
-   			w.onMouseMove(rx,ry);
-   	   }
-   	}
-   }
+		var lx = p[0], ly = p[1], n = this.wires.length, w;
+		for(var i = 0 ; i < n ; i++) {
+			w = this.wires[i];
+			var elx = w.element.offsetLeft, ely = w.element.offsetTop;
+			// Check if the mouse is within the canvas boundaries
+			if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
+				var rx = lx-elx, ry = ly-ely; // relative to the canvas
+				w.onMouseMove(rx,ry);
+			}
+		}
+	}
 
 };
+/*global YAHOO,WireIt,window */
 (function() {
 
    var Dom = YAHOO.util.Dom, Event = YAHOO.util.Event;
@@ -2848,7 +2906,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
     * @param {Object} options
     */
    setOptions: function(options) { 
-      var options = options || {};
+      var opts = options || {};
       /**
        * Options:
        * <ul>
@@ -2860,10 +2918,10 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
        * @property options
        */
       this.options = {};
-      this.options.parentEl = Dom.get(options.parentEl || this.layer.el);
-      this.options.className = options.className || "WireIt-LayerMap";
-      this.options.style = options.style || "rgba(0, 0, 200, 0.5)";
-      this.options.lineWidth = options.lineWidth || 2;
+      this.options.parentEl = Dom.get(opts.parentEl || this.layer.el);
+      this.options.className = opts.className || "WireIt-LayerMap";
+      this.options.style = opts.style || "rgba(0, 0, 200, 0.5)";
+      this.options.lineWidth = opts.lineWidth || 2;
    },
    
    
@@ -2898,8 +2956,9 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
     */
    onMouseMove: function(e, args) { 
       Event.stopEvent(e);
-      if(this.isMouseDown) 
+      if(this.isMouseDown) {
          this.scrollLayer(e.clientX,e.clientY);
+		}
    },   
    
    /**
@@ -2975,9 +3034,9 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
     */
    onLayerScroll: function() {
       
-      if(this.scrollTimer) { clearTimeout(this.scrollTimer); }
+      if(this.scrollTimer) { window.clearTimeout(this.scrollTimer); }
       var that = this;
-      this.scrollTimer = setTimeout(function() {
+      this.scrollTimer = window.setTimeout(function() {
          that.draw();
       },50);
       
@@ -3062,7 +3121,8 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
    
 });
 
-})();/**
+})();/*global YAHOO,WireIt */
+/**
  * Container represented by an image
  * @class ImageContainer
  * @extends WireIt.Container
@@ -3097,7 +3157,8 @@ YAHOO.lang.extend(WireIt.ImageContainer, WireIt.Container, {
       YAHOO.util.Dom.setStyle(this.bodyEl, "background-image", "url("+this.options.image+")");
    }
    
-});/**
+});/*global YAHOO,WireIt */
+/**
  * Container with left inputs and right outputs
  * @class InOutContainer
  * @extends WireIt.Container
@@ -3136,10 +3197,10 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
 				"direction": [-1,0], 
 				"offsetPosition": {"left": -14, "top": 3+30*(i+1) }, 
 				"ddConfig": {
-             	"type": "input",
-             	"allowedTypes": ["output"]
-          	}
- 			});
+					"type": "input",
+					"allowedTypes": ["output"]
+				}
+			});
 			this.bodyEl.appendChild(WireIt.cn('div', null, {lineHeight: "30px"}, input));
 		}
 		
@@ -3150,9 +3211,9 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
 				"direction": [1,0], 
 				"offsetPosition": {"right": -14, "top": 3+30*(i+1+this.options.inputs.length) }, 
 				"ddConfig": {
-             "type": "output",
-             "allowedTypes": ["input"]
-          	},
+					"type": "output",
+					"allowedTypes": ["input"]
+				},
 				"alwaysSrc": true
 			});
 			this.bodyEl.appendChild(WireIt.cn('div', null, {lineHeight: "30px", textAlign: "right"}, output));

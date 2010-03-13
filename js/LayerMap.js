@@ -1,3 +1,4 @@
+/*global YAHOO,WireIt,window */
 (function() {
 
    var Dom = YAHOO.util.Dom, Event = YAHOO.util.Event;
@@ -38,7 +39,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
     * @param {Object} options
     */
    setOptions: function(options) { 
-      var options = options || {};
+      var opts = options || {};
       /**
        * Options:
        * <ul>
@@ -50,10 +51,10 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
        * @property options
        */
       this.options = {};
-      this.options.parentEl = Dom.get(options.parentEl || this.layer.el);
-      this.options.className = options.className || "WireIt-LayerMap";
-      this.options.style = options.style || "rgba(0, 0, 200, 0.5)";
-      this.options.lineWidth = options.lineWidth || 2;
+      this.options.parentEl = Dom.get(opts.parentEl || this.layer.el);
+      this.options.className = opts.className || "WireIt-LayerMap";
+      this.options.style = opts.style || "rgba(0, 0, 200, 0.5)";
+      this.options.lineWidth = opts.lineWidth || 2;
    },
    
    
@@ -88,8 +89,9 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
     */
    onMouseMove: function(e, args) { 
       Event.stopEvent(e);
-      if(this.isMouseDown) 
+      if(this.isMouseDown) {
          this.scrollLayer(e.clientX,e.clientY);
+		}
    },   
    
    /**
@@ -165,9 +167,9 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
     */
    onLayerScroll: function() {
       
-      if(this.scrollTimer) { clearTimeout(this.scrollTimer); }
+      if(this.scrollTimer) { window.clearTimeout(this.scrollTimer); }
       var that = this;
-      this.scrollTimer = setTimeout(function() {
+      this.scrollTimer = window.setTimeout(function() {
          that.draw();
       },50);
       
