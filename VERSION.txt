@@ -7,7 +7,7 @@ Not released yet
 
 Changeset:
 
-	* Splitting the WireIt core from plugins
+	* Splitting the WireIt core classes & plugins into separate folders
 	
 	* upgrading to inputEx 0.5.0 (now in the "inputex" plugin)
 

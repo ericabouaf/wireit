@@ -1,3 +1,0 @@
-see guide.html in a web browser
-
-or go to http://neyric.github.com/wireit/guide.html
