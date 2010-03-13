@@ -65,7 +65,10 @@ YAHOO.extend(WireIt.util.DDResize, YAHOO.util.DragDrop, {
         var panel = this.getEl();
         panel.style.width = newWidth + "px";
         panel.style.height = newHeight + "px";
-        
+
+			// redraw wires
+        this.myConf.container.redrawAllWires();
+
         // Fire the resize event
         this.eventResize.fire([newWidth, newHeight]);
     }
