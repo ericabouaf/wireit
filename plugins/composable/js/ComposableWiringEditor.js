@@ -29,7 +29,7 @@ WireIt.ComposableWiringEditor.modules = [
          "xtype": "WireIt.FormContainer",
    		"title": "input",
    		"fields": [
-   			{"type": "type", "inputParams": {"label": "Value", "name": "input", "wirable": false, "value": { "type":"string","inputParams":{"typeInvite": "input name"}} }}
+   			{"type": "type", "label": "Value", "name": "input", "wirable": false, "value": { "type":"string", "typeInvite": "input name" } }
    		],
    		"terminals": [
 			   {"name": "out", "direction": [0,1], "offsetPosition": {"left": 86, "bottom": -15}, "ddConfig": {
@@ -47,7 +47,7 @@ WireIt.ComposableWiringEditor.modules = [
          "xtype": "WireIt.FormContainer",
    		"title": "output",
    		"fields": [ 
-   			{"type": "string", "inputParams": {"label": "name", "name": "name", "wirable": false}}
+   			{"type": "string", "label": "name", "name": "name", "wirable": false }
    		],
 	   	"terminals": [
    		   {"name": "in", "direction": [0,-1], "offsetPosition": {"left": 82, "top": -15 }, "ddConfig": {

@@ -89,7 +89,7 @@ WireIt.Group.prototype = {
 		    else {
 				var field = submap[index].fields[name];
 			
-				if (lang.isObject(field) && field.fieldConfig.inputParams.wirable)
+				if (lang.isObject(field) && field.fieldConfig.wirable)
 			    	return field.externalName;
 		    	}
 		    
@@ -368,7 +368,7 @@ WireIt.Group.prototype = {
 		{
 		    var visibleReadOnly = false;
 		    var defaultVisible = false;
-		    if (fMap.fieldConfig.inputParams.wirable)
+		    if (fMap.fieldConfig.wirable)
 		    {
 			fieldTerminals[internalName] = true;
 		    }

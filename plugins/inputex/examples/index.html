@@ -87,12 +87,12 @@ div.inputEx-Group div.inputEx-label {
 					position:[280,140],
 					xtype: "WireIt.FormContainer",
 					fields: [ 
-						{type: 'select', inputParams: {label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] } },
-						{inputParams: {label: 'Firstname', name: 'firstname', required: true } }, 
-						{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont'} }, 
-						{type:'email', inputParams: {label: 'Email', name: 'email', required: true}}, 
-						{type:'boolean', inputParams: {label: 'Happy to be there ?', name: 'happy'}}, 
-						{type:'url', inputParams: {label: 'Website', name:'website', size: 25}} 
+						{type: 'select', label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] },
+						{label: 'Firstname', name: 'firstname', required: true }, 
+						{label: 'Lastname', name: 'lastname', value:'Dupont'}, 
+						{type:'email', label: 'Email', name: 'email', required: true }, 
+						{type:'boolean', label: 'Happy to be there ?', name: 'happy'}, 
+						{type:'url', label: 'Website', name:'website', size: 25} 
 					],
 					legend: 'Tell us about yourself...'
 		 		},
@@ -100,9 +100,9 @@ div.inputEx-Group div.inputEx-label {
 					position:[500,140],
 					xtype: "WireIt.FormContainer",
 					fields: [
-					    {inputParams: {label: 'Firstname', name: 'firstname' }},
-					    {inputParams: {label: 'Lastname', name: 'lastname' }},
-				      { inputParams: {label: 'Title', name: 'title' } }
+					    {label: 'Firstname', name: 'firstname' },
+					    {label: 'Lastname', name: 'lastname' },
+				      {label: 'Title', name: 'title' }
 				   ],
 					legend: 'Hello there'
 		 		}

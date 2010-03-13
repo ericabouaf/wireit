@@ -19,12 +19,12 @@ var jsBox = {
 		         "xtype": "WireIt.FormContainer",
 		   		"title": "Comment",
 		   		"fields": [
-		            {"type": "text", "inputParams": {"label": "", "name": "comment", "wirable": false }}
+		            {"type": "text", "label": "", "name": "comment", "wirable": false }
 		         ]
 		      },
 		      "value": {
 		         "input": {
-		            "type":"url","inputParams":{}
+		            "type":"url"
 		         }
 		      }
 		   },

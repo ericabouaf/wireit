@@ -18,7 +18,7 @@ WireIt.ComposedContainer = function(options, layer) {
 		for(var i = 0 ; i < pipe.modules.length ; i++) {
          var m = pipe.modules[i];
          if( m.name == "input") {
-            m.value.input.inputParams.wirable = true;
+            m.value.input.wirable = true;
             options.fields.push(m.value.input);
          }
          else if(m.name == "output") {

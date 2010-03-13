@@ -96,12 +96,12 @@ var embeddedLanguage = {
 	// inputEx fields for pipes properties
 	propertiesFields: [
 		// default fields (the "name" field is required by the WiringEditor):
-		{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
-		{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30} },
+		{"type": "string", "name": "name", label: "Title", typeInvite: "Enter a title" },
+		{"type": "text", "name": "description", label: "Description", cols: 30},
 		
 		// Additional fields
-		{"type": "boolean", inputParams: {"name": "isTest", value: true, label: "Test"}},
-		{"type": "select", inputParams: {"name": "category", label: "Category", selectValues: ["Demo", "Test", "Other"]} }
+		{"type": "boolean", "name": "isTest", value: true, label: "Test"},
+		{"type": "select", "name": "category", label: "Category", selectValues: ["Demo", "Test", "Other"]} 
 	],
 	
 	toolbar : {
@@ -148,12 +148,12 @@ var embeddedLanguage = {
 
 	   		"collapsible": true,
 	   		"fields": [ 
-	   			{"type": "select", "inputParams": {"label": "Title", "name": "title", "selectValues": ["Mr","Mrs","Mme"] } },
-	   			{"inputParams": {"label": "Firstname", "name": "firstname", "required": true } }, 
-	   			{"inputParams": {"label": "Lastname", "name": "lastname", "value":"Dupont"} }, 
-	   			{"type":"email", "inputParams": {"label": "Email", "name": "email", "required": true, "wirable": true}}, 
-	   			{"type":"boolean", "inputParams": {"label": "Happy to be there ?", "name": "happy"}}, 
-	   			{"type":"url", "inputParams": {"label": "Website", "name":"website", "size": 25}} 
+	   			{"type": "select", "label": "Title", "name": "title", "selectValues": ["Mr","Mrs","Mme"] },
+	   			{"label": "Firstname", "name": "firstname", "required": true }, 
+	   			{"label": "Lastname", "name": "lastname", "value":"Dupont"}, 
+	   			{"type":"email", "label": "Email", "name": "email", "required": true, "wirable": true}, 
+	   			{"type":"boolean", "label": "Happy to be there ?", "name": "happy"}, 
+	   			{"type":"url", "label": "Website", "name":"website", "size": 25} 
 	   		],
 	   		"legend": "Tell us about yourself..."
 	   	}
@@ -167,12 +167,12 @@ var embeddedLanguage = {
 				"icon": "../../assets/comment.png",
 	   		"title": "Comment",
 	   		"fields": [
-	            {"type": "text", "inputParams": {"label": "", "name": "comment", "wirable": false }}
+	            {"type": "text", "label": "", "name": "comment", "wirable": false }
 	         ]
 	      },
 	      "value": {
 	         "input": {
-	            "type":"url","inputParams":{}
+	            "type":"url"
 	         }
 	      }
 	   },
@@ -216,12 +216,12 @@ var embeddedLanguage = {
 	   				"outputTerminals": [],
 	   				"propertiesForm": [],
 	   				"fields": [ 
-	   					{"type": "select", "inputParams": {"label": "Title", "name": "title", "selectValues": ["Mr","Mrs","Mme"] } },
-	   					{"inputParams": {"label": "Firstname", "name": "firstname", "required": true } }, 
-	   					{"inputParams": {"label": "Lastname", "name": "lastname", "value":"Dupont"} }, 
-	   					{"type":"email", "inputParams": {"label": "Email", "name": "email", "required": true}}, 
-	   					{"type":"boolean", "inputParams": {"label": "Happy to be there ?", "name": "happy"}}, 
-	   					{"type":"url", "inputParams": {"label": "Website", "name":"website", "size": 25}} 
+	   					{"type": "select", "label": "Title", "name": "title", "selectValues": ["Mr","Mrs","Mme"] },
+	   					{"label": "Firstname", "name": "firstname", "required": true }, 
+	   					{"label": "Lastname", "name": "lastname", "value":"Dupont"}, 
+	   					{"type":"email", "label": "Email", "name": "email", "required": true}, 
+	   					{"type":"boolean", "label": "Happy to be there ?", "name": "happy"}, 
+	   					{"type":"url", "label": "Website", "name":"website", "size": 25} 
 	   				]
 					}
 				},
@@ -235,16 +235,15 @@ var embeddedLanguage = {
 
 	         		"fields": [ 
 
-	         		   {"type": "inplaceedit", "inputParams": {
+	         		   {"type": "inplaceedit", 
 										"name": "post",
-	         		      "editorField":{"type":"text", "inputParams": {} },  
+	         		      "editorField":{"type":"text" },  
 	         		      "animColors":{"from":"#FFFF99" , "to":"#DDDDFF"}
-	         		   }},
+	         		   },
 
-	         			{"type": "list", "inputParams": {
+	         			{"type": "list",
 	         			   "label": "Comments", "name": "comments", "wirable": false,
-	         			   "elementType": {"type":"string", "inputParams": { "wirable": false } }
-	         			   } 
+	         			   "elementType": {"type":"string", "wirable": false }
 	         			}
 
 	         		],

@@ -6,14 +6,7 @@ modules[modules.length++] = {
         "xtype": "WireIt.FormContainer",
         "title": "Apply xPath to input",
         "fields": [
-        {
-            "type": "string",
-            "inputParams": {
-                "label": "Expression",
-                "name": "expr",
-                "wirable": true
-            }
-        }
+        		{ "type": "string", "label": "Expression", "name": "expr", "wirable": true }
         ],
         "terminals": [
         {
@@ -80,15 +73,12 @@ modules[modules.length++] ={
         "fields": [
         {
             "type": "text",
-            "inputParams": {
                 "label": "WorkItem XML",
                 "name": "workitemXML",
                 "wirable": true
-            }
         },
         {
             "type": "text",
-            "inputParams": {
                 "label": "XSL",
                 "value":'<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">\n'+
                 '<xsl:template match="node()">\n'+
@@ -102,7 +92,6 @@ modules[modules.length++] ={
                 '</xsl:stylesheet>',
                 "name": "xsl",
                 "wirable": false
-            }
         }
         ],
         "terminals": [
@@ -130,22 +119,18 @@ modules[modules.length++] ={
         "fields": [
         {
             "type": "text",
-            "inputParams": {
                 "label": "WorkItem XML",
                 "name": "workitemXML",
                 "wirable": true
-            }
         },
         {
             "type": "select",
-            "inputParams": {
                 "label": "RuleBase",
                 "name": "rulebase",
 				"selectValues": [1,2,3,4],
 				"selectOptions": ["StripEntitiesRuleBase","SetTransitionConditionA","MyFirstRuleBase","MySecondRuleBase"],
 				"required":true,
                 "wirable": false
-            }
         }
         ],
 		"executionType":"jsBox",
@@ -175,11 +160,9 @@ modules[modules.length++] ={
         "fields": [
         {
             "type": "text",
-            "inputParams": {
                 "label": "WorkItem XML",
                 "name": "workitemXML",
                 "wirable": true
-            }
         }
         ],
 		"executionType":"jsBox",
@@ -229,11 +212,10 @@ var samodules={};
 samodules.GetByIdContainer = function(options, layer) {
     options.fields = [{
          "type": "integer",
-         "inputParams": {
              "label": "Id",
              "name": "input",
              "wirable": true
-         }}];
+         }];
    samodules.GetByIdContainer.superclass.constructor.call(this, options, layer);
    
    this.outputTerminal = this.addTerminal({xtype: "WireIt.util.TerminalOutput", "name": "out"});      
@@ -246,11 +228,10 @@ YAHOO.extend(samodules.GetByIdContainer, WireIt.FormContainer, {});
 samodules.DisplayItemContainer= function(options, layer) {
     options.fields= [{
         "type": "text",
-        "inputParams": {
             "label": "Raw XML",
             "name": "xml",
             "wirable": true
-        }}];
+        }];
     samodules.DisplayItemContainer.superclass.constructor.call(this, options, layer);
 
     var width = WireIt.getIntStyle(this.el, "width");   
@@ -396,10 +377,10 @@ jsBox.ComposedContainer = function(options, layer) {
       for(var i = 0 ; i < pipe.modules.length ; i++) {
          var m = pipe.modules[i];
          var moduleDefinition =sawire.editor.modulesByName[m.name];
-         console.log(moduleDefinition);
+         //console.log(moduleDefinition);
          
          if( m.name == "input") {
-            m.value.input.inputParams.wirable = true;
+            m.value.input.wirable = true;
             options.fields.push(m.value.input);
          }
          else if(m.name == "output") {

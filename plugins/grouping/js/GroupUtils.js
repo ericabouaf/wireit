@@ -174,10 +174,9 @@
 				var fc = {};
 				lang.augmentObject(fc, fMap.fieldConfig);
 				
-				fc.inputParams = {};
-				fc.inputParams.name = fMap.externalName;
-				fc.inputParams.label = fMap.externalName;
-				lang.augmentObject(fc.inputParams, fMap.fieldConfig.inputParams)
+				fc.name = fMap.externalName;
+				fc.label = fMap.externalName;
+				lang.augmentObject(fc, fMap.fieldConfig)
 				
 				fieldConfigs.push(fc);
 			    }
@@ -423,14 +422,12 @@
 		    var fConfig = group.groupContainer.form.inputConfigs[fI];
 		    var fCopy = {}
 		    lang.augmentObject(fCopy, fConfig);
-		    fCopy.inputParams = {};
-		    lang.augmentObject(fCopy.inputParams, fConfig.inputParams);
 		    
 		    var fMap = {"fieldConfig" : fCopy};
 					    
 		    if (this.isFieldExternal(group.groupContainer.form.inputs[fI], inGroup))
 		    {
-			fMap.externalName = fConfig.inputParams.name;
+			fMap.externalName = fConfig.name;
 			fMap.visible = true;
 		    }
 		
@@ -504,7 +501,7 @@
 		    if (f.visible && !lang.isValue(f.externalName))
 		    {
 			
-			if (f.fieldConfig.inputParams.wirable)
+			if (f.fieldConfig.wirable)
 			{
 			    var mergedUsedNames = {};
 			    lang.augmentObject(mergedUsedNames, usedNames.fields);
@@ -843,7 +840,7 @@
 	    for (var fI in fieldConfigs)
 	    {
 		var f = fieldConfigs[fI];
-		var name = f.inputParams.name;
+		var name = f.name;
 		var o = overrides[name];
 		
 		var map = {fieldConfig : f};
@@ -859,7 +856,7 @@
 			
 			usedNames.fields[o.rename] = true;
 			
-			if (f.inputParams.wirable)
+			if (f.wirable)
 			    usedNames.terminals[name] = true;
 			    
 			map.externalName = o.rename;
@@ -886,7 +883,7 @@
 		    {
 			    usedNames[name] = true;
 			    
-			    if (fieldConfig.inputParams.wirable)
+			    if (fieldConfig.wirable)
 				    terminalNamesUsed[name] = true;
 		    }
     
@@ -898,7 +895,7 @@
 		{
 			var f = m[fI];
 			var str = new String(mI);
-			var str2 = new String(f.inputParams.name);
+			var str2 = new String(f.name);
 			var str3 = str + str2 + '';
 			var o = overrides.fields[str3];
 			var e = external.fields[str3];
@@ -910,8 +907,7 @@
 				if (lang.isValue(o.rename))
 				{
 					var field = {}
-					lang.augmentObject(field, f);
-					field.inputParams = lang.augmentObject({"label" : o.rename, "name" : o.rename}, field.inputParams);
+					lang.augmentObject(field, f, {"label" : o.rename, "name" : o.rename});
 					fields.push( field );
 					addFieldToUsed(o.rename, f);
 				}
@@ -926,13 +922,13 @@
 	    for (var fI in neededFields)
 	    {
 		    var f = neededFields[fI];
-		    var freshName = this.generateNextName(f.inputParams.name, usedNames);
+		    var freshName = this.generateNextName(f.name, usedNames);
 		    
 		    addFieldToUsed(freshName, f);
 		    
 		    var field = {}
 		    lang.augmentObject(field, f);
-		    field.inputParams.name = freshName;
+		    field.name = freshName;
 		    fields.push( field );
 	    }
 	    

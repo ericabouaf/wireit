@@ -45,8 +45,8 @@ WireIt.BaseEditor.defaultOptions = {
 	},
 
 	propertiesFields: [
-		{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
-		{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30, rows: 4} }
+		{"type": "string", "name": "name", label: "Title", typeInvite: "Enter a title" },
+		{"type": "text", "name": "description", label: "Description", cols: 30, rows: 4}
 	],
 	
 	accordionViewParams: {

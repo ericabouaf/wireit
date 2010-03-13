@@ -4031,16 +4031,16 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
    },
    
 	/**
-	 * When creating wirable input fields, the field configuration (inputParams) must have a reference to the current container (this is used for positionning).
+	 * When creating wirable input fields, the field configuration must have a reference to the current container (this is used for positionning).
 	 * For complex fields (like object or list), the reference is set recursively AFTER the field creation.
 	 * @method setBackReferenceOnFieldOptionsRecursively
 	 */
    setBackReferenceOnFieldOptionsRecursively: function(fieldArray, container) {
        if (YAHOO.lang.isUndefined(container))
-	container = this;
+			container = this;
 	
       for(var i = 0 ; i < fieldArray.length ; i++) {
-    	  var inputParams = fieldArray[i].inputParams;
+    	  var inputParams = fieldArray[i];
     	  inputParams.container = container;
 
     	  // Checking for group sub elements
@@ -4050,11 +4050,11 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
 
     	  // Checking for list sub elements
     	  if(inputParams.elementType) {
-    		  inputParams.elementType.inputParams.container = container;
+    		  inputParams.elementType.container = container;
 
     		  // Checking for group elements within list elements
-    		  if(inputParams.elementType.inputParams.fields && typeof inputParams.elementType.inputParams.fields == 'object') {
-    			  this.setBackReferenceOnFieldOptionsRecursively(inputParams.elementType.inputParams.fields);
+    		  if(inputParams.elementType.fields && typeof inputParams.elementType.fields == 'object') {
+    			  this.setBackReferenceOnFieldOptionsRecursively(inputParams.elementType.fields);
     		  }
     	  }
       }
@@ -6060,8 +6060,8 @@ WireIt.BaseEditor.defaultOptions = {
 	},
 
 	propertiesFields: [
-		{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
-		{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30, rows: 4} }
+		{"type": "string", "name": "name", label: "Title", typeInvite: "Enter a title" },
+		{"type": "text", "name": "description", label: "Description", cols: 30, rows: 4}
 	],
 	
 	accordionViewParams: {
@@ -7004,7 +7004,7 @@ WireIt.Group.prototype = {
 		    else {
 				var field = submap[index].fields[name];
 			
-				if (lang.isObject(field) && field.fieldConfig.inputParams.wirable)
+				if (lang.isObject(field) && field.fieldConfig.wirable)
 			    	return field.externalName;
 		    	}
 		    
@@ -7283,7 +7283,7 @@ WireIt.Group.prototype = {
 		{
 		    var visibleReadOnly = false;
 		    var defaultVisible = false;
-		    if (fMap.fieldConfig.inputParams.wirable)
+		    if (fMap.fieldConfig.wirable)
 		    {
 			fieldTerminals[internalName] = true;
 		    }
@@ -8466,10 +8466,9 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 				var fc = {};
 				lang.augmentObject(fc, fMap.fieldConfig);
 				
-				fc.inputParams = {};
-				fc.inputParams.name = fMap.externalName;
-				fc.inputParams.label = fMap.externalName;
-				lang.augmentObject(fc.inputParams, fMap.fieldConfig.inputParams)
+				fc.name = fMap.externalName;
+				fc.label = fMap.externalName;
+				lang.augmentObject(fc, fMap.fieldConfig)
 				
 				fieldConfigs.push(fc);
 			    }
@@ -8715,14 +8714,12 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 		    var fConfig = group.groupContainer.form.inputConfigs[fI];
 		    var fCopy = {}
 		    lang.augmentObject(fCopy, fConfig);
-		    fCopy.inputParams = {};
-		    lang.augmentObject(fCopy.inputParams, fConfig.inputParams);
 		    
 		    var fMap = {"fieldConfig" : fCopy};
 					    
 		    if (this.isFieldExternal(group.groupContainer.form.inputs[fI], inGroup))
 		    {
-			fMap.externalName = fConfig.inputParams.name;
+			fMap.externalName = fConfig.name;
 			fMap.visible = true;
 		    }
 		
@@ -8796,7 +8793,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 		    if (f.visible && !lang.isValue(f.externalName))
 		    {
 			
-			if (f.fieldConfig.inputParams.wirable)
+			if (f.fieldConfig.wirable)
 			{
 			    var mergedUsedNames = {};
 			    lang.augmentObject(mergedUsedNames, usedNames.fields);
@@ -9135,7 +9132,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	    for (var fI in fieldConfigs)
 	    {
 		var f = fieldConfigs[fI];
-		var name = f.inputParams.name;
+		var name = f.name;
 		var o = overrides[name];
 		
 		var map = {fieldConfig : f};
@@ -9151,7 +9148,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 			
 			usedNames.fields[o.rename] = true;
 			
-			if (f.inputParams.wirable)
+			if (f.wirable)
 			    usedNames.terminals[name] = true;
 			    
 			map.externalName = o.rename;
@@ -9178,7 +9175,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 		    {
 			    usedNames[name] = true;
 			    
-			    if (fieldConfig.inputParams.wirable)
+			    if (fieldConfig.wirable)
 				    terminalNamesUsed[name] = true;
 		    }
     
@@ -9190,7 +9187,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 		{
 			var f = m[fI];
 			var str = new String(mI);
-			var str2 = new String(f.inputParams.name);
+			var str2 = new String(f.name);
 			var str3 = str + str2 + '';
 			var o = overrides.fields[str3];
 			var e = external.fields[str3];
@@ -9202,8 +9199,7 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 				if (lang.isValue(o.rename))
 				{
 					var field = {}
-					lang.augmentObject(field, f);
-					field.inputParams = lang.augmentObject({"label" : o.rename, "name" : o.rename}, field.inputParams);
+					lang.augmentObject(field, f, {"label" : o.rename, "name" : o.rename});
 					fields.push( field );
 					addFieldToUsed(o.rename, f);
 				}
@@ -9218,13 +9214,13 @@ YAHOO.lang.extend(WireIt.GroupFormContainer, WireIt.FormContainer, {
 	    for (var fI in neededFields)
 	    {
 		    var f = neededFields[fI];
-		    var freshName = this.generateNextName(f.inputParams.name, usedNames);
+		    var freshName = this.generateNextName(f.name, usedNames);
 		    
 		    addFieldToUsed(freshName, f);
 		    
 		    var field = {}
 		    lang.augmentObject(field, f);
-		    field.inputParams.name = freshName;
+		    field.name = freshName;
 		    fields.push( field );
 	    }
 	    

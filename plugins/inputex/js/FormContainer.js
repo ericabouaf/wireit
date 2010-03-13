@@ -50,16 +50,16 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
    },
    
 	/**
-	 * When creating wirable input fields, the field configuration (inputParams) must have a reference to the current container (this is used for positionning).
+	 * When creating wirable input fields, the field configuration must have a reference to the current container (this is used for positionning).
 	 * For complex fields (like object or list), the reference is set recursively AFTER the field creation.
 	 * @method setBackReferenceOnFieldOptionsRecursively
 	 */
    setBackReferenceOnFieldOptionsRecursively: function(fieldArray, container) {
        if (YAHOO.lang.isUndefined(container))
-	container = this;
+			container = this;
 	
       for(var i = 0 ; i < fieldArray.length ; i++) {
-    	  var inputParams = fieldArray[i].inputParams;
+    	  var inputParams = fieldArray[i];
     	  inputParams.container = container;
 
     	  // Checking for group sub elements
@@ -69,11 +69,11 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
 
     	  // Checking for list sub elements
     	  if(inputParams.elementType) {
-    		  inputParams.elementType.inputParams.container = container;
+    		  inputParams.elementType.container = container;
 
     		  // Checking for group elements within list elements
-    		  if(inputParams.elementType.inputParams.fields && typeof inputParams.elementType.inputParams.fields == 'object') {
-    			  this.setBackReferenceOnFieldOptionsRecursively(inputParams.elementType.inputParams.fields);
+    		  if(inputParams.elementType.fields && typeof inputParams.elementType.fields == 'object') {
+    			  this.setBackReferenceOnFieldOptionsRecursively(inputParams.elementType.fields);
     		  }
     	  }
       }
