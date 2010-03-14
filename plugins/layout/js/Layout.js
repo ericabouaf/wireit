@@ -1,5 +1,6 @@
 /**
  * Layout Plugin
+ * TODO: provide an AbstractLayout Class
  * @module layout-plugin
  */
 
@@ -74,13 +75,16 @@ WireIt.Layer.prototype.stopDynamicLayout = function() {
 
 
 
-
+/**
+ * @static
+ */
 WireIt.Layout = {};
 	
 	
 /** 
- * Spring Layout
- * TODO: use different eges k
+ * Spring Layout (TODO: use different eges k)
+ * @class WireIt.Layout.Spring
+ * @constructor
  */
 WireIt.Layout.Spring = function(layer) {	
 	this.layer = layer;
@@ -89,6 +93,9 @@ WireIt.Layout.Spring = function(layer) {
 
 WireIt.Layout.Spring.prototype = {
 		
+	/**
+	 * Init the default structure
+	 */
 	init: function() {
 		
 		this.nodes = [];
@@ -102,6 +109,9 @@ WireIt.Layout.Spring.prototype = {
 		
 	},
 	
+	/**
+	 * TODO: split iterations into "step" method
+	 */
 	run: function() {
 		
 		var i, j, l;

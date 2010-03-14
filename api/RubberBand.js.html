@@ -1,0 +1,288 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: grouping-plugin   RubberBand.js  (YUI Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css" />
+
+    <script type="text/javascript" src="assets/api-js"></script>
+    <script type="text/javascript" src="assets/ac-js"></script>
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://neyric.github.com/wireit" title="WireItLibrary">WireItLibrary</a></h1>
+        <h3>grouping-plugin&nbsp; <span class="subtitle">0.6.0</span></h3>
+        <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
+            &gt; <a href="./module_grouping-plugin.html" title="grouping-plugin">grouping-plugin</a>
+                
+                 &gt; RubberBand.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+                        <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">util</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="o">,</span><span class="nx">lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">;</span>
+    <span class="kd">var</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">,</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="o">,</span> <span class="nx">Connect</span> <span class="o">=</span> <span class="nx">util</span><span class="p">.</span><span class="nx">Connect</span><span class="o">,</span><span class="nx">JSON</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">JSON</span><span class="o">,</span><span class="nx">widget</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="o">;</span>
+
+<span class="c">/**</span>
+<span class="c"> * A CanvasElement widget to hand-draw a selection</span>
+<span class="c"> * @class WireIt.RubberBand</span>
+<span class="c"> * @extends WireIt.CanvasElement</span>
+<span class="c"> */</span>
+<span class="nx">WireIt</span><span class="p">.</span><span class="nx">RubberBand</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grouper</span><span class="p">)</span> <span class="p">{</span>
+	
+	<span class="nx">WireIt</span><span class="p">.</span><span class="nx">RubberBand</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">grouper</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
+	
+	<span class="k">this</span><span class="p">.</span><span class="nx">grouper</span> <span class="o">=</span> <span class="nx">grouper</span><span class="o">;</span>
+	<span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">scrollThreshold</span> <span class="o">=</span> <span class="mi">150</span><span class="o">;</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">scrollAmount</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">directions</span> <span class="o">=</span> <span class="p">{};</span>
+	
+	<span class="nx">grouper</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="o">,</span>  <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span>  <span class="p">{</span> 
+		<span class="kd">var</span> <span class="nx">elem</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">grouper</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="o">;</span>
+		<span class="kd">var</span> <span class="nx">rect</span> <span class="o">=</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">();</span>
+		
+		<span class="kd">var</span> <span class="nx">xNoScroll</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span><span class="o">-</span><span class="nx">rect</span><span class="p">.</span><span class="nx">left</span><span class="o">;</span>
+		<span class="kd">var</span> <span class="nx">yNoScroll</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span><span class="o">-</span><span class="nx">rect</span><span class="p">.</span><span class="nx">top</span><span class="o">;</span>
+		
+		<span class="nx">self</span><span class="p">.</span><span class="nx">lastX</span> <span class="o">=</span> <span class="nx">xNoScroll</span> <span class="o">+</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">scrollLeft</span><span class="o">;</span>
+		<span class="nx">self</span><span class="p">.</span><span class="nx">lastY</span> <span class="o">=</span> <span class="nx">yNoScroll</span> <span class="o">+</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">scrollTop</span><span class="o">;</span>
+		
+		<span class="nx">self</span><span class="p">.</span><span class="nx">directions</span> <span class="o">=</span> <span class="p">{};</span>
+		<span class="k">if</span> <span class="p">(</span><span class="nx">xNoScroll</span> <span class="o">&lt;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">scrollThreshold</span><span class="p">)</span> <span class="p">{</span>
+		    <span class="c">// Near the left edge so scroll left</span>
+		    <span class="nx">self</span><span class="p">.</span><span class="nx">directions</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+		<span class="p">}</span>
+		<span class="k">else</span> <span class="k">if</span> <span class="p">((</span><span class="nx">rect</span><span class="p">.</span><span class="nx">right</span> <span class="o">-</span> <span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">scrollThreshold</span><span class="p">)</span> <span class="p">{</span>
+		    <span class="c">// Near the right edge</span>
+		    <span class="nx">self</span><span class="p">.</span><span class="nx">directions</span><span class="p">.</span><span class="nx">right</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+		<span class="p">}</span>
+		
+		<span class="k">if</span> <span class="p">(</span><span class="nx">yNoScroll</span> <span class="o">&lt;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">scrollThreshold</span><span class="p">)</span> <span class="p">{</span>
+		    <span class="c">// Near top</span>
+		    <span class="nx">self</span><span class="p">.</span><span class="nx">directions</span><span class="p">.</span><span class="nx">up</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+		<span class="p">}</span>
+		<span class="k">else</span> <span class="k">if</span> <span class="p">((</span><span class="nx">rect</span><span class="p">.</span><span class="nx">bottom</span> <span class="o">-</span> <span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">scrollThreshold</span><span class="p">)</span> <span class="p">{</span>
+		    <span class="c">// Near bottom</span>
+		    <span class="nx">self</span><span class="p">.</span><span class="nx">directions</span><span class="p">.</span><span class="nx">down</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+		<span class="p">}</span>
+		
+   <span class="p">}</span><span class="o">,</span> <span class="kc">false</span><span class="p">);</span>
+
+<span class="p">};</span>
+
+
+<span class="c">/**</span>
+<span class="c"> * Delay in ms between two points of the RubberBand when drawing</span>
+<span class="c"> * @static</span>
+<span class="c"> */</span>
+<span class="nx">WireIt</span><span class="p">.</span><span class="nx">RubberBand</span><span class="p">.</span><span class="nx">defaultDelay</span> <span class="o">=</span> <span class="mi">50</span><span class="o">;</span>
+
+
+<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">RubberBand</span><span class="o">,</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">CanvasElement</span><span class="o">,</span> <span class="p">{</span>
+	
+	<span class="c">/**</span>
+<span class="c">	 * Check if clicked in the layer and start the drawing mode</span>
+<span class="c">	 */</span>
+	<span class="nx">layerMouseDown</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+	   <span class="kd">var</span> <span class="nx">elem</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">grouper</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="o">;</span>
+	   <span class="kd">var</span> <span class="nx">rect</span> <span class="o">=</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">();</span>
+	    
+	   <span class="kd">var</span> <span class="nx">xNoScroll</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span><span class="o">-</span><span class="nx">rect</span><span class="p">.</span><span class="nx">left</span><span class="o">;</span>
+	   <span class="kd">var</span> <span class="nx">yNoScroll</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span><span class="o">-</span><span class="nx">rect</span><span class="p">.</span><span class="nx">top</span><span class="o">;</span>
+	    
+	   <span class="k">if</span> <span class="p">(</span><span class="nx">xNoScroll</span> <span class="o">&lt;</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">clientWidth</span> <span class="o">&amp;&amp;</span> <span class="nx">yNoScroll</span> <span class="o">&lt;</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">clientHeight</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+		<span class="p">}</span>
+	<span class="p">}</span><span class="o">,</span>
+	
+	<span class="c">/**</span>
+<span class="c">	 * Start the drawing mode</span>
+<span class="c">	 */</span>
+	<span class="nx">start</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	    <span class="k">this</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+	    
+	    <span class="k">this</span><span class="p">.</span><span class="nx">SetCanvasRegion</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">grouper</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">scrollWidth</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">grouper</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="p">);</span>
+	    <span class="kd">var</span> <span class="nx">ctxt</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getContext</span><span class="p">();</span>
+	    <span class="nx">ctxt</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+	    <span class="nx">ctxt</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">lastX</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastY</span><span class="p">);</span>
+	    <span class="k">this</span><span class="p">.</span><span class="nx">startX</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastX</span><span class="o">;</span>
+	    <span class="k">this</span><span class="p">.</span><span class="nx">startY</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastY</span><span class="o">;</span>
+	    <span class="k">this</span><span class="p">.</span><span class="nx">timer</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">later</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">RubberBand</span><span class="p">.</span><span class="nx">defaultDelay</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kd">function</span><span class="p">()</span>  <span class="p">{</span> 
+		    <span class="k">this</span><span class="p">.</span><span class="nx">nextPoint</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">lastX</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastY</span><span class="p">);</span>
+		    <span class="k">this</span><span class="p">.</span><span class="nx">scroll</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">directions</span><span class="p">);</span>
+			<span class="p">}</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+	<span class="p">}</span><span class="o">,</span>
+
+	<span class="c">/**</span>
+<span class="c">	 * Scroll the associated WireIt.Layer</span>
+<span class="c">	 */</span>
+	<span class="nx">scroll</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">directions</span><span class="p">)</span> <span class="p">{</span>
+	    <span class="kd">var</span> <span class="nx">elem</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">grouper</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="o">;</span>
+	    
+	    <span class="k">if</span> <span class="p">(</span><span class="nx">directions</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span>
+		<span class="nx">elem</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">scrollLeft</span><span class="o">-</span><span class="k">this</span><span class="p">.</span><span class="nx">scrollAmount</span><span class="p">);</span>
+	    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">directions</span><span class="p">.</span><span class="nx">right</span><span class="p">)</span>
+		<span class="nx">elem</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">elem</span><span class="p">.</span><span class="nx">scrollWidth</span><span class="o">,</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">scrollLeft</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">scrollAmount</span><span class="p">);</span>
+		
+	    <span class="k">if</span> <span class="p">(</span><span class="nx">directions</span><span class="p">.</span><span class="nx">up</span><span class="p">)</span>
+		<span class="nx">elem</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">scrollTop</span><span class="o">-</span><span class="k">this</span><span class="p">.</span><span class="nx">scrollAmount</span><span class="p">);</span>
+	    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">directions</span><span class="p">.</span><span class="nx">down</span><span class="p">)</span>
+		<span class="nx">elem</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">elem</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="o">,</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">scrollTop</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">scrollAmount</span><span class="p">);</span>
+	<span class="p">}</span><span class="o">,</span>
+
+	<span class="c">/**</span>
+<span class="c">	 * End the drawing mode</span>
+<span class="c">	 */</span>
+	<span class="nx">finish</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	    <span class="k">if</span> <span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">timer</span><span class="p">))</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">timer</span><span class="p">.</span><span class="nx">cancel</span><span class="p">();</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">timer</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		
+			<span class="kd">var</span> <span class="nx">ctxt</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getContext</span><span class="p">();</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">nextPoint</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">startX</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">startY</span><span class="p">);</span>
+	
+			<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">later</span><span class="p">(</span><span class="mi">1000</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">hide</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="kc">false</span><span class="p">);</span>
+	    <span class="p">}</span>
+	<span class="p">}</span><span class="o">,</span>
+
+	<span class="c">/**</span>
+<span class="c">	 * Hide the RubberBand</span>
+<span class="c">	 */</span>
+	<span class="nx">hide</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isValue</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">style</span><span class="p">))</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">style</span> <span class="o">=</span> <span class="p">{};</span>
+		    
+	   <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="o">;</span>	    
+	<span class="p">}</span><span class="o">,</span>
+    
+	<span class="c">/**</span>
+<span class="c">	 * Show the RubberBand</span>
+<span class="c">	 */</span>
+	<span class="nx">show</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isValue</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">style</span><span class="p">))</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">style</span> <span class="o">=</span> <span class="p">{};</span>
+		    
+	    <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>	    
+	<span class="p">}</span><span class="o">,</span>
+	
+	<span class="c">/**</span>
+<span class="c">	 * Add a point to the RubberBand</span>
+<span class="c">	 */</span>
+	<span class="nx">nextPoint</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="o">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isValue</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isValue</span><span class="p">(</span><span class="nx">y</span><span class="p">))</span> <span class="p">{</span>
+			<span class="kd">var</span> <span class="nx">ctxt</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getContext</span><span class="p">();</span>
+		
+			<span class="c">// Draw the inner bezier curve</span>
+			<span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineCap</span><span class="o">=</span> <span class="s2">&quot;round&quot;</span><span class="o">;</span>
+			<span class="nx">ctxt</span><span class="p">.</span><span class="nx">strokeStyle</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="o">;</span>
+			<span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineWidth</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="o">;</span>
+
+			<span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">x</span><span class="o">,</span> <span class="nx">y</span><span class="p">);</span>
+			<span class="nx">ctxt</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+	   <span class="p">}</span>
+	<span class="p">}</span><span class="o">,</span>
+
+	<span class="c">/**</span>
+<span class="c">	 * Check if the given (x,y) is within the RubberBand path</span>
+<span class="c">	 */</span>
+	<span class="nx">pointIsInside</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="o">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+	    <span class="k">return</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getContext</span><span class="p">().</span><span class="nx">isPointInPath</span><span class="p">(</span><span class="nx">x</span><span class="o">,</span> <span class="nx">y</span><span class="p">));</span>
+	<span class="p">}</span>
+
+<span class="p">});</span>
+
+
+
+<span class="p">})();</span>
+</pre></div>
+
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class=""><a href="module_animations-plugin.html" title="animations-plugin">animations-plugin</a></li>
+                                <li class=""><a href="module_composable-plugin.html" title="composable-plugin">composable-plugin</a></li>
+                                <li class=""><a href="module_editor-plugin.html" title="editor-plugin">editor-plugin</a></li>
+                                <li class="selected"><a href="module_grouping-plugin.html" title="grouping-plugin">grouping-plugin</a></li>
+                                <li class=""><a href="module_inputex-plugin.html" title="inputex-plugin">inputex-plugin</a></li>
+                                <li class=""><a href="module_labels-plugin.html" title="labels-plugin">labels-plugin</a></li>
+                                <li class=""><a href="module_layout-plugin.html" title="layout-plugin">layout-plugin</a></li>
+                                <li class=""><a href="module_wireit.html" title="WireIt">WireIt</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class=""><a href="WireIt.FormContainer.html" title="WireIt.FormContainer">WireIt.FormContainer</a></li>
+                                <li class=""><a href="WireIt.Group.html" title="WireIt.Group">WireIt.Group</a></li>
+                                <li class=""><a href="WireIt.Grouper.html" title="WireIt.Grouper">WireIt.Grouper</a></li>
+                                <li class=""><a href="WireIt.GroupUtils.html" title="WireIt.GroupUtils">WireIt.GroupUtils</a></li>
+                                <li class=""><a href="WireIt.RubberBand.html" title="WireIt.RubberBand">WireIt.RubberBand</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">        
+                                <li class=""><a href="FormContainer.js.html" title="FormContainer.js">FormContainer.js</a></li>
+                                <li class=""><a href="Group.js.html" title="Group.js">Group.js</a></li>
+                                <li class=""><a href="Grouper.js.html" title="Grouper.js">Grouper.js</a></li>
+                                <li class=""><a href="GroupFormContainer.js.html" title="GroupFormContainer.js">GroupFormContainer.js</a></li>
+                                <li class=""><a href="GroupUtils.js.html" title="GroupUtils.js">GroupUtils.js</a></li>
+                                <li class="selected"><a href="RubberBand.js.html" title="RubberBand.js">RubberBand.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2010 Eric Abouaf All rights reserved.
+	</div>
+</div>
+<script type="text/javascript">
+
+    var ALL_YUI_PROPS = [{"url": "WireIt.GroupUtils.html#method_addAllContainers", "access": "", "host": "WireIt.GroupUtils", "type": "method", "name": "addAllContainers"}, {"url": "WireIt.Grouper.html#method_addContainer", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "addContainer"}, {"url": "WireIt.Grouper.html#method_addGroup", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "addGroup"}, {"url": "WireIt.GroupUtils.html#method_applyToContainers", "access": "", "host": "WireIt.GroupUtils", "type": "method", "name": "applyToContainers"}, {"url": "WireIt.RubberBand.html#property_defaultDelay", "access": "", "host": "WireIt.RubberBand", "type": "property", "name": "defaultDelay"}, {"url": "WireIt.Grouper.html#method_deselectGroup", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "deselectGroup"}, {"url": "WireIt.RubberBand.html#method_finish", "access": "", "host": "WireIt.RubberBand", "type": "method", "name": "finish"}, {"url": "WireIt.GroupUtils.html#method_getCollapsedConfig", "access": "", "host": "WireIt.GroupUtils", "type": "method", "name": "getCollapsedConfig"}, {"url": "WireIt.Grouper.html#method_getContainerCorners", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "getContainerCorners"}, {"url": "WireIt.GroupUtils.html#method_getOuterGroup", "access": "", "host": "WireIt.GroupUtils", "type": "method", "name": "getOuterGroup"}, {"url": "WireIt.GroupUtils.html#method_getOverridesFromUI", "access": "", "host": "WireIt.GroupUtils", "type": "method", "name": "getOverridesFromUI"}, {"url": "WireIt.FormContainer.html#method_getValue", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "getValue"}, {"url": "WireIt.Grouper.html#method_groupCollapse", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "groupCollapse"}, {"url": "WireIt.RubberBand.html#method_hide", "access": "", "host": "WireIt.RubberBand", "type": "method", "name": "hide"}, {"url": "WireIt.Grouper.html#method_hideGroupConfigure", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "hideGroupConfigure"}, {"url": "WireIt.RubberBand.html#method_layerMouseDown", "access": "", "host": "WireIt.RubberBand", "type": "method", "name": "layerMouseDown"}, {"url": "WireIt.Grouper.html#method_makeGroup", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "makeGroup"}, {"url": "WireIt.RubberBand.html#method_nextPoint", "access": "", "host": "WireIt.RubberBand", "type": "method", "name": "nextPoint"}, {"url": "WireIt.RubberBand.html#method_pointIsInside", "access": "", "host": "WireIt.RubberBand", "type": "method", "name": "pointIsInside"}, {"url": "WireIt.Grouper.html#method_removeContainer", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "removeContainer"}, {"url": "WireIt.Grouper.html#method_removeGroup", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "removeGroup"}, {"url": "WireIt.GroupUtils.html#method_removeGroupFromLayer", "access": "", "host": "WireIt.GroupUtils", "type": "method", "name": "removeGroupFromLayer"}, {"url": "WireIt.FormContainer.html#method_render", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "render"}, {"url": "WireIt.FormContainer.html#method_renderForm", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "renderForm"}, {"url": "WireIt.Grouper.html#method_rubberbandSelect", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "rubberbandSelect"}, {"url": "WireIt.RubberBand.html#method_scroll", "access": "", "host": "WireIt.RubberBand", "type": "method", "name": "scroll"}, {"url": "WireIt.Grouper.html#method_selectGroup", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "selectGroup"}, {"url": "WireIt.GroupUtils.html#method_serialiseGroup", "access": "", "host": "WireIt.GroupUtils", "type": "method", "name": "serialiseGroup"}, {"url": "WireIt.FormContainer.html#method_setBackReferenceOnFieldOptionsRecursively", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "setBackReferenceOnFieldOptionsRecursively"}, {"url": "WireIt.Grouper.html#method_setDisplay", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "setDisplay"}, {"url": "WireIt.Grouper.html#method_setGroupOptions", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "setGroupOptions"}, {"url": "WireIt.FormContainer.html#method_setOptions", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "setOptions"}, {"url": "WireIt.Grouper.html#method_setSelectedGroup", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "setSelectedGroup"}, {"url": "WireIt.Grouper.html#method_setupSelectedGroups", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "setupSelectedGroups"}, {"url": "WireIt.Grouper.html#method_setupWidget", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "setupWidget"}, {"url": "WireIt.FormContainer.html#method_setValue", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "setValue"}, {"url": "WireIt.RubberBand.html#method_show", "access": "", "host": "WireIt.RubberBand", "type": "method", "name": "show"}, {"url": "WireIt.Grouper.html#method_showGroup", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "showGroup"}, {"url": "WireIt.Grouper.html#method_showGroupConfigure", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "showGroupConfigure"}, {"url": "WireIt.RubberBand.html#method_start", "access": "", "host": "WireIt.RubberBand", "type": "method", "name": "start"}, {"url": "WireIt.Grouper.html#method_toggle", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "toggle"}, {"url": "WireIt.Grouper.html#method_unGroup", "access": "", "host": "WireIt.Grouper", "type": "method", "name": "unGroup"}, {"url": "WireIt.GroupUtils.html#method_valueOr", "access": "", "host": "WireIt.GroupUtils", "type": "method", "name": "valueOr"}, {"url": "WireIt.GroupUtils.html#method_workOutCenter", "access": "", "host": "WireIt.GroupUtils", "type": "method", "name": "workOutCenter"}];
+</script>
+</body>
+</html>

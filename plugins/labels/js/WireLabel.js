@@ -3,13 +3,13 @@
  * @module labels-plugin
  */
 
-this.options.label = options.label || "Test";
+//this.options.label = options.label || "Test";
 
 
 /**
  * Method to draw the text
  */
-drawLabel: function() {
+WireIt.Wire.drawLabel = function() {
 	
 	var p1 = this.terminal1.getXY();
    var p2 = this.terminal2.getXY();
@@ -105,18 +105,19 @@ drawLabel: function() {
     /*ctxt.fillStyle = lastFillStyle;
     ctxt.lineWidth = lastWidth;
     ctxt.strokeStyle = lastStrokeStyle;*/
-},
+
+};
 
 
 
-if(this.options.label) {
+/*if(this.options.label) {
 	try {
 		this.drawLabel();
 	}catch(ex) {
 		console.log(ex);
 	}
-}
+}*/
 
 
+// <script type="text/javascript" src="../../lib/canvas.text.js"></script>
 
-<script type="text/javascript" src="../../lib/canvas.text.js"></script>
