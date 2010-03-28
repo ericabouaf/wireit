@@ -11,6 +11,10 @@ Changeset:
 	
 	* upgrading to inputEx 0.5.0 (now in the "inputex" plugin)
 
+  * Moving images and css into "assets"
+
+  * Bug fix: DDResize on containers redraw wires
+
 	* editor plugin
 		* AccordionView on left panel for module categories
 		* Toolbar positionning
