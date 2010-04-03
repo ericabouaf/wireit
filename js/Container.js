@@ -146,7 +146,7 @@ WireIt.Container.prototype = {
         closeButtonClassName: CSS_PREFIX+"Container-closebutton",
         groupable: true,
         preventSelfWiring:true
-        }, options);
+      }, options);
 
    },
 

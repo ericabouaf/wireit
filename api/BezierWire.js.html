@@ -2,7 +2,7 @@
 <html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<title>API: WireIt   WireIt.js  (YUI Library)</title>
+	<title>API: WireIt   BezierWire.js  (YUI Library)</title>
 
 	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css" />
 	<link rel="stylesheet" type="text/css" href="assets/api.css" />
@@ -20,7 +20,7 @@
         <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
                 
-                 &gt; WireIt.js (source view) 
+                 &gt; BezierWire.js (source view) 
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -47,135 +47,127 @@
                         <style>
                             #doc3 .classopts { display:none; }
                         </style>
-                        <div class="highlight"><pre><span class="c">/*global YAHOO */</span>
-<span class="c">/**</span>
-<span class="c"> * WireIt provide classes to build wirable interfaces</span>
-<span class="c"> * @module WireIt</span>
-<span class="c"> */</span>
-<span class="c">/**</span>
-<span class="c"> * @class WireIt</span>
-<span class="c"> * @static</span>
+                        <div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * The bezier wire widget</span>
+<span class="c"> * @class BezierWire</span>
 <span class="c"> * @namespace WireIt</span>
+<span class="c"> * @extends WireIt.Wire</span>
+<span class="c"> * @constructor</span>
+<span class="c"> * @param  {WireIt.Terminal}    terminal1   Source terminal</span>
+<span class="c"> * @param  {WireIt.Terminal}    terminal2   Target terminal</span>
+<span class="c"> * @param  {HTMLElement} parentEl    Container of the CANVAS tag</span>
+<span class="c"> * @param  {Obj}                options      Wire configuration (see options property)</span>
 <span class="c"> */</span>
-<span class="kd">var</span> <span class="nx">WireIt</span> <span class="o">=</span> <span class="p">{</span>
-   
-   <span class="c">/**</span>
-<span class="c">    * Get a css property in pixels and convert it to an integer</span>
-<span class="c">    * @method getIntStyle</span>
-<span class="c">    * @namespace WireIt</span>
-<span class="c">    * @static</span>
-<span class="c">    * @param {HTMLElement} el The element</span>
-<span class="c">    * @param {String} style css-property to get</span>
-<span class="c">    * @return {Integer} integer size</span>
-<span class="c">    */</span>
-   <span class="nx">getIntStyle</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="o">,</span><span class="nx">style</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">sStyle</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">getStyle</span><span class="p">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">style</span><span class="p">);</span>
-      <span class="k">return</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">sStyle</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="nx">sStyle</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">,</span> <span class="mi">10</span><span class="p">);</span>
-   <span class="p">}</span><span class="o">,</span>
 
-   <span class="c">/**</span>
-<span class="c">    * Helper function to set DOM node attributes and style attributes.</span>
-<span class="c">    * @method sn</span>
-<span class="c">    * @static</span>
-<span class="c">    * @param {HTMLElement} el The element to set attributes to</span>
-<span class="c">    * @param {Object} domAttributes An object containing key/value pairs to set as node attributes (ex: {id: &#39;myElement&#39;, className: &#39;myCssClass&#39;, ...})</span>
-<span class="c">    * @param {Object} styleAttributes Same thing for style attributes. Please use camelCase for style attributes (ex: backgroundColor for &#39;background-color&#39;)</span>
-<span class="c">    */</span>
-   <span class="nx">sn</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="o">,</span><span class="nx">domAttributes</span><span class="o">,</span><span class="nx">styleAttributes</span><span class="p">){</span>
-      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span><span class="o">;</span> <span class="p">}</span>
-		<span class="kd">var</span> <span class="nx">i</span><span class="o">;</span>
-      <span class="k">if</span><span class="p">(</span><span class="nx">domAttributes</span><span class="p">){</span>
-         <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">domAttributes</span><span class="p">){</span>
-				<span class="k">if</span><span class="p">(</span><span class="nx">domAttributes</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span> <span class="p">{</span>
-					<span class="kd">var</span> <span class="nx">domAttribute</span> <span class="o">=</span> <span class="nx">domAttributes</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-	            <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="p">(</span><span class="nx">domAttribute</span><span class="p">)</span><span class="o">==</span><span class="s2">&quot;function&quot;</span><span class="p">){</span><span class="k">continue</span><span class="o">;</span><span class="p">}</span>
-	            <span class="k">if</span><span class="p">(</span><span class="nx">i</span><span class="o">==</span><span class="s2">&quot;className&quot;</span><span class="p">){</span>
-	               <span class="nx">i</span><span class="o">=</span><span class="s2">&quot;class&quot;</span><span class="o">;</span>
-	               <span class="nx">el</span><span class="p">.</span><span class="nx">className</span><span class="o">=</span><span class="nx">domAttribute</span><span class="o">;</span>
-	            <span class="p">}</span>
-	            <span class="k">if</span><span class="p">(</span><span class="nx">domAttribute</span><span class="o">!==</span><span class="nx">el</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="nx">i</span><span class="p">)){</span>
-	               <span class="k">if</span><span class="p">(</span><span class="nx">domAttribute</span><span class="o">===</span><span class="kc">false</span><span class="p">){</span>
-	                  <span class="nx">el</span><span class="p">.</span><span class="nx">removeAttribute</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
-	               <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-	                  <span class="nx">el</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="nx">i</span><span class="o">,</span><span class="nx">domAttribute</span><span class="p">);</span>
-	               <span class="p">}</span>
-	            <span class="p">}</span>
-				<span class="p">}</span>
-         <span class="p">}</span>
-      <span class="p">}</span>
-      <span class="k">if</span><span class="p">(</span><span class="nx">styleAttributes</span><span class="p">){</span>
-         <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">styleAttributes</span><span class="p">){</span>
-				<span class="k">if</span><span class="p">(</span><span class="nx">styleAttributes</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span> <span class="p">{</span>
-					<span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="p">(</span><span class="nx">styleAttributes</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span><span class="o">==</span><span class="s2">&quot;function&quot;</span><span class="p">){</span> <span class="k">continue</span><span class="o">;</span> <span class="p">}</span>
-					<span class="k">if</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">!=</span><span class="nx">styleAttributes</span><span class="p">[</span><span class="nx">i</span><span class="p">]){</span>
-						<span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">=</span><span class="nx">styleAttributes</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-					<span class="p">}</span>
-				<span class="p">}</span>
-         <span class="p">}</span>
-      <span class="p">}</span>
-   
-   <span class="p">}</span><span class="o">,</span>
-
-
-   <span class="c">/**</span>
-<span class="c">    * Helper function to create a DOM node. (wrapps the document.createElement tag and the inputEx.sn functions)</span>
-<span class="c">    * @method cn</span>
-<span class="c">    * @static</span>
-<span class="c">    * @param {String} tag The tagName to create (ex: &#39;div&#39;, &#39;a&#39;, ...)</span>
-<span class="c">    * @param {Object} [domAttributes] see inputEx.sn</span>
-<span class="c">    * @param {Object} [styleAttributes] see inputEx.sn</span>
-<span class="c">    * @param {String} [innerHTML] The html string to append into the created element</span>
-<span class="c">    * @return {HTMLElement} The created node</span>
-<span class="c">    */</span>
-   <span class="nx">cn</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tag</span><span class="o">,</span> <span class="nx">domAttributes</span><span class="o">,</span> <span class="nx">styleAttributes</span><span class="o">,</span> <span class="nx">innerHTML</span><span class="p">){</span>
-      <span class="kd">var</span> <span class="nx">el</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">tag</span><span class="p">);</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">sn</span><span class="p">(</span><span class="nx">el</span><span class="o">,</span><span class="nx">domAttributes</span><span class="o">,</span><span class="nx">styleAttributes</span><span class="p">);</span>
-      <span class="k">if</span><span class="p">(</span><span class="nx">innerHTML</span><span class="p">){</span> <span class="nx">el</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">innerHTML</span><span class="o">;</span> <span class="p">}</span>
-      <span class="k">return</span> <span class="nx">el</span><span class="o">;</span>
-   <span class="p">}</span><span class="o">,</span>
-   
-   <span class="c">/**</span>
-<span class="c">    * indexOf replace Array.indexOf for cases where it isn&#39;t available (IE6 only ?)</span>
-<span class="c">    * @method indexOf</span>
-<span class="c">    * @static</span>
-<span class="c">    * @param {Any} el element to search for</span>
-<span class="c">    * @param {Array} arr Array to search into</span>
-<span class="c">    * @return {Integer} element index or -1 if not found</span>
-<span class="c">    */</span>
-   <span class="nx">indexOf</span><span class="o">:</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">)</span> <span class="o">?</span> 
-                        <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">el</span><span class="p">);}</span> <span class="o">:</span> 
-                        <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
-                           <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-                              <span class="k">if</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="nx">el</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">i</span><span class="o">;</span><span class="p">}</span>
-                           <span class="p">}</span>
-                           <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
-                        <span class="p">}</span><span class="o">,</span>
-
-   <span class="c">/**</span>
-<span class="c">    * compact replace Array.compact for cases where it isn&#39;t available</span>
-<span class="c">    * @method compact</span>
-<span class="c">    * @static</span>
-<span class="c">    * @param {Array} arr Array to compact</span>
-<span class="c">    * @return {Array} compacted array</span>
-<span class="c">    */</span>
-   <span class="nx">compact</span><span class="o">:</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">compact</span><span class="p">)</span> <span class="o">?</span> 
-                        <span class="kd">function</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">compact</span><span class="p">();}</span> <span class="o">:</span>          
-                        <span class="kd">function</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
-                           <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="p">[];</span>
-                           <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-                              <span class="k">if</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">{</span>
-                                 <span class="nx">n</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
-                              <span class="p">}</span>
-                           <span class="p">}</span>
-                           <span class="k">return</span> <span class="nx">n</span><span class="o">;</span>
-                        <span class="p">}</span>
+<span class="nx">WireIt</span><span class="p">.</span><span class="nx">BezierWire</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">terminal1</span><span class="o">,</span> <span class="nx">terminal2</span><span class="o">,</span> <span class="nx">parentEl</span><span class="o">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+	
+	<span class="nx">WireIt</span><span class="p">.</span><span class="nx">BezierWire</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">terminal1</span><span class="o">,</span> <span class="nx">terminal2</span><span class="o">,</span> <span class="nx">parentEl</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+	
 <span class="p">};</span>
 
 
-<span class="c">/**</span>
-<span class="c"> * WireIt.util contains utility classes</span>
-<span class="c"> */</span>
-<span class="nx">WireIt</span><span class="p">.</span><span class="nx">util</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">BezierWire</span><span class="o">,</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Wire</span><span class="o">,</span> <span class="p">{</span>
+	
+	<span class="c">/**</span>
+<span class="c">	 * Override setOptions to add the following options :</span>
+<span class="c">	 * &lt;ul&gt;</span>
+<span class="c">	 * 	&lt;li&gt;coeffMulDirection: norm of the tangent vector at the terminals (default 100)&lt;/li&gt;</span>
+<span class="c">	 * &lt;/ul&gt;</span>
+<span class="c">	 */</span>
+	<span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">WireIt</span><span class="p">.</span><span class="nx">BezierWire</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+		
+		
+		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">coeffMulDirection</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">coeffMulDirection</span><span class="p">)</span> <span class="o">?</span> <span class="mi">100</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">coeffMulDirection</span><span class="o">;</span>
+	<span class="p">}</span><span class="o">,</span>
+	
+	
+	<span class="c">/**</span>
+<span class="c">    * Redraw the Wire</span>
+<span class="c">    */</span>
+   <span class="nx">draw</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+   
+      <span class="c">// Get the positions of the terminals</span>
+      <span class="kd">var</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">getXY</span><span class="p">();</span>
+      <span class="kd">var</span> <span class="nx">p2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal2</span><span class="p">.</span><span class="nx">getXY</span><span class="p">();</span>
+      
+      <span class="c">// Coefficient multiplicateur de direction</span>
+      <span class="c">// 100 par defaut, si distance(p1,p2) &lt; 100, on passe en distance/2</span>
+      <span class="kd">var</span> <span class="nx">coeffMulDirection</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">coeffMulDirection</span><span class="o">;</span>
+   
+   
+      <span class="kd">var</span> <span class="nx">distance</span><span class="o">=</span><span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="nx">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nx">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="mi">2</span><span class="p">));</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">distance</span> <span class="o">&lt;</span> <span class="nx">coeffMulDirection</span><span class="p">){</span>
+         <span class="nx">coeffMulDirection</span> <span class="o">=</span> <span class="nx">distance</span><span class="o">/</span><span class="mi">2</span><span class="o">;</span>
+      <span class="p">}</span>
+   
+      <span class="c">// Calcul des vecteurs directeurs d1 et d2 :</span>
+      <span class="kd">var</span> <span class="nx">d1</span> <span class="o">=</span> <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">direction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="nx">coeffMulDirection</span><span class="o">,</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">direction</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nx">coeffMulDirection</span><span class="p">];</span>
+      <span class="kd">var</span> <span class="nx">d2</span> <span class="o">=</span> <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">terminal2</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">direction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="nx">coeffMulDirection</span><span class="o">,</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">terminal2</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">direction</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nx">coeffMulDirection</span><span class="p">];</span>
+   
+      <span class="kd">var</span> <span class="nx">bezierPoints</span><span class="o">=</span><span class="p">[];</span>
+      <span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">p1</span><span class="o">;</span>
+      <span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="nx">d1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="nx">d1</span><span class="p">[</span><span class="mi">1</span><span class="p">]];</span>
+      <span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="nx">d2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="nx">d2</span><span class="p">[</span><span class="mi">1</span><span class="p">]];</span>
+      <span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="nx">p2</span><span class="o">;</span>
+      <span class="kd">var</span> <span class="nx">min</span> <span class="o">=</span> <span class="p">[</span><span class="nx">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]];</span>
+      <span class="kd">var</span> <span class="nx">max</span> <span class="o">=</span> <span class="p">[</span><span class="nx">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]];</span>
+      <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">1</span> <span class="o">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">bezierPoints</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+         <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">bezierPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+         <span class="k">if</span><span class="p">(</span><span class="nx">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">min</span><span class="p">[</span><span class="mi">0</span><span class="p">]){</span>
+            <span class="nx">min</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">p</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+         <span class="p">}</span>
+         <span class="k">if</span><span class="p">(</span><span class="nx">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">min</span><span class="p">[</span><span class="mi">1</span><span class="p">]){</span>
+            <span class="nx">min</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">p</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+         <span class="p">}</span>
+         <span class="k">if</span><span class="p">(</span><span class="nx">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">max</span><span class="p">[</span><span class="mi">0</span><span class="p">]){</span>
+            <span class="nx">max</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">p</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+         <span class="p">}</span>
+         <span class="k">if</span><span class="p">(</span><span class="nx">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">max</span><span class="p">[</span><span class="mi">1</span><span class="p">]){</span>
+            <span class="nx">max</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">p</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="c">// Redimensionnement du canvas</span>
+      <span class="kd">var</span> <span class="nx">margin</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="o">,</span><span class="mi">4</span><span class="p">];</span>
+      <span class="nx">min</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">min</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="nx">margin</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+      <span class="nx">min</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">min</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nx">margin</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+      <span class="nx">max</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">max</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="nx">margin</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+      <span class="nx">max</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">max</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="nx">margin</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+      <span class="kd">var</span> <span class="nx">lw</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">max</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="nx">min</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+      <span class="kd">var</span> <span class="nx">lh</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">max</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nx">min</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+   
+      <span class="k">this</span><span class="p">.</span><span class="nx">SetCanvasRegion</span><span class="p">(</span><span class="nx">min</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">min</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="nx">lw</span><span class="o">,</span><span class="nx">lh</span><span class="p">);</span>
+   
+      <span class="kd">var</span> <span class="nx">ctxt</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getContext</span><span class="p">();</span>
+      <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">bezierPoints</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+         <span class="nx">bezierPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">bezierPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="nx">min</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+         <span class="nx">bezierPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">bezierPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nx">min</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+      <span class="p">}</span>
+   
+      <span class="c">// Draw the border</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineCap</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">bordercap</span><span class="o">;</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">strokeStyle</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">bordercolor</span><span class="o">;</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineWidth</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">width</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">borderwidth</span><span class="o">*</span><span class="mi">2</span><span class="o">;</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">bezierCurveTo</span><span class="p">(</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+   
+      <span class="c">// Draw the inner bezier curve</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineCap</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">cap</span><span class="o">;</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">strokeStyle</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">color</span><span class="o">;</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineWidth</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">width</span><span class="o">;</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">bezierCurveTo</span><span class="p">(</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">bezierPoints</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+   <span class="p">}</span>
+
+
+	
+<span class="p">});</span>
 </pre></div>
 
                     </div>
@@ -227,7 +219,7 @@
                         <ul class="content">        
                                 <li class=""><a href="ArrowWire.js.html" title="ArrowWire.js">ArrowWire.js</a></li>
                                 <li class=""><a href="BezierArrowWire.js.html" title="BezierArrowWire.js">BezierArrowWire.js</a></li>
-                                <li class=""><a href="BezierWire.js.html" title="BezierWire.js">BezierWire.js</a></li>
+                                <li class="selected"><a href="BezierWire.js.html" title="BezierWire.js">BezierWire.js</a></li>
                                 <li class=""><a href="CanvasElement.js.html" title="CanvasElement.js">CanvasElement.js</a></li>
                                 <li class=""><a href="Container.js.html" title="Container.js">Container.js</a></li>
                                 <li class=""><a href="DD.js.html" title="DD.js">DD.js</a></li>
@@ -242,7 +234,7 @@
                                 <li class=""><a href="TerminalOutput.js.html" title="TerminalOutput.js">TerminalOutput.js</a></li>
                                 <li class=""><a href="TerminalProxy.js.html" title="TerminalProxy.js">TerminalProxy.js</a></li>
                                 <li class=""><a href="Wire.js.html" title="Wire.js">Wire.js</a></li>
-                                <li class="selected"><a href="WireIt.js.html" title="WireIt.js">WireIt.js</a></li>
+                                <li class=""><a href="WireIt.js.html" title="WireIt.js">WireIt.js</a></li>
                         </ul>
                     </div>
 
