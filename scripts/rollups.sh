@@ -8,7 +8,7 @@ cd ../build
 
 # Core wireit rollup
 rm -f wireit.js wireit-min.js
-cat ../js/WireIt.js ../js/CanvasElement.js ../js/Wire.js ../js/ArrowWire.js ../js/BezierWire.js ../js/BezierArrowWire.js ../js/TerminalProxy.js ../js/Scissors.js ../js/Terminal.js ../js/TerminalInput.js ../js/TerminalOutput.js ../js/DD.js ../js/DDResize.js ../js/Container.js ../js/Layer.js ../js/LayerMap.js ../js/ImageContainer.js ../js/InOutContainer.js > wireit.js
+cat ../js/WireIt.js ../js/CanvasElement.js ../js/Wire.js ../js/StepWire.js ../js/ArrowWire.js ../js/BezierWire.js ../js/BezierArrowWire.js ../js/TerminalProxy.js ../js/Scissors.js ../js/Terminal.js ../js/TerminalInput.js ../js/TerminalOutput.js ../js/DD.js ../js/DDResize.js ../js/Container.js ../js/Layer.js ../js/LayerMap.js ../js/ImageContainer.js ../js/InOutContainer.js > wireit.js
 java -jar $YUIcompressorJar  wireit.js -o wireit-min.js --charset utf8
 
 

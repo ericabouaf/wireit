@@ -9,6 +9,45 @@
  * @namespace WireIt
  */
 var WireIt = {
+	
+	
+	
+	defaultWireClass: "WireIt.BezierWire",
+	
+	wireClassFromXtype: function(xtype) {
+		return this.classFromXtype(xtype, this.defaultWireClass);
+	},
+	
+	
+	defaultTerminalClass: "WireIt.Terminal",
+	
+	terminalClassFromXtype: function(xtype) {
+		return this.classFromXtype(xtype, this.defaultTerminalClass);
+	},
+	
+
+	defaultContainerClass: "WireIt.Container",
+	
+	containerClassFromXtype: function(xtype) {
+		return this.classFromXtype(xtype, this.defaultContainerClass);
+	},
+	
+	/**
+	 * default
+	 */
+	classFromXtype: function(xtype, defaultXtype) {
+		var path = (xtype || defaultXtype).split('.');
+		var klass = window;
+		for(var i = 0 ; i < path.length ; i++) {
+			klass = klass[path[i]];
+		}
+		
+      if(!YAHOO.lang.isFunction(klass)) {
+         throw new Error("WireIt unable to find klass from xtype: '"+xtype+"'");
+      }
+
+		return klass;
+	},
    
    /**
     * Get a css property in pixels and convert it to an integer

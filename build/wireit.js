@@ -9,6 +9,45 @@
  * @namespace WireIt
  */
 var WireIt = {
+	
+	
+	
+	defaultWireClass: "WireIt.BezierWire",
+	
+	wireClassFromXtype: function(xtype) {
+		return this.classFromXtype(xtype, this.defaultWireClass);
+	},
+	
+	
+	defaultTerminalClass: "WireIt.Terminal",
+	
+	terminalClassFromXtype: function(xtype) {
+		return this.classFromXtype(xtype, this.defaultTerminalClass);
+	},
+	
+
+	defaultContainerClass: "WireIt.Container",
+	
+	containerClassFromXtype: function(xtype) {
+		return this.classFromXtype(xtype, this.defaultContainerClass);
+	},
+	
+	/**
+	 * default
+	 */
+	classFromXtype: function(xtype, defaultXtype) {
+		var path = (xtype || defaultXtype).split('.');
+		var klass = window;
+		for(var i = 0 ; i < path.length ; i++) {
+			klass = klass[path[i]];
+		}
+		
+      if(!YAHOO.lang.isFunction(klass)) {
+         throw new Error("WireIt unable to find klass from xtype: '"+xtype+"'");
+      }
+
+		return klass;
+	},
    
    /**
     * Get a css property in pixels and convert it to an integer
@@ -599,6 +638,86 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 });
 
 /**
+ * The step wire widget
+ * @class StepWire
+ * @namespace WireIt
+ * @extends WireIt.Wire
+ * @constructor
+ * @param  {WireIt.Terminal}    terminal1   Source terminal
+ * @param  {WireIt.Terminal}    terminal2   Target terminal
+ * @param  {HTMLElement} parentEl    Container of the CANVAS tag
+ * @param  {Obj}                options      Wire configuration (see options property)
+ */
+
+WireIt.StepWire = function( terminal1, terminal2, parentEl, options) {
+	WireIt.StepWire.superclass.constructor.call(this, terminal1, terminal2, parentEl, options);
+};
+
+
+YAHOO.lang.extend(WireIt.StepWire, WireIt.Wire, {
+	
+   /**
+    * Drawing methods for arrows
+    */
+   draw: function() {
+      var margin = [4,4];
+
+      // Get the positions of the terminals
+      var p1 = this.terminal1.getXY();
+      var p2 = this.terminal2.getXY();
+
+		
+		//this.terminal1.options.direction[0]
+
+      var min=[ Math.min(p1[0],p2[0])-margin[0], Math.min(p1[1],p2[1])-margin[1]];
+      var max=[ Math.max(p1[0],p2[0])+margin[0], Math.max(p1[1],p2[1])+margin[1]];
+
+      // Redimensionnement du canvas
+      var lw=Math.abs(max[0]-min[0]);
+      var lh=Math.abs(max[1]-min[1]);
+
+      // Convert points in canvas coordinates
+      p1[0] = p1[0]-min[0];
+      p1[1] = p1[1]-min[1];
+      p2[0] = p2[0]-min[0];
+      p2[1] = p2[1]-min[1];
+
+		var p3 = [ p2[0], p2[1] ];
+		p2[1] = p1[1];
+
+      this.SetCanvasRegion(min[0],min[1],lw,lh);
+
+      var ctxt=this.getContext();
+
+      // Draw the border
+      ctxt.lineCap=this.options.bordercap;
+      ctxt.strokeStyle=this.options.bordercolor;
+      ctxt.lineWidth=this.options.width+this.options.borderwidth*2;
+      ctxt.beginPath();
+      ctxt.moveTo(p1[0],p1[1]);
+      ctxt.lineTo(p2[0],p2[1]);
+
+		ctxt.lineTo(p3[0],p3[1]);
+		
+      ctxt.stroke();
+
+      // Draw the inner bezier curve
+      ctxt.lineCap=this.options.cap;
+      ctxt.strokeStyle=this.options.color;
+      ctxt.lineWidth=this.options.width;
+      ctxt.beginPath();
+
+      ctxt.moveTo(p1[0],p1[1]);
+      ctxt.lineTo(p2[0],p2[1]);
+
+		ctxt.lineTo(p3[0],p3[1]);
+
+      ctxt.stroke();
+   }
+	
+});
+
+/**
  * The arrow wire widget
  * @class ArrowWire
  * @namespace WireIt
@@ -1167,7 +1286,10 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	   if(this.terminal.container) {
 	      parentEl = this.terminal.container.layer.el;
 	   }
-	   this.editingWire = new WireIt.Wire(this.terminal, this.fakeTerminal, parentEl, this.terminal.options.editingWireConfig);
+	
+		var klass = WireIt.wireClassFromXtype(this.terminal.options.editingWireConfig.xtype);
+		
+	   this.editingWire = new klass(this.terminal, this.fakeTerminal, parentEl, this.terminal.options.editingWireConfig);
 	   YAHOO.util.Dom.addClass(this.editingWire.element, CSS_PREFIX+'Wire-editing');
 	},
 
@@ -1305,6 +1427,8 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	      term1 = targetTerminalProxy.terminal;
 	      term2 = this.terminal;
 	   }
+	
+		var klass = WireIt.wireClassFromXtype(term1.options.wireConfig.xtype);
    
 	   // Check the number of wires for this terminal
 	   var tgtTerm = targetTerminalProxy.terminal, w;
@@ -1312,11 +1436,12 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	      if(tgtTerm.wires.length > 0) {
 	         tgtTerm.wires[0].remove();
 	      }
-	      w = new WireIt.Wire(term1, term2, parentEl, term1.options.wireConfig);
+	
+	      w = new klass(term1, term2, parentEl, term1.options.wireConfig);
 	      w.redraw();
 	   }
 	   else if(tgtTerm.wires.length < tgtTerm.options.nMaxWires) {
-	      w = new WireIt.Wire(term1, term2, parentEl, term1.options.wireConfig);
+	      w = new klass(term1, term2, parentEl, term1.options.wireConfig);
 	      w.redraw();
 	   }
 	   /*else {
@@ -2320,17 +2445,11 @@ WireIt.Container.prototype = {
     * @return {WireIt.Terminal}  terminal Created terminal
     */
    addTerminal: function(terminalConfig) {
-   
-      // Terminal type
-		var path = (terminalConfig.xtype || "WireIt.Terminal").split('.');
-		var type = window;
-		for(var i = 0 ; i < path.length ; i++) {
-			type = type[path[i]];
-		}
-		//var type = eval(terminalConfig.xtype || "WireIt.Terminal");
-   
+
+   	var klass = WireIt.terminalClassFromXtype(terminalConfig.xtype);
+
       // Instanciate the terminal
-      var term = new type(this.el, terminalConfig, this);
+      var term = new klass(this.el, terminalConfig, this);
    
       // Add the terminal to the list
       this.terminals.push( term );
@@ -2657,19 +2776,15 @@ WireIt.Layer.prototype = {
     * @return {WireIt.Wire} Wire instance build from the xtype
     */
    addWire: function(wireConfig) {
-		// var type = eval(wireConfig.xtype || "WireIt.Wire");
-		var path = (wireConfig.xtype || "WireIt.Wire").split('.');
-		var type = window;
-		for(var i = 0 ; i < path.length ; i++) {
-			type = type[path[i]];
-		}
+	
+		var klass = WireIt.wireClassFromXtype(wireConfig.xtype);
    
       var src = wireConfig.src;
       var tgt = wireConfig.tgt;
    
       var terminal1 = this.containers[src.moduleId].getTerminal(src.terminal);
       var terminal2 = this.containers[tgt.moduleId].getTerminal(tgt.terminal);
-      var wire = new type( terminal1, terminal2, this.el, wireConfig);
+      var wire = new klass( terminal1, terminal2, this.el, wireConfig);
       wire.redraw();
    
       return wire;
@@ -2682,21 +2797,15 @@ WireIt.Layer.prototype = {
     * @return {WireIt.Container} Container instance build from the xtype
     */
    addContainer: function(containerConfig) {
-   
-      //var type = eval('('+(containerConfig.xtype || "WireIt.Container")+')');
-		var path = (containerConfig.xtype || "WireIt.Container").split('.');
-		var type = window;
-		for(var i = 0 ; i < path.length ; i++) {
-			type = type[path[i]];
-		}
 
-      if(!YAHOO.lang.isFunction(type)) {
-         throw new Error("WireIt layer unable to add container: xtype '"+containerConfig.xtype+"' not found");
-      }
-      var container = new type(containerConfig, this);
+		var klass = WireIt.containerClassFromXtype(containerConfig.xtype);
+
+      var container = new klass(containerConfig, this);
    
       return this.addContainerDirect(container);
    },
+
+
    addContainerDirect: function(container) {
       this.containers.push( container );
    

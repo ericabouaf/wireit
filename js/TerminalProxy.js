@@ -121,7 +121,10 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	   if(this.terminal.container) {
 	      parentEl = this.terminal.container.layer.el;
 	   }
-	   this.editingWire = new WireIt.Wire(this.terminal, this.fakeTerminal, parentEl, this.terminal.options.editingWireConfig);
+	
+		var klass = WireIt.wireClassFromXtype(this.terminal.options.editingWireConfig.xtype);
+		
+	   this.editingWire = new klass(this.terminal, this.fakeTerminal, parentEl, this.terminal.options.editingWireConfig);
 	   YAHOO.util.Dom.addClass(this.editingWire.element, CSS_PREFIX+'Wire-editing');
 	},
 
@@ -259,6 +262,8 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	      term1 = targetTerminalProxy.terminal;
 	      term2 = this.terminal;
 	   }
+	
+		var klass = WireIt.wireClassFromXtype(term1.options.wireConfig.xtype);
    
 	   // Check the number of wires for this terminal
 	   var tgtTerm = targetTerminalProxy.terminal, w;
@@ -266,11 +271,12 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	      if(tgtTerm.wires.length > 0) {
 	         tgtTerm.wires[0].remove();
 	      }
-	      w = new WireIt.Wire(term1, term2, parentEl, term1.options.wireConfig);
+	
+	      w = new klass(term1, term2, parentEl, term1.options.wireConfig);
 	      w.redraw();
 	   }
 	   else if(tgtTerm.wires.length < tgtTerm.options.nMaxWires) {
-	      w = new WireIt.Wire(term1, term2, parentEl, term1.options.wireConfig);
+	      w = new klass(term1, term2, parentEl, term1.options.wireConfig);
 	      w.redraw();
 	   }
 	   /*else {

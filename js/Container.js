@@ -339,17 +339,11 @@ WireIt.Container.prototype = {
     * @return {WireIt.Terminal}  terminal Created terminal
     */
    addTerminal: function(terminalConfig) {
-   
-      // Terminal type
-		var path = (terminalConfig.xtype || "WireIt.Terminal").split('.');
-		var type = window;
-		for(var i = 0 ; i < path.length ; i++) {
-			type = type[path[i]];
-		}
-		//var type = eval(terminalConfig.xtype || "WireIt.Terminal");
-   
+
+   	var klass = WireIt.terminalClassFromXtype(terminalConfig.xtype);
+
       // Instanciate the terminal
-      var term = new type(this.el, terminalConfig, this);
+      var term = new klass(this.el, terminalConfig, this);
    
       // Add the terminal to the list
       this.terminals.push( term );

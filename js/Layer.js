@@ -200,19 +200,15 @@ WireIt.Layer.prototype = {
     * @return {WireIt.Wire} Wire instance build from the xtype
     */
    addWire: function(wireConfig) {
-		// var type = eval(wireConfig.xtype || "WireIt.Wire");
-		var path = (wireConfig.xtype || "WireIt.Wire").split('.');
-		var type = window;
-		for(var i = 0 ; i < path.length ; i++) {
-			type = type[path[i]];
-		}
+	
+		var klass = WireIt.wireClassFromXtype(wireConfig.xtype);
    
       var src = wireConfig.src;
       var tgt = wireConfig.tgt;
    
       var terminal1 = this.containers[src.moduleId].getTerminal(src.terminal);
       var terminal2 = this.containers[tgt.moduleId].getTerminal(tgt.terminal);
-      var wire = new type( terminal1, terminal2, this.el, wireConfig);
+      var wire = new klass( terminal1, terminal2, this.el, wireConfig);
       wire.redraw();
    
       return wire;
@@ -225,21 +221,15 @@ WireIt.Layer.prototype = {
     * @return {WireIt.Container} Container instance build from the xtype
     */
    addContainer: function(containerConfig) {
-   
-      //var type = eval('('+(containerConfig.xtype || "WireIt.Container")+')');
-		var path = (containerConfig.xtype || "WireIt.Container").split('.');
-		var type = window;
-		for(var i = 0 ; i < path.length ; i++) {
-			type = type[path[i]];
-		}
 
-      if(!YAHOO.lang.isFunction(type)) {
-         throw new Error("WireIt layer unable to add container: xtype '"+containerConfig.xtype+"' not found");
-      }
-      var container = new type(containerConfig, this);
+		var klass = WireIt.containerClassFromXtype(containerConfig.xtype);
+
+      var container = new klass(containerConfig, this);
    
       return this.addContainerDirect(container);
    },
+
+
    addContainerDirect: function(container) {
       this.containers.push( container );
    
