@@ -46,7 +46,12 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
 	  this.setBackReferenceOnFieldOptionsRecursively(this.options.fields);
       
       var groupParams = {parentEl: this.bodyEl, fields: this.options.fields, legend: this.options.legend, collapsible: this.options.collapsible};
-      this.form = new YAHOO.inputEx.Group(groupParams);
+      this.form = new inputEx.Group(groupParams);
+
+		// Redraw all wires when the form is collapsed
+		if(this.form.legend) {
+			YAHOO.util.Event.addListener(this.form.legend, 'click', this.redrawAllWires, this, true);
+		}
    },
    
 	/**

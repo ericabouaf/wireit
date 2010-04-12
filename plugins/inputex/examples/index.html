@@ -35,7 +35,10 @@
 <script type="text/javascript" src="../../../js/WireIt.js"></script>
 <script type="text/javascript" src="../../../js/CanvasElement.js"></script>
 <script type="text/javascript" src="../../../js/Wire.js"></script>
+<script type="text/javascript" src="../../../js/BezierWire.js"></script>
 <script type="text/javascript" src="../../../js/Terminal.js"></script>
+<script type="text/javascript" src="../../../js/TerminalProxy.js"></script>
+<script type="text/javascript" src="../../../js/Scissors.js"></script>
 <script type="text/javascript" src="../../../js/DD.js"></script>
 <script type="text/javascript" src="../../../js/DDResize.js"></script>
 <script type="text/javascript" src="../../../js/Container.js"></script>
@@ -79,34 +82,55 @@ div.inputEx-Group div.inputEx-label {
 		YAHOO.inputEx.spacerUrl = "../lib/inputex/images/space.gif";
 
 		// Example 1
-	   var demoLayer = new WireIt.Layer({layerMap: false});
+	   demoLayer = new WireIt.Layer({layerMap: false});
 			
 		 demoLayer.setWiring({
 			containers: [
 		 		{
-					position:[280,140],
+					position:[380,240],
 					xtype: "WireIt.FormContainer",
+					collapsible: true,
 					fields: [ 
 						{type: 'select', label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] },
 						{label: 'Firstname', name: 'firstname', required: true }, 
 						{label: 'Lastname', name: 'lastname', value:'Dupont'}, 
-						{type:'email', label: 'Email', name: 'email', required: true }, 
+						{type:'email', label: 'Email', name: 'email', required: true, wirable: true }, 
 						{type:'boolean', label: 'Happy to be there ?', name: 'happy'}, 
 						{type:'url', label: 'Website', name:'website', size: 25} 
 					],
 					legend: 'Tell us about yourself...'
 		 		},
 				{
-					position:[500,140],
+					position:[145,80],
 					xtype: "WireIt.FormContainer",
+					collapsible: true,
 					fields: [
 					    {label: 'Firstname', name: 'firstname' },
 					    {label: 'Lastname', name: 'lastname' },
 				      {label: 'Title', name: 'title' }
 				   ],
-					legend: 'Hello there'
+					legend: 'Hello there',
+					terminals: [
+							{direction: [0,1], offsetPosition: { bottom: -14, left: 160},  ddConfig: { type: "output", allowedTypes: ["input"] }, name: "_OUT1" }
+					]
 		 		}
-			]
+			],
+
+
+				wires: [
+					{
+						src: {
+							moduleId: 0,
+							terminal: "email"
+						},
+						tgt: {
+							moduleId: 1,
+							terminal: "_OUT1"
+						},
+
+						xtype: "WireIt.BezierWire"
+					}
+				]
 		});
 
 	});
