@@ -1302,21 +1302,11 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	   if(!this.editingWire) { return; }
    
 	   if(this.terminal.container) {
-	      var obj = this.terminal.container.layer.el;
-	      var curleft = 0, curtop = 0;
-			if (obj.offsetParent) {
-				do {
-					curleft += obj.offsetLeft;
-					curtop += obj.offsetTop;
-					obj = obj.offsetParent ;
-					} while ( (obj = obj.offsetParent) );
-				}
-				this.fakeTerminal.pos = [e.clientX-curleft+this.terminal.container.layer.el.scrollLeft,
-												e.clientY-curtop+this.terminal.container.layer.el.scrollTop];
+			this.fakeTerminal.pos = [e.clientX+this.terminal.container.layer.el.scrollLeft,
+												e.clientY+this.terminal.container.layer.el.scrollTop];
 	   }
 	   else {
 	      this.fakeTerminal.pos = (YAHOO.env.ua.ie) ? [e.clientX, e.clientY] : [e.clientX+window.pageXOffset, e.clientY+window.pageYOffset];
-	      //this.fakeTerminal.pos = [e.clientX, e.clientY];
 	   }
 	   this.editingWire.redraw();
 	},
@@ -4270,7 +4260,12 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
 	  this.setBackReferenceOnFieldOptionsRecursively(this.options.fields);
       
       var groupParams = {parentEl: this.bodyEl, fields: this.options.fields, legend: this.options.legend, collapsible: this.options.collapsible};
-      this.form = new YAHOO.inputEx.Group(groupParams);
+      this.form = new inputEx.Group(groupParams);
+
+		// Redraw all wires when the form is collapsed
+		if(this.form.legend) {
+			YAHOO.util.Event.addListener(this.form.legend, 'click', this.redrawAllWires, this, true);
+		}
    },
    
 	/**
