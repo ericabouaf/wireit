@@ -91,6 +91,7 @@ WireIt.WiringEditor.adapters.Ajax = {
 			method = this.config[action].method;
 		}
 
+		YAHOO.util.Connect.initHeader("Content-Type", "application/x-www-form-urlencoded");
 		YAHOO.util.Connect.asyncRequest(method, url, {
 			success: function(o) {
 				var s = o.responseText,
