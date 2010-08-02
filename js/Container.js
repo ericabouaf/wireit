@@ -152,12 +152,13 @@ WireIt.Container.prototype = {
 
    /**
     * Function called when the container is being resized.
-    * It doesn't do anything, so please override it.
+    * It sets the size of the body element of the container
     * @method onResize
     */
    onResize: function(event, args) {
       var size = args[0];
-      WireIt.sn(this.bodyEl, null, {width: (size[0]-10)+"px", height: (size[1]-44)+"px"});
+		// TODO: do not hardcode those sizes !!
+      WireIt.sn(this.bodyEl, null, {width: (size[0]-14)+"px", height: (size[1]-44)+"px"});
    },
 
    /**
@@ -184,17 +185,17 @@ WireIt.Container.prototype = {
 			this.ddHandle = WireIt.cn('div', {className: this.options.ddHandleClassName});
 			this.el.appendChild(this.ddHandle);
 
-         // Set title
-         if(this.options.title) {
-            this.ddHandle.appendChild( WireIt.cn('span', {className: 'floatleft'}, null, this.options.title) );
-         }
-         
          // Icon
          if (this.options.icon) {
             var iconCn = WireIt.cn('img', {src: this.options.icon, className: 'WireIt-Container-icon'});
             this.ddHandle.appendChild(iconCn);
          }
 
+         // Set title
+         if(this.options.title) {
+            this.ddHandle.appendChild( WireIt.cn('span', {className: 'floatleft'}, null, this.options.title) );
+         }
+         
       }
    
       // Create the body element

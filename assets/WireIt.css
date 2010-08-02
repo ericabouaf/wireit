@@ -79,19 +79,16 @@ div.WireIt-Container-ddhandle {
 	text-align:center;
 	font-size: 10pt;
    float : none;
-   padding-left : 2px;
-
 } 
+
 div.WireIt-Container-ddhandle span {
-   /*margin-right: 32px;*/
 	text-align:center;
 }
 
 img.WireIt-Container-icon {
    background: white;
-   position: absolute;
-   top: 4px;
-   left: 4px;
+	float: left;
+	margin: 0 4px;
    padding: 1px;
    border: 1px solid #ccc;
 }
@@ -108,11 +105,10 @@ div.WireIt-Container-resizehandle {
 div.WireIt-Container-closebutton {
    background-image: url(cancel.png);
    width: 16px;
-   height: 16px;/*
+   height: 16px;
    position: absolute;
    top: 4px;
-   right: 4px;*/
-   float : right;
+   right: 4px;
    cursor: pointer;
    margin-right: 4px;
 }

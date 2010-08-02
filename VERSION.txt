@@ -7,6 +7,8 @@ Not released yet
 
 Changeset:
 
+	* drawingMethod has been removed from the Wire options. Use the xtype instead.
+
 	* Splitting the WireIt core classes & plugins into separate folders
 	
 	* upgrading to inputEx 0.5.0 (now in the "inputex" plugin)

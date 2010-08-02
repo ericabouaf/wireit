@@ -69,7 +69,7 @@ window.onload = function() {
 		var wire = wires[i];
 		var src = wire[0];
 		var tgt = wire[1];
-		var w = new WireIt.Wire( bubbles[src[0]].terminals[src[1]] , bubbles[tgt[0]].terminals[tgt[1]], document.body);
+		var w = new WireIt.BezierWire( bubbles[src[0]].terminals[src[1]] , bubbles[tgt[0]].terminals[tgt[1]], document.body);
 		w.redraw();
 	}
 	

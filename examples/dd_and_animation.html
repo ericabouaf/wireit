@@ -49,10 +49,10 @@ window.onload = function() {
 	new WireIt.util.DD(terminals2,block2);
 	
 	// Create a wire between some terminals
-	var w1 = new WireIt.Wire(terminals1[0], terminals2[0], document.body);
+	var w1 = new WireIt.BezierWire(terminals1[0], terminals2[0], document.body);
 	w1.redraw();
 	
-	var w2 = new WireIt.Wire(terminals1[1], terminals2[1], document.body);
+	var w2 = new WireIt.BezierWire(terminals1[1], terminals2[1], document.body);
 	w2.redraw();
 	
 };

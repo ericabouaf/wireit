@@ -83,7 +83,7 @@ var logicGatesLang = {
 				"xtype":"LightbulbContainer", 
 				"icon": "../logicGates/images/lightbulb_off.png",
 				"image": "../logicGates/images/lightbulb_off.png",
-  				"terminals": [ {"name": "_INPUT", "direction": [0,1], "offsetPosition": {"left": 5, "bottom": -10 },"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 } ]
+  				"terminals": [ {"name": "_INPUT", "direction": [0,1], "offsetPosition": {"left": 5, "bottom": 20 },"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 } ]
 			}
 		},
 		{
