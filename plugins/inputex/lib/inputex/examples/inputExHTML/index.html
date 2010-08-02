@@ -70,21 +70,30 @@ YAHOO.util.Event.onDOMReady( function() {
      // Make the element draggable and resizable
      var resize = new YAHOO.util.Resize(el);
      new YAHOO.util.DD(resize._wrap); 
+
+     return false; // stop form submit
   };
 	
 	form = new inputEx.Form({
 		parentEl: 'htmlFormContainer',
 		fields: [
-	      { type: 'select', label: 'Tag', name: 'tagName', selectValues: ["div", "script", "img", "a", "input", "p", "br", "span", "b", "iframe"] },
+			{ type: 'select', label: 'Tag', name: 'tagName', choices: ["div","script","img","a","input","p","br","span","b","iframe"] },
 			{ type: 'object', label: 'Attributes', listLabel: 'attributes', name: 'attributes'},
 			{ type: 'object', label: 'CSS Attr.', listLabel: 'css attributes', name: 'cssStyles'},
-	      { type: 'text', label: 'innerHTML', name: 'innerHTML'}
+			{ type: 'text', label: 'innerHTML', name: 'innerHTML'}
 		],
-	  buttons: [
-	      {type: 'button', value: 'Create !', onClick: createHTMLElement },
-			  {type: 'button', value: 'Clear', onClick: function() {
-	         form.setValue({tagName: 'div', cssStyles:{}, attributes:{}, innerHTML: "" });
-	      } }
+		buttons: [
+			{
+				value: 'Create !',
+				onClick: createHTMLElement
+			},
+			{
+				value: 'Clear',
+				onClick: function() {
+					form.setValue({tagName: 'div', cssStyles:{}, attributes:{}, innerHTML: "" });
+					return false; // stop form submit
+				}
+			}
 	   ]
 	});
 

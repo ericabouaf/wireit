@@ -167,6 +167,12 @@ lang.extend(inputEx.DatePickerField, inputEx.DateField, {
       this.button.unsubscribe("click", this.renderCalendar); 
       
       this.calendarRendered = true;
+
+		// Since we render the calendar AFTER the opening of the overlay,
+		// the overlay can be mis-positionned (outside of the viewport).
+		// We force the repositionning of the overlay by hiding it, and show it again.
+		this.oOverlay.hide();
+      this.button._showMenu();
    },
    
    /**

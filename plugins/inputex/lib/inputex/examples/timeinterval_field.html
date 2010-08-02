@@ -32,6 +32,7 @@
 
 <!-- InputEx -->
 <script src="../js/inputex.js"  type='text/javascript'></script>
+<script src="../js/mixins/choice.js"  type='text/javascript'></script>
 <script src="../js/Field.js"  type='text/javascript'></script>
 <script src="../js/Group.js"  type='text/javascript'></script>
 <script src="../js/fields/SelectField.js"  type='text/javascript'></script>
@@ -52,10 +53,10 @@
  <div class='demoContainer' id='container1'></div>
  <div class='codeContainer'>
   <textarea name="code" class="JScript">
-		var field = new inputEx.TimeIntervalField({parentEl: 'container1', label: 'Length'});
+		var field = new inputEx.TimeIntervalField({parentEl: 'container1', label: 'Length',value:82800});
 		var button = inputEx.cn('button', null, null, 'getValue');
 		YAHOO.util.Event.addListener(button, "click",function() {
-			alert(field.getValue());
+			alert(field.getValue()+" (seconds)");
 		});
 		YAHOO.util.Dom.get('container1').appendChild(button);
   </textarea>
@@ -75,11 +76,14 @@
 	  var unitsStr = inputEx.messages.timeUnits;
 	  var n=[]; for(var i=1;i !=30;i++){ n.push(i); }
 	  var fields = [
-	       {type: 'select', selectValues: n },
+	       {type: 'select', choices: n },
 	       {
 	          type: 'select',
-	          selectOptions: [unitsStr.DAY, unitsStr.MONTH, unitsStr.YEAR],
-	          selectValues: [units.DAY, units.MONTH, units.YEAR]
+	          choices: [
+					{ value: units.DAY, label: unitsStr.DAY },
+					{ value: units.MONTH, label: unitsStr.MONTH },
+					{ value: units.YEAR, label: unitsStr.YEAR }
+				]
 	       }
 	    ];
 

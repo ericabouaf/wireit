@@ -8,6 +8,7 @@
    msgs.valid = "Ce champ est valide";
    
    msgs.invalidEmail = "Email non valide; ex: michel.dupont@fai.fr";
+   msgs.didYouMeant = "Voulez-vous dire : ";
    msgs.selectColor = "S&eacute;lectionnez une couleur :";
    msgs.invalidPassword = ["Le mot de passe doit contenir au moins "," caract&egrave;res (lettres ou chiffres)"];
    msgs.invalidPasswordConfirmation = "Les mots de passe entrés ne sont pas identiques !";

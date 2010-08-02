@@ -25,25 +25,28 @@ YAHOO.lang.extend( inputEx.KeyValueField, inputEx.CombineField, {
 	 * Generate
 	 */
 	generateSelectConfig: function(availableFields) {
-	
+		
 		this.nameIndex = {};
 		
-	   var fieldNames = [], fieldLabels = [],i, field, fieldCopy, k, l;
-	
-	   for( i = 0 , l = availableFields.length ; i < l ; i++) {
-	      field =  availableFields[i];
+		var choices = [], i, field, fieldCopy, k, l;
+		
+		for (i = 0 , l = availableFields.length ; i < l ; i++) {
+			
+			field =  availableFields[i];
 			fieldCopy = {};
-			for(k in field) {
-				if(field.hasOwnProperty(k) && k != "label") {
+			for (k in field) {
+				if (field.hasOwnProperty(k) && k != "label") {
 					fieldCopy[k] = field[k];
 				}
 			}
-	      this.nameIndex[field.name] = fieldCopy;
-	      fieldNames.push(field.name);
-			fieldLabels.push(field.label || field.name);
-	   }
+			
+			this.nameIndex[field.name] = fieldCopy;
+			
+			choices.push({ value: field.name, label:field.label || field.name });
+			
+		}
 		
-		return {type: 'select', selectValues: fieldNames, selectOptions: fieldLabels };
+		return { type: 'select', choices: choices };
 	},
 
 	/**

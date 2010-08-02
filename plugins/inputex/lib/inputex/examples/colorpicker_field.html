@@ -32,7 +32,7 @@
 	<div class='demoContainer' id='container1'></div>
 	<div class='codeContainer'>
 		<textarea name="code" class="JScript">
-			new inputEx.ColorPickerField({parentEl: 'container1', label: 'Choose a color', description: 'Click to view the available colors'});
+			new inputEx.ColorPickerField({parentEl: 'container1', label: 'Choose a color', description: 'Click to view the available colors' });
 		</textarea>
 	</div>
 </div>
@@ -46,7 +46,7 @@
 	<div class='demoContainer' id='container2'></div>
 	<div class='codeContainer'>
 		<textarea name="code" class="JScript">
-			var field = new inputEx.ColorPickerField({parentEl: 'container2', label: 'Choose a color', showcontrols: false, value:'#2626AF'});
+			var field = new inputEx.ColorPickerField({parentEl: 'container2', label: 'Choose a color', value:'#2626AF', colorPickerOptions:{showcontrols:false} });
 			
 			// Register the 'updatedEvt' and log the value to the page
 			var logDiv = inputEx.cn('div', null, null, "Log :");

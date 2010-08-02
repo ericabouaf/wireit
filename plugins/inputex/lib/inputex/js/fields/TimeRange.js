@@ -10,16 +10,16 @@ inputEx.TimeRange = function(options) {
 		s="";
 		if ( i<10 ){ s="0"; } 
 		s+= i;
-		h2.push(s);
-   	if ( i<24 ){ h1.push(s); } // First block of hours musn't contain 24
+		h2.push({ value: s });
+   	if ( i<24 ){ h1.push({ value: s }); } // First block of hours musn't contain 24
 	}
-	m = ["00","05","10","15","20","25","30","35","40","45","50","55"];
+	m = [{ value: "00" },{ value: "05" },{ value: "10" },{ value: "15" },{ value: "20" },{ value: "25" },{ value: "30" },{ value: "35" },{ value: "40" },{ value: "45" },{ value: "50" },{ value: "55" }];
 	
    options.fields = [
-      {type: 'select', selectOptions: h1, selectValues: h1 },
-      {type: 'select', selectOptions: m, selectValues: m },
-      {type: 'select', selectOptions: h2, selectValues: h2 },
-      {type: 'select', selectOptions: m, selectValues: m }
+      {type: 'select', choices: h1 },
+      {type: 'select', choices: m },
+      {type: 'select', choices: h2 },
+      {type: 'select', choices: m }
    ];
 
    options.separators = options.separators || [false,"H","&nbsp; à &nbsp;","H",false];

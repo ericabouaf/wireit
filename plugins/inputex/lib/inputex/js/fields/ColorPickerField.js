@@ -27,8 +27,15 @@ YAHOO.lang.extend(inputEx.ColorPickerField, inputEx.Field, {
    	// Overwrite options
    	this.options.className = options.className ? options.className : 'inputEx-Field inputEx-ColorPickerField';
 
-		// New options:
-		this.options.showcontrols = YAHOO.lang.isUndefined(options.showcontrols) ? true : options.showcontrols;
+		// Color Picker options object
+		this.options.colorPickerOptions = YAHOO.lang.isUndefined(options.colorPickerOptions) ? {} : options.colorPickerOptions;
+		
+		// showcontrols
+		this.options.colorPickerOptions.showcontrols = YAHOO.lang.isUndefined(this.options.colorPickerOptions.showcontrols) ? true : this.options.colorPickerOptions.showcontrols;
+		
+		// default images (color selection images)
+		this.options.colorPickerOptions.images = YAHOO.lang.isUndefined(this.options.colorPickerOptions.images) ? { PICKER_THUMB: "../lib/yui/colorpicker/assets/picker_thumb.png", HUE_THUMB: "../lib/yui/colorpicker/assets/hue_thumb.png" } : this.options.colorPickerOptions.images;
+		
    },
    
 	/**
@@ -66,7 +73,7 @@ YAHOO.lang.extend(inputEx.ColorPickerField, inputEx.Field, {
 		oButton.on("appendTo", function () {
 			oColorPickerMenu.setBody(" ");
 			oColorPickerMenu.body.id = Dom.generateId();
-			Dom.addClass(oColorPickerMenu.body, that.options.showcontrols ? "inputEx-ColorPicker-Container" : "inputEx-ColorPicker-Container-nocontrols");
+			Dom.addClass(oColorPickerMenu.body, that.options.colorPickerOptions.showcontrols ? "inputEx-ColorPicker-Container" : "inputEx-ColorPicker-Container-nocontrols");
 			oColorPickerMenu.render(this.get('container'));
 		});
 
@@ -88,13 +95,7 @@ YAHOO.lang.extend(inputEx.ColorPickerField, inputEx.Field, {
 		// Remove this event listener so that this code runs only once
 		this.oButton.unsubscribe("click", this.onButtonClickOnce, this);
 		
-		this.oColorPicker = new widget.ColorPicker(this.oColorPickerMenu.body.id, {
-				showcontrols: this.options.showcontrols,
-				images: {
-						PICKER_THUMB: "../lib/yui/colorpicker/assets/picker_thumb.png",
-						HUE_THUMB: "../lib/yui/colorpicker/assets/hue_thumb.png"
-				}
-		});
+		this.oColorPicker = new widget.ColorPicker(this.oColorPickerMenu.body.id, this.options.colorPickerOptions);
 		
 		if(this.options.value) {
 			this.oColorPicker.set("hex", this.options.value.substr(1));

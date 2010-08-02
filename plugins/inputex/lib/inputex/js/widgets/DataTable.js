@@ -361,16 +361,17 @@ inputEx.widget.DataTable.prototype = {
 		this.selectedRecord = rowIndex;
 		
 		// Get the selected Record
-      var record = this.datatable.getRecord(this.selectedRecord);
-
-		// Set the initial value, use setTimeout to escape the stack
-		var that = this;
-		setTimeout(function() {
-			that.dialog.setValue(record.getData());
-			that.dialog.show();
-		},0);
-
-   },
+		var record = this.datatable.getRecord(this.selectedRecord);
+		
+		this.dialog.whenFormAvailable({
+			fn: function() {
+				this.dialog.setValue(record.getData());
+				this.dialog.show();
+			},
+			scope: this
+		});
+		
+	},
    
    /**
     * Insert button event handler
@@ -384,13 +385,14 @@ inputEx.widget.DataTable.prototype = {
 		// Inserting new record
 		this.insertNewRecord = true;
 		
-		// Escaping stack
-		var that = this;
-		setTimeout(function() {
-			that.dialog.getForm().clear();
-	      that.dialog.show();
-		},0);
-
+		this.dialog.whenFormAvailable({
+			fn: function() {
+				this.dialog.getForm().clear();
+				this.dialog.show();
+			},
+			scope: this
+		});
+		
    },
    
    /**

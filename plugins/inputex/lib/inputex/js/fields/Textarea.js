@@ -26,6 +26,9 @@ YAHOO.lang.extend(inputEx.Textarea, inputEx.StringField, {
       inputEx.Textarea.superclass.setOptions.call(this, options);
       this.options.rows = options.rows || 6;
       this.options.cols = options.cols || 23;
+      
+      // warning : readonly option doesn't work on IE < 8
+      this.options.readonly = !!options.readonly;
    },
    
    /**
@@ -42,6 +45,7 @@ YAHOO.lang.extend(inputEx.Textarea, inputEx.StringField, {
       attributes.rows = this.options.rows;
       attributes.cols = this.options.cols;
       if(this.options.name) attributes.name = this.options.name;
+      if(this.options.readonly) attributes.readonly = 'readonly';
       
       //if(this.options.maxLength) attributes.maxLength = this.options.maxLength;
    

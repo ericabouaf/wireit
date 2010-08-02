@@ -28,6 +28,7 @@
 
 <!-- InputEx -->
 <script src="../js/inputex.js"  type='text/javascript'></script>
+<script src="../js/mixins/choice.js"  type='text/javascript'></script>
 <script src="../js/Field.js"  type='text/javascript'></script>
 <script src="../js/Group.js"  type='text/javascript'></script>
 <script src="../js/fields/CombineField.js"  type='text/javascript'></script>
@@ -51,18 +52,18 @@
  <div class='demoContainer' id='container1'></div>
  <div class='codeContainer'>
   <textarea name="code" class="JScript">
-		var field = new inputEx.KeyOpValueField({
+		var field1 = new inputEx.KeyOpValueField({
 			parentEl: 'container1',
 			availableFields: [
 				{type: 'string', name: 'lastname', label: 'Lastname' },
 				{type: 'string', name: 'firstname', label: 'Firstname' },
-				{type: 'select', name: 'gender', label: 'Gender', selectValues: ["Mr", "Mme","Mlle"] }
+				{type: 'select', name: 'gender', label: 'Gender',  choices: ["Mr","Mrs","Ms"] }
 			]
 		});
 		
-		var button = inputEx.cn('button', null, null, 'getValue()');
-		YAHOO.util.Dom.get('container1').appendChild(button); 
-		YAHOO.util.Event.addListener(button, 'click', function() { alert( YAHOO.lang.JSON.stringify(field.getValue())); });  
+		var button1 = inputEx.cn('button', null, null, 'getValue()');
+		YAHOO.util.Dom.get('container1').appendChild(button1); 
+		YAHOO.util.Event.addListener(button1, 'click', function() { alert( YAHOO.lang.JSON.stringify(field1.getValue())); });  
 			
 		
   </textarea>
@@ -86,7 +87,7 @@
 			availableFields: [
 				{type: 'string', name: 'lastname', label: 'Lastname' },
 				{type: 'string', name: 'firstname', label: 'Firstname' },
-				{type: 'select', name: 'gender', label: 'Gender', selectValues: ["Mr", "Mme","Mlle"] }
+				{type: 'select', name: 'gender', label: 'Gender',  choices: ["Mr","Mrs","Ms"] }
 			]
 		}
 	});
@@ -103,21 +104,21 @@
  <div class='demoContainer' id='container3'></div>
  <div class='codeContainer'>
   <textarea name="code" class="JScript">
-		var field = new inputEx.KeyOpValueField({
+		var field3 = new inputEx.KeyOpValueField({
 			parentEl: 'container3',
 			availableFields: [
 				{type: 'string', name: 'lastname', label: 'Lastname' },
 				{type: 'string', name: 'firstname', label: 'Firstname' },
-				{type: 'select', name: 'gender', label: 'Gender', selectValues: ["Mr", "Mme","Mlle"] }
+				{type: 'select', name: 'gender', label: 'Gender',  choices: ["Mr","Mrs","Ms"] }
 			],
 			
 			operators: ["=","!="],
 			operatorLabels: ["equals", "different"]
 		});
 		
-		var button = inputEx.cn('button', null, null, 'getValue()');
-		YAHOO.util.Dom.get('container3').appendChild(button); 
-		YAHOO.util.Event.addListener(button, 'click', function() { alert( YAHOO.lang.JSON.stringify(field.getValue())); });  
+		var button3 = inputEx.cn('button', null, null, 'getValue()');
+		YAHOO.util.Dom.get('container3').appendChild(button3); 
+		YAHOO.util.Event.addListener(button3, 'click', function() { alert( YAHOO.lang.JSON.stringify(field3.getValue())); });  
 		
   </textarea>
  </div>

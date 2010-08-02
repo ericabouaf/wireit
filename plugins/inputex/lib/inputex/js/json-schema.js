@@ -146,6 +146,15 @@ inputEx.JsonSchema = {
     			'format':'date'
     		};
       }
+      else if(t == "multiselect" || t == "multiautocomplete"){
+        return {
+    			'type':'array',
+    			'optional': typeof ip.required == "undefined" ? true : !ip.required,
+    			'title': ip.label,
+    			'items': typeof ip.jsonSchemaRef == "undefined" ? {"type":"string"}: ip.jsonSchemaRef,// it's a little bit weird to mix a inputEx description field and jsonSchema in a specific attribute, we should had a $ref system to go through this properly
+    			'_inputex': ip
+    		};
+      }
       else {
 			return {
 				'type': 'string',
@@ -320,20 +329,22 @@ inputEx.JsonSchema.Builder.prototype = {
 	          fieldDef.fields = fields;
 	          
 	       }
-	       else if(type == "string" && (p["enum"] || p["options"]) ) {
+	       else if(type == "string" && (p["enum"] || p["choices"]) ) {
 	          fieldDef.type = "select";
 	          
-	          if(p.options) {
-  	             fieldDef.selectOptions = [];
-     	          fieldDef.selectValues = [];
-	             for(var i = 0 ; i < p.options.length ; i++) {
-	                var o = p.options[i];
-	                fieldDef.selectOptions[i] = o.label;
-	                fieldDef.selectValues[i] = o.value;
+	          if(p.choices) {
+	             fieldDef.choices = [];
+	             for(var i = 0 ; i < p.choices.length ; i++) {
+	                var o = p.choices[i];
+	                fieldDef.choices[i] = { label: o.label, value: o.value };
 	             }
              }
              else {
-    	          fieldDef.selectValues = p["enum"];
+	             fieldDef.choices = [];
+	             for(var i = 0 ; i < p["enum"].length ; i++) {
+	                var o = p["enum"][i];
+	                fieldDef.choices[i] = { label: o.label, value: o.value };
+	             }
              }
 	       }
 	       else if(type == "string") {

@@ -64,6 +64,14 @@ YAHOO.addInputExModules = function(yuiLoader, inputExPath) {
  	  	   varName: 'inputEx.YQL',
  			requires: ['inputex']
  		},
+		// Mixins
+		{
+			name: 'inputex-choice',
+			type: 'js',
+			fullpath: pathToInputEx+'js/mixins/choice.js',
+			varName: 'inputEx.mixin.choice',
+			requires: ['inputex']
+		},
 		// Widgets
 		{
  			name: 'inputex-ddlist',
@@ -233,7 +241,7 @@ YAHOO.addInputExModules = function(yuiLoader, inputExPath) {
 			type: 'js',
 	  	   fullpath: pathToInputEx+'js/fields/SelectField.js',
 	  	   varName: 'inputEx.SelectField',
-			requires: ['inputex-field']
+			requires: ['inputex-field','inputex-choice']
 		},
 		{
 		   name: 'inputex-timefield',
@@ -324,7 +332,7 @@ YAHOO.addInputExModules = function(yuiLoader, inputExPath) {
 			type: 'js',
 	  	   fullpath: pathToInputEx+'js/fields/RadioField.js',
 	  	   varName: 'inputEx.RadioField',
-			requires: ['inputex-field']
+			requires: ['selector','event-delegate','inputex-field','inputex-choice','inputex-stringfield']
 		},
 		{
 		   name: 'inputex-rtefield',

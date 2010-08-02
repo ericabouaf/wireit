@@ -40,7 +40,7 @@ var schemaIdentifierMap = {
  	"properties": {
   		"name": { "type":"string"},
     	"born" : { "type":"string", "format":"date", "optional":true},
-    	"gender" : { "type":"string", "options": [ {"value":"male","label":"Guy"}, {"value":"female","label":"Girl"} ]},
+    	"gender" : { "type":"string", "choices": [ {"value":"male","label":"Guy"}, {"value":"female","label":"Girl"} ]},
 		"grownup": { "type": "boolean" },
 		"favoritecolors": { "type": "array" },
     	"address": { 
@@ -91,7 +91,7 @@ var schemaIdentifierMap = {
  	"properties": {
   		"name": { "type":"string", "_inputex": {typeInvite: "you can add a type invitation", label: 'Your name'} },
     	"born" : { "type":"string", "format":"date", "optional":true, "_inputex": {"_type": "datepicker", valueFormat: 'Y-m-d', value: '2009-01-01', label: 'Birthdate'} },
-    	"gender" : { "type":"string", "options": [ {"value":"male","label":"Guy"}, {"value":"female","label":"Girl"} ]},
+    	"gender" : { "type":"string", "choices": [ {"value":"male","label":"Guy"}, {"value":"female","label":"Girl"} ]},
 		"grownup": { "type": "boolean", "_inputex": { label: "Grownup?", "description": "Over 18 only"} },
 		"favoritecolors": { "type": "array", "_inputex": { label: "Favorites colors", elementType: {"type": "color"} } }
   	}
@@ -130,6 +130,7 @@ var f = inputEx(inputExDefinition);
 
 <!-- InputEx -->
 <script src="../js/inputex.js"  type='text/javascript'></script>
+<script src="../js/mixins/choice.js"  type='text/javascript'></script>
 <script src="../js/Field.js"  type='text/javascript'></script>
 <script src="../js/Group.js"></script>
 <script src="../js/fields/CheckBox.js"></script>

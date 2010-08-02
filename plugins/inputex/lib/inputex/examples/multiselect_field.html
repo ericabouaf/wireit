@@ -31,6 +31,7 @@
 
 <!-- InputEx -->
 <script src="../js/inputex.js"  type='text/javascript'></script>
+<script src="../js/mixins/choice.js"  type='text/javascript'></script>
 <script src="../js/Field.js"  type='text/javascript'></script>
 <script src="../js/fields/StringField.js"  type='text/javascript'></script>
 <script src="../js/fields/SelectField.js"  type='text/javascript'></script>
@@ -47,14 +48,14 @@
 <!-- Example 1 -->
 <div class='exampleDiv'>
  <h2>Basic MultiSelectField creation</h2>
- <p>Use the following code to create a basic inputEx MultiSelectField. The first value of "selectValues" is used as the invite text to select an option.</p>
+ <p>Use the following code to create a basic inputEx MultiSelectField. The first value of "options" is used as the invite text to select an option.</p>
  <div class='demoContainer' id='container1'></div>
  <div class='codeContainer'>
   <textarea name="code" class="JScript">
 		var ms = new inputEx.MultiSelectField({
 			label: 'Javascript libraries you use', 
 			name: 'country', 
-			selectValues: ['Choose a library', 'YUI','Dojo','Prototype','Scriptaculous', 'mootools'], 
+			choices: [{ value: 'Choose a library' }, { value: 'YUI' }, { value: 'Dojo' }, { value: 'Prototype' }, { value: 'Scriptaculous'}, { value: 'Mootools' }],
 			parentEl: 'container1', 
 			description: 'Select and order your favorite libraries'
 		});
@@ -72,21 +73,27 @@
 <!-- Example 2 -->
 <div class='exampleDiv'>
  <h2>Change returned values</h2>
- <p>As SelectField, MultiSelect field use the selectOptions to set the labels for the options</p>
+ <p>As SelectField, MultiSelect field allow to set the labels for the options</p>
  <div class='demoContainer' id='container2'></div>
  <div class='codeContainer'>
   <textarea name="code" class="JScript">
 		var ms = new inputEx.MultiSelectField({
-			label: 'Javascript libraries you use', 
-			name: 'country', 
-			selectValues: [null, 'yui','dojo','prototype','scriptaculous', 'mootools'], 
-			selectOptions: ['Choose a library', 'YUI','Dojo','Prototype','Scriptaculous', 'mootools'], 
-			parentEl: 'container2', 
+			label: 'Javascript libraries you use',
+			name: 'country',
+			choices: [
+				{ value: null, label: 'Choose a library' },
+				{ value: 'yui', label: 'YUI' },
+				{ value: 'dojo', label: 'Dojo' },
+				{ value: 'prototype', label: 'Prototype' },
+				{ value: 'scriptaculous', label: 'Scriptaculous'},
+				{ value: 'mootools', label: 'Mootools' }
+			],
+			parentEl: 'container2',
 			description: 'Select and order your favorite libraries'
 		});
 		ms.updatedEvt.subscribe(function(e,params) {
 			var value = YAHOO.lang.JSON.stringify(params[0]);
-			YAHOO.util.Dom.get('container2').appendChild( inputEx.cn('div',null,null,"Updated at "+(new Date())+" "+value+"<br />") );
+			YAHOO.util.Dom.get('container2').appendChild( inputEx.cn('div',null,null,"Updated at "+(new Date())+" "+value) );
 		});
   </textarea>
  </div>

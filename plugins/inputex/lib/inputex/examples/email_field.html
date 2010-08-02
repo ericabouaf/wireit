@@ -34,10 +34,35 @@
 
 	<div class='codeContainer'>
 		<textarea name="code" class="JScript">
-					var field = new inputEx.EmailField({parentEl: 'container1', showMsg: true});
+					var field = new inputEx.EmailField({parentEl: 'container1', showMsg: true });
 
 					var logDiv = inputEx.cn('div', null, null, "Log :");
 					YAHOO.util.Dom.get('container1').appendChild(logDiv);
+					field.updatedEvt.subscribe(function(e,params) {
+						var val = params[0];
+						logDiv.innerHTML += "Updated at "+(new Date())+" with value: "+val;
+						logDiv.appendChild(inputEx.cn('br'));
+					});
+		</textarea>
+	</div>
+
+</div>
+
+<!-- Example 2 -->
+<div class='exampleDiv'>
+
+	<h2>Basic EmailField creation (with MX correction)</h2>
+	
+	<p>Use the following code to create a basic inputEx EmailField (with MX correction)</p>
+
+	<div class='demoContainer' id='container2'></div>
+
+	<div class='codeContainer'>
+		<textarea name="code" class="JScript">
+					var field = new inputEx.EmailField({parentEl: 'container2', showMsg:true, fixdomain:true, description:"Try abc@gmail.co, abc@yaoo.fr..." });
+
+					var logDiv = inputEx.cn('div', null, null, "Log :");
+					YAHOO.util.Dom.get('container2').appendChild(logDiv);
 					field.updatedEvt.subscribe(function(e,params) {
 						var val = params[0];
 						logDiv.innerHTML += "Updated at "+(new Date())+" with value: "+val;

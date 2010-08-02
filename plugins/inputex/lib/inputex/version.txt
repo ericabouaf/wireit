@@ -10,24 +10,127 @@ Release Notes:
 ==============
 
 
+version 0.6.0 :
+---------------
+
+released on August, 2nd 2010
+
+- Field enhancements:
+
+   * SelectField:  - global refactoring, extraction of common "choice" pattern in a mixin module
+                     (+ see following changes)
+                   
+                   - WARNING : this field has a new dependency
+                      -- inputex/js/mixins/choice.js
+                   
+                   - WARNING : important change in the way we define the select's <option> nodes :
+                      -- old pattern : { selectValues:["1","2"], selectOptions:["first","second"] }
+                      -- new pattern : { choices: [{value: "1", label: "first"}, {value: "2", label: "second"}] }
+                      
+                     The new pattern is a unified way to define a choice, in selectField's options or through
+                     addChoice method (which is used behind the hood to generate selectField's options at init).
+                     This pattern is common with RadioField.
+                     
+                   - added hideChoice/showChoice/disableChoice/enableChoice methods to hide/display/disable/enable
+                     choices (= <option>s) dynamically without removing them using removeChoice.
+                     
+                   - remove 'multiple' option, too complex to handle for a confusing user-interface component !
+                     Use several checkboxes instead or MultiSelectField.
+                     
+   * RadioField:   - global refactoring, like SelectField, with use of "choice" mixin,
+                     API is very similar to SelectField (see below)
+                     
+                   - WARNING : this field has new dependencies
+                      -- yui/selector/selector-min.js
+                      -- yui/event-delegate/event-delegate-min.js
+                      -- inputex/js/mixins/choice.js
+                   
+                   - WARNING : important change in the way we define the radioField's <input type="radio" /> nodes :
+                      -- old pattern : { values: ["1","2"], choices: ["first","second"] }
+                      -- new pattern : { choices: [{value: "1", label: "first"}, {value: "2", label: "second"}] }
+                   
+                   - added hideChoice/showChoice/disableChoice/enableChoice methods to hide/display/disable/enable
+                     choices (= <input type="radio" />s) dynamically
+                     
+                   - add inputEx-selected class on currently selected inputEx-RadioField-choice (see RadioField
+                     example n°4 : styling the currently selected choice)
+                     
+                   - allowAny option now takes an optional 'allowAny.field' configuration object to declare a field
+                     of any type as allowAny field. It was previously limited to 'string' field. (see examples)
+                   
+   * EmailField:   - new validation regexp : doesn't allow IPs after @ anymore, whitelisting of allowed characters
+                     instead of weak blacklisting.
+   
+   * TextArea :    - added readonly (true|false) option, that option doesn't work on IE < 8
+   
+   * TimeInteralField :
+                   - change setValue to be accurate with a larger set of values
+                     (ex: [40 days in seconds] = 40*24*60*60 = 3465000 is now displayed as "40"+"days" instead of
+                      being rounded at "1"+"months")
+
+   * UrlField:	- fixing the regular expression to accept port numbers
+
+- Added Fields:
+   * TinyMCEField
+
+- Mixins:
+   * choice:  module with function discribing a common pattern of managing "choices",
+              contains several functions like hideChoice, showChoice, disableChoice, enableChoice, etc.
+              (mixin used by SelectField and RadioField)
+   
+- Widgets :
+   * dialog : add formAvailable boolean property, formAvailableEvt custom event, and whenFormAvailable method.
+              whenFormAvailable method allows you to execute a callback as soon as the form is generated and
+              ready to use, or now if form already available.
+   * datatable : - fix a bug due to use of dialog when form not ready yet.
+                 - Added the possibility to update a whole row with additional updated data on the callback
+                   function of modify event
+
+- Various:
+   * inputEx.browserAutocomplete property to globally turn off/on browser autocomplete feature on forms
+     by default
+   * inputEx.indexOf now accepts a function as 3rd parameter. This function is applied on each array element
+     and must return true when the searched element is found.
+
+
+version 0.5.1 :
+---------------
+
+released on June, 4th 2010
+
+- Field enhancements:
+   * colorField : no hardcoded css, use inputEx-ColorField-square and inputEx-ColorField-Grid classes instead,
+                  hovered or selected colored square is emphasized with a 1px-border
+   * hiddenField : getValue returns the raw value as passed to setValue, without type casting as 'string',
+                   but keep in mind that HTML form submit still casts the value as 'string'.
+
+- Added Fields:
+   * StringAvailability field
+
+- Bug fixes:
+   * fix addOption bug on SelectField
+
+
 version 0.5.0 :
 ---------------
 
+released on March, 2nd 2010
+
 - <!> Warning <!> important API changes:
    * remove "inputParams" syntax when defining fields inside a group or form definition
-			this means you no longer have to type { type: 'string', inputParams: { name: 'lastname' } }
-			but simply: { type: 'string', name: 'lastname' }
-			
-			The 'type' property is therefore prohibited as an attribute name for a Field.
-			
-   * form buttons extracted into a widget class : inputEx.widget.Button 
-			(3 types : 'submit', 'submit-link', 'link') 
-			
-			The inputEx-button module is REQUIRED for Form usage. (any page requiring js/Form.js should include js/widgets/button.js)
+     this means you no longer have to type { type: 'string', inputParams: { name: 'lastname' } }
+     but simply: { type: 'string', name: 'lastname' }
+     
+     The 'type' property is therefore prohibited as an attribute name for a Field.
 
-	 * Form buttons 'onClick' handlers should now return false to stop the submit event
-	
-	 * Form buttons 'onSubmit' handlers should now return false to stop the submit event
+   * form buttons extracted into a widget class : inputEx.widget.Button
+     (3 types : 'submit', 'submit-link', 'link') 
+
+     The inputEx-button module is REQUIRED for Form usage. (any page requiring js/Form.js should include js/widgets/button.js)
+
+   * Form buttons 'onClick' handlers should now return false to stop the submit event
+
+   * Form buttons 'onSubmit' handlers should now return false to stop the submit event
 
    * Adding setParentField/getParentField methods to all fields + 
      implementation in meta-fields: Group (+Form,Combine), InPlaceEdit, ListField, TreeField and TypeField
@@ -69,6 +172,8 @@ version 0.5.0 :
 
 version 0.4.0 :
 ---------------
+
+released on January, 4th 2010
 
 	- Various
 		* Upgrading to YUI 2.8.0r4

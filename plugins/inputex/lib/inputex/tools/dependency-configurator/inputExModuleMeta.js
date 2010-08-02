@@ -5,6 +5,7 @@ YAHOO.lang.augmentObject(YAHOO.yui.moduleMeta, {
 "inputex-birthdatefield":{name:"inputEx Birthdate Field", type: "inputEx-Field"},
 "inputex-button":{name:"inputEx Button Widget", type: "inputEx-Widget"},
 "inputex-checkbox":{name:"inputEx Checkbox Field", type: "inputEx-Field"},
+"inputex-choice":{name:"inputEx Choice Mixin", type: "inputEx-Mixin"},
 "inputex-colorfield":{name:"inputEx Color Field", type: "inputEx-Field"},
 "inputex-colorpickerfield":{name:"inputEx ColorPicker Field", type: "inputEx-Field"},
 "inputex-combinefield":{name:"inputEx Combine Field", type: "inputEx-Field"},

@@ -24,7 +24,7 @@ generator_out="$INPUTEXPATH/api"
 template="$yuidoc_home/template"
 
 # The version of your project to display within the documentation.
-version=0.5.0
+version=0.5.1
 
 # The version of YUI the project is using.  This effects the output for
 # YUI configuration attributes.  This should start with '2' or '3'.

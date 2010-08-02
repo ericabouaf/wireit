@@ -32,7 +32,7 @@ lang.extend(inputEx.widget.dtInPlaceEdit, inputEx.widget.DataTable , {
 			// If the record got an id (meaning it isn't a new Row that the user didn't add yet)
 			if( !lang.isUndefined(record.getData('id')) ){
 				// If the data in the cellEditor changed
-				if(oArgs.newData != oArgs.oldData){
+				if(oArgs.newData !== oArgs.oldData){
 					this.onModifyItem(record, oArgs);
 				}
 			}
@@ -348,12 +348,20 @@ lang.extend(inputEx.widget.dtInPlaceEdit, inputEx.widget.DataTable , {
 	/**
 	 * When successfully modified a row
 	 */
-	onModifySuccess: function(record){
+	onModifySuccess: function(record, oData) {
 		var nodes = this.datatable.getElementsByClassName("inputEx-dtInPlaceEdit-onModifyItem");
+		
 		// Remove CSS
 		for(i=0,nodesLength = nodes.length; i<nodesLength; i++){
 			Dom.removeClass(nodes[i], "inputEx-dtInPlaceEdit-onModifyItem");
 		}
+		
+		// If we want to update additional columns
+		if( !lang.isUndefined(oData) ) {
+			// Update Row with new record
+			this.datatable.updateRow(record, oData);
+		}
+		
 	}
 
 });

@@ -34,9 +34,12 @@ inputEx.widget.Dialog = function(options) {
 
    inputEx.widget.Dialog.superclass.constructor.call(this, this._inputExOptions.id, this._inputExOptions.panelConfig);
    
+	this.formAvailableEvt = new YAHOO.util.CustomEvent("formAvailableEvt");
+	this.formAvailableEvt.subscribe(function() { this.formAvailable = true; }, this, true);
+	
    // Generate an id for a div inside the panel body
    this._inputExBodyId = Dom.generateId();
-   
+	
 	this.setHeader(this._inputExOptions.title);
 	this.setBody("<div id='"+this._inputExBodyId+"'></div>");
 	
@@ -64,6 +67,7 @@ YAHOO.lang.extend(inputEx.widget.Dialog, YAHOO.widget.Panel, {
 		
       this._inputExFieldInstance = inputEx(this._inputExOptions.inputExDef);
       this._inputExFieldInstance._inputExDialog = this;
+
 	},
 
    /**
@@ -72,6 +76,9 @@ YAHOO.lang.extend(inputEx.widget.Dialog, YAHOO.widget.Panel, {
    buildForm: function() {
       this.renderForm();
       this.center();
+
+		this.formAvailableEvt.fire();
+		
    },
 	
    /**
@@ -98,7 +105,27 @@ YAHOO.lang.extend(inputEx.widget.Dialog, YAHOO.widget.Panel, {
     */
    setValue: function(value, sendUpdatedEvt) {
       this.getForm().setValue(value, sendUpdatedEvt);
-   }
+   },
+
+
+   /**
+    * Execute a callback as soon as the form is available
+    * @param {Object} callback An object like {fn: my_function, scope: my_scope}
+    */
+	whenFormAvailable: function (callback) {
+		
+		var fn, scope;
+		
+		fn = callback.fn;
+		scope = callback.scope;
+		
+		if (this.formAvailable) {
+			fn.call(scope);
+		} else {
+			this.formAvailableEvt.subscribe(fn, scope, true);
+		}
+		
+	}
    
 });
    

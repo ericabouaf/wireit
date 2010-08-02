@@ -36,7 +36,8 @@
 		var group = new inputEx.Group({
 			 	fields: [ 
 					{ type: 'hidden', name: 'id', value: 12 },
-					{ type: 'string', label: 'Firstname', name: 'firstname', required: true, value:'Jacques'}
+					{ type: 'hidden', name: 'lastname', value: 'Scott' },
+					{ type: 'string', name: 'firstname', label: 'Firstname', required: true, value:'James'}
 				], 
 				parentEl: exampleDiv
 		});
@@ -45,6 +46,10 @@
 		YAHOO.util.Event.addListener(button, 'click', function(){ alert(YAHOO.lang.JSON.stringify(group.getValue()) ); });
 		</textarea>
 	</div>
+	
+	<p>Note that <i>&lt;hiddenFieldInstance&gt;</i>.getValue() returns the value as stored, without type casting (we store an integer -> we get an integer).<br /><br />
+	<p>However, when the form is submitted via a 'submit' button, the hidden value is sent as 'string' whatever its datatype was... (we store 12, we submit "12").<br /><br />
+		This is a limitation of the classic HTML form submit. To circumvent the problem, use an ajax submit of the form (which relies on getValue) : see <a href="form.html">form examples</a>.</p>
 </div>
 
 

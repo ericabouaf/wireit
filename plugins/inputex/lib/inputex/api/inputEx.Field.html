@@ -16,7 +16,7 @@
 <div id="doc3" class="yui-t2">
 	<div id="hd">
         <h1><a href="http://neyric.github.com/inputex" title="inputEx-library">inputEx-library</a></h1>
-        <h3>inputEx&nbsp; <span class="subtitle">0.5.0</span></h3>
+        <h3>inputEx&nbsp; <span class="subtitle">0.5.1</span></h3>
         <a href="./index.html" title="inputEx-library">inputEx-library</a> 
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
                  &gt; inputEx.Field 
@@ -70,6 +70,9 @@
                                     <span rel="yui:subclass" resource="inputEx.VectorField.html">
                                     <a href="inputEx.VectorField.html" property="yui:name" title="inputEx.VectorField">inputEx.VectorField</a>
                                     </span>
+                                    <span rel="yui:subclass" resource="inputEx.Group.html">
+                                    <a href="inputEx.Group.html" property="yui:name" title="inputEx.Group">inputEx.Group</a>
+                                    </span>
                                     <span rel="yui:subclass" resource="inputEx.SerializeField.html">
                                     <a href="inputEx.SerializeField.html" property="yui:name" title="inputEx.SerializeField">inputEx.SerializeField</a>
                                     </span>
@@ -100,9 +103,6 @@
                                     <span rel="yui:subclass" resource="inputEx.MapField.html">
                                     <a href="inputEx.MapField.html" property="yui:name" title="inputEx.MapField">inputEx.MapField</a>
                                     </span>
-                                    <span rel="yui:subclass" resource="inputEx.Group.html">
-                                    <a href="inputEx.Group.html" property="yui:name" title="inputEx.Group">inputEx.Group</a>
-                                    </span>
                                     <span rel="yui:subclass" resource="inputEx.SelectField.html">
                                     <a href="inputEx.SelectField.html" property="yui:name" title="inputEx.SelectField">inputEx.SelectField</a>
                                     </span>
@@ -117,6 +117,9 @@
                                     </span>
                                     <span rel="yui:subclass" resource="inputEx.HiddenField.html">
                                     <a href="inputEx.HiddenField.html" property="yui:name" title="inputEx.HiddenField">inputEx.HiddenField</a>
+                                    </span>
+                                    <span rel="yui:subclass" resource="inputEx.TinyMCEField.html">
+                                    <a href="inputEx.TinyMCEField.html" property="yui:name" title="inputEx.TinyMCEField">inputEx.TinyMCEField</a>
                                     </span>
                             </dd>
                        </dl>
@@ -1262,7 +1265,9 @@ Generally use by composable fields (ie. Group,Form,ListField,CombineField,...}
                                 <li class=""><a href="inputEx.MapField.html" title="inputEx.MapField">inputEx.MapField</a></li>
                                 <li class=""><a href="inputEx.MenuField.html" title="inputEx.MenuField">inputEx.MenuField</a></li>
                                 <li class=""><a href="inputEx.MultiAutoComplete.html" title="inputEx.MultiAutoComplete">inputEx.MultiAutoComplete</a></li>
+                                <li class=""><a href="inputEx.MultiAutoCompleteCustom.html" title="inputEx.MultiAutoCompleteCustom">inputEx.MultiAutoCompleteCustom</a></li>
                                 <li class=""><a href="inputEx.MultiSelectField.html" title="inputEx.MultiSelectField">inputEx.MultiSelectField</a></li>
+                                <li class=""><a href="inputEx.MultiSelectFieldCustom.html" title="inputEx.MultiSelectFieldCustom">inputEx.MultiSelectFieldCustom</a></li>
                                 <li class=""><a href="inputEx.NumberField.html" title="inputEx.NumberField">inputEx.NumberField</a></li>
                                 <li class=""><a href="inputEx.PasswordField.html" title="inputEx.PasswordField">inputEx.PasswordField</a></li>
                                 <li class=""><a href="inputEx.RadioButton.html" title="inputEx.RadioButton">inputEx.RadioButton</a></li>
@@ -1282,10 +1287,12 @@ Generally use by composable fields (ie. Group,Form,ListField,CombineField,...}
                                 <li class=""><a href="inputEx.SerializeField.html" title="inputEx.SerializeField">inputEx.SerializeField</a></li>
                                 <li class=""><a href="inputEx.SerializeField.serializers.html" title="inputEx.SerializeField.serializers">inputEx.SerializeField.serializers</a></li>
                                 <li class=""><a href="inputEx.SliderField.html" title="inputEx.SliderField">inputEx.SliderField</a></li>
+                                <li class=""><a href="inputEx.StringAvailability.html" title="inputEx.StringAvailability">inputEx.StringAvailability</a></li>
                                 <li class=""><a href="inputEx.StringField.html" title="inputEx.StringField">inputEx.StringField</a></li>
                                 <li class=""><a href="inputEx.Textarea.html" title="inputEx.Textarea">inputEx.Textarea</a></li>
                                 <li class=""><a href="inputEx.TimeField.html" title="inputEx.TimeField">inputEx.TimeField</a></li>
                                 <li class=""><a href="inputEx.TimeIntervalField.html" title="inputEx.TimeIntervalField">inputEx.TimeIntervalField</a></li>
+                                <li class=""><a href="inputEx.TinyMCEField.html" title="inputEx.TinyMCEField">inputEx.TinyMCEField</a></li>
                                 <li class=""><a href="inputEx.TreeField.html" title="inputEx.TreeField">inputEx.TreeField</a></li>
                                 <li class=""><a href="inputEx.TypeField.html" title="inputEx.TypeField">inputEx.TypeField</a></li>
                                 <li class=""><a href="inputEx.UneditableField.html" title="inputEx.UneditableField">inputEx.UneditableField</a></li>
@@ -1311,6 +1318,7 @@ Generally use by composable fields (ie. Group,Form,ListField,CombineField,...}
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="Button.js.html" title="Button.js">Button.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
+                                <li class=""><a href="choice.js.html" title="choice.js">choice.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>
                                 <li class=""><a href="ColorPickerField.js.html" title="ColorPickerField.js">ColorPickerField.js</a></li>
                                 <li class=""><a href="CombineField.js.html" title="CombineField.js">CombineField.js</a></li>
@@ -1345,11 +1353,14 @@ Generally use by composable fields (ie. Group,Form,ListField,CombineField,...}
                                 <li class=""><a href="KeyOpValueField-beta.js.html" title="KeyOpValueField-beta.js">KeyOpValueField-beta.js</a></li>
                                 <li class=""><a href="KeyValueField-beta.js.html" title="KeyValueField-beta.js">KeyValueField-beta.js</a></li>
                                 <li class=""><a href="Lens-beta.js.html" title="Lens-beta.js">Lens-beta.js</a></li>
+                                <li class=""><a href="listCustom.js.html" title="listCustom.js">listCustom.js</a></li>
                                 <li class=""><a href="ListField.js.html" title="ListField.js">ListField.js</a></li>
                                 <li class=""><a href="MapField.js.html" title="MapField.js">MapField.js</a></li>
                                 <li class=""><a href="MenuField.js.html" title="MenuField.js">MenuField.js</a></li>
                                 <li class=""><a href="MultiAutoComplete.js.html" title="MultiAutoComplete.js">MultiAutoComplete.js</a></li>
+                                <li class=""><a href="MultiAutoCompleteCustom.js.html" title="MultiAutoCompleteCustom.js">MultiAutoCompleteCustom.js</a></li>
                                 <li class=""><a href="MultiSelectField.js.html" title="MultiSelectField.js">MultiSelectField.js</a></li>
+                                <li class=""><a href="MultiSelectFieldCustom.js.html" title="MultiSelectFieldCustom.js">MultiSelectFieldCustom.js</a></li>
                                 <li class=""><a href="nl.js.html" title="nl.js">nl.js</a></li>
                                 <li class=""><a href="NumberField.js.html" title="NumberField.js">NumberField.js</a></li>
                                 <li class=""><a href="PasswordField.js.html" title="PasswordField.js">PasswordField.js</a></li>
@@ -1360,11 +1371,13 @@ Generally use by composable fields (ie. Group,Form,ListField,CombineField,...}
                                 <li class=""><a href="SerializeField-beta.js.html" title="SerializeField-beta.js">SerializeField-beta.js</a></li>
                                 <li class=""><a href="SliderField.js.html" title="SliderField.js">SliderField.js</a></li>
                                 <li class=""><a href="smdTester.js.html" title="smdTester.js">smdTester.js</a></li>
+                                <li class=""><a href="StringAvailability.js.html" title="StringAvailability.js">StringAvailability.js</a></li>
                                 <li class=""><a href="StringField.js.html" title="StringField.js">StringField.js</a></li>
                                 <li class=""><a href="Textarea.js.html" title="Textarea.js">Textarea.js</a></li>
                                 <li class=""><a href="TimeField.js.html" title="TimeField.js">TimeField.js</a></li>
                                 <li class=""><a href="TimeIntervalField.js.html" title="TimeIntervalField.js">TimeIntervalField.js</a></li>
                                 <li class=""><a href="TimeRange.js.html" title="TimeRange.js">TimeRange.js</a></li>
+                                <li class=""><a href="TinyMCEField.js.html" title="TinyMCEField.js">TinyMCEField.js</a></li>
                                 <li class=""><a href="TreeField.js.html" title="TreeField.js">TreeField.js</a></li>
                                 <li class=""><a href="TypeField.js.html" title="TypeField.js">TypeField.js</a></li>
                                 <li class=""><a href="UneditableField.js.html" title="UneditableField.js">UneditableField.js</a></li>

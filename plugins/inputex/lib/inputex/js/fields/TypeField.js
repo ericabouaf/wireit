@@ -33,10 +33,10 @@ lang.extend(inputEx.TypeField, inputEx.Field, {
       var selectOptions = [];
       for(var key in inputEx.typeClasses) {
          if(inputEx.typeClasses.hasOwnProperty(key)) {
-            selectOptions.push( key );  
+            selectOptions.push( { value : key } );
          }
       }
-      this.typeSelect = new inputEx.SelectField({label: "Type", selectOptions: selectOptions, selectValues: selectOptions, parentEl: this.propertyPanel});
+      this.typeSelect = new inputEx.SelectField({label: "Type", choices: selectOptions, parentEl: this.propertyPanel});
 
       // DIV element to wrap the options group
       this.groupOptionsWrapper = inputEx.cn('div');

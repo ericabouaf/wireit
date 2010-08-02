@@ -34,7 +34,9 @@ lang.extend(inputEx.Form, inputEx.Group, {
    	this.options.method = options.method;
 
 		this.options.className =  options.className || 'inputEx-Group';
-		this.options.autocomplete = (options.autocomplete === false || options.autocomplete === "off") ? false : true;
+	   this.options.autocomplete = lang.isUndefined(options.autocomplete) ?
+	                                  inputEx.browserAutocomplete :
+	                                  (options.autocomplete === false || options.autocomplete === "off") ? false : true;
 		
 		this.options.enctype = options.enctype;
 
@@ -75,10 +77,8 @@ lang.extend(inputEx.Form, inputEx.Group, {
 			this.form.setAttribute('enctype',this.options.enctype);
 		}
 
-	   // Set the autocomplete attribute to off to disable firefox autocompletion
-		if(!this.options.autocomplete) {
-	   	this.form.setAttribute('autocomplete','off');
-		}
+	   // Set the autocomplete attribute to off to disable browser autocompletion
+		this.form.setAttribute('autocomplete', this.options.autocomplete ? 'on' : 'off');
    	
       // Set the name of the form
       if(this.options.formName) { this.form.name = this.options.formName; }
@@ -386,7 +386,7 @@ inputEx.registerType("form", inputEx.Form, [
          type: 'group', 
          fields: [
             { label: 'Label', name: 'value'},
-            { type: 'select', label: 'Type', name: 'type', selectValues:["button", "submit"] }
+            { type: 'select', label: 'Type', name: 'type', choices:[{ value: "button" }, { value: "submit" }] }
          ]
       }
    }

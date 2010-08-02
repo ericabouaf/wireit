@@ -85,11 +85,6 @@ div.inputEx-empty div.inputEx-valid div.inputEx-Field input, div.inputEx-empty d
    color: black;
 }
 
-inputEx-focused div.inputEx-Field input, inputEx-focused div.inputEx-Field textarea {
-   color: black;
-}
-
-
 /**
  * inputEx.StringField
  */
@@ -305,11 +300,15 @@ div.inputEx-PickerField {
 div.inputEx-PickerField .yui-menu-button button {
     background-position: center center;
     background-repeat: no-repeat;
-    overflow: hidden;
-    font-size: 9px;
-    padding: 2px;
+    padding:0;
     width:20px;
-    height:16px;
+    height:18px;
+    min-height:0; /* reset "min-height:2em" that prevented "height:18px" to be applied */
+}
+
+div.inputEx-PickerField .yui-overlay {
+	-moz-box-shadow:2px 2px 4px rgba(0, 0, 0, 0.2), -2px 2px 4px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow:2px 2px 4px rgba(0, 0, 0, 0.2), -2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /*
@@ -319,20 +318,22 @@ div.inputEx-DatePickerField .yui-menu-button button {
     background-image: url(../images/calendar.gif);
 }
 
-div.inputEx-DatePickerField div.yui-overlay {
-   width: 210px;
-}
 
 /**
  * Color Field
  */
+
+div.inputEx-ColorField div.yui-overlay div.bd {
+   background:white no-repeat scroll 5px 5px;
+   border:1px solid #AAAAAA;
+}
 
 div.inputEx-ColorField .yui-menu-button button {
     background-image: url(../images/palette.png);
 }
 
 div.inputEx-ColorField-button {
-	height: 18px;
+	height: 19px;
 	width: 100px;
 	border: 1px solid #B5B8C8;
 	margin-left: 0px;
@@ -340,15 +341,34 @@ div.inputEx-ColorField-button {
 	float:left; /* to display color picker icon on the right */
 }
 
-div.inputEx-ColorField-square {
+.inputEx-ColorField-square {
    float:left;
    cursor: pointer;
+   width:15px;
+   height:15px;
+   margin:2px;
 }
 
-div.inputEx-ColorField div.yui-overlay div.bd {
-   background:white no-repeat scroll 5px 5px;
-   border:1px solid #AAAAAA;
+.inputEx-ColorField-square.selected {
+	width:13px;
+	height:13px;
+	border-width:1px;
+	border-style:solid;
+	border-color:#666666;
+	border-color:rgba(0,0,0,0.5);
 }
+
+.inputEx-ColorField-square:hover {
+	width:13px;
+	height:13px;
+	border-width:1px;
+	border-style:solid;
+	border-color:#666666;
+	border-color:rgba(0,0,0,0.5);
+}
+
+.inputEx-ColorField-Grid { padding:5px; }
+
 
 /**
  * ColorPicker Field (YUI ColorPicker)
@@ -366,7 +386,6 @@ div.inputEx-ColorField div.yui-overlay div.bd {
 	display: block;
 	display: inline-block;
 	*display: block;    /* For IE */
-	margin-top: .5em;
 	*margin: .25em 0;    /* For IE */
 	width: 1em;
 	height: 1em;
@@ -481,14 +500,8 @@ div.inputEx-CheckBox { *padding-top:0; }
  */
 label.inputEx-RadioField-rightLabel { cursor: pointer; }
 
-div.inputEx-RadioField-choice { float: left; margin-right: 10px; margin-top:0.2em; }
-
-/* Awful hack to target IE < 8 */
-div.inputEx-RadioField-choice { *margin-top:0; }
-
-/* Awful hack to target IE > 7 and modern browsers */
-html>/**/body div.inputEx-RadioField-choice input { position:relative; top:0.2em; margin-right:0.2em; }
-html>/**/body div.inputEx-RadioField-choice input, x:-moz-any-link, x:default  { top:0; } /* Re-fix for firefox 3.0+ */
+div.inputEx-RadioField-choice { float: left; margin-right: 10px; padding-top:0.2em; }
+div.inputEx-RadioField-choice input[type="radio"] { margin-right:0.2em; }
 
 /* Vertical display */
 .inputEx-RadioField-Vertically .inputEx-RadioField-choice { float: none; }
@@ -637,4 +650,54 @@ tbody.yui-dt-data div.inputEx-dtInPlaceEdit-deleteLinkSpinner{
 	width:16px;
 	height:16px;
 	background:transparent url(../images/ajax-loader.gif) no-repeat scroll 20px 4px;
+}
+
+/**
+ * StringAvailability
+ */
+div.inputEx-fieldWrapper div.availabilityDiv { 
+	display:none;
+	float:left;
+	height:20px;
+}
+
+div.inputEx-fieldWrapper div.availabilityDiv div.icon {
+	float:left;
+	display:none;
+	height:20px;
+	width:16px;
+	margin-left:5px;
+}
+
+div.inputEx-fieldWrapper div.availabilityDiv.loading div.icon {
+	display:block;
+	background: transparent url(../images/ajax-loader.gif) no-repeat 0 3px;
+}
+
+div.inputEx-fieldWrapper div.availabilityDiv.available div.icon {
+	display:block;
+	background: transparent url(../images/tick.gif) no-repeat 0 3px;
+}
+
+div.inputEx-fieldWrapper div.availabilityDiv.unavailable div.icon {
+	display:block;
+	background: transparent url(../images/exclamation.gif) no-repeat 0 3px;
+}
+
+
+div.inputEx-fieldWrapper div.availabilityDiv div.text {
+	float:left;
+	height:20px;
+	padding:4px 5px 0;
+	font-size:85%;
+	font-weight:bold;
+}
+
+div.inputEx-fieldWrapper div.availabilityDiv.unavailable div.text,
+div.inputEx-fieldWrapper div.availabilityDiv.required div.text{
+	color:#C00E0C;
+}
+
+div.inputEx-fieldWrapper div.availabilityDiv.available div.text{
+	color:#2C811D;
 }

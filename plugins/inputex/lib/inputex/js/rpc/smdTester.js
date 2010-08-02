@@ -11,7 +11,13 @@ inputEx.RPC.SMDTester = function(parentEl, smdList) {
 		type: 'select',
 		label: "SMD",
 		parentEl: this.el,
-		selectValues: [selectStr].concat(smdList), 
+		choices: [{ value: selectStr }].concat((function() {
+			var arr = [], i, length;
+			for (i = 0, length = smdList.length; i < length; i += 1) {
+				arr.push({ value: smdList[i] });
+			}
+			return arr;
+		}())),
 		description: "Select the Service Mapping Description file"
 	}).updatedEvt.subscribe(function(e, params) {
 			var smdFile = params[0];
@@ -67,13 +73,13 @@ inputEx.RPC.SMDTester.prototype = {
 		var genMethods = [selectStr];
 		for(var key in this.service) {
 			if(this.service.hasOwnProperty(key) && YAHOO.lang.isFunction(this.service[key])) {
-				genMethods.push(key);
+				genMethods.push({ value: key });
 			}
 		}	
 		var select = inputEx({
 				type: 'select',
 				parentEl: this.serviceMethodEl,
-				selectValues: genMethods,
+				choices: genMethods,
 				label: 'Method',
 				description: "Select the method"
 		});

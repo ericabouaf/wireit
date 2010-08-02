@@ -13,10 +13,6 @@
  *   <li>palette: default palette to be used (if colors option not provided)</li>
  *   <li>cellPerLine: how many colored cells in a row on the palette</li>
  *   <li>ratio: screen-like ratio to display the palette, syntax: [with,height], default: [16,9] (if cellPerLine not provided)</li>
- *   <li>overlayPadding: padding inside the popup palette</li>
- *   <li>cellWidth: width of a colored cell</li>
- *   <li>cellHeight: height of a colored cell</li>
- *   <li>cellMargin: margin of a colored cell (cell spacing = 2*cellMarging)</li>
  * </ul>
  */
 inputEx.ColorField = function(options) {
@@ -40,10 +36,6 @@ lang.extend(inputEx.ColorField, inputEx.Field, {
    	
    	if (options.ratio) { this.options.ratio = options.ratio;}
    	if (options.cellPerLine) { this.options.cellPerLine = options.cellPerLine;}
-   	if (options.overlayPadding) { this.options.overlayPadding = options.overlayPadding;}
-   	if (options.cellHeight) { this.options.cellHeight = options.cellHeight;}
-   	if (options.cellWidth) { this.options.cellWidth = options.cellWidth;}
-   	if (options.cellMargin) { this.options.cellMargin = options.cellMargin;}
    },
    
 	/**
@@ -55,7 +47,7 @@ lang.extend(inputEx.ColorField, inputEx.Field, {
 	   this.el = inputEx.cn('input', {
 	      type: 'hidden', 
 	      name: this.options.name || '', 
-	      value: this.options.value || '#DD7870' });
+	      value: this.options.value || '#FFFFFF' });
 	   	   
 	   // Create a colored area
 	   this.colorEl = inputEx.cn('div', {className: 'inputEx-ColorField-button'}, {backgroundColor: this.el.value});
@@ -107,11 +99,13 @@ lang.extend(inputEx.ColorField, inputEx.Field, {
 	
 	renderPalette: function() {
       
+      var defaultPalette, overlayBody;
+      
       // render once !
       if (this.paletteRendered) return;
 
       // set default palette to be used
-      var defaultPalette = this.options.palette || 1;
+      defaultPalette = this.options.palette || 1;
 
       // set colors available
       this.colors = this.options.colors || this.setDefaultColors(defaultPalette);
@@ -123,30 +117,20 @@ lang.extend(inputEx.ColorField, inputEx.Field, {
       // set color grid dimensions
       this.cellPerLine = this.options.cellPerLine || Math.ceil(Math.sqrt(this.length*this.ratio[0]/this.ratio[1]));
       this.cellPerColumn = Math.ceil(this.length/this.cellPerLine);
-      this.overlayPadding = this.options.overlayPadding || 7;
-
-      // set cell dimensions
-      this.cellWidth = this.options.cellWidth || 17;
-      this.cellHeight = this.options.cellHeight || 17;
-      this.cellMargin = this.options.cellMargin || 4;
 
       // Render the color grid
-      var overlayBody = document.getElementById(this.oOverlay.body.id);
-      var colorGrid = this.renderColorGrid();
-      overlayBody.appendChild(colorGrid);
-
-      // Set overlay dimensions
-      var width = (this.cellWidth + 2*this.cellMargin) * this.cellPerLine + (YAHOO.env.ua.ie == 6 ? 3*this.overlayPadding : 0);
-      var height = (this.cellHeight + 2*this.cellMargin) * this.cellPerColumn + (YAHOO.env.ua.ie == 6 ? 3*this.overlayPadding : 0);
-
-      Dom.setStyle(overlayBody, "width", width+"px");
-      Dom.setStyle(overlayBody, "height", height+"px");
-      Dom.setStyle(overlayBody, "padding", this.overlayPadding+"px");
+      overlayBody = document.getElementById(this.oOverlay.body.id);
+      this.colorGrid = this.renderColorGrid();
+      overlayBody.appendChild(this.colorGrid);
 
       // Unsubscribe the event so this function is called only once
       this.button.unsubscribe("mousedown", this.renderPalette); 
 
       this.paletteRendered = true;
+      
+      // Select the square in the created palette from the value
+      // This must be done after "this.paletteRendered = true".
+      this.markSelectedColor();
 	},
 	
 	/**
@@ -162,12 +146,60 @@ lang.extend(inputEx.ColorField, inputEx.Field, {
 	 * This creates a color grid
 	 */
 	renderColorGrid: function() {
-	   var grid = inputEx.cn('div');
-	   for(var i = 0 ; i < this.length ; i++) {
-	      var square = inputEx.cn('div', {className: 'inputEx-ColorField-square'},{backgroundColor: this.colors[i], width:this.cellWidth+"px", height:this.cellHeight+"px", margin:this.cellMargin+"px" });
-	   	Event.addListener(square, "mousedown", this.onColorClick, this, true );
+	   
+	   var grid, eventDelegation, square, i;
+	   
+	   // remember squares
+	   this.squares = [];
+	
+	   // container
+	   grid = inputEx.cn('div', {className: 'inputEx-ColorField-Grid'});
+	   
+	   // Is event delegation available ?
+	   // (YAHOO.util.Event.delegate method is in "event-delegate" YUI-module)
+	   eventDelegation = !lang.isUndefined(Event.delegate);
+	   
+	   for(i = 0 ; i < this.length ; i++) {
+	      
+	      //var square = inputEx.cn('div', {className: 'inputEx-ColorField-square'},{backgroundColor: this.colors[i], width:this.cellWidth+"px", height:this.cellHeight+"px", margin:this.cellMargin+"px" });
+	      square = inputEx.cn('div', {className: 'inputEx-ColorField-square'},{backgroundColor: this.colors[i] });
 	   	grid.appendChild(square);
+			
+	   	this.squares.push(square);
+	   	
+	   	// No event delegation available : add a listener on each square
+	   	if (!eventDelegation) {
+	   	  Event.addListener(square, "mousedown", function(e) {
+	   	     var el = Event.getTarget(e);
+	   	     this.onColorClick(e,el,grid);
+	   	  }, this, true );
+   	   }
+	   	
+	   	// <br clear='both'/> insertion to end a line
+	   	// ( + always after the last colored square)
+	   	if (i%this.cellPerLine === this.cellPerLine-1 || i === this.length-1) {
+            grid.appendChild(inputEx.cn('br',{clear:'both'}));
+         }
       }
+      
+      // Mousedown event delegation
+      if (eventDelegation) {
+         
+         if (!lang.isUndefined(YAHOO.util.Selector)) {
+            
+            Event.delegate(grid,"mousedown",this.onColorClick,"div.inputEx-ColorField-square",this,true);
+            
+         } else {
+            
+            Event.delegate(grid,"mousedown",this.onColorClick,function(el) {
+               if (el.nodeName === "DIV" && YAHOO.util.Dom.hasClass(el,'inputEx-ColorField-square')) {
+                  return el;
+               }
+            },this,true);
+            
+         }
+      }
+      
 	   return grid;
 	},
 	   
@@ -175,19 +207,18 @@ lang.extend(inputEx.ColorField, inputEx.Field, {
 	 * Handle a color selection
 	 * @param {Event} e The original click event
 	 */
-	onColorClick: function(e) {
-	   
-		var square = Event.getTarget(e);
+	onColorClick: function(e,square,container) {
 		
 		// Stop the event to prevent a selection
 		Event.stopEvent(e);
-	   		   	
+	   
 	   // Overlay closure
       this.oOverlay.hide();
        
 	   // SetValue
 		var color = Dom.getStyle(square,'background-color');
 		var hexaColor = inputEx.ColorField.ensureHexa(color);
+		
 	   this.setValue(hexaColor);
 	},
 	
@@ -197,8 +228,10 @@ lang.extend(inputEx.ColorField, inputEx.Field, {
 	 * @param {boolean} [sendUpdatedEvt] (optional) Wether this setValue should fire the updatedEvt or not (default is true, pass false to NOT send the event)
 	 */
 	setValue: function(value, sendUpdatedEvt) {
+		
 	   this.el.value = value;
-	   Dom.setStyle(this.colorEl, 'background-color', this.el.value);
+	
+		this.markSelectedColor(value);
 
 		// Call Field.setValue to set class and fire updated event
 		inputEx.ColorField.superclass.setValue.call(this,value, sendUpdatedEvt);
@@ -217,6 +250,56 @@ lang.extend(inputEx.ColorField, inputEx.Field, {
 	 */
 	close: function() {
 	  this.oOverlay.hide();
+	},
+	
+	/**
+    * Purge all event listeners and remove the component from the dom
+    */
+   destroy: function() {
+      
+      // colorEl listener
+      Event.purgeElement(this.colorEl);
+      
+      // remove squares' mousedown listener(s)
+      if (this.colorGrid) {
+         Event.purgeElement(this.colorGrid,true);
+      }
+      
+      inputEx.ColorField.superclass.destroy.call(this);
+      
+   },
+
+	markSelectedColor: function(value) {
+		
+		var i;
+		
+		value = value || this.getValue();
+		
+		// mark the colored square in the palette as 'selected'
+		if (!!value && this.paletteRendered) {
+			
+			value = value.toLowerCase(); // normalize case for following test
+			
+			for (i=0; i<this.length; i++) {
+				
+				// test color in lower case
+				if (this.colors[i].toLowerCase() === value) {
+					
+					YAHOO.util.Dom.addClass(this.squares[i],'selected');
+					
+				} else {
+					
+					YAHOO.util.Dom.removeClass(this.squares[i],'selected');
+					
+				}
+				
+			}
+			
+		}
+		
+		// set background color on colorEl
+		Dom.setStyle(this.colorEl, 'background-color', this.el.value);
+		
 	}
 	  
 }); 

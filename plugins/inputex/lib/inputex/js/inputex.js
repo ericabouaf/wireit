@@ -94,13 +94,14 @@ lang.augmentObject(inputEx, {
    /**
     * Associative array containing field messages
     */
-   messages: {
-   	required: "This field is required",
-   	invalid: "This field is invalid",
-   	valid: "This field is valid",
-   	defaultDateFormat: "m/d/Y",
-   	months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-   },
+	messages: {
+		required: "This field is required",
+		invalid: "This field is invalid",
+		valid: "This field is valid",
+		defaultDateFormat: "m/d/Y",
+		months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+		timeUnits: { SECOND: "seconds", MINUTE: "minutes", HOUR: "hours", DAY: "days", MONTH: "months", YEAR: "years" }
+	},
    
    /**
     * inputEx widget namespace
@@ -109,11 +110,17 @@ lang.augmentObject(inputEx, {
    widget: {},
    
    /**
+    * inputEx mixin namespace
+    * @static 
+    */
+   mixin: {},
+   
+   /**
     * Associative array containing common regular expressions
     */
    regexps: {
-      email: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      url: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/i,
+      email: /^[a-z0-9!\#\$%&'\*\-\/=\?\+\-\^_`\{\|\}~]+(?:\.[a-z0-9!\#\$%&'\*\-\/=\?\+\-\^_`\{\|\}~]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,6}$/i,
+      url: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(\:[0-9]{1,5})?(([0-9]{1,5})?\/.*)?$/i,
       password: /^[0-9a-zA-Z\x20-\x7E]*$/
    },
    
@@ -122,6 +129,12 @@ lang.augmentObject(inputEx, {
     * Please register the types with the <code>registerType</code> method
     */
    typeClasses: {},
+   
+   /**
+    * Property to globally turn on/off the browser autocompletion
+    * (used as default autocomplete option value by StringField, Form and their subclasses)
+    */
+   browserAutocomplete: true,
    
    /**
     * When you create a new inputEx Field Class, you can register it to give it a simple type.
@@ -248,7 +261,7 @@ lang.augmentObject(inputEx, {
             var strDom = '<' + tag;
             if (domAttributes!=='undefined'){
                 for (var k in domAttributes){
-                    strDom += ' ' + k + '="' + domAttributes[k] + '"';
+                    strDom += ' ' + (k === "className" ? "class" : k) + '="' + domAttributes[k] + '"';
                 }
             }
             strDom += '/' + '>';
@@ -270,15 +283,21 @@ lang.augmentObject(inputEx, {
     * @static
     * @param {Object} el Value to search
     * @param {Array} arr The array to search
+    * @param {Function} (optional) fn A function to define another way to test inclusion of el than === (returns a boolean)
     * @return {number} Element position, -1 if not found
     */
-   indexOf: function(el,arr) {
-      var l=arr.length,i;
-      for(i = 0 ;i < l ; i++) {
-         if(arr[i] == el) return i;
-      }
-      return -1;
-   },
+	indexOf: function(el,arr,fn) {
+	
+		var l=arr.length,i;
+		
+		if ( !lang.isFunction(fn) ) { fn = function(elt,arrElt) { return elt === arrElt; }; }
+		
+		for ( i = 0 ;i < l ; i++ ) {
+			if ( fn.call({}, el, arr[i]) ) { return i; }
+		}
+		
+		return -1;
+	},
 
    
    /**

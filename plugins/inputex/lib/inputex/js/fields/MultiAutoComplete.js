@@ -71,7 +71,7 @@ lang.extend(inputEx.MultiAutoComplete, inputEx.AutoComplete, {
    
    /**
     * Return the value
-    * @return {Any} the selected value from the selectValues array
+    * @return {Any} an array of selected values
     */
    getValue: function() {
       return this.ddlist.getValue();

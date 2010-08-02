@@ -1,226 +1,254 @@
-(function() {
+(function () {
 
-   var Event = YAHOO.util.Event, lang = YAHOO.lang;
+	var Event = YAHOO.util.Event, lang = YAHOO.lang;
 
-/**
- * Create a select field
- * @class inputEx.SelectField
- * @extends inputEx.Field
- * @constructor
- * @param {Object} options Added options:
- * <ul>
- *	   <li>selectValues: contains the list of options values</li>
- *	   <li>selectOptions: list of option element texts</li>
- *    <li>multiple: boolean to allow multiple selections</li>
- * </ul>
- */
-inputEx.SelectField = function(options) {
-	inputEx.SelectField.superclass.constructor.call(this,options);
- };
-lang.extend(inputEx.SelectField, inputEx.Field, {
-   /**
-    * Set the default values of the options
-    * @param {Object} options Options object as passed to the constructor
-    */
-	setOptions: function(options) {
-	   inputEx.SelectField.superclass.setOptions.call(this,options);
-	   
-	   this.options.multiple = lang.isUndefined(options.multiple) ? false : options.multiple;
-	   this.options.selectValues = [];
-	   this.options.selectOptions = [];
-	   
-	   for (var i=0, length=options.selectValues.length; i<length; i++) {
-	      
-	      this.options.selectValues.push(options.selectValues[i]);
-	      // ""+  hack to convert into text (values may be 0 for example)
-	      this.options.selectOptions.push(""+((options.selectOptions && !lang.isUndefined(options.selectOptions[i])) ? options.selectOptions[i] : options.selectValues[i]));
-	      
-      }
-      
-   },
-   
-   /**
-    * Build a select tag with options
-    */
-   renderComponent: function() {
+	/**
+	 * Create a select field
+	 * @class inputEx.SelectField
+	 * @extends inputEx.Field
+	 * @constructor
+	 * @param {Object} options Added options:
+	 * <ul>
+	 *    <li>choices: contains the list of choices configs ([{value:'usa'}, {value:'fr', label:'France'}])</li>
+	 * </ul>
+	 */
+	inputEx.SelectField = function (options) {
+		inputEx.SelectField.superclass.constructor.call(this, options);
+	};
 
-      this.el = inputEx.cn('select', {id: this.divEl.id?this.divEl.id+'-field':YAHOO.util.Dom.generateId(), name: this.options.name || ''});
-      
-      if (this.options.multiple) {this.el.multiple = true; this.el.size = this.options.selectValues.length;}
-      
-      this.optionEls = [];
-      
-      var optionEl;
-      for( var i = 0 ; i < this.options.selectValues.length ; i++) {
-         
-         optionEl = inputEx.cn('option', {value: this.options.selectValues[i]}, null, this.options.selectOptions[i]);
-         
-         this.optionEls.push(optionEl);
-         this.el.appendChild(optionEl);
-      }
-      this.fieldContainer.appendChild(this.el);
-   },
-   
-   /**
-    * Register the "change" event
-    */
-   initEvents: function() {
-      Event.addListener(this.el,"change", this.onChange, this, true);
-	   Event.addFocusListener(this.el, this.onFocus, this, true);
-	   Event.addBlurListener(this.el, this.onBlur, this, true);
-   },
-   
-   /**
-    * Set the value
-    * @param {String} value The value to set
-    * @param {boolean} [sendUpdatedEvt] (optional) Wether this setValue should fire the updatedEvt or not (default is true, pass false to NOT send the event)
-    */
-   setValue: function(value, sendUpdatedEvt) {
-      var index = 0;
-      var option;
-      for(var i = 0 ; i < this.options.selectValues.length ; i++) {
-         if(value === this.options.selectValues[i]) {
-            option = this.el.childNodes[i];
-		      option.selected = "selected";
-         }
-      }
-      
-		// Call Field.setValue to set class and fire updated event
-		inputEx.SelectField.superclass.setValue.call(this,value, sendUpdatedEvt);
-   },
-   
-   /**
-    * Return the value
-    * @return {Any} the selected value from the selectValues array
-    */
-   getValue: function() {
-      return this.options.selectValues[this.el.selectedIndex];
-   },
-   
-   /**
-    * Disable the field
-    */
-   disable: function() {
-      this.el.disabled = true;
-   },
+	lang.extend(inputEx.SelectField, inputEx.Field, {
+		
+		/**
+		 * Set the default values of the options
+		 * @param {Object} options Options object as passed to the constructor
+		 */
+		setOptions: function (options) {
+		
+			var i, length;
+		
+			inputEx.SelectField.superclass.setOptions.call(this, options);
+		
+			this.options.choices = lang.isArray(options.choices) ? options.choices : [];
+		
+			// Retro-compatibility with old pattern (changed since 2010-06-30)
+			if (lang.isArray(options.selectValues)) {
+			
+				for (i = 0, length = options.selectValues.length; i < length; i += 1) {
+				
+					this.options.choices.push({
+						value: options.selectValues[i],
+						label: "" + ((options.selectOptions && !lang.isUndefined(options.selectOptions[i])) ? options.selectOptions[i] : options.selectValues[i])
+					});
+				
+				}
+			}
+		
+		},
+	
+		/**
+		 * Build a select tag with options
+		 */
+		renderComponent: function () {
+		
+			var i, length;
+		
+			// create DOM <select> node
+			this.el = inputEx.cn('select', {
+			
+				id: this.divEl.id ? this.divEl.id + '-field' : YAHOO.util.Dom.generateId(),
+				name: this.options.name || ''
+			
+			});
+		
+			// list of choices (e.g. [{ label: "France", value:"fr", node:<DOM-node>, visible:true }, {...}, ...])
+			this.choicesList = [];
+		
+			// add choices
+			for (i = 0, length = this.options.choices.length; i < length; i += 1) {
+				this.addChoice(this.options.choices[i]);
+			}
+		
+			// append <select> to DOM tree
+			this.fieldContainer.appendChild(this.el);
+		},
+	
+		/**
+		 * Register the "change" event
+		 */
+		initEvents: function () {
+			Event.addListener(this.el, "change", this.onChange, this, true);
+			Event.addFocusListener(this.el, this.onFocus, this, true);
+			Event.addBlurListener(this.el, this.onBlur, this, true);
+		},
+	
+		/**
+		 * Set the value
+		 * @param {String} value The value to set
+		 * @param {boolean} [sendUpdatedEvt] (optional) Wether this setValue should fire the updatedEvt or not (default is true, pass false to NOT send the event)
+		 */
+		setValue: function (value, sendUpdatedEvt) {
+		
+			var i, length, choice, firstIndexAvailable, choiceFound = false;
+		
+			for (i = 0, length = this.choicesList.length; i < length ; i += 1) {
+			
+				if (this.choicesList[i].visible) {
+				
+					choice = this.choicesList[i];
+				
+					if (value === choice.value) {
+					
+						choice.node.selected = "selected";
+						choiceFound = true;
+						break; // choice node already found
+					
+					} else if (lang.isUndefined(firstIndexAvailable)) {
+					
+						firstIndexAvailable = i;
+					}
+				
+				}
+			
+			}
+			
+			// select value from first choice available when
+			// value not matching any visible choice
+			//
+			// if no choice available (-> firstIndexAvailable is undefined), skip value setting
+			if (!choiceFound && !lang.isUndefined(firstIndexAvailable)) {
+				
+				choice = this.choicesList[firstIndexAvailable];
+				choice.node.selected = "selected";
+				value = choice.value;
+				
+			}
+			
+			// Call Field.setValue to set class and fire updated event
+			inputEx.SelectField.superclass.setValue.call(this, value, sendUpdatedEvt);
+		},
+	
+		/**
+		 * Return the value
+		 * @return {Any} the selected value
+		 */
+		getValue: function () {
+		
+			var choiceIndex;
+			
+			if (this.el.selectedIndex >= 0) {
+				
+				choiceIndex = inputEx.indexOf(this.el.childNodes[this.el.selectedIndex], this.choicesList, function (node, choice) {
+					return node === choice.node;
+				});
+			
+				return this.choicesList[choiceIndex].value;
+				
+			} else {
+				
+				return "";
+				
+			}
+		},
+	
+		/**
+		 * Disable the field
+		 */
+		disable: function () {
+			this.el.disabled = true;
+		},
 
-   /**
-    * Enable the field
-    */
-   enable: function() {
-      this.el.disabled = false;
-   },
-   
-   /**
-    * Add an option in the selector
-    * @param {Object} item
-    */
-   addOption: function(config) {
+		/**
+		 * Enable the field
+		 */
+		enable: function () {
+			this.el.disabled = false;
+		},
+		
+		createChoiceNode: function (choice) {
+			
+			return inputEx.cn('option', {value: choice.value}, null, choice.label);
+			
+		},
+		
+		removeChoiceNode: function (node) {
+			
+			// remove from selector
+			// 
+			//   -> style.display = 'none' would work only on FF (when node is an <option>)
+			//   -> other browsers (IE, Chrome...) require to remove <option> node from DOM
+			//
+			this.el.removeChild(node);
+			
+		},
+		
+		disableChoiceNode: function (node) {
+			
+			node.disabled = "disabled";
+			
+		},
+		
+		enableChoiceNode: function (node) {
+			
+			node.removeAttribute("disabled");
+			
+		},
+		
+		/**
+		 * Attach an <option> node to the <select> at the specified position
+		 * @param {HTMLElement} node The <option> node to attach to the <select>
+		 * @param {Int} position The position of the choice in choicesList (may not be the "real" position in DOM)
+		 */
+		appendChoiceNode: function (node, position) {
+			
+			var domPosition, i;
+			
+			// Compute real DOM position (since previous choices in choicesList may be hidden)
+			domPosition = 0;
+			
+			for (i = 0; i < position; i += 1) {
+				
+				if (this.choicesList[i].visible) {
+					
+					domPosition += 1;
+					
+				}
+				
+			}
+			
+			// Insert in DOM
+			if (domPosition < this.el.childNodes.length) {
+				
+				YAHOO.util.Dom.insertBefore(node, this.el.childNodes[domPosition]);
+				
+			} else {
+				
+				this.el.appendChild(node);
+				
+			}
+		}
+		
+	});
+	
+	// Augment prototype with choice mixin (functions : addChoice, removeChoice, etc.)
+	lang.augmentObject(inputEx.SelectField.prototype, inputEx.mixin.choice);
+	
+	
+	// Register this class as "select" type
+	inputEx.registerType("select", inputEx.SelectField, [
+		{
+			type: 'list',
+			name: 'choices',
+			label: 'Choices',
+			elementType: {
+				type: 'group',
+				fields: [
+					{ label: 'Value', name: 'value', value: '' }, // not required to allow '' value (which is default)
+					{ label: 'Label', name: 'label' } // optional : if left empty, label is same as value
+				]
+			},
+			value: [],
+			required: true
+		}
+	]);
 
-      var value = config.value,
-			 option = ""+(!lang.isUndefined(config.option) ? config.option : config.value),
-			 nbOptions = this.options.selectOptions.length,
-      	 position = nbOptions, // position of new option (default last)
-			 i;
-      
-      if (lang.isNumber(config.position) && config.position >= 0 && config.position <= position) {
-         position = parseInt(config.position,10);
-         
-      } else if (lang.isString(config.before)) {
-         
-            for (i = 0 ; i < nbOptions ; i++) {
-               if (this.options.selectOptions[i] === config.before) {
-                  position = i;
-                  break;
-               }
-            }
-            
-      } else if (lang.isString(config.after)) {
-
-            for (i = 0 ; i < nbOptions ; i++) {
-               if (this.options.selectOptions[i] === config.after) {
-                  position = i+1;
-                  break;
-               }
-            }
-      }
-      
-      // update values and options lists
-      this.options.selectValues.splice(position,0,value); // insert value at position
-      this.options.selectOptions.splice(position,0,option);
-
-      // new option in select
-      var newOption = inputEx.cn('option', {value: value}, null, option);
-      this.optionEls = this.optionEls.splice(position,0,newOption);
-      
-      if (position<nbOptions) {
-         YAHOO.util.Dom.insertBefore(newOption,this.el.childNodes[position]);
-      } else {
-         this.el.appendChild(newOption);
-      }
-
-      // select new option
-      if (!!config.selected) {
-         // setTimeout for IE6 (let time to create dom option)
-         var that = this;
-         setTimeout(function() {that.setValue(value);},0);
-      }
-   },
-
-   removeOption: function(config) {
-
-      var position,
-		    nbOptions = this.options.selectOptions.length,
-			 selectedIndex = this.el.selectedIndex,
-			 i;
-      
-      if (lang.isNumber(config.position) && config.position >= 0 && config.position <= nbOptions) {
-         
-         position = parseInt(config.position,10);
-         
-      } else if (lang.isString(config.option)) {
-         
-            for (i = 0 ; i < nbOptions ; i++) {
-               if (this.options.selectOptions[i] === config.option) {
-                  position = i;
-                  break;
-               }
-            }
-            
-      } else if (lang.isString(config.value)) {
-
-            for (i = 0 ; i < nbOptions ; i++) {
-               if (this.options.selectValues[i] === config.value) {
-                  position = i;
-                  break;
-               }
-            }
-      }
-      
-      if (!lang.isNumber(position)) {
-         throw new Error("SelectField : invalid or missing position, option or value in removeOption");
-      }
-
-      // remove from selectValues / selectOptions array
-      this.options.selectValues.splice(position,1); // remove 1 element at position
-      this.options.selectOptions.splice(position,1); // remove 1 element at position
-
-      // remove from selector
-      this.el.removeChild(this.optionEls[position]);
-      this.optionEls.splice(position,1); // remove 1 element at position
-      
-      // clear if previous selected value doesn't exist anymore
-      if (selectedIndex == position) {
-         this.clear();
-      }
-   }
-   
-});
-
-// Register this class as "select" type
-inputEx.registerType("select", inputEx.SelectField, [
-   {  type: 'list', name: 'selectValues', label: 'Values', elementType: {type: 'string'}, required: true },
-   {  type: 'list', name: 'selectOptions', label: 'Options', elementType: {type: 'string'} }
-]);
-
-})();
+}());

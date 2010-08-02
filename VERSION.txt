@@ -11,7 +11,7 @@ Changeset:
 
 	* Splitting the WireIt core classes & plugins into separate folders
 	
-	* upgrading to inputEx 0.5.0 (now in the "inputex" plugin)
+	* upgrading to inputEx 0.6.0 (now in the "inputex" plugin)
 
   * upgrading to YUI 2.8.1
 

@@ -168,7 +168,7 @@ inputEx.SerializeField.serializers = {
 // Register this class as "serialize" type
 inputEx.registerType("serialize", inputEx.SerializeField, [
 	{ type:'type', label: 'SubField', name: 'subfield'},
-	{ type:'select', name: 'serializer', label: 'Serializer', selectValues: ['json','xml'/*,'flatten'*/], value: 'json'}
+	{ type:'select', name: 'serializer', label: 'Serializer', choices: [{ value: 'json' }, { value: 'xml' }/*, { value: 'flatten' }*/], value: 'json'}
 ]);
 
 })();
