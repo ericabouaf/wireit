@@ -21,3 +21,18 @@ p.advanced {
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 }
+
+
+#index {
+	float: right;
+	width:17em;
+	background-color: #D5E9F6; 
+	margin: 5px; 
+	padding: 5px 10px; 
+	-webkit-border-radius: 10px; 
+	-moz-border-radius: 10px;
+}
+#index a { text-decoration: none; }
+#index ul,ol { padding-left: 20px; }
+#index ol li { margin-top: 5px;}
+#index ol ul li { margin-top: 3px;}

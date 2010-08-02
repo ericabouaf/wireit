@@ -13,7 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="res/style.css" />
  </head>
 
- <body>
+<body>
 	
 <div id='headbar'>
 		
@@ -57,56 +57,30 @@
 		</center>
 		
 		
-		 <p class="title">Presentation</p>
-
-			<p>Here are the main component classes (bottom-up order):</p>
-				
-			<ul>
-				<li>Wire - create wires in browsers</li>
-				<li>Terminal - wire endpoints and edition widget</li>
-				<li>Container - general "box" containing one or more terminals</li>
-				<li>Layer - handle multiple containers and wires</li>
-				<li>WiringEditor - single-page editor for your <i>visual language</i>.</li>
-			</ul>
-			
-			<p>Different types of Container are provided :</p>
-			<ul>
-				<li>InOutContainer - simple module with named inputs and outputs</li>
-				<li>FormContainer - build form containers based on <a href="http://neyric.github.com/inputex/">inputEx</a> forms</li>
-				<li>ImageContainer - use images as graph nodes</li>
-			</ul>
-			
-			<p>You can <a href="guide.html#createContainers">create your own container</a> by subclassing the base <i>Container</i> class, and still benefit from the drop-in use of the WiringEditor in your web application.</p>
-			
-			<p>The WiringEditor requires a connection to a database to use save/load features. You can customize it using <a href="guide.html#adapters">adapters</a>. WireIt provides default adapters to get you started :</p>
-
-			<ul>
-				<li><a href="guide.html#ajaxAdapter">Ajax Adapter (no backend provided)</a></li>
-				<li><a href="guide.html#jsonRPCAdapter">Json-RPC Adapter + a sample PHP/MySQL backend</a></li>
-				<li><a href="guide.html#gearsAdapter">Gears Adapter (no backend required)</a></li>
-			</ul>
-				
-				
-		
-			<p>WireIt supports all <a href="http://developer.yahoo.com/yui/articles/gbs/">A-Grade Browsers</a>. Please report your issues with specific browsers in <a href="http://groups.google.com/group/wireit/">the forum</a>. It uses the <a href="http://developer.yahoo.com/yui/">YUI library</a> (2.8.0r4) for DOM and events manipulation, and <a href="http://excanvas.sourceforge.net/">excanvas</a> for IE support of the canvas tag.</p>
-		
-		
-
 		 <p class="title">Documentation</p>
 		
-		
 		  	<ul>
-				<li><a href="guide.html">WireIt's Guide</a> - the ultimate ressource</li>
+				<li><a href="guide.html">WireIt's Guide</a> - Getting started and advanced usage</li>
 				<li><a href="api/index.html">API documentation</a> built with <a href="http://developer.yahoo.com/yui/yuidoc/">YUI Doc</a></li>
-				<li><a href="http://wiki.github.com/neyric/wireit">Wiki</a></li>
 			</ul>
 		
-			<p>You can also get some help on the <a href="">forum</a>. Please report your issues or feature request on <a href="http://github.com/neyric/wireit/issues">the issue tracker</a>.</p>
+			<p>You can also get some help on the <a href="http://groups.google.com/group/wireit/">forum</a>.</p>
+			
+			<p>Report your issues or feature request on <a href="http://github.com/neyric/wireit/issues">the issue tracker</a>.</p>
 		
 			<p>Deeper hacking into WireIt might require some knowledge in the libraries used :</p>
 			 	<ul>
 					<li><a href="http://neyric.github.com/inputex">inputEx documentation</a></li>
 					<li><a href="http://developer.yahoo.com/yui/2/">YUI 2 documentation</a></li>
+				</ul>
+				
+				
+			
+				<p class="title">WireIt-based projects</p>
+				<ul>
+					<li><a href="http://tarpipe.com">Tarpipe</a> - share content across social applications</li>
+					<li><a href="http://github.com/LeifW/pipescape/tree/master">Pipescape</a> - a WireIt interface to <a href="http://www.w3.org/TR/xproc/">XProc</a></li>
+					<li><a href="http://graphpipes.de/">Graphpipes</a> - easy way to aggregate semantic data</li>
 				</ul>
 		
 		</td>
@@ -116,7 +90,7 @@
 			
 			<!-- Download -->
 			<div style="text-align:center;font-weight:bold; font-size:17px;background-color:#EEEEEE;-moz-border-radius: 10px; padding: 10px;-webkit-border-radius: 10px;">
-				You're on the edge version (0.6.0-beta)<br /> <a href="http://javascript.neyric.com/wireit/">Go there for WireIt 0.5.0</a>
+				You're on the edge version (0.6.0-beta)<br /> <a href="http://javascript.neyric.com/wireit/">Click here for WireIt 0.5.0</a>
 				<!--a href="http://cloud.github.com/downloads/neyric/wireit/WireIt-0.5.0.zip">Download WireIt 0.5.0</a><br/>
 				<span style="font-size: 70%; font-weight: normal;">(WireIt-0.5.0.zip - 8.0MB - <a href="VERSION.txt">changeset</a>)</span-->
 			</div>
@@ -224,14 +198,6 @@
 					<li><a href="plugins/layout/examples/spring_layout.html">Spring Layout</a></li>
 					<li><a href="plugins/layout/examples/dotparser/index.html">Dot parser</a></li>
 				</ul>
-			
-			
-			<p class="title">WireIt-based projects</p>
-			<ul>
-				<li><a href="http://tarpipe.com">Tarpipe</a> - share content across social applications</li>
-				<li><a href="http://github.com/LeifW/pipescape/tree/master">Pipescape</a> - a WireIt interface to <a href="http://www.w3.org/TR/xproc/">XProc</a></li>
-				<li><a href="http://graphpipes.de/">Graphpipes</a> - easy way to aggregate semantic data</li>
-			</ul>
 			
 		</td>
 	</tr>
