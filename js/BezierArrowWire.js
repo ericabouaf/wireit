@@ -53,6 +53,7 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
       bezierPoints[1] = [p1[0]+d1[0],p1[1]+d1[1]];
       bezierPoints[2] = [p2[0]+d2[0],p2[1]+d2[1]];
       bezierPoints[3] = p2;
+
       var min = [p1[0],p1[1]];
       var max = [p1[0],p1[1]];
       for(var i=1 ; i<bezierPoints.length ; i++){
@@ -78,6 +79,10 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
       max[1] = max[1]+margin[1];
       var lw = Math.abs(max[0]-min[0]);
       var lh = Math.abs(max[1]-min[1]);
+
+		// Store the min, max positions to display the label later
+		this.min = min;
+		this.max = max;
 
       this.SetCanvasRegion(min[0],min[1],lw,lh);
 

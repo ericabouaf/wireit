@@ -23,6 +23,12 @@ div.WireIt-Wire-scissors {
    cursor: pointer;
 }
 
+div.WireIt-Wire-Label {
+	position: absolute;
+	height: auto;
+	width: auto;
+}
+
 /**
  * Terminals :
  */

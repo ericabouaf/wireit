@@ -35,7 +35,11 @@ YAHOO.lang.extend(WireIt.ArrowWire, WireIt.Wire, {
 
       var min=[ Math.min(p1[0],p2[0])-margin[0], Math.min(p1[1],p2[1])-margin[1]];
       var max=[ Math.max(p1[0],p2[0])+margin[0], Math.max(p1[1],p2[1])+margin[1]];
-      
+
+		// Store the min, max positions to display the label later
+		this.min = min;
+		this.max = max;      
+
       // Redimensionnement du canvas
       
       var lw=Math.abs(max[0]-min[0])+redim;

@@ -72,7 +72,12 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
    
    // CSS classname
    YAHOO.util.Dom.addClass(this.element, this.options.className);
-   
+
+   // Label
+	if(this.options.label) {
+		this.renderLabel();
+	}
+
    // Call addWire on both terminals
    this.terminal1.addWire(this);
    this.terminal2.addWire(this);
@@ -112,6 +117,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 
 		// Label
 		this.options.label = options.label;
+		this.options.labelStyle = options.labelStyle;
+		this.options.labelEditor = options.labelEditor;
    },
    
    /**
@@ -161,7 +168,11 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 
       var min=[ Math.min(p1[0],p2[0])-margin[0], Math.min(p1[1],p2[1])-margin[1]];
       var max=[ Math.max(p1[0],p2[0])+margin[0], Math.max(p1[1],p2[1])+margin[1]];
-      
+
+		// Store the min, max positions to display the label later
+		this.min = min;
+		this.max = max;      
+
       // Redimensionnement du canvas
       var lw=Math.abs(max[0]-min[0]);
       var lh=Math.abs(max[1]-min[1]);
@@ -204,52 +215,47 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       this.draw();
 
 		if(this.options.label) {
-			this.drawLabel();
+			this.positionLabel();
 		}
    },
 
-	drawLabel: function(positions) {
+	/**
+	 * Render the label container
+	 */
+	renderLabel: function() {
 		
-		var p1 = positions[0];
-		var p2 = positions[1];
-		var t1 = positions[2];
-		var t2 = positions[3];
+		this.labelEl = WireIt.cn('div',{className:"WireIt-Wire-Label"}, (this.options.labelStyle || {}) );
 		
-		var winkel = 0;
-		var distance = 15;
+		if(this.options.labelEditor) {
+			this.labelField = new inputEx.InPlaceEdit({parentEl: this.labelEl, editorField: this.options.labelEditor, animColors:{from:"#FFFF99" , to:"#DDDDFF"} });
+			this.labelField.setValue(this.options.label);
+		}
+		else {
+			this.labelEl.innerHTML = this.options.label;
+		}
 		
-		var ctxt=this.getContext();
-		ctxt.save();
+		this.element.parentNode.appendChild(this.labelEl);
 		
-		//1.Quadrant
-      if ((p1[0]<p2[0])&&(p1[1]>p2[1])){
-         winkel=Math.PI*1.5+winkel;
-         ctxt.translate(t1[0],t1[1]);
-      }
-      //2. Quadrant
-      else if ((p1[0]<p2[0])&&(p1[1]<p2[1])){
-         winkel = Math.PI/2-winkel;
-         ctxt.translate(t1[0],t1[1]);
-      }
-      //3. Quadrant
-      else if ((p1[0]>p2[0])&&(p1[1]<p2[1])){
-         //winkel = Math.PI/2+winkel;
-        winkel = Math.PI*1.5+winkel;
-        ctxt.translate(t2[0],t2[1]);
-      }
-      //4. Quadrant
-      else if ((p1[0]>p2[0])&&(p1[1]>p2[1])){
-         winkel=Math.PI*0.5-winkel;
-         ctxt.translate(t2[0],t2[1]);
-      }
+	},
+	
+	/**
+	 * Set the label
+	 */
+	setLabel: function(val) {
+		if(this.options.labelEditor) {
+			this.labelField.setValue(val);
+		}
+		else {
+			this.labelEl.innerHTML = val;
+		}
+	},
 
-       ctxt.rotate(winkel);
-
-      ctxt.font = "14px Arial";
-      ctxt.fillStyle = "Black";
-      ctxt.translate((distance-(ctxt.measureText(this.options.label)).width)/2,0);
-      ctxt.fillText(this.options.label, 0, 0);
-      ctxt.restore();
+	/**
+	 * Position the label element to the center
+	 */
+	positionLabel: function() {
+	  YAHOO.util.Dom.setStyle(this.labelEl,"left",(this.min[0]+this.max[0]-this.labelEl.clientWidth)/2);
+	  YAHOO.util.Dom.setStyle(this.labelEl,"top",(this.min[1]+this.max[1]-this.labelEl.clientHeight)/2);
 	},
    
    /**
@@ -363,6 +369,11 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       if(this.options.xtype) {
          obj.xtype = this.options.xtype;
       }
+
+		// Export the label value
+		if(this.options.labelEditor) {
+			obj.value = this.labelField.getValue();
+		}
 
       return obj;
    }

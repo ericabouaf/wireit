@@ -64,7 +64,7 @@ run = function(graph) {
 		layer.addWire({
 			src: {moduleId: graph.nodes.indexOf(edge.node1), terminalId: 0},
 			tgt: {moduleId: graph.nodes.indexOf(edge.node2), terminalId: 0},
-			drawingMethod: "straight"
+			xtype: "WireIt.Wire"
 		});
 	}	
 	
