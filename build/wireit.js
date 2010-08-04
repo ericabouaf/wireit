@@ -339,7 +339,12 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
    
    // CSS classname
    YAHOO.util.Dom.addClass(this.element, this.options.className);
-   
+
+   // Label
+	if(this.options.label) {
+		this.renderLabel();
+	}
+
    // Call addWire on both terminals
    this.terminal1.addWire(this);
    this.terminal2.addWire(this);
@@ -379,6 +384,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 
 		// Label
 		this.options.label = options.label;
+		this.options.labelStyle = options.labelStyle;
+		this.options.labelEditor = options.labelEditor;
    },
    
    /**
@@ -428,7 +435,11 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 
       var min=[ Math.min(p1[0],p2[0])-margin[0], Math.min(p1[1],p2[1])-margin[1]];
       var max=[ Math.max(p1[0],p2[0])+margin[0], Math.max(p1[1],p2[1])+margin[1]];
-      
+
+		// Store the min, max positions to display the label later
+		this.min = min;
+		this.max = max;      
+
       // Redimensionnement du canvas
       var lw=Math.abs(max[0]-min[0]);
       var lh=Math.abs(max[1]-min[1]);
@@ -471,52 +482,47 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       this.draw();
 
 		if(this.options.label) {
-			this.drawLabel();
+			this.positionLabel();
 		}
    },
 
-	drawLabel: function(positions) {
+	/**
+	 * Render the label container
+	 */
+	renderLabel: function() {
 		
-		var p1 = positions[0];
-		var p2 = positions[1];
-		var t1 = positions[2];
-		var t2 = positions[3];
+		this.labelEl = WireIt.cn('div',{className:"WireIt-Wire-Label"}, (this.options.labelStyle || {}) );
 		
-		var winkel = 0;
-		var distance = 15;
+		if(this.options.labelEditor) {
+			this.labelField = new inputEx.InPlaceEdit({parentEl: this.labelEl, editorField: this.options.labelEditor, animColors:{from:"#FFFF99" , to:"#DDDDFF"} });
+			this.labelField.setValue(this.options.label);
+		}
+		else {
+			this.labelEl.innerHTML = this.options.label;
+		}
 		
-		var ctxt=this.getContext();
-		ctxt.save();
+		this.element.parentNode.appendChild(this.labelEl);
 		
-		//1.Quadrant
-      if ((p1[0]<p2[0])&&(p1[1]>p2[1])){
-         winkel=Math.PI*1.5+winkel;
-         ctxt.translate(t1[0],t1[1]);
-      }
-      //2. Quadrant
-      else if ((p1[0]<p2[0])&&(p1[1]<p2[1])){
-         winkel = Math.PI/2-winkel;
-         ctxt.translate(t1[0],t1[1]);
-      }
-      //3. Quadrant
-      else if ((p1[0]>p2[0])&&(p1[1]<p2[1])){
-         //winkel = Math.PI/2+winkel;
-        winkel = Math.PI*1.5+winkel;
-        ctxt.translate(t2[0],t2[1]);
-      }
-      //4. Quadrant
-      else if ((p1[0]>p2[0])&&(p1[1]>p2[1])){
-         winkel=Math.PI*0.5-winkel;
-         ctxt.translate(t2[0],t2[1]);
-      }
+	},
+	
+	/**
+	 * Set the label
+	 */
+	setLabel: function(val) {
+		if(this.options.labelEditor) {
+			this.labelField.setValue(val);
+		}
+		else {
+			this.labelEl.innerHTML = val;
+		}
+	},
 
-       ctxt.rotate(winkel);
-
-      ctxt.font = "14px Arial";
-      ctxt.fillStyle = "Black";
-      ctxt.translate((distance-(ctxt.measureText(this.options.label)).width)/2,0);
-      ctxt.fillText(this.options.label, 0, 0);
-      ctxt.restore();
+	/**
+	 * Position the label element to the center
+	 */
+	positionLabel: function() {
+	  YAHOO.util.Dom.setStyle(this.labelEl,"left",(this.min[0]+this.max[0]-this.labelEl.clientWidth)/2);
+	  YAHOO.util.Dom.setStyle(this.labelEl,"top",(this.min[1]+this.max[1]-this.labelEl.clientHeight)/2);
 	},
    
    /**
@@ -630,6 +636,11 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       if(this.options.xtype) {
          obj.xtype = this.options.xtype;
       }
+
+		// Export the label value
+		if(this.options.labelEditor) {
+			obj.value = this.labelField.getValue();
+		}
 
       return obj;
    }
@@ -754,7 +765,11 @@ YAHOO.lang.extend(WireIt.ArrowWire, WireIt.Wire, {
 
       var min=[ Math.min(p1[0],p2[0])-margin[0], Math.min(p1[1],p2[1])-margin[1]];
       var max=[ Math.max(p1[0],p2[0])+margin[0], Math.max(p1[1],p2[1])+margin[1]];
-      
+
+		// Store the min, max positions to display the label later
+		this.min = min;
+		this.max = max;      
+
       // Redimensionnement du canvas
       
       var lw=Math.abs(max[0]-min[0])+redim;
@@ -921,7 +936,7 @@ YAHOO.lang.extend(WireIt.BezierWire, WireIt.Wire, {
                 this.terminal1.options.direction[1]*coeffMulDirection];
       var d2 = [this.terminal2.options.direction[0]*coeffMulDirection,
                 this.terminal2.options.direction[1]*coeffMulDirection];
-   
+
       var bezierPoints=[];
       bezierPoints[0] = p1;
       bezierPoints[1] = [p1[0]+d1[0],p1[1]+d1[1]];
@@ -952,7 +967,11 @@ YAHOO.lang.extend(WireIt.BezierWire, WireIt.Wire, {
       max[1] = max[1]+margin[1];
       var lw = Math.abs(max[0]-min[0]);
       var lh = Math.abs(max[1]-min[1]);
-   
+
+   	// Store the min, max positions to display the label later
+		this.min = min;
+		this.max = max;
+
       this.SetCanvasRegion(min[0],min[1],lw,lh);
    
       var ctxt = this.getContext();
@@ -1037,6 +1056,7 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
       bezierPoints[1] = [p1[0]+d1[0],p1[1]+d1[1]];
       bezierPoints[2] = [p2[0]+d2[0],p2[1]+d2[1]];
       bezierPoints[3] = p2;
+
       var min = [p1[0],p1[1]];
       var max = [p1[0],p1[1]];
       for(var i=1 ; i<bezierPoints.length ; i++){
@@ -1062,6 +1082,10 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
       max[1] = max[1]+margin[1];
       var lw = Math.abs(max[0]-min[0]);
       var lh = Math.abs(max[1]-min[1]);
+
+		// Store the min, max positions to display the label later
+		this.min = min;
+		this.max = max;
 
       this.SetCanvasRegion(min[0],min[1],lw,lh);
 
@@ -2248,11 +2272,12 @@ WireIt.Container.prototype = {
 
    /**
     * Function called when the container is being resized.
-    * It sets the size of the body element
+    * It sets the size of the body element of the container
     * @method onResize
     */
    onResize: function(event, args) {
       var size = args[0];
+		// TODO: do not hardcode those sizes !!
       WireIt.sn(this.bodyEl, null, {width: (size[0]-14)+"px", height: (size[1]-44)+"px"});
    },
 
