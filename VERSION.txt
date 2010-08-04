@@ -28,6 +28,7 @@ Changeset:
 		* WiringEditor now inherits from BaseEditor, which wraps general full-page editor functionnality
 		* Example for a non-fullscreen editor
 	  * Don't save/load the wiring JSON as a string, let the adapter handle it
+	  * fix CSS class-name issue if module name contains spaces
 		
 	* Added "composable" plugin
 		* Usage is demonstrated in the "jsBox" example

@@ -2208,7 +2208,7 @@ WireIt.Container = function(options, layer) {
 	   // Use the drag'n drop utility to make the container draggable
 	   this.dd = new WireIt.util.DD(this.terminals,this.el);
 	
-		//
+		// Set minimum constraint on Drag Drop to the top left corner of the layer (minimum position is 0,0)
 		this.dd.setXConstraint(this.options.position[0]);
 		this.dd.setYConstraint(this.options.position[1]);
 	   
@@ -6935,7 +6935,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	       var temp = this;
 	       containerConfig.getGrouper = function() { return temp.getCurrentGrouper(temp); };
 	       var container = this.layer.addContainer(containerConfig);
-	       Dom.addClass(container.el, "WiringEditor-module-"+module.name);
+	       Dom.addClass(container.el, "WiringEditor-module-"+module.name.replace(/ /g,'-'));
 	    }
 	    catch(ex) {
 	       this.alert("Error Layer.addContainer: "+ ex.message);
