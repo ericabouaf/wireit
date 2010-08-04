@@ -200,7 +200,14 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	       var temp = this;
 	       containerConfig.getGrouper = function() { return temp.getCurrentGrouper(temp); };
 	       var container = this.layer.addContainer(containerConfig);
+	
+			 // Adding the category CSS class name
+			 var category = module.category || "main";
+			 Dom.addClass(container.el, "WiringEditor-module-category-"+category.replace(/ /g,'-'));
+			
+			 // Adding the module CSS class name
 	       Dom.addClass(container.el, "WiringEditor-module-"+module.name.replace(/ /g,'-'));
+	
 	    }
 	    catch(ex) {
 	       this.alert("Error Layer.addContainer: "+ ex.message);

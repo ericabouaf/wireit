@@ -29,6 +29,7 @@ Changeset:
 		* Example for a non-fullscreen editor
 	  * Don't save/load the wiring JSON as a string, let the adapter handle it
 	  * fix CSS class-name issue if module name contains spaces
+	  * adding a CSS class name for the category
 		
 	* Added "composable" plugin
 		* Usage is demonstrated in the "jsBox" example
