@@ -14,7 +14,7 @@ java -jar $YUIcompressorJar  wireit.js -o wireit-min.js --charset utf8
 
 # wireit-inputex rollup
 rm -f wireit-inputex.js wireit-inputex-min.js
-cat wireit.js ../plugins/inputex/lib/inputex/js/inputex.js ../plugins/inputex/lib/inputex/js/Field.js ../plugins/inputex/js/WirableField.js ../plugins/inputex/js/FormContainer.js ../plugins/inputex/lib/inputex/js/Group.js ../plugins/inputex/lib/inputex/js/fields/StringField.js ../plugins/inputex/lib/inputex/js/fields/StringField.js ../plugins/inputex/lib/inputex/js/fields/SelectField.js ../plugins/inputex/lib/inputex/js/fields/EmailField.js ../plugins/inputex/lib/inputex/js/fields/UrlField.js ../plugins/inputex/lib/inputex/js/fields/ListField.js ../plugins/inputex/lib/inputex/js/fields/CheckBox.js > wireit-inputex.js
+cat wireit.js ../plugins/inputex/lib/inputex/js/inputex.js ../plugins/inputex/lib/inputex/js/Field.js ../plugins/inputex/js/WirableField.js ../plugins/inputex/js/FormContainer.js ../plugins/inputex/lib/inputex/js/Group.js ../plugins/inputex/lib/inputex/js/fields/StringField.js ../plugins/inputex/lib/inputex/js/mixins/choice.js ../plugins/inputex/lib/inputex/js/fields/SelectField.js ../plugins/inputex/lib/inputex/js/fields/EmailField.js ../plugins/inputex/lib/inputex/js/fields/UrlField.js ../plugins/inputex/lib/inputex/js/fields/ListField.js ../plugins/inputex/lib/inputex/js/fields/CheckBox.js > wireit-inputex.js
 java -jar $YUIcompressorJar  wireit-inputex.js -o wireit-inputex-min.js --charset utf8
 
 

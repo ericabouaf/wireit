@@ -2207,6 +2207,10 @@ WireIt.Container = function(options, layer) {
 	   
 	   // Use the drag'n drop utility to make the container draggable
 	   this.dd = new WireIt.util.DD(this.terminals,this.el);
+	
+		//
+		this.dd.setXConstraint(this.options.position[0]);
+		this.dd.setYConstraint(this.options.position[1]);
 	   
 	   // Sets ddHandle as the drag'n drop handle
 	   if(this.options.ddHandle) {

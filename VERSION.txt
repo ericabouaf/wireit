@@ -7,17 +7,19 @@ Not released yet
 
 Changeset:
 
-	* drawingMethod has been removed from the Wire options. Use the xtype instead.
+	* General
+		* Splitting the WireIt core classes & plugins into separate folders	
+		* upgrading to inputEx 0.6.0 (now in the "inputex" plugin)
+  	* upgrading to YUI 2.8.1
+  	* Moving images and css into "assets"
 
-	* Splitting the WireIt core classes & plugins into separate folders
-	
-	* upgrading to inputEx 0.6.0 (now in the "inputex" plugin)
+	* Label enhancements
+  	* Adding labels for Wires
+		* drawingMethod has been removed from the Wire options. Use the xtype instead.
 
-  * upgrading to YUI 2.8.1
-
-  * Moving images and css into "assets"
-
-  * Bug fix: DDResize on containers redraw wires
+	* Containers enhancements
+  	* Bug fix: DDResize on containers redraw wires
+		* Position constrained to (0,0) minimum
 
 	* editor plugin
 		* AccordionView on left panel for module categories
