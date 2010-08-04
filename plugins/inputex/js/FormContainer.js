@@ -50,7 +50,27 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
 
 		// Redraw all wires when the form is collapsed
 		if(this.form.legend) {
-			YAHOO.util.Event.addListener(this.form.legend, 'click', this.redrawAllWires, this, true);
+			YAHOO.util.Event.addListener(this.form.legend, 'click', function() {
+				
+				// Override the getXY method on field terminals:
+				var that = this;
+				for(var i = 0 ; i < this.form.inputs.length ; i++) {
+					var field = this.form.inputs[i];
+					if(field.terminal) {
+						field.terminal.getXY = function() {
+							if( YAHOO.util.Dom.hasClass(that.form.fieldset, "inputEx-Collapsed") ) {
+								return that.getXY();
+							}
+							else {
+								return WireIt.Terminal.prototype.getXY.call(this);
+							}
+							
+						};
+					}
+				}
+				
+				this.redrawAllWires();
+			}, this, true);
 		}
    },
    

@@ -20,6 +20,7 @@ Changeset:
 	* Containers enhancements
   	* Bug fix: DDResize on containers redraw wires
 		* Position constrained to (0,0) minimum
+		* Fix FormContainer terminals positioning if the fieldset is collapsed
 
 	* editor plugin
 		* AccordionView on left panel for module categories
