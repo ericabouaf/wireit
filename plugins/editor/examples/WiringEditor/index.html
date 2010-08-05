@@ -74,6 +74,7 @@ div.Bubble div.body {
 
 <!-- WireIt -->
 <script type="text/javascript" src="../../../../build/wireit-inputex-editor-min.js"></script>
+
 <script type="text/javascript" src="../../js/adapters/json-rpc.js"></script>
 <script type="text/javascript" src="demo.js"></script>
 
@@ -93,10 +94,15 @@ inputEx.spacerUrl = "/inputex/trunk/images/space.gif";
 
 
 YAHOO.util.Event.onDOMReady( function() {
-	var editor = new WireIt.WiringEditor(demoLanguage); 
-	
-	// Open the infos panel
-	editor.accordionView.openPanel(2);
+	try {
+		var editor = new WireIt.WiringEditor(demoLanguage); 
+		
+		// Open the infos panel
+		editor.accordionView.openPanel(2);
+	}
+	catch(ex) {
+		console.log(ex);
+	}
 });
 
 </script>

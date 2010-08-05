@@ -140,6 +140,7 @@
 			<span class="nx">method</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">action</span><span class="p">].</span><span class="nx">method</span><span class="o">;</span>
 		<span class="p">}</span>
 
+		<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Connect</span><span class="p">.</span><span class="nx">initHeader</span><span class="p">(</span><span class="s2">&quot;Content-Type&quot;</span><span class="o">,</span> <span class="s2">&quot;application/x-www-form-urlencoded&quot;</span><span class="p">);</span>
 		<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Connect</span><span class="p">.</span><span class="nx">asyncRequest</span><span class="p">(</span><span class="nx">method</span><span class="o">,</span> <span class="nx">url</span><span class="o">,</span> <span class="p">{</span>
 			<span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
 				<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">responseText</span><span class="o">,</span>
@@ -170,7 +171,6 @@
                                 <li class="selected"><a href="module_editor-plugin.html" title="editor-plugin">editor-plugin</a></li>
                                 <li class=""><a href="module_grouping-plugin.html" title="grouping-plugin">grouping-plugin</a></li>
                                 <li class=""><a href="module_inputex-plugin.html" title="inputex-plugin">inputex-plugin</a></li>
-                                <li class=""><a href="module_labels-plugin.html" title="labels-plugin">labels-plugin</a></li>
                                 <li class=""><a href="module_layout-plugin.html" title="layout-plugin">layout-plugin</a></li>
                                 <li class=""><a href="module_wireit.html" title="WireIt">WireIt</a></li>
                         </ul>

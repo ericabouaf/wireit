@@ -64,9 +64,6 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
          },
       nMaxWires: 1 }, this.options.container);
 
-      // Dfly name for this terminal
-      this.terminal.dflyName = "input_"+this.options.name;
-
       // Reference to the container
       if(this.options.container) {
          this.options.container.terminals.push(this.terminal);

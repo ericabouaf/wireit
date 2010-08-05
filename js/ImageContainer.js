@@ -12,26 +12,54 @@ WireIt.ImageContainer = function(options, layer) {
 };
 
 YAHOO.lang.extend(WireIt.ImageContainer, WireIt.Container, {
-   /**
-    * @method setOptions
-    * @param {Object} options the options object
+	
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.ImageContainer"
+    * @type String
     */
-   setOptions: function(options) {
-     
-      WireIt.ImageContainer.superclass.setOptions.call(this, YAHOO.lang.merge( {
-            resizable: false,
-            ddHandle: false,
-            className: "WireIt-Container WireIt-ImageContainer"
-      }, options));
-      this.options.xtype = "WireIt.ImageContainer"; //don't allow overriding.
-   },
+   xtype: "WireIt.ImageContainer",
+	
+	/** 
+    * @property resizable
+    * @description boolean that makes the container resizable
+    * @default false
+    * @type Boolean
+    */
+	resizable: false,
+	
+	/** 
+    * @property ddHandle
+    * @description (only if draggable) boolean indicating we use a handle for drag'n drop
+    * @default false
+    * @type Boolean
+    */
+	ddHandle: false,
+	
+	/** 
+    * @property className
+    * @description CSS class name for the container element
+    * @default ""WireIt-Container WireIt-ImageContainer"
+    * @type String
+    */
+	className: "WireIt-Container WireIt-ImageContainer",
+	
+	/** 
+    * @property image
+    * @description image url
+    * @default null
+    * @type String
+    */
+	image: null,
    
    /**
+ 	 * Add the image property as a background image for the container
     * @method render
     */
    render: function() {
       WireIt.ImageContainer.superclass.render.call(this);
-      YAHOO.util.Dom.setStyle(this.bodyEl, "background-image", "url("+this.options.image+")");
+      YAHOO.util.Dom.setStyle(this.bodyEl, "background-image", "url("+this.image+")");
    }
    
 });

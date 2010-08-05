@@ -20,12 +20,19 @@ WireIt.LayerMap = function(layer,options) {
    this.layer = layer;
    
    this.setOptions(options);
-   
+
+	if(typeof options.parentEl == "string") {
+		this.parentEl = YAHOO.util.Dom.get(options.parentEl);
+	}
+	else if(this.layer && !this.parentEl) {
+		this.parentEl = this.layer.el;
+	}
+
    // Create the canvas element
-   WireIt.LayerMap.superclass.constructor.call(this, this.options.parentEl);
+   WireIt.LayerMap.superclass.constructor.call(this, this.parentEl);
    
    // Set the className
-   this.element.className = this.options.className;
+   this.element.className = this.className;
    
    this.initEvents();
    
@@ -33,28 +40,49 @@ WireIt.LayerMap = function(layer,options) {
 };
 
 YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
-   
-   /**
-    * @method setOptions
-    * @param {Object} options
+
+   /** 
+    * @property className
+    * @description CSS class name for the layer map element
+    * @default "WireIt-LayerMap"
+    * @type String
     */
-   setOptions: function(options) { 
-      var opts = options || {};
-      /**
-       * Options:
-       * <ul>
-       *    <li>parentEl: parent element (defaut layer.el)</li>
-       *    <li>className: default to "WireIt-LayerMap"</li>
-       *    <li>style: display style, default to "rgba(0, 0, 200, 0.5)"</li>
-       *    <li>lineWidth: default 2</li>
-       * </ul>
-       * @property options
-       */
-      this.options = {};
-      this.options.parentEl = Dom.get(opts.parentEl || this.layer.el);
-      this.options.className = opts.className || "WireIt-LayerMap";
-      this.options.style = opts.style || "rgba(0, 0, 200, 0.5)";
-      this.options.lineWidth = opts.lineWidth || 2;
+	className: "WireIt-LayerMap",
+	
+	/** 
+    * @property style
+    * @description display style
+    * @default "WireIt-LayerMap"
+    * @type String
+    */
+	style: "rgba(0, 0, 200, 0.5)",
+
+	/** 
+    * @property parentEl
+    * @description DOM element that schould contain the layer
+    * @default null
+    * @type DOMElement
+    */
+	parentEl: null,
+	
+	/** 
+    * @property lineWidth
+    * @description Line width
+    * @default 2
+    * @type Integer
+    */
+	lineWidth: 2,
+
+   /**
+    * Set the options by putting them in this (so it overrides the prototype default)
+    * @method setOptions
+    */
+   setOptions: function(options) {
+      for(var k in options) {
+			if( options.hasOwnProperty(k) ) {
+				this[k] = options[k];
+			}
+		}
    },
    
    
@@ -207,9 +235,9 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       ctxt.strokeRect(viewportX*hRatio, viewportY*vRatio, viewportWidth*hRatio, viewportHeight*vRatio);
    
       // Draw containers and wires
-      ctxt.fillStyle = this.options.style;
-      ctxt.strokeStyle= this.options.style;
-      ctxt.lineWidth=this.options.lineWidth;
+      ctxt.fillStyle = this.style;
+      ctxt.strokeStyle= this.style;
+      ctxt.lineWidth=this.lineWidth;
       this.drawContainers(ctxt, hRatio, vRatio);
       this.drawWires(ctxt, hRatio, vRatio);
    },

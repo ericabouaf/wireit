@@ -9,7 +9,6 @@
  * @param  {HTMLElement} parentEl    Container of the CANVAS tag
  * @param  {Obj}                options      Wire configuration (see options property)
  */
-
 WireIt.BezierArrowWire = function( terminal1, terminal2, parentEl, options) {
 	WireIt.BezierArrowWire.superclass.constructor.call(this, terminal1, terminal2, parentEl, options);
 };
@@ -17,6 +16,12 @@ WireIt.BezierArrowWire = function( terminal1, terminal2, parentEl, options) {
 
 YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
 
+	/** 
+     * @property xtype
+     * @description String representing this class for exporting as JSON
+     * @default "WireIt.BezierArrowWire"
+     * @type String
+     */
    xtype: "WireIt.BezierArrowWire",
 
 	/**
@@ -24,8 +29,8 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
     */
    draw: function() {
 
-		var arrowWidth = Math.round(this.options.width * 1.5 + 20);
-		var arrowLength = Math.round(this.options.width * 1.2 + 20);
+		var arrowWidth = Math.round(this.width * 1.5 + 20);
+		var arrowLength = Math.round(this.width * 1.2 + 20);
 		var d = arrowWidth/2; // arrow width/2
       var redim = d+3; //we have to make the canvas a little bigger because of arrows
       var margin=[4+redim,4+redim];
@@ -36,7 +41,7 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
 
       // Coefficient multiplicateur de direction
       // 100 par defaut, si distance(p1,p2) < 100, on passe en distance/2
-      var coeffMulDirection = this.options.coeffMulDirection;
+      var coeffMulDirection = this.coeffMulDirection;
 
 
       var distance=Math.sqrt(Math.pow(p1[0]-p2[0],2)+Math.pow(p1[1]-p2[1],2));
@@ -45,10 +50,10 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
       }
 
       // Calcul des vecteurs directeurs d1 et d2 :
-      var d1 = [this.terminal1.options.direction[0]*coeffMulDirection,
-                this.terminal1.options.direction[1]*coeffMulDirection];
-      var d2 = [this.terminal2.options.direction[0]*coeffMulDirection,
-                this.terminal2.options.direction[1]*coeffMulDirection];
+      var d1 = [this.terminal1.direction[0]*coeffMulDirection,
+                this.terminal1.direction[1]*coeffMulDirection];
+      var d2 = [this.terminal2.direction[0]*coeffMulDirection,
+                this.terminal2.direction[1]*coeffMulDirection];
 
       var bezierPoints=[];
       bezierPoints[0] = p1;
@@ -95,21 +100,21 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
       }
 
       // Draw the border
-      ctxt.lineCap = this.options.bordercap;
-      ctxt.strokeStyle = this.options.bordercolor;
-      ctxt.lineWidth = this.options.width+this.options.borderwidth*2;
+      ctxt.lineCap = this.bordercap;
+      ctxt.strokeStyle = this.bordercolor;
+      ctxt.lineWidth = this.width+this.borderwidth*2;
       ctxt.beginPath();
       ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
-      ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]+arrowLength/2*this.terminal2.options.direction[1]);
+      ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]+arrowLength/2*this.terminal2.direction[1]);
       ctxt.stroke();
 
       // Draw the inner bezier curve
-      ctxt.lineCap = this.options.cap;
-      ctxt.strokeStyle = this.options.color;
-      ctxt.lineWidth = this.options.width;
+      ctxt.lineCap = this.cap;
+      ctxt.strokeStyle = this.color;
+      ctxt.lineWidth = this.width;
       ctxt.beginPath();
       ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
-      ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]+arrowLength/2*this.terminal2.options.direction[1]);
+      ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]+arrowLength/2*this.terminal2.direction[1]);
       ctxt.stroke();
 
 		//Variables from drawArrows
@@ -166,7 +171,7 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
 		}
 
 		// triangle fill
-		ctxt.fillStyle = this.options.color;
+		ctxt.fillStyle = this.color;
 		ctxt.beginPath();
 		ctxt.moveTo(t2[0],t2[1]);
 		ctxt.lineTo(x1,y1);
@@ -174,8 +179,8 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
 		ctxt.fill();
 
 		// triangle border	
-		ctxt.strokeStyle = this.options.bordercolor;
-		ctxt.lineWidth = this.options.borderwidth;
+		ctxt.strokeStyle = this.bordercolor;
+		ctxt.lineWidth = this.borderwidth;
 		ctxt.beginPath();
 		ctxt.moveTo(t2[0],t2[1]);
 		ctxt.lineTo(x1,y1);

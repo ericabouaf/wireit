@@ -9,11 +9,13 @@ Changeset:
 
 	* General
 		* Splitting the WireIt core classes & plugins into separate folders	
+		* change default options settings for Containers, Wires, Terminals, ...
+			The default options are now in the classe prototypes, which is easier to override
 		* upgrading to inputEx 0.6.0 (now in the "inputex" plugin)
   	* upgrading to YUI 2.8.1
   	* Moving images and css into "assets"
 
-	* Label enhancements
+	* Wires enhancements
   	* Adding labels for Wires
 		* drawingMethod has been removed from the Wire options. Use the xtype instead.
 
@@ -21,6 +23,9 @@ Changeset:
   	* Bug fix: DDResize on containers redraw wires
 		* Position constrained to (0,0) minimum
 		* Fix FormContainer terminals positioning if the fieldset is collapsed
+
+  * Layer enhancements
+		* Export wires properties in getWiring method
 
 	* editor plugin
 		* AccordionView on left panel for module categories

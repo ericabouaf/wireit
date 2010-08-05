@@ -24,6 +24,9 @@ WireIt.Layer = function(options) {
     */
    this.wires = [];
    
+	/**
+	 * TODO
+	 */
    this.groups = [];
    
    /**
@@ -84,16 +87,20 @@ WireIt.Layer = function(options) {
    
    this.render();
    
-   this.initContainers();
+	if( options.containers ) {
+		this.initContainers(options.containers);
+	}
    
-   this.initWires();
+	if( options.wires ) {
+   	this.initWires(options.wires);
+	}
    
-   if(this.options.layerMap) { 
-		this.layermap = new WireIt.LayerMap(this, this.options.layerMapOptions);
+   if(this.layerMap) { 
+		this.layermap = new WireIt.LayerMap(this, this.layerMapOptions);
    }
    
 	if(WireIt.Grouper) {
-	   this.grouper = new WireIt.Grouper(this, this.options.grouper.baseConfigFunction);
+	   this.grouper = new WireIt.Grouper(this, this.grouper.baseConfigFunction);
    
 	   var rb = this.grouper.rubberband;
 		this.el.onmousedown = function(event) { return rb.layerMouseDown.call(rb, event); };
@@ -107,31 +114,66 @@ WireIt.Layer = function(options) {
 
 WireIt.Layer.prototype = {
 
-   /**
+	/** 
+    * @property className
+    * @description CSS class name for the layer element
+    * @default "WireIt-Layer"
+    * @type String
+    */
+	className: "WireIt-Layer",
+	
+	/** 
+    * @property parentEl
+    * @description DOM element that schould contain the layer
+    * @default null
+    * @type DOMElement
+    */
+	parentEl: null,
+
+	/** 
+    * @property layerMap
+    * @description Display the layer map
+    * @default false
+    * @type Boolean
+    */
+	layerMap: false,
+
+	/** 
+    * @property layerMapOptions
+    * @description Options for the layer map
+    * @default null
+    * @type Object
+    */
+	layerMapOptions: null,
+
+	/** 
+    * @property enableMouseEvents
+    * @description Enable the mouse events
+    * @default true
+    * @type Boolean
+    */
+	enableMouseEvents: true,
+
+	/**
+	 * TODO
+	 */
+	grouper: null, 
+
+	/**
+    * Set the options by putting them in this (so it overrides the prototype default)
     * @method setOptions
     */
    setOptions: function(options) {
-      /**
-       * Configuration object of the layer
-       * <ul>
-       *   <li>className: CSS class name for the layer element (default 'WireIt-Layer')</li>
-       *   <li>parentEl: DOM element that schould contain the layer (default document.body)</li>
-       *   <li>containers: array of container configuration objects</li>  
-       *   <li>wires: array of wire configuration objects</li>
-       *   <li>layerMap: boolean</li>
-       *   <li>layerMapOptions: layer map options</li>
-       * </ul>
-       * @property options
-       */
-      this.options = {};
-      this.options.className = options.className || 'WireIt-Layer';
-      this.options.parentEl = options.parentEl || document.body;
-      this.options.containers = options.containers || [];
-      this.options.wires = options.wires || [];
-      this.options.layerMap = YAHOO.lang.isUndefined(options.layerMap) ? false : options.layerMap;
-      this.options.layerMapOptions = options.layerMapOptions;
-      this.options.enableMouseEvents = YAHOO.lang.isUndefined(options.enableMouseEvents) ? true : options.enableMouseEvents;
-      this.options.grouper = options.grouper;
+      for(var k in options) {
+			if( options.hasOwnProperty(k) ) {
+				this[k] = options[k];
+			}
+		}
+		
+		if(!this.parentEl) {
+			this.parentEl = document.body;
+		}
+		
    },
 
    /**
@@ -139,10 +181,8 @@ WireIt.Layer.prototype = {
     * @method render
     */
    render: function() {
-   
-      this.el = WireIt.cn('div', {className: this.options.className} );
-   
-      this.options.parentEl.appendChild(this.el);
+      this.el = WireIt.cn('div', {className: this.className} );   
+      this.parentEl.appendChild(this.el);
    },
 
 
@@ -150,9 +190,9 @@ WireIt.Layer.prototype = {
     * Create all the containers passed as options
     * @method initContainers
     */
-   initContainers: function() {
-      for(var i = 0 ; i < this.options.containers.length ; i++) {
-         this.addContainer(this.options.containers[i]);
+   initContainers: function(containers) {
+      for(var i = 0 ; i < containers.length ; i++) {
+         this.addContainer(containers[i]);
       } 
    },
 
@@ -160,9 +200,9 @@ WireIt.Layer.prototype = {
     * Create all the wires passed in the config
     * @method initWires
     */
-   initWires: function() {
-      for(var i = 0 ; i < this.options.wires.length ; i++) {
-         this.addWire(this.options.wires[i]);
+   initWires: function(wires) {
+      for(var i = 0 ; i < wires.length ; i++) {
+         this.addWire(wires[i]);
       }
    },
 
@@ -321,7 +361,7 @@ WireIt.Layer.prototype = {
       if( WireIt.indexOf(wire, this.wires) == -1 ) {
          this.wires.push(wire);
          
-         if(this.options.enableMouseEvents) {
+         if(this.enableMouseEvents) {
             YAHOO.util.Event.addListener(wire.element, "mousemove", this.onWireMouseMove, this, true);
             YAHOO.util.Event.addListener(wire.element, "click", this.onWireClick, this, true);
          }

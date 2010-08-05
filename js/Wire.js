@@ -71,10 +71,10 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
    WireIt.Wire.superclass.constructor.call(this, this.parentEl);
    
    // CSS classname
-   YAHOO.util.Dom.addClass(this.element, this.options.className);
+   YAHOO.util.Dom.addClass(this.element, this.className);
 
    // Label
-	if(this.options.label) {
+	if(this.label) {
 		this.renderLabel();
 	}
 
@@ -86,41 +86,104 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
 
 YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.Wire"
+    * @type String
+    */
    xtype: "WireIt.Wire",
+
+	/** 
+    * @property className
+    * @description CSS class name for the wire element
+    * @default "WireIt-Wire"
+    * @type String
+    */
+	className: "WireIt-Wire",
+
+	/** 
+    * @property cap
+    * @description TODO
+    * @default "round"
+    * @type String
+    */
+	cap: 'round',
+	
+	/** 
+    * @property bordercap
+    * @description TODO
+    * @default "round"
+    * @type String
+    */
+	bordercap: 'round',
+	
+	/** 
+    * @property width
+    * @description Wire width
+    * @default 3
+    * @type Integer
+    */
+	width: 3,
+	
+	/** 
+    * @property borderwidth
+    * @description Border width
+    * @default 1
+    * @type Integer
+    */
+	borderwidth: 1,
+	
+	/** 
+    * @property color
+    * @description Wire color
+    * @default 'rgb(173, 216, 230)'
+    * @type String
+    */
+	color: 'rgb(173, 216, 230)',
+	
+	/** 
+    * @property bordercolor
+    * @description Border color
+    * @default '#0000ff'
+    * @type String
+    */
+	bordercolor: '#0000ff',
+	
+	/** 
+    * @property label
+    * @description Wire label
+    * @default null
+    * @type String
+    */
+	label: null,
+	
+	/** 
+    * @property labelStyle
+    * @description Wire label style
+    * @default null
+    * @type Object
+    */
+	labelStyle: null,
+	
+	/** 
+    * @property labelEditor
+    * @description inputEx field definition for the label editor
+    * @default null
+    * @type Object
+    */
+	labelEditor: null,
 	
    /**
-    * Build options object and set default properties
+    * Set the options by putting them in this (so it overrides the prototype default)
     * @method setOptions
     */
    setOptions: function(options) {
-      /**
-       * Wire styling, and properties:
-       * <ul>
-       *   <li>className: CSS class name of the canvas element (default 'WireIt-Wire')</li>
-       *   <li>cap: default 'round'</li>
-       *   <li>bordercap: default 'round'</li>
-       *   <li>width: Wire width (default to 3)</li>
-       *   <li>borderwidth: Border Width (default to 1)</li>
-       *   <li>color: Wire color (default to rgb(173, 216, 230) )</li>
-       *   <li>bordercolor: Border color (default to #0000ff )</li>
-       * </ul>
-       * @property options
-       */
-      this.options = {};
-      this.options.className = options.className || 'WireIt-Wire';
-
-      // Syling
-      this.options.cap = options.cap || 'round';
-      this.options.bordercap = options.bordercap || 'round';
-      this.options.width = options.width || 3;
-      this.options.borderwidth = options.borderwidth || 1;
-      this.options.color = options.color || 'rgb(173, 216, 230)';
-      this.options.bordercolor = options.bordercolor || '#0000ff';
-
-		// Label
-		this.options.label = options.label;
-		this.options.labelStyle = options.labelStyle;
-		this.options.labelEditor = options.labelEditor;
+      for(var k in options) {
+			if( options.hasOwnProperty(k) ) {
+				this[k] = options[k];
+			}
+		}
    },
    
    /**
@@ -190,18 +253,18 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       var ctxt=this.getContext();
       
       // Draw the border
-      ctxt.lineCap=this.options.bordercap;
-      ctxt.strokeStyle=this.options.bordercolor;
-      ctxt.lineWidth=this.options.width+this.options.borderwidth*2;
+      ctxt.lineCap=this.bordercap;
+      ctxt.strokeStyle=this.bordercolor;
+      ctxt.lineWidth=this.width+this.borderwidth*2;
       ctxt.beginPath();
       ctxt.moveTo(p1[0],p1[1]);
       ctxt.lineTo(p2[0],p2[1]);
       ctxt.stroke();
 
       // Draw the inner bezier curve
-      ctxt.lineCap=this.options.cap;
-      ctxt.strokeStyle=this.options.color;
-      ctxt.lineWidth=this.options.width;
+      ctxt.lineCap=this.cap;
+      ctxt.strokeStyle=this.color;
+      ctxt.lineWidth=this.width;
       ctxt.beginPath();
       ctxt.moveTo(p1[0],p1[1]);
       ctxt.lineTo(p2[0],p2[1]);
@@ -216,7 +279,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 				
       this.draw();
 
-		if(this.options.label) {
+		if(this.label) {
 			this.positionLabel();
 		}
    },
@@ -226,14 +289,14 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 	 */
 	renderLabel: function() {
 		
-		this.labelEl = WireIt.cn('div',{className:"WireIt-Wire-Label"}, this.options.labelStyle );
+		this.labelEl = WireIt.cn('div',{className:"WireIt-Wire-Label"}, this.labelStyle );
 		
-		if(this.options.labelEditor) {
-			this.labelField = new inputEx.InPlaceEdit({parentEl: this.labelEl, editorField: this.options.labelEditor, animColors:{from:"#FFFF99" , to:"#DDDDFF"} });
-			this.labelField.setValue(this.options.label);
+		if(this.labelEditor) {
+			this.labelField = new inputEx.InPlaceEdit({parentEl: this.labelEl, editorField: this.labelEditor, animColors:{from:"#FFFF99" , to:"#DDDDFF"} });
+			this.labelField.setValue(this.label);
 		}
 		else {
-			this.labelEl.innerHTML = this.options.label;
+			this.labelEl.innerHTML = this.label;
 		}
 		
 		this.element.parentNode.appendChild(this.labelEl);
@@ -244,7 +307,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 	 * Set the label
 	 */
 	setLabel: function(val) {
-		if(this.options.labelEditor) {
+		if(this.labelEditor) {
 			this.labelField.setValue(val);
 		}
 		else {
@@ -370,7 +433,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 		};
 
 		// Export the label value
-		if(this.options.labelEditor) {
+		if(this.labelEditor) {
 			obj.label = this.labelField.getValue();
 		}
 

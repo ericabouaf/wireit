@@ -11,6 +11,9 @@
 var WireIt = {
 	
 	
+	/** 
+	 * TODO
+	 */
 	
 	defaultWireClass: "WireIt.BezierWire",
 	

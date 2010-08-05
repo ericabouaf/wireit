@@ -59,33 +59,33 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	 * @method createFrame
 	 */
 	createFrame: function() {
-	     var self=this, body=document.body;
-	     if (!body || !body.firstChild) {
-	         window.setTimeout( function() { self.createFrame(); }, 50 );
-	         return;
-	     }
-	     var div=this.getDragEl(), Dom=YAHOO.util.Dom;
-	     if (!div) {
-	         div    = document.createElement("div");
-	         div.id = this.dragElId;
-	         var s  = div.style;
-	         s.position   = "absolute";
-	         s.visibility = "hidden";
-	         s.cursor     = "move";
-	         s.border     = "2px solid #aaa";
-	         s.zIndex     = 999;
-	         var size = this.terminalProxySize+"px";
-	         s.height     = size; 
-	         s.width      = size;
-	         var _data = document.createElement('div');
-	         Dom.setStyle(_data, 'height', '100%');
-	         Dom.setStyle(_data, 'width', '100%');
-	         Dom.setStyle(_data, 'background-color', '#ccc');
-	         Dom.setStyle(_data, 'opacity', '0');
-	         div.appendChild(_data);
-	         body.insertBefore(div, body.firstChild);
-	     }
-	 },
+	 	var self=this, body=document.body;
+     	if (!body || !body.firstChild) {
+       	window.setTimeout( function() { self.createFrame(); }, 50 );
+         return;
+     	}
+     	var div=this.getDragEl(), Dom=YAHOO.util.Dom;
+     	if (!div) {
+         div    = document.createElement("div");
+         div.id = this.dragElId;
+         var s  = div.style;
+         s.position   = "absolute";
+         s.visibility = "hidden";
+         s.cursor     = "move";
+         s.border     = "2px solid #aaa";
+         s.zIndex     = 999;
+         var size = this.terminalProxySize+"px";
+         s.height     = size; 
+         s.width      = size;
+         var _data = document.createElement('div');
+         Dom.setStyle(_data, 'height', '100%');
+         Dom.setStyle(_data, 'width', '100%');
+         Dom.setStyle(_data, 'background-color', '#ccc');
+         Dom.setStyle(_data, 'opacity', '0');
+         div.appendChild(_data);
+         body.insertBefore(div, body.firstChild);
+     	}
+ 	},
 
 	/**
 	 * @method startDrag
@@ -93,17 +93,17 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	startDrag: function() {
    
 	   // If only one wire admitted, we remove the previous wire
-	   if(this.terminal.options.nMaxWires == 1 && this.terminal.wires.length == 1) {
+	   if(this.terminal.nMaxWires == 1 && this.terminal.wires.length == 1) {
 	      this.terminal.wires[0].remove();
 	   }
 	   // If the number of wires is at its maximum, prevent editing...
-	   else if(this.terminal.wires.length >= this.terminal.options.nMaxWires) {
+	   else if(this.terminal.wires.length >= this.terminal.nMaxWires) {
 	      return;
 	   }
    
 	   var halfProxySize = this.terminalProxySize/2;
 	   this.fakeTerminal = {
-	      options: {direction: this.terminal.options.fakeDirection},
+	      direction: this.terminal.fakeDirection,
 	      pos: [200,200], 
 	      addWire: function() {},
 	      removeWire: function() {},
@@ -122,9 +122,9 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	      parentEl = this.terminal.container.layer.el;
 	   }
 	
-		var klass = WireIt.wireClassFromXtype(this.terminal.options.editingWireConfig.xtype);
+		var klass = WireIt.wireClassFromXtype(this.terminal.editingWireConfig.xtype);
 		
-	   this.editingWire = new klass(this.terminal, this.fakeTerminal, parentEl, this.terminal.options.editingWireConfig);
+	   this.editingWire = new klass(this.terminal, this.fakeTerminal, parentEl, this.terminal.editingWireConfig);
 	   YAHOO.util.Dom.addClass(this.editingWire.element, CSS_PREFIX+'Wire-editing');
 	},
 
@@ -248,29 +248,29 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	   // Switch the order of the terminals if tgt as the "alwaysSrc" property
 	   var term1 = this.terminal;
 	   var term2 = targetTerminalProxy.terminal;
-	   if(term2.options.alwaysSrc) {
+	   if(term2.alwaysSrc) {
 	      term1 = targetTerminalProxy.terminal;
 	      term2 = this.terminal;
 	   }
 	
-		var klass = WireIt.wireClassFromXtype(term1.options.wireConfig.xtype);
+		var klass = WireIt.wireClassFromXtype(term1.wireConfig.xtype);
    
 	   // Check the number of wires for this terminal
 	   var tgtTerm = targetTerminalProxy.terminal, w;
-	   if( tgtTerm.options.nMaxWires == 1) {
+	   if( tgtTerm.nMaxWires == 1) {
 	      if(tgtTerm.wires.length > 0) {
 	         tgtTerm.wires[0].remove();
 	      }
 	
-	      w = new klass(term1, term2, parentEl, term1.options.wireConfig);
+	      w = new klass(term1, term2, parentEl, term1.wireConfig);
 	      w.redraw();
 	   }
-	   else if(tgtTerm.wires.length < tgtTerm.options.nMaxWires) {
-	      w = new klass(term1, term2, parentEl, term1.options.wireConfig);
+	   else if(tgtTerm.wires.length < tgtTerm.nMaxWires) {
+	      w = new klass(term1, term2, parentEl, term1.wireConfig);
 	      w.redraw();
 	   }
 	   /*else {
-	      console.log("Cannot connect to this terminal: nMaxWires = ", ddTargets[0].terminal.options.nMaxWires);
+	      console.log("Cannot connect to this terminal: nMaxWires = ", ddTargets[0].terminal.nMaxWires);
 	   }*/
    
 	},
@@ -318,7 +318,7 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
    
 	   // Check the allowSelfWiring
 	   if(this.terminal.container) {
-	      if(this.terminal.container.options.preventSelfWiring) {
+	      if(this.terminal.container.preventSelfWiring) {
 	         if(DDterminal.terminal.container == this.terminal.container) {
 	            return false;
 	         }

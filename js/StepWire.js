@@ -17,6 +17,12 @@ WireIt.StepWire = function( terminal1, terminal2, parentEl, options) {
 
 YAHOO.lang.extend(WireIt.StepWire, WireIt.Wire, {
 	
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.StepWire"
+    * @type String
+    */
    xtype: "WireIt.StepWire",
 	
    /**
@@ -30,7 +36,7 @@ YAHOO.lang.extend(WireIt.StepWire, WireIt.Wire, {
       var p2 = this.terminal2.getXY();
 
 		
-		//this.terminal1.options.direction[0]
+		//this.terminal1.direction[0]
 
       var min=[ Math.min(p1[0],p2[0])-margin[0], Math.min(p1[1],p2[1])-margin[1]];
       var max=[ Math.max(p1[0],p2[0])+margin[0], Math.max(p1[1],p2[1])+margin[1]];
@@ -53,9 +59,9 @@ YAHOO.lang.extend(WireIt.StepWire, WireIt.Wire, {
       var ctxt=this.getContext();
 
       // Draw the border
-      ctxt.lineCap=this.options.bordercap;
-      ctxt.strokeStyle=this.options.bordercolor;
-      ctxt.lineWidth=this.options.width+this.options.borderwidth*2;
+      ctxt.lineCap=this.bordercap;
+      ctxt.strokeStyle=this.bordercolor;
+      ctxt.lineWidth=this.width+this.borderwidth*2;
       ctxt.beginPath();
       ctxt.moveTo(p1[0],p1[1]);
       ctxt.lineTo(p2[0],p2[1]);
@@ -65,9 +71,9 @@ YAHOO.lang.extend(WireIt.StepWire, WireIt.Wire, {
       ctxt.stroke();
 
       // Draw the inner bezier curve
-      ctxt.lineCap=this.options.cap;
-      ctxt.strokeStyle=this.options.color;
-      ctxt.lineWidth=this.options.width;
+      ctxt.lineCap=this.cap;
+      ctxt.strokeStyle=this.color;
+      ctxt.lineWidth=this.width;
       ctxt.beginPath();
 
       ctxt.moveTo(p1[0],p1[1]);

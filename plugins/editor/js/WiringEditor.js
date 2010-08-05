@@ -17,7 +17,6 @@ WireIt.WiringEditor = function(options) {
 	  * @type {Object}
 	  */
    this.modulesByName = {};
-	
 	WireIt.WiringEditor.superclass.constructor.call(this, options);
 
 	 // LoadWirings
@@ -493,6 +492,9 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	  	}
 	  	catch(ex) {
 	     	this.alert(ex);
+			if(window.console && YAHOO.lang.isFunction(console.log)) {
+				console.log(ex);
+			}
 	  	}
 	 },
 
@@ -514,15 +516,17 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
    var obj = {modules: [], wires: [], properties: null};
 
    for( i = 0 ; i < this.layer.containers.length ; i++) {
-      obj.modules.push( {name: this.layer.containers[i].options.title, value: this.layer.containers[i].getValue(), config: this.layer.containers[i].getConfig()});
+      obj.modules.push( {name: this.layer.containers[i].title, value: this.layer.containers[i].getValue(), config: this.layer.containers[i].getConfig()});
    }
+
+	// TODO: Use the Layer.getWiring instead ?
 
    for( i = 0 ; i < this.layer.wires.length ; i++) {
       var wire = this.layer.wires[i];
 
       var wireObj = { 
-         src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.layer.containers), terminal: wire.terminal1.options.name}, 
-         tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.layer.containers), terminal: wire.terminal2.options.name}
+         src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.layer.containers), terminal: wire.terminal1.name}, 
+         tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.layer.containers), terminal: wire.terminal2.name}
       };
       obj.wires.push(wireObj);
    }

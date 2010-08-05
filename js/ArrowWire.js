@@ -7,18 +7,20 @@
  * @param  {WireIt.Terminal}    terminal1   Source terminal
  * @param  {WireIt.Terminal}    terminal2   Target terminal
  * @param  {HTMLElement} parentEl    Container of the CANVAS tag
- * @param  {Obj}                options      Wire configuration (see options property)
+ * @param  {Obj}                options      Wire configuration (see properties)
  */
-
 WireIt.ArrowWire = function( terminal1, terminal2, parentEl, options) {
-	
 	WireIt.ArrowWire.superclass.constructor.call(this, terminal1, terminal2, parentEl, options);
-	
 };
-
 
 YAHOO.lang.extend(WireIt.ArrowWire, WireIt.Wire, {
 	
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.ArrowWire"
+    * @type String
+    */
    xtype: "WireIt.ArrowWire",
 
    /**
@@ -57,18 +59,18 @@ YAHOO.lang.extend(WireIt.ArrowWire, WireIt.Wire, {
       var ctxt=this.getContext();
       
       // Draw the border
-      ctxt.lineCap=this.options.bordercap;
-      ctxt.strokeStyle=this.options.bordercolor;
-      ctxt.lineWidth=this.options.width+this.options.borderwidth*2;
+      ctxt.lineCap=this.bordercap;
+      ctxt.strokeStyle=this.bordercolor;
+      ctxt.lineWidth=this.width+this.borderwidth*2;
       ctxt.beginPath();
       ctxt.moveTo(p1[0],p1[1]);
       ctxt.lineTo(p2[0],p2[1]);
       ctxt.stroke();
 
       // Draw the inner bezier curve
-      ctxt.lineCap=this.options.cap;
-      ctxt.strokeStyle=this.options.color;
-      ctxt.lineWidth=this.options.width;
+      ctxt.lineCap=this.cap;
+      ctxt.strokeStyle=this.color;
+      ctxt.lineWidth=this.width;
       ctxt.beginPath();
       ctxt.moveTo(p1[0],p1[1]);
       ctxt.lineTo(p2[0],p2[1]);
@@ -127,7 +129,7 @@ YAHOO.lang.extend(WireIt.ArrowWire, WireIt.Wire, {
 		}
 
 		//triangle fill
-		ctxt.fillStyle = this.options.color;
+		ctxt.fillStyle = this.color;
 		ctxt.beginPath();
 		ctxt.moveTo(t2[0],t2[1]);
 		ctxt.lineTo(x1,y1);
@@ -135,8 +137,8 @@ YAHOO.lang.extend(WireIt.ArrowWire, WireIt.Wire, {
 		ctxt.fill();
 
 		//triangle border	
-		ctxt.strokeStyle = this.options.bordercolor;
-		ctxt.lineWidth = this.options.borderwidth;
+		ctxt.strokeStyle = this.bordercolor;
+		ctxt.lineWidth = this.borderwidth;
 		ctxt.beginPath();
 		ctxt.moveTo(t2[0],t2[1]);
 		ctxt.lineTo(x1,y1);

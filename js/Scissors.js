@@ -58,8 +58,8 @@ lang.extend(WireIt.Scissors, YAHOO.util.Element, {
     */
    setPosition: function() {
       var pos = this._terminal.getXY();
-      this.setStyle("left", (pos[0]+this._terminal.options.direction[0]*30-8)+"px");
-      this.setStyle("top", (pos[1]+this._terminal.options.direction[1]*30-8)+"px");
+      this.setStyle("left", (pos[0]+this._terminal.direction[0]*30-8)+"px");
+      this.setStyle("top", (pos[1]+this._terminal.direction[1]*30-8)+"px");
    },
    /**
     * @method mouseOver

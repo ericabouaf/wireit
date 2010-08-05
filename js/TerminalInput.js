@@ -12,22 +12,45 @@ WireIt.util.TerminalInput = function(parentEl, options, container) {
    WireIt.util.TerminalInput.superclass.constructor.call(this,parentEl, options, container);
 };
 YAHOO.lang.extend(WireIt.util.TerminalInput, WireIt.Terminal, {
-   
-   /**
-    * Override setOptions to add the default options for TerminalInput
-    * @method setOptions
+
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.TerminalInput"
+    * @type String
     */
-   setOptions: function(options) {
-      
-      WireIt.util.TerminalInput.superclass.setOptions.call(this,options);
-      
-      this.options.direction = options.direction || [0,-1];
-      this.options.fakeDirection = options.fakeDirection || [0,1];
-      this.options.ddConfig = {
-         type: "input",
-         allowedTypes: ["output"]
-      };
-      this.options.nMaxWires = options.nMaxWires || 1;
-   }
+   xtype: "WireIt.TerminalInput",
+
+	/**
+    * @property direction
+	 * @description direction vector of the wires when connected to this terminal
+    * @type Array
+    * @default [0,-1]
+    */
+	direction: [0,-1],
+	
+	/**
+    * @property fakeDirection
+	 * @description direction vector of the "editing" wire when it started from this terminal
+    * @type Array
+    * @default [0,1]
+    */
+	fakeDirection: [0,1],
    
+	/**
+    * @property nMaxWires
+	 * @description maximum number of wires for this terminal
+    * @type Integer
+    * @default 1
+    */
+	nMaxWires: 1,
+	
+	/**
+    * @property ddConfig
+	 * @description configuration of the WireIt.TerminalProxy object
+    * @type Object
+    * @default { type: "input", allowedTypes: ["output"] }
+    */
+	ddConfig: { type: "input", allowedTypes: ["output"] }
+
 });

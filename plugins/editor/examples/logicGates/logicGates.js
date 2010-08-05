@@ -122,28 +122,31 @@ LogicContainer = function(opts, layer) {
 	this.logicInputValues = [];
 };
 YAHOO.lang.extend(LogicContainer, WireIt.ImageContainer, {
-	
-	setOptions: function(options) {
-      LogicContainer.superclass.setOptions.call(this, options);
-      this.options.xtype = "LogicContainer";
-   },
+
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.LogicContainer"
+    * @type String
+    */
+   xtype: "LogicContainer",
 	
 	setInput: function(bStatus,term) {
-		this.logicInputValues[term.options.name] = bStatus;
+		this.logicInputValues[term.name] = bStatus;
 		
-		if(this.options.title == "AND") {
+		if(this.title == "AND") {
 			this.setLogic( this.logicInputValues["_INPUT1"] && this.logicInputValues["_INPUT2"]  );
 		}
-		else if (this.options.title == "OR") {
+		else if (this.title == "OR") {
 			this.setLogic( this.logicInputValues["_INPUT1"] || this.logicInputValues["_INPUT2"]  );
 		}
-		else if (this.options.title == "NOT") {
+		else if (this.title == "NOT") {
 			this.setLogic(!this.logicInputValues["_INPUT"]);
 		}
-		else if (this.options.title == "NAND") {
+		else if (this.title == "NAND") {
 			this.setLogic( !(this.logicInputValues["_INPUT1"] && this.logicInputValues["_INPUT2"])  );
 		}
-		else if (this.options.title == "XOR") {
+		else if (this.title == "XOR") {
 			this.setLogic( (!this.logicInputValues["_INPUT1"] && this.logicInputValues["_INPUT2"]) ||
 			  					(this.logicInputValues["_INPUT1"] && !this.logicInputValues["_INPUT2"]) );
 		}
@@ -161,14 +164,14 @@ YAHOO.lang.extend(LogicContainer, WireIt.ImageContainer, {
 		// trigger the output wires !
 		for(var i = 0 ; i < this.terminals.length ; i++) {
 			var term = this.terminals[i];
-			if(term.options.name == "_OUTPUT") {
+			if(term.name == "_OUTPUT") {
 				for(var j = 0 ; j < term.wires.length ; j++) {
 					var wire = term.wires[j];
 					var otherTerm = wire.getOtherTerminal(term);
 					if(otherTerm.container) {
 						otherTerm.container.setInput(bStatus, otherTerm);
 					}
-					wire.options.color = bStatus ? "rgb(173,216,230)" : "rgb(255,255,255)";
+					wire.color = bStatus ? "rgb(173,216,230)" : "rgb(255,255,255)";
 					wire.redraw();
 				}
 			}
@@ -187,10 +190,7 @@ ClockContainer = function(opts, layer) {
 	setInterval(function() { that.switchStatus();	}, 800);
 };
 YAHOO.lang.extend(ClockContainer, LogicContainer, {
-	setOptions: function(options) {
-      ClockContainer.superclass.setOptions.call(this, options);
-      this.options.xtype = "ClockContainer";
-   }
+	xtype: "ClockContainer"
 });
 
 SwitchContainer = function(opts, layer) {
@@ -199,10 +199,7 @@ SwitchContainer = function(opts, layer) {
 	YAHOO.util.Event.addListener(this.bodyEl, "click", this.switchStatus, this, true);
 };
 YAHOO.lang.extend(SwitchContainer, LogicContainer, {
-	setOptions: function(options) {
-      SwitchContainer.superclass.setOptions.call(this, options);
-      this.options.xtype = "SwitchContainer";
-   }
+	xtype: "SwitchContainer"
 });
 
 LightbulbContainer = function(opts, layer) {
@@ -210,13 +207,12 @@ LightbulbContainer = function(opts, layer) {
 	this.imageName = "lightbulb";
 };
 YAHOO.lang.extend(LightbulbContainer, LogicContainer, {
+	xtype: "LightbulbContainer",
+	
 	setInput: function(bStatus,term) {
 		this.setLogic(bStatus);
-	},
-	setOptions: function(options) {
-      LightbulbContainer.superclass.setOptions.call(this, options);
-      this.options.xtype = "LightbulbContainer";
-   }
+	}
+	
 });
 
 YAHOO.util.Event.onDOMReady( function() { 

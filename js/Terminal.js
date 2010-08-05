@@ -13,25 +13,33 @@
  * @param {WireIt.Container} container (Optional) Container containing this terminal
  */
 WireIt.Terminal = function(parentEl, options, container) {
-   
+
+	/**
+    * @property name
+	 * @description Name of the terminal
+    * @type String
+    * @default null
+    */
+	this.name = null;
+
    /**
-    * DOM parent element
     * @property parentEl
-    * @type {HTMLElement}
+	 * @description DOM parent element
+    * @type DOMElement
     */
    this.parentEl = parentEl;
    
    /**
-    * Container (optional). Parent container of this terminal
     * @property container
-    * @type {WireIt.Container}
+	 * @description Container (optional). Parent container of this terminal
+    * @type WireIt.Container
     */
    this.container = container;
    
    /**
-    * List of the associated wires
     * @property wires
-    * @type {Array}
+	 * @description List of the associated wires
+    * @type Array
     */
     this.wires = [];
    
@@ -63,52 +71,139 @@ WireIt.Terminal = function(parentEl, options, container) {
    this.render();
    
    // Create the TerminalProxy object to make the terminal editable
-   if(this.options.editable) {
-      this.dd = new WireIt.TerminalProxy(this, this.options.ddConfig);
+   if(this.editable) {
+      this.dd = new WireIt.TerminalProxy(this, this.ddConfig);
       this.scissors = new WireIt.Scissors(this);
    }
 };
 
 WireIt.Terminal.prototype = {
-   
+
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.Terminal"
+    * @type String
+    */
+   xtype: "WireIt.Terminal",
+
+	/**
+    * @property direction
+	 * @description direction vector of the wires when connected to this terminal
+    * @type Array
+    * @default [0,1]
+    */
+	direction: [0,1],
+	
+	/**
+    * @property fakeDirection
+	 * @description direction vector of the "editing" wire when it started from this terminal
+    * @type Array
+    * @default [0,-1]
+    */
+	fakeDirection: [0,-1],
+
+	/**
+    * @property editable
+	 * @description boolean that makes the terminal editable
+    * @type Boolean
+    * @default true
+    */
+	editable: true,
+	
+	/**
+    * @property nMaxWires
+	 * @description maximum number of wires for this terminal
+    * @type Integer
+    * @default Infinity
+    */
+	nMaxWires: Infinity,
+
+	/**
+    * @property wireConfig
+	 * @description Options for the wires connected to this terminal
+    * @type Object
+    * @default {}
+    */
+	wireConfig: {},
+	
+	/**
+    * @property editingWireConfig
+	 * @description Options for the wires connected to this terminal
+    * @type Object
+    * @default {}
+    */
+	editingWireConfig: {},
+	
+	/** 
+    * @property className
+    * @description CSS class name for the terminal element
+    * @default "WireIt-Terminal"
+    * @type String
+    */
+	className: "WireIt-Terminal",
+	
+	/** 
+    * @property connectedClassName
+    * @description CSS class added to the terminal when it is connected
+    * @default "WireIt-connected"
+    * @type String
+    */
+	connectedClassName: "WireIt-Terminal-connected",
+	
+	/** 
+    * @property dropinviteClassName
+    * @description CSS class added for drop invitation
+    * @default "WireIt-dropinvite"
+    * @type String
+    */
+	dropinviteClassName: "WireIt-Terminal-dropinvite",
+
+	/** 
+    * @property offsetPosition
+    * @description offset position from the parentEl position. Can be an array [top,left] or an object {left: 100, bottom: 20} or {right: 10, top: 5} etc...
+    * @default null
+    * @type Array
+    */
+	offsetPosition: null,
+	
+	/**
+    * @property alwaysSrc
+	 * @description forces this terminal to be the src terminal in the wire config
+    * @type Boolean
+    * @default false
+    */
+	alwaysSrc: false,
+	
+	/**
+    * @property ddConfig
+	 * @description configuration of the WireIt.TerminalProxy object
+    * @type Object
+    * @default {}
+    */
+	ddConfig: false,
+
+
    /**
+    * Set the options by putting them in this (so it overrides the prototype default)
     * @method setOptions
-    * @param {Object} options
     */
    setOptions: function(options) {
-      
-      /**
-       * <p>Object that contains the terminal configuration:</p>
-       * 
-       * <ul>
-       *   <li><b>name</b>: terminal name</li>
-       *   <li><b>direction</b>: direction vector of the wires when connected to this terminal (default [0,1])</li>
-       *   <li><b>fakeDirection</b>: direction vector of the "editing" wire when it started from this terminal (default to -direction)</li>
-       *   <li><b>editable</b>: boolean that makes the terminal editable (default to true)</li>
-       *   <li><b>nMaxWires</b>: maximum number of wires for this terminal (default to Infinity)</li>
-       *   <li><b>offsetPosition</b>: offset position from the parentEl position. Can be an array [top,left] or an object {left: 100, bottom: 20} or {right: 10, top: 5} etc... (default to [0,0])</li>
-       *   <li><b>ddConfig</b>: configuration of the WireIt.TerminalProxy object (only if editable)</li>
-       *   <li><b>alwaysSrc</b>: alwaysSrc forces this terminal to be the src terminal in the wire config (default false, only if editable)</li>
-       *   <li><b>className</b>: CSS class name of the terminal (default to "WireIt-Terminal")</li>
-       *   <li><b>connectedClassName</b>: CSS class added to the terminal when it is connected (default to "WireIt-Terminal-connected")</li>
-       *   <li><b>dropinviteClassName</b>: CSS class added for drop invitation (default to "WireIt-Terminal-dropinvite")</li>
-       * </ul>
-       * @property options
-       */  
-      this.options = {};
-      this.options.name = options.name;
-      this.options.direction = options.direction || [0,1];
-      this.options.fakeDirection = options.fakeDirection || [-this.options.direction[0],-this.options.direction[1]];
-      this.options.className = options.className || CSS_PREFIX+'Terminal';
-      this.options.connectedClassName = options.connectedClassName || CSS_PREFIX+'Terminal-connected';
-      this.options.dropinviteClassName = options.dropinviteClassName || CSS_PREFIX+'Terminal-dropinvite';
-      this.options.editable = lang.isUndefined(options.editable) ? true : options.editable;
-      this.options.nMaxWires = options.nMaxWires || Infinity;
-      this.options.wireConfig = options.wireConfig || {};
-      this.options.editingWireConfig = options.editingWireConfig || this.options.wireConfig;
-      this.options.offsetPosition = options.offsetPosition;
-      this.options.alwaysSrc = lang.isUndefined(options.alwaysSrc) ? false : options.alwaysSrc;
-      this.options.ddConfig = options.ddConfig || {};
+      for(var k in options) {
+			if( options.hasOwnProperty(k) ) {
+				this[k] = options[k];
+			}
+		}
+		
+		// Set fakeDirection to the opposite of direction
+		if(options.direction && !options.fakeDirection) {
+			this.fakeDirection = [ -options.direction[0], -options.direction[1] ];
+		}
+		
+		// Set the editingWireConfig to the wireConfig if specified
+		if(options.wireConfig && !options.editingWireConfig) {
+			this.editingWireConfig = this.wireConfig;
+		}
    },
 
    /**
@@ -118,10 +213,10 @@ WireIt.Terminal.prototype = {
     */
    setDropInvitation: function(display) {
       if(display) {
-         Dom.addClass(this.el, this.options.dropinviteClassName);
+         Dom.addClass(this.el, this.dropinviteClassName);
       }
       else {
-         Dom.removeClass(this.el, this.options.dropinviteClassName);
+         Dom.removeClass(this.el, this.dropinviteClassName);
       }
    },
 
@@ -132,11 +227,11 @@ WireIt.Terminal.prototype = {
    render: function() {
    
       // Create the DIV element
-      this.el = WireIt.cn('div', {className: this.options.className} );
-      if(this.options.name) { this.el.title = this.options.name; }
+      this.el = WireIt.cn('div', {className: this.className} );
+      if(this.name) { this.el.title = this.name; }
 
       // Set the offset position
-      this.setPosition(this.options.offsetPosition);
+      this.setPosition(this.offsetPosition);
    
       // Append the element to the parent
       this.parentEl.appendChild(this.el);
@@ -180,7 +275,7 @@ WireIt.Terminal.prototype = {
       this.wires.push(wire);
    
       // Set class indicating that the wire is connected
-      Dom.addClass(this.el, this.options.connectedClassName);
+      Dom.addClass(this.el, this.connectedClassName);
    
       // Fire the event
       this.eventAddWire.fire(wire);
@@ -202,7 +297,7 @@ WireIt.Terminal.prototype = {
       
          // Remove the connected class if it has no more wires:
          if(this.wires.length === 0) {
-            Dom.removeClass(this.el, this.options.connectedClassName);
+            Dom.removeClass(this.el, this.connectedClassName);
          }
       
          // Fire the event

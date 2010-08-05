@@ -21,13 +21,38 @@ WireIt.FormContainer = function(options, layer) {
 };
 
 YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
-	   
-   /**
-    * @method setOptions
+	
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.FormContainer"
+    * @type String
     */
-   setOptions: function(options) {
-      WireIt.FormContainer.superclass.setOptions.call(this, options);
-   },
+   xtype: "WireIt.FormContainer", 
+
+	/** 
+    * @property fields
+    * @description List of inputEx field definitions
+    * @default []
+    * @type Array
+    */
+   fields: [],
+
+	/** 
+    * @property legend
+    * @description Legend
+    * @default null
+    * @type String
+    */
+   legend: null,
+
+	/** 
+    * @property collapsible
+    * @description Collapsible
+    * @default false
+    * @type Boolean
+    */
+	collapsible: false,
    
    /**
     * The render method is overrided to call renderForm
@@ -43,9 +68,9 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
     * @method renderForm
     */
    renderForm: function() {
-	  this.setBackReferenceOnFieldOptionsRecursively(this.options.fields);
+	  this.setBackReferenceOnFieldOptionsRecursively(this.fields);
       
-      var groupParams = {parentEl: this.bodyEl, fields: this.options.fields, legend: this.options.legend, collapsible: this.options.collapsible};
+      var groupParams = {parentEl: this.bodyEl, fields: this.fields, legend: this.legend, collapsible: this.collapsible};
       this.form = new inputEx.Group(groupParams);
 
 		// Redraw all wires when the form is collapsed

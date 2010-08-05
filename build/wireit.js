@@ -11,6 +11,9 @@
 var WireIt = {
 	
 	
+	/** 
+	 * TODO
+	 */
 	
 	defaultWireClass: "WireIt.BezierWire",
 	
@@ -338,10 +341,10 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
    WireIt.Wire.superclass.constructor.call(this, this.parentEl);
    
    // CSS classname
-   YAHOO.util.Dom.addClass(this.element, this.options.className);
+   YAHOO.util.Dom.addClass(this.element, this.className);
 
    // Label
-	if(this.options.label) {
+	if(this.label) {
 		this.renderLabel();
 	}
 
@@ -353,41 +356,104 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
 
 YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.Wire"
+    * @type String
+    */
    xtype: "WireIt.Wire",
+
+	/** 
+    * @property className
+    * @description CSS class name for the wire element
+    * @default "WireIt-Wire"
+    * @type String
+    */
+	className: "WireIt-Wire",
+
+	/** 
+    * @property cap
+    * @description TODO
+    * @default "round"
+    * @type String
+    */
+	cap: 'round',
+	
+	/** 
+    * @property bordercap
+    * @description TODO
+    * @default "round"
+    * @type String
+    */
+	bordercap: 'round',
+	
+	/** 
+    * @property width
+    * @description Wire width
+    * @default 3
+    * @type Integer
+    */
+	width: 3,
+	
+	/** 
+    * @property borderwidth
+    * @description Border width
+    * @default 1
+    * @type Integer
+    */
+	borderwidth: 1,
+	
+	/** 
+    * @property color
+    * @description Wire color
+    * @default 'rgb(173, 216, 230)'
+    * @type String
+    */
+	color: 'rgb(173, 216, 230)',
+	
+	/** 
+    * @property bordercolor
+    * @description Border color
+    * @default '#0000ff'
+    * @type String
+    */
+	bordercolor: '#0000ff',
+	
+	/** 
+    * @property label
+    * @description Wire label
+    * @default null
+    * @type String
+    */
+	label: null,
+	
+	/** 
+    * @property labelStyle
+    * @description Wire label style
+    * @default null
+    * @type Object
+    */
+	labelStyle: null,
+	
+	/** 
+    * @property labelEditor
+    * @description inputEx field definition for the label editor
+    * @default null
+    * @type Object
+    */
+	labelEditor: null,
 	
    /**
-    * Build options object and set default properties
+    * Set the options by putting them in this (so it overrides the prototype default)
     * @method setOptions
     */
    setOptions: function(options) {
-      /**
-       * Wire styling, and properties:
-       * <ul>
-       *   <li>className: CSS class name of the canvas element (default 'WireIt-Wire')</li>
-       *   <li>cap: default 'round'</li>
-       *   <li>bordercap: default 'round'</li>
-       *   <li>width: Wire width (default to 3)</li>
-       *   <li>borderwidth: Border Width (default to 1)</li>
-       *   <li>color: Wire color (default to rgb(173, 216, 230) )</li>
-       *   <li>bordercolor: Border color (default to #0000ff )</li>
-       * </ul>
-       * @property options
-       */
-      this.options = {};
-      this.options.className = options.className || 'WireIt-Wire';
-
-      // Syling
-      this.options.cap = options.cap || 'round';
-      this.options.bordercap = options.bordercap || 'round';
-      this.options.width = options.width || 3;
-      this.options.borderwidth = options.borderwidth || 1;
-      this.options.color = options.color || 'rgb(173, 216, 230)';
-      this.options.bordercolor = options.bordercolor || '#0000ff';
-
-		// Label
-		this.options.label = options.label;
-		this.options.labelStyle = options.labelStyle;
-		this.options.labelEditor = options.labelEditor;
+      for(var k in options) {
+			if( options.hasOwnProperty(k) ) {
+				this[k] = options[k];
+			}
+		}
    },
    
    /**
@@ -457,18 +523,18 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       var ctxt=this.getContext();
       
       // Draw the border
-      ctxt.lineCap=this.options.bordercap;
-      ctxt.strokeStyle=this.options.bordercolor;
-      ctxt.lineWidth=this.options.width+this.options.borderwidth*2;
+      ctxt.lineCap=this.bordercap;
+      ctxt.strokeStyle=this.bordercolor;
+      ctxt.lineWidth=this.width+this.borderwidth*2;
       ctxt.beginPath();
       ctxt.moveTo(p1[0],p1[1]);
       ctxt.lineTo(p2[0],p2[1]);
       ctxt.stroke();
 
       // Draw the inner bezier curve
-      ctxt.lineCap=this.options.cap;
-      ctxt.strokeStyle=this.options.color;
-      ctxt.lineWidth=this.options.width;
+      ctxt.lineCap=this.cap;
+      ctxt.strokeStyle=this.color;
+      ctxt.lineWidth=this.width;
       ctxt.beginPath();
       ctxt.moveTo(p1[0],p1[1]);
       ctxt.lineTo(p2[0],p2[1]);
@@ -483,7 +549,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 				
       this.draw();
 
-		if(this.options.label) {
+		if(this.label) {
 			this.positionLabel();
 		}
    },
@@ -493,14 +559,14 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 	 */
 	renderLabel: function() {
 		
-		this.labelEl = WireIt.cn('div',{className:"WireIt-Wire-Label"}, this.options.labelStyle );
+		this.labelEl = WireIt.cn('div',{className:"WireIt-Wire-Label"}, this.labelStyle );
 		
-		if(this.options.labelEditor) {
-			this.labelField = new inputEx.InPlaceEdit({parentEl: this.labelEl, editorField: this.options.labelEditor, animColors:{from:"#FFFF99" , to:"#DDDDFF"} });
-			this.labelField.setValue(this.options.label);
+		if(this.labelEditor) {
+			this.labelField = new inputEx.InPlaceEdit({parentEl: this.labelEl, editorField: this.labelEditor, animColors:{from:"#FFFF99" , to:"#DDDDFF"} });
+			this.labelField.setValue(this.label);
 		}
 		else {
-			this.labelEl.innerHTML = this.options.label;
+			this.labelEl.innerHTML = this.label;
 		}
 		
 		this.element.parentNode.appendChild(this.labelEl);
@@ -511,7 +577,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 	 * Set the label
 	 */
 	setLabel: function(val) {
-		if(this.options.labelEditor) {
+		if(this.labelEditor) {
 			this.labelField.setValue(val);
 		}
 		else {
@@ -637,7 +703,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 		};
 
 		// Export the label value
-		if(this.options.labelEditor) {
+		if(this.labelEditor) {
 			obj.label = this.labelField.getValue();
 		}
 
@@ -666,6 +732,12 @@ WireIt.StepWire = function( terminal1, terminal2, parentEl, options) {
 
 YAHOO.lang.extend(WireIt.StepWire, WireIt.Wire, {
 	
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.StepWire"
+    * @type String
+    */
    xtype: "WireIt.StepWire",
 	
    /**
@@ -679,7 +751,7 @@ YAHOO.lang.extend(WireIt.StepWire, WireIt.Wire, {
       var p2 = this.terminal2.getXY();
 
 		
-		//this.terminal1.options.direction[0]
+		//this.terminal1.direction[0]
 
       var min=[ Math.min(p1[0],p2[0])-margin[0], Math.min(p1[1],p2[1])-margin[1]];
       var max=[ Math.max(p1[0],p2[0])+margin[0], Math.max(p1[1],p2[1])+margin[1]];
@@ -702,9 +774,9 @@ YAHOO.lang.extend(WireIt.StepWire, WireIt.Wire, {
       var ctxt=this.getContext();
 
       // Draw the border
-      ctxt.lineCap=this.options.bordercap;
-      ctxt.strokeStyle=this.options.bordercolor;
-      ctxt.lineWidth=this.options.width+this.options.borderwidth*2;
+      ctxt.lineCap=this.bordercap;
+      ctxt.strokeStyle=this.bordercolor;
+      ctxt.lineWidth=this.width+this.borderwidth*2;
       ctxt.beginPath();
       ctxt.moveTo(p1[0],p1[1]);
       ctxt.lineTo(p2[0],p2[1]);
@@ -714,9 +786,9 @@ YAHOO.lang.extend(WireIt.StepWire, WireIt.Wire, {
       ctxt.stroke();
 
       // Draw the inner bezier curve
-      ctxt.lineCap=this.options.cap;
-      ctxt.strokeStyle=this.options.color;
-      ctxt.lineWidth=this.options.width;
+      ctxt.lineCap=this.cap;
+      ctxt.strokeStyle=this.color;
+      ctxt.lineWidth=this.width;
       ctxt.beginPath();
 
       ctxt.moveTo(p1[0],p1[1]);
@@ -738,18 +810,20 @@ YAHOO.lang.extend(WireIt.StepWire, WireIt.Wire, {
  * @param  {WireIt.Terminal}    terminal1   Source terminal
  * @param  {WireIt.Terminal}    terminal2   Target terminal
  * @param  {HTMLElement} parentEl    Container of the CANVAS tag
- * @param  {Obj}                options      Wire configuration (see options property)
+ * @param  {Obj}                options      Wire configuration (see properties)
  */
-
 WireIt.ArrowWire = function( terminal1, terminal2, parentEl, options) {
-	
 	WireIt.ArrowWire.superclass.constructor.call(this, terminal1, terminal2, parentEl, options);
-	
 };
-
 
 YAHOO.lang.extend(WireIt.ArrowWire, WireIt.Wire, {
 	
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.ArrowWire"
+    * @type String
+    */
    xtype: "WireIt.ArrowWire",
 
    /**
@@ -788,18 +862,18 @@ YAHOO.lang.extend(WireIt.ArrowWire, WireIt.Wire, {
       var ctxt=this.getContext();
       
       // Draw the border
-      ctxt.lineCap=this.options.bordercap;
-      ctxt.strokeStyle=this.options.bordercolor;
-      ctxt.lineWidth=this.options.width+this.options.borderwidth*2;
+      ctxt.lineCap=this.bordercap;
+      ctxt.strokeStyle=this.bordercolor;
+      ctxt.lineWidth=this.width+this.borderwidth*2;
       ctxt.beginPath();
       ctxt.moveTo(p1[0],p1[1]);
       ctxt.lineTo(p2[0],p2[1]);
       ctxt.stroke();
 
       // Draw the inner bezier curve
-      ctxt.lineCap=this.options.cap;
-      ctxt.strokeStyle=this.options.color;
-      ctxt.lineWidth=this.options.width;
+      ctxt.lineCap=this.cap;
+      ctxt.strokeStyle=this.color;
+      ctxt.lineWidth=this.width;
       ctxt.beginPath();
       ctxt.moveTo(p1[0],p1[1]);
       ctxt.lineTo(p2[0],p2[1]);
@@ -858,7 +932,7 @@ YAHOO.lang.extend(WireIt.ArrowWire, WireIt.Wire, {
 		}
 
 		//triangle fill
-		ctxt.fillStyle = this.options.color;
+		ctxt.fillStyle = this.color;
 		ctxt.beginPath();
 		ctxt.moveTo(t2[0],t2[1]);
 		ctxt.lineTo(x1,y1);
@@ -866,8 +940,8 @@ YAHOO.lang.extend(WireIt.ArrowWire, WireIt.Wire, {
 		ctxt.fill();
 
 		//triangle border	
-		ctxt.strokeStyle = this.options.bordercolor;
-		ctxt.lineWidth = this.options.borderwidth;
+		ctxt.strokeStyle = this.bordercolor;
+		ctxt.lineWidth = this.borderwidth;
 		ctxt.beginPath();
 		ctxt.moveTo(t2[0],t2[1]);
 		ctxt.lineTo(x1,y1);
@@ -891,30 +965,28 @@ YAHOO.lang.extend(WireIt.ArrowWire, WireIt.Wire, {
  * @param  {HTMLElement} parentEl    Container of the CANVAS tag
  * @param  {Obj}                options      Wire configuration (see options property)
  */
-
 WireIt.BezierWire = function( terminal1, terminal2, parentEl, options) {
-	
 	WireIt.BezierWire.superclass.constructor.call(this, terminal1, terminal2, parentEl, options);
-	
 };
 
 
 YAHOO.lang.extend(WireIt.BezierWire, WireIt.Wire, {
 	
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.BezierWire"
+    * @type String
+    */
    xtype: "WireIt.BezierWire",
 	
-	/**
-	 * Override setOptions to add the following options :
-	 * <ul>
-	 * 	<li>coeffMulDirection: norm of the tangent vector at the terminals (default 100)</li>
-	 * </ul>
-	 */
-	setOptions: function(options) {
-		WireIt.BezierWire.superclass.setOptions.call(this, options);
-		
-		
-		this.options.coeffMulDirection = YAHOO.lang.isUndefined(options.coeffMulDirection) ? 100 : options.coeffMulDirection;
-	},
+	/** 
+    * @property coeffMulDirection
+    * @description Norm of the tangent vector at the terminals
+    * @default 100
+    * @type Integer
+    */
+	coeffMulDirection: 100,
 	
 	
 	/**
@@ -928,7 +1000,7 @@ YAHOO.lang.extend(WireIt.BezierWire, WireIt.Wire, {
       
       // Coefficient multiplicateur de direction
       // 100 par defaut, si distance(p1,p2) < 100, on passe en distance/2
-      var coeffMulDirection = this.options.coeffMulDirection;
+      var coeffMulDirection = this.coeffMulDirection;
    
    
       var distance=Math.sqrt(Math.pow(p1[0]-p2[0],2)+Math.pow(p1[1]-p2[1],2));
@@ -937,10 +1009,10 @@ YAHOO.lang.extend(WireIt.BezierWire, WireIt.Wire, {
       }
    
       // Calcul des vecteurs directeurs d1 et d2 :
-      var d1 = [this.terminal1.options.direction[0]*coeffMulDirection,
-                this.terminal1.options.direction[1]*coeffMulDirection];
-      var d2 = [this.terminal2.options.direction[0]*coeffMulDirection,
-                this.terminal2.options.direction[1]*coeffMulDirection];
+      var d1 = [this.terminal1.direction[0]*coeffMulDirection,
+                this.terminal1.direction[1]*coeffMulDirection];
+      var d2 = [this.terminal2.direction[0]*coeffMulDirection,
+                this.terminal2.direction[1]*coeffMulDirection];
 
       var bezierPoints=[];
       bezierPoints[0] = p1;
@@ -986,18 +1058,18 @@ YAHOO.lang.extend(WireIt.BezierWire, WireIt.Wire, {
       }
    
       // Draw the border
-      ctxt.lineCap = this.options.bordercap;
-      ctxt.strokeStyle = this.options.bordercolor;
-      ctxt.lineWidth = this.options.width+this.options.borderwidth*2;
+      ctxt.lineCap = this.bordercap;
+      ctxt.strokeStyle = this.bordercolor;
+      ctxt.lineWidth = this.width+this.borderwidth*2;
       ctxt.beginPath();
       ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
       ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]);
       ctxt.stroke();
    
       // Draw the inner bezier curve
-      ctxt.lineCap = this.options.cap;
-      ctxt.strokeStyle = this.options.color;
-      ctxt.lineWidth = this.options.width;
+      ctxt.lineCap = this.cap;
+      ctxt.strokeStyle = this.color;
+      ctxt.lineWidth = this.width;
       ctxt.beginPath();
       ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
       ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]);
@@ -1017,7 +1089,6 @@ YAHOO.lang.extend(WireIt.BezierWire, WireIt.Wire, {
  * @param  {HTMLElement} parentEl    Container of the CANVAS tag
  * @param  {Obj}                options      Wire configuration (see options property)
  */
-
 WireIt.BezierArrowWire = function( terminal1, terminal2, parentEl, options) {
 	WireIt.BezierArrowWire.superclass.constructor.call(this, terminal1, terminal2, parentEl, options);
 };
@@ -1025,6 +1096,12 @@ WireIt.BezierArrowWire = function( terminal1, terminal2, parentEl, options) {
 
 YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
 
+	/** 
+     * @property xtype
+     * @description String representing this class for exporting as JSON
+     * @default "WireIt.BezierArrowWire"
+     * @type String
+     */
    xtype: "WireIt.BezierArrowWire",
 
 	/**
@@ -1032,8 +1109,8 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
     */
    draw: function() {
 
-		var arrowWidth = Math.round(this.options.width * 1.5 + 20);
-		var arrowLength = Math.round(this.options.width * 1.2 + 20);
+		var arrowWidth = Math.round(this.width * 1.5 + 20);
+		var arrowLength = Math.round(this.width * 1.2 + 20);
 		var d = arrowWidth/2; // arrow width/2
       var redim = d+3; //we have to make the canvas a little bigger because of arrows
       var margin=[4+redim,4+redim];
@@ -1044,7 +1121,7 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
 
       // Coefficient multiplicateur de direction
       // 100 par defaut, si distance(p1,p2) < 100, on passe en distance/2
-      var coeffMulDirection = this.options.coeffMulDirection;
+      var coeffMulDirection = this.coeffMulDirection;
 
 
       var distance=Math.sqrt(Math.pow(p1[0]-p2[0],2)+Math.pow(p1[1]-p2[1],2));
@@ -1053,10 +1130,10 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
       }
 
       // Calcul des vecteurs directeurs d1 et d2 :
-      var d1 = [this.terminal1.options.direction[0]*coeffMulDirection,
-                this.terminal1.options.direction[1]*coeffMulDirection];
-      var d2 = [this.terminal2.options.direction[0]*coeffMulDirection,
-                this.terminal2.options.direction[1]*coeffMulDirection];
+      var d1 = [this.terminal1.direction[0]*coeffMulDirection,
+                this.terminal1.direction[1]*coeffMulDirection];
+      var d2 = [this.terminal2.direction[0]*coeffMulDirection,
+                this.terminal2.direction[1]*coeffMulDirection];
 
       var bezierPoints=[];
       bezierPoints[0] = p1;
@@ -1103,21 +1180,21 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
       }
 
       // Draw the border
-      ctxt.lineCap = this.options.bordercap;
-      ctxt.strokeStyle = this.options.bordercolor;
-      ctxt.lineWidth = this.options.width+this.options.borderwidth*2;
+      ctxt.lineCap = this.bordercap;
+      ctxt.strokeStyle = this.bordercolor;
+      ctxt.lineWidth = this.width+this.borderwidth*2;
       ctxt.beginPath();
       ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
-      ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]+arrowLength/2*this.terminal2.options.direction[1]);
+      ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]+arrowLength/2*this.terminal2.direction[1]);
       ctxt.stroke();
 
       // Draw the inner bezier curve
-      ctxt.lineCap = this.options.cap;
-      ctxt.strokeStyle = this.options.color;
-      ctxt.lineWidth = this.options.width;
+      ctxt.lineCap = this.cap;
+      ctxt.strokeStyle = this.color;
+      ctxt.lineWidth = this.width;
       ctxt.beginPath();
       ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
-      ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]+arrowLength/2*this.terminal2.options.direction[1]);
+      ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]+arrowLength/2*this.terminal2.direction[1]);
       ctxt.stroke();
 
 		//Variables from drawArrows
@@ -1174,7 +1251,7 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
 		}
 
 		// triangle fill
-		ctxt.fillStyle = this.options.color;
+		ctxt.fillStyle = this.color;
 		ctxt.beginPath();
 		ctxt.moveTo(t2[0],t2[1]);
 		ctxt.lineTo(x1,y1);
@@ -1182,8 +1259,8 @@ YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
 		ctxt.fill();
 
 		// triangle border	
-		ctxt.strokeStyle = this.options.bordercolor;
-		ctxt.lineWidth = this.options.borderwidth;
+		ctxt.strokeStyle = this.bordercolor;
+		ctxt.lineWidth = this.borderwidth;
 		ctxt.beginPath();
 		ctxt.moveTo(t2[0],t2[1]);
 		ctxt.lineTo(x1,y1);
@@ -1255,33 +1332,33 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	 * @method createFrame
 	 */
 	createFrame: function() {
-	     var self=this, body=document.body;
-	     if (!body || !body.firstChild) {
-	         window.setTimeout( function() { self.createFrame(); }, 50 );
-	         return;
-	     }
-	     var div=this.getDragEl(), Dom=YAHOO.util.Dom;
-	     if (!div) {
-	         div    = document.createElement("div");
-	         div.id = this.dragElId;
-	         var s  = div.style;
-	         s.position   = "absolute";
-	         s.visibility = "hidden";
-	         s.cursor     = "move";
-	         s.border     = "2px solid #aaa";
-	         s.zIndex     = 999;
-	         var size = this.terminalProxySize+"px";
-	         s.height     = size; 
-	         s.width      = size;
-	         var _data = document.createElement('div');
-	         Dom.setStyle(_data, 'height', '100%');
-	         Dom.setStyle(_data, 'width', '100%');
-	         Dom.setStyle(_data, 'background-color', '#ccc');
-	         Dom.setStyle(_data, 'opacity', '0');
-	         div.appendChild(_data);
-	         body.insertBefore(div, body.firstChild);
-	     }
-	 },
+	 	var self=this, body=document.body;
+     	if (!body || !body.firstChild) {
+       	window.setTimeout( function() { self.createFrame(); }, 50 );
+         return;
+     	}
+     	var div=this.getDragEl(), Dom=YAHOO.util.Dom;
+     	if (!div) {
+         div    = document.createElement("div");
+         div.id = this.dragElId;
+         var s  = div.style;
+         s.position   = "absolute";
+         s.visibility = "hidden";
+         s.cursor     = "move";
+         s.border     = "2px solid #aaa";
+         s.zIndex     = 999;
+         var size = this.terminalProxySize+"px";
+         s.height     = size; 
+         s.width      = size;
+         var _data = document.createElement('div');
+         Dom.setStyle(_data, 'height', '100%');
+         Dom.setStyle(_data, 'width', '100%');
+         Dom.setStyle(_data, 'background-color', '#ccc');
+         Dom.setStyle(_data, 'opacity', '0');
+         div.appendChild(_data);
+         body.insertBefore(div, body.firstChild);
+     	}
+ 	},
 
 	/**
 	 * @method startDrag
@@ -1289,17 +1366,17 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	startDrag: function() {
    
 	   // If only one wire admitted, we remove the previous wire
-	   if(this.terminal.options.nMaxWires == 1 && this.terminal.wires.length == 1) {
+	   if(this.terminal.nMaxWires == 1 && this.terminal.wires.length == 1) {
 	      this.terminal.wires[0].remove();
 	   }
 	   // If the number of wires is at its maximum, prevent editing...
-	   else if(this.terminal.wires.length >= this.terminal.options.nMaxWires) {
+	   else if(this.terminal.wires.length >= this.terminal.nMaxWires) {
 	      return;
 	   }
    
 	   var halfProxySize = this.terminalProxySize/2;
 	   this.fakeTerminal = {
-	      options: {direction: this.terminal.options.fakeDirection},
+	      direction: this.terminal.fakeDirection,
 	      pos: [200,200], 
 	      addWire: function() {},
 	      removeWire: function() {},
@@ -1318,9 +1395,9 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	      parentEl = this.terminal.container.layer.el;
 	   }
 	
-		var klass = WireIt.wireClassFromXtype(this.terminal.options.editingWireConfig.xtype);
+		var klass = WireIt.wireClassFromXtype(this.terminal.editingWireConfig.xtype);
 		
-	   this.editingWire = new klass(this.terminal, this.fakeTerminal, parentEl, this.terminal.options.editingWireConfig);
+	   this.editingWire = new klass(this.terminal, this.fakeTerminal, parentEl, this.terminal.editingWireConfig);
 	   YAHOO.util.Dom.addClass(this.editingWire.element, CSS_PREFIX+'Wire-editing');
 	},
 
@@ -1444,29 +1521,29 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	   // Switch the order of the terminals if tgt as the "alwaysSrc" property
 	   var term1 = this.terminal;
 	   var term2 = targetTerminalProxy.terminal;
-	   if(term2.options.alwaysSrc) {
+	   if(term2.alwaysSrc) {
 	      term1 = targetTerminalProxy.terminal;
 	      term2 = this.terminal;
 	   }
 	
-		var klass = WireIt.wireClassFromXtype(term1.options.wireConfig.xtype);
+		var klass = WireIt.wireClassFromXtype(term1.wireConfig.xtype);
    
 	   // Check the number of wires for this terminal
 	   var tgtTerm = targetTerminalProxy.terminal, w;
-	   if( tgtTerm.options.nMaxWires == 1) {
+	   if( tgtTerm.nMaxWires == 1) {
 	      if(tgtTerm.wires.length > 0) {
 	         tgtTerm.wires[0].remove();
 	      }
 	
-	      w = new klass(term1, term2, parentEl, term1.options.wireConfig);
+	      w = new klass(term1, term2, parentEl, term1.wireConfig);
 	      w.redraw();
 	   }
-	   else if(tgtTerm.wires.length < tgtTerm.options.nMaxWires) {
-	      w = new klass(term1, term2, parentEl, term1.options.wireConfig);
+	   else if(tgtTerm.wires.length < tgtTerm.nMaxWires) {
+	      w = new klass(term1, term2, parentEl, term1.wireConfig);
 	      w.redraw();
 	   }
 	   /*else {
-	      console.log("Cannot connect to this terminal: nMaxWires = ", ddTargets[0].terminal.options.nMaxWires);
+	      console.log("Cannot connect to this terminal: nMaxWires = ", ddTargets[0].terminal.nMaxWires);
 	   }*/
    
 	},
@@ -1514,7 +1591,7 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
    
 	   // Check the allowSelfWiring
 	   if(this.terminal.container) {
-	      if(this.terminal.container.options.preventSelfWiring) {
+	      if(this.terminal.container.preventSelfWiring) {
 	         if(DDterminal.terminal.container == this.terminal.container) {
 	            return false;
 	         }
@@ -1586,8 +1663,8 @@ lang.extend(WireIt.Scissors, YAHOO.util.Element, {
     */
    setPosition: function() {
       var pos = this._terminal.getXY();
-      this.setStyle("left", (pos[0]+this._terminal.options.direction[0]*30-8)+"px");
-      this.setStyle("top", (pos[1]+this._terminal.options.direction[1]*30-8)+"px");
+      this.setStyle("left", (pos[0]+this._terminal.direction[0]*30-8)+"px");
+      this.setStyle("top", (pos[1]+this._terminal.direction[1]*30-8)+"px");
    },
    /**
     * @method mouseOver
@@ -1652,25 +1729,33 @@ lang.extend(WireIt.Scissors, YAHOO.util.Element, {
  * @param {WireIt.Container} container (Optional) Container containing this terminal
  */
 WireIt.Terminal = function(parentEl, options, container) {
-   
+
+	/**
+    * @property name
+	 * @description Name of the terminal
+    * @type String
+    * @default null
+    */
+	this.name = null;
+
    /**
-    * DOM parent element
     * @property parentEl
-    * @type {HTMLElement}
+	 * @description DOM parent element
+    * @type DOMElement
     */
    this.parentEl = parentEl;
    
    /**
-    * Container (optional). Parent container of this terminal
     * @property container
-    * @type {WireIt.Container}
+	 * @description Container (optional). Parent container of this terminal
+    * @type WireIt.Container
     */
    this.container = container;
    
    /**
-    * List of the associated wires
     * @property wires
-    * @type {Array}
+	 * @description List of the associated wires
+    * @type Array
     */
     this.wires = [];
    
@@ -1702,52 +1787,139 @@ WireIt.Terminal = function(parentEl, options, container) {
    this.render();
    
    // Create the TerminalProxy object to make the terminal editable
-   if(this.options.editable) {
-      this.dd = new WireIt.TerminalProxy(this, this.options.ddConfig);
+   if(this.editable) {
+      this.dd = new WireIt.TerminalProxy(this, this.ddConfig);
       this.scissors = new WireIt.Scissors(this);
    }
 };
 
 WireIt.Terminal.prototype = {
-   
+
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.Terminal"
+    * @type String
+    */
+   xtype: "WireIt.Terminal",
+
+	/**
+    * @property direction
+	 * @description direction vector of the wires when connected to this terminal
+    * @type Array
+    * @default [0,1]
+    */
+	direction: [0,1],
+	
+	/**
+    * @property fakeDirection
+	 * @description direction vector of the "editing" wire when it started from this terminal
+    * @type Array
+    * @default [0,-1]
+    */
+	fakeDirection: [0,-1],
+
+	/**
+    * @property editable
+	 * @description boolean that makes the terminal editable
+    * @type Boolean
+    * @default true
+    */
+	editable: true,
+	
+	/**
+    * @property nMaxWires
+	 * @description maximum number of wires for this terminal
+    * @type Integer
+    * @default Infinity
+    */
+	nMaxWires: Infinity,
+
+	/**
+    * @property wireConfig
+	 * @description Options for the wires connected to this terminal
+    * @type Object
+    * @default {}
+    */
+	wireConfig: {},
+	
+	/**
+    * @property editingWireConfig
+	 * @description Options for the wires connected to this terminal
+    * @type Object
+    * @default {}
+    */
+	editingWireConfig: {},
+	
+	/** 
+    * @property className
+    * @description CSS class name for the terminal element
+    * @default "WireIt-Terminal"
+    * @type String
+    */
+	className: "WireIt-Terminal",
+	
+	/** 
+    * @property connectedClassName
+    * @description CSS class added to the terminal when it is connected
+    * @default "WireIt-connected"
+    * @type String
+    */
+	connectedClassName: "WireIt-Terminal-connected",
+	
+	/** 
+    * @property dropinviteClassName
+    * @description CSS class added for drop invitation
+    * @default "WireIt-dropinvite"
+    * @type String
+    */
+	dropinviteClassName: "WireIt-Terminal-dropinvite",
+
+	/** 
+    * @property offsetPosition
+    * @description offset position from the parentEl position. Can be an array [top,left] or an object {left: 100, bottom: 20} or {right: 10, top: 5} etc...
+    * @default null
+    * @type Array
+    */
+	offsetPosition: null,
+	
+	/**
+    * @property alwaysSrc
+	 * @description forces this terminal to be the src terminal in the wire config
+    * @type Boolean
+    * @default false
+    */
+	alwaysSrc: false,
+	
+	/**
+    * @property ddConfig
+	 * @description configuration of the WireIt.TerminalProxy object
+    * @type Object
+    * @default {}
+    */
+	ddConfig: false,
+
+
    /**
+    * Set the options by putting them in this (so it overrides the prototype default)
     * @method setOptions
-    * @param {Object} options
     */
    setOptions: function(options) {
-      
-      /**
-       * <p>Object that contains the terminal configuration:</p>
-       * 
-       * <ul>
-       *   <li><b>name</b>: terminal name</li>
-       *   <li><b>direction</b>: direction vector of the wires when connected to this terminal (default [0,1])</li>
-       *   <li><b>fakeDirection</b>: direction vector of the "editing" wire when it started from this terminal (default to -direction)</li>
-       *   <li><b>editable</b>: boolean that makes the terminal editable (default to true)</li>
-       *   <li><b>nMaxWires</b>: maximum number of wires for this terminal (default to Infinity)</li>
-       *   <li><b>offsetPosition</b>: offset position from the parentEl position. Can be an array [top,left] or an object {left: 100, bottom: 20} or {right: 10, top: 5} etc... (default to [0,0])</li>
-       *   <li><b>ddConfig</b>: configuration of the WireIt.TerminalProxy object (only if editable)</li>
-       *   <li><b>alwaysSrc</b>: alwaysSrc forces this terminal to be the src terminal in the wire config (default false, only if editable)</li>
-       *   <li><b>className</b>: CSS class name of the terminal (default to "WireIt-Terminal")</li>
-       *   <li><b>connectedClassName</b>: CSS class added to the terminal when it is connected (default to "WireIt-Terminal-connected")</li>
-       *   <li><b>dropinviteClassName</b>: CSS class added for drop invitation (default to "WireIt-Terminal-dropinvite")</li>
-       * </ul>
-       * @property options
-       */  
-      this.options = {};
-      this.options.name = options.name;
-      this.options.direction = options.direction || [0,1];
-      this.options.fakeDirection = options.fakeDirection || [-this.options.direction[0],-this.options.direction[1]];
-      this.options.className = options.className || CSS_PREFIX+'Terminal';
-      this.options.connectedClassName = options.connectedClassName || CSS_PREFIX+'Terminal-connected';
-      this.options.dropinviteClassName = options.dropinviteClassName || CSS_PREFIX+'Terminal-dropinvite';
-      this.options.editable = lang.isUndefined(options.editable) ? true : options.editable;
-      this.options.nMaxWires = options.nMaxWires || Infinity;
-      this.options.wireConfig = options.wireConfig || {};
-      this.options.editingWireConfig = options.editingWireConfig || this.options.wireConfig;
-      this.options.offsetPosition = options.offsetPosition;
-      this.options.alwaysSrc = lang.isUndefined(options.alwaysSrc) ? false : options.alwaysSrc;
-      this.options.ddConfig = options.ddConfig || {};
+      for(var k in options) {
+			if( options.hasOwnProperty(k) ) {
+				this[k] = options[k];
+			}
+		}
+		
+		// Set fakeDirection to the opposite of direction
+		if(options.direction && !options.fakeDirection) {
+			this.fakeDirection = [ -options.direction[0], -options.direction[1] ];
+		}
+		
+		// Set the editingWireConfig to the wireConfig if specified
+		if(options.wireConfig && !options.editingWireConfig) {
+			this.editingWireConfig = this.wireConfig;
+		}
    },
 
    /**
@@ -1757,10 +1929,10 @@ WireIt.Terminal.prototype = {
     */
    setDropInvitation: function(display) {
       if(display) {
-         Dom.addClass(this.el, this.options.dropinviteClassName);
+         Dom.addClass(this.el, this.dropinviteClassName);
       }
       else {
-         Dom.removeClass(this.el, this.options.dropinviteClassName);
+         Dom.removeClass(this.el, this.dropinviteClassName);
       }
    },
 
@@ -1771,11 +1943,11 @@ WireIt.Terminal.prototype = {
    render: function() {
    
       // Create the DIV element
-      this.el = WireIt.cn('div', {className: this.options.className} );
-      if(this.options.name) { this.el.title = this.options.name; }
+      this.el = WireIt.cn('div', {className: this.className} );
+      if(this.name) { this.el.title = this.name; }
 
       // Set the offset position
-      this.setPosition(this.options.offsetPosition);
+      this.setPosition(this.offsetPosition);
    
       // Append the element to the parent
       this.parentEl.appendChild(this.el);
@@ -1819,7 +1991,7 @@ WireIt.Terminal.prototype = {
       this.wires.push(wire);
    
       // Set class indicating that the wire is connected
-      Dom.addClass(this.el, this.options.connectedClassName);
+      Dom.addClass(this.el, this.connectedClassName);
    
       // Fire the event
       this.eventAddWire.fire(wire);
@@ -1841,7 +2013,7 @@ WireIt.Terminal.prototype = {
       
          // Remove the connected class if it has no more wires:
          if(this.wires.length === 0) {
-            Dom.removeClass(this.el, this.options.connectedClassName);
+            Dom.removeClass(this.el, this.connectedClassName);
          }
       
          // Fire the event
@@ -1946,24 +2118,47 @@ WireIt.util.TerminalInput = function(parentEl, options, container) {
    WireIt.util.TerminalInput.superclass.constructor.call(this,parentEl, options, container);
 };
 YAHOO.lang.extend(WireIt.util.TerminalInput, WireIt.Terminal, {
-   
-   /**
-    * Override setOptions to add the default options for TerminalInput
-    * @method setOptions
+
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.TerminalInput"
+    * @type String
     */
-   setOptions: function(options) {
-      
-      WireIt.util.TerminalInput.superclass.setOptions.call(this,options);
-      
-      this.options.direction = options.direction || [0,-1];
-      this.options.fakeDirection = options.fakeDirection || [0,1];
-      this.options.ddConfig = {
-         type: "input",
-         allowedTypes: ["output"]
-      };
-      this.options.nMaxWires = options.nMaxWires || 1;
-   }
+   xtype: "WireIt.TerminalInput",
+
+	/**
+    * @property direction
+	 * @description direction vector of the wires when connected to this terminal
+    * @type Array
+    * @default [0,-1]
+    */
+	direction: [0,-1],
+	
+	/**
+    * @property fakeDirection
+	 * @description direction vector of the "editing" wire when it started from this terminal
+    * @type Array
+    * @default [0,1]
+    */
+	fakeDirection: [0,1],
    
+	/**
+    * @property nMaxWires
+	 * @description maximum number of wires for this terminal
+    * @type Integer
+    * @default 1
+    */
+	nMaxWires: 1,
+	
+	/**
+    * @property ddConfig
+	 * @description configuration of the WireIt.TerminalProxy object
+    * @type Object
+    * @default { type: "input", allowedTypes: ["output"] }
+    */
+	ddConfig: { type: "input", allowedTypes: ["output"] }
+
 });/*global YAHOO */
 /**
  * Class that extends Terminal to differenciate Input/Output terminals
@@ -1978,23 +2173,46 @@ WireIt.util.TerminalOutput = function(parentEl, options, container) {
    WireIt.util.TerminalOutput.superclass.constructor.call(this,parentEl, options, container);
 };
 YAHOO.lang.extend(WireIt.util.TerminalOutput, WireIt.Terminal, {
-   
-   /**
-    * Override setOptions to add the default options for TerminalOutput
-    * @method setOptions
+
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.TerminalOutput"
+    * @type String
     */
-   setOptions: function(options) {
-      
-      WireIt.util.TerminalOutput.superclass.setOptions.call(this,options);
-      
-      this.options.direction = options.direction || [0,1];
-      this.options.fakeDirection = options.fakeDirection || [0,-1];
-      this.options.ddConfig = {
-         type: "output",
-         allowedTypes: ["input"]
-      };
-      this.options.alwaysSrc = true;
-   }
+   xtype: "WireIt.TerminalOutput",
+
+	/**
+    * @property direction
+	 * @description direction vector of the wires when connected to this terminal
+    * @type Array
+    * @default [0,1]
+    */
+	direction: [0,1],
+	
+	/**
+    * @property fakeDirection
+	 * @description direction vector of the "editing" wire when it started from this terminal
+    * @type Array
+    * @default [0,-1]
+    */
+	fakeDirection: [0,-1],
+   
+	/**
+    * @property ddConfig
+	 * @description configuration of the WireIt.TerminalProxy object
+    * @type Object
+    * @default  { type: "output", allowedTypes: ["input"] }   
+    */
+	ddConfig: { type: "output", allowedTypes: ["input"] }   ,
+	
+	/**
+    * @property alwaysSrc
+	 * @description forces this terminal to be the src terminal in the wire config
+    * @type Boolean
+    * @default true
+    */
+	alwaysSrc: true
    
 });/*global YAHOO,WireIt */
 /**
@@ -2201,12 +2419,14 @@ WireIt.Container = function(options, layer) {
    this.render();
    
    // Init the terminals
-   this.initTerminals( this.options.terminals);
+	if( options.terminals ) {
+		this.initTerminals( options.terminals);
+	}
    
 	// Make the container draggable
-	if(this.options.draggable) {
+	if(this.draggable) {
 		   
-	   if(this.options.resizable) {
+	   if(this.resizable) {
 			// Make resizeable   
 			this.ddResize = new WireIt.util.DDResize(this);
 			this.ddResize.eventResize.subscribe(this.onResize, this, true);
@@ -2216,16 +2436,16 @@ WireIt.Container = function(options, layer) {
 	   this.dd = new WireIt.util.DD(this.terminals,this.el);
 	
 		// Set minimum constraint on Drag Drop to the top left corner of the layer (minimum position is 0,0)
-		this.dd.setXConstraint(this.options.position[0]);
-		this.dd.setYConstraint(this.options.position[1]);
+		this.dd.setXConstraint(this.position[0]);
+		this.dd.setYConstraint(this.position[1]);
 	   
 	   // Sets ddHandle as the drag'n drop handle
-	   if(this.options.ddHandle) {
+	   if(this.ddHandle) {
 			this.dd.setHandleElId(this.ddHandle);
 	   }
 	   
 	   // Mark the resize handle as an invalid drag'n drop handle and vice versa
-	   if(this.options.resizable) {
+	   if(this.resizable) {
 			this.dd.addInvalidHandleId(this.ddResizeHandle);
 			this.ddResize.addInvalidHandleId(this.ddHandle);
 	   }
@@ -2236,49 +2456,145 @@ WireIt.Container = function(options, layer) {
 
 WireIt.Container.prototype = {
    
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.Container"
+    * @type String
+    */
+   xtype: "WireIt.Container",
+
+	/** 
+    * @property draggable
+    * @description boolean that enables drag'n drop on this container
+    * @default true
+    * @type Boolean
+    */
+	draggable: true,
+	
+	/** 
+    * @property position
+    * @description initial position of the container
+    * @default [100,100]
+    * @type Array
+    */
+	position: [100,100],
+
+	/** 
+    * @property className
+    * @description CSS class name for the container element
+    * @default "WireIt-Container"
+    * @type String
+    */
+	className: CSS_PREFIX+"Container",
+
+	/** 
+    * @property ddHandle
+    * @description (only if draggable) boolean indicating we use a handle for drag'n drop
+    * @default true
+    * @type Boolean
+    */
+	ddHandle: true,
+	
+	/** 
+    * @property ddHandleClassName
+    * @description CSS class name for the drag'n drop handle
+    * @default "WireIt-Container-ddhandle"
+    * @type String
+    */
+	ddHandleClassName: CSS_PREFIX+"Container-ddhandle",
+
+	/** 
+    * @property resizable
+    * @description boolean that makes the container resizable
+    * @default true
+    * @type Boolean
+    */
+	resizable: true,
+
+	/** 
+    * @property resizeHandleClassName
+    * @description CSS class name for the resize handle
+    * @default "WireIt-Container-resizehandle"
+    * @type String
+    */
+	resizeHandleClassName: CSS_PREFIX+"Container-resizehandle",
+
+	/** 
+    * @property close
+    * @description display a button to close the container
+    * @default true
+    * @type Boolean
+    */
+	close: true,
+	
+	/** 
+    * @property closeButtonClassName
+    * @description CSS class name for the close button
+    * @default "WireIt-Container-closebutton"
+    * @type String
+    */
+	closeButtonClassName: CSS_PREFIX+"Container-closebutton",
+	
+	/** 
+    * @property groupable
+    * @description option to add the grouping button
+    * @default true
+    * @type Boolean
+    */
+	groupable: true,
+	
+	/** 
+    * @property preventSelfWiring
+    * @description option to prevent connections between terminals of this same container
+    * @default true
+    * @type Boolean
+    */
+   preventSelfWiring: true,
+
+	/** 
+    * @property title
+    * @description text that will appear in the module header
+    * @default null
+    * @type String
+    */
+	title: null,
+
+	/** 
+    * @property icon
+    * @description image url to be displayed in the module header
+    * @default null
+    * @type String
+    */
+	icon: null,
+
+	/** 
+    * @property width
+    * @description initial width of the container
+    * @default null
+    * @type Integer
+    */
+	width: null,
+	
+	/** 
+    * @property height
+    * @description initial height of the container
+    * @default null
+    * @type Integer
+    */
+	height: null,
+	
+
    /**
-    * set the options
+    * Set the options by putting them in this (so it overrides the prototype default)
     * @method setOptions
     */
    setOptions: function(options) {
-      
-      /**
-       * Main options object
-       * <ul>
-       *    <li>terminals: list of the terminals configuration</li>
-       *    <li>draggable: boolean that enables drag'n drop on this container (default: true)</li>
-       *    <li>className: CSS class name for the container element (default 'WireIt-Container')</li>
-       *    <li>position: initial position of the container</li>
-       *    <li>ddHandle: (only if draggable) boolean indicating we use a handle for drag'n drop (default true)</li>
-       *    <li>ddHandleClassName: CSS class name for the drag'n drop handle (default 'WireIt-Container-ddhandle')</li>
-       *    <li>resizable: boolean that makes the container resizable (default true)</li>
-       *    <li>resizeHandleClassName: CSS class name for the resize handle (default 'WireIt-Container-resizehandle')</li>
-       *    <li>width: initial width of the container (no default so it autoadjusts to the content)</li>
-       *    <li>height: initial height of the container (default 100)</li>
-       *    <li>close: display a button to close the container (default true)</li>
-       *    <li>closeButtonClassName: CSS class name for the close button (default "WireIt-Container-closebutton")</li>
-       *    <li>title: text that will appear in the module header</li>
-       *    <li>icon: image url to be displayed in the module header</li>
-       *    <li>preventSelfWiring: option to prevent connections between terminals of this same container (default true)</li>
-       * </ul>
-       * @property options
-       * @type {Object}
-       */
-      this.options= YAHOO.lang.merge({ 
-        terminals: [],
-        draggable: true,
-        position: [100,100],
-        className: CSS_PREFIX+"Container",
-        ddHandle: true,
-        ddHandleClassName: CSS_PREFIX+"Container-ddhandle",
-        resizable: true,
-        resizeHandleClassName: CSS_PREFIX+"Container-resizehandle",
-        close: true,
-        closeButtonClassName: CSS_PREFIX+"Container-closebutton",
-        groupable: true,
-        preventSelfWiring:true
-      }, options);
-
+      for(var k in options) {
+			if( options.hasOwnProperty(k) ) {
+				this[k] = options[k];
+			}
+		}
    },
 
    /**
@@ -2299,32 +2615,32 @@ WireIt.Container.prototype = {
    render: function() {
    
       // Create the element
-      this.el = WireIt.cn('div', {className: this.options.className});
+      this.el = WireIt.cn('div', {className: this.className});
    
-      if(this.options.width) {
-         this.el.style.width = this.options.width+"px";
+      if(this.width) {
+         this.el.style.width = this.width+"px";
       }
-      if(this.options.height) {
-         this.el.style.height = this.options.height+"px";
+      if(this.height) {
+         this.el.style.height = this.height+"px";
       }
    
       // Adds a handler for mousedown so we can notice the layer
       Event.addListener(this.el, "mousedown", this.onMouseDown, this, true);
    
-      if(this.options.ddHandle) {
+      if(this.ddHandle) {
          // Create the drag/drop handle
-			this.ddHandle = WireIt.cn('div', {className: this.options.ddHandleClassName});
+			this.ddHandle = WireIt.cn('div', {className: this.ddHandleClassName});
 			this.el.appendChild(this.ddHandle);
 
          // Icon
-         if (this.options.icon) {
-            var iconCn = WireIt.cn('img', {src: this.options.icon, className: 'WireIt-Container-icon'});
+         if (this.icon) {
+            var iconCn = WireIt.cn('img', {src: this.icon, className: 'WireIt-Container-icon'});
             this.ddHandle.appendChild(iconCn);
          }
 
          // Set title
-         if(this.options.title) {
-            this.ddHandle.appendChild( WireIt.cn('span', {className: 'floatleft'}, null, this.options.title) );
+         if(this.title) {
+            this.ddHandle.appendChild( WireIt.cn('span', {className: 'floatleft'}, null, this.title) );
          }
          
       }
@@ -2333,16 +2649,16 @@ WireIt.Container.prototype = {
       this.bodyEl = WireIt.cn('div', {className: "body"});
       this.el.appendChild(this.bodyEl);
    
-      if(this.options.resizable) {
+      if(this.resizable) {
          // Create the resize handle
-			this.ddResizeHandle = WireIt.cn('div', {className: this.options.resizeHandleClassName} );
+			this.ddResizeHandle = WireIt.cn('div', {className: this.resizeHandleClassName} );
 			this.el.appendChild(this.ddResizeHandle);
       }
 
-      if(this.options.close) {
+      if(this.close) {
          // Close button
-         this.closeButton = WireIt.cn('div', {className: this.options.closeButtonClassName} );
-			if (this.options.ddHandle) {
+         this.closeButton = WireIt.cn('div', {className: this.closeButtonClassName} );
+			if (this.ddHandle) {
 				this.ddHandle.appendChild(this.closeButton);
 			}
 			else {
@@ -2351,7 +2667,7 @@ WireIt.Container.prototype = {
          Event.addListener(this.closeButton, "click", this.onCloseButton, this, true);
       }
       
-      if(this.options.groupable && this.options.ddHandle) {
+      if(this.groupable && this.ddHandle) {
          this.groupButton = WireIt.cn('div', {className: 'WireIt-Container-groupbutton'} );
 			this.ddHandle.appendChild(this.groupButton);
          Event.addListener(this.groupButton, "click", this.onGroupButton, this, true);
@@ -2360,8 +2676,8 @@ WireIt.Container.prototype = {
       this.layer.el.appendChild(this.el);
    
 		// Set the position
-		this.el.style.left = this.options.position[0]+"px";
-		this.el.style.top = this.options.position[1]+"px";
+		this.el.style.left = this.position[0]+"px";
+		this.el.style.top = this.position[1]+"px";
    },
 
    /**
@@ -2422,22 +2738,27 @@ WireIt.Container.prototype = {
       this.layer.removeContainer(this);
    },
 
-    highlight: function()
-    {
-	this.el.style.border = "2px solid blue";
-    },
+	/**
+	 * TODO
+	 */
+   highlight: function() {
+		this.el.style.border = "2px solid blue";
+   },
 
-    dehighlight: function()
-    {
-	this.el.style.border = "";
+	/**
+	 * TODO
+	 */
+   dehighlight: function() {
+		this.el.style.border = "";
+   },
+   
+ 	/**
+ 	 * TODO
+    */
+   superHighlight: function() {
+		this.el.style.border = "4px outset blue";
     },
-    
-    superHighlight: function()
-    {
-	this.el.style.border = "4px outset blue";
-    },
-    
-
+  
 
    /**
     * Remove this container from the dom
@@ -2541,6 +2862,8 @@ WireIt.Container.prototype = {
 
 	/**
 	 * Get the position relative to the layer (if any)
+	 * @method getXY
+	 * @return Array position
 	 */
 	getXY: function() {
 		var position = Dom.getXY(this.el);
@@ -2561,18 +2884,11 @@ WireIt.Container.prototype = {
     * Return the config of this container.
     * @method getConfig
     */
-   getConfig: function() {
-      var obj = {};
-   
-      // Position
-      obj.position = this.getXY();
-   
-      // xtype
-      if(this.options.xtype) {
-         obj.xtype = this.options.xtype;
-      }
-   
-      return obj;
+   getConfig: function() {   
+      return {
+			position: this.getXY(),
+			xtype: this.xtype
+		};
    },
    
    /**
@@ -2600,7 +2916,7 @@ WireIt.Container.prototype = {
       var term;
       for(var i = 0 ; i < this.terminals.length ; i++) {
          term = this.terminals[i];
-         if(term.options.name == name) {
+         if(term.name == name) {
             return term;
          }
       }
@@ -2635,6 +2951,9 @@ WireIt.Layer = function(options) {
     */
    this.wires = [];
    
+	/**
+	 * TODO
+	 */
    this.groups = [];
    
    /**
@@ -2695,16 +3014,20 @@ WireIt.Layer = function(options) {
    
    this.render();
    
-   this.initContainers();
+	if( options.containers ) {
+		this.initContainers(options.containers);
+	}
    
-   this.initWires();
+	if( options.wires ) {
+   	this.initWires(options.wires);
+	}
    
-   if(this.options.layerMap) { 
-		this.layermap = new WireIt.LayerMap(this, this.options.layerMapOptions);
+   if(this.layerMap) { 
+		this.layermap = new WireIt.LayerMap(this, this.layerMapOptions);
    }
    
 	if(WireIt.Grouper) {
-	   this.grouper = new WireIt.Grouper(this, this.options.grouper.baseConfigFunction);
+	   this.grouper = new WireIt.Grouper(this, this.grouper.baseConfigFunction);
    
 	   var rb = this.grouper.rubberband;
 		this.el.onmousedown = function(event) { return rb.layerMouseDown.call(rb, event); };
@@ -2718,31 +3041,66 @@ WireIt.Layer = function(options) {
 
 WireIt.Layer.prototype = {
 
-   /**
+	/** 
+    * @property className
+    * @description CSS class name for the layer element
+    * @default "WireIt-Layer"
+    * @type String
+    */
+	className: "WireIt-Layer",
+	
+	/** 
+    * @property parentEl
+    * @description DOM element that schould contain the layer
+    * @default null
+    * @type DOMElement
+    */
+	parentEl: null,
+
+	/** 
+    * @property layerMap
+    * @description Display the layer map
+    * @default false
+    * @type Boolean
+    */
+	layerMap: false,
+
+	/** 
+    * @property layerMapOptions
+    * @description Options for the layer map
+    * @default null
+    * @type Object
+    */
+	layerMapOptions: null,
+
+	/** 
+    * @property enableMouseEvents
+    * @description Enable the mouse events
+    * @default true
+    * @type Boolean
+    */
+	enableMouseEvents: true,
+
+	/**
+	 * TODO
+	 */
+	grouper: null, 
+
+	/**
+    * Set the options by putting them in this (so it overrides the prototype default)
     * @method setOptions
     */
    setOptions: function(options) {
-      /**
-       * Configuration object of the layer
-       * <ul>
-       *   <li>className: CSS class name for the layer element (default 'WireIt-Layer')</li>
-       *   <li>parentEl: DOM element that schould contain the layer (default document.body)</li>
-       *   <li>containers: array of container configuration objects</li>  
-       *   <li>wires: array of wire configuration objects</li>
-       *   <li>layerMap: boolean</li>
-       *   <li>layerMapOptions: layer map options</li>
-       * </ul>
-       * @property options
-       */
-      this.options = {};
-      this.options.className = options.className || 'WireIt-Layer';
-      this.options.parentEl = options.parentEl || document.body;
-      this.options.containers = options.containers || [];
-      this.options.wires = options.wires || [];
-      this.options.layerMap = YAHOO.lang.isUndefined(options.layerMap) ? false : options.layerMap;
-      this.options.layerMapOptions = options.layerMapOptions;
-      this.options.enableMouseEvents = YAHOO.lang.isUndefined(options.enableMouseEvents) ? true : options.enableMouseEvents;
-      this.options.grouper = options.grouper;
+      for(var k in options) {
+			if( options.hasOwnProperty(k) ) {
+				this[k] = options[k];
+			}
+		}
+		
+		if(!this.parentEl) {
+			this.parentEl = document.body;
+		}
+		
    },
 
    /**
@@ -2750,10 +3108,8 @@ WireIt.Layer.prototype = {
     * @method render
     */
    render: function() {
-   
-      this.el = WireIt.cn('div', {className: this.options.className} );
-   
-      this.options.parentEl.appendChild(this.el);
+      this.el = WireIt.cn('div', {className: this.className} );   
+      this.parentEl.appendChild(this.el);
    },
 
 
@@ -2761,9 +3117,9 @@ WireIt.Layer.prototype = {
     * Create all the containers passed as options
     * @method initContainers
     */
-   initContainers: function() {
-      for(var i = 0 ; i < this.options.containers.length ; i++) {
-         this.addContainer(this.options.containers[i]);
+   initContainers: function(containers) {
+      for(var i = 0 ; i < containers.length ; i++) {
+         this.addContainer(containers[i]);
       } 
    },
 
@@ -2771,9 +3127,9 @@ WireIt.Layer.prototype = {
     * Create all the wires passed in the config
     * @method initWires
     */
-   initWires: function() {
-      for(var i = 0 ; i < this.options.wires.length ; i++) {
-         this.addWire(this.options.wires[i]);
+   initWires: function(wires) {
+      for(var i = 0 ; i < wires.length ; i++) {
+         this.addWire(wires[i]);
       }
    },
 
@@ -2932,7 +3288,7 @@ WireIt.Layer.prototype = {
       if( WireIt.indexOf(wire, this.wires) == -1 ) {
          this.wires.push(wire);
          
-         if(this.options.enableMouseEvents) {
+         if(this.enableMouseEvents) {
             YAHOO.util.Event.addListener(wire.element, "mousemove", this.onWireMouseMove, this, true);
             YAHOO.util.Event.addListener(wire.element, "click", this.onWireClick, this, true);
          }
@@ -3102,12 +3458,19 @@ WireIt.LayerMap = function(layer,options) {
    this.layer = layer;
    
    this.setOptions(options);
-   
+
+	if(typeof options.parentEl == "string") {
+		this.parentEl = YAHOO.util.Dom.get(options.parentEl);
+	}
+	else if(this.layer && !this.parentEl) {
+		this.parentEl = this.layer.el;
+	}
+
    // Create the canvas element
-   WireIt.LayerMap.superclass.constructor.call(this, this.options.parentEl);
+   WireIt.LayerMap.superclass.constructor.call(this, this.parentEl);
    
    // Set the className
-   this.element.className = this.options.className;
+   this.element.className = this.className;
    
    this.initEvents();
    
@@ -3115,28 +3478,49 @@ WireIt.LayerMap = function(layer,options) {
 };
 
 YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
-   
-   /**
-    * @method setOptions
-    * @param {Object} options
+
+   /** 
+    * @property className
+    * @description CSS class name for the layer map element
+    * @default "WireIt-LayerMap"
+    * @type String
     */
-   setOptions: function(options) { 
-      var opts = options || {};
-      /**
-       * Options:
-       * <ul>
-       *    <li>parentEl: parent element (defaut layer.el)</li>
-       *    <li>className: default to "WireIt-LayerMap"</li>
-       *    <li>style: display style, default to "rgba(0, 0, 200, 0.5)"</li>
-       *    <li>lineWidth: default 2</li>
-       * </ul>
-       * @property options
-       */
-      this.options = {};
-      this.options.parentEl = Dom.get(opts.parentEl || this.layer.el);
-      this.options.className = opts.className || "WireIt-LayerMap";
-      this.options.style = opts.style || "rgba(0, 0, 200, 0.5)";
-      this.options.lineWidth = opts.lineWidth || 2;
+	className: "WireIt-LayerMap",
+	
+	/** 
+    * @property style
+    * @description display style
+    * @default "WireIt-LayerMap"
+    * @type String
+    */
+	style: "rgba(0, 0, 200, 0.5)",
+
+	/** 
+    * @property parentEl
+    * @description DOM element that schould contain the layer
+    * @default null
+    * @type DOMElement
+    */
+	parentEl: null,
+	
+	/** 
+    * @property lineWidth
+    * @description Line width
+    * @default 2
+    * @type Integer
+    */
+	lineWidth: 2,
+
+   /**
+    * Set the options by putting them in this (so it overrides the prototype default)
+    * @method setOptions
+    */
+   setOptions: function(options) {
+      for(var k in options) {
+			if( options.hasOwnProperty(k) ) {
+				this[k] = options[k];
+			}
+		}
    },
    
    
@@ -3289,9 +3673,9 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       ctxt.strokeRect(viewportX*hRatio, viewportY*vRatio, viewportWidth*hRatio, viewportHeight*vRatio);
    
       // Draw containers and wires
-      ctxt.fillStyle = this.options.style;
-      ctxt.strokeStyle= this.options.style;
-      ctxt.lineWidth=this.options.lineWidth;
+      ctxt.fillStyle = this.style;
+      ctxt.strokeStyle= this.style;
+      ctxt.lineWidth=this.lineWidth;
       this.drawContainers(ctxt, hRatio, vRatio);
       this.drawWires(ctxt, hRatio, vRatio);
    },
@@ -3350,26 +3734,54 @@ WireIt.ImageContainer = function(options, layer) {
 };
 
 YAHOO.lang.extend(WireIt.ImageContainer, WireIt.Container, {
-   /**
-    * @method setOptions
-    * @param {Object} options the options object
+	
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.ImageContainer"
+    * @type String
     */
-   setOptions: function(options) {
-     
-      WireIt.ImageContainer.superclass.setOptions.call(this, YAHOO.lang.merge( {
-            resizable: false,
-            ddHandle: false,
-            className: "WireIt-Container WireIt-ImageContainer"
-      }, options));
-      this.options.xtype = "WireIt.ImageContainer"; //don't allow overriding.
-   },
+   xtype: "WireIt.ImageContainer",
+	
+	/** 
+    * @property resizable
+    * @description boolean that makes the container resizable
+    * @default false
+    * @type Boolean
+    */
+	resizable: false,
+	
+	/** 
+    * @property ddHandle
+    * @description (only if draggable) boolean indicating we use a handle for drag'n drop
+    * @default false
+    * @type Boolean
+    */
+	ddHandle: false,
+	
+	/** 
+    * @property className
+    * @description CSS class name for the container element
+    * @default ""WireIt-Container WireIt-ImageContainer"
+    * @type String
+    */
+	className: "WireIt-Container WireIt-ImageContainer",
+	
+	/** 
+    * @property image
+    * @description image url
+    * @default null
+    * @type String
+    */
+	image: null,
    
    /**
+ 	 * Add the image property as a background image for the container
     * @method render
     */
    render: function() {
       WireIt.ImageContainer.superclass.render.call(this);
-      YAHOO.util.Dom.setStyle(this.bodyEl, "background-image", "url("+this.options.image+")");
+      YAHOO.util.Dom.setStyle(this.bodyEl, "background-image", "url("+this.image+")");
    }
    
 });/*global YAHOO,WireIt */
@@ -3386,28 +3798,58 @@ WireIt.InOutContainer = function(options, layer) {
 };
 
 YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
-   
-   /**
-    * @method setOptions
-    * @param {Object} options the options object
+
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.ImageContainer"
+    * @type String
     */
-   setOptions: function(options) {
-      WireIt.InOutContainer.superclass.setOptions.call(this,  YAHOO.lang.merge( {
-               resizable: false,
-               className: "WireIt-Container WireIt-InOutContainer",
-               inputs: [],
-               outputs: []
-         }, options));
-      
-      this.options.xtype = "WireIt.InOutContainer";
-   },
+   xtype: "WireIt.InOutContainer",   
+
+	/** 
+    * @property resizable
+    * @description boolean that makes the container resizable
+    * @default false
+    * @type Boolean
+    */
+	resizable: false,
+
+	/** 
+    * @property className
+    * @description CSS class name for the container element
+    * @default "WireIt-Container WireIt-ImageContainer"
+    * @type String
+    */
+	className: "WireIt-Container WireIt-InOutContainer",
+
+
+	/**
+	 * @property inputs
+	 * @description Array of strings for which an Input terminal will be created.
+	 * @default []
+	 * @type Array
+	 */
+	inputs: [],
+	
+	/**
+	 * @property outputs
+	 * @description Array of strings for which an Output terminal will be created.
+	 * @default []
+	 * @type Array
+	 */
+   outputs: [],
+
    
+	/**
+	 * @method render
+	 */
    render: function() {
       WireIt.InOutContainer.superclass.render.call(this);
 
-		for(var i = 0 ; i < this.options.inputs.length ; i++) {
-			var input = this.options.inputs[i];
-			this.options.terminals.push({
+		for(var i = 0 ; i < this.inputs.length ; i++) {
+			var input = this.inputs[i];
+			this.terminals.push({
 				"name": input, 
 				"direction": [-1,0], 
 				"offsetPosition": {"left": -14, "top": 3+30*(i+1) }, 
@@ -3419,12 +3861,12 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
 			this.bodyEl.appendChild(WireIt.cn('div', null, {lineHeight: "30px"}, input));
 		}
 		
-		for(i = 0 ; i < this.options.outputs.length ; i++) {
-			var output = this.options.outputs[i];
-			this.options.terminals.push({
+		for(i = 0 ; i < this.outputs.length ; i++) {
+			var output = this.outputs[i];
+			this.terminals.push({
 				"name": output, 
 				"direction": [1,0], 
-				"offsetPosition": {"right": -14, "top": 3+30*(i+1+this.options.inputs.length) }, 
+				"offsetPosition": {"right": -14, "top": 3+30*(i+1+this.inputs.length) }, 
 				"ddConfig": {
 					"type": "output",
 					"allowedTypes": ["input"]
