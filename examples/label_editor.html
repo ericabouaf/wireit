@@ -9,13 +9,15 @@
 <!-- WireIt CSS -->
 <link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
 
+<link rel="stylesheet" type="text/css" href="../plugins/inputex/lib/inputex/css/inputEx.css" />
+
 <!-- YUI -->
 <script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
 
 <script type="text/javascript" src="../lib/excanvas.js"></script>
 
 <!-- WireIt -->
-<script type="text/javascript" src="../build/wireit-min.js"></script>
+<script type="text/javascript" src="../build/wireit-inputex-min.js"></script>
 
 <style>
 body {
@@ -56,7 +58,7 @@ div.Bubble div.body {
 					position:[600,240],
 					"xtype":"WireIt.ImageContainer", 
 					"image": "bubble.png",
-					draggable: false,
+					//draggable: false,
 					close: false,
 	 				"terminals": [
 	 					{"name": "_INPUT1", direction: [-1,-1], offsetPosition: [-10,-10], editable: false},
@@ -72,7 +74,7 @@ div.Bubble div.body {
 					"xtype":"WireIt.ImageContainer", 
 					className: "WireIt-Container WireIt-ImageContainer Bubble",
 					"image": "bubble.png",
-					draggable: false,
+					//draggable: false,
 					close: false,
  					"terminals": [
 							{"name": "_INPUT1", direction: [-1,-1], offsetPosition: [-10,-10], editable: false},
@@ -94,6 +96,9 @@ div.Bubble div.body {
 						moduleId: 1,
 						terminal: "_INPUT1"
 					},
+					
+					label: 'Ouf !!',
+					labelEditor: {type: 'string', value: "Testst"},
 					
 					xtype: "WireIt.BezierWire"
 				}

@@ -17,6 +17,8 @@ WireIt.BezierArrowWire = function( terminal1, terminal2, parentEl, options) {
 
 YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
 
+   xtype: "WireIt.BezierArrowWire",
+
 	/**
     * Attempted bezier drawing method for arrows
     */

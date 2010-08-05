@@ -352,7 +352,9 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
 
 
 YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
-   
+
+   xtype: "WireIt.Wire",
+	
    /**
     * Build options object and set default properties
     * @method setOptions
@@ -491,7 +493,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 	 */
 	renderLabel: function() {
 		
-		this.labelEl = WireIt.cn('div',{className:"WireIt-Wire-Label"}, (this.options.labelStyle || {}) );
+		this.labelEl = WireIt.cn('div',{className:"WireIt-Wire-Label"}, this.options.labelStyle );
 		
 		if(this.options.labelEditor) {
 			this.labelField = new inputEx.InPlaceEdit({parentEl: this.labelEl, editorField: this.options.labelEditor, animColors:{from:"#FFFF99" , to:"#DDDDFF"} });
@@ -630,16 +632,13 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @method getConfig
     */
 	getConfig: function() {
-      var obj = {};
-
-      // xtype
-      if(this.options.xtype) {
-         obj.xtype = this.options.xtype;
-      }
+      var obj = {
+			xtype: this.xtype
+		};
 
 		// Export the label value
 		if(this.options.labelEditor) {
-			obj.value = this.labelField.getValue();
+			obj.label = this.labelField.getValue();
 		}
 
       return obj;
@@ -666,6 +665,8 @@ WireIt.StepWire = function( terminal1, terminal2, parentEl, options) {
 
 
 YAHOO.lang.extend(WireIt.StepWire, WireIt.Wire, {
+	
+   xtype: "WireIt.StepWire",
 	
    /**
     * Drawing methods for arrows
@@ -749,6 +750,8 @@ WireIt.ArrowWire = function( terminal1, terminal2, parentEl, options) {
 
 YAHOO.lang.extend(WireIt.ArrowWire, WireIt.Wire, {
 	
+   xtype: "WireIt.ArrowWire",
+
    /**
     * Drawing methods for arrows
     */
@@ -898,6 +901,8 @@ WireIt.BezierWire = function( terminal1, terminal2, parentEl, options) {
 
 YAHOO.lang.extend(WireIt.BezierWire, WireIt.Wire, {
 	
+   xtype: "WireIt.BezierWire",
+	
 	/**
 	 * Override setOptions to add the following options :
 	 * <ul>
@@ -1019,6 +1024,8 @@ WireIt.BezierArrowWire = function( terminal1, terminal2, parentEl, options) {
 
 
 YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
+
+   xtype: "WireIt.BezierArrowWire",
 
 	/**
     * Attempted bezier drawing method for arrows
@@ -2991,11 +2998,9 @@ WireIt.Layer.prototype = {
    
       for( i = 0 ; i < this.wires.length ; i++) {
          var wire = this.wires[i];
-      
-         var wireObj = { 
-            src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.containers), terminal: wire.terminal1.name }, 
-            tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.containers), terminal: wire.terminal2.name }
-         };
+      	var wireObj = wire.getConfig();
+			wireObj.src = {moduleId: WireIt.indexOf(wire.terminal1.container, this.containers), terminal: wire.terminal1.name };
+			wireObj.tgt = {moduleId: WireIt.indexOf(wire.terminal2.container, this.containers), terminal: wire.terminal2.name };
          obj.wires.push(wireObj);
       }
    

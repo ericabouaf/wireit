@@ -17,6 +17,8 @@ WireIt.StepWire = function( terminal1, terminal2, parentEl, options) {
 
 YAHOO.lang.extend(WireIt.StepWire, WireIt.Wire, {
 	
+   xtype: "WireIt.StepWire",
+	
    /**
     * Drawing methods for arrows
     */

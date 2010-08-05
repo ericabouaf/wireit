@@ -19,6 +19,8 @@ WireIt.BezierWire = function( terminal1, terminal2, parentEl, options) {
 
 YAHOO.lang.extend(WireIt.BezierWire, WireIt.Wire, {
 	
+   xtype: "WireIt.BezierWire",
+	
 	/**
 	 * Override setOptions to add the following options :
 	 * <ul>

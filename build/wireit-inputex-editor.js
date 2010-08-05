@@ -352,7 +352,9 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
 
 
 YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
-   
+
+   xtype: "WireIt.Wire",
+	
    /**
     * Build options object and set default properties
     * @method setOptions
@@ -491,7 +493,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 	 */
 	renderLabel: function() {
 		
-		this.labelEl = WireIt.cn('div',{className:"WireIt-Wire-Label"}, (this.options.labelStyle || {}) );
+		this.labelEl = WireIt.cn('div',{className:"WireIt-Wire-Label"}, this.options.labelStyle );
 		
 		if(this.options.labelEditor) {
 			this.labelField = new inputEx.InPlaceEdit({parentEl: this.labelEl, editorField: this.options.labelEditor, animColors:{from:"#FFFF99" , to:"#DDDDFF"} });
@@ -630,16 +632,13 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @method getConfig
     */
 	getConfig: function() {
-      var obj = {};
-
-      // xtype
-      if(this.options.xtype) {
-         obj.xtype = this.options.xtype;
-      }
+      var obj = {
+			xtype: this.xtype
+		};
 
 		// Export the label value
 		if(this.options.labelEditor) {
-			obj.value = this.labelField.getValue();
+			obj.label = this.labelField.getValue();
 		}
 
       return obj;
@@ -666,6 +665,8 @@ WireIt.StepWire = function( terminal1, terminal2, parentEl, options) {
 
 
 YAHOO.lang.extend(WireIt.StepWire, WireIt.Wire, {
+	
+   xtype: "WireIt.StepWire",
 	
    /**
     * Drawing methods for arrows
@@ -749,6 +750,8 @@ WireIt.ArrowWire = function( terminal1, terminal2, parentEl, options) {
 
 YAHOO.lang.extend(WireIt.ArrowWire, WireIt.Wire, {
 	
+   xtype: "WireIt.ArrowWire",
+
    /**
     * Drawing methods for arrows
     */
@@ -898,6 +901,8 @@ WireIt.BezierWire = function( terminal1, terminal2, parentEl, options) {
 
 YAHOO.lang.extend(WireIt.BezierWire, WireIt.Wire, {
 	
+   xtype: "WireIt.BezierWire",
+	
 	/**
 	 * Override setOptions to add the following options :
 	 * <ul>
@@ -1019,6 +1024,8 @@ WireIt.BezierArrowWire = function( terminal1, terminal2, parentEl, options) {
 
 
 YAHOO.lang.extend(WireIt.BezierArrowWire, WireIt.BezierWire, {
+
+   xtype: "WireIt.BezierArrowWire",
 
 	/**
     * Attempted bezier drawing method for arrows
@@ -2991,11 +2998,9 @@ WireIt.Layer.prototype = {
    
       for( i = 0 ; i < this.wires.length ; i++) {
          var wire = this.wires[i];
-      
-         var wireObj = { 
-            src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.containers), terminal: wire.terminal1.name }, 
-            tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.containers), terminal: wire.terminal2.name }
-         };
+      	var wireObj = wire.getConfig();
+			wireObj.src = {moduleId: WireIt.indexOf(wire.terminal1.container, this.containers), terminal: wire.terminal1.name };
+			wireObj.tgt = {moduleId: WireIt.indexOf(wire.terminal2.container, this.containers), terminal: wire.terminal2.name };
          obj.wires.push(wireObj);
       }
    
@@ -4856,6 +4861,303 @@ inputEx.registerType("group", inputEx.Group, [
 
 
 })();(function() {
+   
+   var lang = YAHOO.lang;
+/**
+ * Contains the various visualization methods
+ * @class inputEx.visus
+ * @static
+ */
+inputEx.visus = {
+  
+  /**
+   * Use the trimpath-template engine
+   * see http://code.google.com/p/trimpath/wiki/JavaScriptTemplates for syntax
+   * options = {visuType: 'trimpath', template: "String template"}
+   */
+  trimpath: function(options, data) {
+      if(!TrimPath) { alert('TrimPath is not on the page. Please load inputex/lib/trimpath-template.js'); return null; }
+      var tpl = TrimPath.parseTemplate(options.template);
+     	var ret = tpl.process(data);
+     	return ret;
+  },
+  
+  /**
+   * Use a rendering function
+   * options = {visuType: 'func', func: function(data) { ...code here...} }
+   * @method func
+   */
+  "func": function(options, data) {
+     return options.func(data);
+  },
+  
+  /**
+   * Use YAHOO.lang.dump
+   * options = {visuType: 'dump'}
+   */
+  dump: function(options, data) {
+     return lang.dump(data);
+  }
+   
+};
+
+/**
+ * Render 'data' using a visualization function described by 'visuOptions'
+ * @static
+ * @param {Object} visuOptions The visu parameters object with: visuType: 'myType', ...args...
+ * @param {Object} data The input data to send to the template
+ * @param {HTMLElement || String} parentEl optional Set the result as content of parentEl
+ * @return {HTMLElement || String} Either the inserted HTMLElement or the String set to parentEl.innerHTML
+ */
+inputEx.renderVisu = function(visuOptions,data, parentEl) {
+   
+   var opts = visuOptions || {};
+   var visuType = opts.visuType || 'dump';
+   
+   if( !inputEx.visus.hasOwnProperty(visuType) ) {
+      throw new Error("inputEx: no visu for visuType: "+visuType);
+   }
+   
+   var f = inputEx.visus[visuType];
+   if( !lang.isFunction(f) ) {
+      throw new Error("inputEx: no visu for visuType: "+visuType);
+   }
+   
+   var v = null;
+   try {
+      v = f(opts,data);
+   }
+   catch(ex) {
+      throw new Error("inputEx: error while running visu "+visuType+" : "+ex.message);
+   }
+   
+   // Get the node
+   var node = null;
+   if(parentEl) {
+      if(lang.isString(parentEl)) {
+         node = YAHOO.util.Dom.get(parentEl);
+      }
+      else {
+         node = parentEl;
+      }
+   }
+   
+   // Insert it
+   if(node) {
+      if(YAHOO.lang.isObject(v) && v.tagName ) {
+         node.innerHTML = "";
+         node.appendChild(v);
+      }
+      else {
+         node.innerHTML = v;
+      }
+   }
+   
+   return v;
+};
+
+})();(function () {
+   var util = YAHOO.util, lang = YAHOO.lang, Event = util.Event, Dom = util.Dom;
+
+/**
+ * Create a button
+ * @class inputEx.widget.Button
+ * @constructor
+ * @param {Object} options The following options are available for Button :
+ * <ul>
+ * 	<li><b>id</b>: id of the created A element (default is auto-generated)</li>
+ * 	<li><b>className</b>: CSS class added to the button (default is either "inputEx-Button-Link" or "inputEx-Button-Submit-Link", depending on "type")</li>
+ * 	<li><b>parentEl</b>: The DOM element where we should append the button</li>
+ * 	<li><b>type</b>: "link", "submit-link" or "submit"</li>
+ * 	<li><b>value</b>: text displayed inside the button</li>
+ * 	<li><b>disabled</b>: Disable the button after creation</li>
+ * 	<li><b>onClick</b>: Custom click event handler</li>
+ * </ul>
+ */
+inputEx.widget.Button = function(options) {
+   
+   this.setOptions(options || {});
+      
+   if (!!this.options.parentEl) {
+      this.render(this.options.parentEl);
+   }
+   
+};
+
+
+lang.augmentObject(inputEx.widget.Button.prototype,{
+   
+   /**
+ 	 * set the default options
+ 	 */
+   setOptions: function(options) {
+      
+      this.options = {};
+      this.options.id = lang.isString(options.id) ? options.id  : Dom.generateId();
+      this.options.className = options.className || "inputEx-Button";
+      this.options.parentEl = lang.isString(options.parentEl) ? Dom.get(options.parentEl) : options.parentEl;
+      
+      // default type === "submit"
+      this.options.type = (options.type === "link" || options.type === "submit-link") ? options.type : "submit";
+      
+      // value is the text displayed inside the button (<input type="submit" value="Submit" /> convention...)
+      this.options.value = options.value;
+      
+      this.options.disabled = !!options.disabled;
+      
+      if (lang.isFunction(options.onClick)) {
+         this.options.onClick = {fn: options.onClick, scope:this};
+         
+      } else if (lang.isObject(options.onClick)) {
+         this.options.onClick = {fn: options.onClick.fn, scope: options.onClick.scope || this};
+      }
+      
+   },
+   
+   /**
+ 	 * render the button into the parent Element
+    * @param {DOMElement} parentEl The DOM element where the button should be rendered
+	 * @return {DOMElement} The created button
+	 */
+   render: function(parentEl) {
+      
+      var innerSpan;
+      
+      if (this.options.type === "link" || this.options.type === "submit-link") {
+         
+         this.el = inputEx.cn('a', {className: this.options.className, id:this.options.id, href:"#"});
+         Dom.addClass(this.el,this.options.type === "link" ? "inputEx-Button-Link" : "inputEx-Button-Submit-Link");
+         
+         innerSpan = inputEx.cn('span', null, null, this.options.value);
+         
+         this.el.appendChild(innerSpan);
+         
+      // default type is "submit" input
+      } else {
+         
+         this.el = inputEx.cn('input', {type: "submit", value: this.options.value, className: this.options.className, id:this.options.id});
+         Dom.addClass(this.el,"inputEx-Button-Submit");
+      }
+      
+      parentEl.appendChild(this.el);
+      
+      if (this.options.disabled) {
+         this.disable();
+      }
+      
+      this.initEvents();
+      
+      return this.el;
+   },
+   
+   /**
+ 	 * attach the listeners on "click" event and create the custom events
+	 */
+   initEvents: function() {
+
+      /**
+		 * Click Event facade (YUI custom event)
+ 		 * @event clickEvent
+		 */ 
+      this.clickEvent = new util.CustomEvent("click");
+
+      /**
+		 * Submit Event facade (YUI custom event)
+ 		 * @event submitEvent
+		 */
+      this.submitEvent = new util.CustomEvent("submit");
+      
+      
+      Event.addListener(this.el,"click",function(e) {
+         
+         var fireSubmitEvent;
+         
+         // stop click event, so :
+         //
+         //  1. buttons of 'link' or 'submit-link' type don't link to any url
+         //  2. buttons of 'submit' type (<input type="submit" />) don't fire a 'submit' event
+         Event.stopEvent(e);
+         
+         // button disabled : don't fire clickEvent, and stop here
+         if (this.disabled) {
+            fireSubmitEvent = false;
+            
+         // button enabled : fire clickEvent
+         } else {
+            // submit event will be fired if not prevented by clickEvent
+            fireSubmitEvent = this.clickEvent.fire();
+         }
+         
+         // link buttons should NOT fire a submit event
+         if (this.options.type === "link") {
+            fireSubmitEvent = false;
+         }
+         
+         if (fireSubmitEvent) {
+            this.submitEvent.fire();
+         }
+         
+      },this,true);
+      
+      // Subscribe onClick handler
+      if (this.options.onClick) {
+         this.clickEvent.subscribe(this.options.onClick.fn,this.options.onClick.scope,true);
+      }
+      
+   },
+   
+   /**
+ 	 * Disable the button
+	 */
+   disable: function() {
+      
+      this.disabled = true;
+      
+      Dom.addClass(this.el,"inputEx-Button-disabled");
+      
+      if (this.options.type === "submit") {
+         this.el.disabled = true;
+      }
+   },
+   
+   /**
+ 	 * Enable the button
+	 */
+   enable: function() {
+      
+      this.disabled = false;
+      
+      Dom.removeClass(this.el,"inputEx-Button-disabled");
+      
+      if (this.options.type === "submit") {
+         this.el.disabled = false;
+      }
+   },
+   
+   
+   /**
+    * Purge all event listeners and remove the component from the dom
+    */
+   destroy: function() {
+      
+      // Unsubscribe all listeners to click and submit events
+      this.clickEvent.unsubscribeAll();
+      this.submitEvent.unsubscribeAll();
+      
+      // Purge element (remove listeners on el and childNodes recursively)
+      util.Event.purgeElement(this.el, true);
+      
+      // Remove from DOM
+      if(Dom.inDocument(this.el)) {
+         this.el.parentNode.removeChild(this.el);
+      }
+      
+   }
+   
+   
+});
+
+})();(function() {
 
    var lang = YAHOO.lang, Event = YAHOO.util.Event, Dom = YAHOO.util.Dom;
 
@@ -6560,6 +6862,279 @@ inputEx.messages.stringTooLong = ["This field should contain at most "," numbers
 inputEx.registerType("text", inputEx.Textarea, [
    { type: 'integer', label: 'Rows',  name: 'rows', value: 6 },
    { type: 'integer', label: 'Cols', name: 'cols', value: 23 }
+]);
+
+})();(function() {
+
+   var lang = YAHOO.lang, Event = YAHOO.util.Event, Dom = YAHOO.util.Dom, CSS_PREFIX = 'inputEx-InPlaceEdit-';
+
+/**
+ * Meta field providing in place editing (the editor appears when you click on the formatted value). 
+ * @class inputEx.InPlaceEdit
+ * @extends inputEx.Field
+ * @constructor
+ * @param {Object} options Added options:
+ * <ul>
+ *   <li>visu</li>
+ *   <li>editorField</li>
+ *   <li>animColors</li>
+ * </ul>
+ */
+inputEx.InPlaceEdit = function(options) {
+   inputEx.InPlaceEdit.superclass.constructor.call(this, options);
+};
+
+lang.extend(inputEx.InPlaceEdit, inputEx.Field, {
+   /**
+    * Set the default values of the options
+    * @param {Object} options Options object as passed to the constructor
+    */
+   setOptions: function(options) {
+      inputEx.InPlaceEdit.superclass.setOptions.call(this, options);
+      
+      this.options.visu = options.visu;
+      
+      this.options.editorField = options.editorField;
+      
+      this.options.buttonTypes = options.buttonTypes || {ok:"submit",cancel:"link"};
+      
+      this.options.animColors = options.animColors || null;
+   },
+
+   /**
+    * Override renderComponent to create 2 divs: the visualization one, and the edit in place form
+    */
+   renderComponent: function() {
+      this.renderVisuDiv();
+	   this.renderEditor();
+   },
+   
+   /**
+    * Render the editor
+    */
+   renderEditor: function() {
+      
+      this.editorContainer = inputEx.cn('div', {className: CSS_PREFIX+'editor'}, {display: 'none'});
+      
+      // Render the editor field
+      this.editorField = inputEx(this.options.editorField,this);
+      var editorFieldEl = this.editorField.getEl();
+      
+      this.editorContainer.appendChild( editorFieldEl );
+      Dom.addClass( editorFieldEl , CSS_PREFIX+'editorDiv');
+      
+      this.okButton = new inputEx.widget.Button({
+         type: this.options.buttonTypes.ok,
+         parentEl: this.editorContainer,
+         value: inputEx.messages.okEditor,
+         className: "inputEx-Button "+CSS_PREFIX+'OkButton',
+         onClick: {fn: this.onOkEditor, scope:this}
+      });
+
+      this.cancelLink = new inputEx.widget.Button({
+         type: this.options.buttonTypes.cancel,
+         parentEl: this.editorContainer,
+         value: inputEx.messages.cancelEditor,
+         className: "inputEx-Button "+CSS_PREFIX+'CancelLink',
+         onClick: {fn: this.onCancelEditor, scope:this}
+      });
+      
+      // Line breaker ()
+      this.editorContainer.appendChild( inputEx.cn('div',null, {clear: 'both'}) );
+      
+      this.fieldContainer.appendChild(this.editorContainer);
+      
+   },
+   
+   /**
+    * Set the color when hovering the field
+    * @param {Event} e The original mouseover event
+    */
+   onVisuMouseOver: function(e) {
+      if(this.colorAnim) {
+         this.colorAnim.stop(true);
+      }
+      inputEx.sn(this.formattedContainer, null, {backgroundColor: this.options.animColors.from });
+   },
+   
+   /**
+    * Start the color animation when hovering the field
+    * @param {Event} e The original mouseout event
+    */
+   onVisuMouseOut: function(e) {
+      // Start animation
+      if(this.colorAnim) {
+         this.colorAnim.stop(true);
+      }
+      this.colorAnim = new YAHOO.util.ColorAnim(this.formattedContainer, {backgroundColor: this.options.animColors}, 1);
+      this.colorAnim.onComplete.subscribe(function() { Dom.setStyle(this.formattedContainer, 'background-color', ''); }, this, true);
+      this.colorAnim.animate();
+   },
+   
+   /**
+    * Create the div that will contain the visualization of the value
+    */
+   renderVisuDiv: function() {
+      this.formattedContainer = inputEx.cn('div', {className: 'inputEx-InPlaceEdit-visu'});
+      
+      if( lang.isFunction(this.options.formatDom) ) {
+         this.formattedContainer.appendChild( this.options.formatDom(this.options.value) );
+      }
+      else if( lang.isFunction(this.options.formatValue) ) {
+         this.formattedContainer.innerHTML = this.options.formatValue(this.options.value);
+      }
+      else {
+         this.formattedContainer.innerHTML = lang.isUndefined(this.options.value) ? inputEx.messages.emptyInPlaceEdit: this.options.value;
+      }
+      
+      this.fieldContainer.appendChild(this.formattedContainer);
+      
+   },
+
+   /**
+    * Adds the events for the editor and color animations
+    */
+   initEvents: function() {  
+      Event.addListener(this.formattedContainer, "click", this.openEditor, this, true);
+            
+      // For color animation (if specified)
+      if (this.options.animColors) {
+         Event.addListener(this.formattedContainer, 'mouseover', this.onVisuMouseOver, this, true);
+         Event.addListener(this.formattedContainer, 'mouseout', this.onVisuMouseOut, this, true);
+      }
+      
+      if(this.editorField.el) {
+         // Register some listeners
+         Event.addListener(this.editorField.el, "keyup", this.onKeyUp, this, true);
+         Event.addListener(this.editorField.el, "keydown", this.onKeyDown, this, true);
+      }
+   },
+   
+   /**
+    * Handle some keys events to close the editor
+    * @param {Event} e The original keyup event
+    */
+   onKeyUp: function(e) {
+      // Enter
+      if( e.keyCode == 13) {
+         this.onOkEditor(e);
+      }
+      // Escape
+      if( e.keyCode == 27) {
+         this.onCancelEditor(e);
+      }
+   },
+   
+   /**
+    * Handle the tabulation key to close the editor
+    * @param {Event} e The original keydown event
+    */
+   onKeyDown: function(e) {
+      // Tab
+      if(e.keyCode == 9) {
+         this.onOkEditor(e);
+      }
+   },
+   
+   /**
+    * Validate the editor (ok button, enter key or tabulation key)
+    */
+   onOkEditor: function(e) {
+      Event.stopEvent(e);
+      
+      var newValue = this.editorField.getValue();
+      this.setValue(newValue);
+      
+      this.editorContainer.style.display = 'none';
+      this.formattedContainer.style.display = '';
+      
+      var that = this;
+      setTimeout(function() {that.updatedEvt.fire(newValue);}, 50);      
+   },
+
+   
+   /**
+    * Close the editor on cancel (cancel button, blur event or escape key)
+    * @param {Event} e The original event (click, blur or keydown)
+    */
+   onCancelEditor: function(e) {
+      Event.stopEvent(e);
+      this.editorContainer.style.display = 'none';
+      this.formattedContainer.style.display = '';
+   },
+   
+   /**
+    * Display the editor
+    */
+   openEditor: function() {
+      var value = this.getValue();
+      this.editorContainer.style.display = '';
+      this.formattedContainer.style.display = 'none';
+   
+      if(!lang.isUndefined(value)) {
+         this.editorField.setValue(value);   
+      }
+      
+      // Set focus in the element !
+      this.editorField.focus();
+   
+      // Select the content
+      if(this.editorField.el && lang.isFunction(this.editorField.el.setSelectionRange) && (!!value && !!value.length)) {
+         this.editorField.el.setSelectionRange(0,value.length);
+      }
+      
+   },
+   
+   /**
+    * Returned the previously stored value
+    * @return {Any} The value of the subfield
+    */
+   getValue: function() {
+      var editorOpened = (this.editorContainer.style.display == '');
+	   return editorOpened ? this.editorField.getValue() : this.value;
+   },
+
+   /**
+    * Set the value and update the display
+    * @param {Any} value The value to set
+    * @param {boolean} [sendUpdatedEvt] (optional) Wether this setValue should fire the updatedEvt or not (default is true, pass false to NOT send the event)
+    */
+   setValue: function(value, sendUpdatedEvt) {   
+      // Store the value
+	   this.value = value;
+   
+      if(lang.isUndefined(value) || value == "") {
+         inputEx.renderVisu(this.options.visu, inputEx.messages.emptyInPlaceEdit, this.formattedContainer);
+      }
+      else {
+         inputEx.renderVisu(this.options.visu, this.value, this.formattedContainer);
+      }
+      
+      // If the editor is opened, update it 
+      if(this.editorContainer.style.display == '') {
+         this.editorField.setValue(value);
+      }
+      
+      inputEx.InPlaceEdit.superclass.setValue.call(this, value, sendUpdatedEvt);
+   },
+   
+   /**
+    * Close the editor when calling the close function on this field
+    */
+   close: function() {
+      this.editorContainer.style.display = 'none';
+      this.formattedContainer.style.display = '';
+	}
+
+});
+  
+inputEx.messages.emptyInPlaceEdit = "(click to edit)";
+inputEx.messages.cancelEditor = "cancel";
+inputEx.messages.okEditor = "Ok";
+
+// Register this class as "inplaceedit" type
+inputEx.registerType("inplaceedit", inputEx.InPlaceEdit, [
+   { type:'type', label: 'Editor', name: 'editorField'}
 ]);
 
 })();(function() {

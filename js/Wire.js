@@ -85,7 +85,9 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
 
 
 YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
-   
+
+   xtype: "WireIt.Wire",
+	
    /**
     * Build options object and set default properties
     * @method setOptions
@@ -224,7 +226,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 	 */
 	renderLabel: function() {
 		
-		this.labelEl = WireIt.cn('div',{className:"WireIt-Wire-Label"}, (this.options.labelStyle || {}) );
+		this.labelEl = WireIt.cn('div',{className:"WireIt-Wire-Label"}, this.options.labelStyle );
 		
 		if(this.options.labelEditor) {
 			this.labelField = new inputEx.InPlaceEdit({parentEl: this.labelEl, editorField: this.options.labelEditor, animColors:{from:"#FFFF99" , to:"#DDDDFF"} });
@@ -363,16 +365,13 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @method getConfig
     */
 	getConfig: function() {
-      var obj = {};
-
-      // xtype
-      if(this.options.xtype) {
-         obj.xtype = this.options.xtype;
-      }
+      var obj = {
+			xtype: this.xtype
+		};
 
 		// Export the label value
 		if(this.options.labelEditor) {
-			obj.value = this.labelField.getValue();
+			obj.label = this.labelField.getValue();
 		}
 
       return obj;

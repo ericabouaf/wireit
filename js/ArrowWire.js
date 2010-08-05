@@ -19,6 +19,8 @@ WireIt.ArrowWire = function( terminal1, terminal2, parentEl, options) {
 
 YAHOO.lang.extend(WireIt.ArrowWire, WireIt.Wire, {
 	
+   xtype: "WireIt.ArrowWire",
+
    /**
     * Drawing methods for arrows
     */
