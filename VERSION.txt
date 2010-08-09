@@ -24,6 +24,11 @@ Changeset:
 		* Position constrained to (0,0) minimum
 		* Fix FormContainer terminals positioning if the fieldset is collapsed
 
+	* Adding 3 Containers :
+		* CanvasContainer : uses a canvas tag to render a container
+		* EllipseLabelContainer : inherits the CanvasContainer to draw an ellipse
+		* RectLabelContainer : Simple rect container with editable label
+
   * Layer enhancements
 		* Export wires properties in getWiring method
 

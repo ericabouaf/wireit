@@ -476,6 +476,14 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     	// Remove references to old terminals
     	this.terminal1 = null;
     	this.terminal2 = null;
+
+		// Remove Label
+		if(this.labelEl) {
+			if(this.labelField) {
+				this.labelField.destroy();
+			}
+			this.labelEl.innerHTML = "";
+		}
    },
 
 
