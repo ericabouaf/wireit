@@ -210,6 +210,9 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	    }
 	    catch(ex) {
 	       this.alert("Error Layer.addContainer: "+ ex.message);
+			 if(window.console && YAHOO.lang.isFunction(console.log)) {
+				console.log(ex);
+			}
 	    }    
 	},
 
@@ -519,15 +522,11 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
       obj.modules.push( {name: this.layer.containers[i].title, value: this.layer.containers[i].getValue(), config: this.layer.containers[i].getConfig()});
    }
 
-	// TODO: Use the Layer.getWiring instead ?
-
    for( i = 0 ; i < this.layer.wires.length ; i++) {
       var wire = this.layer.wires[i];
-
-      var wireObj = { 
-         src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.layer.containers), terminal: wire.terminal1.name}, 
-         tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.layer.containers), terminal: wire.terminal2.name}
-      };
+		var wireObj = wire.getConfig();
+		wireObj.src = {moduleId: WireIt.indexOf(wire.terminal1.container, this.layer.containers), terminal: wire.terminal1.name };
+		wireObj.tgt = {moduleId: WireIt.indexOf(wire.terminal2.container, this.layer.containers), terminal: wire.terminal2.name };
       obj.wires.push(wireObj);
    }
    

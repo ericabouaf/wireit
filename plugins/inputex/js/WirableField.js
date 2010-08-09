@@ -98,5 +98,8 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
 
 });
 
+inputEx.Field.groupOptions = inputEx.BaseField.groupOptions.concat([
+	{ type: 'boolean', label: 'Wirable', name: 'wirable', value: false}
+]);
 
 })();

@@ -2605,7 +2605,7 @@ WireIt.Container.prototype = {
    onResize: function(event, args) {
       var size = args[0];
 		// TODO: do not hardcode those sizes !!
-      WireIt.sn(this.bodyEl, null, {width: (size[0]-14)+"px", height: (size[1]-44)+"px"});
+      WireIt.sn(this.bodyEl, null, {width: (size[0]-14)+"px", height: (size[1]-( this.ddHandle ? 44 : 14) )+"px"});
    },
 
    /**
@@ -4712,6 +4712,9 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
 
 });
 
+inputEx.Field.groupOptions = inputEx.BaseField.groupOptions.concat([
+	{ type: 'boolean', label: 'Wirable', name: 'wirable', value: false}
+]);
 
 })();/**
  * Include the form library inputEx + WirableField + FormContainer
@@ -8408,6 +8411,9 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	    }
 	    catch(ex) {
 	       this.alert("Error Layer.addContainer: "+ ex.message);
+			 if(window.console && YAHOO.lang.isFunction(console.log)) {
+				console.log(ex);
+			}
 	    }    
 	},
 
@@ -8717,15 +8723,11 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
       obj.modules.push( {name: this.layer.containers[i].title, value: this.layer.containers[i].getValue(), config: this.layer.containers[i].getConfig()});
    }
 
-	// TODO: Use the Layer.getWiring instead ?
-
    for( i = 0 ; i < this.layer.wires.length ; i++) {
       var wire = this.layer.wires[i];
-
-      var wireObj = { 
-         src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.layer.containers), terminal: wire.terminal1.name}, 
-         tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.layer.containers), terminal: wire.terminal2.name}
-      };
+		var wireObj = wire.getConfig();
+		wireObj.src = {moduleId: WireIt.indexOf(wire.terminal1.container, this.layer.containers), terminal: wire.terminal1.name };
+		wireObj.tgt = {moduleId: WireIt.indexOf(wire.terminal2.container, this.layer.containers), terminal: wire.terminal2.name };
       obj.wires.push(wireObj);
    }
    
@@ -8764,7 +8766,7 @@ WireIt.ComposedContainer = function(options, layer) {
       options.fields = [];
       options.terminals = [];
 
-		var pipe = eval('('+options.wiring.working+')');
+		var pipe = options.wiring.working;
       
 		for(var i = 0 ; i < pipe.modules.length ; i++) {
          var m = pipe.modules[i];

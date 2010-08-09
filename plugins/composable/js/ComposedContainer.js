@@ -13,7 +13,7 @@ WireIt.ComposedContainer = function(options, layer) {
       options.fields = [];
       options.terminals = [];
 
-		var pipe = eval('('+options.wiring.working+')');
+		var pipe = options.wiring.working;
       
 		for(var i = 0 ; i < pipe.modules.length ; i++) {
          var m = pipe.modules[i];

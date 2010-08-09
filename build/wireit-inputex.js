@@ -2605,7 +2605,7 @@ WireIt.Container.prototype = {
    onResize: function(event, args) {
       var size = args[0];
 		// TODO: do not hardcode those sizes !!
-      WireIt.sn(this.bodyEl, null, {width: (size[0]-14)+"px", height: (size[1]-44)+"px"});
+      WireIt.sn(this.bodyEl, null, {width: (size[0]-14)+"px", height: (size[1]-( this.ddHandle ? 44 : 14) )+"px"});
    },
 
    /**
@@ -4712,6 +4712,9 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
 
 });
 
+inputEx.Field.groupOptions = inputEx.BaseField.groupOptions.concat([
+	{ type: 'boolean', label: 'Wirable', name: 'wirable', value: false}
+]);
 
 })();/**
  * Include the form library inputEx + WirableField + FormContainer
