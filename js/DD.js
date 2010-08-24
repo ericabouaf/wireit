@@ -35,11 +35,12 @@ YAHOO.extend(WireIt.util.DD, YAHOO.util.DD, {
       var terminalList = YAHOO.lang.isArray(this._WireItTerminals) ? this._WireItTerminals : (this._WireItTerminals.isWireItTerminal ? [this._WireItTerminals] : []);
       // Redraw all the wires
       for(var i = 0 ; i < terminalList.length ; i++) {
-         if(terminalList[i].wires) {
+         /*if(terminalList[i].wires) {
             for(var k = 0 ; k < terminalList[i].wires.length ; k++) {
                terminalList[i].wires[k].redraw();
             }
-         }
+         }*/
+			terminalList[i].redrawAllWires();
       }
    },
 

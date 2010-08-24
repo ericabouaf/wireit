@@ -2407,20 +2407,30 @@ WireIt.Container = function(options, layer) {
    
    /**
     * Event that is fired when a wire is added
-    * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+    * You can register this event with myContainer.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventAddWire
     */
    this.eventAddWire = new util.CustomEvent("eventAddWire");
    
    /**
     * Event that is fired when a wire is removed
-    * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
+    * You can register this event with myContainer.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventRemoveWire
     */
    this.eventRemoveWire = new util.CustomEvent("eventRemoveWire");
    
+	/**
+    * Event that is fired when the container is focused
+    * You can register this event with myContainer.eventFocus.subscribe(function(e,params) { }, scope);
+    * @event eventFocus
+    */
    this.eventFocus = new util.CustomEvent("eventFocus");
    
+	/**
+    * Event that is fired when the container loses focus
+    * You can register this event with myContainer.eventBlur.subscribe(function(e,params) { }, scope);
+    * @event eventBlur
+    */
    this.eventBlur = new util.CustomEvent("eventBlur");
    
    // Render the div object
@@ -2430,40 +2440,22 @@ WireIt.Container = function(options, layer) {
 	if( options.terminals ) {
 		this.initTerminals( options.terminals);
 	}
-   
+
+	// Make the container resizable
+	if(this.resizable) {
+		this.makeResizable();
+	}   
+
 	// Make the container draggable
 	if(this.draggable) {
-		   
-	   if(this.resizable) {
-			// Make resizeable   
-			this.ddResize = new WireIt.util.DDResize(this);
-			this.ddResize.eventResize.subscribe(this.onResize, this, true);
-	   }
-	   
-	   // Use the drag'n drop utility to make the container draggable
-	   this.dd = new WireIt.util.DD(this.terminals,this.el);
-	
-		// Set minimum constraint on Drag Drop to the top left corner of the layer (minimum position is 0,0)
-		this.dd.setXConstraint(this.position[0]);
-		this.dd.setYConstraint(this.position[1]);
-	   
-	   // Sets ddHandle as the drag'n drop handle
-	   if(this.ddHandle) {
-			this.dd.setHandleElId(this.ddHandle);
-	   }
-	   
-	   // Mark the resize handle as an invalid drag'n drop handle and vice versa
-	   if(this.resizable) {
-			this.dd.addInvalidHandleId(this.ddResizeHandle);
-			this.ddResize.addInvalidHandleId(this.ddHandle);
-	   }
+		this.makeDraggable();
    }
    
 };
 
 
 WireIt.Container.prototype = {
-   
+
 	/** 
     * @property xtype
     * @description String representing this class for exporting as JSON
@@ -2604,6 +2596,37 @@ WireIt.Container.prototype = {
 			}
 		}
    },
+
+	/**
+	 * Use the DDResize utility to make container resizable while redrawing the connected wires
+	 */
+	makeResizable: function() {
+		this.ddResize = new WireIt.util.DDResize(this);
+		this.ddResize.eventResize.subscribe(this.onResize, this, true);
+	},
+	
+	/**
+	 * Use the DD utility to make container draggable while redrawing the connected wires
+	 */
+	makeDraggable: function() {
+		// Use the drag'n drop utility to make the container draggable
+	   this.dd = new WireIt.util.DD(this.terminals,this.el);
+	
+		// Set minimum constraint on Drag Drop to the top left corner of the layer (minimum position is 0,0)
+		this.dd.setXConstraint(this.position[0]);
+		this.dd.setYConstraint(this.position[1]);
+	   
+	   // Sets ddHandle as the drag'n drop handle
+	   if(this.ddHandle) {
+			this.dd.setHandleElId(this.ddHandle);
+	   }
+	   
+	   // Mark the resize handle as an invalid drag'n drop handle and vice versa
+	   if(this.resizable) {
+			this.dd.addInvalidHandleId(this.ddResizeHandle);
+			this.ddResize.addInvalidHandleId(this.ddHandle);
+	   }
+	},
 
    /**
     * Function called when the container is being resized.
