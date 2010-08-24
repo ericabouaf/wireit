@@ -447,7 +447,9 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	
 			this.preventLayerChangedEvent = true;
 	
-	     this.loadPanel.hide();
+		   if(this.loadPanel) {
+	     		this.loadPanel.hide();
+			}
 	
 	    var wiring = this.getPipeByName(name), i;
 
