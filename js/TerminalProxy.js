@@ -137,8 +137,19 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	   if(!this.editingWire) { return; }
    
 	   if(this.terminal.container) {
-			this.fakeTerminal.pos = [e.clientX+this.terminal.container.layer.el.scrollLeft,
-												e.clientY+this.terminal.container.layer.el.scrollTop];
+			var obj = this.terminal.container.layer.el;
+         var curleft = 0;
+         // Applied patch from http://github.com/neyric/wireit/issues/#issue/27
+         // Fixes issue with Wire arrow being drawn offset to the mouse pointer
+         var curtop = 0;
+         if (obj.offsetParent) {
+           do {
+             curleft += obj.scrollLeft;
+             curtop += obj.scrollTop;
+             obj = obj.offsetParent ;
+           } while ( obj );
+         }
+         this.fakeTerminal.pos = [e.clientX+curleft, e.clientY+curtop];
 	   }
 	   else {
 	      this.fakeTerminal.pos = (YAHOO.env.ua.ie) ? [e.clientX, e.clientY] : [e.clientX+window.pageXOffset, e.clientY+window.pageYOffset];

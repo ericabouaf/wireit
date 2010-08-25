@@ -1418,8 +1418,19 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	   if(!this.editingWire) { return; }
    
 	   if(this.terminal.container) {
-			this.fakeTerminal.pos = [e.clientX+this.terminal.container.layer.el.scrollLeft,
-												e.clientY+this.terminal.container.layer.el.scrollTop];
+			var obj = this.terminal.container.layer.el;
+         var curleft = 0;
+         // Applied patch from http://github.com/neyric/wireit/issues/#issue/27
+         // Fixes issue with Wire arrow being drawn offset to the mouse pointer
+         var curtop = 0;
+         if (obj.offsetParent) {
+           do {
+             curleft += obj.scrollLeft;
+             curtop += obj.scrollTop;
+             obj = obj.offsetParent ;
+           } while ( obj );
+         }
+         this.fakeTerminal.pos = [e.clientX+curleft, e.clientY+curtop];
 	   }
 	   else {
 	      this.fakeTerminal.pos = (YAHOO.env.ua.ie) ? [e.clientX, e.clientY] : [e.clientX+window.pageXOffset, e.clientY+window.pageYOffset];
@@ -2259,11 +2270,12 @@ YAHOO.extend(WireIt.util.DD, YAHOO.util.DD, {
       var terminalList = YAHOO.lang.isArray(this._WireItTerminals) ? this._WireItTerminals : (this._WireItTerminals.isWireItTerminal ? [this._WireItTerminals] : []);
       // Redraw all the wires
       for(var i = 0 ; i < terminalList.length ; i++) {
-         if(terminalList[i].wires) {
+         /*if(terminalList[i].wires) {
             for(var k = 0 ; k < terminalList[i].wires.length ; k++) {
                terminalList[i].wires[k].redraw();
             }
-         }
+         }*/
+			terminalList[i].redrawAllWires();
       }
    },
 
@@ -8679,7 +8691,9 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	
 			this.preventLayerChangedEvent = true;
 	
-	     this.loadPanel.hide();
+		   if(this.loadPanel) {
+	     		this.loadPanel.hide();
+			}
 	
 	    var wiring = this.getPipeByName(name), i;
 
