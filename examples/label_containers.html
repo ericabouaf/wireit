@@ -81,11 +81,6 @@ div.WireIt-RectLabelContainer:hover div.WireIt-Container-resizehandle {
 </head>
 <body>
 	
-	
-	<div style="width: 300px; height: 400px; margin: 200px; border: 1px solid black;" id="layerContainer">
-		
-	</div>
-	
 <script>
 
 	var demoLayer;
@@ -93,7 +88,7 @@ div.WireIt-RectLabelContainer:hover div.WireIt-Container-resizehandle {
 	YAHOO.util.Event.addListener(window, 'load', function() {
 		
 		// Layer Demo
-	  demoLayer = new WireIt.Layer({layerMap: false, parentEl: YAHOO.util.Dom.get("layerContainer") });
+	  demoLayer = new WireIt.Layer({layerMap: false});
 		
 		// You can use a global setWiring method	
 		demoLayer.setWiring({
