@@ -63,15 +63,37 @@ WireIt.ComposableWiringEditor.modules = [
 
 
 YAHOO.lang.extend(WireIt.ComposableWiringEditor, WireIt.WiringEditor, {
-   
+
+	/**
+	 * @property composedCategory
+	 */
+   composedCategory: "Composed",
+
 	/**
 	 * Customize the load success handler for the composed module list
 	 */
 	onLoadSuccess: function(wirings) {
-		WireIt.ComposableWiringEditor.superclass.onLoadSuccess.call(this,wirings);
+		
+		
+		// Reset the internal structure
+		this.pipes = wirings;
+		this.pipesByName = {};
 	
+		// Build the "pipesByName" index
+		for(var i = 0 ; i < this.pipes.length ; i++) {
+          this.pipesByName[ this.pipes[i].name] = this.pipes[i];
+		}
+		
 		//  Customize to display composed module in the left list
 		this.updateComposedModuleList();
+	
+    	this.updateLoadPanelList();
+
+		// Check for autoload param and display the loadPanel otherwise
+		if(!this.checkAutoLoad()) { 
+    		this.loadPanel.show();
+		}
+		
 	},
 	
 	/**
@@ -93,7 +115,8 @@ YAHOO.lang.extend(WireIt.ComposableWiringEditor, WireIt.WiringEditor, {
 	          var module = this.pipes[i];
 	
 				 var m = {
-					category: "Composed",
+					name: module.name,
+					category: this.composedCategory,
 					container: {
 		            "xtype": "WireIt.ComposedContainer",
 		            "title": module.name,
@@ -101,6 +124,8 @@ YAHOO.lang.extend(WireIt.ComposableWiringEditor, WireIt.WiringEditor, {
 		         }
 				 };
 				 YAHOO.lang.augmentObject(m, this.pipes[i]);
+				
+				 this.modulesByName[module.name] = m;
 					
 				 this.addModuleToList(m);
 			}

@@ -347,13 +347,14 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	  */
 	 updateLoadPanelList: function(filter) {
 	
+		 this.renderLoadPanel();
+	
 	    var list = WireIt.cn("ul");
 	    if(lang.isArray(this.pipes)) {
 	       for(var i = 0 ; i < this.pipes.length ; i++) {
-	          var module = this.pipes[i];
-	          this.pipesByName[module.name] = module;
-	          if(!filter || filter === "" || module.name.match(new RegExp(filter,"i")) ) {
-		          list.appendChild( WireIt.cn('li',null,{cursor: 'pointer'},module.name) );
+	          var pipe = this.pipes[i];
+	          if(!filter || filter === "" || pipe.name.match(new RegExp(filter,"i")) ) {
+		          list.appendChild( WireIt.cn('li',null,{cursor: 'pointer'},pipe.name) );
 				}
 	       }
 	    }
@@ -372,20 +373,20 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	 },
 
 	 /**
+	  * Start the loading of the pipes using the adapter
 	  * @method load
 	  */
 	 load: function() {
     
 	    this.adapter.listWirings({language: this.options.languageName},{
-				success: function(result) {
-					this.onLoadSuccess(result);
-				},
-				failure: function(errorStr) {
-					this.alert("Unable to load the wirings: "+errorStr);
-				},
-				scope: this
-			}
-			);
+			success: function(result) {
+				this.onLoadSuccess(result);
+			},
+			failure: function(errorStr) {
+				this.alert("Unable to load the wirings: "+errorStr);
+			},
+			scope: this
+		});
 
 	 },
 
@@ -393,115 +394,129 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	  * @method onLoadSuccess
 	  */
 	 onLoadSuccess: function(wirings) {
+			
+			// Reset the internal structure
 			this.pipes = wirings;
 			this.pipesByName = {};
 		
-			this.renderLoadPanel();
+			// Build the "pipesByName" index
+			for(var i = 0 ; i < this.pipes.length ; i++) {
+	          this.pipesByName[ this.pipes[i].name] = this.pipes[i];
+			}
+		
 	    	this.updateLoadPanelList();
 
-			if(!this.afterFirstRun) {
-				var p = window.location.search.substr(1).split('&');
-				var oP = {};
-				for(var i = 0 ; i < p.length ; i++) {
-					var v = p[i].split('=');
-					oP[v[0]]=window.decodeURIComponent(v[1]);
-				}
-				this.afterFirstRun = true;
-				if(oP.autoload) {
-					this.loadPipe(oP.autoload);
-					return;
-				}
-			}
-
-	    this.loadPanel.show();
-		},
-
-	 /**
-	  * @method getPipeByName
-	  * @param {String} name Pipe's name
-	  * @return {Object} return the pipe configuration
-	  */
-	 getPipeByName: function(name) {
-	    var n = this.pipes.length,ret;
-	    for(var i = 0 ; i < n ; i++) {
-	       if(this.pipes[i].name == name) {
-				return this.pipes[i].working;
-	       }
-	    }
-	    return null;
+			// Check for autoload param and display the loadPanel otherwise
+			if(!this.checkAutoLoad()) { 
+	    		this.loadPanel.show();
+			}	
 	 },
- 
-	 /**
-	  * @method loadPipe
-	  * @param {String} name Pipe name
-	  */
-	 loadPipe: function(name) {
-	
+		
+	/**
+	 * checkAutoLoad looks for the "autoload" URL parameter and open the pipe.
+	 * returns true if it loads a Pipe
+	 * @method checkAutoLoad
+	 */
+	checkAutoLoad: function() {
+		if(!this.checkAutoLoadOnce) {
+			var p = window.location.search.substr(1).split('&');
+			var oP = {};
+			for(var i = 0 ; i < p.length ; i++) {
+				var v = p[i].split('=');
+				oP[v[0]]=window.decodeURIComponent(v[1]);
+			}
+			this.checkAutoLoadOnce = true;
+			if(oP.autoload) {
+				this.loadPipe(oP.autoload);
+				return true;
+			}
+		}
+		return false;
+	},
+
+	/**
+	 * @method getPipeByName
+	 * @param {String} name Pipe's name
+	 * @return {Object} return the pipe configuration
+	 */
+	getPipeByName: function(name) {
+	   var n = this.pipes.length,ret;
+	   for(var i = 0 ; i < n ; i++) {
+	      if(this.pipes[i].name == name) {
+			return this.pipes[i].working;
+	      }
+	   }
+	   return null;
+	},
+
+	/**
+	 * @method loadPipe
+	 * @param {String} name Pipe name
+	 */
+	loadPipe: function(name) {
+
 		if(!this.isSaved()) {
 			if( !confirm("Warning: Your work is not saved yet ! Press ok to continue anyway.") ) {
 				return;
 			}
 		}
-	
-		try {
-	
-			this.preventLayerChangedEvent = true;
-	
-		   if(this.loadPanel) {
-	     		this.loadPanel.hide();
-			}
-	
-	    var wiring = this.getPipeByName(name), i;
 
-		 if(!wiring) {
-			this.alert("The wiring '"+name+"' was not found.");
-			return;
-	  	 }
-    
-	    // TODO: check if current wiring is saved...
-	    this.layer.clear();
-    
-	    this.propertiesForm.setValue(wiring.properties, false); // the false tells inputEx to NOT fire the updatedEvt
-    
-	    if(lang.isArray(wiring.modules)) {
-      
-	       // Containers
-	       for(i = 0 ; i < wiring.modules.length ; i++) {
-	          var m = wiring.modules[i];
-	          if(this.modulesByName[m.name]) {
-	             var baseContainerConfig = this.modulesByName[m.name].container;
-	             YAHOO.lang.augmentObject(m.config, baseContainerConfig); 
-	             m.config.title = m.name;
-	             var container = this.layer.addContainer(m.config);
-	             Dom.addClass(container.el, "WiringEditor-module-"+m.name);
-	             container.setValue(m.value);
-	          }
-	          else {
-	             throw new Error("WiringEditor: module '"+m.name+"' not found !");
-	          }
-	       }
-       
-	       // Wires
-	       if(lang.isArray(wiring.wires)) {
-	           for(i = 0 ; i < wiring.wires.length ; i++) {
-	              // On doit chercher dans la liste des terminaux de chacun des modules l'index des terminaux...
-	              this.layer.addWire(wiring.wires[i]);
-	           }
-	        }
-	     }
-     
-		this.markSaved();
-	
-		this.preventLayerChangedEvent = false;
-	
-	  	}
-	  	catch(ex) {
-	     	this.alert(ex);
+		try {
+
+			this.preventLayerChangedEvent = true;
+			this.loadPanel.hide();
+
+			var wiring = this.getPipeByName(name), i;
+
+			if(!wiring) {
+				this.alert("The wiring '"+name+"' was not found.");
+				return;
+		 	}
+
+		   // TODO: check if current wiring is saved...
+		   this.layer.clear();
+
+		   this.propertiesForm.setValue(wiring.properties, false); // the false tells inputEx to NOT fire the updatedEvt
+
+		   if(lang.isArray(wiring.modules)) {
+  
+		      // Containers
+		      for(i = 0 ; i < wiring.modules.length ; i++) {
+		         var m = wiring.modules[i];
+		         if(this.modulesByName[m.name]) {
+		            var baseContainerConfig = this.modulesByName[m.name].container;
+		            YAHOO.lang.augmentObject(m.config, baseContainerConfig); 
+		            m.config.title = m.name;
+		            var container = this.layer.addContainer(m.config);
+		            Dom.addClass(container.el, "WiringEditor-module-"+m.name);
+		            container.setValue(m.value);
+		         }
+		         else {
+		            throw new Error("WiringEditor: module '"+m.name+"' not found !");
+		         }
+		      }
+   
+		      // Wires
+		      if(lang.isArray(wiring.wires)) {
+		          for(i = 0 ; i < wiring.wires.length ; i++) {
+		             // On doit chercher dans la liste des terminaux de chacun des modules l'index des terminaux...
+		             this.layer.addWire(wiring.wires[i]);
+		          }
+		      }
+		  }
+  
+		  this.markSaved();
+		
+		  this.preventLayerChangedEvent = false;
+
+ 		}
+ 		catch(ex) {
+    		this.alert(ex);
 			if(window.console && YAHOO.lang.isFunction(console.log)) {
 				console.log(ex);
 			}
-	  	}
-	 },
+ 		}
+	},
 
 
 	onLayerChanged: function() {
@@ -511,34 +526,34 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	},
 
  
- /**
-  * This method return a wiring within the given vocabulary described by the modules list
-  * @method getValue
-  */
- getValue: function() {
-    
-   var i;
-   var obj = {modules: [], wires: [], properties: null};
+	/**
+	 * This method return a wiring within the given vocabulary described by the modules list
+	 * @method getValue
+	 */
+	getValue: function() {
+  
+	  var i;
+	  var obj = {modules: [], wires: [], properties: null};
 
-   for( i = 0 ; i < this.layer.containers.length ; i++) {
-      obj.modules.push( {name: this.layer.containers[i].title, value: this.layer.containers[i].getValue(), config: this.layer.containers[i].getConfig()});
-   }
+	  for( i = 0 ; i < this.layer.containers.length ; i++) {
+	     obj.modules.push( {name: this.layer.containers[i].title, value: this.layer.containers[i].getValue(), config: this.layer.containers[i].getConfig()});
+	  }
 
-   for( i = 0 ; i < this.layer.wires.length ; i++) {
-      var wire = this.layer.wires[i];
+	  for( i = 0 ; i < this.layer.wires.length ; i++) {
+	     var wire = this.layer.wires[i];
 		var wireObj = wire.getConfig();
 		wireObj.src = {moduleId: WireIt.indexOf(wire.terminal1.container, this.layer.containers), terminal: wire.terminal1.name };
 		wireObj.tgt = {moduleId: WireIt.indexOf(wire.terminal2.container, this.layer.containers), terminal: wire.terminal2.name };
-      obj.wires.push(wireObj);
-   }
-   
-   obj.properties = this.propertiesForm.getValue();
-    
-   return {
-      name: obj.properties.name,
-      working: obj
-   };
- }
+	     obj.wires.push(wireObj);
+	  }
+ 
+	  obj.properties = this.propertiesForm.getValue();
+  
+	  return {
+	     name: obj.properties.name,
+	     working: obj
+	  };
+	}
 
 
 });
