@@ -30,7 +30,7 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
       
       this.options.wirable = lang.isUndefined(options.wirable) ? false : options.wirable;
       this.options.container = options.container;
-      options.container = null;
+      //options.container = null;
    },
    
    /**
@@ -73,6 +73,29 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
       this.terminal.eventAddWire.subscribe(this.onAddWire, this, true);
       this.terminal.eventRemoveWire.subscribe(this.onRemoveWire, this, true);
     },
+
+	/**
+	 * Set the container for this field
+	 */
+	setContainer: function(container) {
+		this.options.container = container;
+		if(this.terminal) {
+			this.terminal.container = container;
+			if( WireIt.indexOf(this.terminal, container.terminals) == -1 ) {
+				container.terminals.push(this.terminal);
+			}
+		}		
+	},
+
+	/**
+	 * also change the terminal name when changing the field name
+	 */
+	setFieldName: function(name) {
+		if(this.terminal) {
+			this.terminal.name = name;
+			this.terminal.el.title = name;
+		}
+	},
 
     /**
      * Remove the input wired state on the 

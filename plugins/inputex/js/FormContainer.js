@@ -68,10 +68,11 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
     * @method renderForm
     */
    renderForm: function() {
-	  this.setBackReferenceOnFieldOptionsRecursively(this.fields);
-      
+	
       var groupParams = {parentEl: this.bodyEl, fields: this.fields, legend: this.legend, collapsible: this.collapsible};
       this.form = new inputEx.Group(groupParams);
+
+		this.form.setContainer(this);
 
 		// Redraw all wires when the form is collapsed
 		if(this.form.legend) {
@@ -97,36 +98,6 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
 				this.redrawAllWires();
 			}, this, true);
 		}
-   },
-   
-	/**
-	 * When creating wirable input fields, the field configuration must have a reference to the current container (this is used for positionning).
-	 * For complex fields (like object or list), the reference is set recursively AFTER the field creation.
-	 * @method setBackReferenceOnFieldOptionsRecursively
-	 */
-   setBackReferenceOnFieldOptionsRecursively: function(fieldArray, container) {
-       if (YAHOO.lang.isUndefined(container))
-			container = this;
-	
-      for(var i = 0 ; i < fieldArray.length ; i++) {
-    	  var inputParams = fieldArray[i];
-    	  inputParams.container = container;
-
-    	  // Checking for group sub elements
-    	  if(inputParams.fields && typeof inputParams.fields == 'object') {
-    		  this.setBackReferenceOnFieldOptionsRecursively(inputParams.fields);
-    	  }
-
-    	  // Checking for list sub elements
-    	  if(inputParams.elementType) {
-    		  inputParams.elementType.container = container;
-
-    		  // Checking for group elements within list elements
-    		  if(inputParams.elementType.fields && typeof inputParams.elementType.fields == 'object') {
-    			  this.setBackReferenceOnFieldOptionsRecursively(inputParams.elementType.fields);
-    		  }
-    	  }
-      }
    },
    
    /**
