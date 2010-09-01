@@ -36,6 +36,12 @@
 <script src="../js/fields/ListField.js"  type='text/javascript'></script>
 <script src="../js/fields/SelectField.js"  type='text/javascript'></script>
 
+<!-- only for the last example -->
+<script src="../js/Group.js"  type='text/javascript'></script>
+<script src="../js/Form.js"  type='text/javascript'></script>
+<script src="../js/widgets/Button.js"  type='text/javascript'></script>
+
+
 
 <script src="js/dpSyntaxHighlighter.js"></script>
 <script src="inputex-examples.js"></script>
@@ -173,6 +179,44 @@
   </textarea>
  </div>
 </div>
+
+
+
+
+<!-- Example 6 -->
+<div class='exampleDiv'>
+ <h2>Field names</h2>
+ <p>The names are automatically set on sub-fields, so that standard forms can work. Click the button and check the URL</p>
+ <div class='demoContainer' id='container6'></div>
+ <div class='codeContainer'>
+  <textarea name="code" class="JScript">	
+    new inputEx.Form( {
+			fields: [
+			{
+				name: 'firstVar',
+				label: "First variable",
+				value: "my-custom-value"
+			},
+			{
+				type: 'list',
+				label: "My Array",
+				maxItems: 4,
+				minItems: 1,
+				elementType: {type: 'string'},
+				value: ['this', 'is', 'a', 'test'],
+				name: 'myarray',
+				useButtons: true ,
+				sortable: true
+			}],
+      buttons: [{type: 'submit', value: 'Test to send the GET request'}],
+			method: 'GET',
+			parentEl: 'container6'
+		});
+  </textarea>
+ </div>
+</div>
+
+
 
  </body>
 </html>

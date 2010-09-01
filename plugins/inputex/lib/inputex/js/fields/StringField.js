@@ -73,6 +73,13 @@ lang.extend(inputEx.StringField, inputEx.Field, {
       this.fieldContainer.appendChild(this.wrapEl);
    },
 
+	/**
+	 * Set the name of the field (or hidden field)
+	 */
+	setFieldName: function(name) {
+		this.el.name = name;
+	},
+
    /**
     * Register the change, focus and blur events
     */
@@ -160,6 +167,13 @@ lang.extend(inputEx.StringField, inputEx.Field, {
     */
    enable: function() {
       this.el.disabled = false;
+   },
+
+   /**
+    * Check if the field is disabled
+    */
+   isDisabled: function() {
+      return this.el.disabled;
    },
 
    /**

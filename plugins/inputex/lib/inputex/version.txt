@@ -9,6 +9,19 @@
 Release Notes:
 ==============
 
+master branch: (not release)
+--------------
+
+ - Field enhancements:
+
+		* Field: adding the setFieldName method in the API
+		* ListField: use setFieldName on subFields for list to work in a browser form
+		
+
+ - Fixes
+ 		* CombineField: focus and blur handlers
+		* Groups will no longer validate disabled sub-fields
+
 
 version 0.6.0 :
 ---------------

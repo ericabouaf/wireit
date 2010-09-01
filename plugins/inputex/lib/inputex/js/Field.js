@@ -82,6 +82,13 @@ inputEx.Field.prototype = {
 	   this.options.required = lang.isUndefined(options.required) ? false : options.required;
 	   this.options.showMsg = lang.isUndefined(options.showMsg) ? false : options.showMsg;
 	},
+	
+	
+	/**
+	 * Set the name of the field (or hidden field)
+	 */
+	setFieldName: function(name) {
+	},
 
    /**
     * Default render of the dom element. Create a divEl that wraps the field.
@@ -290,6 +297,13 @@ inputEx.Field.prototype = {
     */
 	enable: function() {
 	},
+
+   /**
+    * Check if the field is diabled
+    */
+   isDisabled: function() {
+      return false;
+   },
 
    /**
     * Focus the field

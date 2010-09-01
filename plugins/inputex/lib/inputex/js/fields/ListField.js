@@ -175,11 +175,27 @@ lang.extend(inputEx.ListField,inputEx.Field, {
 	
 	   // Render the subField
 	   var subFieldEl = this.renderSubField(value);
-	      
+	
+		if(this.options.name) {
+	   	subFieldEl.setFieldName(this.options.name+"["+this.subFields.length+"]");
+		}
+	
 	   // Adds it to the local list
 	   this.subFields.push(subFieldEl);
 	   
 	   return subFieldEl;
+	},
+	
+	/**
+	 * Re-set the name of all the fields (when we remove an element)
+	 */
+	resetAllNames: function() {
+		if(this.options.name) {
+			for(var i = 0 ; i < this.subFields.length ; i++) {
+				var subFieldEl = this.subFields[i];
+				subFieldEl.setFieldName(this.options.name+"["+i+"]");
+			}
+		}
 	},
 	
 	/**
@@ -298,7 +314,10 @@ lang.extend(inputEx.ListField,inputEx.Field, {
 	      var temp = this.subFields[nodeIndex];
 	      this.subFields[nodeIndex] = this.subFields[nodeIndex-1];
 	      this.subFields[nodeIndex-1] = temp;
-	      
+	
+			// Note: not very efficient, we could just swap the names
+			this.resetAllNames();
+	
 	      // Color Animation
 	      if(this.arrowAnim) {
 	         this.arrowAnim.stop(true);
@@ -341,7 +360,10 @@ lang.extend(inputEx.ListField,inputEx.Field, {
 	      var temp = this.subFields[nodeIndex];
 	      this.subFields[nodeIndex] = this.subFields[nodeIndex+1];
 	      this.subFields[nodeIndex+1] = temp;
-	      
+	
+			// Note: not very efficient, we could just swap the names
+			this.resetAllNames();      
+	
 	      // Color Animation
 	      if(this.arrowAnim) {
 	         this.arrowAnim.stop(true);
@@ -386,7 +408,10 @@ lang.extend(inputEx.ListField,inputEx.Field, {
 	   if(index != -1) {
 	      this.removeElement(index);
 	   }
-	      
+		
+		// Note: not very efficient
+		this.resetAllNames();      
+	
 	   // Fire the updated event
 	   this.fireUpdatedEvt();
 	},

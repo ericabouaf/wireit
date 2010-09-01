@@ -54,6 +54,7 @@ YAHOO.lang.extend(inputEx.MultiAutoCompleteCustom, inputEx.MultiAutoComplete,{
    onAdd:function(e,a){
 		 this.ddlist.addItem({label: this.el.value});
 		 this.el.value = "";
+		 this.hiddenEl.value = "";
    	this.fireUpdatedEvt();
 
 	 },
@@ -65,15 +66,9 @@ YAHOO.lang.extend(inputEx.MultiAutoCompleteCustom, inputEx.MultiAutoComplete,{
     * </ul>
     */
    onChange: function(e) {
-
       this.setClassFromState();
       // Clear the field when no value 
-	   if (this.hiddenEl.value != this.el.value) this.hiddenEl.value = this.el.value;
-      lang.later(50, this, function() {
-         if(this.el.value == "") {
-            this.setValue("");
-         }
-      });
+	    if (this.hiddenEl.value != this.el.value) this.hiddenEl.value = this.el.value;
    },
 	    /**
     * onBlur : Override the onBlur of MultiAutocomplete to fix a bug with the blurEvent in InputEx 0.5.0

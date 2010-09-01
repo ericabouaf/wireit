@@ -1217,6 +1217,13 @@ inputEx.Field.prototype = {
 	   this.options.required = lang.isUndefined(options.required) ? false : options.required;
 	   this.options.showMsg = lang.isUndefined(options.showMsg) ? false : options.showMsg;
 	},
+	
+	
+	/**
+	 * Set the name of the field (or hidden field)
+	 */
+	setFieldName: function(name) {
+	},
 
    /**
     * Default render of the dom element. Create a divEl that wraps the field.
@@ -1425,6 +1432,13 @@ inputEx.Field.prototype = {
     */
 	enable: function() {
 	},
+
+   /**
+    * Check if the field is diabled
+    */
+   isDisabled: function() {
+      return false;
+   },
 
    /**
     * Focus the field
@@ -1698,15 +1712,17 @@ lang.extend(inputEx.Group, inputEx.Field, {
     */
    validate: function() {
       var response = true;
-      
+
       // Validate all the sub fields
-      for (var i = 0 ; i < this.inputs.length ; i++) {
-   	   var input = this.inputs[i];
-   	   input.setClassFromState(); // update field classes (mark invalid fields...)
-   	   var state = input.getState();
-   	   if( state == inputEx.stateRequired || state == inputEx.stateInvalid ) {
-   		   response = false; // but keep looping on fields to set classes
-   	   }
+      for (var i = 0; i < this.inputs.length; i++) {
+         var input = this.inputs[i];
+         if (!input.isDisabled()) {
+            input.setClassFromState(); // update field classes (mark invalid fields...)
+            var state = input.getState();
+            if (state == inputEx.stateRequired || state == inputEx.stateInvalid) {
+               response = false; // but keep looping on fields to set classes
+            }
+         }
       }
       return response;
    },
@@ -2587,7 +2603,7 @@ inputEx.registerType("form", inputEx.Form, [
 })();
 (function() {
 	
-   var lang = YAHOO.lang, Dom = YAHOO.util.Dom;
+   var lang = YAHOO.lang, Dom = YAHOO.util.Dom, Event = YAHOO.util.Event;
 	
 /**
  * A meta field to put N fields on the same line, separated by separators
@@ -2690,14 +2706,68 @@ lang.extend( inputEx.CombineField, inputEx.Group, {
       
       return inputEx.CombineField.superclass.renderField.call(this, fieldOptions);
    },
+
+	/**
+	 * Override to set the field names
+	 */
+	renderFields: function(parentEl) {
+		inputEx.CombineField.superclass.renderFields.call(this,parentEl);
+		
+		this.setFieldName(this.options.name);
+	},
 	
+	
+	setFieldName: function(name) {
+		if(name) {
+			for(var i = 0 ; i < this.inputs.length ; i++) {
+				var newName = "";
+				if(this.inputs[i].options.name) {
+					newName = name+"["+this.inputs[i].options.name+"]";
+				}
+				else {
+					newName = name+"["+i+"]";
+				}
+				this.inputs[i].setFieldName(newName);
+			}
+		}
+	},
+	
+	/**
+	 * Add a separator to the divEl
+	 */
 	appendSeparator: function(i) {
 	   if(this.options.separators && this.options.separators[i]) {
 	      var sep = inputEx.cn('div', {className: 'inputEx-CombineField-separator'}, null, this.options.separators[i]);
 	      this.divEl.appendChild(sep);
       }
 	},
-	
+
+   initEvents: function() {
+      var me = this,
+         blurTimeout;
+
+      inputEx.CombineField.superclass.initEvents.apply(this, arguments);
+
+      Event.addListener(this.divEl, "focusout", function( e ) {
+         // store local copy of the event to use in setTimeout
+         e = lang.merge(e);
+         blurTimeout = window.setTimeout(function() {
+            blurTimeout = null;
+            me.onBlur(e);
+         }, 25);
+      });
+
+      Event.addListener(this.divEl, "focusin", function( e ) {
+         if (blurTimeout !== null) {
+            window.clearTimeout(blurTimeout);
+            blurTimeout = null;
+         }
+         else {
+            me.onFocus(e);
+         }
+      });
+   },
+
 
 	   
 	/**
@@ -2817,6 +2887,13 @@ lang.extend(inputEx.StringField, inputEx.Field, {
       this.fieldContainer.appendChild(this.wrapEl);
    },
 
+	/**
+	 * Set the name of the field (or hidden field)
+	 */
+	setFieldName: function(name) {
+		this.el.name = name;
+	},
+
    /**
     * Register the change, focus and blur events
     */
@@ -2904,6 +2981,13 @@ lang.extend(inputEx.StringField, inputEx.Field, {
     */
    enable: function() {
       this.el.disabled = false;
+   },
+
+   /**
+    * Check if the field is disabled
+    */
+   isDisabled: function() {
+      return this.el.disabled;
    },
 
    /**
@@ -4954,11 +5038,27 @@ lang.extend(inputEx.ListField,inputEx.Field, {
 	
 	   // Render the subField
 	   var subFieldEl = this.renderSubField(value);
-	      
+	
+		if(this.options.name) {
+	   	subFieldEl.setFieldName(this.options.name+"["+this.subFields.length+"]");
+		}
+	
 	   // Adds it to the local list
 	   this.subFields.push(subFieldEl);
 	   
 	   return subFieldEl;
+	},
+	
+	/**
+	 * Re-set the name of all the fields (when we remove an element)
+	 */
+	resetAllNames: function() {
+		if(this.options.name) {
+			for(var i = 0 ; i < this.subFields.length ; i++) {
+				var subFieldEl = this.subFields[i];
+				subFieldEl.setFieldName(this.options.name+"["+i+"]");
+			}
+		}
 	},
 	
 	/**
@@ -5077,7 +5177,10 @@ lang.extend(inputEx.ListField,inputEx.Field, {
 	      var temp = this.subFields[nodeIndex];
 	      this.subFields[nodeIndex] = this.subFields[nodeIndex-1];
 	      this.subFields[nodeIndex-1] = temp;
-	      
+	
+			// Note: not very efficient, we could just swap the names
+			this.resetAllNames();
+	
 	      // Color Animation
 	      if(this.arrowAnim) {
 	         this.arrowAnim.stop(true);
@@ -5120,7 +5223,10 @@ lang.extend(inputEx.ListField,inputEx.Field, {
 	      var temp = this.subFields[nodeIndex];
 	      this.subFields[nodeIndex] = this.subFields[nodeIndex+1];
 	      this.subFields[nodeIndex+1] = temp;
-	      
+	
+			// Note: not very efficient, we could just swap the names
+			this.resetAllNames();      
+	
 	      // Color Animation
 	      if(this.arrowAnim) {
 	         this.arrowAnim.stop(true);
@@ -5165,7 +5271,10 @@ lang.extend(inputEx.ListField,inputEx.Field, {
 	   if(index != -1) {
 	      this.removeElement(index);
 	   }
-	      
+		
+		// Note: not very efficient
+		this.resetAllNames();      
+	
 	   // Fire the updated event
 	   this.fireUpdatedEvt();
 	},

@@ -173,15 +173,17 @@ lang.extend(inputEx.Group, inputEx.Field, {
     */
    validate: function() {
       var response = true;
-      
+
       // Validate all the sub fields
-      for (var i = 0 ; i < this.inputs.length ; i++) {
-   	   var input = this.inputs[i];
-   	   input.setClassFromState(); // update field classes (mark invalid fields...)
-   	   var state = input.getState();
-   	   if( state == inputEx.stateRequired || state == inputEx.stateInvalid ) {
-   		   response = false; // but keep looping on fields to set classes
-   	   }
+      for (var i = 0; i < this.inputs.length; i++) {
+         var input = this.inputs[i];
+         if (!input.isDisabled()) {
+            input.setClassFromState(); // update field classes (mark invalid fields...)
+            var state = input.getState();
+            if (state == inputEx.stateRequired || state == inputEx.stateInvalid) {
+               response = false; // but keep looping on fields to set classes
+            }
+         }
       }
       return response;
    },
