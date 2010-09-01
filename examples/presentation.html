@@ -10,6 +10,8 @@
 
 <!-- WireIt -->
 <script type="text/javascript" src="../build/wireit-min.js"></script>
+<script type="text/javascript" src="../js/LeftSquareArrowWire.js"></script>
+<script type="text/javascript" src="../js/RightSquareArrowWire.js"></script>
 <link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
 
 <style>
@@ -85,6 +87,24 @@ WireIt.samples = [
 		innerHTML: '<p>Let\'s draw some arrows</p>',
 		init: function() {
 			var wireConfig = { xtype: 'WireIt.ArrowWire' };
+			this.terminals = [
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,100] }),
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,210] }),
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,210] }),
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,100] })
+			];
+		},
+		unload: function() {
+			for(var i = 0 ; i < this.terminals.length ; i++) {
+				this.terminals[i].remove();
+			}
+		}
+	},
+	
+	{
+		innerHTML: '<p>Let\'s draw some contributed arrows</p>',
+		init: function() {
+			var wireConfig = { xtype: 'WireIt.LeftSquareArrow', fakeDirection: [0,-1] };
 			this.terminals = [
 				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,100] }),
 				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,210] }),

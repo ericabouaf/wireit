@@ -2,7 +2,7 @@
 <html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<title>API: WireIt   DDResize.js  (YUI Library)</title>
+	<title>API: WireIt   LeftSquareArrowWire.js  (YUI Library)</title>
 
 	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css" />
 	<link rel="stylesheet" type="text/css" href="assets/api.css" />
@@ -20,7 +20,7 @@
         <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
                 
-                 &gt; DDResize.js (source view) 
+                 &gt; LeftSquareArrowWire.js (source view) 
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -47,80 +47,172 @@
                         <style>
                             #doc3 .classopts { display:none; }
                         </style>
-                        <div class="highlight"><pre><span class="c">/*global YAHOO,WireIt */</span>
-<span class="c">/**</span>
-<span class="c"> * Make a container resizable</span>
-<span class="c"> * @class DDResize</span>
-<span class="c"> * @namespace WireIt.util</span>
-<span class="c"> * @extends YAHOO.util.DragDrop</span>
+                        <div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * Square type of arrows for representing loops (but not restricted to) in CFG</span>
+<span class="c"> * @class LeftSquareArrow</span>
+<span class="c"> * @extends WireIt.Wire</span>
 <span class="c"> * @constructor</span>
-<span class="c"> * @param {WireIt.Container} container The container that is to be resizable</span>
-<span class="c"> * @param {Object} config Configuration object</span>
+<span class="c"> * @param  {WireIt.Terminal}    terminal1   Source terminal</span>
+<span class="c"> * @param  {WireIt.Terminal}    terminal2   Target terminal</span>
+<span class="c"> * @param  {HTMLElement} parentEl    Container of the CANVAS tag</span>
+<span class="c"> * @param  {Obj}                options      Wire configuration (see options property)</span>
 <span class="c"> */</span>
-<span class="nx">WireIt</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">DDResize</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">container</span><span class="o">,</span> <span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
-   
-   <span class="c">/**</span>
-<span class="c">    * Configuration object</span>
-<span class="c">    * &lt;ul&gt;</span>
-<span class="c">    *   &lt;li&gt;minWidth: minimum width (default 50)&lt;/li&gt;</span>
-<span class="c">    *   &lt;li&gt;minHeight: minimum height (default 50)&lt;/li&gt;</span>
-<span class="c">    * &lt;/ul&gt;</span>
-<span class="c">    * @property myConf</span>
-<span class="c">    */</span>
-   <span class="c">// WARNING: the object config cannot be called &quot;config&quot; because YAHOO.util.DragDrop already has a &quot;config&quot; property</span>
-   <span class="k">this</span><span class="p">.</span><span class="nx">myConf</span> <span class="o">=</span> <span class="nx">config</span> <span class="o">||</span> <span class="p">{};</span>
-   <span class="k">this</span><span class="p">.</span><span class="nx">myConf</span><span class="p">.</span><span class="nx">container</span> <span class="o">=</span> <span class="nx">container</span><span class="o">;</span>
-   <span class="k">this</span><span class="p">.</span><span class="nx">myConf</span><span class="p">.</span><span class="nx">minWidth</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">myConf</span><span class="p">.</span><span class="nx">minWidth</span> <span class="o">||</span> <span class="mi">50</span><span class="o">;</span>
-   <span class="k">this</span><span class="p">.</span><span class="nx">myConf</span><span class="p">.</span><span class="nx">minHeight</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">myConf</span><span class="p">.</span><span class="nx">minHeight</span> <span class="o">||</span> <span class="mi">50</span><span class="o">;</span>
-   
-   <span class="c">// Call the superconstructor</span>
-   <span class="nx">WireIt</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">DDResize</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="p">[</span><span class="nx">container</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="nx">container</span><span class="p">.</span><span class="nx">ddResizeHandle</span><span class="p">]);</span>
-   
-   <span class="c">// Set the resize handle</span>
-   <span class="k">this</span><span class="p">.</span><span class="nx">setHandleElId</span><span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">ddResizeHandle</span><span class="p">);</span>
-   
-   <span class="c">/**</span>
-<span class="c">    * The event fired when the container is resized</span>
-<span class="c">    * @event eventResize</span>
-<span class="c">    */</span>
-   <span class="k">this</span><span class="p">.</span><span class="nx">eventResize</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s2">&quot;eventResize&quot;</span><span class="p">);</span>
+<span class="nx">WireIt</span><span class="p">.</span><span class="nx">LeftSquareArrow</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">terminal1</span><span class="o">,</span> <span class="nx">terminal2</span><span class="o">,</span> <span class="nx">parentEl</span><span class="o">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">WireIt</span><span class="p">.</span><span class="nx">LeftSquareArrow</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">terminal1</span><span class="o">,</span> <span class="nx">terminal2</span><span class="o">,</span> <span class="nx">parentEl</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
 <span class="p">};</span>
 
-<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">DDResize</span><span class="o">,</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">DragDrop</span><span class="o">,</span> <span class="p">{</span>
-
-   <span class="c">/**</span>
-<span class="c">    * @method onMouseDown</span>
+<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">LeftSquareArrow</span><span class="o">,</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Wire</span><span class="o">,</span> <span class="p">{</span>
+	
+	<span class="c">/** </span>
+<span class="c">    * @property xtype</span>
+<span class="c">    * @description String representing this class for exporting as JSON</span>
+<span class="c">    * @default &quot;WireIt.LeftSquareArrow&quot;</span>
+<span class="c">    * @type String</span>
 <span class="c">    */</span>
-   <span class="nx">onMouseDown</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">panel</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getEl</span><span class="p">();</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">startWidth</span> <span class="o">=</span> <span class="nx">panel</span><span class="p">.</span><span class="nx">offsetWidth</span><span class="o">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">startHeight</span> <span class="o">=</span> <span class="nx">panel</span><span class="p">.</span><span class="nx">offsetHeight</span><span class="o">;</span>
+   <span class="nx">xtype</span><span class="o">:</span> <span class="s2">&quot;WireIt.LeftSquareArrow&quot;</span><span class="o">,</span>
 
-        <span class="k">this</span><span class="p">.</span><span class="nx">startPos</span> <span class="o">=</span> <span class="p">[</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">getPageX</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="o">,</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">getPageY</span><span class="p">(</span><span class="nx">e</span><span class="p">)];</span>
-    <span class="p">}</span><span class="o">,</span>
+	<span class="c">/**</span>
+<span class="c">    * Drawing method</span>
+<span class="c">    */</span>
+   <span class="nx">draw</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>	
 
-    <span class="c">/**</span>
-<span class="c">     * @method onDrag</span>
-<span class="c">     */</span>
-    <span class="nx">onDrag</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">newPos</span> <span class="o">=</span> <span class="p">[</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">getPageX</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="o">,</span>  <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">getPageY</span><span class="p">(</span><span class="nx">e</span><span class="p">)];</span>
+	   <span class="c">// Get the positions of the terminals</span>
+	   <span class="kd">var</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">getXY</span><span class="p">();</span>
+	   <span class="kd">var</span> <span class="nx">p2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal2</span><span class="p">.</span><span class="nx">getXY</span><span class="p">();</span>
 
-        <span class="kd">var</span> <span class="nx">offsetX</span> <span class="o">=</span> <span class="nx">newPos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">startPos</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-        <span class="kd">var</span> <span class="nx">offsetY</span> <span class="o">=</span> <span class="nx">newPos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">startPos</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+	   <span class="kd">var</span> <span class="nx">distance</span><span class="o">=</span><span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="nx">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nx">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="mi">2</span><span class="p">));</span>
 
-        <span class="kd">var</span> <span class="nx">newWidth</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">startWidth</span> <span class="o">+</span> <span class="nx">offsetX</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">myConf</span><span class="p">.</span><span class="nx">minWidth</span><span class="p">);</span>
-        <span class="kd">var</span> <span class="nx">newHeight</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">startHeight</span> <span class="o">+</span> <span class="nx">offsetY</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">myConf</span><span class="p">.</span><span class="nx">minHeight</span><span class="p">);</span>
+		<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="mi">7</span><span class="o">;</span> <span class="c">// arrow width/2</span>
 
-        <span class="kd">var</span> <span class="nx">panel</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getEl</span><span class="p">();</span>
-        <span class="nx">panel</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">newWidth</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
-        <span class="nx">panel</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">newHeight</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
+	   <span class="kd">var</span> <span class="nx">redim</span> <span class="o">=</span> <span class="nx">d</span> <span class="o">+</span> <span class="nx">distance</span><span class="o">*</span><span class="mf">0.5</span><span class="o">;</span> <span class="c">//we have to make the canvas a little bigger because of arrows</span>
 
-			<span class="c">// redraw wires</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">myConf</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">redrawAllWires</span><span class="p">();</span>
+	   <span class="kd">var</span> <span class="nx">margin</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="o">+</span><span class="nx">redim</span><span class="o">,</span><span class="mi">4</span><span class="o">+</span><span class="nx">redim</span><span class="p">];</span>
 
-        <span class="c">// Fire the resize event</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">eventResize</span><span class="p">.</span><span class="nx">fire</span><span class="p">([</span><span class="nx">newWidth</span><span class="o">,</span> <span class="nx">newHeight</span><span class="p">]);</span>
-    <span class="p">}</span>
+	   <span class="kd">var</span> <span class="nx">min</span><span class="o">=</span><span class="p">[</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span><span class="nx">margin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span>
+		<span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="nx">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">-</span><span class="nx">margin</span><span class="p">[</span><span class="mi">1</span><span class="p">]];</span>
+
+	   <span class="kd">var</span> <span class="nx">max</span><span class="o">=</span><span class="p">[</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="nx">margin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span>
+		<span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="nx">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="nx">margin</span><span class="p">[</span><span class="mi">1</span><span class="p">]];</span>
+
+	   <span class="c">// Redimensionnement du canvas</span>
+	   <span class="kd">var</span> <span class="nx">lw</span><span class="o">=</span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">max</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="nx">min</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="nx">redim</span><span class="o">;</span>
+	   <span class="kd">var</span> <span class="nx">lh</span><span class="o">=</span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">max</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nx">min</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="nx">redim</span><span class="o">;</span>
+
+	   <span class="nx">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="nx">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="nx">min</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+	   <span class="nx">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="nx">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nx">min</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+	   <span class="nx">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="nx">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="nx">min</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+	   <span class="nx">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="nx">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nx">min</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+	   <span class="k">this</span><span class="p">.</span><span class="nx">SetCanvasRegion</span><span class="p">(</span><span class="nx">min</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">min</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="nx">lw</span><span class="o">,</span><span class="nx">lh</span><span class="p">);</span>
+
+	   <span class="kd">var</span> <span class="nx">ctxt</span><span class="o">=</span><span class="k">this</span><span class="p">.</span><span class="nx">getContext</span><span class="p">();</span>
+
+		<span class="c">//	  (e1) .------&gt; * (p1)</span>
+		<span class="c">//   	        |</span>
+		<span class="c">//              |</span>
+		<span class="c">//	        |</span>
+		<span class="c">//	  (e2) .-------* (p2)</span>
+
+		<span class="kd">var</span> <span class="nx">e1</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">getXY</span><span class="p">();</span>
+		<span class="kd">var</span> <span class="nx">e2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal2</span><span class="p">.</span><span class="nx">getXY</span><span class="p">();</span>
+	 	<span class="nx">e1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">distance</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">5</span><span class="o">;</span>	  <span class="c">// Change the x coordinate; y remains same</span>
+		<span class="nx">e1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+		<span class="nx">e2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">distance</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">5</span><span class="o">;</span>
+		<span class="nx">e2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+      <span class="c">// Draw the border</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineCap</span><span class="o">=</span><span class="k">this</span><span class="p">.</span><span class="nx">bordercap</span><span class="o">;</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">strokeStyle</span><span class="o">=</span><span class="k">this</span><span class="p">.</span><span class="nx">bordercolor</span><span class="o">;</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineWidth</span><span class="o">=</span><span class="k">this</span><span class="p">.</span><span class="nx">width</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">borderwidth</span><span class="o">*</span><span class="mi">2</span><span class="o">;</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span> <span class="nx">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>	  	
+	  	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">e1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span> <span class="nx">e1</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+	  	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">e2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span> <span class="nx">e2</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span> <span class="nx">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>	
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+
+      <span class="c">// Draw the inner bezier curve</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineCap</span><span class="o">=</span><span class="k">this</span><span class="p">.</span><span class="nx">cap</span><span class="o">;</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">strokeStyle</span><span class="o">=</span><span class="k">this</span><span class="p">.</span><span class="nx">color</span><span class="o">;</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineWidth</span><span class="o">=</span><span class="k">this</span><span class="p">.</span><span class="nx">width</span><span class="o">;</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+	  	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">e1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span> <span class="nx">e1</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+	  	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">e2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span> <span class="nx">e2</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span> <span class="nx">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>	
+      <span class="nx">ctxt</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+
+	  <span class="c">/* start drawing arrows */</span>
+   	<span class="kd">var</span> <span class="nx">t1</span> <span class="o">=</span> <span class="nx">e2</span><span class="o">;</span>
+   	<span class="kd">var</span> <span class="nx">t2</span> <span class="o">=</span> <span class="nx">p2</span><span class="o">;</span>
+
+   	<span class="kd">var</span> <span class="nx">z</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="p">];</span> <span class="c">//point on the wire with constant distance (dlug) from terminal2</span>
+   	<span class="kd">var</span> <span class="nx">dlug</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span> <span class="c">//arrow length</span>
+   	<span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="p">(</span><span class="nx">distance</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="nx">dlug</span><span class="o">/</span><span class="nx">distance</span><span class="p">);</span>
+   	<span class="nx">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span> <span class="nx">t1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span>  <span class="nx">t</span><span class="o">*</span><span class="p">(</span><span class="nx">t2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="nx">t1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">);</span>
+   	<span class="nx">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span> <span class="nx">t1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="nx">t</span><span class="o">*</span><span class="p">(</span><span class="nx">t2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nx">t1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">);</span>	
+
+   	<span class="c">//line which connects the terminals: y=ax+b</span>
+   	<span class="kd">var</span> <span class="nx">W</span> <span class="o">=</span> <span class="nx">t1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">t2</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+   	<span class="kd">var</span> <span class="nx">Wa</span> <span class="o">=</span> <span class="nx">t1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">t2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+   	<span class="kd">var</span> <span class="nx">Wb</span> <span class="o">=</span> <span class="nx">t1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="nx">t2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">t1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nx">t2</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+   	<span class="k">if</span> <span class="p">(</span><span class="nx">W</span> <span class="o">!==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+   		<span class="nx">a</span> <span class="o">=</span> <span class="nx">Wa</span><span class="o">/</span><span class="nx">W</span><span class="o">;</span>
+   		<span class="nx">b</span> <span class="o">=</span> <span class="nx">Wb</span><span class="o">/</span><span class="nx">W</span><span class="o">;</span>
+   	<span class="p">}</span>
+   	<span class="k">else</span> <span class="p">{</span>
+   		<span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+   	<span class="p">}</span>
+
+   	<span class="c">//line perpendicular to the main line: y = aProst*x + b</span>
+   	<span class="k">if</span> <span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+   		<span class="nx">aProst</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+   	<span class="p">}</span>
+   	<span class="k">else</span> <span class="p">{</span>
+   		<span class="nx">aProst</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="nx">a</span><span class="o">;</span>
+   	<span class="p">}</span>
+   	<span class="nx">bProst</span> <span class="o">=</span> <span class="nx">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">aProst</span><span class="o">*</span><span class="nx">z</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c">//point z lays on this line</span>
+
+   	<span class="c">//we have to calculate coordinates of 2 points, which lay on perpendicular line and have the same distance (d) from point z</span>
+   	<span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">aProst</span><span class="o">,</span><span class="mi">2</span><span class="p">);</span>
+   	<span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nx">aProst</span><span class="o">*</span><span class="nx">bProst</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="nx">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="nx">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nx">aProst</span><span class="o">;</span>
+   	<span class="kd">var</span> <span class="nx">C</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="nx">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nx">bProst</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">d</span><span class="o">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">bProst</span><span class="o">,</span><span class="mi">2</span><span class="p">);</span>
+   	<span class="kd">var</span> <span class="nx">delta</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">B</span><span class="o">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="nx">A</span><span class="o">*</span><span class="nx">C</span><span class="o">;</span>
+
+   	<span class="k">if</span> <span class="p">(</span><span class="nx">delta</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span><span class="o">;</span> <span class="p">}</span>
+
+   	<span class="kd">var</span> <span class="nx">x1</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="nx">B</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="nx">delta</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nx">A</span><span class="p">);</span>
+   	<span class="kd">var</span> <span class="nx">x2</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="nx">B</span> <span class="o">-</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="nx">delta</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nx">A</span><span class="p">);</span>	
+   	<span class="kd">var</span> <span class="nx">y1</span> <span class="o">=</span> <span class="nx">aProst</span><span class="o">*</span><span class="nx">x1</span> <span class="o">+</span> <span class="nx">bProst</span><span class="o">;</span>
+   	<span class="kd">var</span> <span class="nx">y2</span> <span class="o">=</span> <span class="nx">aProst</span><span class="o">*</span><span class="nx">x2</span> <span class="o">+</span> <span class="nx">bProst</span><span class="o">;</span>
+
+   	<span class="k">if</span><span class="p">(</span><span class="nx">t1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nx">t2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
+   	      <span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">(</span><span class="nx">t1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">t2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+      	   <span class="nx">x1</span> <span class="o">=</span> <span class="nx">t2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="nx">o</span><span class="o">*</span><span class="nx">dlug</span><span class="o">;</span>
+      	   <span class="nx">x2</span> <span class="o">=</span> <span class="nx">x1</span><span class="o">;</span>
+      	   <span class="nx">y1</span> <span class="o">-=</span> <span class="nx">d</span><span class="o">;</span>
+      	   <span class="nx">y2</span> <span class="o">+=</span> <span class="nx">d</span><span class="o">;</span>
+   	<span class="p">}</span>   	
+
+   	<span class="c">//triangle fill</span>
+   	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">color</span><span class="o">;</span>
+   	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+   	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">t2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">t2</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+   	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">x1</span><span class="o">,</span><span class="nx">y1</span><span class="p">);</span>
+   	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">x2</span><span class="o">,</span><span class="nx">y2</span><span class="p">);</span>
+   	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">fill</span><span class="p">();</span>
+
+   	<span class="c">//triangle border	</span>
+   	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">strokeStyle</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">bordercolor</span><span class="o">;</span>
+   	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineWidth</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">borderwidth</span><span class="o">;</span>
+   	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+   	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">t2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">t2</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+   	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">x1</span><span class="o">,</span><span class="nx">y1</span><span class="p">);</span>
+   	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">x2</span><span class="o">,</span><span class="nx">y2</span><span class="p">);</span>
+   	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">t2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="nx">t2</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+   	<span class="nx">ctxt</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+   <span class="p">}</span>
+
 <span class="p">});</span>
 </pre></div>
 
@@ -182,13 +274,13 @@
                                 <li class=""><a href="CanvasElement.js.html" title="CanvasElement.js">CanvasElement.js</a></li>
                                 <li class=""><a href="Container.js.html" title="Container.js">Container.js</a></li>
                                 <li class=""><a href="DD.js.html" title="DD.js">DD.js</a></li>
-                                <li class="selected"><a href="DDResize.js.html" title="DDResize.js">DDResize.js</a></li>
+                                <li class=""><a href="DDResize.js.html" title="DDResize.js">DDResize.js</a></li>
                                 <li class=""><a href="EllipseLabelContainer.js.html" title="EllipseLabelContainer.js">EllipseLabelContainer.js</a></li>
                                 <li class=""><a href="ImageContainer.js.html" title="ImageContainer.js">ImageContainer.js</a></li>
                                 <li class=""><a href="InOutContainer.js.html" title="InOutContainer.js">InOutContainer.js</a></li>
                                 <li class=""><a href="Layer.js.html" title="Layer.js">Layer.js</a></li>
                                 <li class=""><a href="LayerMap.js.html" title="LayerMap.js">LayerMap.js</a></li>
-                                <li class=""><a href="LeftSquareArrowWire.js.html" title="LeftSquareArrowWire.js">LeftSquareArrowWire.js</a></li>
+                                <li class="selected"><a href="LeftSquareArrowWire.js.html" title="LeftSquareArrowWire.js">LeftSquareArrowWire.js</a></li>
                                 <li class=""><a href="RectLabelContainer.js.html" title="RectLabelContainer.js">RectLabelContainer.js</a></li>
                                 <li class=""><a href="RightSquareArrowWire.js.html" title="RightSquareArrowWire.js">RightSquareArrowWire.js</a></li>
                                 <li class=""><a href="Scissors.js.html" title="Scissors.js">Scissors.js</a></li>
