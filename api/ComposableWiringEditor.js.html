@@ -112,15 +112,37 @@
 
 
 <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">ComposableWiringEditor</span><span class="o">,</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">WiringEditor</span><span class="o">,</span> <span class="p">{</span>
-   
+
+	<span class="c">/**</span>
+<span class="c">	 * @property composedCategory</span>
+<span class="c">	 */</span>
+   <span class="nx">composedCategory</span><span class="o">:</span> <span class="s2">&quot;Composed&quot;</span><span class="o">,</span>
+
 	<span class="c">/**</span>
 <span class="c">	 * Customize the load success handler for the composed module list</span>
 <span class="c">	 */</span>
 	<span class="nx">onLoadSuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">wirings</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">WireIt</span><span class="p">.</span><span class="nx">ComposableWiringEditor</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">onLoadSuccess</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">wirings</span><span class="p">);</span>
+		
+		
+		<span class="c">// Reset the internal structure</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">pipes</span> <span class="o">=</span> <span class="nx">wirings</span><span class="o">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">pipesByName</span> <span class="o">=</span> <span class="p">{};</span>
 	
+		<span class="c">// Build the &quot;pipesByName&quot; index</span>
+		<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">pipes</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">pipesByName</span><span class="p">[</span> <span class="k">this</span><span class="p">.</span><span class="nx">pipes</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">pipes</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+		<span class="p">}</span>
+		
 		<span class="c">//  Customize to display composed module in the left list</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">updateComposedModuleList</span><span class="p">();</span>
+	
+    	<span class="k">this</span><span class="p">.</span><span class="nx">updateLoadPanelList</span><span class="p">();</span>
+
+		<span class="c">// Check for autoload param and display the loadPanel otherwise</span>
+		<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">checkAutoLoad</span><span class="p">())</span> <span class="p">{</span> 
+    		<span class="k">this</span><span class="p">.</span><span class="nx">loadPanel</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+		<span class="p">}</span>
+		
 	<span class="p">}</span><span class="o">,</span>
 	
 	<span class="c">/**</span>
@@ -142,7 +164,8 @@
 	          <span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">pipes</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
 	
 				 <span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="p">{</span>
-					<span class="nx">category</span><span class="o">:</span> <span class="s2">&quot;Composed&quot;</span><span class="o">,</span>
+					<span class="nx">name</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">name</span><span class="o">,</span>
+					<span class="nx">category</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">composedCategory</span><span class="o">,</span>
 					<span class="nx">container</span><span class="o">:</span> <span class="p">{</span>
 		            <span class="s2">&quot;xtype&quot;</span><span class="o">:</span> <span class="s2">&quot;WireIt.ComposedContainer&quot;</span><span class="o">,</span>
 		            <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">name</span><span class="o">,</span>
@@ -150,6 +173,8 @@
 		         <span class="p">}</span>
 				 <span class="p">};</span>
 				 <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">augmentObject</span><span class="p">(</span><span class="nx">m</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">pipes</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+				
+				 <span class="k">this</span><span class="p">.</span><span class="nx">modulesByName</span><span class="p">[</span><span class="nx">module</span><span class="p">.</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">m</span><span class="o">;</span>
 					
 				 <span class="k">this</span><span class="p">.</span><span class="nx">addModuleToList</span><span class="p">(</span><span class="nx">m</span><span class="p">);</span>
 			<span class="p">}</span>
@@ -172,7 +197,6 @@
                                 <li class="selected"><a href="module_animations-plugin.html" title="animations-plugin">animations-plugin</a></li>
                                 <li class=""><a href="module_composable-plugin.html" title="composable-plugin">composable-plugin</a></li>
                                 <li class=""><a href="module_editor-plugin.html" title="editor-plugin">editor-plugin</a></li>
-                                <li class=""><a href="module_grouping-plugin.html" title="grouping-plugin">grouping-plugin</a></li>
                                 <li class=""><a href="module_inputex-plugin.html" title="inputex-plugin">inputex-plugin</a></li>
                                 <li class=""><a href="module_layout-plugin.html" title="layout-plugin">layout-plugin</a></li>
                                 <li class=""><a href="module_wireit.html" title="WireIt">WireIt</a></li>

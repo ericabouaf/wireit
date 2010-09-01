@@ -68,13 +68,13 @@
                         <div class="section field details">
                             <h3 id="properties">Properties</h3>
                             <div class="content">
-                                    <div class="" rel="yui:property" resource="#property_Layout">
-                                    <h4><a name="property_Layout" property="yui:name">Layout</a>
-                                        - <code>static <span property="yui:type">object</span></code>
+                                    <div class="" rel="yui:property" resource="#property__addElement">
+                                    <h4><a name="property__addElement" property="yui:name">_addElement</a>
+                                        - <code><span property="yui:type">object</span></code>
                                     </h4>
                                     <div class="detail">
                                         <div class="description" property="yui:description">
-                                            
+                                            setContainer must be called on each new element
                                         </div>
                                     </div>
      
@@ -92,36 +92,6 @@
                         <div class="section method details">
                             <h3 id="methods">Methods</h3>
                             <div class="content">
-                                    <div class="" rel="yui:method" resource="#method_layoutAnim">
-                                    <h4>
-                                        <a name="method_layoutAnim">layoutAnim</a></h4>
-                                    <div class="detail" >
-                                        <code>
-                                        
-                                        
-                                        
-                                        void
-                                            <strong property="yui:name">layoutAnim</strong>
-                                           (
-                                            )
-                                        </code>
-                                        
-                                        <div class="description" property="yui:description">
-                                            Calculate the new position for the given layout and animate the layer to this position
-                                        </div>
-
-                                        <div class="description">
-
-
-
-
-             
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    </div>
                                     <div class="" rel="yui:method" resource="#method_onAddWire">
                                     <h4>
                                         <a name="method_onAddWire">onAddWire</a></h4>
@@ -242,6 +212,66 @@
                                     </div>
                                     <hr />
                                     </div>
+                                    <div class="" rel="yui:method" resource="#method_setContainer">
+                                    <h4>
+                                        <a name="method_setContainer">setContainer</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">setContainer</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Set the container for this field
+                                        </div>
+
+                                        <div class="description">
+
+
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_setFieldName">
+                                    <h4>
+                                        <a name="method_setFieldName">setFieldName</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">setFieldName</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            also change the terminal name when changing the field name
+                                        </div>
+
+                                        <div class="description">
+
+
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
                                     <div class="" rel="yui:method" resource="#method_setOptions">
                                     <h4>
                                         <a name="method_setOptions">setOptions</a></h4>
@@ -258,66 +288,6 @@
                                         
                                         <div class="description" property="yui:description">
                                             Adds a wirable option to every field
-                                        </div>
-
-                                        <div class="description">
-
-
-
-
-             
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    </div>
-                                    <div class="" rel="yui:method" resource="#method_startDynamicLayout">
-                                    <h4>
-                                        <a name="method_startDynamicLayout">startDynamicLayout</a></h4>
-                                    <div class="detail" >
-                                        <code>
-                                        
-                                        
-                                        
-                                        void
-                                            <strong property="yui:name">startDynamicLayout</strong>
-                                           (
-                                            )
-                                        </code>
-                                        
-                                        <div class="description" property="yui:description">
-                                            Start a dynamic layout
-                                        </div>
-
-                                        <div class="description">
-
-
-
-
-             
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    </div>
-                                    <div class="" rel="yui:method" resource="#method_stopDynamicLayout">
-                                    <h4>
-                                        <a name="method_stopDynamicLayout">stopDynamicLayout</a></h4>
-                                    <div class="detail" >
-                                        <code>
-                                        
-                                        
-                                        
-                                        void
-                                            <strong property="yui:name">stopDynamicLayout</strong>
-                                           (
-                                            )
-                                        </code>
-                                        
-                                        <div class="description" property="yui:description">
-                                            Stop the dynamic layout
                                         </div>
 
                                         <div class="description">
@@ -357,7 +327,6 @@
                                 <li class=""><a href="module_animations-plugin.html" title="animations-plugin">animations-plugin</a></li>
                                 <li class=""><a href="module_composable-plugin.html" title="composable-plugin">composable-plugin</a></li>
                                 <li class=""><a href="module_editor-plugin.html" title="editor-plugin">editor-plugin</a></li>
-                                <li class=""><a href="module_grouping-plugin.html" title="grouping-plugin">grouping-plugin</a></li>
                                 <li class="selected"><a href="module_inputex-plugin.html" title="inputex-plugin">inputex-plugin</a></li>
                                 <li class=""><a href="module_layout-plugin.html" title="layout-plugin">layout-plugin</a></li>
                                 <li class=""><a href="module_wireit.html" title="WireIt">WireIt</a></li>
@@ -369,14 +338,19 @@
                         <ul class="content">
                                 <li class=""><a href="inputEx.BaseField.html" title="inputEx.BaseField">inputEx.BaseField</a></li>
                                 <li class="selected"><a href="inputEx.Field.html" title="inputEx.Field">inputEx.Field</a></li>
+                                <li class=""><a href="inputEx.LayerContainer.html" title="inputEx.LayerContainer">inputEx.LayerContainer</a></li>
                                 <li class=""><a href="WireIt.FormContainer.html" title="WireIt.FormContainer">WireIt.FormContainer</a></li>
+                                <li class=""><a href="WireIt.TextareaContainer.html" title="WireIt.TextareaContainer">WireIt.TextareaContainer</a></li>
                         </ul>
                     </div>
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
                         <ul class="content">        
+                                <li class=""><a href="fields.js.html" title="fields.js">fields.js</a></li>
+                                <li class=""><a href="LayerContainer.js.html" title="LayerContainer.js">LayerContainer.js</a></li>
                                 <li class=""><a href="Layout.js.html" title="Layout.js">Layout.js</a></li>
+                                <li class=""><a href="TextareaContainer.js.html" title="TextareaContainer.js">TextareaContainer.js</a></li>
                                 <li class=""><a href="WirableField.js.html" title="WirableField.js">WirableField.js</a></li>
                         </ul>
                     </div>
@@ -384,21 +358,20 @@
                     <div id="propertyList" class="module">
                         <h4>Properties</h4>
                         <ul class="content">        
-                                <li class=""><a href="#property_Layout" title="Layout">Layout</a></li>
+                                <li class=""><a href="#property__addElement" title="_addElement">_addElement</a></li>
                         </ul>
                     </div>
 
                     <div id="methodsList" class="module">
                         <h4>Methods</h4>
                         <ul class="content">        
-                                <li class=""><a href="#method_layoutAnim" title="layoutAnim">layoutAnim</a></li>
                                 <li class=""><a href="#method_onAddWire" title="onAddWire">onAddWire</a></li>
                                 <li class=""><a href="#method_onRemoveWire" title="onRemoveWire">onRemoveWire</a></li>
                                 <li class=""><a href="#method_render" title="render">render</a></li>
                                 <li class=""><a href="#method_renderTerminal" title="renderTerminal">renderTerminal</a></li>
+                                <li class=""><a href="#method_setContainer" title="setContainer">setContainer</a></li>
+                                <li class=""><a href="#method_setFieldName" title="setFieldName">setFieldName</a></li>
                                 <li class=""><a href="#method_setOptions" title="setOptions">setOptions</a></li>
-                                <li class=""><a href="#method_startDynamicLayout" title="startDynamicLayout">startDynamicLayout</a></li>
-                                <li class=""><a href="#method_stopDynamicLayout" title="stopDynamicLayout">stopDynamicLayout</a></li>
                         </ul>
                     </div>
 
@@ -414,7 +387,7 @@
 </div>
 <script type="text/javascript">
 
-    var ALL_YUI_PROPS = [{"url": "WireIt.FormContainer.html#property_collapsible", "access": "", "host": "WireIt.FormContainer", "type": "property", "name": "collapsible"}, {"url": "WireIt.FormContainer.html#property_fields", "access": "", "host": "WireIt.FormContainer", "type": "property", "name": "fields"}, {"url": "WireIt.FormContainer.html#method_getValue", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "getValue"}, {"url": "inputEx.Field.html#property_Layout", "access": "", "host": "inputEx.Field", "type": "property", "name": "Layout"}, {"url": "inputEx.Field.html#method_layoutAnim", "access": "", "host": "inputEx.Field", "type": "method", "name": "layoutAnim"}, {"url": "WireIt.FormContainer.html#property_legend", "access": "", "host": "WireIt.FormContainer", "type": "property", "name": "legend"}, {"url": "inputEx.Field.html#method_onAddWire", "access": "", "host": "inputEx.Field", "type": "method", "name": "onAddWire"}, {"url": "inputEx.Field.html#method_onRemoveWire", "access": "", "host": "inputEx.Field", "type": "method", "name": "onRemoveWire"}, {"url": "WireIt.FormContainer.html#method_render", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "render"}, {"url": "inputEx.Field.html#method_render", "access": "", "host": "inputEx.Field", "type": "method", "name": "render"}, {"url": "WireIt.FormContainer.html#method_renderForm", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "renderForm"}, {"url": "inputEx.Field.html#method_renderTerminal", "access": "", "host": "inputEx.Field", "type": "method", "name": "renderTerminal"}, {"url": "WireIt.FormContainer.html#method_setBackReferenceOnFieldOptionsRecursively", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "setBackReferenceOnFieldOptionsRecursively"}, {"url": "WireIt.FormContainer.html#method_setOptions", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "setOptions"}, {"url": "inputEx.Field.html#method_setOptions", "access": "", "host": "inputEx.Field", "type": "method", "name": "setOptions"}, {"url": "WireIt.FormContainer.html#method_setValue", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "setValue"}, {"url": "inputEx.Field.html#method_startDynamicLayout", "access": "", "host": "inputEx.Field", "type": "method", "name": "startDynamicLayout"}, {"url": "inputEx.Field.html#method_stopDynamicLayout", "access": "", "host": "inputEx.Field", "type": "method", "name": "stopDynamicLayout"}, {"url": "WireIt.FormContainer.html#property_xtype", "access": "", "host": "WireIt.FormContainer", "type": "property", "name": "xtype"}];
+    var ALL_YUI_PROPS = [{"url": "inputEx.Field.html#property__addElement", "access": "", "host": "inputEx.Field", "type": "property", "name": "_addElement"}, {"url": "WireIt.FormContainer.html#property_collapsible", "access": "", "host": "WireIt.FormContainer", "type": "property", "name": "collapsible"}, {"url": "WireIt.FormContainer.html#property_fields", "access": "", "host": "WireIt.FormContainer", "type": "property", "name": "fields"}, {"url": "WireIt.FormContainer.html#method_getValue", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "getValue"}, {"url": "WireIt.FormContainer.html#property_legend", "access": "", "host": "WireIt.FormContainer", "type": "property", "name": "legend"}, {"url": "inputEx.Field.html#method_onAddWire", "access": "", "host": "inputEx.Field", "type": "method", "name": "onAddWire"}, {"url": "inputEx.Field.html#method_onRemoveWire", "access": "", "host": "inputEx.Field", "type": "method", "name": "onRemoveWire"}, {"url": "WireIt.FormContainer.html#method_render", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "render"}, {"url": "inputEx.Field.html#method_render", "access": "", "host": "inputEx.Field", "type": "method", "name": "render"}, {"url": "WireIt.FormContainer.html#method_renderForm", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "renderForm"}, {"url": "inputEx.Field.html#method_renderTerminal", "access": "", "host": "inputEx.Field", "type": "method", "name": "renderTerminal"}, {"url": "inputEx.Field.html#method_setContainer", "access": "", "host": "inputEx.Field", "type": "method", "name": "setContainer"}, {"url": "inputEx.Field.html#method_setFieldName", "access": "", "host": "inputEx.Field", "type": "method", "name": "setFieldName"}, {"url": "WireIt.FormContainer.html#method_setOptions", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "setOptions"}, {"url": "inputEx.Field.html#method_setOptions", "access": "", "host": "inputEx.Field", "type": "method", "name": "setOptions"}, {"url": "WireIt.FormContainer.html#method_setValue", "access": "", "host": "WireIt.FormContainer", "type": "method", "name": "setValue"}, {"url": "WireIt.FormContainer.html#property_xtype", "access": "", "host": "WireIt.FormContainer", "type": "property", "name": "xtype"}];
 </script>
 </body>
 </html>
