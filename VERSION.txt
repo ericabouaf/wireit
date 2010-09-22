@@ -17,7 +17,7 @@ Changeset:
 
 	* Wires enhancements
   	* Adding labels for Wires
-		* drawingMethod has been removed from the Wire options. Use the xtype instead.
+		* the "drawingMethod" has been removed from the Wire options. Use the xtype instead.
 
 	* Containers enhancements
   	* Bug fix: DDResize on containers redraw wires

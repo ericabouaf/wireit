@@ -93,6 +93,8 @@
 			<a href="#visualLanguage"><span>Create your visual language</span></a>
 			
 			<ul class="secondLevel">
+				<li><a href="#xtypeConvention"><i>xtype</i> convention</a></li>
+				<li><a href="#customizingWiresAndTerminals">Customizing Wires and Terminals</a></li>
 				<li><a href="#visualLanguageDefinition">Visual Language Definition</a></li>
 				<li><a href="#moduleDefinition">Module Definition</a></li>
 				<li><a href="#BaseContainer">Using the basic Container</a></li>
@@ -432,18 +434,92 @@
 
 <a name="visualLanguage"><h1>3 Create your visual language</h1></a>
 
-<a name="visualLanguageDefinition"><h2>3.1 Visual Language Definition</h2></a>
 
-<p>The visual language is defined in a JSON format :</p>
+<a name="xtypeConvention"><h2>3.1 <i>xtype</i> convention</h2></a>
+
+<p>WireIt uses a convention to simplify extending widgets:<br />
+	<b style="font-size: 120%;">wires, terminals and containers are instantiated from the class specified by the <i>xtype</i> property</b>.</p>
+
+<p>It lets you create specialized widgets by creating a subclass and using it simply from your language definition.</p>
+
+<p class="advanced">This choice was made to transport the definition using JSON.</p>
+
+<a name="customizingWiresAndTerminals"><h2>3.2 Customizing Wires and Terminals</h2></a>
+
+<p>Many options are available to customize Wires and Terminals, but the general pattern is simple: you create a subclass of the Wire named <i>WeirdWire</i>, you use it using the xtype property :</p>
 
 <pre class="brush:js">
-	var myLanguage = {
+	Terminal.prototype.wireConfig = {"xtype":"WeirdWire", "weirdness": 7};
+</pre>
+
+<p>The code above overrides the default Wire configuration for <b>all</b> terminals on the page.</p>
+
+<p>If you want to use this configuration only on specified wires, you can make it default for "some" terminals. You need to subclass the terminal to set your new config as default. An exemple is actually included in the library.</p>
+
+<p>For a concrete example, let's see how the TerminalOutput works :</p>
+
+<pre class="brush:js">
+	// use YUI2 class inheritance
+	WireIt.util.TerminalOutput = function(parentEl, options, container) {
+	   WireIt.util.TerminalOutput.superclass.constructor.call(this,parentEl, options, container);
+	};
+	YAHOO.lang.extend(WireIt.util.TerminalOutput, WireIt.Terminal, {
+	   xtype: "WireIt.TerminalOutput",
 		
-		// Set a unique name for the language
+		 // override some options
+		 direction: [0,1],
+		 fakeDirection: [0,-1],
+		 ddConfig: { type: "output", allowedTypes: ["input"] },
+ 	 	 alwaysSrc: true
+	});</pre>
+
+<p>Simple enough. What this says is: Create a TerminalOutput class which extends the Terminal widget, set the direction from top to bottom, and connect only to "input" terminals. The <i>alwaysSrc</i> option force this terminal as being the "source" terminal in the wire definition.</p>
+
+
+<p><b>How do we handle the wire creation ? What are the options ?</b></p>
+
+<p>The idea is to create a Drag'n Drop proxy element (we do not move the original Terminal, but a copy of it).</p>
+
+<p>When we start dragging the proxy element, a <i>fake</i> terminal is created within, which we can move around. A wire is added between those two terminals.</p>
+
+<p>You can change the default wiring config using the <i>editingWireConfig</i> property :</p>
+
+<pre class="brush:js">
+	WeirdTerminal = function(parentEl, options, container) {
+	   WeirdTerminal.superclass.constructor.call(this,parentEl, options, container);
+	};
+	YAHOO.lang.extend(WeirdTerminal, WireIt.Terminal, {
+	   xtype: "WeirdTerminal",
+		
+		 wireConfig: {"xtype":"WeirdWire", "weirdness": 7},
+		 editingWireConfig: {"xtype":"WeirdWire", "weirdness": 13},
+		 direction: [1,1],
+		 fakeDirection: [-1,-1]
+		
+	});
+</pre>
+
+<p class="advanced">For a complete list of the properties, please refer to the API documentation for <a href="api/WireIt.Terminal.html">Terminal</a>, <a href="api/WireIt.Wire.html">Wire</a> or <a href="api/WireIt.Container.html">Container</a>.</p>
+
+
+<a name="visualLanguageDefinition"><h2>3.3 Visual Language Definition</h2></a>
+
+<p>Your visual language is defined by a JSON object :</p>
+
+<pre class="brush:js">
+	var myLanguageDef = {
+		
+		// Set a unique name for your language
 		languageName: "myLanguage",
 
+		
+		// modules: list of module type definitions
 		modules: [
-			// List of module type definitions ...
+				{
+					name: "module1",
+					container: {"xtype":"WireIt.InOutContainer", ...}
+				},
+				...
 		]
 	};
 </pre>
@@ -453,7 +529,7 @@
 <pre class="brush:js">
 	YAHOO.util.Event.onDOMReady( function() { 
 		try {
-			logicGates = new WireIt.WiringEditor(myLanguage); 
+			logicGates = new WireIt.WiringEditor(myLanguageDef); 
 		}catch(ex) {
 			alert(ex);
 		}
@@ -461,7 +537,7 @@
 </pre>
 
 
-<a name="moduleDefinition"><h2>3.2 Module Definition</h2></a>
+<a name="moduleDefinition"><h2>3.4 Module Definition</h2></a>
 
 <p>Here is the skeleton of a module definition :</p>
 
@@ -490,7 +566,7 @@
 <p>Of course, you can use containers provided in WireIt (ImageContainer, FormContainer, InOutContainer), or a <a href="#containers">custom container</a>.</p>
 
 
-<a name="BaseContainer"><h2>3.3 Using the basic Container</h2></a>
+<a name="BaseContainer"><h2>3.5 Using the basic Container</h2></a>
 
 
 <p>Set "xtype": "WireIt.Container" (optional). The parameters are :</p>
@@ -519,7 +595,7 @@
 <p class="advanced">All other Container classes inherits from this base class, and therefore share the above options.</p>
 
 
-<a name="InOutContainer"><h2>3.4 Using InOutContainer</h2></a>
+<a name="InOutContainer"><h2>3.6 Using InOutContainer</h2></a>
 
 <p>Set "xtype": "WireIt.InOutContainer". Additional parameters are :</p>
 
@@ -542,7 +618,7 @@
 </pre>
 
 
-<a name="FormContainer"><h2>3.5 Using FormContainer</h2></a>
+<a name="FormContainer"><h2>3.7 Using FormContainer</h2></a>
 
 <p>Set "xtype": "WireIt.FormContainer". Additional parameters are all those used in inputEx.Group. (see <a href="http://neyric.github.com/inputex/">inputEx</a>)</p>
 
@@ -571,7 +647,7 @@
 </pre>	
 
 
-<a name="ImageContainer"><h2>3.6 Using ImageContainer</h2></a>
+<a name="ImageContainer"><h2>3.8 Using ImageContainer</h2></a>
 
 <p>Set "xtype": "WireIt.ImageContainer". Additional parameters are :</p>
 
@@ -598,7 +674,7 @@
 
 
 
-<a name="propertiesForm"><h2>3.7 Edit the "Properties" form</h2></a>
+<a name="propertiesForm"><h2>3.9 Edit the "Properties" form</h2></a>
 
 <p>To add properties to the <i>Wirings</i>, we configure the <i>propertiesFields</i> property of the language definition.<br />
    This property defines the fields as they will appear in the "Properties" form on the right in the WiringEditor.</p>
@@ -635,7 +711,7 @@
 
 
 
-<a name="stylingContainers"><h2>3.8 Styling containers</h2></a>
+<a name="stylingContainers"><h2>3.10 Styling containers</h2></a>
 
 <p>The WiringEditor adds a CSS class for each module instance in your layer: <b>WiringEditor-module-<i>moduleName</i></b>.</p>
 

@@ -238,7 +238,8 @@ WireIt.Terminal.prototype = {
    },
 
 	/**
-	 * TODO
+	 * Set the position of the terminal with the given pos
+	 * @param {Object | Array} pos The position. It can be used in two ways: setPosition({left: 10, top: 10}) or setPosition([10, 10]) or setPosition({bottom: 10, right: 10})
 	 */
    setPosition: function(pos) {
 		if(pos) {
@@ -271,13 +272,10 @@ WireIt.Terminal.prototype = {
     */
    addWire: function(wire) {
    
-      // Adds this wire to the list of connected wires :
       this.wires.push(wire);
    
-      // Set class indicating that the wire is connected
       Dom.addClass(this.el, this.connectedClassName);
    
-      // Fire the event
       this.eventAddWire.fire(wire);
    },
 
