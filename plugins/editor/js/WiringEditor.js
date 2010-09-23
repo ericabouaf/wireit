@@ -193,6 +193,8 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
   	 */
 	addModule: function(module, pos) {
 	    try {
+	       if (pos[0] < 0) pos[0] = 0;
+	       if (pos[1] < 0) pos[1] = 0;
 	       var containerConfig = module.container;
 	       containerConfig.position = pos;
 	       containerConfig.title = module.name;
