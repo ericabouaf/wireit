@@ -92,6 +92,12 @@ div.WireIt-Container.WiringEditor-module-comment div.body textarea { background-
 // InputEx needs a correct path to this image
 inputEx.spacerUrl = "/inputex/trunk/images/space.gif";
 
+WireIt.Terminal.prototype.wireConfig = {
+                   label: 'Ouf !!',
+                   labelEditor: {type: 'string', value: "Testst"},                    
+                   xtype: "WireIt.BezierWire"
+       };
+       WireIt.Terminal.prototype.editingWireConfig = WireIt.Terminal.prototype.wireConfig;
 
 YAHOO.util.Event.onDOMReady( function() {
 	try {

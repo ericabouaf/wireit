@@ -327,8 +327,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 	 * Position the label element to the center
 	 */
 	positionLabel: function() {
-	  YAHOO.util.Dom.setStyle(this.labelEl,"left",(this.min[0]+this.max[0]-this.labelEl.clientWidth)/2);
-	  YAHOO.util.Dom.setStyle(this.labelEl,"top",(this.min[1]+this.max[1]-this.labelEl.clientHeight)/2);
+	  YAHOO.util.Dom.setStyle(this.labelEl,"left",(this.min[0]+this.max[0]-this.labelEl.clientWidth)/2 + "px");
+	  YAHOO.util.Dom.setStyle(this.labelEl,"top",(this.min[1]+this.max[1]-this.labelEl.clientHeight)/2 + "px");
 	},
    
    /**

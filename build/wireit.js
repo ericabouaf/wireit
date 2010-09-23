@@ -597,8 +597,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 	 * Position the label element to the center
 	 */
 	positionLabel: function() {
-	  YAHOO.util.Dom.setStyle(this.labelEl,"left",(this.min[0]+this.max[0]-this.labelEl.clientWidth)/2);
-	  YAHOO.util.Dom.setStyle(this.labelEl,"top",(this.min[1]+this.max[1]-this.labelEl.clientHeight)/2);
+	  YAHOO.util.Dom.setStyle(this.labelEl,"left",(this.min[0]+this.max[0]-this.labelEl.clientWidth)/2 + "px");
+	  YAHOO.util.Dom.setStyle(this.labelEl,"top",(this.min[1]+this.max[1]-this.labelEl.clientHeight)/2 + "px");
 	},
    
    /**
@@ -1347,28 +1347,29 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
      	}
      	var div=this.getDragEl(), Dom=YAHOO.util.Dom;
      	if (!div) {
-         div    = document.createElement("div");
-         div.id = this.dragElId;
-         var s  = div.style;
-         s.position   = "absolute";
-         s.visibility = "hidden";
-         s.cursor     = "move";
-         s.border     = "2px solid #aaa";
-         s.zIndex     = 999;
-         var size = this.terminalProxySize+"px";
-         s.height     = size; 
-         s.width      = size;
-         var _data = document.createElement('div');
-         Dom.setStyle(_data, 'height', '100%');
-         Dom.setStyle(_data, 'width', '100%');
-         Dom.setStyle(_data, 'background-color', '#ccc');
-         Dom.setStyle(_data, 'opacity', '0');
+			div = WireIt.cn('div', {id: this.dragElId}, {
+				position: "absolute",
+				visibility: "hidden",
+				cursor: "move", 
+				border: "2px solid #aaa",
+				zIndex: 999,
+				height: this.terminalProxySize+"px",
+				width: this.terminalProxySize+"px"
+			});
+			var _data = WireIt.cn('div',{},{
+				height: '100%',
+				width: '100%',
+				backgroundColor: '#ccc',
+				opacity: '0'
+			});
          div.appendChild(_data);
          body.insertBefore(div, body.firstChild);
      	}
  	},
 
 	/**
+	 * When we start dragging the proxy of a terminal, a "fake terminal" is created (params fakeDirection)
+	 * Then a Wire is added between those two terminals with the config from Terminal.editingWireConfig
 	 * @method startDrag
 	 */
 	startDrag: function() {
@@ -1383,6 +1384,8 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	   }
    
 	   var halfProxySize = this.terminalProxySize/2;
+	
+		// Create a mock-object "fakeTerminal" which mimicks the Terminal API
 	   this.fakeTerminal = {
 	      direction: this.terminal.fakeDirection,
 	      pos: [200,200], 
@@ -1403,8 +1406,8 @@ lang.extend(WireIt.TerminalProxy, YAHOO.util.DDProxy, {
 	      parentEl = this.terminal.container.layer.el;
 	   }
 	
+		// Add the Wire between the orignial Trminal, and its fake terminal proxy
 		var klass = WireIt.wireClassFromXtype(this.terminal.editingWireConfig.xtype);
-		
 	   this.editingWire = new klass(this.terminal, this.fakeTerminal, parentEl, this.terminal.editingWireConfig);
 	   YAHOO.util.Dom.addClass(this.editingWire.element, CSS_PREFIX+'Wire-editing');
 	},
@@ -1973,7 +1976,8 @@ WireIt.Terminal.prototype = {
    },
 
 	/**
-	 * TODO
+	 * Set the position of the terminal with the given pos
+	 * @param {Object | Array} pos The position. It can be used in two ways: setPosition({left: 10, top: 10}) or setPosition([10, 10]) or setPosition({bottom: 10, right: 10})
 	 */
    setPosition: function(pos) {
 		if(pos) {
@@ -2006,13 +2010,10 @@ WireIt.Terminal.prototype = {
     */
    addWire: function(wire) {
    
-      // Adds this wire to the list of connected wires :
       this.wires.push(wire);
    
-      // Set class indicating that the wire is connected
       Dom.addClass(this.el, this.connectedClassName);
    
-      // Fire the event
       this.eventAddWire.fire(wire);
    },
 
