@@ -336,10 +336,10 @@ ExecutionFrame.prototype = {
       }      
       else if(t == "input") {
          
-         var inputName = module.value.input.name;
+         var inputName = module.value.input.inputParams.name;
          
          // "execution"
-         var value = (!!params && typeof params[inputName] != "undefined") ? params[inputName] : module.value.input.value;
+         var value = (!!params && typeof params[inputName] != "undefined") ? params[inputName] : module.value.input.inputParams.value;
 
          // store the value
          this.execValues[moduleId] = {

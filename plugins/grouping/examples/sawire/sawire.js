@@ -2,34 +2,17 @@ var sawire= {
 
 	language: {languageName: "myNewLanguage",
 	 			   "modules":modules,
-				   adapter: WireIt.WiringEditor.adapters.Gears
+           adapter: WireIt.WiringEditor.adapters.WebStorage
 	},
    /**
     * @method init
     * @static
     */
    init: function() {
-		this.editor = new sawire.WiringEditor(this.language);
-    	this.editor.toolbar.add({label : "Run", id: "WiringEditor-runButton", events : [ {name : "click", callback: function() { 
-    	    this.run();
-    	}, context:this } ] })
-		
-		// Open the infos panel
-		this.editor.accordionView.openPanel(2);
+		  this.editor = new sawire.WiringEditor(this.language);  
+		  // Open the infos panel
+		  this.editor.accordionView.openPanel(2);
    },
-
-   /**
-    * Execute the module in the "ExecutionFrame" virtual machine
-    * @method run
-    * @static
-    */
-   run: function() {
-      var ef = new ExecutionFrame( this.editor.getValue() );
-      for(var containerId in this.editor.layer.containers) {
-          ExecutionFrame.clearExecutionStateForContainer(this.editor.layer.containers[containerId]);
-      }
-      ef.run();
-   }	
 };
 
 /**
@@ -46,13 +29,33 @@ YAHOO.lang.extend(sawire.WiringEditor, WireIt.WiringEditor, {
 	 * Customize the load success handler for the composed module list
 	 */
 	onLoadSuccess: function(wirings) {
-//		sawire.WiringEditor.superclass.onLoadSuccess.call(this,wirings);
+		sawire.WiringEditor.superclass.onLoadSuccess.call(this,wirings);
 	
 		//  Customize to display composed module in the left list
-//		this.updateComposedModuleList();
+		this.updateComposedModuleList();
 	},
-	
-	/**
+
+  renderButtons: function() {
+    sawire.WiringEditor.superclass.renderButtons.call(this);
+    var toolbar = YAHOO.util.Dom.get('toolbar');
+    // Buttons :
+    var newButton = new YAHOO.widget.Button({ label:"Run", id:"WiringEditor-runButton", container: toolbar });
+    newButton.on("click", this._run, this, true);
+   }, 
+   
+   /**
+    * Execute the module in the "ExecutionFrame" virtual machine
+    * @method run
+    * @static
+    */
+   _run: function() {
+      var ef = new ExecutionFrame( this.getValue() );
+      for(var containerId in this.layer.containers) {
+          ExecutionFrame.clearExecutionStateForContainer(this.layer.containers[containerId]);
+      }
+      ef.run();
+   },
+  /**
 	 * All the saved wirings are reusable modules :
 	 */
 	updateComposedModuleList: function() {
