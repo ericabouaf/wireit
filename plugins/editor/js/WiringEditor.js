@@ -396,22 +396,23 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	  * @method onLoadSuccess
 	  */
 	 onLoadSuccess: function(wirings) {
-			
-			// Reset the internal structure
-			this.pipes = wirings;
-			this.pipesByName = {};
-		
-			// Build the "pipesByName" index
-			for(var i = 0 ; i < this.pipes.length ; i++) {
-	          this.pipesByName[ this.pipes[i].name] = this.pipes[i];
-			}
-		
-	    	this.updateLoadPanelList();
+			if( wirings && wirings.length && wirings.length > 0 ) {
+				// Reset the internal structure
+				this.pipes = wirings;
+				this.pipesByName = {};
 
-			// Check for autoload param and display the loadPanel otherwise
-			if(!this.checkAutoLoad()) { 
-	    		this.loadPanel.show();
-			}	
+				// Build the "pipesByName" index
+				for(var i = 0 ; i < this.pipes.length ; i++) {
+		          this.pipesByName[ this.pipes[i].name] = this.pipes[i];
+				}
+
+				this.updateLoadPanelList();
+
+				// Check for autoload param and display the loadPanel otherwise
+				if(!this.checkAutoLoad()) {
+					 this.loadPanel.show();
+				}
+			}
 	 },
 		
 	/**
