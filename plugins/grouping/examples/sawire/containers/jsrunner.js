@@ -7,15 +7,15 @@
 sawire.jsRunner = function(options, layer) {
          
    sawire.jsRunner.superclass.constructor.call(this, options, layer);
-   
-   this.buildTextArea(options.codeText || "function(e,c,d) {\n\n  return 0;\n}");
+   this.buildTextArea(options.codeText || "function(in1, in2) {\n\n  return 0;\n}");
    
    this.createTerminals();
    
    // Reposition the terminals when the jsBox is being resized
    this.ddResize.eventResize.subscribe(function(e, args) {
       this.positionTerminals();
-      YAHOO.util.Dom.setStyle(this.textarea, "height", (args[0][1]-70)+"px");
+      YAHOO.util.Dom.setStyle(this.textarea, "height", (this.bodyEl.clientHeight-20)+"px");
+      YAHOO.util.Dom.setStyle(this.textarea, "width", (this.bodyEl.clientWidth-20)+"px");
    }, this, true);
 };
 
@@ -28,7 +28,7 @@ YAHOO.extend(sawire.jsRunner, WireIt.Container, {
     */
    buildTextArea: function(codeText) {
 
-      this.textarea = WireIt.cn('textarea', null, {width: "90%", height: "70px", border: "0", padding: "5px"}, codeText);
+      this.textarea = WireIt.cn('textarea', null, {width: (this.bodyEl.clientWidth-20)+"px", height: (this.bodyEl.clientHeight-20)+"px", resize: "none", border: "0", padding: "5px"}, codeText);
       this.setBody(this.textarea);
 
       YAHOO.util.Event.addListener(this.textarea, 'change', this.createTerminals, this, true);
@@ -43,13 +43,13 @@ YAHOO.extend(sawire.jsRunner, WireIt.Container, {
       
       // Output Terminal
       if(!this.outputTerminal) {
-   	   this.outputTerminal = this.addTerminal({xtype: "WireIt.util.TerminalOutput", "name": "out"});      
-         this.outputTerminal.jsBox = this;
+        this.outputTerminal = this.addTerminal({xtype: "WireIt.util.TerminalOutput", "name": "out"});
+        this.outputTerminal.jsBox = this;
       }
       
       // Input terminals :
       var match = (this.textarea.value).match((/^[ ]*function[ ]*\((.*)\)[ ]*\{/));
-   	var sParamList = match ? match[1] : "";
+      var sParamList = match ? match[1] : "";
       var params = sParamList.split(',');
       var nParams = (sParamList=="") ? 0 : params.length;
       
