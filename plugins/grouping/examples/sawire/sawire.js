@@ -63,7 +63,7 @@ YAHOO.lang.extend(sawire.WiringEditor, WireIt.WiringEditor, {
 		// to optimize:
 		
 		// Remove all previous module with the ComposedModule class
-		var l = YAHOO.util.Dom.getElementsByClassName("ComposedModule", "div", this.leftEl);
+/*		var l = YAHOO.util.Dom.getElementsByClassName("ComposedModule", "div", this.leftEl);
 		for(var i = 0 ; i < l.length ; i++) {
 			this.leftEl.removeChild(l[i]);
 		}
@@ -87,6 +87,6 @@ YAHOO.lang.extend(sawire.WiringEditor, WireIt.WiringEditor, {
             this.leftEl.appendChild(div);
 
 	       }
-	    }
+	    }*/
 	}
 });
