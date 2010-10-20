@@ -70,7 +70,6 @@ div.WireIt-Container div.body {
 }
 
 div.WireIt-Container-ddhandle {
-   width: 100%;
    height: 22px;
    background-color: #3366CC;
  	cursor: move;
@@ -81,6 +80,7 @@ div.WireIt-Container-ddhandle {
 	padding-top: 3px;
 	line-height:150%;
 	color:white;
+ 	border: 2px solid #3366CC;
 	font-weight:bold;
 	text-align:center;
 	font-size: 10pt;

@@ -79,7 +79,7 @@ YAHOO.lang.extend(WireIt.CanvasContainer, WireIt.Container, {
 		
 		// resize the canvas
 		// TODO: do not hardcode those sizes !!
-		this.canvasWidth = (size[0]-14);
+		this.canvasWidth = (size[0]-10);
 		this.canvasHeight = (size[1]-( this.ddHandle ? 44 : 14) );
 		this.canvasEl.SetCanvasRegion(0,0, this.canvasWidth, this.canvasHeight );
 		
