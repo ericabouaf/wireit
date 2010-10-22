@@ -373,7 +373,7 @@ ExecutionFrame.prototype = {
          this.executeModules(moduleId, "callbackFunction");
          
       }
-      else if(t == "jsBox") {
+      else if(t == "Script") {
          
          //console.log("execute jsbox ", module.config.codeText);
          
