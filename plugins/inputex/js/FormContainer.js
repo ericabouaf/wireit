@@ -71,8 +71,13 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
 	
       var groupParams = {parentEl: this.bodyEl, fields: this.fields, legend: this.legend, collapsible: this.collapsible};
       this.form = new inputEx.Group(groupParams);
+		  this.form.setContainer(this);
 
-		this.form.setContainer(this);
+			for(var i = 0 ; i < this.form.inputs.length ; i++) {
+				var field = this.form.inputs[i];
+				field.setContainer(this);
+			}
+
 
 		// Redraw all wires when the form is collapsed
 		if(this.form.legend) {
@@ -113,5 +118,4 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
    setValue: function(val) {
       this.form.setValue(val);
    }
-   
 });
