@@ -105,10 +105,9 @@ inputEx.Field.prototype = {
 	   }
 	   
 	   // Label element
-	   if(this.options.label) {
+	   if (YAHOO.lang.isString(this.options.label)) {
 	      this.labelDiv = inputEx.cn('div', {id: this.divEl.id+'-label', className: 'inputEx-label', 'for': this.divEl.id+'-field'});
-	      this.labelEl = inputEx.cn('label');
-	      this.labelEl.appendChild( document.createTextNode(this.options.label) );
+	      this.labelEl = inputEx.cn('label', null, null, this.options.label === "" ? "&nbsp;" : this.options.label);
 	      this.labelDiv.appendChild(this.labelEl);
 	      this.divEl.appendChild(this.labelDiv);
       }
@@ -395,8 +394,8 @@ inputEx.Field.prototype = {
 };
 
 inputEx.Field.groupOptions = [
+	{ type: "string", label: "Name", name: "name", value: '', required: true },
    { type: "string", label: "Label", name: "label", value: '' },
-   { type: "string", label: "Name", name: "name", value: '' },
    { type: "string", label: "Description",name: "description", value: '' },
    { type: "boolean", label: "Required?",name: "required", value: false },
    { type: "boolean", label: "Show messages",name: "showMsg", value: false }

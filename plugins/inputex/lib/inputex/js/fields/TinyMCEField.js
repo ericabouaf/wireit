@@ -13,9 +13,34 @@
  * </ul>
  */
 inputEx.TinyMCEField = function(options) {
+	if(!window.tinymce) {
+		alert("TinyMCE was not found on this page !");
+	}
    inputEx.TinyMCEField.superclass.constructor.call(this,options);
 };
 lang.extend(inputEx.TinyMCEField, inputEx.Field, {   
+	
+	defaultOpts: {
+		mode : "textareas",
+		language : "en",
+		theme : "advanced",
+		
+		plugins: "paste", // past plugin for raw text pasting
+		paste_auto_cleanup_on_paste : true,
+		paste_remove_styles: true,
+		paste_remove_styles_if_webkit: true,
+		paste_strip_class_attributes: true,
+		theme_advanced_buttons1 : "formatselect,fontselect,fontsizeselect,|,bold,italic,underline,strikethrough,|,forecolor,backcolor",
+		theme_advanced_buttons2 : "justifyleft,justifycenter,justifyright,justifyfull,|,outdent,indent,blockquote,hr,|,bullist,numlist,|,link,unlink,image,|,removeformat,code,|,undo,redo",
+		theme_advanced_buttons3: "",
+		theme_advanced_toolbar_location : "top",
+		theme_advanced_toolbar_align : "left",
+		height: "200",
+		verify_html : true,
+		cleanup_on_startup : true,
+		cleanup:true
+	},
+	
    /**
     * Set the default values of the options
     * @param {Object} options Options object as passed to the constructor
@@ -23,7 +48,7 @@ lang.extend(inputEx.TinyMCEField, inputEx.Field, {
   	setOptions: function(options) {
   	   inputEx.TinyMCEField.superclass.setOptions.call(this, options);
   	   
-  	   this.options.opts = options.opts || {};
+  	   this.options.opts = options.opts || this.defaultOpts;
    },
    
 	/**
@@ -41,30 +66,8 @@ lang.extend(inputEx.TinyMCEField, inputEx.Field, {
 	   
 	   inputEx.TinyMCEfieldsNumber += 1;
 	   this.fieldContainer.appendChild(this.el);
-	
-
-		var defaultOpts = {
-			mode : "textareas",
-			language : "fr",
-			theme : "advanced",
 			
-			plugins: "paste", // past plugin for raw text pasting
-			paste_auto_cleanup_on_paste : true,
-			paste_remove_styles: true,
-			paste_remove_styles_if_webkit: true,
-			paste_strip_class_attributes: true,
-			theme_advanced_buttons1 : "formatselect,fontselect,fontsizeselect,|,bold,italic,underline,strikethrough,|,forecolor,backcolor",
-			theme_advanced_buttons2 : "justifyleft,justifycenter,justifyright,justifyfull,|,outdent,indent,blockquote,hr,|,bullist,numlist,|,link,unlink,image,|,removeformat,code,|,undo,redo",
-			theme_advanced_buttons3: "",
-			theme_advanced_toolbar_location : "top",
-			theme_advanced_toolbar_align : "left",
-			height: "200",
-			verify_html : true,
-			cleanup_on_startup : true,
-			cleanup:true
-		};
-		
-		this.editor = new tinymce.Editor(this.id, defaultOpts);
+		this.editor = new tinymce.Editor(this.id, this.options.opts);
 
 		// Adds an observer to the onInit event using the render method
 		this.editorReady = false;		

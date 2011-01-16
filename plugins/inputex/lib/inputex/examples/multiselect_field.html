@@ -100,5 +100,39 @@
 </div>
 
 
+
+<!-- Example 3 -->
+<div class='exampleDiv'>
+ <h2>setValue</h2>
+ <p>Example setting the default value</p>
+ <div class='demoContainer' id='container3'></div>
+ <div class='codeContainer'>
+  <textarea name="code" class="JScript">
+		var ms = new inputEx.MultiSelectField({
+			label: 'Javascript libraries you use',
+			name: 'country',
+			choices: [
+				{ value: null, label: 'Choose a library' },
+				{ value: 'yui', label: 'YUI' },
+				{ value: 'dojo', label: 'Dojo' },
+				{ value: 'prototype', label: 'Prototype' },
+				{ value: 'scriptaculous', label: 'Scriptaculous'},
+				{ value: 'mootools', label: 'Mootools' }
+			],
+			parentEl: 'container3',
+			description: 'Select and order your favorite libraries'
+		});
+		ms.updatedEvt.subscribe(function(e,params) {
+			var value = YAHOO.lang.JSON.stringify(params[0]);
+			YAHOO.util.Dom.get('container2').appendChild( inputEx.cn('div',null,null,"Updated at "+(new Date())+" "+value) );
+		});
+		
+		ms.setValue(['yui','dojo']);
+		
+  </textarea>
+ </div>
+</div>
+
+
  </body>
 </html>

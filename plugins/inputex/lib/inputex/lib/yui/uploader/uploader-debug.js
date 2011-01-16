@@ -1,8 +1,8 @@
 /*
-Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Copyright (c) 2010, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
-http://developer.yahoo.net/yui/license.txt
-version: 2.8.0r4
+http://developer.yahoo.com/yui/license.html
+version: 2.8.2r1
 */
 /*extern ActiveXObject, __flash_unloadHandler, __flash_savedUnloadHandler */
 /*!
@@ -507,10 +507,10 @@ YAHOO.extend(YAHOO.widget.FlashAdapter, YAHOO.util.AttributeProvider,
 		swfObj.addVariable("allowedDomain", document.location.hostname);
 
 		//tell the SWF which HTML element it is in
-		swfObj.addVariable("elementID", swfID);
+		swfObj.addVariable("YUISwfId", swfID);
 
 		// set the name of the function to call when the swf has an event
-		swfObj.addVariable("eventHandler", "YAHOO.widget.FlashAdapter.eventHandler");
+		swfObj.addVariable("YUIBridgeCallback", "YAHOO.widget.FlashAdapter.eventHandler");
 		if (buttonSkin) {
 		swfObj.addVariable("buttonSkin", buttonSkin);
 		}
@@ -1069,4 +1069,4 @@ YAHOO.extend(YAHOO.widget.Uploader, YAHOO.widget.FlashAdapter,
 		this._swf.disable();
 	}
 });
-YAHOO.register("uploader", YAHOO.widget.Uploader, {version: "2.8.0r4", build: "2449"});
+YAHOO.register("uploader", YAHOO.widget.Uploader, {version: "2.8.2r1", build: "7"});

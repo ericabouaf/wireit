@@ -339,13 +339,18 @@ inputEx.JsonSchema.Builder.prototype = {
 	                fieldDef.choices[i] = { label: o.label, value: o.value };
 	             }
              }
-             else {
+             else { // p.choices
 	             fieldDef.choices = [];
 	             for(var i = 0 ; i < p["enum"].length ; i++) {
 	                var o = p["enum"][i];
-	                fieldDef.choices[i] = { label: o.label, value: o.value };
+						 if(YAHOO.lang.isObject(o)) {
+	                	fieldDef.choices[i] = { label: o.label, value: o.value };
+						 }
+						 else {
+							fieldDef.choices[i] = { value: o };
+						 }
 	             }
-             }
+             }		
 	       }
 	       else if(type == "string") {
 	    	  if(!lang.isUndefined(p.pattern) && lang.isUndefined(fieldDef.regexp)) {

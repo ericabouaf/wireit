@@ -1,8 +1,8 @@
 /*
-Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Copyright (c) 2010, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
-http://developer.yahoo.net/yui/license.txt
-version: 2.8.0r4
+http://developer.yahoo.com/yui/license.html
+version: 2.8.2r1
 */
 /**
  * The selector module provides helper methods allowing CSS3 Selectors to be used with DOM elements.
@@ -648,4 +648,4 @@ if (YAHOO.env.ua.ie && YAHOO.env.ua.ie < 8) { // rewrite class for IE < 8
 }
 
 })();
-YAHOO.register("selector", YAHOO.util.Selector, {version: "2.8.0r4", build: "2449"});
+YAHOO.register("selector", YAHOO.util.Selector, {version: "2.8.2r1", build: "7"});

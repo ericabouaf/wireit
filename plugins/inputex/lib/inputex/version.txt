@@ -9,19 +9,42 @@
 Release Notes:
 ==============
 
-master branch: (not release)
---------------
+version 0.7.0 :
+---------------
+
+released on January, 7th 2011
 
  - Field enhancements:
 
 		* Field: adding the setFieldName method in the API
-		* ListField: use setFieldName on subFields for list to work in a browser form
-		
+		* TypeField: fixed the setValue bug
+		* Group: adding the "addField" method
+		* ListField: use setName on subFields for list to work in a browser-sent form
+		* use setFieldName on subFields for list to work in a browser form
+		* configurable colors for re-order animation
+		* All fields : allow label option to be an empty string,
+		               (creating <div class="inputEx-label"><label>&nbps;</label></div> structure),
+		               which provides a way not to break the alignment of fields within a group or form
+		               when not having a label on a field.
+		* All fields : allow label option to contain HTML (Ex : { label: "Your <b>name</b><sup>*</sup>" })
+
+ - Added Fields:
+    * SelectTwiceField : two step selector (2nd selector choices depending on first selector selected value)
+
 
  - Fixes
  		* CombineField: focus and blur handlers
 		* Groups will no longer validate disabled sub-fields
+		* JsonTreeInspector now displays html content by replacing <> by html entities
+		* ddlist widget: fix updateItem method
+		* MultiSelectField: fix bugs due to mix up between enable/disable and hide/show of choices
+		* inputEx.cn: IE9 doesn't need a special way to treat "input" tags as required for IE<8, hurray !
 
+ - Other
+    * Upgrading to YUI 2.8.2r1
+    * Adding inputEx.htmlEntities
+	  * Adding the SerializeField example page
+	  * Catalan localization by llistes correu
 
 version 0.6.0 :
 ---------------

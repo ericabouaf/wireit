@@ -100,7 +100,7 @@
 			// Build a "any" radio combined with a StringField
 			if (this.options.allowAny) {
 				
-				this.allowAnyChoice = this.addChoice({ value: 'inputEx-RadioField-allowAny', label:'' });
+				this.allowAnyChoice = this.addChoice({ value: this.options.allowAny.value, label:'' });
 				
 				this.radioAny = this.allowAnyChoice.node.firstChild;
 				
@@ -157,10 +157,13 @@
 			// AnyField events
 			if (this.allowAnyChoice) {
 				
-				this.anyField.updatedEvt.subscribe(function (e) {
+				this.anyField.updatedEvt.subscribe(function (e, params) {
 					
-					//inputEx.RadioField.superclass.onChange.call(this,e);
+					var value = params[0];
+					this.radioAny.value = value;
+					
 					this.setClassFromState();
+					
 					inputEx.RadioField.superclass.onChange.call(this,e);
 					
 				}, this, true);
@@ -248,7 +251,7 @@
 		},
 		
 		/**
-		 * Set the value of the checkedbox
+		 * Set the value of the Radio
 		 * @param {Any} value The value schould be one of this.options.values (which defaults to this.options.choices if missing) if allowAny option not true.
 		 * @param {boolean} [sendUpdatedEvt] (optional) Wether this setValue should fire the updatedEvt or not (default is true, pass false to NOT send the event)
 		 */
@@ -274,6 +277,7 @@
 				
 				if (checkAny) {
 					this.radioAny.checked = true;
+					this.radioAny.value = value;
 					this.anyField.enable();
 					this.anyField.setValue(value, false);
 				} else {
@@ -290,7 +294,8 @@
 		 * @param {boolean} [sendUpdatedEvt] (optional) Wether this clear should fire the updatedEvt or not (default is true, pass false to NOT send the event)
 		 */
 		clear: function (sendUpdatedEvt) {
-			if(this.radioAny){
+			
+			if (this.radioAny){
 				this.anyField.setValue(this.options.allowAny.value, false);
 			}
 		

@@ -1,8 +1,8 @@
 /*
-Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Copyright (c) 2010, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
-http://developer.yahoo.net/yui/license.txt
-version: 2.8.0r4
+http://developer.yahoo.com/yui/license.html
+version: 2.8.2r1
 */
 /**
  * Augments the Event Utility with support for the mouseenter and mouseleave 
@@ -216,4 +216,4 @@ version: 2.8.0r4
 	Event.on = Event.addListener;
 
 }());
-YAHOO.register("event-mouseenter", YAHOO.util.Event, {version: "2.8.0r4", build: "2449"});
+YAHOO.register("event-mouseenter", YAHOO.util.Event, {version: "2.8.2r1", build: "7"});

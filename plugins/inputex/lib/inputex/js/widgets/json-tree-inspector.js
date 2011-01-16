@@ -69,7 +69,7 @@ inputEx.widget.JsonTreeInspector.prototype = {
             else {
                var spanContent = '';
                if( lang.isString(value) ) {
-                  spanContent = '"'+value+'"';
+                  spanContent = '"'+inputEx.htmlEntities(value)+'"';
                }
                else {
                   if(value === null) {

@@ -65,7 +65,7 @@
 				
 				this.ddlist.addItem({ value: value, label: choice.label });
 				
-				// hide choice (+ select first choice)
+				// hide choice that has just been selected (+ select first choice)
 				this.hideChoice({ position : position });
 				this.el.selectedIndex = 0;
 				
@@ -87,12 +87,12 @@
 				return;
 			}
 			
-			// Re-enable all choices
-			for (i = 0, length=this.choicesList.length ; i < length ; i += 1) {
-				this.enableChoice(i);
+			// Re-show all choices
+			for (i = 0, length = this.choicesList.length; i < length; i += 1) {
+				this.showChoice({ position : i });
 			}
 			
-			// disable selected choices and fill ddlist value
+			// Hide selected choices and fill ddlist value
 			for (i = 0, length=value.length ; i < length ; i += 1) {
 				
 				position = this.getChoicePosition({ value : value[i] });
@@ -100,14 +100,16 @@
 				
 				ddlistValue.push({ value: choice.value, label: choice.label });
 				
-				this.disableChoice({ position: position });
+				this.hideChoice({ position: position });
 			}
 			
 			// set ddlist value
 			this.ddlist.setValue(ddlistValue);
 			
+			// reset select to first choice
+			this.el.selectedIndex = 0;
 			
-			if(sendUpdatedEvt !== false) {
+			if (sendUpdatedEvt !== false) {
 				// fire update event
 				this.fireUpdatedEvt();
 			}

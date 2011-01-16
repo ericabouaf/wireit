@@ -11,9 +11,6 @@
  */
 inputEx.TypeField = function(options) {
    inputEx.TypeField.superclass.constructor.call(this, options);
-   
-   // Build the updateFieldValue
-   this.updateFieldValue();
 };
 
 lang.extend(inputEx.TypeField, inputEx.Field, {
@@ -164,8 +161,10 @@ lang.extend(inputEx.TypeField, inputEx.Field, {
          // Refire the event when the fieldValue is updated
          this.fieldValue.updatedEvt.subscribe(this.fireUpdatedEvt, this, true);
       }
-      catch(ex) {
-         console.log("Error while updateFieldValue", ex.message);
+      catch(ex) {	
+         if(YAHOO.lang.isObject(window["console"]) && YAHOO.lang.isFunction(window["console"]["log"]) ) {
+         	console.log("Error while updateFieldValue", ex.message);
+			}
       }
    },
    
@@ -197,20 +196,25 @@ lang.extend(inputEx.TypeField, inputEx.Field, {
       // Rebuild the fieldValue
       this.updateFieldValue();
       
-      // Set field value : TODO -> fix it for default value (because updateFieldValue is called after first setValue)
-      
+      // Set field value :
+		// fix it for default value (because updateFieldValue is called after first setValue)
+ 		var that = this;      
+
       // Retro-compatibility with deprecated inputParams Object
-      if(lang.isObject(value.inputParams) && !lang.isUndefined(value.inputParams.value)) {
-         this.fieldValue.setValue(value.inputParams.value);
-         
+      if(lang.isObject(value.inputParams) && !lang.isUndefined(value.inputParams.value)) {	
+			setTimeout(function(){
+         	that.fieldValue.setValue(value.inputParams.value, false);
+			}, 50);
       // New prefered way to describe a field
       } else if (!lang.isUndefined(value.value)) {
-         this.fieldValue.setValue(value.value);
+			setTimeout(function(){
+				that.fieldValue.setValue(value.value, false);
+			}, 50);
       }
       
 	   if(sendUpdatedEvt !== false) {
 	      // fire update event
-         this.fireUpdatedEvt();
+         this.fireUpdatedEvt(false);
       }
    },
    

@@ -1,8 +1,8 @@
 /*
-Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Copyright (c) 2010, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
-http://developer.yahoo.net/yui/license.txt
-version: 2.8.0r4
+http://developer.yahoo.com/yui/license.html
+version: 2.8.2r1
 */
 (function () {
 
@@ -2993,4 +2993,4 @@ var xPad=function (x, pad, r)
 
 })();
 
-YAHOO.register("datasource", YAHOO.util.DataSource, {version: "2.8.0r4", build: "2449"});
+YAHOO.register("datasource", YAHOO.util.DataSource, {version: "2.8.2r1", build: "7"});

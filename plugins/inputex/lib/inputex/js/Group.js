@@ -98,16 +98,15 @@ lang.extend(inputEx.Group, inputEx.Field, {
   	   
       // Iterate this.createInput on input fields
       for (var i = 0 ; i < this.options.fields.length ; i++) {
-         var input = this.options.fields[i];
+         var fieldOptions = this.options.fields[i];
         
 			// Throw Error if input is undefined
-			if(!input) {
+			if(!fieldOptions) {
 				throw new Error("inputEx.Form: One of the provided fields is undefined ! (check trailing comma)");
 			}
 			
          // Render the field
-         var field = this.renderField(input);
-         this.fieldset.appendChild(field.getEl() );
+			this.addField(fieldOptions);
   	   }
   	
   	   // Collapsed at creation ?
@@ -118,7 +117,16 @@ lang.extend(inputEx.Group, inputEx.Field, {
   	   // Append the fieldset
   	   parentEl.appendChild(this.fieldset);
    },
-  
+
+	/**
+	 * Render a field and add it to the field set
+    * @param {Object} fieldOptions The field properties as required by the inputEx() method
+	 */
+   addField: function(fieldOptions) {
+		var field = this.renderField(fieldOptions);
+      this.fieldset.appendChild(field.getEl() );
+	},
+
    /**
     * Instanciate one field given its parameters, type or fieldClass
     * @param {Object} fieldOptions The field properties as required by the inputEx() method

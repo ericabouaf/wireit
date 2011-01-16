@@ -652,6 +652,10 @@ tbody.yui-dt-data div.inputEx-dtInPlaceEdit-deleteLinkSpinner{
 	background:transparent url(../images/ajax-loader.gif) no-repeat scroll 20px 4px;
 }
 
+.yui-dt-editor .yui-dt-button button {
+  width: auto;
+}
+
 /**
  * StringAvailability
  */

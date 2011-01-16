@@ -18,9 +18,9 @@
 		<li><a href="http://github.com/neyric/inputex/">GitHub[Git]</a></li>	
 		<li><a href="http://github.com/neyric/inputex/issues">Issues</a></li>
 		<li><a href="api/index.html">API Documentation</a></li>
-		<li><a href="http://wiki.github.com/neyric/inputex">Wiki</a></li>
-		<li><a href="http://javascript.neyric.com/blog/category/inputex/">Blog</a> 
-				<a href="http://javascript.neyric.com/blog/feed/"><img src="res/rss.png" alt="rss icon"/></a></li>
+		<li><a href="guide.html">Guide</a></li>
+		<li><a href="http://neyric.com/category/inputex/">Blog</a> 
+				<a href="http://neyric.com/feed/"><img src="res/rss.png" alt="rss icon"/></a></li>
 		<li><a href="http://groups.google.com/group/inputex/">Forums</a></li>
 	</ul>
 	
@@ -49,7 +49,7 @@
 		
 		 <p>For detailed informations, have a look at our <a href="api/index.html">complete documentation</a>.</p>
 
-		 <p>It is built on top of the <a href="http://developer.yahoo.com/yui/">YUI library</a> (2.8.0r4) and supports all major browsers. Please report your specific browser issues in <a href="http://groups.google.com/group/inputex/">the forum</a>.</p>		
+		 <p>It is built on top of the <a href="http://developer.yahoo.com/yui/">YUI library</a> (2.8.x) and supports all major browsers. Please report your specific browser issues in <a href="http://groups.google.com/group/inputex/">the forum</a>.</p>		
 		
 		 <h2>Developer Tools</h2>
 			
@@ -73,7 +73,7 @@
 			
 			<!-- Updates changeset -->
 			<!--p class="title">Download</p-->
-			<p style="text-align:center;font-weight:bold; font-size:17px; -moz-border-radius: 10px; padding: 10px;-webkit-border-radius: 10px; background-color: #EEEEEE;"><a href="http://cloud.github.com/downloads/neyric/inputex/inputex-0.6.0.zip">Download inputex 0.6.0</a><br/><span style="font-size: 70%; font-weight: normal;">(inputex-0.6.0.zip - August, 2nd 2010 - <a href="version.txt">changeset</a>)</span></p>
+			<p style="text-align:center;font-weight:bold; font-size:17px; -moz-border-radius: 10px; padding: 10px;-webkit-border-radius: 10px; background-color: #EEEEEE;"><a href="http://cloud.github.com/downloads/neyric/inputex/inputex-0.7.0.zip">Download inputex 0.7.0</a><br/><span style="font-size: 70%; font-weight: normal;">(inputex-0.7.0.zip - January, 7th 2011 - <a href="version.txt">changeset</a>)</span></p>
 			
 			<!-- License -->
 			<p>inputEx is released under the <a href="license.txt">MIT License</a>.</p>
@@ -85,14 +85,8 @@
 		 <h2>Documentation</h2>
 		 <p>Here are some <b>starting points</b> for our documentation :</p>
 			<ul class="starlist">
+				<li><a href="guide.html">inputEx guide<br /><br /></li>
 				<li><a href="api/index.html">API documentation</a> - with YUIdoc<br /><br /></li>
-				<li><a href="http://wiki.github.com/neyric/inputex">Wiki pages</a>
-					<ul>
-						<li><a href="http://wiki.github.com/neyric/inputex/getting-started">Getting started</a> - 5 minutes tutorial</li>
-						<li><a href="http://wiki.github.com/neyric/inputex/overview">Overview</a> - a quick tour of inputEx</li>
-						<li><a href="http://wiki.github.com/neyric/inputex/create-your-own-fields">Create new fields</a> - How-to</li>
-					</ul>
-				</li>
 			</ul>
 		
 		  <p>Most of the documentation on fields options is in the examples below : </p>
@@ -147,6 +141,7 @@
 			<li><a href="examples/combine_field.html">CombineField</a></li>
 			<li><a href="examples/inplaceedit.html">InPlaceEdit</a></li>
 			<li><a href="examples/typefield.html">TypeField</a></li>
+			<li><a href="examples/serialize_field.html">SerializeField</a></li>
 			<li><a href="examples/tree_field.html">TreeField</a> (beta)</li>
 			<li><a href="examples/lenses.html">Lens</a> (new - beta)</li>
 			<li><a href="examples/keyvalue_field.html">KeyValue</a> (new - beta)</li>
@@ -178,7 +173,8 @@
 			<li><a href="examples/multiautocomplete.html">MultiAutoComplete</a></li>
 			<li><a href="examples/menu_field.html">MenuField</a> (nested selection)</li>
 			<li><a href="examples/dsselect_field.html">DSSelectField</a> (SelectField with YUI datasource)</li>
-			<li><a href="examples/slider_field.html">SliderField</a> (beta)</li>
+			<li><a href="examples/slider_field.html">SliderField</a></li>
+			<li><a href="examples/tinymce_field.html">TinyMCE</a></li>
 		</ul>
 		</div>
 
@@ -232,7 +228,7 @@
 		<ul>
 			<li><a href="examples/rpc/flickr.html">SMD using flickr</a></li>
 			<li><a href="examples/rpc/example.html">SMD simple example</a></li>
-			<li><a href="examples/rpc/smd-rest.html">SMD REST example</a></li>
+			<!--li><a href="examples/rpc/smd-rest.html">SMD REST example</a></li-->
 		</ul>
 		</div>
 		
@@ -310,9 +306,9 @@
 		<li><a href="http://github.com/neyric/inputex/">GitHub[Git]</a></li>	
 		<li><a href="http://github.com/neyric/inputex/issues">Issues</a></li>
 		<li><a href="api/index.html">API Documentation</a></li>
-		<li><a href="http://wiki.github.com/neyric/inputex">Wiki</a></li>
-		<li><a href="http://javascript.neyric.com/blog/category/inputex/">Blog</a> 
-				<a href="http://javascript.neyric.com/blog/feed/"><img src="res/rss.png" alt="rss icon"/></a></li>
+		<li><a href="guide.html">Guide</a></li>
+		<li><a href="http://neyric.com/category/inputex/">Blog</a> 
+				<a href="http://neyric.com/feed/"><img src="res/rss.png" alt="rss icon"/></a></li>
 		<li><a href="http://groups.google.com/group/inputex/">Forums</a></li>
 	</ul>
 	

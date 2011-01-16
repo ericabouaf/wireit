@@ -99,7 +99,7 @@
 		 * Hide a choice
 		 * @param {Object} config An object targeting the choice to hide (e.g. { position : 1 } || { value: 'second' } || { label: 'Second' })
 		 */
-		hideChoice: function (config) {
+		hideChoice: function (config, sendUpdatedEvt) {
 			
 			var position, choice;
 			
@@ -116,7 +116,7 @@
 					
 					// Clear if hiding selected choice
 					if (this.getValue() === choice.value) {
-						this.clear();
+						this.clear(sendUpdatedEvt);
 					}
 					
 					// Remove from DOM

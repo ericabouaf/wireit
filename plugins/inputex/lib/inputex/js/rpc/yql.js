@@ -25,7 +25,7 @@ inputEx.YQL = {
 	query: function(yql, callback) {
 		 var ud = 'yqlexecuteconsole'+(inputEx.YQL.query_index)++,
 		      API = 'http://query.yahooapis.com/v1/public/yql?q=',
-		      url = API + window.encodeURIComponent(yql) + '&format=json&callback=' + ud;
+		      url = API + window.encodeURIComponent(yql) + '&format=json&diagnostics=true&callback=' + ud;
 		 window[ud]= function(o){ callback && callback(o); };
 	    document.body.appendChild((function(){
 		    var s = document.createElement('script');

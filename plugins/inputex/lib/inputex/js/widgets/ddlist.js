@@ -267,9 +267,9 @@ inputEx.widget.DDList.prototype = {
     * @param {Integer} index Item index
     * @param {Any} value New value
     */
-   updateItem: function(index,value) {
-      this.items[index] = value;
-      this.ul.childNodes[index].childNodes[0].innerHTML = value;
+   updateItem: function(index, item) {
+      this.items[index] = (typeof item == "object") ? item.value : item;
+      this.ul.childNodes[index].childNodes[0].innerHTML = (typeof item == "object") ? item.label : item;
    },
    
    /**

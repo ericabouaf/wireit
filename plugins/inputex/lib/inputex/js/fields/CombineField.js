@@ -41,10 +41,9 @@ lang.extend( inputEx.CombineField, inputEx.Group, {
    	}
 
 	   // Label element
-	   if(this.options.label) {
+	   if (YAHOO.lang.isString(this.options.label)) {
 	      this.labelDiv = inputEx.cn('div', {id: this.divEl.id+'-label', className: 'inputEx-label', 'for': this.divEl.id+'-field'});
-	      this.labelEl = inputEx.cn('label');
-	      this.labelEl.appendChild( document.createTextNode(this.options.label) );
+	      this.labelEl = inputEx.cn('label', null, null, this.options.label === "" ? "&nbsp;" : this.options.label);
 	      this.labelDiv.appendChild(this.labelEl);
 	      this.divEl.appendChild(this.labelDiv);
       }
@@ -87,6 +86,9 @@ lang.extend( inputEx.CombineField, inputEx.Group, {
       	
       	this.appendSeparator(i+1);
 	   }
+	
+		this.setFieldName(this.options.name);
+	
 	      
 	},
 	
@@ -103,15 +105,6 @@ lang.extend( inputEx.CombineField, inputEx.Group, {
       
       return inputEx.CombineField.superclass.renderField.call(this, fieldOptions);
    },
-
-	/**
-	 * Override to set the field names
-	 */
-	renderFields: function(parentEl) {
-		inputEx.CombineField.superclass.renderFields.call(this,parentEl);
-		
-		this.setFieldName(this.options.name);
-	},
 	
 	
 	setFieldName: function(name) {

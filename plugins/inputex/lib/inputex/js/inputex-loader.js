@@ -404,6 +404,21 @@ YAHOO.addInputExModules = function(yuiLoader, inputExPath) {
   	  	   varName: 'inputEx.MapField',
   			requires: ['inputex-field']
   		},
+		{
+      	name: 'inputex-menu',
+         type: 'js',
+         fullpath: pathToInputEx+'js/fields/MenuField.js',
+         varName: 'inputEx.MenuField',
+         requires: ['inputex','menu']
+     },
+     {
+         name: 'inputex-filefield',
+         type: 'js',
+         fullpath: pathToInputEx+'js/fields/FileField.js',
+         varName: 'inputEx.FileField',
+         requires: ['inputex-field']
+
+     },
   		// Locals
   		{
   		   name: 'inputex-lang-fr',

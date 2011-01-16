@@ -1,8 +1,8 @@
 /*
-Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Copyright (c) 2010, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
-http://developer.yahoo.net/yui/license.txt
-version: 2.8.0r4
+http://developer.yahoo.com/yui/license.html
+version: 2.8.2r1
 */
 /**
  * The Storage module manages client-side data storage.
@@ -480,7 +480,7 @@ var Y = YAHOO.util,
 		}
 	};
 
-	YAHOO.register("StorageManager", Y.SWFStore, {version: "2.8.0r4", build: "2449"});
+	YAHOO.register("StorageManager", Y.SWFStore, {version: "2.8.2r1", build: "7"});
 }());
 (function() {
 
@@ -1182,4 +1182,4 @@ var Y = YAHOO.util,
     };
     Y.StorageManager.register(Y.StorageEngineSWF);
 }());
-YAHOO.register("storage", YAHOO.util.Storage, {version: "2.8.0r4", build: "2449"});
+YAHOO.register("storage", YAHOO.util.Storage, {version: "2.8.2r1", build: "7"});

@@ -59,7 +59,7 @@ inputEx = function(fieldOptions, parentField) {
 
 lang.augmentObject(inputEx, {
    
-   VERSION: "0.5.0",
+   VERSION: "0.7.0",
    
    /**
     * Url to the spacer image. This url schould be changed according to your project directories
@@ -158,7 +158,7 @@ lang.augmentObject(inputEx, {
       var opts = [];
       if(lang.isArray(groupOptions)) { opts = groupOptions; }
       if(fieldClass.superclass && !dontInherit && lang.isArray(fieldClass.superclass.constructor.groupOptions) ) {
-         opts = opts.concat(fieldClass.superclass.constructor.groupOptions);
+         opts = fieldClass.superclass.constructor.groupOptions.concat(opts);
       }
       fieldClass.groupOptions = opts;
    },
@@ -257,7 +257,7 @@ lang.augmentObject(inputEx, {
     * @return {HTMLElement} The created node
     */
    cn: function(tag, domAttributes, styleAttributes, innerHTML) {
-        if (tag == 'input' && YAHOO.env.ua.ie) { //only limit to input tag that has no tag body
+        if (tag == 'input' && YAHOO.env.ua.ie && YAHOO.env.ua.ie < 9) { //only limit to input tag that has no tag body
             var strDom = '<' + tag;
             if (domAttributes!=='undefined'){
                 for (var k in domAttributes){
@@ -333,6 +333,16 @@ lang.augmentObject(inputEx, {
 					  replace(/[ç]/g,"c").
 					  replace(/[œ]/g,"oe").
 					  replace(/[æ]/g,"ae");
+	},
+	
+	/**
+	 * String replaced by some html entities
+	 * @static
+	 * @param {String} str The string
+	 * @return {String} String replaced by some html entities
+	 */
+	htmlEntities: function (str) {
+	   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 	}
    
 });
