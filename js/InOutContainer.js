@@ -63,7 +63,7 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
 
 		for(var i = 0 ; i < this.inputs.length ; i++) {
 			var input = this.inputs[i];
-			this.terminals.push({
+			this.addTerminal({
 				"name": input, 
 				"direction": [-1,0], 
 				"offsetPosition": {"left": -14, "top": 3+30*(i+1) }, 
@@ -77,7 +77,7 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
 		
 		for(i = 0 ; i < this.outputs.length ; i++) {
 			var output = this.outputs[i];
-			this.terminals.push({
+			this.addTerminal({
 				"name": output, 
 				"direction": [1,0], 
 				"offsetPosition": {"right": -14, "top": 3+30*(i+1+this.inputs.length) }, 
