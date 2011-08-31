@@ -100,6 +100,7 @@ var WireIt = {
          for(i in styleAttributes){
 				if(styleAttributes.hasOwnProperty(i)) {
 					if(typeof (styleAttributes[i])=="function"){ continue; }
+					if(i ==="float") {i = "cssFloat";}
 					if(el.style[i]!=styleAttributes[i]){
 						el.style[i]=styleAttributes[i];
 					}
