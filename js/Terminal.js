@@ -243,7 +243,7 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
       if(this.terminal.container) {
          var obj = this.terminal.container.layer.el;
          var curleft = curtop = 0;
-        	if (obj.offsetParent) {
+        	if (!obj.offsetParent) {
         		do {
         			curleft += obj.offsetLeft;
         			curtop += obj.offsetTop;
