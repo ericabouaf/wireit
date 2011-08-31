@@ -140,12 +140,11 @@ ExecutionFrame.prototype = {
          
          // "execution"
          var that = this;
-         // TODO: do the slice thing for parameters
-         var value = function(a,b,c,d,e,f,g,h) {
-            //console.log("running callback function", a, that, moduleId);
+         var value = function(/* any number of arguments... */) {
+            //console.log("running callback function", arguments, that, moduleId);
             // store the value
             that.execValues[moduleId] = {
-               output: [a,b,c,d,e,f,g,h]
+               output: Array.prototype.slice.apply(arguments)
             };
             
             that.executeModules(moduleId, "output");
