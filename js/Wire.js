@@ -352,7 +352,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     */
    onMouseMove: function(x,y) {
       
-      if(typeof this.mouseInState === undefined) {
+      if(this.mouseInState === undefined) {
          this.mouseInState = false;
       }
 
