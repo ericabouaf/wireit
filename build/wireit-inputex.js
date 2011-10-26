@@ -100,6 +100,7 @@ var WireIt = {
          for(i in styleAttributes){
 				if(styleAttributes.hasOwnProperty(i)) {
 					if(typeof (styleAttributes[i])=="function"){ continue; }
+					if(i ==="float") {i = "cssFloat";}
 					if(el.style[i]!=styleAttributes[i]){
 						el.style[i]=styleAttributes[i];
 					}
@@ -622,7 +623,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     */
    onMouseMove: function(x,y) {
       
-      if(typeof this.mouseInState === undefined) {
+      if(this.mouseInState === undefined) {
          this.mouseInState = false;
       }
 
@@ -2057,7 +2058,7 @@ WireIt.Terminal.prototype = {
 				curleft += obj.offsetLeft;
 				curtop += obj.offsetTop;
 				obj = obj.offsetParent;
-			} while ( !!obj && obj != layerEl);
+		  } while ( !!obj && obj != layerEl && !YAHOO.util.Dom.hasClass(obj, "WireIt-Layer"));
 		}
 
 		return [curleft+15,curtop+15];
@@ -2618,12 +2619,30 @@ WireIt.Container.prototype = {
 		this.ddResize.eventResize.subscribe(this.onResize, this, true);
 	},
 	
+  /**
+   * Adjust XY constraints
+   */
+  setXYContraints: function() {
+      if(this.layer) {
+          var layerPos = Dom.getXY(this.layer.el);
+          var pos = Dom.getXY(this.el);
+          // remove the layer position to the container position            
+          this.dd.setXConstraint(pos[0] - layerPos[0]);
+          this.dd.setYConstraint(pos[1] - layerPos[1]);
+      }
+      // FIXME: what if there's no layer?
+  },
+
 	/**
 	 * Use the DD utility to make container draggable while redrawing the connected wires
 	 */
 	makeDraggable: function() {
 		// Use the drag'n drop utility to make the container draggable
 	   this.dd = new WireIt.util.DD(this.terminals,this.el);
+
+     // set the XY constraints that limit the drag area      
+     YAHOO.util.Event.on(window, 'resize', this.setXYContraints, this, true);   
+     this.setXYContraints();
 	
 		// Set minimum constraint on Drag Drop to the top left corner of the layer (minimum position is 0,0)
 		this.dd.setXConstraint(this.position[0]);
@@ -2969,7 +2988,8 @@ WireIt.Container.prototype = {
 
 };
 
-})();/*global YAHOO,WireIt,window */
+})();
+/*global YAHOO,WireIt,window */
 /**
  * A layer encapsulate a bunch of containers and wires
  * @class Layer
@@ -3893,7 +3913,7 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
 
 		for(var i = 0 ; i < this.inputs.length ; i++) {
 			var input = this.inputs[i];
-			this.terminals.push({
+			this.addTerminal({
 				"name": input, 
 				"direction": [-1,0], 
 				"offsetPosition": {"left": -14, "top": 3+30*(i+1) }, 
@@ -3907,7 +3927,7 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
 		
 		for(i = 0 ; i < this.outputs.length ; i++) {
 			var output = this.outputs[i];
-			this.terminals.push({
+			this.addTerminal({
 				"name": output, 
 				"direction": [1,0], 
 				"offsetPosition": {"right": -14, "top": 3+30*(i+1+this.inputs.length) }, 
@@ -3983,7 +4003,7 @@ inputEx = function(fieldOptions, parentField) {
 
 lang.augmentObject(inputEx, {
    
-   VERSION: "0.5.0",
+   VERSION: "0.7.0",
    
    /**
     * Url to the spacer image. This url schould be changed according to your project directories
@@ -4082,7 +4102,7 @@ lang.augmentObject(inputEx, {
       var opts = [];
       if(lang.isArray(groupOptions)) { opts = groupOptions; }
       if(fieldClass.superclass && !dontInherit && lang.isArray(fieldClass.superclass.constructor.groupOptions) ) {
-         opts = opts.concat(fieldClass.superclass.constructor.groupOptions);
+         opts = fieldClass.superclass.constructor.groupOptions.concat(opts);
       }
       fieldClass.groupOptions = opts;
    },
@@ -4181,7 +4201,7 @@ lang.augmentObject(inputEx, {
     * @return {HTMLElement} The created node
     */
    cn: function(tag, domAttributes, styleAttributes, innerHTML) {
-        if (tag == 'input' && YAHOO.env.ua.ie) { //only limit to input tag that has no tag body
+        if (tag == 'input' && YAHOO.env.ua.ie && YAHOO.env.ua.ie < 9) { //only limit to input tag that has no tag body
             var strDom = '<' + tag;
             if (domAttributes!=='undefined'){
                 for (var k in domAttributes){
@@ -4257,6 +4277,16 @@ lang.augmentObject(inputEx, {
 					  replace(/[ç]/g,"c").
 					  replace(/[œ]/g,"oe").
 					  replace(/[æ]/g,"ae");
+	},
+	
+	/**
+	 * String replaced by some html entities
+	 * @static
+	 * @param {String} str The string
+	 * @return {String} String replaced by some html entities
+	 */
+	htmlEntities: function (str) {
+	   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 	}
    
 });
@@ -4373,10 +4403,9 @@ inputEx.Field.prototype = {
 	   }
 	   
 	   // Label element
-	   if(this.options.label) {
+	   if (YAHOO.lang.isString(this.options.label)) {
 	      this.labelDiv = inputEx.cn('div', {id: this.divEl.id+'-label', className: 'inputEx-label', 'for': this.divEl.id+'-field'});
-	      this.labelEl = inputEx.cn('label');
-	      this.labelEl.appendChild( document.createTextNode(this.options.label) );
+	      this.labelEl = inputEx.cn('label', null, null, this.options.label === "" ? "&nbsp;" : this.options.label);
 	      this.labelDiv.appendChild(this.labelEl);
 	      this.divEl.appendChild(this.labelDiv);
       }
@@ -4663,8 +4692,8 @@ inputEx.Field.prototype = {
 };
 
 inputEx.Field.groupOptions = [
+	{ type: "string", label: "Name", name: "name", value: '', required: true },
    { type: "string", label: "Label", name: "label", value: '' },
-   { type: "string", label: "Name", name: "name", value: '' },
    { type: "string", label: "Description",name: "description", value: '' },
    { type: "boolean", label: "Required?",name: "required", value: false },
    { type: "boolean", label: "Show messages",name: "showMsg", value: false }
@@ -4870,8 +4899,13 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
 	
       var groupParams = {parentEl: this.bodyEl, fields: this.fields, legend: this.legend, collapsible: this.collapsible};
       this.form = new inputEx.Group(groupParams);
+		  this.form.setContainer(this);
 
-		this.form.setContainer(this);
+			for(var i = 0 ; i < this.form.inputs.length ; i++) {
+				var field = this.form.inputs[i];
+				field.setContainer(this);
+			}
+
 
 		// Redraw all wires when the form is collapsed
 		if(this.form.legend) {
@@ -4912,7 +4946,6 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
    setValue: function(val) {
       this.form.setValue(val);
    }
-   
 });
 (function() {
    
@@ -5014,16 +5047,15 @@ lang.extend(inputEx.Group, inputEx.Field, {
   	   
       // Iterate this.createInput on input fields
       for (var i = 0 ; i < this.options.fields.length ; i++) {
-         var input = this.options.fields[i];
+         var fieldOptions = this.options.fields[i];
         
 			// Throw Error if input is undefined
-			if(!input) {
+			if(!fieldOptions) {
 				throw new Error("inputEx.Form: One of the provided fields is undefined ! (check trailing comma)");
 			}
 			
          // Render the field
-         var field = this.renderField(input);
-         this.fieldset.appendChild(field.getEl() );
+			this.addField(fieldOptions);
   	   }
   	
   	   // Collapsed at creation ?
@@ -5034,7 +5066,16 @@ lang.extend(inputEx.Group, inputEx.Field, {
   	   // Append the fieldset
   	   parentEl.appendChild(this.fieldset);
    },
-  
+
+	/**
+	 * Render a field and add it to the field set
+    * @param {Object} fieldOptions The field properties as required by the inputEx() method
+	 */
+   addField: function(fieldOptions) {
+		var field = this.renderField(fieldOptions);
+      this.fieldset.appendChild(field.getEl() );
+	},
+
    /**
     * Instanciate one field given its parameters, type or fieldClass
     * @param {Object} fieldOptions The field properties as required by the inputEx() method
@@ -6056,7 +6097,7 @@ inputEx.registerType("string", inputEx.StringField, [
 		 * Hide a choice
 		 * @param {Object} config An object targeting the choice to hide (e.g. { position : 1 } || { value: 'second' } || { label: 'Second' })
 		 */
-		hideChoice: function (config) {
+		hideChoice: function (config, sendUpdatedEvt) {
 			
 			var position, choice;
 			
@@ -6073,7 +6114,7 @@ inputEx.registerType("string", inputEx.StringField, [
 					
 					// Clear if hiding selected choice
 					if (this.getValue() === choice.value) {
-						this.clear();
+						this.clear(sendUpdatedEvt);
 					}
 					
 					// Remove from DOM
@@ -6728,6 +6769,14 @@ inputEx.ListField = function(options) {
    inputEx.ListField.superclass.constructor.call(this, options);
 };
 lang.extend(inputEx.ListField,inputEx.Field, {
+
+	/**
+	 * Colors for the animation
+	 */
+	arrowAnimColors: { 
+		from: '#eeee33',
+		to: '#eeeeee' 
+	},
 	   
 	/**
 	 * Set the ListField classname
@@ -7021,7 +7070,7 @@ lang.extend(inputEx.ListField,inputEx.Field, {
 	      if(this.arrowAnim) {
 	         this.arrowAnim.stop(true);
 	      }
-	      this.arrowAnim = new YAHOO.util.ColorAnim(insertedEl, {backgroundColor: { from: '#eeee33' , to: '#eeeeee' }}, 0.4);
+	      this.arrowAnim = new YAHOO.util.ColorAnim(insertedEl, {backgroundColor: this.arrowAnimColors}, 0.4);
 	      this.arrowAnim.onComplete.subscribe(function() { Dom.setStyle(insertedEl, 'background-color', ''); });
 	      this.arrowAnim.animate();
 	      
@@ -7067,7 +7116,7 @@ lang.extend(inputEx.ListField,inputEx.Field, {
 	      if(this.arrowAnim) {
 	         this.arrowAnim.stop(true);
 	      }
-	      this.arrowAnim = new YAHOO.util.ColorAnim(insertedEl, {backgroundColor: { from: '#eeee33' , to: '#eeeeee' }}, 1);
+	      this.arrowAnim = new YAHOO.util.ColorAnim(insertedEl, {backgroundColor: this.arrowAnimColors }, 1);
 	      this.arrowAnim.onComplete.subscribe(function() { Dom.setStyle(insertedEl, 'background-color', ''); });
 	      this.arrowAnim.animate();
 	      
@@ -7710,9 +7759,6 @@ inputEx.registerType("inplaceedit", inputEx.InPlaceEdit, [
  */
 inputEx.TypeField = function(options) {
    inputEx.TypeField.superclass.constructor.call(this, options);
-   
-   // Build the updateFieldValue
-   this.updateFieldValue();
 };
 
 lang.extend(inputEx.TypeField, inputEx.Field, {
@@ -7863,8 +7909,10 @@ lang.extend(inputEx.TypeField, inputEx.Field, {
          // Refire the event when the fieldValue is updated
          this.fieldValue.updatedEvt.subscribe(this.fireUpdatedEvt, this, true);
       }
-      catch(ex) {
-         console.log("Error while updateFieldValue", ex.message);
+      catch(ex) {	
+         if(YAHOO.lang.isObject(window["console"]) && YAHOO.lang.isFunction(window["console"]["log"]) ) {
+         	console.log("Error while updateFieldValue", ex.message);
+			}
       }
    },
    
@@ -7896,20 +7944,25 @@ lang.extend(inputEx.TypeField, inputEx.Field, {
       // Rebuild the fieldValue
       this.updateFieldValue();
       
-      // Set field value : TODO -> fix it for default value (because updateFieldValue is called after first setValue)
-      
+      // Set field value :
+		// fix it for default value (because updateFieldValue is called after first setValue)
+ 		var that = this;      
+
       // Retro-compatibility with deprecated inputParams Object
-      if(lang.isObject(value.inputParams) && !lang.isUndefined(value.inputParams.value)) {
-         this.fieldValue.setValue(value.inputParams.value);
-         
+      if(lang.isObject(value.inputParams) && !lang.isUndefined(value.inputParams.value)) {	
+			setTimeout(function(){
+         	that.fieldValue.setValue(value.inputParams.value, false);
+			}, 50);
       // New prefered way to describe a field
       } else if (!lang.isUndefined(value.value)) {
-         this.fieldValue.setValue(value.value);
+			setTimeout(function(){
+				that.fieldValue.setValue(value.value, false);
+			}, 50);
       }
       
 	   if(sendUpdatedEvt !== false) {
 	      // fire update event
-         this.fireUpdatedEvt();
+         this.fireUpdatedEvt(false);
       }
    },
    

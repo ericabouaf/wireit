@@ -252,12 +252,30 @@ WireIt.Container.prototype = {
 		this.ddResize.eventResize.subscribe(this.onResize, this, true);
 	},
 	
+  /**
+   * Adjust XY constraints
+   */
+  setXYContraints: function() {
+      if(this.layer) {
+          var layerPos = Dom.getXY(this.layer.el);
+          var pos = Dom.getXY(this.el);
+          // remove the layer position to the container position            
+          this.dd.setXConstraint(pos[0] - layerPos[0]);
+          this.dd.setYConstraint(pos[1] - layerPos[1]);
+      }
+      // FIXME: what if there's no layer?
+  },
+
 	/**
 	 * Use the DD utility to make container draggable while redrawing the connected wires
 	 */
 	makeDraggable: function() {
 		// Use the drag'n drop utility to make the container draggable
 	   this.dd = new WireIt.util.DD(this.terminals,this.el);
+
+     // set the XY constraints that limit the drag area      
+     YAHOO.util.Event.on(window, 'resize', this.setXYContraints, this, true);   
+     this.setXYContraints();
 	
 		// Set minimum constraint on Drag Drop to the top left corner of the layer (minimum position is 0,0)
 		this.dd.setXConstraint(this.position[0]);
