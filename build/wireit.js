@@ -100,6 +100,7 @@ var WireIt = {
          for(i in styleAttributes){
 				if(styleAttributes.hasOwnProperty(i)) {
 					if(typeof (styleAttributes[i])=="function"){ continue; }
+					if(i ==="float") {i = "cssFloat";}
 					if(el.style[i]!=styleAttributes[i]){
 						el.style[i]=styleAttributes[i];
 					}
@@ -622,7 +623,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     */
    onMouseMove: function(x,y) {
       
-      if(typeof this.mouseInState === undefined) {
+      if(this.mouseInState === undefined) {
          this.mouseInState = false;
       }
 
@@ -2057,7 +2058,7 @@ WireIt.Terminal.prototype = {
 				curleft += obj.offsetLeft;
 				curtop += obj.offsetTop;
 				obj = obj.offsetParent;
-			} while ( !!obj && obj != layerEl);
+		  } while ( !!obj && obj != layerEl && !YAHOO.util.Dom.hasClass(obj, "WireIt-Layer"));
 		}
 
 		return [curleft+15,curtop+15];
@@ -2618,12 +2619,30 @@ WireIt.Container.prototype = {
 		this.ddResize.eventResize.subscribe(this.onResize, this, true);
 	},
 	
+  /**
+   * Adjust XY constraints
+   */
+  setXYContraints: function() {
+      if(this.layer) {
+          var layerPos = Dom.getXY(this.layer.el);
+          var pos = Dom.getXY(this.el);
+          // remove the layer position to the container position            
+          this.dd.setXConstraint(pos[0] - layerPos[0]);
+          this.dd.setYConstraint(pos[1] - layerPos[1]);
+      }
+      // FIXME: what if there's no layer?
+  },
+
 	/**
 	 * Use the DD utility to make container draggable while redrawing the connected wires
 	 */
 	makeDraggable: function() {
 		// Use the drag'n drop utility to make the container draggable
 	   this.dd = new WireIt.util.DD(this.terminals,this.el);
+
+     // set the XY constraints that limit the drag area      
+     YAHOO.util.Event.on(window, 'resize', this.setXYContraints, this, true);   
+     this.setXYContraints();
 	
 		// Set minimum constraint on Drag Drop to the top left corner of the layer (minimum position is 0,0)
 		this.dd.setXConstraint(this.position[0]);
@@ -2969,7 +2988,8 @@ WireIt.Container.prototype = {
 
 };
 
-})();/*global YAHOO,WireIt,window */
+})();
+/*global YAHOO,WireIt,window */
 /**
  * A layer encapsulate a bunch of containers and wires
  * @class Layer
@@ -3893,7 +3913,7 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
 
 		for(var i = 0 ; i < this.inputs.length ; i++) {
 			var input = this.inputs[i];
-			this.terminals.push({
+			this.addTerminal({
 				"name": input, 
 				"direction": [-1,0], 
 				"offsetPosition": {"left": -14, "top": 3+30*(i+1) }, 
@@ -3907,7 +3927,7 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
 		
 		for(i = 0 ; i < this.outputs.length ; i++) {
 			var output = this.outputs[i];
-			this.terminals.push({
+			this.addTerminal({
 				"name": output, 
 				"direction": [1,0], 
 				"offsetPosition": {"right": -14, "top": 3+30*(i+1+this.inputs.length) }, 
