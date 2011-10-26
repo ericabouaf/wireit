@@ -1,3 +1,4 @@
+/*global YAHOO */
 /**
  * The wire widget that uses a canvas to render
  * @class Wire
@@ -70,8 +71,13 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
    WireIt.Wire.superclass.constructor.call(this, this.parentEl);
    
    // CSS classname
-   YAHOO.util.Dom.addClass(this.element, this.options.className);
-   
+   YAHOO.util.Dom.addClass(this.element, this.className);
+
+   // Label
+	if(this.label) {
+		this.renderLabel();
+	}
+
    // Call addWire on both terminals
    this.terminal1.addWire(this);
    this.terminal2.addWire(this);
@@ -79,41 +85,105 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
 
 
 YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
-   
+
+	/** 
+    * @property xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.Wire"
+    * @type String
+    */
+   xtype: "WireIt.Wire",
+
+	/** 
+    * @property className
+    * @description CSS class name for the wire element
+    * @default "WireIt-Wire"
+    * @type String
+    */
+	className: "WireIt-Wire",
+
+	/** 
+    * @property cap
+    * @description TODO
+    * @default "round"
+    * @type String
+    */
+	cap: 'round',
+	
+	/** 
+    * @property bordercap
+    * @description TODO
+    * @default "round"
+    * @type String
+    */
+	bordercap: 'round',
+	
+	/** 
+    * @property width
+    * @description Wire width
+    * @default 3
+    * @type Integer
+    */
+	width: 3,
+	
+	/** 
+    * @property borderwidth
+    * @description Border width
+    * @default 1
+    * @type Integer
+    */
+	borderwidth: 1,
+	
+	/** 
+    * @property color
+    * @description Wire color
+    * @default 'rgb(173, 216, 230)'
+    * @type String
+    */
+	color: 'rgb(173, 216, 230)',
+	
+	/** 
+    * @property bordercolor
+    * @description Border color
+    * @default '#0000ff'
+    * @type String
+    */
+	bordercolor: '#0000ff',
+	
+	/** 
+    * @property label
+    * @description Wire label
+    * @default null
+    * @type String
+    */
+	label: null,
+	
+	/** 
+    * @property labelStyle
+    * @description Wire label style
+    * @default null
+    * @type Object
+    */
+	labelStyle: null,
+	
+	/** 
+    * @property labelEditor
+    * @description inputEx field definition for the label editor
+    * @default null
+    * @type Object
+    */
+	labelEditor: null,
+	
    /**
-    * Build options object and set default properties
+    * Set the options by putting them in this (so it overrides the prototype default)
     * @method setOptions
     */
    setOptions: function(options) {
-      /**
-       * Wire styling, and properties:
-       * <ul>
-       *   <li>className: CSS class name of the canvas element (default 'WireIt-Wire')</li>
-       *   <li>coeffMulDirection: Parameter for bezier style</li>
-       *   <li>cap: default 'round'</li>
-       *   <li>bordercap: default 'round'</li>
-       *   <li>width: Wire width (default to 3)</li>
-       *   <li>borderwidth: Border Width (default to 1)</li>
-       *   <li>color: Wire color (default to rgb(173, 216, 230) )</li>
-       *   <li>bordercolor: Border color (default to #0000ff )</li>
-       * </ul>
-       * @property options
-       */
-      this.options = {};
-      this.options.className = options.className || 'WireIt-Wire';
-      this.options.coeffMulDirection = YAHOO.lang.isUndefined(options.coeffMulDirection) ? 100 : options.coeffMulDirection;
-
-      // Syling
-      this.options.drawingMethod = options.drawingMethod || 'bezier';
-      this.options.cap = options.cap || 'round';
-      this.options.bordercap = options.bordercap || 'round';
-      this.options.width = options.width || 3;
-      this.options.borderwidth = options.borderwidth || 1;
-      this.options.color = options.color || 'rgb(173, 216, 230)';
-      this.options.bordercolor = options.bordercolor || '#0000ff';
-
-		// Label
-		this.options.label = options.label;
+      for(var k in options) {
+			if( options.hasOwnProperty(k) ) {
+				this[k] = options[k];
+			}
+		}
    },
    
    /**
@@ -126,266 +196,25 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       this.parentEl.removeChild(this.element);
    
       // Remove the wire reference from the connected terminals
-      if(this.terminal1 && this.terminal1.removeWire) {
-         this.terminal1.removeWire(this);
-      }
-      if(this.terminal2 && this.terminal2.removeWire) {
-         this.terminal2.removeWire(this);
-      }
-   
-      // Remove references to old terminals
-      this.terminal1 = null;
-      this.terminal2 = null;
+    	if(this.terminal1 && this.terminal1.removeWire) {
+			this.terminal1.removeWire(this);
+    	}
+    	if(this.terminal2 && this.terminal2.removeWire) {
+			this.terminal2.removeWire(this);
+    	}
+
+    	// Remove references to old terminals
+    	this.terminal1 = null;
+    	this.terminal2 = null;
+
+		// Remove Label
+		if(this.labelEl) {
+			if(this.labelField) {
+				this.labelField.destroy();
+			}
+			this.labelEl.innerHTML = "";
+		}
    },
-
-   /**
-    * Redraw the Wire
-    * @method drawBezierCurve
-    */
-   drawBezierCurve: function() {
-   
-      // Get the positions of the terminals
-      var p1 = this.terminal1.getXY();
-      var p2 = this.terminal2.getXY();
-      
-      // Coefficient multiplicateur de direction
-      // 100 par defaut, si distance(p1,p2) < 100, on passe en distance/2
-      var coeffMulDirection = this.options.coeffMulDirection;
-   
-   
-      var distance=Math.sqrt(Math.pow(p1[0]-p2[0],2)+Math.pow(p1[1]-p2[1],2));
-      if(distance < coeffMulDirection){
-         coeffMulDirection = distance/2;
-      }
-   
-      // Calcul des vecteurs directeurs d1 et d2 :
-      var d1 = [this.terminal1.options.direction[0]*coeffMulDirection,
-                this.terminal1.options.direction[1]*coeffMulDirection];
-      var d2 = [this.terminal2.options.direction[0]*coeffMulDirection,
-                this.terminal2.options.direction[1]*coeffMulDirection];
-   
-      var bezierPoints=[];
-      bezierPoints[0] = p1;
-      bezierPoints[1] = [p1[0]+d1[0],p1[1]+d1[1]];
-      bezierPoints[2] = [p2[0]+d2[0],p2[1]+d2[1]];
-      bezierPoints[3] = p2;
-      var min = [p1[0],p1[1]];
-      var max = [p1[0],p1[1]];
-      for(var i=1 ; i<bezierPoints.length ; i++){
-         var p = bezierPoints[i];
-         if(p[0] < min[0]){
-            min[0] = p[0];
-         }
-         if(p[1] < min[1]){
-            min[1] = p[1];
-         }
-         if(p[0] > max[0]){
-            max[0] = p[0];
-         }
-         if(p[1] > max[1]){
-            max[1] = p[1];
-         }
-      }
-      // Redimensionnement du canvas
-      var margin = [4,4];
-      min[0] = min[0]-margin[0];
-      min[1] = min[1]-margin[1];
-      max[0] = max[0]+margin[0];
-      max[1] = max[1]+margin[1];
-      var lw = Math.abs(max[0]-min[0]);
-      var lh = Math.abs(max[1]-min[1]);
-   
-      this.SetCanvasRegion(min[0],min[1],lw,lh);
-   
-      var ctxt = this.getContext();
-      for(i = 0 ; i<bezierPoints.length ; i++){
-         bezierPoints[i][0] = bezierPoints[i][0]-min[0];
-         bezierPoints[i][1] = bezierPoints[i][1]-min[1];
-      }
-   
-      // Draw the border
-      ctxt.lineCap = this.options.bordercap;
-      ctxt.strokeStyle = this.options.bordercolor;
-      ctxt.lineWidth = this.options.width+this.options.borderwidth*2;
-      ctxt.beginPath();
-      ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
-      ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]);
-      ctxt.stroke();
-   
-      // Draw the inner bezier curve
-      ctxt.lineCap = this.options.cap;
-      ctxt.strokeStyle = this.options.color;
-      ctxt.lineWidth = this.options.width;
-      ctxt.beginPath();
-      ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
-      ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]);
-      ctxt.stroke();
-   },
-
-	/**
-    * Attempted bezier drawing method for arrows
-    * @method drawBezierArrows
-    */
-   drawBezierArrows: function() {
-	  //From drawArrows function
-
-	 	var arrowWidth = Math.round(this.options.width * 1.5 + 20);
-		var arrowLength = Math.round(this.options.width * 1.2 + 20);
-	  	var d = arrowWidth/2; // arrow width/2
-      var redim = d+3; //we have to make the canvas a little bigger because of arrows
-      var margin=[4+redim,4+redim];
-
-      // Get the positions of the terminals
-      var p1 = this.terminal1.getXY();
-      var p2 = this.terminal2.getXY();
-
-      // Coefficient multiplicateur de direction
-      // 100 par defaut, si distance(p1,p2) < 100, on passe en distance/2
-      var coeffMulDirection = this.options.coeffMulDirection;
-
-
-      var distance=Math.sqrt(Math.pow(p1[0]-p2[0],2)+Math.pow(p1[1]-p2[1],2));
-      if(distance < coeffMulDirection){
-         coeffMulDirection = distance/2;
-      }
-
-      // Calcul des vecteurs directeurs d1 et d2 :
-      var d1 = [this.terminal1.options.direction[0]*coeffMulDirection,
-                this.terminal1.options.direction[1]*coeffMulDirection];
-      var d2 = [this.terminal2.options.direction[0]*coeffMulDirection,
-                this.terminal2.options.direction[1]*coeffMulDirection];
-
-      var bezierPoints=[];
-      bezierPoints[0] = p1;
-      bezierPoints[1] = [p1[0]+d1[0],p1[1]+d1[1]];
-      bezierPoints[2] = [p2[0]+d2[0],p2[1]+d2[1]];
-      bezierPoints[3] = p2;
-      var min = [p1[0],p1[1]];
-      var max = [p1[0],p1[1]];
-      for(var i=1 ; i<bezierPoints.length ; i++){
-         var p = bezierPoints[i];
-         if(p[0] < min[0]){
-            min[0] = p[0];
-         }
-         if(p[1] < min[1]){
-            min[1] = p[1];
-         }
-         if(p[0] > max[0]){
-            max[0] = p[0];
-         }
-         if(p[1] > max[1]){
-            max[1] = p[1];
-         }
-      }
-      // Redimensionnement du canvas
-      //var margin = [4,4];
-      min[0] = min[0]-margin[0];
-      min[1] = min[1]-margin[1];
-      max[0] = max[0]+margin[0];
-      max[1] = max[1]+margin[1];
-      var lw = Math.abs(max[0]-min[0]);
-      var lh = Math.abs(max[1]-min[1]);
-
-      this.SetCanvasRegion(min[0],min[1],lw,lh);
-
-      var ctxt = this.getContext();
-      for(i = 0 ; i<bezierPoints.length ; i++){
-         bezierPoints[i][0] = bezierPoints[i][0]-min[0];
-         bezierPoints[i][1] = bezierPoints[i][1]-min[1];
-      }
-
-      // Draw the border
-      ctxt.lineCap = this.options.bordercap;
-      ctxt.strokeStyle = this.options.bordercolor;
-      ctxt.lineWidth = this.options.width+this.options.borderwidth*2;
-      ctxt.beginPath();
-      ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
-      ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]+arrowLength/2*this.terminal2.options.direction[1]);
-      ctxt.stroke();
-
-      // Draw the inner bezier curve
-      ctxt.lineCap = this.options.cap;
-      ctxt.strokeStyle = this.options.color;
-      ctxt.lineWidth = this.options.width;
-      ctxt.beginPath();
-      ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
-      ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]+arrowLength/2*this.terminal2.options.direction[1]);
-      ctxt.stroke();
-
-	//Variables from drawArrows
-		//var t1 = p1;
-		var t1 = bezierPoints[2],
-			 t2 = p2;
-
-   	var z = [0,0]; //point on the wire with constant distance (dlug) from terminal2
-   	var dlug = arrowLength; //arrow length
-   	var t = 1-(dlug/distance);
-   	z[0] = Math.abs( t1[0] +  t*(t2[0]-t1[0]) );
-   	z[1] = Math.abs( t1[1] + t*(t2[1]-t1[1]) );	
-   	
-	//line which connects the terminals: y=ax+b
-   	var W = t1[0] - t2[0];
-   	var Wa = t1[1] - t2[1];
-   	var Wb = t1[0]*t2[1] - t1[1]*t2[0];
-   	if (W !== 0) {
-   		a = Wa/W;
-   		b = Wb/W;
-   	}
-   	else {
-   		a = 0;
-   	}
-   	//line perpendicular to the main line: y = aProst*x + b
-   	if (a === 0) {
-   		aProst = 0;
-   	}
-   	else {
-   		aProst = -1/a;
-   	}
-   	bProst = z[1] - aProst*z[0]; //point z lays on this line
-
-   	//we have to calculate coordinates of 2 points, which lay on perpendicular line and have the same distance (d) from point z
-   	var A = 1 + Math.pow(aProst,2),
-			 B = 2*aProst*bProst - 2*z[0] - 2*z[1]*aProst,
-			 C = -2*z[1]*bProst + Math.pow(z[0],2) + Math.pow(z[1],2) - Math.pow(d,2) + Math.pow(bProst,2),
-			 delta = Math.pow(B,2) - 4*A*C;
-			
-   	if (delta < 0) { return; }
-	   
-   	var x1 = (-B + Math.sqrt(delta)) / (2*A),
-			 x2 = (-B - Math.sqrt(delta)) / (2*A),
-			 y1 = aProst*x1 + bProst,
-			 y2 = aProst*x2 + bProst;
-   	
-   	if(t1[1] == t2[1]) {
-   	      var o = (t1[0] > t2[0]) ? 1 : -1;
-      	   x1 = t2[0]+o*dlug;
-      	   x2 = x1;
-      	   y1 -= d;
-      	   y2 += d;
-   	}   	
-
-   	//triangle fill
-   	ctxt.fillStyle = this.options.color;
-   	ctxt.beginPath();
-   	ctxt.moveTo(t2[0],t2[1]);
-   	ctxt.lineTo(x1,y1);
-   	ctxt.lineTo(x2,y2);
-   	ctxt.fill();
-
-   	//triangle border	
-   	ctxt.strokeStyle = this.options.bordercolor;
-   	ctxt.lineWidth = this.options.borderwidth;
-   	ctxt.beginPath();
-   	ctxt.moveTo(t2[0],t2[1]);
-   	ctxt.lineTo(x1,y1);
-   	ctxt.lineTo(x2,y2);
-   	ctxt.lineTo(t2[0],t2[1]);
-   	ctxt.stroke();
-
-		
-		return [p1,p2,t1,t2];
-   },
-
 
 
    /**
@@ -399,134 +228,11 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    },
    
    
-   /**
-    * Drawing methods for arrows
-    * @method drawArrows
-    */
-   drawArrows: function()
-   {
-   	var d = 7; // arrow width/2
-      var redim = d+3; //we have to make the canvas a little bigger because of arrows
-      var margin=[4+redim,4+redim];
-
-      // Get the positions of the terminals
-      var p1 = this.terminal1.getXY();
-      var p2 = this.terminal2.getXY();
-
-      var distance=Math.sqrt(Math.pow(p1[0]-p2[0],2)+Math.pow(p1[1]-p2[1],2));
-
-      var min=[ Math.min(p1[0],p2[0])-margin[0], Math.min(p1[1],p2[1])-margin[1]];
-      var max=[ Math.max(p1[0],p2[0])+margin[0], Math.max(p1[1],p2[1])+margin[1]];
-      
-      // Redimensionnement du canvas
-      
-      var lw=Math.abs(max[0]-min[0])+redim;
-      var lh=Math.abs(max[1]-min[1])+redim;
-
-      p1[0]=p1[0]-min[0];
-      p1[1]=p1[1]-min[1];
-      p2[0]=p2[0]-min[0];
-      p2[1]=p2[1]-min[1];
-
-      this.SetCanvasRegion(min[0],min[1],lw,lh);
-
-      var ctxt=this.getContext();
-      
-      // Draw the border
-      ctxt.lineCap=this.options.bordercap;
-      ctxt.strokeStyle=this.options.bordercolor;
-      ctxt.lineWidth=this.options.width+this.options.borderwidth*2;
-      ctxt.beginPath();
-      ctxt.moveTo(p1[0],p1[1]);
-      ctxt.lineTo(p2[0],p2[1]);
-      ctxt.stroke();
-
-      // Draw the inner bezier curve
-      ctxt.lineCap=this.options.cap;
-      ctxt.strokeStyle=this.options.color;
-      ctxt.lineWidth=this.options.width;
-      ctxt.beginPath();
-      ctxt.moveTo(p1[0],p1[1]);
-      ctxt.lineTo(p2[0],p2[1]);
-      ctxt.stroke();
-
-   	/* start drawing arrows */
-
-   	var t1 = p1;
-   	var t2 = p2;
-
-   	var z = [0,0]; //point on the wire with constant distance (dlug) from terminal2
-   	var dlug = 20; //arrow length
-   	var t = (distance == 0) ? 0 : 1-(dlug/distance);
-   	z[0] = Math.abs( t1[0] +  t*(t2[0]-t1[0]) );
-   	z[1] = Math.abs( t1[1] + t*(t2[1]-t1[1]) );	
-
-   	//line which connects the terminals: y=ax+b
-   	var W = t1[0] - t2[0];
-   	var Wa = t1[1] - t2[1];
-   	var Wb = t1[0]*t2[1] - t1[1]*t2[0];
-   	if (W !== 0) {
-   		a = Wa/W;
-   		b = Wb/W;
-   	}
-   	else {
-   		a = 0;
-   	}
-   	//line perpendicular to the main line: y = aProst*x + b
-   	if (a == 0) {
-   		aProst = 0;
-   	}
-   	else {
-   		aProst = -1/a;
-   	}
-   	bProst = z[1] - aProst*z[0]; //point z lays on this line
-
-   	//we have to calculate coordinates of 2 points, which lay on perpendicular line and have the same distance (d) from point z
-   	var A = 1 + Math.pow(aProst,2);
-   	var B = 2*aProst*bProst - 2*z[0] - 2*z[1]*aProst;
-   	var C = -2*z[1]*bProst + Math.pow(z[0],2) + Math.pow(z[1],2) - Math.pow(d,2) + Math.pow(bProst,2);
-   	var delta = Math.pow(B,2) - 4*A*C;
-   	if (delta < 0) { return; }
-	   
-   	var x1 = (-B + Math.sqrt(delta)) / (2*A);
-   	var x2 = (-B - Math.sqrt(delta)) / (2*A);	 
-   	var y1 = aProst*x1 + bProst;
-   	var y2 = aProst*x2 + bProst;
-   	
-   	if(t1[1] == t2[1]) {
-   	      var o = (t1[0] > t2[0]) ? 1 : -1;
-      	   x1 = t2[0]+o*dlug;
-      	   x2 = x1;
-      	   y1 -= d;
-      	   y2 += d;
-   	}   	
-
-   	//triangle fill
-   	ctxt.fillStyle = this.options.color;
-   	ctxt.beginPath();
-   	ctxt.moveTo(t2[0],t2[1]);
-   	ctxt.lineTo(x1,y1);
-   	ctxt.lineTo(x2,y2);
-   	ctxt.fill();
-
-   	//triangle border	
-   	ctxt.strokeStyle = this.options.bordercolor;
-   	ctxt.lineWidth = this.options.borderwidth;
-   	ctxt.beginPath();
-   	ctxt.moveTo(t2[0],t2[1]);
-   	ctxt.lineTo(x1,y1);
-   	ctxt.lineTo(x2,y2);
-   	ctxt.lineTo(t2[0],t2[1]);
-   	ctxt.stroke();
-
-   },
    
    /**
-    * Drawing method for arrows
-    * @method drawStraight
+    * Drawing method
     */
-   drawStraight: function()
-   {
+   draw: function() {
       var margin = [4,4];
 
       // Get the positions of the terminals
@@ -535,7 +241,11 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 
       var min=[ Math.min(p1[0],p2[0])-margin[0], Math.min(p1[1],p2[1])-margin[1]];
       var max=[ Math.max(p1[0],p2[0])+margin[0], Math.max(p1[1],p2[1])+margin[1]];
-      
+
+		// Store the min, max positions to display the label later
+		this.min = min;
+		this.max = max;      
+
       // Redimensionnement du canvas
       var lw=Math.abs(max[0]-min[0]);
       var lh=Math.abs(max[1]-min[1]);
@@ -551,18 +261,18 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       var ctxt=this.getContext();
       
       // Draw the border
-      ctxt.lineCap=this.options.bordercap;
-      ctxt.strokeStyle=this.options.bordercolor;
-      ctxt.lineWidth=this.options.width+this.options.borderwidth*2;
+      ctxt.lineCap=this.bordercap;
+      ctxt.strokeStyle=this.bordercolor;
+      ctxt.lineWidth=this.width+this.borderwidth*2;
       ctxt.beginPath();
       ctxt.moveTo(p1[0],p1[1]);
       ctxt.lineTo(p2[0],p2[1]);
       ctxt.stroke();
 
       // Draw the inner bezier curve
-      ctxt.lineCap=this.options.cap;
-      ctxt.strokeStyle=this.options.color;
-      ctxt.lineWidth=this.options.width;
+      ctxt.lineCap=this.cap;
+      ctxt.strokeStyle=this.color;
+      ctxt.lineWidth=this.width;
       ctxt.beginPath();
       ctxt.moveTo(p1[0],p1[1]);
       ctxt.lineTo(p2[0],p2[1]);
@@ -570,76 +280,55 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    },
 
    /**
-    * Redraw the canvas (according to the drawingMethod option)
+    * Redraw the wire and label
     * @method redraw
     */
    redraw: function() {
-		
-		var positions;
-		
-      if(this.options.drawingMethod == 'straight') {
-         this.drawStraight();
-      }
-      else if(this.options.drawingMethod == 'arrows') {
-         this.drawArrows();
-      }
-      else if(this.options.drawingMethod == 'bezier') {
-			this.drawBezierCurve();
-      }
-	   else if(this.options.drawingMethod == 'bezierArrows') {
-         positions = this.drawBezierArrows();
-	   }
-      else {
-         throw new Error("WireIt.Wire unable to find '"+this.drawingMethod+"' drawing method.");
-      }
+				
+      this.draw();
 
-		if(this.options.label) {
-			this.drawLabel(positions);
+		if(this.label) {
+			this.positionLabel();
 		}
    },
 
-	drawLabel: function(positions) {
+	/**
+	 * Render the label container
+	 */
+	renderLabel: function() {
 		
-		var p1 = positions[0];
-		var p2 = positions[1];
-		var t1 = positions[2];
-		var t2 = positions[3];
+		this.labelEl = WireIt.cn('div',{className:"WireIt-Wire-Label"}, this.labelStyle );
 		
-		var winkel = 0;
-		var distance = 15;
+		if(this.labelEditor) {
+			this.labelField = new inputEx.InPlaceEdit({parentEl: this.labelEl, editorField: this.labelEditor, animColors:{from:"#FFFF99" , to:"#DDDDFF"} });
+			this.labelField.setValue(this.label);
+		}
+		else {
+			this.labelEl.innerHTML = this.label;
+		}
 		
-   	var ctxt=this.getContext();
-		ctxt.save();
+		this.element.parentNode.appendChild(this.labelEl);
 		
-		//1.Quadrant
-      if ((p1[0]<p2[0])&&(p1[1]>p2[1])){
-         winkel=Math.PI*1.5+winkel;
-         ctxt.translate(t1[0],t1[1]);
-      }
-      //2. Quadrant
-      else if ((p1[0]<p2[0])&&(p1[1]<p2[1])){
-         winkel = Math.PI/2-winkel;
-         ctxt.translate(t1[0],t1[1]);
-      }
-      //3. Quadrant
-      else if ((p1[0]>p2[0])&&(p1[1]<p2[1])){
-         //winkel = Math.PI/2+winkel;
-        winkel = Math.PI*1.5+winkel;
-        ctxt.translate(t2[0],t2[1]);
-      }
-      //4. Quadrant
-      else if ((p1[0]>p2[0])&&(p1[1]>p2[1])){
-         winkel=Math.PI*0.5-winkel;
-         ctxt.translate(t2[0],t2[1]);
-      }
+	},
+	
+	/**
+	 * Set the label
+	 */
+	setLabel: function(val) {
+		if(this.labelEditor) {
+			this.labelField.setValue(val);
+		}
+		else {
+			this.labelEl.innerHTML = val;
+		}
+	},
 
-       ctxt.rotate(winkel);
-
-      ctxt.font = "14px Arial";
-      ctxt.fillStyle = "Black";
-      ctxt.translate((distance-(ctxt.measureText(this.options.label)).width)/2,0);
-      ctxt.fillText(this.options.label, 0, 0);
-      ctxt.restore();
+	/**
+	 * Position the label element to the center
+	 */
+	positionLabel: function() {
+	  YAHOO.util.Dom.setStyle(this.labelEl,"left",(this.min[0]+this.max[0]-this.labelEl.clientWidth)/2 + "px");
+	  YAHOO.util.Dom.setStyle(this.labelEl,"top",(this.min[1]+this.max[1]-this.labelEl.clientHeight)/2 + "px");
 	},
    
    /**
@@ -663,7 +352,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     */
    onMouseMove: function(x,y) {
       
-      if(typeof this.mouseInState === undefined) {
+      if(this.mouseInState === undefined) {
          this.mouseInState = false;
       }
 
@@ -672,10 +361,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 			   this.mouseInState=true;
 			   this.onWireIn(x,y);
 			}	
-			// should we call both ??
-			// else {
+			
 			this.onWireMove(x,y);
-			// }
 	   }
 	   else {
 	      if(this.mouseInState) {
@@ -727,8 +414,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @param {Integer} y top position of the mouse (relative to the canvas)
     */
    onClick: function(x,y) {
- 	   if( this.wireDrawnAt(x,y) ) {
- 	      this.onWireClick(x,y);
+		if( this.wireDrawnAt(x,y) ) {
+			this.onWireClick(x,y);
       }
    },
    
@@ -741,6 +428,24 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     */
    onWireClick: function(x,y) {
 		this.eventMouseClick.fire(this, [x,y]);
+   },
+
+
+	/**
+    * Return the config of this Wire
+    * @method getConfig
+    */
+	getConfig: function() {
+      var obj = {
+			xtype: this.xtype
+		};
+
+		// Export the label value
+		if(this.labelEditor) {
+			obj.label = this.labelField.getValue();
+		}
+
+      return obj;
    }
 
 

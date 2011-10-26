@@ -3,24 +3,14 @@
  <head>
   <title>WireIt Example, Move and Animate elements containing terminals</title>
   
-<!-- YUI -->
-<link rel="stylesheet" type="text/css" href="../lib/yui/fonts/fonts-min.css" /> 
-<link rel="stylesheet" type="text/css" href="../lib/yui/reset/reset-min.css" />
-
+<!-- Libs -->
+<link rel="stylesheet" type="text/css" href="../lib/yui/reset-fonts/reset-fonts.css" /> 
 <script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
-
-<!-- Excanvas -->
-<!--[if IE]><script type="text/javascript" src="../lib/excanvas.js"></script><![endif]-->
+<script type="text/javascript" src="../lib/excanvas.js"></script>
 
 <!-- WireIt -->
-<script type="text/javascript" src="../js/WireIt.js"></script>
-<script type="text/javascript" src="../js/CanvasElement.js"></script>
-<script type="text/javascript" src="../js/Wire.js"></script>
-<script type="text/javascript" src="../js/Terminal.js"></script>
-<script type="text/javascript" src="../js/util/Anim.js"></script>
-<script type="text/javascript" src="../js/util/DD.js"></script>
-
-<link rel="stylesheet" type="text/css" href="../css/WireIt.css" />
+<script type="text/javascript" src="../build/wireit-min.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
 
 <style>
 
@@ -59,23 +49,12 @@ window.onload = function() {
 	new WireIt.util.DD(terminals2,block2);
 	
 	// Create a wire between some terminals
-	var w1 = new WireIt.Wire(terminals1[0], terminals2[0], document.body);
+	var w1 = new WireIt.BezierWire(terminals1[0], terminals2[0], document.body);
 	w1.redraw();
 	
-	var w2 = new WireIt.Wire(terminals1[1], terminals2[1], document.body);
+	var w2 = new WireIt.BezierWire(terminals1[1], terminals2[1], document.body);
 	w2.redraw();
 	
-	// Create the animations for both blocks using WireIt.util.Anim
-	var myAnim1 = new WireIt.util.Anim(terminals1, // same constructor except constructor takes the terminals as 1st parameter
-												  block1, {  left: { to: 500 }, top: {to: 150} }, 2, YAHOO.util.Easing.easeOut);					
-	var myAnim2 = new WireIt.util.Anim(terminals2, 
-												  block2, {  left: { to: 100 } }, 1, YAHOO.util.Easing.easeOut);
-	
-	// OnClick on the button, launch both animations
-	YAHOO.util.Event.addListener('animButton','click', function() {
-		myAnim1.animate();
-		myAnim2.animate();
-	})
 };
 
 
@@ -85,9 +64,7 @@ window.onload = function() {
  <body>
 	
 	<p style="margin: 15px;"><a href="../index.html">&lt; Back</a></p>
-	<p style="margin: 15px;">Show usage of WireIt.util.DD and WireIt.util.Anim to make terminal containers draggable</p>
-	
-	<button id='animButton' style="margin: 15px;">Click to animate !</button>
+	<p style="margin: 15px;">Show usage of WireIt.util.DD to make terminal containers draggable</p>
 	
 	<div id='block1' class="blockBox" style="left: 300px; top: 100px;">Move Me !</div>
 	

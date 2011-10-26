@@ -1,3 +1,4 @@
+/*global YAHOO */
 /**
  * WireIt provide classes to build wirable interfaces
  * @module WireIt
@@ -8,6 +9,48 @@
  * @namespace WireIt
  */
 var WireIt = {
+	
+	
+	/** 
+	 * TODO
+	 */
+	
+	defaultWireClass: "WireIt.BezierWire",
+	
+	wireClassFromXtype: function(xtype) {
+		return this.classFromXtype(xtype, this.defaultWireClass);
+	},
+	
+	
+	defaultTerminalClass: "WireIt.Terminal",
+	
+	terminalClassFromXtype: function(xtype) {
+		return this.classFromXtype(xtype, this.defaultTerminalClass);
+	},
+	
+
+	defaultContainerClass: "WireIt.Container",
+	
+	containerClassFromXtype: function(xtype) {
+		return this.classFromXtype(xtype, this.defaultContainerClass);
+	},
+	
+	/**
+	 * default
+	 */
+	classFromXtype: function(xtype, defaultXtype) {
+		var path = (xtype || defaultXtype).split('.');
+		var klass = window;
+		for(var i = 0 ; i < path.length ; i++) {
+			klass = klass[path[i]];
+		}
+		
+      if(!YAHOO.lang.isFunction(klass)) {
+         throw new Error("WireIt unable to find klass from xtype: '"+xtype+"'");
+      }
+
+		return klass;
+	},
    
    /**
     * Get a css property in pixels and convert it to an integer
@@ -33,29 +76,35 @@ var WireIt = {
     */
    sn: function(el,domAttributes,styleAttributes){
       if(!el) { return; }
+		var i;
       if(domAttributes){
-         for(var i in domAttributes){
-            var domAttribute = domAttributes[i];
-            if(typeof (domAttribute)=="function"){continue;}
-            if(i=="className"){
-               i="class";
-               el.className=domAttribute;
-            }
-            if(domAttribute!==el.getAttribute(i)){
-               if(domAttribute===false){
-                  el.removeAttribute(i);
-               }else{
-                  el.setAttribute(i,domAttribute);
-               }
-            }
+         for(i in domAttributes){
+				if(domAttributes.hasOwnProperty(i)) {
+					var domAttribute = domAttributes[i];
+	            if(typeof (domAttribute)=="function"){continue;}
+	            if(i=="className"){
+	               i="class";
+	               el.className=domAttribute;
+	            }
+	            if(domAttribute!==el.getAttribute(i)){
+	               if(domAttribute===false){
+	                  el.removeAttribute(i);
+	               }else{
+	                  el.setAttribute(i,domAttribute);
+	               }
+	            }
+				}
          }
       }
       if(styleAttributes){
-         for(var i in styleAttributes){
-            if(typeof (styleAttributes[i])=="function"){ continue; }
-            if(el.style[i]!=styleAttributes[i]){
-               el.style[i]=styleAttributes[i];
-            }
+         for(i in styleAttributes){
+				if(styleAttributes.hasOwnProperty(i)) {
+					if(typeof (styleAttributes[i])=="function"){ continue; }
+					if(i ==="float") {i = "cssFloat";}
+					if(el.style[i]!=styleAttributes[i]){
+						el.style[i]=styleAttributes[i];
+					}
+				}
          }
       }
    
@@ -91,7 +140,7 @@ var WireIt = {
                         function(el, arr) { return arr.indexOf(el);} : 
                         function(el, arr) {
                            for(var i = 0 ;i < arr.length ; i++) {
-                              if(arr[i] == el) return i;
+                              if(arr[i] == el) {return i;}
                            }
                            return -1;
                         },

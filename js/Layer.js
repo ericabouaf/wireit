@@ -1,3 +1,4 @@
+/*global YAHOO,WireIt,window */
 /**
  * A layer encapsulate a bunch of containers and wires
  * @class Layer
@@ -22,6 +23,11 @@ WireIt.Layer = function(options) {
     * @type {Array}
     */
    this.wires = [];
+   
+	/**
+	 * TODO
+	 */
+   this.groups = [];
    
    /**
     * Layer DOM element
@@ -81,42 +87,93 @@ WireIt.Layer = function(options) {
    
    this.render();
    
-   this.initContainers();
+	if( options.containers ) {
+		this.initContainers(options.containers);
+	}
    
-   this.initWires();
+	if( options.wires ) {
+   	this.initWires(options.wires);
+	}
    
-   if(this.options.layerMap) { 
-      new WireIt.LayerMap(this, this.options.layerMapOptions);
+   if(this.layerMap) { 
+		this.layermap = new WireIt.LayerMap(this, this.layerMapOptions);
    }
    
+	if(WireIt.Grouper) {
+	   this.grouper = new WireIt.Grouper(this, this.grouper.baseConfigFunction);
+   
+	   var rb = this.grouper.rubberband;
+		this.el.onmousedown = function(event) { return rb.layerMouseDown.call(rb, event); };
+	   var grouper = this.grouper;
+	   this.el.addEventListener("mouseup", function (event)  { 
+		    rb.finish(); 
+		    grouper.rubberbandSelect.call(grouper); 
+		}, false);
+	}
 };
 
 WireIt.Layer.prototype = {
 
-   /**
+	/** 
+    * @property className
+    * @description CSS class name for the layer element
+    * @default "WireIt-Layer"
+    * @type String
+    */
+	className: "WireIt-Layer",
+	
+	/** 
+    * @property parentEl
+    * @description DOM element that schould contain the layer
+    * @default null
+    * @type DOMElement
+    */
+	parentEl: null,
+
+	/** 
+    * @property layerMap
+    * @description Display the layer map
+    * @default false
+    * @type Boolean
+    */
+	layerMap: false,
+
+	/** 
+    * @property layerMapOptions
+    * @description Options for the layer map
+    * @default null
+    * @type Object
+    */
+	layerMapOptions: null,
+
+	/** 
+    * @property enableMouseEvents
+    * @description Enable the mouse events
+    * @default true
+    * @type Boolean
+    */
+	enableMouseEvents: true,
+
+	/**
+	 * TODO
+	 */
+	grouper: null, 
+
+	/**
+    * Set the options by putting them in this (so it overrides the prototype default)
     * @method setOptions
     */
    setOptions: function(options) {
-      /**
-       * Configuration object of the layer
-       * <ul>
-       *   <li>className: CSS class name for the layer element (default 'WireIt-Layer')</li>
-       *   <li>parentEl: DOM element that schould contain the layer (default document.body)</li>
-       *   <li>containers: array of container configuration objects</li>  
-       *   <li>wires: array of wire configuration objects</li>
-       *   <li>layerMap: boolean</li>
-       *   <li>layerMapOptions: layer map options</li>
-       * </ul>
-       * @property options
-       */
-      this.options = {};
-      this.options.className = options.className || 'WireIt-Layer';
-      this.options.parentEl = options.parentEl || document.body;
-      this.options.containers = options.containers || [];
-      this.options.wires = options.wires || [];
-      this.options.layerMap = YAHOO.lang.isUndefined(options.layerMap) ? false : options.layerMap;
-      this.options.layerMapOptions = options.layerMapOptions;
-      this.options.enableMouseEvents = YAHOO.lang.isUndefined(options.enableMouseEvents) ? true : options.enableMouseEvents;
+      for(var k in options) {
+			if( options.hasOwnProperty(k) ) {
+				this[k] = options[k];
+			}
+		}
+		
+		if(!this.parentEl) {
+			this.parentEl = document.body;
+		}
+		
    },
 
    /**
@@ -124,10 +181,8 @@ WireIt.Layer.prototype = {
     * @method render
     */
    render: function() {
-   
-      this.el = WireIt.cn('div', {className: this.options.className} );
-   
-      this.options.parentEl.appendChild(this.el);
+      this.el = WireIt.cn('div', {className: this.className} );   
+      this.parentEl.appendChild(this.el);
    },
 
 
@@ -135,9 +190,9 @@ WireIt.Layer.prototype = {
     * Create all the containers passed as options
     * @method initContainers
     */
-   initContainers: function() {
-      for(var i = 0 ; i < this.options.containers.length ; i++) {
-         this.addContainer(this.options.containers[i]);
+   initContainers: function(containers) {
+      for(var i = 0 ; i < containers.length ; i++) {
+         this.addContainer(containers[i]);
       } 
    },
 
@@ -145,11 +200,38 @@ WireIt.Layer.prototype = {
     * Create all the wires passed in the config
     * @method initWires
     */
-   initWires: function() {
-      for(var i = 0 ; i < this.options.wires.length ; i++) {
-         this.addWire(this.options.wires[i]);
+   initWires: function(wires) {
+      for(var i = 0 ; i < wires.length ; i++) {
+         this.addWire(wires[i]);
       }
    },
+
+	/**
+	 * TODO
+	 */
+	setSuperHighlighted: function(containers) {
+		this.unsetSuperHighlighted();
+		for (var i in containers) {
+			if(containers.hasOwnProperty(i)) {
+				containers[i].superHighlight();
+			}
+		}
+		this.superHighlighted = containers;
+	},
+
+	/**
+	 * TODO
+	 */
+	unsetSuperHighlighted: function() {
+		if (YAHOO.lang.isValue(this.superHighlighted)) {
+			for (var i in this.superHighlighted) {
+				if(this.superHighlighted.hasOwnProperty(i)) {
+					this.superHighlighted[i].highlight();
+				}
+			}
+		}
+		this.superHighlighted = null;
+	},
 
    /**
     * Instanciate a wire given its "xtype" (default to WireIt.Wire)
@@ -158,14 +240,15 @@ WireIt.Layer.prototype = {
     * @return {WireIt.Wire} Wire instance build from the xtype
     */
    addWire: function(wireConfig) {
-      var type = eval(wireConfig.xtype || "WireIt.Wire");
+	
+		var klass = WireIt.wireClassFromXtype(wireConfig.xtype);
    
       var src = wireConfig.src;
       var tgt = wireConfig.tgt;
    
       var terminal1 = this.containers[src.moduleId].getTerminal(src.terminal);
       var terminal2 = this.containers[tgt.moduleId].getTerminal(tgt.terminal);
-      var wire = new type( terminal1, terminal2, this.el, wireConfig);
+      var wire = new klass( terminal1, terminal2, this.el, wireConfig);
       wire.redraw();
    
       return wire;
@@ -178,13 +261,16 @@ WireIt.Layer.prototype = {
     * @return {WireIt.Container} Container instance build from the xtype
     */
    addContainer: function(containerConfig) {
+
+		var klass = WireIt.containerClassFromXtype(containerConfig.xtype);
+
+      var container = new klass(containerConfig, this);
    
-      var type = eval('('+(containerConfig.xtype || "WireIt.Container")+')');
-      if(!YAHOO.lang.isFunction(type)) {
-         throw new Error("WireIt layer unable to add container: xtype '"+containerConfig.xtype+"' not found");
-      }
-      var container = new type(containerConfig, this);
-   
+      return this.addContainerDirect(container);
+   },
+
+
+   addContainerDirect: function(container) {
       this.containers.push( container );
    
       // Event listeners
@@ -208,9 +294,9 @@ WireIt.Layer.prototype = {
 
 		this.eventChanged.fire(this);
    
-      return container;
+      return container;	
    },
-
+   
    /**
     * Remove a container
     * @method removeContainer
@@ -219,15 +305,49 @@ WireIt.Layer.prototype = {
    removeContainer: function(container) {
       var index = WireIt.indexOf(container, this.containers);
       if( index != -1 ) {
-         container.remove();
-         this.containers[index] = null;
-         this.containers = WireIt.compact(this.containers);
+	  
+	container.remove();
+	    
+        this.containers[index] = null;
+        this.containers = WireIt.compact(this.containers);
       
-         this.eventRemoveContainer.fire(container);
+	this.eventRemoveContainer.fire(container);
 
-			this.eventChanged.fire(this);
+	this.eventChanged.fire(this);
       }
    },
+
+	/**
+	 * TODO
+	 */
+	removeGroup: function(group, containersAsWell)  {
+		var index = this.groups.indexOf(group) , i;
+		
+		if (index != -1) {
+			this.groups.splice(index, 1);
+		}
+
+		if (containersAsWell) {
+			if (YAHOO.lang.isValue(group.groupContainer)) {
+				this.removeContainer(group.groupContainer);
+			}
+			else {
+				for (i in group.containers) {
+					if(group.containers.hasOwnProperty(i)) {
+						var elem = group.containers[i].container;
+						this.removeContainer(elem);
+					}
+				}
+
+				for (i in group.groups) {
+					if(group.containers.hasOwnProperty(i)) {
+						var g = group.groups[i].group;
+						this.removeGroup(g);
+					}
+				}
+			}
+		}
+	},
 
    /**
     * Update the wire list when any of the containers fired the eventAddWire
@@ -241,7 +361,7 @@ WireIt.Layer.prototype = {
       if( WireIt.indexOf(wire, this.wires) == -1 ) {
          this.wires.push(wire);
          
-         if(this.options.enableMouseEvents) {
+         if(this.enableMouseEvents) {
             YAHOO.util.Event.addListener(wire.element, "mousemove", this.onWireMouseMove, this, true);
             YAHOO.util.Event.addListener(wire.element, "click", this.onWireClick, this, true);
          }
@@ -307,11 +427,9 @@ WireIt.Layer.prototype = {
    
       for( i = 0 ; i < this.wires.length ; i++) {
          var wire = this.wires[i];
-      
-         var wireObj = { 
-            src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.containers), terminal: wire.terminal1.name }, 
-            tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.containers), terminal: wire.terminal2.name }
-         };
+      	var wireObj = wire.getConfig();
+			wireObj.src = {moduleId: WireIt.indexOf(wire.terminal1.container, this.containers), terminal: wire.terminal1.name };
+			wireObj.tgt = {moduleId: WireIt.indexOf(wire.terminal2.container, this.containers), terminal: wire.terminal2.name };
          obj.wires.push(wireObj);
       }
    
@@ -325,14 +443,14 @@ WireIt.Layer.prototype = {
     */
    setWiring: function(wiring) {
       this.clear();
-      
+      var i;
       if(YAHOO.lang.isArray(wiring.containers)) {
-         for(var i = 0 ; i < wiring.containers.length ; i++) {
+         for(i = 0 ; i < wiring.containers.length ; i++) {
             this.addContainer(wiring.containers[i]);
          }
       }
       if(YAHOO.lang.isArray(wiring.wires)) {
-         for(var i = 0 ; i < wiring.wires.length ; i++) {
+         for(i = 0 ; i < wiring.wires.length ; i++) {
             this.addWire(wiring.wires[i]);
          }
        }
@@ -345,9 +463,9 @@ WireIt.Layer.prototype = {
     * @return {Array} position
     */
    _getMouseEvtPos: function(e) {
-   	var tgt = YAHOO.util.Event.getTarget(e);
-   	var tgtPos = [tgt.offsetLeft, tgt.offsetTop];
-   	return [tgtPos[0]+e.layerX, tgtPos[1]+e.layerY];
+		var tgt = YAHOO.util.Event.getTarget(e);
+		var tgtPos = [tgt.offsetLeft, tgt.offsetTop];
+		return [tgtPos[0]+e.layerX, tgtPos[1]+e.layerY];
    },
 
    /**
@@ -358,17 +476,17 @@ WireIt.Layer.prototype = {
     */
    onWireClick: function(e) {
       var p = this._getMouseEvtPos(e);
-   	var lx = p[0], ly = p[1], n = this.wires.length, w;
-   	for(var i = 0 ; i < n ; i++) {
-   	   w = this.wires[i];
-      	var elx = w.element.offsetLeft, ely = w.element.offsetTop;
-      	// Check if the mouse is within the canvas boundaries
-   	   if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
-   	      var rx = lx-elx, ry = ly-ely; // relative to the canvas
-   			w.onClick(rx,ry);
-   	   }
-   	}
-   },
+		var lx = p[0], ly = p[1], n = this.wires.length, w;
+		for(var i = 0 ; i < n ; i++) {
+			w = this.wires[i];
+			var elx = w.element.offsetLeft, ely = w.element.offsetTop;
+			// Check if the mouse is within the canvas boundaries
+			if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
+				var rx = lx-elx, ry = ly-ely; // relative to the canvas
+				w.onClick(rx,ry);
+			}
+		}
+	},
 
    /**
     * Handles mousemove events on any wire canvas
@@ -378,51 +496,16 @@ WireIt.Layer.prototype = {
     */
    onWireMouseMove: function(e) {
       var p = this._getMouseEvtPos(e);
-   	var lx = p[0], ly = p[1], n = this.wires.length, w;
-   	for(var i = 0 ; i < n ; i++) {
-   	   w = this.wires[i];
-      	var elx = w.element.offsetLeft, ely = w.element.offsetTop;
-      	// Check if the mouse is within the canvas boundaries
-   	   if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
-   	      var rx = lx-elx, ry = ly-ely; // relative to the canvas
-   			w.onMouseMove(rx,ry);
-   	   }
-   	}
-   },
-   
-   
-   /**
-    * Layer explosing animation
-    * @method clearExplode
-    */
-   clearExplode: function(callback, bind) {
-
-      var center = [ Math.floor(YAHOO.util.Dom.getViewportWidth()/2),
-   		            Math.floor(YAHOO.util.Dom.getViewportHeight()/2)];
-      var R = 1.2*Math.sqrt( Math.pow(center[0],2)+Math.pow(center[1],2));
-
-      for(var i = 0 ; i < this.containers.length ; i++) {
-          var left = parseInt(dbWire.layer.containers[i].el.style.left.substr(0,dbWire.layer.containers[i].el.style.left.length-2),10);
-   	    var top = parseInt(dbWire.layer.containers[i].el.style.top.substr(0,dbWire.layer.containers[i].el.style.top.length-2),10);
-
-   	    var d = Math.sqrt( Math.pow(left-center[0],2)+Math.pow(top-center[1],2) );
-
-   	    var u = [ (left-center[0])/d, (top-center[1])/d];
-   	    YAHOO.util.Dom.setStyle(this.containers[i].el, "opacity", "0.8");
-
-   	    var myAnim = new WireIt.util.Anim(this.containers[i].terminals, this.containers[i].el, {
-              left: { to: center[0]+R*u[0] },
-              top: { to: center[1]+R*u[1] },
-   	        opacity: { to: 0, by: 0.05},
-   	        duration: 3
-          });
-          if(i == this.containers.length-1) {
-             myAnim.onComplete.subscribe(function() { this.clear(); callback.call(bind);}, this, true); 
-          }
-   	    myAnim.animate();
-      }
-
-   }
-   
+		var lx = p[0], ly = p[1], n = this.wires.length, w;
+		for(var i = 0 ; i < n ; i++) {
+			w = this.wires[i];
+			var elx = w.element.offsetLeft, ely = w.element.offsetTop;
+			// Check if the mouse is within the canvas boundaries
+			if( lx >= elx && lx < elx+w.element.width && ly >= ely && ly < ely+w.element.height ) {
+				var rx = lx-elx, ry = ly-ely; // relative to the canvas
+				w.onMouseMove(rx,ry);
+			}
+		}
+	}
 
 };

@@ -4,25 +4,15 @@
   <title>WireIt interactive presentation</title>
   
 <!-- YUI -->
-<link rel="stylesheet" type="text/css" href="../lib/yui/fonts/fonts-min.css" /> 
-<link rel="stylesheet" type="text/css" href="../lib/yui/reset/reset-min.css" />
+<link rel="stylesheet" type="text/css" href="../lib/yui/reset-fonts/reset-fonts.css" /> 
 <script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
-
-<!-- Excanvas -->
-<!--[if IE]><script type="text/javascript" src="../lib/excanvas.js"></script><![endif]-->
+<script type="text/javascript" src="../lib/excanvas.js"></script>
 
 <!-- WireIt -->
-
-<script type="text/javascript" src="../js/WireIt.js"></script>
-<script type="text/javascript" src="../js/CanvasElement.js"></script>
-<script type="text/javascript" src="../js/Wire.js"></script>
-<script type="text/javascript" src="../js/Terminal.js"></script>
-<script type="text/javascript" src="../js/util/DD.js"></script>
-<script type="text/javascript" src="../js/util/DDResize.js"></script>
-<script type="text/javascript" src="../js/Container.js"></script>
-<script type="text/javascript" src="../js/Layer.js"></script>
-
-<link rel="stylesheet" type="text/css" href="../css/WireIt.css" />
+<script type="text/javascript" src="../build/wireit-min.js"></script>
+<script type="text/javascript" src="../js/LeftSquareArrowWire.js"></script>
+<script type="text/javascript" src="../js/RightSquareArrowWire.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
 
 <style>
 
@@ -96,7 +86,25 @@ WireIt.samples = [
 	{
 		innerHTML: '<p>Let\'s draw some arrows</p>',
 		init: function() {
-			var wireConfig = { drawingMethod: "arrows"};
+			var wireConfig = { xtype: 'WireIt.ArrowWire' };
+			this.terminals = [
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,100] }),
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,210] }),
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,210] }),
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,100] })
+			];
+		},
+		unload: function() {
+			for(var i = 0 ; i < this.terminals.length ; i++) {
+				this.terminals[i].remove();
+			}
+		}
+	},
+	
+	{
+		innerHTML: '<p>Let\'s draw some contributed arrows</p>',
+		init: function() {
+			var wireConfig = { xtype: 'WireIt.LeftSquareArrow', fakeDirection: [0,-1] };
 			this.terminals = [
 				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,100] }),
 				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,210] }),
@@ -115,10 +123,10 @@ WireIt.samples = [
 		innerHTML: '<p>Straight lines too</p>',
 		init: function() {
 			this.terminals = [
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: { drawingMethod: "straight"}, offsetPosition:[80,100] }),
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: { drawingMethod: "straight"}, offsetPosition:[80,210] }),
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: { drawingMethod: "straight"}, offsetPosition:[200,210] }),
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: { drawingMethod: "straight"}, offsetPosition:[200,100] })
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "WireIt.Wire"}, offsetPosition:[80,100] }),
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "WireIt.Wire"}, offsetPosition:[80,210] }),
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "WireIt.Wire"}, offsetPosition:[200,210] }),
+				new WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "WireIt.Wire"}, offsetPosition:[200,100] })
 			];
 		},
 		unload: function() {

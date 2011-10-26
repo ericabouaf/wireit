@@ -153,7 +153,7 @@ var planarGame = {
 	      
 	      this.wires[nWires] = new WireIt.Wire( this.bubbles[src].terminals[ bubblesTerminals[src]++] ,
 			 											   this.bubbles[tgt].terminals[ bubblesTerminals[tgt]++], 
-														   document.body, {drawingMethod: 'straight', width: 1, bordercolor: "#b0b0b0"});
+														   document.body, {width: 1, bordercolor: "#b0b0b0"});
 		   this.wires[nWires].redraw();
 		   nWires++;
 	   }
@@ -181,14 +181,14 @@ var planarGame = {
 	   
 		// Set all the wires to blue
 		for(var i = 0 ; i < this.wires.length ; i++) {
-			this.wires[i].options.color = "blue";
+			this.wires[i].color = "blue";
 		}	
 		for(var i = 0 ; i < this.wires.length ; i++) {
 			for( var k = i+1 ; k < this.wires.length ; k++) {
 			 	if( this.checkCross(this.wires[i], this.wires[k]) ) {
 			 	   nErrors++;
-					this.wires[i].options.color = "red";
-					this.wires[k].options.color = "red";
+					this.wires[i].color = "red";
+					this.wires[k].color = "red";
 				}
 			}
 			this.wires[i].redraw();

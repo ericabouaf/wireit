@@ -3,21 +3,14 @@
  <head>
   <title>WireIt: How to use Wire and Terminals definitions</title>
   
-<!-- YUI -->
-<link rel="stylesheet" type="text/css" href="../lib/yui/fonts/fonts-min.css" /> 
-<link rel="stylesheet" type="text/css" href="../lib/yui/reset/reset-min.css" />
-
+<!-- Libs -->
+<link rel="stylesheet" type="text/css" href="../lib/yui/reset-fonts/reset-fonts.css" /> 
 <script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
-
-<!-- Excanvas -->
-<!--[if IE]><script type="text/javascript" src="../lib/excanvas.js"></script><![endif]-->
+<script type="text/javascript" src="../lib/excanvas.js"></script>
 
 <!-- WireIt -->
-<script type="text/javascript" src="../js/WireIt.js"></script>
-<script type="text/javascript" src="../js/CanvasElement.js"></script>
-<script type="text/javascript" src="../js/Wire.js"></script>
-<script type="text/javascript" src="../js/Terminal.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/WireIt.css" />
+<script type="text/javascript" src="../build/wireit-min.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
 
 <style>
 
@@ -49,10 +42,10 @@ window.onload = function() {
 	
 	
 	var block2 = YAHOO.util.Dom.get('block2');
-	new WireIt.Terminal(block2, { wireConfig: { drawingMethod: "bezier"}, offsetPosition:[30,30] });
-	new WireIt.Terminal(block2, { wireConfig: { drawingMethod: "straight"}, offsetPosition:[100,30] });
-	new WireIt.Terminal(block2, { wireConfig: { drawingMethod: "bezierArrows"}, offsetPosition:[30,100] });
-	new WireIt.Terminal(block2, { wireConfig: { drawingMethod: "arrows"}, offsetPosition:[100,100] });
+	new WireIt.Terminal(block2, { wireConfig: { xtype: "WireIt.BezierWire"}, offsetPosition:[30,30] });
+	new WireIt.Terminal(block2, { wireConfig: { xtype: "WireIt.StepWire"}, offsetPosition:[100,30] });
+	new WireIt.Terminal(block2, { wireConfig: { xtype: "WireIt.BezierArrowWire"}, offsetPosition:[30,100] });
+	new WireIt.Terminal(block2, { wireConfig: { xtype: "WireIt.ArrowWire"}, offsetPosition:[100,100] });
 	
 	
 	var block3 = YAHOO.util.Dom.get('block3');

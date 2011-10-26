@@ -18,7 +18,7 @@ ul li {	font-size: 13px;}
 #layout td.left, #layout td.right { padding: 15px 30px; vertical-align: top; }
 
 p.title { font-weight: bold; font-size: 22px;}
-td.left ul { list-style-image: url(star.png); }
+ul.star { list-style-image: url(star.png); }
 
 div.appBox { width: 100%; position: relative;  margin-top: 10px; }
 div.appBox p { position: absolute; left: 130px;  top: 0px; 	font-size: 18px; text-decoration: none;}

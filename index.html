@@ -13,18 +13,18 @@
 	<link rel="stylesheet" type="text/css" href="res/style.css" />
  </head>
 
- <body>
+<body>
 	
 <div id='headbar'>
 		
 	<ul class="navigation" style=" position: absolute; margin: 6px 0 0 380px;">
-		<li><a href="http://javascript.neyric.com/wireit">Home</a></li>	
+		<li><a href="http://neyric.github.com/wireit">Home</a></li>	
 		<li><a href="http://github.com/neyric/wireit/">GitHub[Git]</a></li>
 		<li><a href="http://github.com/neyric/wireit/issues">Issues</a></li>
 		<li><a href="guide.html">Guide</a></li>		
-		<li><a href="doc/index.html">API Documentation</a></li>		
+		<li><a href="api/index.html">API Documentation</a></li>		
 		<li><a href="http://javascript.neyric.com/blog/category/wireit/">Blog</a> 
-			  <a href="http://javascript.neyric.com/blog/feed/"><img src="doc/rss.png" border="0"/></a></li>	
+			  <a href="http://javascript.neyric.com/blog/feed/"><img src="res/rss.png" border="0"/></a></li>	
 		<li><a href="http://groups.google.com/group/wireit/">Forums</a></li>
 	</ul>
 	
@@ -57,57 +57,59 @@
 		</center>
 		
 		
-		 <p class="title">Presentation</p>
-
-			<p>Here are the main component classes (bottom-up order):</p>
-				
-			<ul>
-				<li>Wire - create wires in browsers</li>
-				<li>Terminal - wire endpoints and edition widget</li>
-				<li>Container - general "box" containing one or more terminals</li>
-				<li>Layer - handle multiple containers and wires</li>
-				<li>WiringEditor - single-page editor for your <i>visual language</i>.</li>
-			</ul>
-			
-			<p>Different types of Container are provided :</p>
-			<ul>
-				<li>InOutContainer - simple module with named inputs and outputs</li>
-				<li>FormContainer - build form containers based on <a href="http://javascript.neyric.com/inputex/">inputEx</a> forms</li>
-				<li>ImageContainer - use images as graph nodes</li>
-			</ul>
-			
-			<p>You can <a href="guide.html#createContainers">create your own container</a> by subclassing the base <i>Container</i> class, and still benefit from the drop-in use of the WiringEditor in your web application.</p>
-			
-			<p>The WiringEditor requires a connection to a database to use save/load features. You can customize it using <a href="guide.html#adapters">adapters</a>. WireIt provides default adapters to get you started :</p>
-
-			<ul>
-				<li><a href="guide.html#ajaxAdapter">Ajax Adapter (no backend provided)</a></li>
-				<li><a href="guide.html#jsonRPCAdapter">Json-RPC Adapter + a sample PHP/MySQL backend</a></li>
-				<li><a href="guide.html#gearsAdapter">Gears Adapter (no backend required)</a></li>
-			</ul>
-				
-				
-		
-			<p>WireIt supports all <a href="http://developer.yahoo.com/yui/articles/gbs/">A-Grade Browsers</a>. Please report your issues with specific browsers in <a href="http://groups.google.com/group/wireit/">the forum</a>. It uses the <a href="http://developer.yahoo.com/yui/">YUI library</a> (2.8.0r4) for DOM and events manipulation, and <a href="http://excanvas.sourceforge.net/">excanvas</a> for IE support of the canvas tag.</p>
-		
-		
-
 		 <p class="title">Documentation</p>
 		
-		
-		  	<ul>
-				<li><a href="guide.html">WireIt's Guide</a> - the ultimate ressource</li>
-				<li><a href="doc/index.html">API documentation</a> built with <a href="http://developer.yahoo.com/yui/yuidoc/">YUI Doc</a></li>
-				<li><a href="http://wiki.github.com/neyric/wireit">Wiki</a></li>
+		  	<ul class="star">
+				<li><a href="guide.html">WireIt's Guide</a> - Getting started and advanced usage</li>
+				<li><a href="api/index.html">API documentation</a></li>
 			</ul>
 		
-			<p>You can also get some help on the <a href="">forum</a>. Please report your issues or feature request on <a href="http://github.com/neyric/wireit/issues">the issue tracker</a>.</p>
+			<p>You can also get some help on the <a href="http://groups.google.com/group/wireit/">forum</a>.</p>
+			
+			<p>Report your issues or feature request on <a href="http://github.com/neyric/wireit/issues">the issue tracker</a>.</p>
 		
 			<p>Deeper hacking into WireIt might require some knowledge in the libraries used :</p>
 			 	<ul>
-					<li><a href="http://javascript.neyric.com/inputex">inputEx documentation</a></li>
-					<li><a href="http://developer.yahoo.com/yui/">YUI documentation</a></li>
+					<li><a href="http://neyric.github.com/inputex">inputEx documentation</a></li>
+					<li><a href="http://developer.yahoo.com/yui/2/">YUI 2 documentation</a></li>
 				</ul>
+				
+			
+			<p class="title">Examples</p>
+			
+			
+			<p><b>Core components examples :</b></p>
+
+				<ul>
+					<li><a href="examples/presentation.html">Interactive presentation</a></li>
+					<li><a href="examples/creating_terminals.html">Creating terminals and wires</a></li>
+					<li><a href="examples/changing_directions.html">Changing terminal direction</a></li>
+					<li><a href="examples/wires_and_terminals.html">Wire and Terminals configuration</a></li>
+					<li><a href="examples/dd_and_animation.html">DragDrop and Animation utilities</a></li>
+					<li><a href="examples/planarGame/planarGame.html">Planar game</a></li>
+					<li><a href="examples/wire_events.html">Wire mouse events</a></li>
+					<li><a href="examples/wire_tooltips.html">Wire context menu</a></li>
+				</ul>
+				
+				<p>Plugin 'editor' examples</p>
+				<ul>
+					<li><a href="plugins/editor/examples/WiringEditor/">WiringEditor demo</a></li>
+					<li><a href="plugins/editor/examples/logicGates/index.html">Logic Gates demo</a></li>
+					<li><a href="plugins/editor/examples/ajaxAdapter/">Ajax Adapter</a></li>
+					<li><a href="plugins/editor/examples/gearsAdapter/">Gears Adapter</a></li>
+					<li><a href="plugins/editor/examples/WiringEditor/widget.html">WiringEditor non-fullscreen</a></li>
+				</ul>
+				
+				<p>Plugin 'composable' examples</p>
+				<ul>
+					<li><a href="plugins/composable/examples/jsBox/jsBox.html">jsBox</a></li>
+				</ul>
+				
+				<p>Plugin 'inputex' examples</p>
+				<ul>
+					<li><a href="plugins/inputex/examples/index.html">FormContainers</a></li>
+				</ul>
+				
 		
 		</td>
 		
@@ -116,8 +118,7 @@
 			
 			<!-- Download -->
 			<div style="text-align:center;font-weight:bold; font-size:17px;background-color:#EEEEEE;-moz-border-radius: 10px; padding: 10px;-webkit-border-radius: 10px;">
-				<a href="http://cloud.github.com/downloads/neyric/wireit/WireIt-0.5.0.zip">Download WireIt 0.5.0</a><br/>
-				<span style="font-size: 70%; font-weight: normal;">(WireIt-0.5.0.zip - 8.0MB - <a href="VERSION.txt">changeset</a>)</span>
+				You're on the edge version (0.6.0-beta)<br /> <a href="http://github.com/neyric/wireit/downloads">Click here for WireIt latest stable (0.5.0)</a>
 			</div>
 			
 			<!-- License -->
@@ -125,16 +126,8 @@
 			
 			<p>Clone from <a href="http://github.com/neyric/wireit/">GitHub</a>: <span style="font-size: 80%;">git clone git://github.com/neyric/wireit.git</span></p>
 			
-			<p>If you wish to support this project, Donate at PayPal !<br />
-				Donations will be used for WireIt development and promotion.</p>
 			<center>
-			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-			<input type="hidden" name="cmd" value="_s-xclick">
-			<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
-			">
-			<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-			<img alt="" border="0" src="https://www.paypal.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
-			</form>
+			<a href='http://www.pledgie.com/campaigns/13031'><img alt='Click here to lend your support to: wireit and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/13031.png?skin_name=chrome' border='0' /></a>
 			</center>
 			
 			<p class="title">Featured examples</p>
@@ -150,7 +143,7 @@
 
 			<!-- jsBox -->
 			 <div class="appBox">
-				<a href="examples/jsBox/jsBox.html">
+				<a href="plugins/composable/examples/jsBox/jsBox.html">
 				<img src="res/jsBox.gif" class="reflect" border="0" alt="Click to try jsBox !"  width="107" height="81" />
 				<p><span>visual javascript demo</span><br/><span class="big">jsBox</span></p>
 				</a>
@@ -158,8 +151,8 @@
 			
 			<!-- logicGates -->
 			 <div class="appBox">
-				<a href="examples/logicGates/index.html">
-				<img src="res/logicGates.png" class="reflect" border="0" alt="Click to try jsBox !"  width="107" height="81" />
+				<a href="plugins/editor/examples/logicGates/index.html">
+				<img src="res/logicGates.png" class="reflect" border="0" alt="Click to try logicGates"  width="107" height="81" />
 				<p><span>WiringEditor demo</span><br/><span class="big">Logic Gates</span></p>
 				</a>
 			 </div>
@@ -175,49 +168,41 @@
 
 			<!-- Learn Containers, WiringEditor -->
 			 <div class="appBox">
-				<a href="examples/WiringEditor/">
+				<a href="plugins/editor/examples/WiringEditor/">
 				<img src="res/wiringEditor.png" class="reflect" border="0" alt="Learn Containers, WiringEditor" width="107" height="81" />
 				<p><span>learn</span><br/><span class="big">Containers, WiringEditor</span></p>
 				</a>
 			 </div>
 			
-			<p><b>All examples :</b></p>
-
-				<ul>
-					<li><a href="examples/presentation.html">Interactive presentation</a></li>
-					<li><a href="examples/creating_terminals.html">Creating terminals and wires</a></li>
-					<li><a href="examples/changing_directions.html">Changing terminal direction</a></li>
-					<li><a href="examples/wires_and_terminals.html">Wire and Terminals configuration</a></li>
-					<li><a href="examples/dd_and_animation.html">Using animation</a></li>
-					<li><a href="examples/planarGame/planarGame.html">Planar game</a></li>
-					<li><a href="examples/inputex/">FormContainers</a></li>
-				</ul>
-				
-				<p>WiringEditor :</p>
-				<ul>
-					<li><a href="examples/WiringEditor/">WiringEditor demo</a></li>
-					<li><a href="examples/jsBox/jsBox.html">jsBox</a></li>
-					<li><a href="examples/logicGates/index.html">Logic Gates demo</a></li>
-					<li><a href="examples/ajaxAdapter/">Ajax Adapter</a></li>
-					<li><a href="examples/gearsAdapter/">Gears Adapter</a></li>
-					<li><a href="examples/WiringEditor/widget.html">WiringEditor non-fullscreen</a></li>
-				</ul>
-				
-				<p>Beta/Experimental :</p>
-				<ul>
-					<li><a href="examples/wire_events.html">Wire mouse events</a></li>
-					<li><a href="examples/wire_tooltips.html">Wire context menu</a></li>
-					<li><a href="examples/spring_layout.html">Spring Layout</a></li>
-					<li><a href="examples/dotparser/">Dot parser</a></li>
-				</ul>
+			<p class="title">Beta/New components</p>
+			
+			<p>Under-development components and plugins. <a href="guide.html#contribute">You can help !</a></p>
+			
+			<p>Core components</p>
+			<ul>
+				<li><a href="examples/labels.html">Wire labels</a></li>
+				<li><a href="examples/label_containers.html">Label Containers</a></li>
+			</ul>
+			
+			<p>Plugin 'layout' examples</p>
+			<ul>
+				<li><a href="plugins/layout/examples/spring_layout.html">Spring Layout</a></li>
+				<li><a href="plugins/layout/examples/dotparser/index.html">Dot parser</a></li>
+			</ul>
+			
+			<p>Plugin 'grouping' examples</p>
+			<ul>
+				<li><a href="examples/jsBox/jsBox.html">editor example</a></li>
+			</ul>
 			
 			
 			<p class="title">WireIt-based projects</p>
-			<ul>
+			<ul class="star">
+				<li><a href="http://neyric.github.com/webhookit">WebhookIt</a> - visual http programming</li>
 				<li><a href="http://tarpipe.com">Tarpipe</a> - share content across social applications</li>
 				<li><a href="http://github.com/LeifW/pipescape/tree/master">Pipescape</a> - a WireIt interface to <a href="http://www.w3.org/TR/xproc/">XProc</a></li>
-				<li><a href="http://graphpipes.de/">Graphpipes</a> - easy way to aggregate semantic data</li>
-			</ul>
+				<li><a href="http://www.talk-map.com/">TalkMap</a> - Online debating</li>
+			</ul> 
 			
 		</td>
 	</tr>
@@ -243,11 +228,11 @@
 <div style="font-size: 8pt; color: #999999; background-color: #222222; border-top: 2px solid black; padding: 10px; margin-top: 20px;">
 	
 	<ul class="navigation">
-		<li><a href="http://javascript.neyric.com/wireit">Home</a></li>	
+		<li><a href="http://neyric.github.com/wireit">Home</a></li>	
 		<li><a href="http://github.com/neyric/wireit/">GitHub[Git]</a></li>
 		<li><a href="http://github.com/neyric/wireit/issues">Issues</a></li>
 		<li><a href="guide.html">Guide</a></li>	
-		<li><a href="doc/index.html">API Documentation</a></li>		
+		<li><a href="api/index.html">API Documentation</a></li>		
 		<li><a href="http://javascript.neyric.com/blog/category/wireit/">Blog</a></a></li>	
 		<li><a href="http://groups.google.com/group/wireit/">Forums</a></li>
 	</ul>
