@@ -11,18 +11,18 @@
  * @param {WireIt.WiringEditor} WiringEditor
  */
 WireIt.ModuleProxy = function(el, WiringEditor) {
-   
+
    this._WiringEditor = WiringEditor;
-   
+
    // Init the DDProxy
    WireIt.ModuleProxy.superclass.constructor.call(this,el, "module", {
         dragElId: "moduleProxy"
     });
-    
-    this.isTarget = false; 
+
+    this.isTarget = false;
 };
 YAHOO.extend(WireIt.ModuleProxy,YAHOO.util.DDProxy, {
-   
+
    /**
     * copy the html and apply selected classes
     * @method startDrag
@@ -34,18 +34,18 @@ YAHOO.extend(WireIt.ModuleProxy,YAHOO.util.DDProxy, {
        del.innerHTML = lel.innerHTML;
        del.className = lel.className;
    },
-   
+
    /**
     * Override default behavior of DDProxy
     * @method endDrag
     */
    endDrag: function(e) {},
-    
+
    /**
     * Add the module to the WiringEditor on drop on layer
     * @method onDragDrop
     */
-   onDragDrop: function(e, ddTargets) { 
+   onDragDrop: function(e, ddTargets) {
       // The layer is the only target :
       var layerTarget = ddTargets[0],
 			 layer = ddTargets[0]._layer,
@@ -54,7 +54,7 @@ YAHOO.extend(WireIt.ModuleProxy,YAHOO.util.DDProxy, {
 			 layerPos = YAHOO.util.Dom.getXY(layer.el);
       this._WiringEditor.addModule( this._module ,[pos[0]-layerPos[0]+layer.el.scrollLeft, pos[1]-layerPos[1]+layer.el.scrollTop]);
     }
-   
+
 });
 
 })();

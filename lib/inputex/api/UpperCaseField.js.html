@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; UpperCaseField.js (source view) 
+
+                 &gt; UpperCaseField.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -78,9 +78,9 @@
 <span class="c">    * Call setvalue on input to update the field with upper case value</span>
 <span class="c">    * @param {Event} e The original &#39;input&#39; event</span>
 <span class="c">    */</span>
-   <span class="nx">onKeyPress</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> 
+   <span class="nx">onKeyPress</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
    	<span class="nx">inputEx</span><span class="p">.</span><span class="nx">UpperCaseField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">onKeyPress</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">e</span><span class="p">);</span>
-   	
+
    	<span class="c">// Re-Apply a toUpperCase method</span>
    	<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">later</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span><span class="k">this</span><span class="o">,</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">())</span> <span class="p">);});</span>
    <span class="p">}</span>
@@ -181,7 +181,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

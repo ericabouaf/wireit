@@ -3,26 +3,26 @@
     var Event = util.Event, Dom = util.Dom, Connect = util.Connect,JSON = lang.JSON,widget = YAHOO.widget;
 
 /**
- * The BaseEditor class provides a full page interface 
- * @class BaseEditor	
+ * The BaseEditor class provides a full page interface
+ * @class BaseEditor
  * @namespace WireIt
  * @constructor
  * @param {Object} options (layoutOptions,propertiesFields,accordionViewParams)
  */
 WireIt.BaseEditor = function(options) {
-	
+
 	/**
     * Container DOM element
     * @property el
     */
    this.el = Dom.get(options.parentEl);
-	
+
 	// set the default options
    this.setOptions(options);
 
    // Rendering
    this.render();
-	
+
 };
 
 /**
@@ -32,10 +32,10 @@ WireIt.BaseEditor.defaultOptions = {
 	layoutOptions: {
 	 	units: [
 	   	{ position: 'top', height: 57, body: 'top'},
-	      { position: 'left', width: 200, resize: true, body: 'left', gutter: '5px', collapse: true, 
+	      { position: 'left', width: 200, resize: true, body: 'left', gutter: '5px', collapse: true,
 	        collapseSize: 25, header: 'Modules', scroll: true, animate: true },
 	      { position: 'center', body: 'center', gutter: '5px' },
-	      { position: 'right', width: 320, resize: true, body: 'right', gutter: '5px', collapse: true, 
+	      { position: 'right', width: 320, resize: true, body: 'right', gutter: '5px', collapse: true,
 	        collapseSize: 25, /*header: 'Properties', scroll: true,*/ animate: true }
 	   ]
 	},
@@ -44,14 +44,14 @@ WireIt.BaseEditor.defaultOptions = {
 		{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
 		{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30, rows: 4} }
 	],
-	
+
 	accordionViewParams: {
-		collapsible: true, 
+		collapsible: true,
 		expandable: true, // remove this parameter to open only one panel at a time
-		width: 'auto', 
-		expandItem: 0, 
-		animationSpeed: '0.3', 
-		animate: true, 
+		width: 'auto',
+		expandItem: 0,
+		animationSpeed: '0.3',
+		animate: true,
 		effect: YAHOO.util.Easing.easeBothStrong
 	}
 };
@@ -69,17 +69,17 @@ WireIt.BaseEditor.prototype = {
 	     * @type {Object}
 	     */
 	    this.options = {};
-	
+
 		 // inputEx configuration of fields in the properties panel
 	    this.options.propertiesFields = options.propertiesFields || WireIt.BaseEditor.defaultOptions.propertiesFields;
 
 		 // YUI layout options
 	    this.options.layoutOptions = options.layoutOptions || WireIt.BaseEditor.defaultOptions.layoutOptions;
-		
+
 		 // AccordionView
 	 	 this.options.accordionViewParams = options.accordionViewParams || WireIt.BaseEditor.defaultOptions.accordionViewParams;
 	},
-	
+
 	/**
 	 * Render the layout & panels
 	 */
@@ -130,7 +130,7 @@ WireIt.BaseEditor.prototype = {
 	 * Render the alert panel
 	 */
  	renderAlertPanel: function() {
-		
+
  	 /**
      * @property alertPanel
      * @type {YAHOO.widget.Panel}
@@ -149,7 +149,7 @@ WireIt.BaseEditor.prototype = {
 			this.alertPanel.hide();
 		}, this, true);
 	},
-	
+
 	 /**
 	  * Toolbar
 	  * @method renderButtons
@@ -213,14 +213,14 @@ WireIt.BaseEditor.prototype = {
 	    this.helpPanel.show();
 	 },
 
-	
+
 	/**
 	 * Render the accordion using yui-accordion
   	 */
 	renderPropertiesAccordion: function() {
 		this.accordionView = new YAHOO.widget.AccordionView('accordionView', this.options.accordionViewParams);
 	},
- 
+
 	 /**
 	  * Render the properties form
 	  * @method renderPropertiesForm
@@ -236,27 +236,27 @@ WireIt.BaseEditor.prototype = {
 		}, this, true);
 	 },
 
-	/** 
+	/**
 	 * Hide the save indicator
 	 */
 	markSaved: function() {
 		this.savedStatusEl.style.display = 'none';
 	},
-	
-	/** 
+
+	/**
 	 * Show the save indicator
 	 */
 	markUnsaved: function() {
 		this.savedStatusEl.style.display = '';
 	},
 
-	/** 
+	/**
 	 * Is saved ?
 	 */
 	isSaved: function() {
 		return (this.savedStatusEl.style.display == 'none');
 	}
-	
+
 };
 
 

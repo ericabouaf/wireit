@@ -1,13 +1,13 @@
 {
    "SMDVersion":"2.0",
    "description": "SMD service demonstration",
-   
+
    "envelope":"JSON-RPC-2.0",
    "transport":"POST",
    "target":"mathservice.php",
- 
+
  "services": {
-   
+
    "add" : {
       "description": "define a service to add two numbers",
       "parameters": [
@@ -16,6 +16,6 @@
       ],
       "returns":{"type":"number"}
    }
-   
+
  }
 }

@@ -8,7 +8,7 @@
  * @namespace WireIt
  */
 var WireIt = {
-   
+
    /**
     * Get a css property in pixels and convert it to an integer
     * @method getIntStyle
@@ -58,7 +58,7 @@ var WireIt = {
             }
          }
       }
-   
+
    },
 
 
@@ -78,7 +78,7 @@ var WireIt = {
       if(innerHTML){ el.innerHTML = innerHTML; }
       return el;
    },
-   
+
    /**
     * indexOf replace Array.indexOf for cases where it isn't available (IE6 only ?)
     * @method indexOf
@@ -87,8 +87,8 @@ var WireIt = {
     * @param {Array} arr Array to search into
     * @return {Integer} element index or -1 if not found
     */
-   indexOf: YAHOO.lang.isFunction(Array.prototype.indexOf) ? 
-                        function(el, arr) { return arr.indexOf(el);} : 
+   indexOf: YAHOO.lang.isFunction(Array.prototype.indexOf) ?
+                        function(el, arr) { return arr.indexOf(el);} :
                         function(el, arr) {
                            for(var i = 0 ;i < arr.length ; i++) {
                               if(arr[i] == el) return i;
@@ -103,8 +103,8 @@ var WireIt = {
     * @param {Array} arr Array to compact
     * @return {Array} compacted array
     */
-   compact: YAHOO.lang.isFunction(Array.prototype.compact) ? 
-                        function(arr) { return arr.compact();} :          
+   compact: YAHOO.lang.isFunction(Array.prototype.compact) ?
+                        function(arr) { return arr.compact();} :
                         function(arr) {
                            var n = [];
                            for(var i = 0 ; i < arr.length ; i++) {

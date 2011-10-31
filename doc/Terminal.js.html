@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/wireit" title="WireItLibrary">WireItLibrary</a></h1>
         <h3>WireIt&nbsp; <span class="subtitle">0.6.0</span></h3>
-        <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
+        <a href="./index.html" title="WireItLibrary">WireItLibrary</a>
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
-                
-                 &gt; Terminal.js (source view) 
+
+                 &gt; Terminal.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -71,22 +71,22 @@
 <span class="c">       * @type {WireIt.Terminal}</span>
 <span class="c">       */</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">_terminal</span> <span class="o">=</span> <span class="nx">terminal</span><span class="o">;</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">initScissors</span><span class="p">();</span>
    <span class="p">};</span>
 	<span class="nx">WireIt</span><span class="p">.</span><span class="nx">Scissors</span><span class="p">.</span><span class="nx">visibleInstance</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
    <span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">Scissors</span><span class="o">,</span> <span class="nx">util</span><span class="p">.</span><span class="nx">Element</span><span class="o">,</span> <span class="p">{</span>
-      
+
       <span class="c">/**</span>
 <span class="c">       * Init the scissors</span>
 <span class="c">       * @method initScissors</span>
 <span class="c">       */</span>
       <span class="nx">initScissors</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-         
+
          <span class="c">// Display the cut button</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">hideNow</span><span class="p">();</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">CSS_PREFIX</span><span class="o">+</span><span class="s2">&quot;Wire-scissors&quot;</span><span class="p">);</span>
-         
+
          <span class="c">// The scissors are within the terminal element</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_terminal</span><span class="p">.</span><span class="nx">container</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">_terminal</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">_terminal</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">);</span>
 
@@ -94,12 +94,12 @@
          <span class="k">this</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;mouseover&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">show</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;mouseout&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">hide</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">scissorClick</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-         
+
          <span class="c">// On mouseover/mouseout to display/hide the scissors</span>
          <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_terminal</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="s2">&quot;mouseover&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">mouseOver</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
          <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_terminal</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="s2">&quot;mouseout&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">hide</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="p">}</span><span class="o">,</span>
-      
+
       <span class="c">/**</span>
 <span class="c">       * @method setPosition</span>
 <span class="c">       */</span>
@@ -124,20 +124,20 @@
          <span class="k">this</span><span class="p">.</span><span class="nx">_terminal</span><span class="p">.</span><span class="nx">removeAllWires</span><span class="p">();</span>
          <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">terminalTimeout</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminalTimeout</span><span class="p">.</span><span class="nx">cancel</span><span class="p">();</span> <span class="p">}</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">hideNow</span><span class="p">();</span>
-      <span class="p">}</span><span class="o">,</span>   
+      <span class="p">}</span><span class="o">,</span>
       <span class="c">/**</span>
 <span class="c">       * @method show</span>
 <span class="c">       */</span>
       <span class="nx">show</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">setPosition</span><span class="p">();</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="o">,</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
-			
+
 			<span class="k">if</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">Scissors</span><span class="p">.</span><span class="nx">visibleInstance</span> <span class="o">&amp;&amp;</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Scissors</span><span class="p">.</span><span class="nx">visibleInstance</span> <span class="o">!=</span> <span class="k">this</span><span class="p">)</span> <span class="p">{</span>
 				<span class="k">if</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">Scissors</span><span class="p">.</span><span class="nx">visibleInstance</span><span class="p">.</span><span class="nx">terminalTimeout</span><span class="p">)</span> <span class="p">{</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Scissors</span><span class="p">.</span><span class="nx">visibleInstance</span><span class="p">.</span><span class="nx">terminalTimeout</span><span class="p">.</span><span class="nx">cancel</span><span class="p">();</span> <span class="p">}</span>
-				<span class="nx">WireIt</span><span class="p">.</span><span class="nx">Scissors</span><span class="p">.</span><span class="nx">visibleInstance</span><span class="p">.</span><span class="nx">hideNow</span><span class="p">();</span> 
+				<span class="nx">WireIt</span><span class="p">.</span><span class="nx">Scissors</span><span class="p">.</span><span class="nx">visibleInstance</span><span class="p">.</span><span class="nx">hideNow</span><span class="p">();</span>
 			<span class="p">}</span>
 			<span class="nx">WireIt</span><span class="p">.</span><span class="nx">Scissors</span><span class="p">.</span><span class="nx">visibleInstance</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
-			
+
          <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">terminalTimeout</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminalTimeout</span><span class="p">.</span><span class="nx">cancel</span><span class="p">();</span> <span class="p">}</span>
       <span class="p">}</span><span class="o">,</span>
       <span class="c">/**</span>
@@ -159,8 +159,8 @@
 
 
 
-   
-   
+
+
 <span class="c">/**</span>
 <span class="c"> * This class is used for wire edition. It inherits from YAHOO.util.DDProxy and acts as a &quot;temporary&quot; Terminal.</span>
 <span class="c"> * @class TerminalProxy</span>
@@ -171,12 +171,12 @@
 <span class="c"> * @param {Object} options Configuration object (see &quot;termConfig&quot; property for details)</span>
 <span class="c"> */</span>
 <span class="nx">WireIt</span><span class="p">.</span><span class="nx">TerminalProxy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">terminal</span><span class="o">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Reference to the terminal parent</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">terminal</span> <span class="o">=</span> <span class="nx">terminal</span><span class="o">;</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Object containing the configuration object</span>
 <span class="c">    * &lt;ul&gt;</span>
@@ -188,14 +188,14 @@
 <span class="c">    */</span>
    <span class="c">// WARNING: the object config cannot be called &quot;config&quot; because YAHOO.util.DDProxy already has a &quot;config&quot; property</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">termConfig</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
-   
+
    <span class="k">this</span><span class="p">.</span><span class="nx">terminalProxySize</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">terminalProxySize</span> <span class="o">||</span> <span class="mi">10</span><span class="o">;</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Object that emulate a terminal which is following the mouse</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">fakeTerminal</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-   
+
    <span class="c">// Init the DDProxy</span>
    <span class="nx">WireIt</span><span class="p">.</span><span class="nx">TerminalProxy</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="kc">undefined</span><span class="o">,</span> <span class="p">{</span>
       <span class="nx">dragElId</span><span class="o">:</span> <span class="s2">&quot;WireIt-TerminalProxy&quot;</span><span class="o">,</span>
@@ -208,7 +208,7 @@
 <span class="nx">util</span><span class="p">.</span><span class="nx">DDM</span><span class="p">.</span><span class="nx">mode</span> <span class="o">=</span> <span class="nx">util</span><span class="p">.</span><span class="nx">DDM</span><span class="p">.</span><span class="nx">INTERSECT</span><span class="o">;</span>
 
 <span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">TerminalProxy</span><span class="o">,</span> <span class="nx">util</span><span class="p">.</span><span class="nx">DDProxy</span><span class="o">,</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Took this method from the YAHOO.util.DDProxy class</span>
 <span class="c">    * to overwrite the creation of the proxy Element with our custom size</span>
@@ -231,7 +231,7 @@
             <span class="nx">s</span><span class="p">.</span><span class="nx">border</span>     <span class="o">=</span> <span class="s2">&quot;2px solid #aaa&quot;</span><span class="o">;</span>
             <span class="nx">s</span><span class="p">.</span><span class="nx">zIndex</span>     <span class="o">=</span> <span class="mi">999</span><span class="o">;</span>
             <span class="kd">var</span> <span class="nx">size</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminalProxySize</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">;</span>
-            <span class="nx">s</span><span class="p">.</span><span class="nx">height</span>     <span class="o">=</span> <span class="nx">size</span><span class="o">;</span> 
+            <span class="nx">s</span><span class="p">.</span><span class="nx">height</span>     <span class="o">=</span> <span class="nx">size</span><span class="o">;</span>
             <span class="nx">s</span><span class="p">.</span><span class="nx">width</span>      <span class="o">=</span> <span class="nx">size</span><span class="o">;</span>
             <span class="kd">var</span> <span class="nx">_data</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
             <span class="nx">Dom</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">_data</span><span class="o">,</span> <span class="s1">&#39;height&#39;</span><span class="o">,</span> <span class="s1">&#39;100%&#39;</span><span class="p">);</span>
@@ -242,12 +242,12 @@
             <span class="nx">body</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">div</span><span class="o">,</span> <span class="nx">body</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * @method startDrag</span>
 <span class="c">    */</span>
    <span class="nx">startDrag</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      
+
       <span class="c">// If only one wire admitted, we remove the previous wire</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">nMaxWires</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">wires</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">remove</span><span class="p">();</span>
@@ -256,23 +256,23 @@
       <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">wires</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">nMaxWires</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">return</span><span class="o">;</span>
       <span class="p">}</span>
-      
+
       <span class="kd">var</span> <span class="nx">halfProxySize</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminalProxySize</span><span class="o">/</span><span class="mi">2</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">fakeTerminal</span> <span class="o">=</span> <span class="p">{</span>
          <span class="nx">options</span><span class="o">:</span> <span class="p">{</span><span class="nx">direction</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">fakeDirection</span><span class="p">}</span><span class="o">,</span>
-         <span class="nx">pos</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="o">,</span><span class="mi">200</span><span class="p">]</span><span class="o">,</span> 
+         <span class="nx">pos</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="o">,</span><span class="mi">200</span><span class="p">]</span><span class="o">,</span>
          <span class="nx">addWire</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span><span class="o">,</span>
          <span class="nx">removeWire</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span><span class="o">,</span>
-         <span class="nx">getXY</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+         <span class="nx">getXY</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">layers</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s1">&#39;WireIt-Layer&#39;</span><span class="p">);</span>
             <span class="k">if</span><span class="p">(</span><span class="nx">layers</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
                <span class="kd">var</span> <span class="nx">orig</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">getXY</span><span class="p">(</span><span class="nx">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-               <span class="k">return</span> <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="nx">orig</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="nx">halfProxySize</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nx">orig</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="nx">halfProxySize</span><span class="p">];</span> 
+               <span class="k">return</span> <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="nx">orig</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="nx">halfProxySize</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nx">orig</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="nx">halfProxySize</span><span class="p">];</span>
             <span class="p">}</span>
             <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="o">;</span>
          <span class="p">}</span>
       <span class="p">};</span>
-      
+
       <span class="kd">var</span> <span class="nx">parentEl</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">.</span><span class="nx">parentNode</span><span class="o">;</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">container</span><span class="p">)</span> <span class="p">{</span>
          <span class="nx">parentEl</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="o">;</span>
@@ -280,15 +280,15 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">editingWire</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Wire</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">fakeTerminal</span><span class="o">,</span> <span class="nx">parentEl</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">editingWireConfig</span><span class="p">);</span>
       <span class="nx">Dom</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">editingWire</span><span class="p">.</span><span class="nx">element</span><span class="o">,</span> <span class="nx">CSS_PREFIX</span><span class="o">+</span><span class="s1">&#39;Wire-editing&#39;</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * @method onDrag</span>
 <span class="c">    */</span>
    <span class="nx">onDrag</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="c">// Prevention when the editing wire could not be created (due to nMaxWires)</span>
       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">editingWire</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span><span class="o">;</span> <span class="p">}</span>
-      
+
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">container</span><span class="p">)</span> <span class="p">{</span>
          <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="o">;</span>
          <span class="kd">var</span> <span class="nx">curleft</span> <span class="o">=</span> <span class="nx">curtop</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
@@ -308,8 +308,8 @@
       <span class="p">}</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">editingWire</span><span class="p">.</span><span class="nx">redraw</span><span class="p">();</span>
    <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="c">/**</span>
 <span class="c">    * @method endDrag</span>
 <span class="c">    */</span>
@@ -319,47 +319,47 @@
          <span class="k">this</span><span class="p">.</span><span class="nx">editingWire</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * @method onDragEnter</span>
 <span class="c">    */</span>
    <span class="nx">onDragEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span><span class="nx">ddTargets</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="c">// Prevention when the editing wire could not be created (due to nMaxWires)</span>
       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">editingWire</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span><span class="o">;</span> <span class="p">}</span>
-      
+
       <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">ddTargets</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">if</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">isValidWireTerminal</span><span class="p">(</span><span class="nx">ddTargets</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">)</span> <span class="p">{</span>
             <span class="nx">ddTargets</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">setDropInvitation</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
          <span class="p">}</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * @method onDragOut</span>
 <span class="c">    */</span>
-   <span class="nx">onDragOut</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span><span class="nx">ddTargets</span><span class="p">)</span> <span class="p">{</span> 
-      
+   <span class="nx">onDragOut</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span><span class="nx">ddTargets</span><span class="p">)</span> <span class="p">{</span>
+
       <span class="c">// Prevention when the editing wire could not be created (due to nMaxWires)</span>
       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">editingWire</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span><span class="o">;</span> <span class="p">}</span>
-      
+
       <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">ddTargets</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">if</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">isValidWireTerminal</span><span class="p">(</span><span class="nx">ddTargets</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">)</span> <span class="p">{</span>
             <span class="nx">ddTargets</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">setDropInvitation</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
          <span class="p">}</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * @method onDragDrop</span>
 <span class="c">    */</span>
    <span class="nx">onDragDrop</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span><span class="nx">ddTargets</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="c">// Prevention when the editing wire could not be created (due to nMaxWires)</span>
       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">editingWire</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span><span class="o">;</span> <span class="p">}</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">onDragOut</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span><span class="nx">ddTargets</span><span class="p">);</span>
-      
+
       <span class="c">// Connect to the FIRST target terminal</span>
       <span class="kd">var</span> <span class="nx">targetTerminalProxy</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
       <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">ddTargets</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -370,14 +370,14 @@
       <span class="p">}</span>
 
       <span class="c">// Quit if no valid terminal found</span>
-      <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="nx">targetTerminalProxy</span> <span class="p">)</span> <span class="p">{</span> 
+      <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="nx">targetTerminalProxy</span> <span class="p">)</span> <span class="p">{</span>
          <span class="k">return</span><span class="o">;</span>
       <span class="p">}</span>
-      
+
       <span class="c">// Remove the editing wire</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">editingWire</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">editingWire</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-         
+
       <span class="c">// Don&#39;t create the wire if it already exists between the 2 terminals !!</span>
       <span class="kd">var</span> <span class="nx">termAlreadyConnected</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
       <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">wires</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -394,18 +394,18 @@
             <span class="p">}</span>
          <span class="p">}</span>
       <span class="p">}</span>
-      
+
       <span class="c">// Create the wire only if the terminals aren&#39;t connected yet</span>
       <span class="k">if</span><span class="p">(</span><span class="nx">termAlreadyConnected</span><span class="p">)</span> <span class="p">{</span>
          <span class="c">//console.log(&quot;terminals already connected &quot;);</span>
          <span class="k">return</span><span class="o">;</span>
       <span class="p">}</span>
-         
+
       <span class="kd">var</span> <span class="nx">parentEl</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">.</span><span class="nx">parentNode</span><span class="o">;</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">container</span><span class="p">)</span> <span class="p">{</span>
          <span class="nx">parentEl</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="o">;</span>
       <span class="p">}</span>
-      
+
       <span class="c">// Switch the order of the terminals if tgt as the &quot;alwaysSrc&quot; property</span>
       <span class="kd">var</span> <span class="nx">term1</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="o">;</span>
       <span class="kd">var</span> <span class="nx">term2</span> <span class="o">=</span> <span class="nx">targetTerminalProxy</span><span class="p">.</span><span class="nx">terminal</span><span class="o">;</span>
@@ -413,7 +413,7 @@
          <span class="nx">term1</span> <span class="o">=</span> <span class="nx">targetTerminalProxy</span><span class="p">.</span><span class="nx">terminal</span><span class="o">;</span>
          <span class="nx">term2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="o">;</span>
       <span class="p">}</span>
-      
+
       <span class="c">// Check the number of wires for this terminal</span>
       <span class="kd">var</span> <span class="nx">tgtTerm</span> <span class="o">=</span> <span class="nx">targetTerminalProxy</span><span class="p">.</span><span class="nx">terminal</span><span class="o">;</span>
       <span class="k">if</span><span class="p">(</span> <span class="nx">tgtTerm</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">nMaxWires</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
@@ -430,23 +430,23 @@
       <span class="c">/*else {</span>
 <span class="c">         console.log(&quot;Cannot connect to this terminal: nMaxWires = &quot;, ddTargets[0].terminal.options.nMaxWires);</span>
 <span class="c">      }*/</span>
-      
+
    <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="c">// to distinct from other YAHOO.util.DragDrop objects</span>
    <span class="nx">isWireItTerminal</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
-   
-   
+
+
    <span class="c">/**</span>
 <span class="c">    * @method isValidWireTerminal</span>
 <span class="c">    */</span>
    <span class="nx">isValidWireTerminal</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">DDterminal</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="nx">DDterminal</span><span class="p">.</span><span class="nx">isWireItTerminal</span> <span class="p">)</span> <span class="p">{</span>
          <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
       <span class="p">}</span>
-      
+
       <span class="c">// If this terminal has the type property:</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">termConfig</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">termConfig</span><span class="p">.</span><span class="nx">allowedTypes</span><span class="p">)</span> <span class="p">{</span>
@@ -473,7 +473,7 @@
             <span class="p">}</span>
          <span class="p">}</span>
       <span class="p">}</span>
-      
+
       <span class="c">// Check the allowSelfWiring</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">container</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">terminal</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">preventSelfWiring</span><span class="p">)</span> <span class="p">{</span>
@@ -482,14 +482,14 @@
             <span class="p">}</span>
          <span class="p">}</span>
       <span class="p">}</span>
-      
+
       <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
    <span class="p">}</span>
-   
+
 <span class="p">});</span>
 
 
-   
+
 <span class="c">/**</span>
 <span class="c"> * Terminals represent the end points of the &quot;wires&quot;</span>
 <span class="c"> * @class Terminal</span>
@@ -499,55 +499,55 @@
 <span class="c"> * @param {WireIt.Container} container (Optional) Container containing this terminal</span>
 <span class="c"> */</span>
 <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Terminal</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">parentEl</span><span class="o">,</span> <span class="nx">options</span><span class="o">,</span> <span class="nx">container</span><span class="p">)</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * DOM parent element</span>
 <span class="c">    * @property parentEl</span>
 <span class="c">    * @type {HTMLElement}</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">=</span> <span class="nx">parentEl</span><span class="o">;</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Container (optional). Parent container of this terminal</span>
 <span class="c">    * @property container</span>
 <span class="c">    * @type {WireIt.Container}</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">container</span> <span class="o">=</span> <span class="nx">container</span><span class="o">;</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * List of the associated wires</span>
 <span class="c">    * @property wires</span>
 <span class="c">    * @type {Array}</span>
 <span class="c">    */</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">wires</span> <span class="o">=</span> <span class="p">[];</span>
-   
-   
+
+
    <span class="k">this</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Event that is fired when a wire is added</span>
 <span class="c">    * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);</span>
 <span class="c">    * @event eventAddWire</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">eventAddWire</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s2">&quot;eventAddWire&quot;</span><span class="p">);</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Event that is fired when a wire is removed</span>
 <span class="c">    * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);</span>
 <span class="c">    * @event eventRemoveWire</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">eventRemoveWire</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s2">&quot;eventRemoveWire&quot;</span><span class="p">);</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * DIV dom element that will display the Terminal</span>
 <span class="c">    * @property el</span>
 <span class="c">    * @type {HTMLElement}</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-   
-   
+
+
    <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-   
+
    <span class="c">// Create the TerminalProxy object to make the terminal editable</span>
    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">editable</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">dd</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">TerminalProxy</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">ddConfig</span><span class="p">);</span>
@@ -556,13 +556,13 @@
 <span class="p">};</span>
 
 <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Terminal</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * @method setOptions</span>
 <span class="c">    * @param {Object} options</span>
 <span class="c">    */</span>
    <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="c">/**</span>
 <span class="c">       * &lt;p&gt;Object that contains the terminal configuration:&lt;/p&gt;</span>
 <span class="c">       * </span>
@@ -580,7 +580,7 @@
 <span class="c">       *   &lt;li&gt;&lt;b&gt;dropinviteClassName&lt;/b&gt;: CSS class added for drop invitation (default to &quot;WireIt-Terminal-dropinvite&quot;)&lt;/li&gt;</span>
 <span class="c">       * &lt;/ul&gt;</span>
 <span class="c">       * @property options</span>
-<span class="c">       */</span>  
+<span class="c">       */</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">direction</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">direction</span> <span class="o">||</span> <span class="p">[</span><span class="mi">0</span><span class="o">,</span><span class="mi">1</span><span class="p">];</span>
@@ -616,7 +616,7 @@
 <span class="c">    * @method render</span>
 <span class="c">    */</span>
    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-   
+
       <span class="c">// Create the DIV element</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span><span class="p">}</span> <span class="p">);</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="o">;</span> <span class="p">}</span>
@@ -638,7 +638,7 @@
             <span class="p">}</span>
          <span class="p">}</span>
       <span class="p">}</span>
-   
+
       <span class="c">// Append the element to the parent</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
@@ -650,13 +650,13 @@
 <span class="c">    * @param {WireIt.Wire} wire Wire instance to add</span>
 <span class="c">    */</span>
    <span class="nx">addWire</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">wire</span><span class="p">)</span> <span class="p">{</span>
-   
+
       <span class="c">// Adds this wire to the list of connected wires :</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">wires</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">wire</span><span class="p">);</span>
-   
+
       <span class="c">// Set class indicating that the wire is connected</span>
       <span class="nx">Dom</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">connectedClassName</span><span class="p">);</span>
-   
+
       <span class="c">// Fire the event</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">eventAddWire</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">wire</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
@@ -667,19 +667,19 @@
 <span class="c">    * @param {WireIt.Wire} wire Wire instance to remove</span>
 <span class="c">    */</span>
    <span class="nx">removeWire</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">wire</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">wire</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">wires</span><span class="p">)</span><span class="o">,</span> <span class="nx">w</span><span class="o">;</span>   
+      <span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">wire</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">wires</span><span class="p">)</span><span class="o">,</span> <span class="nx">w</span><span class="o">;</span>
       <span class="k">if</span><span class="p">(</span> <span class="nx">index</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span> <span class="p">{</span>
-         
+
          <span class="k">this</span><span class="p">.</span><span class="nx">wires</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nx">destroy</span><span class="p">();</span>
-         
+
          <span class="k">this</span><span class="p">.</span><span class="nx">wires</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">wires</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">compact</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">wires</span><span class="p">);</span>
-      
+
          <span class="c">// Remove the connected class if it has no more wires:</span>
          <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">wires</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">Dom</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">connectedClassName</span><span class="p">);</span>
          <span class="p">}</span>
-      
+
          <span class="c">// Fire the event</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">eventRemoveWire</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">wire</span><span class="p">);</span>
       <span class="p">}</span>
@@ -692,7 +692,7 @@
 <span class="c">    * @method getXY</span>
 <span class="c">    */</span>
    <span class="nx">getXY</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-   
+
       <span class="kd">var</span> <span class="nx">layerEl</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">container</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">layer</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span> <span class="o">:</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="o">;</span>
 
       <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">;</span>
@@ -704,7 +704,7 @@
      			<span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">offsetParent</span><span class="o">;</span>
      		<span class="p">}</span> <span class="k">while</span> <span class="p">(</span> <span class="o">!!</span><span class="nx">obj</span> <span class="o">&amp;&amp;</span> <span class="nx">obj</span> <span class="o">!=</span> <span class="nx">layerEl</span><span class="p">);</span>
      	<span class="p">}</span>
-  	
+
      	<span class="k">return</span> <span class="p">[</span><span class="nx">curleft</span><span class="o">+</span><span class="mi">15</span><span class="o">,</span><span class="nx">curtop</span><span class="o">+</span><span class="mi">15</span><span class="p">];</span>
    <span class="p">}</span><span class="o">,</span>
 
@@ -721,15 +721,15 @@
          <span class="k">this</span><span class="p">.</span><span class="nx">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">remove</span><span class="p">();</span>
       <span class="p">}</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
-      
+
       <span class="c">// Remove all event listeners</span>
       <span class="nx">Event</span><span class="p">.</span><span class="nx">purgeElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
-      
+
       <span class="c">// Remove scissors widget</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">scissors</span><span class="p">)</span> <span class="p">{</span>
          <span class="nx">Event</span><span class="p">.</span><span class="nx">purgeElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">scissors</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;element&#39;</span><span class="p">));</span>
       <span class="p">}</span>
-      
+
    <span class="p">}</span><span class="o">,</span>
 
 
@@ -761,7 +761,7 @@
          <span class="p">}</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/** </span>
 <span class="c">    * Remove all wires</span>
 <span class="c">    * @method removeAllWires</span>
@@ -787,15 +787,15 @@
    <span class="nx">WireIt</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">TerminalInput</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">parentEl</span><span class="o">,</span> <span class="nx">options</span><span class="o">,</span> <span class="nx">container</span><span class="p">);</span>
 <span class="p">};</span>
 <span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">TerminalInput</span><span class="o">,</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Terminal</span><span class="o">,</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Override setOptions to add the default options for TerminalInput</span>
 <span class="c">    * @method setOptions</span>
 <span class="c">    */</span>
    <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="nx">WireIt</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">TerminalInput</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">direction</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">direction</span> <span class="o">||</span> <span class="p">[</span><span class="mi">0</span><span class="o">,-</span><span class="mi">1</span><span class="p">];</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">fakeDirection</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">fakeDirection</span> <span class="o">||</span> <span class="p">[</span><span class="mi">0</span><span class="o">,</span><span class="mi">1</span><span class="p">];</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">ddConfig</span> <span class="o">=</span> <span class="p">{</span>
@@ -804,7 +804,7 @@
       <span class="p">};</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">nMaxWires</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">nMaxWires</span> <span class="o">||</span> <span class="mi">1</span><span class="o">;</span>
    <span class="p">}</span>
-   
+
 <span class="p">});</span>
 
 
@@ -823,15 +823,15 @@
    <span class="nx">WireIt</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">TerminalOutput</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">parentEl</span><span class="o">,</span> <span class="nx">options</span><span class="o">,</span> <span class="nx">container</span><span class="p">);</span>
 <span class="p">};</span>
 <span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">TerminalOutput</span><span class="o">,</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Terminal</span><span class="o">,</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Override setOptions to add the default options for TerminalOutput</span>
 <span class="c">    * @method setOptions</span>
 <span class="c">    */</span>
    <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="nx">WireIt</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">TerminalOutput</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">direction</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">direction</span> <span class="o">||</span> <span class="p">[</span><span class="mi">0</span><span class="o">,</span><span class="mi">1</span><span class="p">];</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">fakeDirection</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">fakeDirection</span> <span class="o">||</span> <span class="p">[</span><span class="mi">0</span><span class="o">,-</span><span class="mi">1</span><span class="p">];</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">ddConfig</span> <span class="o">=</span> <span class="p">{</span>
@@ -840,7 +840,7 @@
       <span class="p">};</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">alwaysSrc</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
    <span class="p">}</span>
-   
+
 <span class="p">});</span>
 
 
@@ -893,7 +893,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
                                 <li class=""><a href="Anim.js.html" title="Anim.js">Anim.js</a></li>
                                 <li class=""><a href="BaseEditor.js.html" title="BaseEditor.js">BaseEditor.js</a></li>

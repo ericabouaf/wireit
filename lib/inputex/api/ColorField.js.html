@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; ColorField.js (source view) 
+
+                 &gt; ColorField.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -48,9 +48,9 @@
                             #doc3 .classopts { display:none; }
                         </style>
                         <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-	
+
    <span class="kd">var</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">,</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">,</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="o">;</span>
-	
+
 <span class="c">/**</span>
 <span class="c"> * Create a Color picker input field</span>
 <span class="c"> * @class inputEx.ColorField</span>
@@ -72,21 +72,21 @@
 	<span class="nx">inputEx</span><span class="p">.</span><span class="nx">ColorField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
 <span class="p">};</span>
 <span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">ColorField</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Field</span><span class="o">,</span> <span class="p">{</span>
-   
+
 	<span class="c">/**</span>
 <span class="c">	 * Adds the &#39;inputEx-ColorField&#39; default className</span>
 <span class="c">	 * @param {Object} options Options object (inputEx inputParams) as passed to the constructor</span>
 <span class="c">	 */</span>
    <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
    	<span class="nx">inputEx</span><span class="p">.</span><span class="nx">ColorField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
-   	
+
    	<span class="c">// Overwrite options</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">:</span> <span class="s1">&#39;inputEx-Field inputEx-ColorField inputEx-PickerField&#39;</span><span class="o">;</span>
-   	
+
    	<span class="c">// Added options</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">palette</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">palette</span><span class="o">;</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">colors</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">colors</span><span class="o">;</span>
-   	
+
    	<span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">ratio</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">ratio</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ratio</span><span class="o">;</span><span class="p">}</span>
    	<span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">cellPerLine</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">cellPerLine</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">cellPerLine</span><span class="o">;</span><span class="p">}</span>
    	<span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">overlayPadding</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">overlayPadding</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">overlayPadding</span><span class="o">;</span><span class="p">}</span>
@@ -94,21 +94,21 @@
    	<span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">cellWidth</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">cellWidth</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">cellWidth</span><span class="o">;</span><span class="p">}</span>
    	<span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">cellMargin</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">cellMargin</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">cellMargin</span><span class="o">;</span><span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
 	<span class="c">/**</span>
 <span class="c">	 * Render the color button and the colorpicker popup</span>
 <span class="c">	 */</span>
 	<span class="nx">renderComponent</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-	   
+
 	   <span class="c">// A hidden input field to store the color code </span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="o">,</span> <span class="p">{</span>
-	      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;hidden&#39;</span><span class="o">,</span> 
-	      <span class="nx">name</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="o">,</span> 
+	      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;hidden&#39;</span><span class="o">,</span>
+	      <span class="nx">name</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="o">,</span>
 	      <span class="nx">value</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span> <span class="o">||</span> <span class="s1">&#39;#DD7870&#39;</span> <span class="p">});</span>
-	   	   
+
 	   <span class="c">// Create a colored area</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">colorEl</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-ColorField-button&#39;</span><span class="p">}</span><span class="o">,</span> <span class="p">{</span><span class="nx">backgroundColor</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span><span class="p">});</span>
-	
+
       <span class="c">// This element wraps the input node in a float: none div</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">wrapEl</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-PickerField-wrapper&#39;</span><span class="p">});</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">wrapEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
@@ -118,34 +118,34 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Overlay</span><span class="p">(</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">()</span><span class="o">,</span> <span class="p">{</span> <span class="nx">visible</span><span class="o">:</span> <span class="kc">false</span> <span class="p">});</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">setBody</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">();</span>
-      
+
       <span class="c">// Create button</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">button</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;menu&quot;</span><span class="o">,</span> <span class="nx">menu</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="o">,</span> <span class="kd">label</span><span class="o">:</span> <span class="s2">&quot;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&quot;</span> <span class="p">});</span>       
+      <span class="k">this</span><span class="p">.</span><span class="nx">button</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;menu&quot;</span><span class="o">,</span> <span class="nx">menu</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="o">,</span> <span class="kd">label</span><span class="o">:</span> <span class="s2">&quot;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&quot;</span> <span class="p">});</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">wrapEl</span><span class="p">);</span>
-            
+
       <span class="c">// Render the overlay</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">wrapEl</span><span class="p">);</span>
-      
+
       <span class="c">// HACK: Set position absolute to the overlay</span>
       <span class="nx">Dom</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">parentNode</span><span class="o">,</span> <span class="s2">&quot;position&quot;</span><span class="o">,</span> <span class="s2">&quot;absolute&quot;</span><span class="p">);</span>
-      
+
       <span class="c">// toggle Menu when clicking on colorEl</span>
       <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">colorEl</span><span class="o">,</span><span class="s1">&#39;mousedown&#39;</span><span class="o">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-         
+
          <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">cfg</span><span class="p">.</span><span class="nx">getProperty</span><span class="p">(</span><span class="s2">&quot;visible&quot;</span><span class="p">))</span> <span class="p">{</span>
-            
+
             <span class="c">// Stop event to prevent following &quot;click&quot; event to hide the menu !</span>
-            <span class="nx">Event</span><span class="p">.</span><span class="nx">stopEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span> 
-            
+            <span class="nx">Event</span><span class="p">.</span><span class="nx">stopEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+
             <span class="c">// palette may not have been rendered yet</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">renderPalette</span><span class="p">();</span>
-            
+
             <span class="c">// Show menu</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">_showMenu</span><span class="p">();</span>
          <span class="p">}</span>
       <span class="p">}</span><span class="o">,</span><span class="k">this</span><span class="o">,</span><span class="kc">true</span><span class="p">);</span>
-      
-      
+
+
       <span class="c">// Lazy load palette</span>
       <span class="c">//   -&gt; &quot;mousedown&quot; and not &quot;click&quot; because sometimes &quot;click&quot; is not fired !</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;mousedown&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">renderPalette</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
@@ -153,9 +153,9 @@
 	   <span class="c">// Elements are bound to divEl</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">wrapEl</span><span class="p">);</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="nx">renderPalette</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      
+
       <span class="c">// render once !</span>
       <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">paletteRendered</span><span class="p">)</span> <span class="k">return</span><span class="o">;</span>
 
@@ -193,11 +193,11 @@
       <span class="nx">Dom</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">overlayBody</span><span class="o">,</span> <span class="s2">&quot;padding&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">overlayPadding</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="p">);</span>
 
       <span class="c">// Unsubscribe the event so this function is called only once</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">(</span><span class="s2">&quot;mousedown&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">renderPalette</span><span class="p">);</span> 
+      <span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">(</span><span class="s2">&quot;mousedown&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">renderPalette</span><span class="p">);</span>
 
       <span class="k">this</span><span class="p">.</span><span class="nx">paletteRendered</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Set the colors to set in the picker </span>
 <span class="c">	 * @param {int} index Index of the palette to use</span>
@@ -206,7 +206,7 @@
 	<span class="nx">setDefaultColors</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
 		<span class="k">return</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">ColorField</span><span class="p">.</span><span class="nx">palettes</span><span class="p">[</span><span class="nx">index</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
 	<span class="p">}</span><span class="o">,</span>
-	      
+
 	<span class="c">/**</span>
 <span class="c">	 * This creates a color grid</span>
 <span class="c">	 */</span>
@@ -219,27 +219,27 @@
       <span class="p">}</span>
 	   <span class="k">return</span> <span class="nx">grid</span><span class="o">;</span>
 	<span class="p">}</span><span class="o">,</span>
-	   
+
 	<span class="c">/**</span>
 <span class="c">	 * Handle a color selection</span>
 <span class="c">	 * @param {Event} e The original click event</span>
 <span class="c">	 */</span>
 	<span class="nx">onColorClick</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-	   
+
 		<span class="kd">var</span> <span class="nx">square</span> <span class="o">=</span> <span class="nx">Event</span><span class="p">.</span><span class="nx">getTarget</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
-		
+
 		<span class="c">// Stop the event to prevent a selection</span>
 		<span class="nx">Event</span><span class="p">.</span><span class="nx">stopEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
-	   		   	
+
 	   <span class="c">// Overlay closure</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
-       
+
 	   <span class="c">// SetValue</span>
 		<span class="kd">var</span> <span class="nx">color</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">getStyle</span><span class="p">(</span><span class="nx">square</span><span class="o">,</span><span class="s1">&#39;background-color&#39;</span><span class="p">);</span>
 		<span class="kd">var</span> <span class="nx">hexaColor</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">ColorField</span><span class="p">.</span><span class="nx">ensureHexa</span><span class="p">(</span><span class="nx">color</span><span class="p">);</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">hexaColor</span><span class="p">);</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Set the value</span>
 <span class="c">	 * @param {String} value Color to set</span>
@@ -252,7 +252,7 @@
 		<span class="c">// Call Field.setValue to set class and fire updated event</span>
 		<span class="nx">inputEx</span><span class="p">.</span><span class="nx">ColorField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">);</span>
 	<span class="p">}</span><span class="o">,</span>
-	   
+
 	<span class="c">/**</span>
 <span class="c">	 * Return the color value</span>
 <span class="c">	 * @return {String} Color value</span>
@@ -260,19 +260,19 @@
 	<span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 	   <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span><span class="o">;</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Call overlay when field is removed</span>
 <span class="c">	 */</span>
 	<span class="nx">close</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 	  <span class="k">this</span><span class="p">.</span><span class="nx">oOverlay</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
 	<span class="p">}</span>
-	  
-<span class="p">});</span> 
-	
+
+<span class="p">});</span>
+
 <span class="c">// Specific message for the container</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">selectColor</span> <span class="o">=</span> <span class="s2">&quot;Select a color :&quot;</span><span class="o">;</span>
-	
+
 <span class="c">/**</span>
 <span class="c"> * Default palettes</span>
 <span class="c"> */</span>
@@ -284,19 +284,19 @@
    <span class="p">[</span><span class="s2">&quot;#D0D0D0&quot;</span><span class="o">,</span><span class="s2">&quot;#31A8FA&quot;</span><span class="o">,</span><span class="s2">&quot;#8EC1E5&quot;</span><span class="o">,</span><span class="s2">&quot;#58D7CF&quot;</span><span class="o">,</span><span class="s2">&quot;#89E2BB&quot;</span><span class="o">,</span><span class="s2">&quot;#A7F7F8&quot;</span><span class="o">,</span><span class="s2">&quot;#F6B77C&quot;</span><span class="o">,</span><span class="s2">&quot;#FE993F&quot;</span><span class="o">,</span><span class="s2">&quot;#FE6440&quot;</span><span class="o">,</span><span class="s2">&quot;#F56572&quot;</span><span class="o">,</span><span class="s2">&quot;#FA9AA3&quot;</span><span class="o">,</span><span class="s2">&quot;#F7B1CA&quot;</span><span class="o">,</span><span class="s2">&quot;#E584AF&quot;</span><span class="o">,</span><span class="s2">&quot;#D1C3EF&quot;</span><span class="o">,</span><span class="s2">&quot;#AB77B8&quot;</span><span class="o">,</span><span class="s2">&quot;#C69FE7&quot;</span><span class="o">,</span><span class="s2">&quot;#90D28A&quot;</span><span class="o">,</span><span class="s2">&quot;#C2F175&quot;</span><span class="o">,</span><span class="s2">&quot;#EDEA9A&quot;</span><span class="o">,</span><span class="s2">&quot;#F3DF70&quot;</span><span class="o">,</span><span class="s2">&quot;#F8D1AE&quot;</span><span class="o">,</span><span class="s2">&quot;#F98064&quot;</span><span class="o">,</span><span class="s2">&quot;#F54F5E&quot;</span><span class="o">,</span><span class="s2">&quot;#EC9099&quot;</span><span class="o">,</span><span class="s2">&quot;#F0B5BA&quot;</span><span class="o">,</span><span class="s2">&quot;#EDA0BB&quot;</span><span class="o">,</span><span class="s2">&quot;#D375AC&quot;</span><span class="o">,</span><span class="s2">&quot;#BC8DBE&quot;</span><span class="o">,</span><span class="s2">&quot;#8C77B8&quot;</span><span class="p">]</span><span class="o">,</span>
    <span class="c">// idem in pastel tone (colors above with opacity 0.6 on white background)</span>
    <span class="p">[</span><span class="s2">&quot;#EEEEEE&quot;</span><span class="o">,</span><span class="s2">&quot;#84CBFC&quot;</span><span class="o">,</span><span class="s2">&quot;#BCDAF0&quot;</span><span class="o">,</span><span class="s2">&quot;#9BE7E3&quot;</span><span class="o">,</span><span class="s2">&quot;#B9EED7&quot;</span><span class="o">,</span><span class="s2">&quot;#CBFBFB&quot;</span><span class="o">,</span><span class="s2">&quot;#FAD4B1&quot;</span><span class="o">,</span><span class="s2">&quot;#FFC28C&quot;</span><span class="o">,</span><span class="s2">&quot;#FFA28D&quot;</span><span class="o">,</span><span class="s2">&quot;#F9A3AB&quot;</span><span class="o">,</span><span class="s2">&quot;#FCC3C8&quot;</span><span class="o">,</span><span class="s2">&quot;#FBD1E0&quot;</span><span class="o">,</span><span class="s2">&quot;#F0B6CF&quot;</span><span class="o">,</span><span class="s2">&quot;#E4DBF6&quot;</span><span class="o">,</span><span class="s2">&quot;#CDAED5&quot;</span><span class="o">,</span><span class="s2">&quot;#DDC6F1&quot;</span><span class="o">,</span><span class="s2">&quot;#BDE4B9&quot;</span><span class="o">,</span><span class="s2">&quot;#DBF7AD&quot;</span><span class="o">,</span><span class="s2">&quot;#F5F3C3&quot;</span><span class="o">,</span><span class="s2">&quot;#F8ECAA&quot;</span><span class="o">,</span><span class="s2">&quot;#FBE4CF&quot;</span><span class="o">,</span><span class="s2">&quot;#FCB3A2&quot;</span><span class="o">,</span><span class="s2">&quot;#F9969F&quot;</span><span class="o">,</span><span class="s2">&quot;#F4BDC2&quot;</span><span class="o">,</span><span class="s2">&quot;#F6D3D6&quot;</span><span class="o">,</span><span class="s2">&quot;#F5C6D7&quot;</span><span class="o">,</span><span class="s2">&quot;#E5ADCE&quot;</span><span class="o">,</span><span class="s2">&quot;#D7BBD8&quot;</span><span class="o">,</span><span class="s2">&quot;#BAAED5&quot;</span><span class="p">]</span>
-<span class="p">];</span>	
+<span class="p">];</span>
 
 <span class="c">//  -&gt; ensure color has hexadecimal format like &quot;#FF8E00&quot;</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">ColorField</span><span class="p">.</span><span class="nx">ensureHexa</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">color</span><span class="p">)</span> <span class="p">{</span>
    <span class="kd">var</span> <span class="nx">rgb</span><span class="o">,</span> <span class="nx">hexaColor</span><span class="o">;</span>
-   
+
    <span class="c">// remove spaces</span>
    <span class="nx">color</span> <span class="o">=</span> <span class="nx">color</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\s/g</span><span class="o">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>
-   
+
    <span class="c">// Firefox, Safari</span>
    <span class="c">//   -&gt; format &quot;rgb(255,143,28)&quot;</span>
    <span class="k">if</span> <span class="p">(</span><span class="o">!!</span><span class="nx">color</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^rgb\((?:\d{1,3},){2}\d{1,3}\)$/</span><span class="p">))</span> <span class="p">{</span>
-      
+
 	   <span class="c">// Convert integer (int or string) to hexadecimal (2 chars)</span>
 	   <span class="c">//   ex: &quot;214&quot; -&gt; &quot;d6&quot;</span>
       <span class="kd">var</span> <span class="nx">DecToHex</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dec</span><span class="p">)</span> <span class="p">{</span>
@@ -304,26 +304,26 @@
          <span class="k">if</span> <span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="nx">r</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span><span class="o">+</span><span class="nx">r</span><span class="o">;</span>
          <span class="k">return</span> <span class="nx">r</span><span class="o">;</span>
       <span class="p">};</span>
-   
+
       <span class="nx">rgb</span> <span class="o">=</span> <span class="nx">color</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/([(,)])/</span><span class="p">);</span>
       <span class="nx">hexaColor</span> <span class="o">=</span> <span class="s1">&#39;#&#39;</span><span class="o">+</span><span class="nx">DecToHex</span><span class="p">(</span><span class="nx">rgb</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">+</span><span class="nx">DecToHex</span><span class="p">(</span><span class="nx">rgb</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span><span class="o">+</span><span class="nx">DecToHex</span><span class="p">(</span><span class="nx">rgb</span><span class="p">[</span><span class="mi">6</span><span class="p">]);</span>
-   
+
    <span class="c">// IE, Opera</span>
    <span class="c">//   -&gt; format &quot;#FE6D34&quot;</span>
    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!!</span><span class="nx">color</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^#[\da-fA-F]{6}$/</span><span class="p">))</span> <span class="p">{</span>
       <span class="nx">hexaColor</span> <span class="o">=</span> <span class="nx">color</span><span class="o">;</span>
-      
+
    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
       <span class="c">// defaults to white if invalid color</span>
       <span class="nx">hexaColor</span> <span class="o">=</span> <span class="s2">&quot;#FFFFFF&quot;</span><span class="o">;</span>
    <span class="p">}</span>
-   
+
    <span class="k">return</span> <span class="nx">hexaColor</span><span class="o">;</span>
 <span class="p">};</span>
 
 <span class="c">// Register this class as &quot;color&quot; type</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">registerType</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">ColorField</span><span class="o">,</span> <span class="p">[]);</span>
-	
+
 <span class="p">})();</span>
 </pre></div>
 
@@ -415,7 +415,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class="selected"><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

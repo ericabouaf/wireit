@@ -1,11 +1,11 @@
 {
 	"SMDVersion": "2.0",
-	"id": "http://ajax.googleapis.com/ajax/services/search/", 
+	"id": "http://ajax.googleapis.com/ajax/services/search/",
 	"description": "Google Ajax API",
-		
+
 	"transport": "JSONP",
 	"envelope": "URL",
-	"additionalParameters": true,	
+	"additionalParameters": true,
 	"parameters": [
 		{ "name": "q", "optional": false, "default":"" },
 		{ "name": "rsz", "optional":true, "default": "small", "enum": ["small", "large"] },
@@ -81,13 +81,13 @@
 			"target": "http://ajax.googleapis.com/ajax/services/feed/load",
 			"parameters": []
 		},
-		
+
 		"translate" : {
 			"target" : "http://ajax.googleapis.com/ajax/services/language/translate",
 			"parameters": [
 				{ "name":"langpair", "type":"string", "optional":false }
 			]
 		}
-		
+
 	}
 }

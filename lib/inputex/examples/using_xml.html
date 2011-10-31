@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
-<title>InputEx - using XML, example with RSS</title>	
+<title>InputEx - using XML, example with RSS</title>
 
 <!-- YUI CSS -->
 <link rel="stylesheet" type="text/css" href="../lib/yui/reset-fonts/reset-fonts.css">
-<link rel="stylesheet" type="text/css" href="../lib/yui/container/assets/container.css"> 
+<link rel="stylesheet" type="text/css" href="../lib/yui/container/assets/container.css">
 <link rel="stylesheet" type="text/css" href="../lib/yui/assets/skins/sam/skin.css">
 
 <!-- InputEx CSS -->
@@ -14,16 +14,16 @@
 <!-- Demo CSS -->
 <link rel="stylesheet" type="text/css" href="css/demo.css"/>
 <link rel="stylesheet" type="text/css" href="css/dpSyntaxHighlighter.css">
-	
+
 <script src="../lib/yui/utilities/utilities.js"></script>
 <script src="../lib/XML/ObjTree.js"></script>
 <script src="../build/inputex.js"></script>
 
 </head>
 <body>
-	
+
 	<div id="formContainer" class='exampleDiv'></div>
-	
+
 <script>
 
 // Required for the UrlField and ListField
@@ -31,7 +31,7 @@ inputEx.spacerUrl = "../images/space.gif";
 
 var rssFormDef = {
 	type: 'group',
-	
+
 	inputParams: {
 		parentEl: 'formContainer',
 		fields: [
@@ -61,9 +61,9 @@ var rssFormDef = {
 
 
 YAHOO.util.Event.onDOMReady( function() {
-	
+
 		var rssForm = inputEx(rssFormDef);
-		
+
 		// Get the rss and populate the form
 		YAHOO.util.Connect.asyncRequest('GET', 'rss-example.xml', {
 			success: function(o) {
@@ -72,7 +72,7 @@ YAHOO.util.Event.onDOMReady( function() {
 				rssForm.setValue(tree.rss);
 			}
 		});
-   
+
 });
 </script>
 </body>

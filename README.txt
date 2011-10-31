@@ -10,14 +10,13 @@ WireIt guide:
 
 The code for Wireit is provided under a BSD license:
     http://javascript.neyric.com/wireit/license.txt
-    
+
 Source code:
     http://github.com/neyric/wireit
 
 Issue tracker:
 	 http://github.com/neyric/wireit/issues
-	
-Blog: 
+
+Blog:
     http://javascript.neyric.com/blog/category/wireit/
 
- 

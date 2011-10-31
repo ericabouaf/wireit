@@ -16,7 +16,7 @@
 }
 
 #mainTable td.mainTableTd {
-   vertical-align: top; 
+   vertical-align: top;
    width: 50%;
    padding: 10px;
 }
@@ -71,13 +71,13 @@ margin: 10px;
 </head>
 
 <body class="yui-skin-sam">
-	
+
 	<p style="text-align: center; font-size: 18pt; font-weight: bold; margin: 10px;">inputEx Builder</p>
-	
+
 	<div id="pageTitle"><h1>inputEx: Form Builder utility</h1></div>
-	
+
 	<p style="margin: 10px;">inputEx Builder is a tool to create forms using the <a href="http://javascript.neyric.com/inputex/">inputEx library</a></p>
-	
+
 	<table id='mainTable' style="width: 100%;">
 		<tr>
 			<td class='mainTableTd'>
@@ -88,15 +88,15 @@ margin: 10px;
 			<td class='mainTableTd'>
 				<p class="tdTitle">2. Preview</p>
 				<div id='groupContainer'></div>
-				
+
 					<p class="tdTitle">3. Get the code</p>
 					<button id='generateButton'>Generate a page for this Form</button>
 					<textarea id='codeGenerator' rows=30></textarea>
 			</td>
 		</tr>
-		
+
 	</table>
-	
+
 
 <!-- YUI Library -->
 <script type="text/javascript" src="../../lib/yui/utilities/utilities.js"></script>
@@ -149,11 +149,11 @@ margin: 10px;
 
 <script>
 YAHOO.util.Event.onDOMReady(function() {
-	
+
 	inputEx.spacerUrl = "images/space.gif";
-	
+
 	var g = new inputEx.Group({parentEl: 'container', fields: inputEx.Group.groupOptions});
-	
+
   g.setValue({
    	"fields" : [
 		  {
@@ -185,8 +185,8 @@ YAHOO.util.Event.onDOMReady(function() {
    	"legend" : "User"
    }, false);
 
-	
-	var rebuildPreview = function() { 
+
+	var rebuildPreview = function() {
       var value = g.getValue();
       var previewGroup = new inputEx.Group(value);
 
@@ -199,11 +199,11 @@ YAHOO.util.Event.onDOMReady(function() {
    };
 
 	rebuildPreview();
-   
+
    // Update the preview event
    g.updatedEvt.subscribe(rebuildPreview);
 
-	
+
 	 // Generate Page:
 	YAHOO.util.Event.addListener('generateButton', 'click', function() {
 
@@ -267,14 +267,14 @@ YAHOO.util.Event.onDOMReady(function() {
 			"<scr"+"ipt src='../../js/fields/IPv4Field.js'  type='text/javascript'></scr"+"ipt>",
 			"<scr"+"ipt src='../../js/fields/VectorField.js'  type='text/javascript'></scr"+"ipt>",
 			"<scr"+"ipt src='../../js/fields/TypeField.js'  type='text/javascript'></scr"+"ipt>",
-			
+
 			"<scr"+"ipt>",
 			"var formDef = "+g.getValue().toPrettyJSONString(true)+";",
 			"formDef.parentEl = 'formContainer';",
 			"YAHOO.util.Event.onDOMReady(function(){ new inputEx.Group(formDef); });",
-			
+
 			"</scr"+"ipt>",
-			
+
 			"</body>",
 			"</html>"
 		];
@@ -291,16 +291,16 @@ YAHOO.util.Event.onDOMReady(function() {
 	   formPage.document.write(html.join("\n"));
 	   formPage.document.close();
 	});
-	
+
 
 	// Add a popup and a load button
 	Example1 = {};
 	var oButton = new YAHOO.widget.Button("loadButton", {checked: false, label: "Load"});
-	oButton.addListener("click", function() {Example1.myPanel.show();}); 
+	oButton.addListener("click", function() {Example1.myPanel.show();});
 	var formConfig = {
        type: 'form',
        inputParams: {
-          fields: [ 
+          fields: [
 						{type: 'text', inputParams: {name: 'code', cols: 50, rows: 10} },
 						{type: "radio",inputParams: {
 										label : "Format",
@@ -311,20 +311,20 @@ YAHOO.util.Event.onDOMReady(function() {
 						}
 					],
           buttons: [
-             {type: 'button', value: 'Load', onClick: function() { 
-	
+             {type: 'button', value: 'Load', onClick: function() {
+
 							  var value = Example1.myPanel.getForm().getValue();
-							
+
 								try {
 							  	var code = eval('('+value.code+')');
 								} catch(ex) {
 									alert("Error during JSON evaluation");
 									return;
 								}
-							
+
 								// Build using JSON Schema
 								if(value.format == "JSON Schema") {
-									
+
 									try {
 									var builder = new inputEx.JsonSchema.Builder({
 										'schemaIdentifierMap': code,
@@ -335,16 +335,16 @@ YAHOO.util.Event.onDOMReady(function() {
 									var lastSchema = (function(o){var r;for(var k in o){if(o.hasOwnProperty(k))r = o[k];} return r;})(code);
 									var m = builder.schemaToInputEx(lastSchema);
 									g.setValue(m.inputParams);
-									
+
 									} catch(ex) {
 										return;
 									}
-									
+
 								} // OR standard inputEx JSON
 								else { // value.format == "inputEx JSON"
 									g.setValue(value);
 								}
-								
+
 								Example1.myPanel.hide();
 					 }},
              {type: 'button', value: 'Cancel', onClick: function() { Example1.myPanel.hide(); } }
@@ -355,22 +355,22 @@ YAHOO.util.Event.onDOMReady(function() {
 			inputExDef: formConfig,
 			title: 'Copy/Paste your inputEx JSON or JSON Schema here :',
 			panelConfig: {
-						constraintoviewport: true, 
-						underlay:"shadow", 
-						close:true, 
+						constraintoviewport: true,
+						underlay:"shadow",
+						close:true,
 						fixedcenter: true,
-						visible:false, 
+						visible:false,
 						draggable:true,
 						modal: true
 			}
-			
+
 		});
-		
-		
+
+
 });
 
 </script>
-	
+
 </body>
 </html>
 

@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; InPlaceEdit.js (source view) 
+
+                 &gt; InPlaceEdit.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -74,7 +74,7 @@
 <span class="c">    */</span>
    <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">inputEx</span><span class="p">.</span><span class="nx">InPlaceEdit</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">animColors</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">animColors</span> <span class="o">||</span> <span class="p">{</span><span class="nx">from</span><span class="o">:</span> <span class="s1">&#39;#ffff99&#39;</span> <span class="o">,</span> <span class="nx">to</span><span class="o">:</span> <span class="s1">&#39;#ffffff&#39;</span><span class="p">};</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">visu</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">visu</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">editorField</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">editorField</span><span class="o">;</span>
@@ -87,37 +87,37 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">renderVisuDiv</span><span class="p">();</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">renderEditor</span><span class="p">();</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Render the editor</span>
 <span class="c">    */</span>
    <span class="nx">renderEditor</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">editorContainer</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="nx">CSS_PREFIX</span><span class="o">+</span><span class="s1">&#39;editor&#39;</span><span class="p">}</span><span class="o">,</span> <span class="p">{</span><span class="nx">display</span><span class="o">:</span> <span class="s1">&#39;none&#39;</span><span class="p">});</span>
-      
+
       <span class="c">// Render the editor field</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">editorField</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">editorField</span><span class="p">);</span>
       <span class="kd">var</span> <span class="nx">editorFieldEl</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">editorField</span><span class="p">.</span><span class="nx">getEl</span><span class="p">();</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">editorContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">editorFieldEl</span> <span class="p">);</span>
       <span class="nx">Dom</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span> <span class="nx">editorFieldEl</span> <span class="o">,</span> <span class="nx">CSS_PREFIX</span><span class="o">+</span><span class="s1">&#39;editorDiv&#39;</span><span class="p">);</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">okButton</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="nx">CSS_PREFIX</span><span class="o">+</span><span class="s1">&#39;OkButton&#39;</span><span class="p">}</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">okEditor</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">okButton</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">;</span> <span class="c">// IE required (here, not in the cn fct)</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">editorContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">okButton</span><span class="p">);</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">cancelLink</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="nx">CSS_PREFIX</span><span class="o">+</span><span class="s1">&#39;CancelLink&#39;</span><span class="p">}</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">cancelEditor</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">cancelLink</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">;</span> <span class="c">// IE required (here, not in the cn fct)</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">editorContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">cancelLink</span><span class="p">);</span>
-      
+
       <span class="c">// Line breaker ()</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">editorContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span><span class="kc">null</span><span class="o">,</span> <span class="p">{</span><span class="nx">clear</span><span class="o">:</span> <span class="s1">&#39;both&#39;</span><span class="p">})</span> <span class="p">);</span>
-      
+
       <span class="c">//this.divEl.appendChild(this.editorContainer);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">editorContainer</span><span class="p">);</span>
-      
+
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Set the color when hovering the field</span>
 <span class="c">    * @param {Event} e The original mouseover event</span>
@@ -128,7 +128,7 @@
       <span class="p">}</span>
       <span class="nx">inputEx</span><span class="p">.</span><span class="nx">sn</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">formattedContainer</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="p">{</span><span class="nx">backgroundColor</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">animColors</span><span class="p">.</span><span class="nx">from</span> <span class="p">});</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Start the color animation when hovering the field</span>
 <span class="c">    * @param {Event} e The original mouseout event</span>
@@ -140,15 +140,15 @@
       <span class="p">}</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">colorAnim</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">ColorAnim</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">formattedContainer</span><span class="o">,</span> <span class="p">{</span><span class="nx">backgroundColor</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">animColors</span><span class="p">}</span><span class="o">,</span> <span class="mi">1</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">colorAnim</span><span class="p">.</span><span class="nx">onComplete</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">formattedContainer</span><span class="o">,</span> <span class="s1">&#39;background-color&#39;</span><span class="o">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span> <span class="p">}</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">colorAnim</span><span class="p">.</span><span class="nx">animate</span><span class="p">();</span>   
+      <span class="k">this</span><span class="p">.</span><span class="nx">colorAnim</span><span class="p">.</span><span class="nx">animate</span><span class="p">();</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Create the div that will contain the visualization of the value</span>
 <span class="c">    */</span>
    <span class="nx">renderVisuDiv</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">formattedContainer</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-InPlaceEdit-visu&#39;</span><span class="p">});</span>
-      
+
       <span class="k">if</span><span class="p">(</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">formatDom</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">formattedContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">formatDom</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">);</span>
       <span class="p">}</span>
@@ -158,32 +158,32 @@
       <span class="k">else</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">formattedContainer</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="o">?</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">emptyInPlaceEdit</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="o">;</span>
       <span class="p">}</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">formattedContainer</span><span class="p">);</span>
-      
+
    <span class="p">}</span><span class="o">,</span>
 
    <span class="c">/**</span>
 <span class="c">    * Adds the events for the editor and color animations</span>
 <span class="c">    */</span>
-   <span class="nx">initEvents</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>  
+   <span class="nx">initEvents</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">formattedContainer</span><span class="o">,</span> <span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">openEditor</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-            
+
       <span class="c">// For color animation</span>
       <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">formattedContainer</span><span class="o">,</span> <span class="s1">&#39;mouseover&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onVisuMouseOver</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">formattedContainer</span><span class="o">,</span> <span class="s1">&#39;mouseout&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onVisuMouseOut</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-         
+
       <span class="c">// Editor: </span>
       <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">okButton</span><span class="o">,</span> <span class="s1">&#39;click&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onOkEditor</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">cancelLink</span><span class="o">,</span> <span class="s1">&#39;click&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onCancelEditor</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-         
+
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">editorField</span><span class="p">.</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
          <span class="c">// Register some listeners</span>
          <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">editorField</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="s2">&quot;keyup&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onKeyUp</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
          <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">editorField</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="s2">&quot;keydown&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onKeyDown</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Handle some keys events to close the editor</span>
 <span class="c">    * @param {Event} e The original keyup event</span>
@@ -198,7 +198,7 @@
          <span class="k">this</span><span class="p">.</span><span class="nx">onCancelEditor</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Handle the tabulation key to close the editor</span>
 <span class="c">    * @param {Event} e The original keydown event</span>
@@ -209,24 +209,24 @@
          <span class="k">this</span><span class="p">.</span><span class="nx">onOkEditor</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Validate the editor (ok button, enter key or tabulation key)</span>
 <span class="c">    */</span>
    <span class="nx">onOkEditor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">Event</span><span class="p">.</span><span class="nx">stopEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
-      
+
       <span class="kd">var</span> <span class="nx">newValue</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">editorField</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">newValue</span><span class="p">);</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">editorContainer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">formattedContainer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">;</span>
-      
+
       <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
-      <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="nx">that</span><span class="p">.</span><span class="nx">updatedEvt</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">newValue</span><span class="p">);}</span><span class="o">,</span> <span class="mi">50</span><span class="p">);</span>      
+      <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="nx">that</span><span class="p">.</span><span class="nx">updatedEvt</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">newValue</span><span class="p">);}</span><span class="o">,</span> <span class="mi">50</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
 
-   
+
    <span class="c">/**</span>
 <span class="c">    * Close the editor on cancel (cancel button, blur event or escape key)</span>
 <span class="c">    * @param {Event} e The original event (click, blur or keydown)</span>
@@ -236,7 +236,7 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">editorContainer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">formattedContainer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Display the editor</span>
 <span class="c">    */</span>
@@ -244,21 +244,21 @@
       <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">editorContainer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">formattedContainer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="o">;</span>
-   
+
       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">value</span><span class="p">))</span> <span class="p">{</span>
-         <span class="k">this</span><span class="p">.</span><span class="nx">editorField</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>   
+         <span class="k">this</span><span class="p">.</span><span class="nx">editorField</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
       <span class="p">}</span>
-      
+
       <span class="c">// Set focus in the element !</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">editorField</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
-   
+
       <span class="c">// Select the content</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">editorField</span><span class="p">.</span><span class="nx">el</span> <span class="o">&amp;&amp;</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">editorField</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">setSelectionRange</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">!!</span><span class="nx">value</span> <span class="o">&amp;&amp;</span> <span class="o">!!</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="p">))</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">editorField</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">setSelectionRange</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
       <span class="p">}</span>
-      
+
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Returned the previously stored value</span>
 <span class="c">    * @return {Any} The value of the subfield</span>
@@ -273,25 +273,25 @@
 <span class="c">    * @param {Any} value The value to set</span>
 <span class="c">    * @param {boolean} [sendUpdatedEvt] (optional) Wether this setValue should fire the updatedEvt or not (default is true, pass false to NOT send the event)</span>
 <span class="c">    */</span>
-   <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>   
+   <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
       <span class="c">// Store the value</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="o">;</span>
-   
+
       <span class="k">if</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">||</span> <span class="nx">value</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
          <span class="nx">inputEx</span><span class="p">.</span><span class="nx">renderVisu</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">visu</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">emptyInPlaceEdit</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">formattedContainer</span><span class="p">);</span>
       <span class="p">}</span>
       <span class="k">else</span> <span class="p">{</span>
          <span class="nx">inputEx</span><span class="p">.</span><span class="nx">renderVisu</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">visu</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">formattedContainer</span><span class="p">);</span>
       <span class="p">}</span>
-      
+
       <span class="c">// If the editor is opened, update it </span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">editorContainer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">editorField</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
       <span class="p">}</span>
-      
+
       <span class="nx">inputEx</span><span class="p">.</span><span class="nx">InPlaceEdit</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Close the editor when calling the close function on this field</span>
 <span class="c">    */</span>
@@ -301,7 +301,7 @@
 	<span class="p">}</span>
 
 <span class="p">});</span>
-  
+
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">emptyInPlaceEdit</span> <span class="o">=</span> <span class="s2">&quot;(click to edit)&quot;</span><span class="o">;</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">cancelEditor</span> <span class="o">=</span> <span class="s2">&quot;cancel&quot;</span><span class="o">;</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">okEditor</span> <span class="o">=</span> <span class="s2">&quot;Ok&quot;</span><span class="o">;</span>
@@ -402,7 +402,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

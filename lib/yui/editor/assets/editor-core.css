@@ -321,7 +321,7 @@ version: 2.8.0r4
 }
 /* This fixes the caret issue in Firefox */
 .yui-editor-panel .gecko label {
-    overflow: auto; 
+    overflow: auto;
 }
 /* more form fields */
 .yui-editor-panel label strong {
@@ -452,7 +452,7 @@ version: 2.8.0r4
     width: 95px !important;
 }
 /* Border Size menu styles */
-.yui-toolbar-bordersize-menu .yuimenuitemlabel, .yui-toolbar-bordertype-menu .yuimenuitemlabel, 
+.yui-toolbar-bordersize-menu .yuimenuitemlabel, .yui-toolbar-bordertype-menu .yuimenuitemlabel,
 .yui-toolbar-bordersize-menu .yuimenuitemlabel, .yui-toolbar-bordertype-menu .yuimenuitemlabel:hover {
     margin:0px 3px 7px 17px;
 }

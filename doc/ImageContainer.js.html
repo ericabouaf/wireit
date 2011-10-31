@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/wireit" title="WireItLibrary">WireItLibrary</a></h1>
         <h3>WireIt&nbsp; <span class="subtitle">0.6.0</span></h3>
-        <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
+        <a href="./index.html" title="WireItLibrary">WireItLibrary</a>
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
-                
-                 &gt; ImageContainer.js (source view) 
+
+                 &gt; ImageContainer.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -60,24 +60,24 @@
 <span class="p">};</span>
 
 <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">ImageContainer</span><span class="o">,</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Container</span><span class="o">,</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * @method setOptions</span>
 <span class="c">    * @param {Object} options the options object</span>
 <span class="c">    */</span>
    <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">WireIt</span><span class="p">.</span><span class="nx">ImageContainer</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">image</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">image</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">xtype</span> <span class="o">=</span> <span class="s2">&quot;WireIt.ImageContainer&quot;</span><span class="o">;</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">||</span> <span class="s2">&quot;WireIt-Container WireIt-ImageContainer&quot;</span><span class="o">;</span>
-      
+
       <span class="c">// Overwrite default value for options:</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">resizable</span> <span class="o">=</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">resizable</span> <span class="o">==</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">resizable</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">ddHandle</span> <span class="o">=</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ddHandle</span> <span class="o">==</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ddHandle</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * @method render</span>
 <span class="c">    */</span>
@@ -85,7 +85,7 @@
       <span class="nx">WireIt</span><span class="p">.</span><span class="nx">ImageContainer</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">render</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
       <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">bodyEl</span><span class="o">,</span> <span class="s2">&quot;background-image&quot;</span><span class="o">,</span> <span class="s2">&quot;url(&quot;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">image</span><span class="o">+</span><span class="s2">&quot;)&quot;</span><span class="p">);</span>
    <span class="p">}</span>
-   
+
 <span class="p">});</span>
 </pre></div>
 
@@ -135,7 +135,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
                                 <li class=""><a href="Anim.js.html" title="Anim.js">Anim.js</a></li>
                                 <li class=""><a href="BaseEditor.js.html" title="BaseEditor.js">BaseEditor.js</a></li>

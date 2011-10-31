@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; Field.js (source view) 
+
+                 &gt; Field.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -64,13 +64,13 @@
 <span class="c"> * &lt;/ul&gt;</span>
 <span class="c"> */</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Field</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-	
+
 	<span class="c">// Set the default values of the options</span>
 	<span class="k">this</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">(</span><span class="nx">options</span> <span class="o">||</span> <span class="p">{});</span>
-	
+
 	<span class="c">// Call the render of the dom</span>
 	<span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Event fired after the user changed the value of the field.</span>
 <span class="c">	 * @event updatedEvt</span>
@@ -78,20 +78,20 @@
 <span class="c">	 * @desc YAHOO custom event fired when the field is &quot;updated&quot;&lt;br /&gt; subscribe with: this.updatedEvt.subscribe(function(e, params) { var value = params[0]; console.log(&quot;updated&quot;,value, this.updatedEvt); }, this, true);</span>
 <span class="c">	 */</span>
 	<span class="k">this</span><span class="p">.</span><span class="nx">updatedEvt</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s1">&#39;updated&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">);</span>
-	
+
 	<span class="c">// initialize behaviour events</span>
 	<span class="k">this</span><span class="p">.</span><span class="nx">initEvents</span><span class="p">();</span>
-	
+
 	<span class="c">// Set the initial value</span>
 	<span class="c">//   -&gt; no initial value = no style (setClassFromState called by setValue)</span>
 	<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="p">))</span> <span class="p">{</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="kc">false</span><span class="p">);</span>
 	<span class="p">}</span>
-	
+
 	<span class="c">// append it immediatly to the parent DOM element</span>
 	<span class="k">if</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">)</span> <span class="p">{</span>
 	   <span class="k">if</span><span class="p">(</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isString</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
-	     <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getEl</span><span class="p">());</span>  
+	     <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getEl</span><span class="p">());</span>
 	   <span class="p">}</span>
 	   <span class="k">else</span> <span class="p">{</span>
 	      <span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getEl</span><span class="p">());</span>
@@ -101,7 +101,7 @@
 
 
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Field</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
-  
+
    <span class="c">/**</span>
 <span class="c">    * Set the default values of the options</span>
 <span class="c">    * @param {Object} options Options object (inputEx inputParams) as passed to the constructor</span>
@@ -112,20 +112,20 @@
 <span class="c">   	 * Configuration object to set the options for this class and the parent classes. See constructor details for options added by this class.</span>
 <span class="c">   	 */</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
-   	
+
    	<span class="c">// Basic options</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="o">;</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="o">;</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">id</span> <span class="o">||</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">();</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="kd">label</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="kd">label</span><span class="o">;</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">description</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">description</span><span class="o">;</span>
-   
+
       <span class="c">// Define default messages</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">messages</span> <span class="o">=</span> <span class="p">{};</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">required</span> <span class="o">=</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">messages</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">required</span><span class="p">)</span> <span class="o">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">required</span> <span class="o">:</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">required</span><span class="o">;</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">invalid</span> <span class="o">=</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">messages</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">invalid</span><span class="p">)</span> <span class="o">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">invalid</span> <span class="o">:</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">invalid</span><span class="o">;</span>
 	   <span class="c">//this.options.messages.valid = (options.messages &amp;&amp; options.messages.valid) ? options.messages.valid : inputEx.messages.valid;</span>
-	
+
 	   <span class="c">// Other options</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">:</span> <span class="s1">&#39;inputEx-Field&#39;</span><span class="o">;</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">required</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">required</span><span class="p">)</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">required</span><span class="o">;</span>
@@ -136,7 +136,7 @@
 <span class="c">    * Default render of the dom element. Create a divEl that wraps the field.</span>
 <span class="c">    */</span>
 	<span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-	
+
 	   <span class="c">// Create a DIV element to wrap the editing el and the image</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-fieldWrapper&#39;</span><span class="p">});</span>
 	   <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
@@ -145,7 +145,7 @@
 	   <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">required</span><span class="p">)</span> <span class="p">{</span>
 	      <span class="nx">Dom</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="o">,</span> <span class="s2">&quot;inputEx-required&quot;</span><span class="p">);</span>
 	   <span class="p">}</span>
-	   
+
 	   <span class="c">// Label element</span>
 	   <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="kd">label</span><span class="p">)</span> <span class="p">{</span>
 	      <span class="k">this</span><span class="p">.</span><span class="nx">labelDiv</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;-label&#39;</span><span class="o">,</span> <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-label&#39;</span><span class="o">,</span> <span class="s1">&#39;for&#39;</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;-field&#39;</span><span class="p">});</span>
@@ -154,24 +154,24 @@
 	      <span class="k">this</span><span class="p">.</span><span class="nx">labelDiv</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">labelEl</span><span class="p">);</span>
 	      <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">labelDiv</span><span class="p">);</span>
       <span class="p">}</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span><span class="p">});</span> <span class="c">// for wrapping the field and description</span>
-	
+
       <span class="c">// Render the component directly</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">renderComponent</span><span class="p">();</span>
-      
+
       <span class="c">// Description</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">description</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;-desc&#39;</span><span class="o">,</span> <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-description&#39;</span><span class="p">}</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">description</span><span class="p">));</span>
       <span class="p">}</span>
-      
+
    	<span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">);</span>
-      
+
 	   <span class="c">// Insert a float breaker</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span><span class="kc">null</span><span class="o">,</span> <span class="p">{</span><span class="nx">clear</span><span class="o">:</span> <span class="s1">&#39;both&#39;</span><span class="p">}</span><span class="o">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span> <span class="p">);</span>
-	
+
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Fire the &quot;updated&quot; event (only if the field validated)</span>
 <span class="c">	 * Escape the stack using a setTimeout</span>
@@ -210,7 +210,7 @@
 <span class="c">    * Return the value of the input</span>
 <span class="c">    * @return {Any} value of the field</span>
 <span class="c">    */</span>
-	<span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 	   <span class="c">// override me</span>
 	<span class="p">}</span><span class="o">,</span>
 
@@ -221,10 +221,10 @@
 <span class="c">    */</span>
 	<span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
 	   <span class="c">// to be inherited</span>
-	   
+
 	   <span class="c">// set corresponding style</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">setClassFromState</span><span class="p">();</span>
-	   
+
 	   <span class="k">if</span><span class="p">(</span><span class="nx">sendUpdatedEvt</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
 	      <span class="c">// fire update event</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="p">();</span>
@@ -242,7 +242,7 @@
 	      <span class="nx">className</span> <span class="o">=</span> <span class="s1">&#39;inputEx-&#39;</span><span class="o">+</span><span class="p">((</span><span class="k">this</span><span class="p">.</span><span class="nx">previousState</span> <span class="o">==</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">stateRequired</span><span class="p">)</span> <span class="o">?</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">stateInvalid</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">previousState</span><span class="p">);</span>
 		   <span class="nx">Dom</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="o">,</span> <span class="nx">className</span><span class="p">);</span>
 	   <span class="p">}</span>
-	   
+
 	   <span class="c">// add new class</span>
 	   <span class="kd">var</span> <span class="nx">state</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getState</span><span class="p">();</span>
 	   <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="p">(</span><span class="nx">state</span> <span class="o">==</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">stateEmpty</span> <span class="o">&amp;&amp;</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">hasClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="o">,</span> <span class="s1">&#39;inputEx-focused&#39;</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
@@ -250,11 +250,11 @@
 	      <span class="nx">className</span> <span class="o">=</span> <span class="s1">&#39;inputEx-&#39;</span><span class="o">+</span><span class="p">((</span><span class="nx">state</span> <span class="o">==</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">stateRequired</span><span class="p">)</span> <span class="o">?</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">stateInvalid</span> <span class="o">:</span> <span class="nx">state</span><span class="p">);</span>
 	      <span class="nx">Dom</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="o">,</span> <span class="nx">className</span> <span class="p">);</span>
       <span class="p">}</span>
-	
+
 	   <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showMsg</span><span class="p">)</span> <span class="p">{</span>
 	      <span class="k">this</span><span class="p">.</span><span class="nx">displayMessage</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">getStateString</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">);</span>
       <span class="p">}</span>
-	   
+
 	   <span class="k">this</span><span class="p">.</span><span class="nx">previousState</span> <span class="o">=</span> <span class="nx">state</span><span class="o">;</span>
 	<span class="p">}</span><span class="o">,</span>
 
@@ -277,7 +277,7 @@
 <span class="c">    * Returns the current state (given its value)</span>
 <span class="c">    * @return {String} One of the following states: &#39;empty&#39;, &#39;required&#39;, &#39;valid&#39; or &#39;invalid&#39;</span>
 <span class="c">    */</span>
-	<span class="nx">getState</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="nx">getState</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 	   <span class="c">// if the field is empty :</span>
 	   <span class="k">if</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">isEmpty</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
 	      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">required</span> <span class="o">?</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">stateRequired</span> <span class="o">:</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">stateEmpty</span><span class="o">;</span>
@@ -309,7 +309,7 @@
 <span class="c">    */</span>
 	<span class="nx">onBlur</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
 	   <span class="nx">Dom</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getEl</span><span class="p">()</span><span class="o">,</span> <span class="s1">&#39;inputEx-focused&#39;</span><span class="p">);</span>
-	   
+
 	   <span class="c">// Call setClassFromState on Blur</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">setClassFromState</span><span class="p">();</span>
 	<span class="p">}</span><span class="o">,</span>
@@ -345,25 +345,25 @@
 <span class="c">    */</span>
    <span class="nx">focus</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Purge all event listeners and remove the component from the dom</span>
 <span class="c">    */</span>
    <span class="nx">destroy</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">el</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getEl</span><span class="p">();</span>
-      
+
       <span class="c">// Unsubscribe all listeners on the updatedEvt</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">updatedEvt</span><span class="p">.</span><span class="nx">unsubscribeAll</span><span class="p">();</span>
-      
+
       <span class="c">// Remove from DOM</span>
       <span class="k">if</span><span class="p">(</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">inDocument</span><span class="p">(</span><span class="nx">el</span><span class="p">))</span> <span class="p">{</span>
          <span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
       <span class="p">}</span>
-      
+
       <span class="c">// recursively purge element</span>
       <span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">purgeElement</span><span class="p">(</span><span class="nx">el</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Update the message </span>
 <span class="c">    * @param {String} msg Message to display</span>
@@ -386,14 +386,14 @@
    <span class="nx">show</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Hide the field</span>
 <span class="c">    */</span>
    <span class="nx">hide</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Clear the field by setting the field value to this.options.value</span>
 <span class="c">    * @param {boolean} [sendUpdatedEvt] (optional) Wether this clear should fire the updatedEvt or not (default is true, pass false to NOT send the event)</span>
@@ -401,14 +401,14 @@
    <span class="nx">clear</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Should return true if empty</span>
 <span class="c">    */</span>
    <span class="nx">isEmpty</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">()</span> <span class="o">===</span> <span class="s1">&#39;&#39;</span><span class="o">;</span>
    <span class="p">}</span>
-   
+
 <span class="p">};</span>
 
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Field</span><span class="p">.</span><span class="nx">groupOptions</span> <span class="o">=</span> <span class="p">[</span>
@@ -510,7 +510,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

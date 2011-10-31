@@ -9,11 +9,11 @@
    <link rel="stylesheet" href="../lib/yui/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
    <link rel="stylesheet" href="../lib/yui/base/base.css" type="text/css">
 
-	<!-- InputEx CSS is included for the 'response tree' widget. 
+	<!-- InputEx CSS is included for the 'response tree' widget.
 	     You can remove it safely -->
 	<link type='text/css' rel='stylesheet' href='../css/inputEx.css' />
-	
-<!-- CSS customization for the page -->	
+
+<!-- CSS customization for the page -->
 <style>
 #hd { padding: 5px; background-color: #CCCCCC; color: white; }
 #hd h1 { font-size: 32pt; }
@@ -25,31 +25,31 @@
 
 </head>
 <body>
-	
+
 <div id="doc" class="yui-t7">
-  
+
 	<div id="hd" role="banner">
 		<h1>yql-trimpath-page Example</h1>
 		<p>This page is an example of the <a href="../tools/yql-trimpath-page/index.html">yql-trimpath-page utility</a> from the inputEx library.<br />
 		   Read the comments in the source to view the "text/yql" and "text/trimpath" script tags.</p>
 	</div>
-	
+
 	<div id="bd" role="main">
-		
+
 		<div class="yui-g">
-			
-	    <div class="yui-u first">	
+
+	    <div class="yui-u first">
 					<div class="box" id="log">
 						<h1>Photos</h1>
-						
-						<!-- 
+
+						<!--
 						Ok, this is where it's getting interesting.
-						Each script tag with a type set to "text/trimpath" will be executed as a trimpath template. 
+						Each script tag with a type set to "text/trimpath" will be executed as a trimpath template.
 						The src attribute must be set to "#n" where n represent the index of the yql query (see botom)
 						The "query" object is available containing the results of the #n th query.
 						-->
-						
-						<!-- 
+
+						<!--
 						The query we run on this page is : "select * from flickr.photos.search where text=\"juggler\""
 						This template displays small thumbnails of this flickr search results
 						-->
@@ -62,13 +62,13 @@
 						</script>
 					</div>
 		  </div>
-		
+
 	    <div class="yui-u">
 				<div class="box" id="diagnostic">
 					<h1>Diagnostics</h1>
-					
+
 					<!--
-					This 
+					This
 					-->
 					<script type="text/trimpath" src="#0">
 						<p>Build Version: ${query.diagnostics['build-version']}</p>
@@ -79,12 +79,12 @@
 					</script>
 				</div>
 		  </div>
-		
+
 		</div>
-	
+
 	<!-- Second row -->
 	<div class="yui-g">
-		
+
 	    <div class="yui-u first">
 				<div class="box" id="log">
 					<h1>Log</h1>
@@ -97,7 +97,7 @@
 					</ul>
 				</div>
 		  </div>
-	    
+
 			<div class="yui-u">
 				<div class="box" id="url">
 					<h1>Urls and queries</h1>
@@ -114,22 +114,22 @@
 					</ul>
 				</div>
 		  </div>
-		
+
 	</div>
-	
+
 	<!-- Third row -->
 	<div class="yui-g">
-		
+
 				<div class="box" id="tree">
 					<h1>Response Tree</h1>
 					<div id="treeContainer"></div>
 				</div>
-		
+
 	</div>
 
 	</div>
-	
-	
+
+
   <div id="ft" role="contentinfo"><p>Footer</p></div>
 </div>
 
@@ -145,9 +145,9 @@
 	y.log("Everything's fine");
 
 	response.object = json;
-</script> 
+</script>
 
-<script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script> 
+<script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
 <script type="text/javascript" src="../lib/yui/json/json-min.js"></script>
 <script type="text/javascript" src="../lib/trimpath-template-1.0.38.js"></script>
 <script type="text/javascript" src="../js/inputex.js"></script>
@@ -157,12 +157,12 @@
 <script>
 // Executed when DOM is loaded
 YAHOO.util.Event.onDOMReady(function() {
-	
+
 	// This is an example of an additionnal callback, to display a JsonTreeInspector widget from the yql response
 	var callback0 = function(results) {
 		new inputEx.widget.JsonTreeInspector('treeContainer', {query: results.query});
 	};
-	
+
    // Call the yql-trimpath-page utility (with a list of callbacks for each "text/yql" script tag)
    inputEx.YQL.initTrimpathPage([[callback0]]);
 });

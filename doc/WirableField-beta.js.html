@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/wireit" title="WireItLibrary">WireItLibrary</a></h1>
         <h3>WireIt&nbsp; <span class="subtitle">0.6.0</span></h3>
-        <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
+        <a href="./index.html" title="WireItLibrary">WireItLibrary</a>
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
-                
-                 &gt; WirableField-beta.js (source view) 
+
+                 &gt; WirableField-beta.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -78,23 +78,23 @@
 <span class="c">    */</span>
    <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Field</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">wirable</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">wirable</span><span class="p">)</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">wirable</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">container</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">container</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Adds a terminal to each field</span>
 <span class="c">    * @method render</span>
 <span class="c">    */</span>
    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Field</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">render</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-      
+
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">wirable</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">renderTerminal</span><span class="p">();</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Render the associated input terminal</span>
 <span class="c">    * @method renderTerminal</span>
@@ -105,7 +105,7 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">wrapper</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">);</span>
 
       <span class="k">this</span><span class="p">.</span><span class="nx">terminal</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Terminal</span><span class="p">(</span><span class="nx">wrapper</span><span class="o">,</span> <span class="p">{</span>
-         <span class="nx">name</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="o">,</span> 
+         <span class="nx">name</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="o">,</span>
          <span class="nx">direction</span><span class="o">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span>
          <span class="nx">fakeDirection</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">,</span>
          <span class="nx">ddConfig</span><span class="o">:</span> <span class="p">{</span>
@@ -142,7 +142,7 @@
 <span class="c">     * Remove the input wired state on the </span>
 <span class="c">     * @method onRemoveWire</span>
 <span class="c">     */</span>
-    <span class="nx">onRemoveWire</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span> <span class="nx">params</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="nx">onRemoveWire</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span> <span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
        <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">onRemoveWire</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span><span class="nx">params</span><span class="p">);</span>
 
        <span class="k">this</span><span class="p">.</span><span class="nx">enable</span><span class="p">();</span>
@@ -201,7 +201,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
                                 <li class=""><a href="Anim.js.html" title="Anim.js">Anim.js</a></li>
                                 <li class=""><a href="BaseEditor.js.html" title="BaseEditor.js">BaseEditor.js</a></li>

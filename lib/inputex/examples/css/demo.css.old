@@ -1,8 +1,8 @@
 
 #mainFrame {
 	background-color: #AAAA66;
-	margin: 50px auto; 
-	width: 80%; 
+	margin: 50px auto;
+	width: 80%;
 	padding-bottom:70px;
 	position: relative;
 }
@@ -58,7 +58,7 @@
 
 .exampleDiv .exampleDescription {
 }
-	
+
 .exampleDiv .exampleCode {
 	background-color:#DDDDDD;
 	border:1px solid #AAAAFF;

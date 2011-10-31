@@ -1,11 +1,11 @@
 {
 	"SMDVersion": "2.0",
-	"id": "http://developer.yahoo.com/search/", 
+	"id": "http://developer.yahoo.com/search/",
 	"description": "Yahoo's search API",
 
 	"transport": "JSONP",
 	"envelope": "URL",
-	
+
 	"additionalParameters": true,
 	"parameters": [
 		{ "name": "appid", "optional": false, "default": "dojotoolkit" },
@@ -14,7 +14,7 @@
    "callbackParamName": "callback",
 
 	"services": {
-												
+
 			"questionSearch": {
 			"target": "http://answers.yahooapis.com/AnswersService/V1/questionSearch",
 			"parameters": [
@@ -27,12 +27,12 @@
 				{ "name": "sort", "type": "string", "optional": true, "default": "relevance", "enum": ["relevance", "date_desc", "date_asc"], "options": [{"value":"relevance","label":"By relevance"},{"value":"date_desc","label":"By date, newest first"},{"value":"date_asc","label":"By date, oldest first"} ]},
 				{ "name": "type", "type": "string", "optional": true, "default": "all", "enum":["all", "resolved", "open", "undecided"] },
 				{ "name": "start", "type": "integer", "optional": true, "default": 0 },
-				{ "name": "results", "type": "integer", "optional": true, "default": 10 } 			
+				{ "name": "results", "type": "integer", "optional": true, "default": 10 }
 			]
 		}
 
    }
-	
+
 }
 
 

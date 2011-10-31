@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; ddlist.js (source view) 
+
+                 &gt; ddlist.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -50,7 +50,7 @@
                         <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 
    <span class="kd">var</span> <span class="nx">DD</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">DragDropMgr</span><span class="o">,</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="o">,</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">,</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">;</span>
-   
+
 <span class="c">/**</span>
 <span class="c"> * DDProxy for DDList items (used by DDList)</span>
 <span class="c"> * @class inputEx.widget.DDListItem</span>
@@ -89,7 +89,7 @@
 <span class="c">     */</span>
     <span class="nx">endDrag</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">Dom</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="o">,</span> <span class="s2">&quot;visibility&quot;</span><span class="o">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>
-        
+
         <span class="c">// Fire the reordered event if position in list has changed</span>
         <span class="kd">var</span> <span class="nx">clickEl</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getEl</span><span class="p">();</span>
         <span class="kd">var</span> <span class="nx">newIndex</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">clickEl</span> <span class="o">,</span><span class="nx">clickEl</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">);</span>
@@ -108,10 +108,10 @@
         <span class="k">if</span> <span class="p">(</span><span class="nx">DD</span><span class="p">.</span><span class="nx">interactionInfo</span><span class="p">.</span><span class="nx">drop</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 
             <span class="c">// The position of the cursor at the time of the drop (YAHOO.util.Point)</span>
-            <span class="kd">var</span> <span class="nx">pt</span> <span class="o">=</span> <span class="nx">DD</span><span class="p">.</span><span class="nx">interactionInfo</span><span class="p">.</span><span class="nx">point</span><span class="o">;</span> 
+            <span class="kd">var</span> <span class="nx">pt</span> <span class="o">=</span> <span class="nx">DD</span><span class="p">.</span><span class="nx">interactionInfo</span><span class="p">.</span><span class="nx">point</span><span class="o">;</span>
 
             <span class="c">// The region occupied by the source element at the time of the drop</span>
-            <span class="kd">var</span> <span class="nx">region</span> <span class="o">=</span> <span class="nx">DD</span><span class="p">.</span><span class="nx">interactionInfo</span><span class="p">.</span><span class="nx">sourceRegion</span><span class="o">;</span> 
+            <span class="kd">var</span> <span class="nx">region</span> <span class="o">=</span> <span class="nx">DD</span><span class="p">.</span><span class="nx">interactionInfo</span><span class="p">.</span><span class="nx">sourceRegion</span><span class="o">;</span>
 
             <span class="c">// Check to see if we are over the source element&#39;s location.  We will</span>
             <span class="c">// append to the bottom of the list once we are sure it was a drop in</span>
@@ -148,7 +148,7 @@
 <span class="c">     * @method onDragOver</span>
 <span class="c">     */</span>
     <span class="nx">onDragOver</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span> <span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
-    
+
         <span class="kd">var</span> <span class="nx">srcEl</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getEl</span><span class="p">();</span>
         <span class="kd">var</span> <span class="nx">destEl</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
 
@@ -181,11 +181,11 @@
 <span class="c"> * &lt;/ul&gt;</span>
 <span class="c"> */</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">DDList</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-   
+
    <span class="k">this</span><span class="p">.</span><span class="nx">ul</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
-   
+
    <span class="k">this</span><span class="p">.</span><span class="nx">items</span> <span class="o">=</span> <span class="p">[];</span>
-   
+
    <span class="k">this</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
 
    <span class="c">/**</span>
@@ -193,34 +193,34 @@
 <span class="c">	 * @param {Any} itemValue value of the removed item</span>
 <span class="c">	 */</span>
 	<span class="k">this</span><span class="p">.</span><span class="nx">itemRemovedEvt</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s1">&#39;itemRemoved&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">);</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * @event YAHOO custom event fired when the list is reordered</span>
 <span class="c">	 */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">listReorderedEvt</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s1">&#39;listReordered&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">);</span>
-   
+
 
    <span class="c">// append it immediatly to the parent DOM element</span>
 	<span class="k">if</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">)</span> <span class="p">{</span>
 	   <span class="k">if</span><span class="p">(</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isString</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
-	     <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ul</span><span class="p">);</span>  
+	     <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ul</span><span class="p">);</span>
 	   <span class="p">}</span>
 	   <span class="k">else</span> <span class="p">{</span>
 	      <span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ul</span><span class="p">);</span>
       <span class="p">}</span>
 	<span class="p">}</span>
-	
+
 <span class="p">};</span>
 
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">DDList</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
-	
+
    <span class="c">/**</span>
 <span class="c">    * Set the options </span>
 <span class="c">    */</span>
    <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
 	   	<span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
-   		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowDelete</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowDelete</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">allowDelete</span><span class="o">;</span> 
-	
+   		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowDelete</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowDelete</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">allowDelete</span><span class="o">;</span>
+
 		   <span class="k">if</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
 		      <span class="k">this</span><span class="p">.</span><span class="nx">ul</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">id</span><span class="o">;</span>
 		   <span class="p">}</span>
@@ -229,7 +229,7 @@
 		      <span class="k">this</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
 		   <span class="p">}</span>
 
-   <span class="p">}</span><span class="o">,</span>	
+   <span class="p">}</span><span class="o">,</span>
 
    <span class="c">/**</span>
 <span class="c">    * Add an item to the list</span>
@@ -241,7 +241,7 @@
 
       <span class="c">// Option for the &quot;remove&quot; link (default: true)</span>
 		<span class="k">if</span><span class="p">(</span><span class="o">!!</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowDelete</span><span class="p">){</span>
-			<span class="kd">var</span> <span class="nx">removeLink</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s2">&quot;remove&quot;</span><span class="p">);</span> 
+			<span class="kd">var</span> <span class="nx">removeLink</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s2">&quot;remove&quot;</span><span class="p">);</span>
 	      <span class="nx">li</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">removeLink</span> <span class="p">);</span>
 	      <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="nx">removeLink</span><span class="o">,</span> <span class="s1">&#39;click&#39;</span><span class="o">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
 	         <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">Event</span><span class="p">.</span><span class="nx">getTarget</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
@@ -252,40 +252,40 @@
 
       <span class="kd">var</span> <span class="nx">dditem</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">DDListItem</span><span class="p">(</span><span class="nx">li</span><span class="p">);</span>
       <span class="nx">dditem</span><span class="p">.</span><span class="nx">_list</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">item</span> <span class="o">==</span> <span class="s2">&quot;object&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="nx">item</span><span class="p">.</span><span class="nx">value</span> <span class="o">:</span> <span class="nx">item</span> <span class="p">);</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">ul</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">li</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * private method to remove an item</span>
 <span class="c">    * @param {Integer} index index of item to be removed</span>
 <span class="c">    * @private</span>
 <span class="c">    */</span>
    <span class="nx">_removeItem</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="kd">var</span> <span class="nx">itemValue</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">items</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-   
+
       <span class="k">this</span><span class="p">.</span><span class="nx">ul</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ul</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">items</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">items</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">compactArray</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">items</span><span class="p">);</span>
-      
+
       <span class="k">return</span> <span class="nx">itemValue</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Method to remove an item (_removeItem function + event firing)</span>
 <span class="c">    * @param {Integer} index Item index</span>
 <span class="c">    */</span>
    <span class="nx">removeItem</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">itemValue</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_removeItem</span><span class="p">(</span><span class="nx">index</span><span class="p">);</span>
-      
+
       <span class="c">// Fire the itemRemoved Event</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">itemRemovedEvt</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">itemValue</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Called by the DDListItem when an item as been moved</span>
 <span class="c">    */</span>
@@ -297,12 +297,12 @@
       <span class="k">else</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">newIndex</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">items</span><span class="p">[</span><span class="nx">originalIndex</span><span class="p">]);</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">items</span><span class="p">[</span><span class="nx">originalIndex</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-      <span class="p">}</span>      
+      <span class="p">}</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">items</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">compactArray</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">items</span><span class="p">);</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">listReorderedEvt</span><span class="p">.</span><span class="nx">fire</span><span class="p">();</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Return the current value of the field</span>
 <span class="c">    * @return {Array} array of values</span>
@@ -310,7 +310,7 @@
    <span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">items</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Update the value of a given item</span>
 <span class="c">    * @param {Integer} index Item index</span>
@@ -320,7 +320,7 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">items</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">ul</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nx">childNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">value</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Set the value of the list</span>
 <span class="c">    * @param {Array} value list of values</span>
@@ -330,10 +330,10 @@
       <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">value</span><span class="p">))</span> <span class="p">{</span>
          <span class="nx">value</span> <span class="o">=</span> <span class="p">[];</span>
       <span class="p">}</span>
-      
+
       <span class="kd">var</span> <span class="nx">oldNb</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">ul</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span>
       <span class="kd">var</span> <span class="nx">newNb</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span>
-      
+
       <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">newNb</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">if</span><span class="p">(</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">oldNb</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">updateItem</span><span class="p">(</span><span class="nx">i</span><span class="o">,</span> <span class="nx">value</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
@@ -342,13 +342,13 @@
             <span class="k">this</span><span class="p">.</span><span class="nx">addItem</span><span class="p">(</span><span class="nx">value</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
          <span class="p">}</span>
       <span class="p">}</span>
-      
+
       <span class="c">// remove extra li items if any</span>
       <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">newNb</span><span class="o">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">oldNb</span><span class="o">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">_removeItem</span><span class="p">(</span><span class="nx">newNb</span><span class="p">);</span> <span class="c">// newNb is always the index of first li to remove (not j !)</span>
       <span class="p">}</span>
    <span class="p">}</span>
-   
+
 <span class="p">};</span>
 
 
@@ -443,7 +443,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

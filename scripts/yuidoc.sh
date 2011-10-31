@@ -8,7 +8,7 @@ yuidoc_home=~/Tools/yuidoc
 #     parser_in="%HOME/www/yui/src %HOME/www/event/src"
 parser_in="$HOME/Projets/WireIt/master/js"
 
-# The location to output the parser data.  This output is a file containing a 
+# The location to output the parser data.  This output is a file containing a
 # json string, and copies of the parsed files.
 parser_out=~/Projets/WireIt/master/scripts/doc-parser
 

@@ -15,6 +15,6 @@
    $r["result"] = $result;
    $r["error"] = NULL;
    $r["id"] = $req->id;
-   
+
    echo json_encode($r);
 ?>

@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/wireit" title="WireItLibrary">WireItLibrary</a></h1>
         <h3>WireIt&nbsp; <span class="subtitle">0.6.0</span></h3>
-        <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
+        <a href="./index.html" title="WireItLibrary">WireItLibrary</a>
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
-                
-                 &gt; Container.js (source view) 
+
+                 &gt; Container.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -48,10 +48,10 @@
                             #doc3 .classopts { display:none; }
                         </style>
                         <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-   
+
    <span class="kd">var</span> <span class="nx">util</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="o">;</span>
    <span class="kd">var</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="o">,</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">,</span> <span class="nx">CSS_PREFIX</span> <span class="o">=</span> <span class="s2">&quot;WireIt-&quot;</span><span class="o">;</span>
-   
+
 <span class="c">/**</span>
 <span class="c"> * Visual module that contains terminals. The wires are updated when the module is dragged around.</span>
 <span class="c"> * @class Container</span>
@@ -61,99 +61,99 @@
 <span class="c"> * @param {WireIt.Layer}   layer The WireIt.Layer (or subclass) instance that contains this container</span>
 <span class="c"> */</span>
 <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Container</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="o">,</span> <span class="nx">layer</span><span class="p">)</span> <span class="p">{</span>
-   
+
    <span class="c">// Set the options</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * the WireIt.Layer object that schould contain this container</span>
 <span class="c">    * @property layer</span>
 <span class="c">    * @type {WireIt.Layer}</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">layer</span> <span class="o">=</span> <span class="nx">layer</span><span class="o">;</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * List of the terminals </span>
 <span class="c">    * @property terminals</span>
 <span class="c">    * @type {Array}</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">terminals</span> <span class="o">=</span> <span class="p">[];</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * List of all the wires connected to this container terminals</span>
 <span class="c">    * @property wires</span>
 <span class="c">    * @type {Array}</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">wires</span> <span class="o">=</span> <span class="p">[];</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Container DOM element</span>
 <span class="c">    * @property el</span>
 <span class="c">    * @type {HTMLElement}</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Body element</span>
 <span class="c">    * @property bodyEl</span>
 <span class="c">    * @type {HTMLElement}</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">bodyEl</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Event that is fired when a wire is added</span>
 <span class="c">    * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);</span>
 <span class="c">    * @event eventAddWire</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">eventAddWire</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s2">&quot;eventAddWire&quot;</span><span class="p">);</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Event that is fired when a wire is removed</span>
 <span class="c">    * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);</span>
 <span class="c">    * @event eventRemoveWire</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">eventRemoveWire</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s2">&quot;eventRemoveWire&quot;</span><span class="p">);</span>
-   
+
    <span class="c">// Render the div object</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-   
+
    <span class="c">// Init the terminals</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">initTerminals</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">terminals</span><span class="p">);</span>
-   
+
 	<span class="c">// Make the container draggable</span>
 	<span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">draggable</span><span class="p">)</span> <span class="p">{</span>
-		   
+
 	   <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">resizable</span><span class="p">)</span> <span class="p">{</span>
       	<span class="c">// Make resizeable   </span>
       	<span class="k">this</span><span class="p">.</span><span class="nx">ddResize</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">DDResize</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
       	<span class="k">this</span><span class="p">.</span><span class="nx">ddResize</span><span class="p">.</span><span class="nx">eventResize</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">onResize</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
 	   <span class="p">}</span>
-	   
+
 	   <span class="c">// Use the drag&#39;n drop utility to make the container draggable</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">dd</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">DD</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">terminals</span><span class="o">,</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
-	   
+
 	   <span class="c">// Sets ddHandle as the drag&#39;n drop handle</span>
 	   <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">ddHandle</span><span class="p">)</span> <span class="p">{</span>
    	   <span class="k">this</span><span class="p">.</span><span class="nx">dd</span><span class="p">.</span><span class="nx">setHandleElId</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ddHandle</span><span class="p">);</span>
 	   <span class="p">}</span>
-	   
+
 	   <span class="c">// Mark the resize handle as an invalid drag&#39;n drop handle and vice versa</span>
 	   <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">resizable</span><span class="p">)</span> <span class="p">{</span>
    	   <span class="k">this</span><span class="p">.</span><span class="nx">dd</span><span class="p">.</span><span class="nx">addInvalidHandleId</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ddResizeHandle</span><span class="p">);</span>
       	<span class="k">this</span><span class="p">.</span><span class="nx">ddResize</span><span class="p">.</span><span class="nx">addInvalidHandleId</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ddHandle</span><span class="p">);</span>
 	   <span class="p">}</span>
    <span class="p">}</span>
-   
+
 <span class="p">};</span>
 
 <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Container</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * set the options</span>
 <span class="c">    * @method setOptions</span>
 <span class="c">    */</span>
    <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="c">/**</span>
 <span class="c">       * Main options object</span>
 <span class="c">       * &lt;ul&gt;</span>
@@ -195,9 +195,9 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">closeButtonClassName</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">closeButtonClassName</span> <span class="o">||</span> <span class="nx">CSS_PREFIX</span><span class="o">+</span><span class="s2">&quot;Container-closebutton&quot;</span><span class="o">;</span>
 
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">title</span><span class="o">;</span> <span class="c">// no default</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">icon</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">icon</span><span class="o">;</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">preventSelfWiring</span> <span class="o">=</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">preventSelfWiring</span> <span class="o">==</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">preventSelfWiring</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
 
@@ -216,30 +216,30 @@
 <span class="c">    * @method render</span>
 <span class="c">    */</span>
    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-   
+
       <span class="c">// Create the element</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span><span class="p">});</span>
-   
+
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">width</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">;</span>
       <span class="p">}</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">height</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">;</span>
       <span class="p">}</span>
-   
+
       <span class="c">// Adds a handler for mousedown so we can notice the layer</span>
       <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="s2">&quot;mousedown&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onMouseDown</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-   
+
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">ddHandle</span><span class="p">)</span> <span class="p">{</span>
          <span class="c">// Create the drag/drop handle</span>
       	<span class="k">this</span><span class="p">.</span><span class="nx">ddHandle</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">ddHandleClassName</span><span class="p">});</span>
       	<span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ddHandle</span><span class="p">);</span>
-      	
+
          <span class="c">// Set title</span>
          <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">title</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">ddHandle</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">title</span><span class="p">)</span> <span class="p">);</span>
          <span class="p">}</span>
-         
+
          <span class="c">// Icon</span>
          <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">icon</span><span class="p">)</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">iconCn</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">src</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">icon</span><span class="o">,</span> <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;WireIt-Container-icon&#39;</span><span class="p">});</span>
@@ -247,27 +247,27 @@
          <span class="p">}</span>
 
       <span class="p">}</span>
-   
+
       <span class="c">// Create the body element</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">bodyEl</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s2">&quot;body&quot;</span><span class="p">});</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">bodyEl</span><span class="p">);</span>
-   
+
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">resizable</span><span class="p">)</span> <span class="p">{</span>
          <span class="c">// Create the resize handle</span>
       	<span class="k">this</span><span class="p">.</span><span class="nx">ddResizeHandle</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">resizeHandleClassName</span><span class="p">}</span> <span class="p">);</span>
       	<span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ddResizeHandle</span><span class="p">);</span>
       <span class="p">}</span>
-   
+
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">close</span><span class="p">)</span> <span class="p">{</span>
          <span class="c">// Close button</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">closeButton</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">closeButtonClassName</span><span class="p">}</span> <span class="p">);</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">closeButton</span><span class="p">);</span>
          <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">closeButton</span><span class="o">,</span> <span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onCloseButton</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="p">}</span>
-   
+
       <span class="c">// Append to the layer element</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
-   
+
    	<span class="c">// Set the position</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">;</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;px&quot;</span><span class="o">;</span>
@@ -332,13 +332,13 @@
 <span class="c">    * @method remove</span>
 <span class="c">    */</span>
    <span class="nx">remove</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-   
+
       <span class="c">// Remove the terminals (and thus remove the wires)</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">removeAllTerminals</span><span class="p">();</span>
-   
+
       <span class="c">// Remove from the dom</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
-      
+
       <span class="c">// Remove all event listeners</span>
       <span class="nx">Event</span><span class="p">.</span><span class="nx">purgeElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
@@ -361,20 +361,20 @@
 <span class="c">    * @return {WireIt.Terminal}  terminal Created terminal</span>
 <span class="c">    */</span>
    <span class="nx">addTerminal</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">terminalConfig</span><span class="p">)</span> <span class="p">{</span>
-   
+
       <span class="c">// Terminal type</span>
       <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">terminalConfig</span><span class="p">.</span><span class="nx">xtype</span> <span class="o">||</span> <span class="s2">&quot;WireIt.Terminal&quot;</span><span class="p">);</span>
-   
+
       <span class="c">// Instanciate the terminal</span>
       <span class="kd">var</span> <span class="nx">term</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">type</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="nx">terminalConfig</span><span class="o">,</span> <span class="k">this</span><span class="p">);</span>
-   
+
       <span class="c">// Add the terminal to the list</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">terminals</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">term</span> <span class="p">);</span>
-   
+
       <span class="c">// Event listeners</span>
       <span class="nx">term</span><span class="p">.</span><span class="nx">eventAddWire</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">onAddWire</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="nx">term</span><span class="p">.</span><span class="nx">eventRemoveWire</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">onRemoveWire</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-   
+
       <span class="k">return</span> <span class="nx">term</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
 
@@ -390,7 +390,7 @@
       <span class="k">if</span><span class="p">(</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">wire</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">wires</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">wires</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">wire</span><span class="p">);</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">eventAddWire</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">wire</span><span class="p">);</span>
-      <span class="p">}</span> 
+      <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
 
    <span class="c">/**</span>
@@ -436,7 +436,7 @@
 <span class="c">    */</span>
    <span class="nx">getConfig</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
-   
+
       <span class="c">// Position</span>
       <span class="nx">obj</span><span class="p">.</span><span class="nx">position</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">getXY</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">)</span> <span class="p">{</span>
@@ -448,15 +448,15 @@
          <span class="nx">obj</span><span class="p">.</span><span class="nx">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">scrollLeft</span><span class="o">;</span>
          <span class="nx">obj</span><span class="p">.</span><span class="nx">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">scrollTop</span><span class="o">;</span>
       <span class="p">}</span>
-   
+
       <span class="c">// xtype</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">xtype</span><span class="p">)</span> <span class="p">{</span>
          <span class="nx">obj</span><span class="p">.</span><span class="nx">xtype</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">xtype</span><span class="o">;</span>
       <span class="p">}</span>
-   
+
       <span class="k">return</span> <span class="nx">obj</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Subclasses should override this method.</span>
 <span class="c">    * @method getValue</span>
@@ -473,8 +473,8 @@
 <span class="c">    */</span>
    <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
    <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="c">/**</span>
 <span class="c">    * @method getTerminal</span>
 <span class="c">    */</span>
@@ -540,7 +540,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
                                 <li class=""><a href="Anim.js.html" title="Anim.js">Anim.js</a></li>
                                 <li class=""><a href="BaseEditor.js.html" title="BaseEditor.js">BaseEditor.js</a></li>

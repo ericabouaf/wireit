@@ -8,7 +8,7 @@ version: 2.8.0r4
  * YUI Fonts
  * @module fonts
  * @namespace yui-
- * @requires 
+ * @requires
  */
 
 /**
@@ -17,15 +17,15 @@ version: 2.8.0r4
  */
 body {
 	font:13px/1.231 arial,helvetica,clean,sans-serif;
-	/* for IE6/7 */ 
-	*font-size:small; 
+	/* for IE6/7 */
+	*font-size:small;
 	/* for IE Quirks Mode */
-	*font:x-small; 
+	*font:x-small;
 }
 
 /**
  * Nudge down to get to 13px equivalent for these form elements
- */ 
+ */
 select,
 input,
 button,

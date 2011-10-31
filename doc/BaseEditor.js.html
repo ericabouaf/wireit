@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/wireit" title="WireItLibrary">WireItLibrary</a></h1>
         <h3>WireIt&nbsp; <span class="subtitle">0.6.0</span></h3>
-        <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
+        <a href="./index.html" title="WireItLibrary">WireItLibrary</a>
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
-                
-                 &gt; BaseEditor.js (source view) 
+
+                 &gt; BaseEditor.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -59,19 +59,19 @@
 <span class="c"> * @param {Object} options (layoutOptions,propertiesFields,accordionViewParams)</span>
 <span class="c"> */</span>
 <span class="nx">WireIt</span><span class="p">.</span><span class="nx">BaseEditor</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">    * Container DOM element</span>
 <span class="c">    * @property el</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">);</span>
-	
+
 	<span class="c">// set the default options</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
 
    <span class="c">// Rendering</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-	
+
 <span class="p">};</span>
 
 <span class="c">/**</span>
@@ -81,10 +81,10 @@
 	<span class="nx">layoutOptions</span><span class="o">:</span> <span class="p">{</span>
 	 	<span class="nx">units</span><span class="o">:</span> <span class="p">[</span>
 	   	<span class="p">{</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;top&#39;</span><span class="o">,</span> <span class="nx">height</span><span class="o">:</span> <span class="mi">57</span><span class="o">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;top&#39;</span><span class="p">}</span><span class="o">,</span>
-	      <span class="p">{</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;left&#39;</span><span class="o">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">200</span><span class="o">,</span> <span class="nx">resize</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;left&#39;</span><span class="o">,</span> <span class="nx">gutter</span><span class="o">:</span> <span class="s1">&#39;5px&#39;</span><span class="o">,</span> <span class="nx">collapse</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> 
+	      <span class="p">{</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;left&#39;</span><span class="o">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">200</span><span class="o">,</span> <span class="nx">resize</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;left&#39;</span><span class="o">,</span> <span class="nx">gutter</span><span class="o">:</span> <span class="s1">&#39;5px&#39;</span><span class="o">,</span> <span class="nx">collapse</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
 	        <span class="nx">collapseSize</span><span class="o">:</span> <span class="mi">25</span><span class="o">,</span> <span class="nx">header</span><span class="o">:</span> <span class="s1">&#39;Modules&#39;</span><span class="o">,</span> <span class="nx">scroll</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> <span class="nx">animate</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span><span class="o">,</span>
 	      <span class="p">{</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="o">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="o">,</span> <span class="nx">gutter</span><span class="o">:</span> <span class="s1">&#39;5px&#39;</span> <span class="p">}</span><span class="o">,</span>
-	      <span class="p">{</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;right&#39;</span><span class="o">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">320</span><span class="o">,</span> <span class="nx">resize</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;right&#39;</span><span class="o">,</span> <span class="nx">gutter</span><span class="o">:</span> <span class="s1">&#39;5px&#39;</span><span class="o">,</span> <span class="nx">collapse</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> 
+	      <span class="p">{</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;right&#39;</span><span class="o">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">320</span><span class="o">,</span> <span class="nx">resize</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;right&#39;</span><span class="o">,</span> <span class="nx">gutter</span><span class="o">:</span> <span class="s1">&#39;5px&#39;</span><span class="o">,</span> <span class="nx">collapse</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
 	        <span class="nx">collapseSize</span><span class="o">:</span> <span class="mi">25</span><span class="o">,</span> <span class="c">/*header: &#39;Properties&#39;, scroll: true,*/</span> <span class="nx">animate</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
 	   <span class="p">]</span>
 	<span class="p">}</span><span class="o">,</span>
@@ -93,14 +93,14 @@
 		<span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;string&quot;</span><span class="o">,</span> <span class="nx">inputParams</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;name&quot;</span><span class="o">,</span> <span class="kd">label</span><span class="o">:</span> <span class="s2">&quot;Title&quot;</span><span class="o">,</span> <span class="nx">typeInvite</span><span class="o">:</span> <span class="s2">&quot;Enter a title&quot;</span> <span class="p">}</span> <span class="p">}</span><span class="o">,</span>
 		<span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;text&quot;</span><span class="o">,</span> <span class="nx">inputParams</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;description&quot;</span><span class="o">,</span> <span class="kd">label</span><span class="o">:</span> <span class="s2">&quot;Description&quot;</span><span class="o">,</span> <span class="nx">cols</span><span class="o">:</span> <span class="mi">30</span><span class="o">,</span> <span class="nx">rows</span><span class="o">:</span> <span class="mi">4</span><span class="p">}</span> <span class="p">}</span>
 	<span class="p">]</span><span class="o">,</span>
-	
+
 	<span class="nx">accordionViewParams</span><span class="o">:</span> <span class="p">{</span>
-		<span class="nx">collapsible</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> 
+		<span class="nx">collapsible</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
 		<span class="nx">expandable</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> <span class="c">// remove this parameter to open only one panel at a time</span>
-		<span class="nx">width</span><span class="o">:</span> <span class="s1">&#39;auto&#39;</span><span class="o">,</span> 
-		<span class="nx">expandItem</span><span class="o">:</span> <span class="mi">0</span><span class="o">,</span> 
-		<span class="nx">animationSpeed</span><span class="o">:</span> <span class="s1">&#39;0.3&#39;</span><span class="o">,</span> 
-		<span class="nx">animate</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> 
+		<span class="nx">width</span><span class="o">:</span> <span class="s1">&#39;auto&#39;</span><span class="o">,</span>
+		<span class="nx">expandItem</span><span class="o">:</span> <span class="mi">0</span><span class="o">,</span>
+		<span class="nx">animationSpeed</span><span class="o">:</span> <span class="s1">&#39;0.3&#39;</span><span class="o">,</span>
+		<span class="nx">animate</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
 		<span class="nx">effect</span><span class="o">:</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Easing</span><span class="p">.</span><span class="nx">easeBothStrong</span>
 	<span class="p">}</span>
 <span class="p">};</span>
@@ -118,17 +118,17 @@
 <span class="c">	     * @type {Object}</span>
 <span class="c">	     */</span>
 	    <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
-	
+
 		 <span class="c">// inputEx configuration of fields in the properties panel</span>
 	    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">propertiesFields</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">propertiesFields</span> <span class="o">||</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">BaseEditor</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">.</span><span class="nx">propertiesFields</span><span class="o">;</span>
 
 		 <span class="c">// YUI layout options</span>
 	    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">layoutOptions</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">layoutOptions</span> <span class="o">||</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">BaseEditor</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">.</span><span class="nx">layoutOptions</span><span class="o">;</span>
-		
+
 		 <span class="c">// AccordionView</span>
 	 	 <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">accordionViewParams</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">accordionViewParams</span> <span class="o">||</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">BaseEditor</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">.</span><span class="nx">accordionViewParams</span><span class="o">;</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Render the layout &amp; panels</span>
 <span class="c">	 */</span>
@@ -179,7 +179,7 @@
 <span class="c">	 * Render the alert panel</span>
 <span class="c">	 */</span>
  	<span class="nx">renderAlertPanel</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-		
+
  	 <span class="c">/**</span>
 <span class="c">     * @property alertPanel</span>
 <span class="c">     * @type {YAHOO.widget.Panel}</span>
@@ -198,7 +198,7 @@
 			<span class="k">this</span><span class="p">.</span><span class="nx">alertPanel</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
 		<span class="p">}</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	 <span class="c">/**</span>
 <span class="c">	  * Toolbar</span>
 <span class="c">	  * @method renderButtons</span>
@@ -262,14 +262,14 @@
 	    <span class="k">this</span><span class="p">.</span><span class="nx">helpPanel</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
 	 <span class="p">}</span><span class="o">,</span>
 
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Render the accordion using yui-accordion</span>
 <span class="c">  	 */</span>
 	<span class="nx">renderPropertiesAccordion</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">accordionView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">AccordionView</span><span class="p">(</span><span class="s1">&#39;accordionView&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">accordionViewParams</span><span class="p">);</span>
 	<span class="p">}</span><span class="o">,</span>
- 
+
 	 <span class="c">/**</span>
 <span class="c">	  * Render the properties form</span>
 <span class="c">	  * @method renderPropertiesForm</span>
@@ -291,7 +291,7 @@
 	<span class="nx">markSaved</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">savedStatusEl</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="o">;</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/** </span>
 <span class="c">	 * Show the save indicator</span>
 <span class="c">	 */</span>
@@ -305,7 +305,7 @@
 	<span class="nx">isSaved</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 		<span class="k">return</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">savedStatusEl</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">);</span>
 	<span class="p">}</span>
-	
+
 <span class="p">};</span>
 
 
@@ -358,7 +358,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
                                 <li class=""><a href="Anim.js.html" title="Anim.js">Anim.js</a></li>
                                 <li class="selected"><a href="BaseEditor.js.html" title="BaseEditor.js">BaseEditor.js</a></li>

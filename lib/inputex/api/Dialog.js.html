@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; Dialog.js (source view) 
+
+                 &gt; Dialog.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -48,9 +48,9 @@
                             #doc3 .classopts { display:none; }
                         </style>
                         <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-   
+
    <span class="kd">var</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="o">,</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">;</span>
-   
+
 <span class="c">/**</span>
 <span class="c"> * Create a Dialog from an inputEx field definition</span>
 <span class="c"> * @class inputEx.widget.Dialog</span>
@@ -72,31 +72,31 @@
    <span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="o">;</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">title</span> <span class="o">||</span> <span class="s1">&#39;Please fill in the form&#39;</span><span class="o">;</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">panelConfig</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">panelConfig</span> <span class="o">||</span> <span class="p">{</span>
-		<span class="nx">constraintoviewport</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> 
-		<span class="nx">underlay</span><span class="o">:</span><span class="s2">&quot;shadow&quot;</span><span class="o">,</span> 
-		<span class="nx">close</span><span class="o">:</span><span class="kc">true</span><span class="o">,</span> 
+		<span class="nx">constraintoviewport</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
+		<span class="nx">underlay</span><span class="o">:</span><span class="s2">&quot;shadow&quot;</span><span class="o">,</span>
+		<span class="nx">close</span><span class="o">:</span><span class="kc">true</span><span class="o">,</span>
 		<span class="nx">fixedcenter</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
-		<span class="nx">visible</span><span class="o">:</span><span class="kc">false</span><span class="o">,</span> 
+		<span class="nx">visible</span><span class="o">:</span><span class="kc">false</span><span class="o">,</span>
 		<span class="nx">draggable</span><span class="o">:</span><span class="kc">true</span>
 	<span class="p">};</span>
 	<span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">inputExDef</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">inputExDef</span><span class="o">;</span>
 
    <span class="nx">inputEx</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">id</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">panelConfig</span><span class="p">);</span>
-   
+
    <span class="c">// Generate an id for a div inside the panel body</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">_inputExBodyId</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">();</span>
-   
+
 	<span class="k">this</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
 	<span class="k">this</span><span class="p">.</span><span class="nx">setBody</span><span class="p">(</span><span class="s2">&quot;&lt;div id=&#39;&quot;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">_inputExBodyId</span><span class="o">+</span><span class="s2">&quot;&#39;&gt;&lt;/div&gt;&quot;</span><span class="p">);</span>
-	
+
 	<span class="nx">Event</span><span class="p">.</span><span class="nx">onAvailable</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_inputExBodyId</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildForm</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-	
+
 	<span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_inputExOptions</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">);</span>
-	
+
 <span class="p">};</span>
 
 <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Dialog</span><span class="o">,</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Panel</span><span class="o">,</span> <span class="p">{</span>
-   
+
 	<span class="c">/**</span>
 <span class="c">	 * Render the form</span>
 <span class="c">	 */</span>
@@ -113,7 +113,7 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">renderForm</span><span class="p">();</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">center</span><span class="p">();</span>
    <span class="p">}</span><span class="o">,</span>
-	
+
    <span class="c">/**</span>
 <span class="c">    * Return the inputEx field instance created</span>
 <span class="c">    * @return {inputEx.Field} the field instance</span>
@@ -121,7 +121,7 @@
    <span class="nx">getForm</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_inputExFieldInstance</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Shortcut to get value</span>
 <span class="c">    * @return {Any} the field value</span>
@@ -129,8 +129,8 @@
    <span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">getForm</span><span class="p">().</span><span class="nx">getValue</span><span class="p">();</span>
    <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="c">/**</span>
 <span class="c">    * Shortcut to set value</span>
 <span class="c">    * @param {Any} value The value to set on the field</span>
@@ -139,9 +139,9 @@
    <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">getForm</span><span class="p">().</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">);</span>
    <span class="p">}</span>
-   
+
 <span class="p">});</span>
-   
+
 <span class="p">})();</span>
 </pre></div>
 
@@ -233,7 +233,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

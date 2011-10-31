@@ -241,7 +241,7 @@ version: 2.8.0r4
 /* CalendarNavigator */
 
 /* MONTH/YEAR LABEL */
-.yui-skin-sam .yui-calendar a.calnav { 
+.yui-skin-sam .yui-calendar a.calnav {
 	border: 1px solid #f2f2f2;
 	padding:0 4px;
 	text-decoration:none;
@@ -249,7 +249,7 @@ version: 2.8.0r4
 	zoom:1;
 }
 
-.yui-skin-sam .yui-calendar a.calnav:hover { 
+.yui-skin-sam .yui-calendar a.calnav:hover {
 	background: url(../../../../assets/skins/sam/sprite.png) repeat-x 0 0;
 	border-color:#A0A0A0;
 	cursor:pointer;

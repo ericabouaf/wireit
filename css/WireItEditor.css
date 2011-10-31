@@ -107,16 +107,16 @@ div.savedStatus {
 /**
  * LEFT
  */
- 
+
 #left {
-   
+
 }
- 
- 
+
+
 /**
- * Module list 
+ * Module list
  */
- 
+
 .WiringEditor-module {
    cursor: move;
    /*background-color: #AADDDD;*/
@@ -163,7 +163,7 @@ div.savedStatus {
 /**
  * RIGHT
  */
- 
+
 #right #propertiesForm {
 	font-size: 10px;
 }
@@ -176,7 +176,7 @@ div.savedStatus {
 #layerMap canvas.WireIt-LayerMap {
 	position: relative;
 	/*width: 250px; Don't put any width or it breaks the layerMap */
-	
+
 	border: 0;
 	width: 100%;
 }

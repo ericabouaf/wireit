@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; AutoComplete.js (source view) 
+
+                 &gt; AutoComplete.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -75,16 +75,16 @@
 <span class="c">    */</span>
    <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">inputEx</span><span class="p">.</span><span class="nx">AutoComplete</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
-      
+
       <span class="c">// Overwrite options</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">:</span> <span class="s1">&#39;inputEx-Field inputEx-AutoComplete&#39;</span><span class="o">;</span>
-      
+
       <span class="c">// Added options</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">datasource</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">datasource</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">autoComp</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">autoComp</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">returnValue</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">returnValue</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Custom event init</span>
 <span class="c">    * &lt;ul&gt;</span>
@@ -92,9 +92,9 @@
 <span class="c">    *   &lt;li&gt;listener to autocompleter textboxBlurEvent added in buildAutocomplete method&lt;/li&gt;</span>
 <span class="c">    * &lt;/ul&gt;</span>
 <span class="c">    */</span>
-   <span class="nx">initEvents</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>	
+   <span class="nx">initEvents</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 	   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">AutoComplete</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">initEvents</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-	   
+
 	   <span class="c">// remove standard blur listener</span>
 	   <span class="nx">Event</span><span class="p">.</span><span class="nx">removeBlurListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onBlur</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
@@ -103,10 +103,10 @@
 <span class="c">    * Render the hidden list element</span>
 <span class="c">    */</span>
    <span class="nx">renderComponent</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-   
+
       <span class="c">// This element wraps the input node in a float: none div</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">wrapEl</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-StringField-wrapper&#39;</span><span class="p">});</span>
-      
+
       <span class="c">// Attributes of the input field</span>
       <span class="kd">var</span> <span class="nx">attributes</span> <span class="o">=</span> <span class="p">{</span>
          <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span><span class="o">,</span>
@@ -115,10 +115,10 @@
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span> <span class="nx">attributes</span><span class="p">.</span><span class="nx">size</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">size</span><span class="o">;</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">readonly</span><span class="p">)</span> <span class="nx">attributes</span><span class="p">.</span><span class="nx">readonly</span> <span class="o">=</span> <span class="s1">&#39;readonly&#39;</span><span class="o">;</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxLength</span><span class="p">)</span> <span class="nx">attributes</span><span class="p">.</span><span class="nx">maxLength</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxLength</span><span class="o">;</span>
-   
+
       <span class="c">// Create the node</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="o">,</span> <span class="nx">attributes</span><span class="p">);</span>
-      
+
       <span class="c">// Create the hidden input</span>
       <span class="kd">var</span> <span class="nx">hiddenAttrs</span> <span class="o">=</span> <span class="p">{</span>
          <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;hidden&#39;</span><span class="o">,</span>
@@ -126,19 +126,19 @@
       <span class="p">};</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="nx">hiddenAttrs</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">hiddenEl</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="o">,</span> <span class="nx">hiddenAttrs</span><span class="p">);</span>
-      
+
       <span class="c">// Append it to the main element</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">wrapEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">wrapEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">hiddenEl</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">wrapEl</span><span class="p">);</span>
-   
+
       <span class="c">// Render the list :</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">listEl</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">()</span> <span class="p">});</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">listEl</span><span class="p">);</span>
-       
+
       <span class="nx">Event</span><span class="p">.</span><span class="nx">onAvailable</span><span class="p">([</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">listEl</span><span class="p">]</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildAutocomplete</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Build the YUI autocompleter</span>
 <span class="c">    */</span>
@@ -147,20 +147,20 @@
       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">_nElementsReady</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">_nElementsReady</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="p">}</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">_nElementsReady</span><span class="o">++;</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_nElementsReady</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="k">return</span><span class="o">;</span>
-      
+
       <span class="c">// Instantiate AutoComplete</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">oAutoComp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">AutoComplete</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">id</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">listEl</span><span class="p">.</span><span class="nx">id</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">datasource</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">autoComp</span><span class="p">);</span>
 
       <span class="c">// subscribe to the itemSelect event</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">oAutoComp</span><span class="p">.</span><span class="nx">itemSelectEvent</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">itemSelectHandler</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-      
+
       <span class="c">// subscribe to the textboxBlur event (instead of &quot;blur&quot; event on this.el)</span>
       <span class="c">//                                    |-------------- autocompleter ----------|</span>
       <span class="c">//    -&gt; order : &quot;blur&quot; on this.el -&gt; internal callback -&gt; textboxBlur event -&gt; this.onBlur callback</span>
       <span class="c">//    -&gt; so fired after autocomp internal &quot;blur&quot; callback (which would erase typeInvite...)</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">oAutoComp</span><span class="p">.</span><span class="nx">textboxBlurEvent</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">onBlur</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * itemSelect handler</span>
 <span class="c">    * @param {} sType</span>
@@ -170,14 +170,14 @@
    	<span class="kd">var</span> <span class="nx">aData</span> <span class="o">=</span> <span class="nx">aArgs</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">returnValue</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">returnValue</span><span class="p">(</span><span class="nx">aData</span><span class="p">)</span> <span class="o">:</span> <span class="nx">aData</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * onChange event handler</span>
 <span class="c">    * @param {Event} e The original &#39;change&#39; event</span>
 <span class="c">    */</span>
 	<span class="nx">onChange</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">setClassFromState</span><span class="p">();</span>
-	   
+
 	   <span class="c">// Clear the field when no value </span>
       <span class="nx">lang</span><span class="p">.</span><span class="nx">later</span><span class="p">(</span><span class="mi">50</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
          <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
@@ -185,28 +185,28 @@
          <span class="p">}</span>
       <span class="p">});</span>
 	<span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Set the value</span>
 <span class="c">    * @param {Any} value Value to set</span>
 <span class="c">    * @param {boolean} [sendUpdatedEvt] (optional) Wether this setValue should fire the updatedEvt or not (default is true, pass false to NOT send the event)</span>
 <span class="c">    */</span>
    <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
-	
+
       <span class="k">this</span><span class="p">.</span><span class="nx">hiddenEl</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span> <span class="o">||</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
-      
+
       <span class="c">// &quot;inherited&quot; from inputex.Field :</span>
       <span class="c">//    (can&#39;t inherit of inputex.StringField because would set this.el.value...)</span>
       <span class="c">//</span>
 	   <span class="c">// set corresponding style</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">setClassFromState</span><span class="p">();</span>
-	   
+
 	   <span class="k">if</span><span class="p">(</span><span class="nx">sendUpdatedEvt</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
 	      <span class="c">// fire update event</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="p">();</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Return the hidden value (stored in a hidden input)</span>
 <span class="c">    */</span>
@@ -311,7 +311,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class="selected"><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

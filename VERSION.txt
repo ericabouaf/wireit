@@ -13,8 +13,8 @@ Changeset:
 		* ModuleProxy.js into its own file
 		* WiringEditor now inherits from BaseEditor, which wraps general full-page editor functionnality
 		* Example for a non-fullscreen editor
-		
-	* Added Composable WiringEditor extension 
+
+	* Added Composable WiringEditor extension
 		* Usage is demonstrated in the "jsBox" example
 
 	* Wires:
@@ -39,8 +39,8 @@ Changeset:
 		* propertiesFields default value (becomes optional)
 		* saved status indicator + confirmation
 		* rollup file wiring-editor-min.js (includes some inputEx and yui-accordionview)
-			
-	* WireIt Guide	
+
+	* WireIt Guide
 	* InOutContainer
 
 	* Layer.onChangeEvt
@@ -48,9 +48,9 @@ Changeset:
 	* Spring Layout (experimental) (+examples)
 	* Wire mouse events (experimental) (+examples)
 	* Added drawing method 'bezierArrows' (experimental)
-	
+
 	* Move issues/bug tracker to github
-	
+
 	Bugfixes:
 	* WiringEditor: Containers were mispositionned when the layer was scrolled
 	* Wire positioning for wirables fields in FormContainer
@@ -73,10 +73,10 @@ Changeset:
  * LayerMap leave beta (indicate visible region, move layer on click)
 
  * Terminal position switched to {top: , left: , right: , bottom: }
- * new options: 
+ * new options:
 	- TerminalProxy.proxySize (default 10) size of the proxy element
 	- Terminal.alwaysSrc : make this terminal the src element in every wires
-	- Container.preventSelfWiring : prevent to connect 2 terminals of the same container 
+	- Container.preventSelfWiring : prevent to connect 2 terminals of the same container
 
  * New demo
  * Switching to git repository (http://github.com/neyric/wireit/)
@@ -95,7 +95,7 @@ Changeset:
 
  * Layer: added "clear" and "setWiring" methods
  * "typed" terminals examples (see presentation)
- * LayerMap (beta): a canvas minimap for the layer 
+ * LayerMap (beta): a canvas minimap for the layer
  * Add new drawing methods for drawing wires (straight, arrows, bezier)
  * indexOf and compact methods not extending Array.prototype anymore
  * Create a CanvasElement class (wrap cross-browser issues for canvas tags, Wire will inherit it)
@@ -119,7 +119,7 @@ Changeset:
   - Layer.addContainer and Layer.addWire now returns the created instance
   - Added the method Container.redrawAllWires and Terminal.redrawAllWires
   - Added Layer.removeAllContainers
-	
+
   - adds a "body" div to the container
   - CSS updates on Containers and Layers
   - adds a focus CSS class on the last mousedown-ed container in the layer

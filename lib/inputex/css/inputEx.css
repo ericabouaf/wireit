@@ -186,7 +186,7 @@ div.inputEx-Form-Mask span {
 /**
  * UrlField
  */
- 
+
 /* position relative to position:absolute favicon inside */
 div.inputEx-UrlField {position:relative;}
 
@@ -375,12 +375,12 @@ div.inputEx-ColorField div.yui-overlay div.bd {
  */
 
 .inputEx-ColorPicker-Button { vertical-align: baseline; }
-.inputEx-ColorPicker-Button button { 
+.inputEx-ColorPicker-Button button {
 	outline: none;  /* Safari */
 	line-height: 1.5;
 }
 
-/* Style the Button instance's label as a square whose background color 
+/* Style the Button instance's label as a square whose background color
 	represents the current value of the ColorPicker instance. */
 .inputEx-ColorPicker-Label {
 	display: block;
@@ -409,12 +409,12 @@ div.inputEx-ColorField div.yui-overlay div.bd {
 /* Size the body element of the Menu instance to match the dimensions of the ColorPicker instance. */
 .inputEx-ColorPicker-Container {
 	width: 370px;
-	height: 190px; 
+	height: 190px;
 }
 
 .inputEx-ColorPicker-Container-nocontrols {
 	width: 220px;
-	height: 190px; 
+	height: 190px;
 }
 
 
@@ -594,7 +594,7 @@ ul.inputEx-JsonTreeInspector li {
    padding-left: 20px;
    list-style-type: none;
 }
- 
+
 ul.inputEx-JsonTreeInspector li.collapsed {
    background:transparent url(../images/plus.gif) no-repeat scroll 0 0;
    cursor: pointer;

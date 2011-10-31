@@ -1,30 +1,30 @@
 /**
  * JsonRpc Adapter (using ajax)
  * @class WireIt.WiringEditor.adapters.JsonRpc
- * @static 
+ * @static
  */
 WireIt.WiringEditor.adapters.JsonRpc = {
-	
+
 	config: {
 		url: '../../backend/php/WiringEditor.php'
 	},
-	
+
 	init: function() {
 		YAHOO.util.Connect.setDefaultPostHeader('application/json');
 	},
-	
+
 	saveWiring: function(val, callbacks) {
 		this._sendJsonRpcRequest("saveWiring", val, callbacks);
 	},
-	
+
 	deleteWiring: function(val, callbacks) {
 		this._sendJsonRpcRequest("deleteWiring", val, callbacks);
 	},
-	
+
 	listWirings: function(val, callbacks) {
 		this._sendJsonRpcRequest("listWirings", val, callbacks);
 	},
-	
+
 	// private method to send a json-rpc request using ajax
 	_sendJsonRpcRequest: function(method, value, callbacks) {
 		var postData = YAHOO.lang.JSON.stringify({"id":(this._requestId++),"method":method,"params":value,"version":"json-rpc-2.0"});

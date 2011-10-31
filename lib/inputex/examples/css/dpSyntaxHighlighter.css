@@ -22,7 +22,7 @@ textarea.JScript, textarea.HTML, textarea.XML {height:10em;}
 .dp-highlighter tbody.hide { display: none; }
 .dp-highlighter tbody.show { display: table-row-group; _display: block; }
 
-.dp-highlighter td 
+.dp-highlighter td
 {
 	font-family: Courier New;
 	font-size: 11px;
@@ -61,11 +61,11 @@ textarea.JScript, textarea.HTML, textarea.XML {height:10em;}
 /* Gutter with line number */
 
 .dp-highlighter .gutter {
-	padding-right: 5px; 
-	padding-left: 10px; 
+	padding-right: 5px;
+	padding-left: 10px;
 	width: 5px;
-	background-color: #eee; 
-	border-right: 1px solid gray; 
+	background-color: #eee;
+	border-right: 1px solid gray;
 	color: gray;
 	text-align: right;
 	vertical-align: top;

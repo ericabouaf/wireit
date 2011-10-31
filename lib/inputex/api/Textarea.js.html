@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; Textarea.js (source view) 
+
+                 &gt; Textarea.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -76,70 +76,70 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">rows</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">rows</span> <span class="o">||</span> <span class="mi">6</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">cols</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">cols</span> <span class="o">||</span> <span class="mi">23</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Render an &#39;INPUT&#39; DOM node</span>
 <span class="c">    */</span>
    <span class="nx">renderComponent</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      
+
       <span class="c">// This element wraps the input node in a float: none div</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">wrapEl</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-StringField-wrapper&#39;</span><span class="p">});</span>
-      
+
       <span class="c">// Attributes of the input field</span>
       <span class="kd">var</span> <span class="nx">attributes</span> <span class="o">=</span> <span class="p">{};</span>
       <span class="nx">attributes</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">id</span><span class="o">?</span><span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;-field&#39;</span><span class="o">:</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">();</span>
       <span class="nx">attributes</span><span class="p">.</span><span class="nx">rows</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">rows</span><span class="o">;</span>
       <span class="nx">attributes</span><span class="p">.</span><span class="nx">cols</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">cols</span><span class="o">;</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="nx">attributes</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="o">;</span>
-      
+
       <span class="c">//if(this.options.maxLength) attributes.maxLength = this.options.maxLength;</span>
-   
+
       <span class="c">// Create the node</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;textarea&#39;</span><span class="o">,</span> <span class="nx">attributes</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
-      
+
       <span class="c">// Append it to the main element</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">wrapEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">wrapEl</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
 	<span class="c">/**</span>
 <span class="c">    * Uses the optional regexp to validate the field value</span>
 <span class="c">    */</span>
-   <span class="nx">validate</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+   <span class="nx">validate</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">previous</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Textarea</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">validate</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-      
+
       <span class="c">// emulate maxLength property for textarea</span>
       <span class="c">//   -&gt; user can still type but field is invalid</span>
       <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxLength</span><span class="p">)</span> <span class="p">{</span>
          <span class="nx">previous</span> <span class="o">=</span> <span class="nx">previous</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">().</span><span class="nx">length</span> <span class="o">&lt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxLength</span><span class="o">;</span>
       <span class="p">}</span>
-      
+
       <span class="k">return</span> <span class="nx">previous</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Add the minLength string message handling</span>
 <span class="c">    */</span>
     <span class="nx">getStateString</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
-	   <span class="k">if</span><span class="p">(</span><span class="nx">state</span> <span class="o">==</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">stateInvalid</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">minLength</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">minLength</span><span class="p">)</span> <span class="p">{</span>  
+	   <span class="k">if</span><span class="p">(</span><span class="nx">state</span> <span class="o">==</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">stateInvalid</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">minLength</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">minLength</span><span class="p">)</span> <span class="p">{</span>
 	      <span class="k">return</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">stringTooShort</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">minLength</span><span class="o">+</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">stringTooShort</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-	   
+
 	   <span class="c">// Add message too long</span>
       <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">state</span> <span class="o">==</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">stateInvalid</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxLength</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxLength</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">return</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">stringTooLong</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxLength</span><span class="o">+</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">stringTooLong</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
       <span class="p">}</span>
 	   <span class="k">return</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Textarea</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">getStateString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">state</span><span class="p">);</span>
 	<span class="p">}</span><span class="o">,</span>
-	
-	
+
+
 	<span class="c">/**</span>
 <span class="c">	 * Insert text at the current cursor position</span>
 <span class="c">	 * @param {String} text Text to insert</span>
 <span class="c">	 */</span>
 	<span class="nx">insert</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
-		
+
 		<span class="kd">var</span> <span class="nx">sel</span><span class="o">,</span> <span class="nx">startPos</span><span class="o">,</span> <span class="nx">endPos</span><span class="o">;</span>
-		
+
 		<span class="c">//IE support</span>
 		<span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">selection</span><span class="p">)</span> <span class="p">{</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
@@ -151,10 +151,10 @@
 			<span class="nx">startPos</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">selectionStart</span><span class="o">;</span>
 			<span class="nx">endPos</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">selectionEnd</span><span class="o">;</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="nx">startPos</span><span class="p">)</span><span class="o">+</span> <span class="nx">text</span><span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="nx">endPos</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
-		<span class="p">}</span> 
+		<span class="p">}</span>
 		<span class="k">else</span> <span class="p">{</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span> <span class="o">+=</span> <span class="nx">text</span><span class="o">;</span>
-		<span class="p">}</span>	
+		<span class="p">}</span>
 	<span class="p">}</span>
 
 <span class="p">});</span>
@@ -258,7 +258,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

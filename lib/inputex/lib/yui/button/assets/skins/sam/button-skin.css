@@ -11,7 +11,7 @@ version: 2.8.0r4
     border-color: #808080;
     background: url(../../../../assets/skins/sam/sprite.png) repeat-x 0 0;
     margin: auto .25em;
-    
+
 }
 
 .yui-skin-sam .yui-button .first-child {
@@ -22,8 +22,8 @@ version: 2.8.0r4
     margin: 0 -1px;
 
 	/*
-		Using negative margins for rounded corners won't work in IE 6 and IE 7 
-		(Quirks Mode Only), so set the "margin" property to "0" for those 
+		Using negative margins for rounded corners won't work in IE 6 and IE 7
+		(Quirks Mode Only), so set the "margin" property to "0" for those
 		browsers.
 	*/
  	_margin: 0;
@@ -40,14 +40,14 @@ version: 2.8.0r4
     *line-height: 1.7; /* For IE */
     min-height: 2em; /* For Gecko */
     *min-height: auto; /* For IE */
-    color: #000; 
+    color: #000;
 
 }
 
 .yui-skin-sam .yui-button a {
 
     /*
-        Necessary to get Buttons of type "link" to be the correct 
+        Necessary to get Buttons of type "link" to be the correct
         height in IE.
     */
     *line-height: 1.875;
@@ -61,7 +61,7 @@ version: 2.8.0r4
     padding-right: 20px;
     background-position: right center;
     background-repeat: no-repeat;
-    
+
 }
 
 .yui-skin-sam .yui-menu-button button {
@@ -125,10 +125,10 @@ version: 2.8.0r4
 /* Active state */
 
 .yui-skin-sam .yui-button-active {
-    
+
     border-color: #7D98B8;
     background-position: 0 -1700px;
-    
+
 }
 
 .yui-skin-sam .yui-button-active .first-child {
@@ -161,10 +161,10 @@ version: 2.8.0r4
 
 .yui-skin-sam .yui-radio-button-checked,
 .yui-skin-sam .yui-checkbox-button-checked {
-    
+
     border-color: #304369;
     background-position: 0 -1400px;
-    
+
 }
 
 .yui-skin-sam .yui-radio-button-checked .first-child,
@@ -175,7 +175,7 @@ version: 2.8.0r4
 }
 
 .yui-skin-sam .yui-radio-button-checked button,
-.yui-skin-sam .yui-checkbox-button-checked button { 
+.yui-skin-sam .yui-checkbox-button-checked button {
 
     color: #fff;
 
@@ -185,10 +185,10 @@ version: 2.8.0r4
 /* Disabled state */
 
 .yui-skin-sam .yui-button-disabled {
-    
+
     border-color: #ccc;
     background-position: 0 -1500px;
-    
+
 }
 
 .yui-skin-sam .yui-button-disabled .first-child {
@@ -197,7 +197,7 @@ version: 2.8.0r4
 
 }
 
-.yui-skin-sam .yui-button-disabled button, 
+.yui-skin-sam .yui-button-disabled button,
 .yui-skin-sam .yui-button-disabled a,
 .yui-skin-sam .yui-button-disabled a:visited {
 
@@ -209,11 +209,11 @@ version: 2.8.0r4
 .yui-skin-sam .yui-menu-button-disabled button {
 
     background-image: url(menu-button-arrow-disabled.png);
-    
+
 }
 
 .yui-skin-sam .yui-split-button-disabled button {
 
     background-image: url(split-button-arrow-disabled.png);
-    
+
 }

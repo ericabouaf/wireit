@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; MultiAutoComplete.js (source view) 
+
+                 &gt; MultiAutoComplete.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -64,43 +64,43 @@
 	<span class="nx">inputEx</span><span class="p">.</span><span class="nx">MultiAutoComplete</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
  <span class="p">};</span>
 <span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">MultiAutoComplete</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">AutoComplete</span><span class="o">,</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Build the DDList</span>
 <span class="c">    */</span>
    <span class="nx">renderComponent</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MultiAutoComplete</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">renderComponent</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">ddlist</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">DDList</span><span class="p">({</span><span class="nx">parentEl</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">});</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">ddlist</span><span class="p">.</span><span class="nx">itemRemovedEvt</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">setClassFromState</span><span class="p">();</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="p">();</span>
       <span class="p">}</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">ddlist</span><span class="p">.</span><span class="nx">listReorderedEvt</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-   <span class="p">}</span><span class="o">,</span>  
-   
+   <span class="p">}</span><span class="o">,</span>
+
    <span class="c">/**</span>
 <span class="c">    * Additional options</span>
 <span class="c">    */</span>
    <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MultiAutoComplete</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
-      
+
       <span class="c">// Method to format the ddlist item labels</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">returnLabel</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">returnLabel</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Handle item selection in the autocompleter to add it to the list</span>
 <span class="c">    */</span>
    <span class="nx">itemSelectHandler</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sType</span><span class="o">,</span> <span class="nx">aArgs</span><span class="p">)</span> <span class="p">{</span>
    	<span class="kd">var</span> <span class="nx">aData</span> <span class="o">=</span> <span class="nx">aArgs</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
    	<span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">returnValue</span><span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">returnValue</span><span class="p">(</span><span class="nx">aData</span><span class="p">)</span> <span class="o">:</span> <span class="nx">aData</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-   	<span class="kd">var</span> <span class="kd">label</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">returnLabel</span><span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">returnLabel</span><span class="p">(</span><span class="nx">aData</span><span class="p">)</span> <span class="o">:</span> <span class="nx">value</span><span class="o">;</span>   	
+   	<span class="kd">var</span> <span class="kd">label</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">returnLabel</span><span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">returnLabel</span><span class="p">(</span><span class="nx">aData</span><span class="p">)</span> <span class="o">:</span> <span class="nx">value</span><span class="o">;</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">ddlist</span><span class="p">.</span><span class="nx">addItem</span><span class="p">({</span><span class="kd">label</span><span class="o">:</span> <span class="kd">label</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="nx">value</span><span class="p">});</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
    	<span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="p">();</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Set the value</span>
 <span class="c">    * @param {String} value The value to set</span>
@@ -108,16 +108,16 @@
 <span class="c">    */</span>
    <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">ddlist</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
-      
+
       <span class="c">// set corresponding style</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">setClassFromState</span><span class="p">();</span>
-	   
+
 	   <span class="k">if</span><span class="p">(</span><span class="nx">sendUpdatedEvt</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
 	      <span class="c">// fire update event</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="p">();</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Return the value</span>
 <span class="c">    * @return {Any} the selected value from the selectValues array</span>
@@ -125,28 +125,28 @@
    <span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">ddlist</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Return (stateEmpty|stateRequired) if the value equals the typeInvite attribute</span>
 <span class="c">    */</span>
-   <span class="nx">getState</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+   <span class="nx">getState</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">val</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
-      
+
 	   <span class="c">// if nothing in the list</span>
 	   <span class="k">if</span><span class="p">(</span> <span class="nx">val</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 	      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">required</span> <span class="o">?</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">stateRequired</span> <span class="o">:</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">stateEmpty</span><span class="o">;</span>
 	   <span class="p">}</span>
-      
+
 	   <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">validate</span><span class="p">()</span> <span class="o">?</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">stateValid</span> <span class="o">:</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">stateInvalid</span><span class="o">;</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">    * TODO : how to validate ?</span>
 <span class="c">    */</span>
-   <span class="nx">validate</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+   <span class="nx">validate</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * onChange event handler</span>
 <span class="c">    * @param {Event} e The original &#39;change&#39; event</span>
@@ -154,8 +154,8 @@
 	<span class="nx">onChange</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
 	   <span class="c">// erase inherited version, so don&#39;t trash previous value if input is empty</span>
 	<span class="p">}</span>
-   
-   
+
+
 <span class="p">});</span>
 
 <span class="c">// Register this class as &quot;multiautocomplete&quot; type</span>
@@ -252,7 +252,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

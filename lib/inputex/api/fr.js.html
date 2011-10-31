@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; fr.js (source view) 
+
+                 &gt; fr.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -49,13 +49,13 @@
                         </style>
                         <div class="highlight"><pre><span class="c">// InputEx French localization</span>
 <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-   
+
    <span class="kd">var</span> <span class="nx">msgs</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="o">;</span>
 
    <span class="nx">msgs</span><span class="p">.</span><span class="nx">required</span> <span class="o">=</span> <span class="s2">&quot;Ce champ est obligatoire&quot;</span><span class="o">;</span>
    <span class="nx">msgs</span><span class="p">.</span><span class="nx">invalid</span> <span class="o">=</span> <span class="s2">&quot;Ce champ n&#39;est pas valide&quot;</span><span class="o">;</span>
    <span class="nx">msgs</span><span class="p">.</span><span class="nx">valid</span> <span class="o">=</span> <span class="s2">&quot;Ce champ est valide&quot;</span><span class="o">;</span>
-   
+
    <span class="nx">msgs</span><span class="p">.</span><span class="nx">invalidEmail</span> <span class="o">=</span> <span class="s2">&quot;Email non valide; ex: michel.dupont@fai.fr&quot;</span><span class="o">;</span>
    <span class="nx">msgs</span><span class="p">.</span><span class="nx">selectColor</span> <span class="o">=</span> <span class="s2">&quot;S&amp;eacute;lectionnez une couleur :&quot;</span><span class="o">;</span>
    <span class="nx">msgs</span><span class="p">.</span><span class="nx">invalidPassword</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Le mot de passe doit contenir au moins &quot;</span><span class="o">,</span><span class="s2">&quot; caract&amp;egrave;res (lettres ou chiffres)&quot;</span><span class="p">];</span>
@@ -90,11 +90,11 @@
    <span class="nx">msgs</span><span class="p">.</span><span class="nx">stringTooLong</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Ce champ doit contenir au plus &quot;</span><span class="o">,</span><span class="s2">&quot; caract&amp;egrave;res (lettres ou chiffres)&quot;</span><span class="p">];</span>
    <span class="nx">msgs</span><span class="p">.</span><span class="nx">ajaxWait</span> <span class="o">=</span> <span class="s2">&quot;Envoi en cours...&quot;</span><span class="o">;</span>
    <span class="nx">msgs</span><span class="p">.</span><span class="nx">menuInvite</span> <span class="o">=</span> <span class="s2">&quot;Cliquez ici pour choisir&quot;</span><span class="o">;</span>
-   
+
    <span class="c">// List</span>
    <span class="nx">msgs</span><span class="p">.</span><span class="nx">listAddLink</span> <span class="o">=</span> <span class="s2">&quot;Ajouter&quot;</span><span class="o">;</span>
    <span class="nx">msgs</span><span class="p">.</span><span class="nx">listRemoveLink</span> <span class="o">=</span> <span class="s2">&quot;Supprimer&quot;</span><span class="o">;</span>
-   
+
    <span class="c">// Datatable</span>
    <span class="nx">msgs</span><span class="p">.</span><span class="nx">saveText</span> <span class="o">=</span> <span class="s2">&quot;Sauver&quot;</span><span class="o">;</span>
    <span class="nx">msgs</span><span class="p">.</span><span class="nx">cancelText</span> <span class="o">=</span> <span class="s2">&quot;Annuler&quot;</span><span class="o">;</span>
@@ -106,13 +106,13 @@
 	<span class="nx">msgs</span><span class="p">.</span><span class="nx">loadingText</span> <span class="o">=</span> <span class="s2">&quot;Patientez...&quot;</span><span class="o">;</span>
 	<span class="nx">msgs</span><span class="p">.</span><span class="nx">emptyDataText</span> <span class="o">=</span> <span class="s2">&quot;Aucune donnée.&quot;</span><span class="o">;</span>
 	<span class="nx">msgs</span><span class="p">.</span><span class="nx">errorDataText</span> <span class="o">=</span> <span class="s2">&quot;Erreur de données.&quot;</span><span class="o">;</span>
-	
+
 	<span class="nx">msgs</span><span class="p">.</span><span class="nx">tableOptions</span> <span class="o">=</span> <span class="s2">&quot;Options des colonnes&quot;</span><span class="o">;</span>
 	<span class="nx">msgs</span><span class="p">.</span><span class="nx">showColumnButton</span> <span class="o">=</span> <span class="s2">&quot;Afficher&quot;</span><span class="o">;</span>
 	<span class="nx">msgs</span><span class="p">.</span><span class="nx">hideColumnButton</span> <span class="o">=</span> <span class="s2">&quot;Masquer&quot;</span><span class="o">;</span>
 	<span class="nx">msgs</span><span class="p">.</span><span class="nx">columnDialogTitle</span> <span class="o">=</span> <span class="s2">&quot;Choisissez les colonnes à afficher&quot;</span><span class="o">;</span>
 	<span class="nx">msgs</span><span class="p">.</span><span class="nx">columnDialogCloseButton</span> <span class="o">=</span> <span class="s2">&quot;Fermer&quot;</span><span class="o">;</span>
-   
+
    <span class="c">// TimeInterval</span>
    <span class="nx">msgs</span><span class="p">.</span><span class="nx">timeUnits</span> <span class="o">=</span> <span class="p">{</span>
       <span class="nx">SECOND</span><span class="o">:</span> <span class="s2">&quot;secondes&quot;</span><span class="o">,</span>
@@ -122,10 +122,10 @@
       <span class="nx">MONTH</span><span class="o">:</span> <span class="s2">&quot;mois&quot;</span><span class="o">,</span>
       <span class="nx">YEAR</span><span class="o">:</span> <span class="s2">&quot;ans&quot;</span>
    <span class="p">};</span>
-   
+
    <span class="c">// for YUI loader </span>
    <span class="nx">inputEx</span><span class="p">.</span><span class="nx">lang_fr</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-   
+
 <span class="p">})();</span>
 </pre></div>
 
@@ -217,7 +217,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

@@ -29,23 +29,23 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
     */
    setOptions: function(options) {
       inputEx.Field.superclass.setOptions.call(this, options);
-      
+
       this.options.wirable = lang.isUndefined(options.wirable) ? false : options.wirable;
       this.options.container = options.container;
    },
-   
+
    /**
     * Adds a terminal to each field
     * @method render
     */
    render: function() {
       inputEx.Field.superclass.render.call(this);
-      
+
       if(this.options.wirable) {
          this.renderTerminal();
       }
    },
-   
+
    /**
     * Render the associated input terminal
     * @method renderTerminal
@@ -56,7 +56,7 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
       this.divEl.insertBefore(wrapper, this.fieldContainer);
 
       this.terminal = new WireIt.Terminal(wrapper, {
-         name: this.options.name, 
+         name: this.options.name,
          direction: [-1,0],
          fakeDirection: [0, 1],
          ddConfig: {
@@ -79,7 +79,7 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
     },
 
     /**
-     * Remove the input wired state on the 
+     * Remove the input wired state on the
      * @method onAddWire
      */
     onAddWire: function(e, params) {
@@ -90,10 +90,10 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
     },
 
     /**
-     * Remove the input wired state on the 
+     * Remove the input wired state on the
      * @method onRemoveWire
      */
-    onRemoveWire: function(e, params) { 
+    onRemoveWire: function(e, params) {
        this.options.container.onRemoveWire(e,params);
 
        this.enable();

@@ -6,23 +6,23 @@
  * @param {Object}   options   Configuration object (see the properties)
  */
 WireIt.Layer = function(options) {
-   
+
    this.setOptions(options);
-   
+
    /**
     * List of all the WireIt.Container (or subclass) instances in this layer
     * @property containers
     * @type {Array}
     */
    this.containers = [];
-   
+
    /**
     * List of all the WireIt.Wire (or subclass) instances in this layer
     * @property wires
     * @type {Array}
     */
    this.wires = [];
-   
+
    /**
     * Layer DOM element
     * @property el
@@ -36,59 +36,59 @@ WireIt.Layer = function(options) {
     * @event eventChanged
     */
    this.eventChanged = new YAHOO.util.CustomEvent("eventChanged");
-   
+
    /**
     * Event that is fired when a wire is added
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventAddWire
     */
    this.eventAddWire = new YAHOO.util.CustomEvent("eventAddWire");
-   
+
    /**
     * Event that is fired when a wire is removed
     * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventRemoveWire
     */
    this.eventRemoveWire = new YAHOO.util.CustomEvent("eventRemoveWire");
-   
+
    /**
     * Event that is fired when a container is added
     * You can register this event with myTerminal.eventAddContainer.subscribe(function(e,params) { var container=params[0];}, scope);
     * @event eventAddContainer
     */
    this.eventAddContainer = new YAHOO.util.CustomEvent("eventAddContainer");
-   
+
    /**
     * Event that is fired when a container is removed
     * You can register this event with myTerminal.eventRemoveContainer.subscribe(function(e,params) { var container=params[0];}, scope);
     * @event eventRemoveContainer
     */
    this.eventRemoveContainer = new YAHOO.util.CustomEvent("eventRemoveContainer");
-   
+
    /**
     * Event that is fired when a container has been moved
     * You can register this event with myTerminal.eventContainerDragged.subscribe(function(e,params) { var container=params[0];}, scope);
     * @event eventContainerDragged
     */
    this.eventContainerDragged = new YAHOO.util.CustomEvent("eventContainerDragged");
-   
+
    /**
     * Event that is fired when a container has been resized
     * You can register this event with myTerminal.eventContainerResized.subscribe(function(e,params) { var container=params[0];}, scope);
     * @event eventContainerResized
     */
    this.eventContainerResized = new YAHOO.util.CustomEvent("eventContainerResized");
-   
+
    this.render();
-   
+
    this.initContainers();
-   
+
    this.initWires();
-   
-   if(this.options.layerMap) { 
+
+   if(this.options.layerMap) {
       new WireIt.LayerMap(this, this.options.layerMapOptions);
    }
-   
+
 };
 
 WireIt.Layer.prototype = {
@@ -102,7 +102,7 @@ WireIt.Layer.prototype = {
        * <ul>
        *   <li>className: CSS class name for the layer element (default 'WireIt-Layer')</li>
        *   <li>parentEl: DOM element that schould contain the layer (default document.body)</li>
-       *   <li>containers: array of container configuration objects</li>  
+       *   <li>containers: array of container configuration objects</li>
        *   <li>wires: array of wire configuration objects</li>
        *   <li>layerMap: boolean</li>
        *   <li>layerMapOptions: layer map options</li>
@@ -124,9 +124,9 @@ WireIt.Layer.prototype = {
     * @method render
     */
    render: function() {
-   
+
       this.el = WireIt.cn('div', {className: this.options.className} );
-   
+
       this.options.parentEl.appendChild(this.el);
    },
 
@@ -138,7 +138,7 @@ WireIt.Layer.prototype = {
    initContainers: function() {
       for(var i = 0 ; i < this.options.containers.length ; i++) {
          this.addContainer(this.options.containers[i]);
-      } 
+      }
    },
 
    /**
@@ -159,15 +159,15 @@ WireIt.Layer.prototype = {
     */
    addWire: function(wireConfig) {
       var type = eval(wireConfig.xtype || "WireIt.Wire");
-   
+
       var src = wireConfig.src;
       var tgt = wireConfig.tgt;
-   
+
       var terminal1 = this.containers[src.moduleId].getTerminal(src.terminal);
       var terminal2 = this.containers[tgt.moduleId].getTerminal(tgt.terminal);
       var wire = new type( terminal1, terminal2, this.el, wireConfig);
       wire.redraw();
-   
+
       return wire;
    },
 
@@ -178,19 +178,19 @@ WireIt.Layer.prototype = {
     * @return {WireIt.Container} Container instance build from the xtype
     */
    addContainer: function(containerConfig) {
-   
+
       var type = eval('('+(containerConfig.xtype || "WireIt.Container")+')');
       if(!YAHOO.lang.isFunction(type)) {
          throw new Error("WireIt layer unable to add container: xtype '"+containerConfig.xtype+"' not found");
       }
       var container = new type(containerConfig, this);
-   
+
       this.containers.push( container );
-   
+
       // Event listeners
       container.eventAddWire.subscribe(this.onAddWire, this, true);
       container.eventRemoveWire.subscribe(this.onRemoveWire, this, true);
-   
+
       if(container.ddResize) {
          container.ddResize.on('endDragEvent', function() {
             this.eventContainerResized.fire(container);
@@ -203,11 +203,11 @@ WireIt.Layer.prototype = {
 				this.eventChanged.fire(this);
          }, this, true);
       }
-   
+
       this.eventAddContainer.fire(container);
 
 		this.eventChanged.fire(this);
-   
+
       return container;
    },
 
@@ -222,7 +222,7 @@ WireIt.Layer.prototype = {
          container.remove();
          this.containers[index] = null;
          this.containers = WireIt.compact(this.containers);
-      
+
          this.eventRemoveContainer.fire(container);
 
 			this.eventChanged.fire(this);
@@ -240,12 +240,12 @@ WireIt.Layer.prototype = {
       // add the wire to the list if it isn't in
       if( WireIt.indexOf(wire, this.wires) == -1 ) {
          this.wires.push(wire);
-         
+
          if(this.options.enableMouseEvents) {
             YAHOO.util.Event.addListener(wire.element, "mousemove", this.onWireMouseMove, this, true);
             YAHOO.util.Event.addListener(wire.element, "click", this.onWireClick, this, true);
          }
-         
+
          // Re-Fire an event at the layer level
          this.eventAddWire.fire(wire);
 
@@ -297,24 +297,24 @@ WireIt.Layer.prototype = {
     * @return {Obj} layer configuration
     */
    getWiring: function() {
-   
+
       var i;
       var obj = {containers: [], wires: []};
-   
+
       for( i = 0 ; i < this.containers.length ; i++) {
          obj.containers.push( this.containers[i].getConfig() );
       }
-   
+
       for( i = 0 ; i < this.wires.length ; i++) {
          var wire = this.wires[i];
-      
-         var wireObj = { 
-            src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.containers), terminal: wire.terminal1.name }, 
+
+         var wireObj = {
+            src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.containers), terminal: wire.terminal1.name },
             tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.containers), terminal: wire.terminal2.name }
          };
          obj.wires.push(wireObj);
       }
-   
+
       return obj;
    },
 
@@ -325,7 +325,7 @@ WireIt.Layer.prototype = {
     */
    setWiring: function(wiring) {
       this.clear();
-      
+
       if(YAHOO.lang.isArray(wiring.containers)) {
          for(var i = 0 ; i < wiring.containers.length ; i++) {
             this.addContainer(wiring.containers[i]);
@@ -337,7 +337,7 @@ WireIt.Layer.prototype = {
          }
        }
    },
-   
+
    /**
     * Returns a position relative to the layer from a mouse event
     * @method _getMouseEvtPos
@@ -389,8 +389,8 @@ WireIt.Layer.prototype = {
    	   }
    	}
    },
-   
-   
+
+
    /**
     * Layer explosing animation
     * @method clearExplode
@@ -417,12 +417,12 @@ WireIt.Layer.prototype = {
    	        duration: 3
           });
           if(i == this.containers.length-1) {
-             myAnim.onComplete.subscribe(function() { this.clear(); callback.call(bind);}, this, true); 
+             myAnim.onComplete.subscribe(function() { this.clear(); callback.call(bind);}, this, true);
           }
    	    myAnim.animate();
       }
 
    }
-   
+
 
 };

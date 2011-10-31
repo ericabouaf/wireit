@@ -402,7 +402,7 @@ version: 2.8.0r4
 /* Pad the first child */
 .yui-skin-sam .yui-toolbar-container .yui-toolbar-spinbutton .first-child a {
     padding-left: 2px;
-    text-align: left;    
+    text-align: left;
 }
 
 /* Spin Buttons - Remove the icon holder, they don't need it */
@@ -439,7 +439,7 @@ version: 2.8.0r4
 /* Pad and align the Select Menus */
 .yui-skin-sam .yui-toolbar-container .yui-toolbar-select .first-child a {
     padding-left: 5px;
-    text-align: left;    
+    text-align: left;
 }
 /* Set the icon of the select menu for the drop down arrow */
 .yui-skin-sam .yui-toolbar-container .yui-toolbar-select span.yui-toolbar-icon {

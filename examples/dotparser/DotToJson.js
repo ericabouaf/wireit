@@ -5,7 +5,7 @@
  *
  */
 DotParser = (function() {
-	
+
 	var Tokenizer = function(str) {
 		this.str = str;
 	};
@@ -88,11 +88,11 @@ DotParser = (function() {
 	};
 
 
-	
+
 	var _graph = null;
 	var tokenizer = null;
 	var _log = null;
-	
+
 	function log(o) {
 		_log.push(o);
 	}
@@ -103,66 +103,66 @@ DotParser = (function() {
 			edges: []
 		};
 		_log = [];
-		tokenizer = new Tokenizer(text);	
-		
+		tokenizer = new Tokenizer(text);
+
 		graph();
-		
+
 		return _graph;
 	}
-	
+
 	function graph() {
-		
+
 		// strict property
 		_graph.strict = tokenizer.reco("strict") ? tokenizer.recoA("strict") : false;
-		
+
 		// type property
 		_graph.type = tokenizer.takeChars();
 		if( _graph.type != "graph" && _graph.type != "digraph") {
 			log("Error, expecting 'graph' or 'digraph'");
 		}
-		
+
 		// id
 		if( !tokenizer.reco('{') ) {
 			_graph.ID = id();
 		}
-		
+
 		// {
 		if( !tokenizer.recoA('{') ) {
 			log("Error, expecting '{'");
 		}
-		
+
 		stmt_list();
-		
+
 		// }
 		if( !tokenizer.recoA('}') ) {
 			log("Error, expecting '}' got "+tokenizer.takeChars());
 		}
-		
+
 	}
-	
+
 	function id() {
 		return tokenizer.takeChars(); // TODO
 	}
-	
-	
-	function stmt_list() { 
-		stmt(); 
-		stmt_list1(); 
+
+
+	function stmt_list() {
+		stmt();
+		stmt_list1();
 	}
-	
-	function stmt_list1() {  
-		while( tokenizer.recoA(";") ) { 
-			stmt(); 
-		} 
+
+	function stmt_list1() {
+		while( tokenizer.recoA(";") ) {
+			stmt();
+		}
 	}
-	
-	function stmt () { 
+
+	function stmt () {
 		if(tokenizer.reco('}')) {
 			return;
-		} 
-		_graph.edges.push( edge_stmt() ); 
+		}
+		_graph.edges.push( edge_stmt() );
 	}
-	
+
 	function edge_stmt() {
 		return {
 			node1: node_id(),
@@ -170,7 +170,7 @@ DotParser = (function() {
 			node2: node_id()
 		};
 	}
-	
+
 	function node_id() {
 		var id = tokenizer.takeChars();
 		if(_graph.nodes.indexOf(id) == -1) {
@@ -178,9 +178,9 @@ DotParser = (function() {
 		}
 		return id;
 	}
-	
+
 	return {
 		parse: parse
 	};
-	
+
 })();

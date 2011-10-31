@@ -7,18 +7,18 @@
 <link rel="stylesheet" type="text/css" href="css/demo.css"/>
 <link rel="stylesheet" type="text/css" href="css/dpSyntaxHighlighter.css">
 
-<!-- YUI loader-->	
-<script src="../lib/yui/yuiloader/yuiloader-min.js"></script> 
+<!-- YUI loader-->
+<script src="../lib/yui/yuiloader/yuiloader-min.js"></script>
 
 <!-- inputEx loader -->
 <script src="../js/inputex-loader.js"></script>
 
 </head>
 <body>
-	
-	
+
+
 	<p class='demoTitle'>inputEx - Using the YUI loader</p>
-	
+
 	<!-- Example 1 -->
 	<div class='exampleDiv'>
 
@@ -31,11 +31,11 @@
 
 		<div class='codeContainer'>
 			<textarea name="code" class="JScript">
-				
+
 				// in your HTML:
-				<script src="../lib/yui/yuiloader/yuiloader-min.js"></script> 
+				<script src="../lib/yui/yuiloader/yuiloader-min.js"></script>
 				<script src="../js/inputex-loader.js"></script>
-				
+
 				/**
 				 * The function to call when all script/css resources have been loaded
 				 */
@@ -44,16 +44,16 @@
 					// Required for the UrlField
 					inputEx.spacerUrl = "../images/space.gif";
 
-					new inputEx.Form( { 
-						fields: [ 
+					new inputEx.Form( {
+						fields: [
 							{type: 'select', inputParams: {label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] } },
-							{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } }, 
-							{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } }, 
-							{type:'email', inputParams: {label: 'Email', name: 'email'}}, 
-							{type:'url', inputParams: {label: 'Website',name:'website'}} 
-						], 
-						buttons: [{type: 'submit', value: 'Change'}], 	
-						parentEl: 'container1' 
+							{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } },
+							{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } },
+							{type:'email', inputParams: {label: 'Email', name: 'email'}},
+							{type:'url', inputParams: {label: 'Website',name:'website'}}
+						],
+						buttons: [{type: 'submit', value: 'Change'}],
+						parentEl: 'container1'
 					});
 				};
 
@@ -74,10 +74,10 @@
 
 	</div>
 
-	
-	
+
+
 	<div  class='exampleDiv'></div>
-	
+
 <script>
 
 
@@ -89,16 +89,16 @@ function init() {
 	// Required for the UrlField
 	inputEx.spacerUrl = "../images/space.gif";
 
-	new inputEx.Form( { 
-		fields: [ 
+	new inputEx.Form( {
+		fields: [
 			{type: 'select', inputParams: {label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] } },
-			{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } }, 
-			{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } }, 
-			{type:'email', inputParams: {label: 'Email', name: 'email'}}, 
-			{type:'url', inputParams: {label: 'Website',name:'website'}} 
-		], 
-		buttons: [{type: 'submit', value: 'Change'}], 	
-		parentEl: 'container1' 
+			{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } },
+			{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } },
+			{type:'email', inputParams: {label: 'Email', name: 'email'}},
+			{type:'url', inputParams: {label: 'Website',name:'website'}}
+		],
+		buttons: [{type: 'submit', value: 'Change'}],
+		parentEl: 'container1'
 	});
 };
 
@@ -119,7 +119,7 @@ loader.insert();
 
 
 <script src="js/dpSyntaxHighlighter.js"></script>
-<script language="javascript"> 
+<script language="javascript">
 dp.SyntaxHighlighter.HighlightAll('code');
 </script>
 

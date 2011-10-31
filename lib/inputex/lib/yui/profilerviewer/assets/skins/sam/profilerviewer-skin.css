@@ -28,14 +28,14 @@ version: 2.8.0r4
 	font:bold 14px arial;
 	color:#fff;
 }
-	
+
 .yui-skin-sam .yui-pv .hd a {
-	background:#3f6bc3; 
-	font:bold 11px arial; 
-	color:#fff; 
-	padding:4px; 
-	margin:3px 10px 0 0; 
-	border:1px solid #3f567d; 
+	background:#3f6bc3;
+	font:bold 11px arial;
+	color:#fff;
+	padding:4px;
+	margin:3px 10px 0 0;
+	border:1px solid #3f567d;
 	cursor:pointer;
 	display:block;
 	float:right;
@@ -52,24 +52,24 @@ version: 2.8.0r4
 	overflow:hidden;
 	display:block;
 	float:right;
-	margin:4px 10px 0 0; 
+	margin:4px 10px 0 0;
 }
 
-.yui-skin-sam .yui-pv .hd:after, 
-.yui-pv .bd:after, 
+.yui-skin-sam .yui-pv .hd:after,
+.yui-pv .bd:after,
 .yui-skin-sam .yui-pv-chartlegend dl:after {
 	content:'.';visibility:hidden;clear:left;height:0;display:block;
 }
 
 .yui-skin-sam .yui-pv .bd {
-	position:relative; 
-	zoom:1; 
-	overflow-x:auto; 
+	position:relative;
+	zoom:1;
+	overflow-x:auto;
 	overflow-y:hidden;
 }
 
 .yui-skin-sam .yui-pv .yui-pv-table {
-	padding:0 10px; 
+	padding:0 10px;
 	margin:5px 0 10px 0;
 }
 
@@ -86,12 +86,12 @@ version: 2.8.0r4
 	background:#58637a;
 }
 
-.yui-skin-sam .yui-pv .yui-pv-table tr.yui-dt-even td.yui-dt-asc, 
+.yui-skin-sam .yui-pv .yui-pv-table tr.yui-dt-even td.yui-dt-asc,
 .yui-skin-sam .yui-pv .yui-pv-table tr.yui-dt-even td.yui-dt-desc {
 	background:#384970;
 }
 
-.yui-skin-sam .yui-pv .yui-pv-table tr.yui-dt-odd td.yui-dt-asc, 
+.yui-skin-sam .yui-pv .yui-pv-table tr.yui-dt-odd td.yui-dt-asc,
 .yui-skin-sam .yui-pv .yui-pv-table tr.yui-dt-odd td.yui-dt-desc {
 	background:#6F6E6E;
 }
@@ -110,11 +110,11 @@ version: 2.8.0r4
 }
 
 .yui-skin-sam .yui-pv .yui-pv-table .yui-dt-hd th a {
-	color:#fff; 
+	color:#fff;
 	font:bold 12px arial;
 }
 
-.yui-skin-sam .yui-pv .yui-pv-table .yui-dt-hd th.yui-dt-asc, 
+.yui-skin-sam .yui-pv .yui-pv-table .yui-dt-hd th.yui-dt-asc,
 .yui-skin-sam .yui-pv .yui-pv-table .yui-dt-hd th.yui-dt-desc {
 	background:#333;
 }
@@ -124,8 +124,8 @@ version: 2.8.0r4
 }
 
 .yui-skin-sam .yui-pv-chart {
-	height:250px; 
-	clear:right; 
+	height:250px;
+	clear:right;
 	margin:5px 0 0 0;
 	color:#fff;
 }
@@ -145,18 +145,18 @@ version: 2.8.0r4
 
 .yui-skin-sam .yui-pv-chartlegend dt {
 	float:left;
-	display:block; 
-	height:.7em; 
-	width:.7em;  
+	display:block;
+	height:.7em;
+	width:.7em;
 	padding:0;
 }
 
 .yui-skin-sam .yui-pv-chartlegend dd {
-	float:left; 
-	display:block; 
-	color:#fff; 
-	margin:0 1em 0 .5em; 
-	padding:0; 
+	float:left;
+	display:block;
+	color:#fff;
+	margin:0 1em 0 .5em;
+	padding:0;
 	font:11px arial;
 }
 

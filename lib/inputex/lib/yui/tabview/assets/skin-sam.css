@@ -10,7 +10,7 @@ version: 2.8.0r4
     zoom:1;
 }
 
-.yui-navset .yui-nav .selected { 
+.yui-navset .yui-nav .selected {
     margin-bottom:-1px; /* for overlap */
 }
 
@@ -72,6 +72,6 @@ version: 2.8.0r4
 }
 
 .yui-navset .yui-content div div { /* kill inheritance */
-    border:0; 
+    border:0;
     padding:0;
 }

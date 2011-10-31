@@ -1,9 +1,9 @@
- _                   _   _____      
+ _                   _   _____
 (_)_ __  _ __  _   _| |_| ____|_  __
 | | '_ \| '_ \| | | | __|  _| \ \/ /		version 0.4.0
 | | | | | |_) | |_| | |_| |___ >  < 		Distributed under the MIT License (see license.txt)
 |_|_| |_| .__/ \____|\__|_____/_/\_\
-        |_|                         
+        |_|
 
 
 Release Notes:
@@ -24,7 +24,7 @@ not released yet
 		* TimeInterval field to enter a duration
 		* ColorPickerField - wrapper for YUI's ColorPicker widget
 		* KeyValueField and KeyOpValueField - fields to build search forms from an inputEx definition
-		
+
 	- Field enhancements:
 		* CombineField now inherits Group instead of Field
 		* added minItems/maxItems options on ListField
@@ -40,22 +40,22 @@ not released yet
 		* BirthdateField renamed to DateSelectMonthField
 		* FileField out of beta
 		* Group/Form setErrors method to display custom messages
-		
+
 	- Widget enhancements
 		* JsonTreeInspector: expand methods and JSONPath filter
 		* Dialog widget out of beta
 		* Datatables out of beta
-		
+
 	- JSON-Schema
 		* implementation of inputEx.JsonSchema.inputExToSchema (beta)
 
-	- RPC	
+	- RPC
 		* integrate yui-rpc as inputEx.RPC
 		* Moved inputEx RPC methods to inputEx.RPC namespace (generateServiceForm and formForMethod)
 		* new SMD examples: freebase, tinyurl
 		* Added an example using inputEx SMD support and the Flickr API
 		* added YQL utility to make YQL queries using JSONP
-		
+
 	- Tools
 		* Providing a dependency-configurator based on yui-dependency-configurator
 		* added yql-trimpath page utility to create pages using YQL queries and trimpath templates
@@ -69,7 +69,7 @@ not released yet
 		* fix on MultiSelectField
 		* fix empty test for Integer and Number Fields
 		* fix on DatePickerField: we had to click twice to select a date the first time
-		
+
 	- Fields removed
 		* FrenchDate (use the french locale instead)
 		* FrenchPhone (pass the regular expression to StringField instead)
@@ -83,9 +83,9 @@ released on March, 6th 2009
 	- RPC:
 		* uses yui-rpc (http://github.com/neyric/yui-rpc/) that implements the Service Mapping Description
 		  http://groups.google.com/group/json-schema/web/service-mapping-description-proposal
-		
+
 		* inputex-rpc : automatically build forms to call methods defined in a SMD
-		
+
 		* SMD-tester example
 
 	- Field enhancements:
@@ -93,11 +93,11 @@ released on March, 6th 2009
 		* added "className" option for Group/Form
 		* added listAddLabel/listRemoveLabel options for List
         * added addOption/removeOption methods on SelectField
-      
+
  	- Widgets:
 		* Added JsonTreeInspector widget
 
-	- Various	
+	- Various
 	   * moving to github (git repository)
 	   * moving tickets to Lighthouse
 	   * new page for examples
@@ -130,7 +130,7 @@ released on January, 22nd 2009
 		* Datatable: added options and CSS
 		* TypeField has been changed. Many bugfixes + cleaner way to defined fields parameters
 
-	- Various: 
+	- Various:
 		* Switching to GIT repository
 		* Better examples (dialog, yuiloader, multiselect)
 		* inputExBuilder much better (now with page generation !)
@@ -159,11 +159,11 @@ released on November 1st 2008
 		* SliderField (type: slider)
 		* DSSelectField (type: dsselect) : uses YUI datasources to populate a SelectField
 
-	- Added widgets:	
+	- Added widgets:
 		* DDList widget: sortable list widget
 		* Datatable (beta): combine YUI datatable widget with inputEx forms
 		* Dialog (beta): create a panel from a inputEx type definition
-		
+
 	- Field enhancements:
 		* Field: Added a "destroy" method, focus method to set the focus on inputs
 		* StringField: added typeInvitation, maxLength, minLength, readonly attributes
@@ -176,7 +176,7 @@ released on November 1st 2008
 	 	* ListField: set the focus to the added element, use links or buttons
 		* RTEField: added SimpleEditor support and "opts" option to configure the toolbar (added by Dav Glass)
 		* TypeField/FormBuilder update: includes more options for more fields
-	
+
 	- Various:
 		* module definitions for the YUI loader
 		* Markup and CSS refactoring: the "description" and "label" attributes are now in the field JSON, uses "label" and "fieldset" tags
@@ -191,7 +191,7 @@ released on November 1st 2008
 		* Moved the two functions (Array.prototype compact & indexOf) into the inputEx namespace as static functions
 		* use YAHOO.lang.isMethods instead of typeof
 		* inputExChart example
-	
+
 
 version 0.1.0
 -------------
@@ -202,10 +202,10 @@ released on Wed May 07 2008
 	- Added Fields: Group,Form,AutoComplete,CheckBox,Color,Date,Email
 						 Hidden,InPlaceEdit,IPv4,List,Pair,Password,RTE,Select
 						 String,Text,Tree,Type,Uneditable,UpperCase,Url
-							
+
 	- Application examples:
 				* inputExBuilder
 				* inputExHTML
 				* TaskManager
-	
-		
+
+

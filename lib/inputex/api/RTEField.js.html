@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; RTEField.js (source view) 
+
+                 &gt; RTEField.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -48,9 +48,9 @@
                             #doc3 .classopts { display:none; }
                         </style>
                         <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-	
+
    <span class="kd">var</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">;</span>
-	
+
 <span class="c">/**</span>
 <span class="c"> * Wrapper for the Rich Text Editor from YUI</span>
 <span class="c"> * @class inputEx.RTEField</span>
@@ -65,33 +65,33 @@
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">RTEField</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
    <span class="nx">inputEx</span><span class="p">.</span><span class="nx">RTEField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
 <span class="p">};</span>
-<span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">RTEField</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Field</span><span class="o">,</span> <span class="p">{</span>   
+<span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">RTEField</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Field</span><span class="o">,</span> <span class="p">{</span>
    <span class="c">/**</span>
 <span class="c">    * Set the default values of the options</span>
 <span class="c">    * @param {Object} options Options object (inputEx inputParams) as passed to the constructor</span>
 <span class="c">    */</span>
   	<span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
   	   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">RTEField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
-  	   
+
   	   <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">opts</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">opts</span> <span class="o">||</span> <span class="p">{};</span>
   	   <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">type</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
 	<span class="c">/**</span>
 <span class="c">	 * Render the field using the YUI Editor widget</span>
-<span class="c">	 */</span>	
+<span class="c">	 */</span>
 	<span class="nx">renderComponent</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 	   <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">RTEfieldsNumber</span><span class="p">)</span> <span class="p">{</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">RTEfieldsNumber</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="p">}</span>
-	   
+
 	   <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="s2">&quot;inputEx-RTEField-&quot;</span><span class="o">+</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">RTEfieldsNumber</span><span class="o">;</span>
 	   <span class="kd">var</span> <span class="nx">attributes</span> <span class="o">=</span> <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="nx">id</span><span class="p">};</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="nx">attributes</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="o">;</span>
-      
+
 	   <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;textarea&#39;</span><span class="o">,</span> <span class="nx">attributes</span><span class="p">);</span>
-	   
+
 	   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">RTEfieldsNumber</span> <span class="o">+=</span> <span class="mi">1</span><span class="o">;</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
-	
+
 	   <span class="c">//This is the default config</span>
 	   <span class="kd">var</span> <span class="nx">_def</span> <span class="o">=</span> <span class="p">{</span>
 	       <span class="nx">height</span><span class="o">:</span> <span class="s1">&#39;300px&#39;</span><span class="o">,</span>
@@ -108,7 +108,7 @@
 	   <span class="p">}</span>
 	   <span class="c">//Check if options.type is present and set to simple, if it is use SimpleEditor instead of Editor</span>
 	   <span class="kd">var</span> <span class="nx">editorType</span> <span class="o">=</span> <span class="p">((</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">type</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s1">&#39;simple&#39;</span><span class="p">))</span> <span class="o">?</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">SimpleEditor</span> <span class="o">:</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Editor</span><span class="p">);</span>
-	
+
 	   <span class="c">//If this fails then the code is not loaded on the page</span>
 	   <span class="k">if</span> <span class="p">(</span><span class="nx">editorType</span><span class="p">)</span> <span class="p">{</span>
 	       <span class="k">this</span><span class="p">.</span><span class="nx">editor</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">editorType</span><span class="p">(</span><span class="nx">id</span><span class="o">,</span> <span class="nx">_def</span><span class="p">);</span>
@@ -117,7 +117,7 @@
 	    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Editor is not on the page&#39;</span><span class="p">);</span>
 	   <span class="p">}</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Set the html content</span>
 <span class="c">	 * @param {String} value The html string</span>
@@ -126,23 +126,23 @@
 	<span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
 	   <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">editor</span><span class="p">)</span> <span class="p">{</span>
 	      <span class="kd">var</span> <span class="nx">iframeId</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span><span class="s2">&quot;_editor&quot;</span><span class="o">;</span>
-	      
+
 	      <span class="c">// if editor iframe not rendered</span>
 	      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">iframeId</span><span class="p">))</span> <span class="p">{</span>
 	         <span class="c">// put value in textarea : will be processed by this.editor._setInitialContent (clean html, etc...)</span>
 	         <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="o">;</span>
-	         
+
 	      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 	         <span class="k">this</span><span class="p">.</span><span class="nx">editor</span><span class="p">.</span><span class="nx">setEditorHTML</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
          <span class="p">}</span>
       <span class="p">}</span>
-	   
+
    	<span class="k">if</span><span class="p">(</span><span class="nx">sendUpdatedEvt</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
    	   <span class="c">// fire update event</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="p">();</span>
       <span class="p">}</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Get the html string</span>
 <span class="c">	 * @return {String} the html string</span>
@@ -154,12 +154,12 @@
 	   <span class="p">}</span>
 	   <span class="k">catch</span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="p">}</span>
 	<span class="p">}</span>
-	
+
 <span class="p">});</span>
-	
+
 <span class="c">// Register this class as &quot;html&quot; type</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">registerType</span><span class="p">(</span><span class="s2">&quot;html&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">RTEField</span><span class="o">,</span> <span class="p">[]);</span>
-	
+
 <span class="p">})();</span>
 </pre></div>
 
@@ -251,7 +251,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

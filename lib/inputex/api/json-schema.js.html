@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; json-schema.js (source view) 
+
+                 &gt; json-schema.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -49,7 +49,7 @@
                         </style>
                         <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
    <span class="kd">var</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">;</span>
- 
+
 <span class="c">/**</span>
 <span class="c"> * Namespace containing utility functions for conversion between inputEx JSON format and JSON Schema</span>
 <span class="c"> *</span>
@@ -72,15 +72,15 @@
 <span class="c"> * @static</span>
 <span class="c"> */</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">JsonSchema</span> <span class="o">=</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Convert the inputEx JSON fields to a JSON schema</span>
 <span class="c">    */</span>
    <span class="nx">inputExToSchema</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">inputExJson</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">inputExJson</span><span class="p">.</span><span class="nx">type</span> <span class="o">||</span> <span class="s2">&quot;string&quot;</span><span class="o">,</span>
           <span class="nx">ip</span> <span class="o">=</span> <span class="nx">inputExJson</span><span class="p">.</span><span class="nx">inputParams</span> <span class="o">||</span> <span class="p">{};</span>
-      
+
       <span class="k">if</span><span class="p">(</span><span class="nx">t</span> <span class="o">==</span> <span class="s2">&quot;group&quot;</span><span class="p">)</span> <span class="p">{</span>
          <span class="kd">var</span> <span class="nx">ret</span> <span class="o">=</span> <span class="p">{</span>
             <span class="nx">type</span><span class="o">:</span><span class="s1">&#39;object&#39;</span><span class="o">,</span>
@@ -88,13 +88,13 @@
             <span class="nx">properties</span><span class="o">:</span><span class="p">{</span>
             <span class="p">}</span>
          <span class="p">};</span>
-         
+
          <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">ip</span><span class="p">.</span><span class="nx">fields</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">field</span> <span class="o">=</span> <span class="nx">ip</span><span class="p">.</span><span class="nx">fields</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
             <span class="kd">var</span> <span class="nx">fieldName</span> <span class="o">=</span> <span class="nx">field</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">name</span><span class="o">;</span>
             <span class="nx">ret</span><span class="p">.</span><span class="nx">properties</span><span class="p">[</span><span class="nx">fieldName</span><span class="p">]</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">JsonSchema</span><span class="p">.</span><span class="nx">inputExToSchema</span><span class="p">(</span><span class="nx">field</span><span class="p">);</span>
          <span class="p">}</span>
-         
+
          <span class="k">return</span> <span class="nx">ret</span><span class="o">;</span>
       <span class="p">}</span>
       <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">t</span> <span class="o">==</span> <span class="s2">&quot;number&quot;</span><span class="p">)</span> <span class="p">{</span>
@@ -130,7 +130,7 @@
     			<span class="s1">&#39;optional&#39;</span><span class="o">:</span> <span class="k">typeof</span> <span class="nx">ip</span><span class="p">.</span><span class="nx">required</span> <span class="o">==</span> <span class="s2">&quot;undefined&quot;</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="o">!</span><span class="nx">ip</span><span class="p">.</span><span class="nx">required</span><span class="o">,</span>
     			<span class="s1">&#39;title&#39;</span><span class="o">:</span> <span class="nx">ip</span><span class="p">.</span><span class="kd">label</span><span class="o">,</span>
 				<span class="s1">&#39;_inputex&#39;</span><span class="o">:</span><span class="p">{</span>
-					
+
 				<span class="p">}</span>
     		<span class="p">};</span>
       <span class="p">}</span>
@@ -199,7 +199,7 @@
 				<span class="s1">&#39;_inputex&#39;</span><span class="o">:</span> <span class="nx">ip</span>
 			<span class="p">};</span>
       <span class="p">}</span>
-      
+
    <span class="p">}</span>
 
 <span class="p">};</span>
@@ -209,10 +209,10 @@
 <span class="c"> * @class inputEx.JsonSchema.Builder</span>
 <span class="c"> */</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">JsonSchema</span><span class="p">.</span><span class="nx">Builder</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opts</span><span class="p">)</span> <span class="p">{</span>
-	
+
 	<span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="nx">opts</span> <span class="o">||</span> <span class="p">{};</span>
-	<span class="k">this</span><span class="p">.</span><span class="nx">options</span>  <span class="o">=</span> <span class="nx">options</span><span class="o">;</span> 
-	
+	<span class="k">this</span><span class="p">.</span><span class="nx">options</span>  <span class="o">=</span> <span class="nx">options</span><span class="o">;</span>
+
 	<span class="c">/**</span>
 <span class="c">	 * specify how other schema properties are mapped to inputParam properties</span>
 <span class="c">	 */</span>
@@ -221,18 +221,18 @@
 		<span class="s1">&#39;description&#39;</span><span class="o">:</span><span class="s1">&#39;description&#39;</span><span class="o">,</span>
 		<span class="s1">&#39;_inputex&#39;</span><span class="o">:</span><span class="kc">null</span>	<span class="c">// null value means copy child key/value pairs into inputParams directly</span>
 	<span class="p">};</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * @property referenceResolver</span>
 <span class="c">	 */</span>
 	<span class="k">this</span><span class="p">.</span><span class="nx">referenceResolver</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">referenceResolver</span> <span class="o">||</span> <span class="kc">null</span><span class="o">;</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * options to be applied to inputParams unless already specified</span>
 <span class="c">	 * @property defaultOptions</span>
 <span class="c">	 */</span>
-	<span class="k">this</span><span class="p">.</span><span class="nx">defaultOptions</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">defaultOptions</span> <span class="o">||</span> <span class="p">{};</span>	
-	
+	<span class="k">this</span><span class="p">.</span><span class="nx">defaultOptions</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">defaultOptions</span> <span class="o">||</span> <span class="p">{};</span>
+
 	<span class="c">/**</span>
 <span class="c">	 * key is reference, value is schema</span>
 <span class="c">	 * @property schemaIdentifierMap</span>
@@ -241,25 +241,25 @@
 <span class="p">};</span>
 
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">JsonSchema</span><span class="p">.</span><span class="nx">Builder</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
-   
+
    <span class="c">/** </span>
 <span class="c"> 	 * return a schema based on the reference value default is to look up in map</span>
 <span class="c">    */</span>
 	<span class="nx">defaultReferenceResolver</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">reference</span><span class="p">)</span> <span class="p">{</span>
 		<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">schemaIdentifierMap</span><span class="p">[</span><span class="nx">reference</span><span class="p">]</span> <span class="o">||</span> <span class="kc">null</span><span class="o">;</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Convert a JSON schema to inputEx JSON</span>
 <span class="c">	 * @param {JSONSchema} p</span>
 <span class="c">	 */</span>
 	<span class="nx">schemaToInputEx</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">p</span><span class="o">,</span> <span class="nx">propertyName</span><span class="p">)</span> <span class="p">{</span>
-	
+
 	   <span class="kd">var</span> <span class="nx">fieldDef</span> <span class="o">=</span> <span class="p">{</span><span class="nx">inputParams</span><span class="o">:</span> <span class="p">{</span> <span class="kd">label</span><span class="o">:</span> <span class="nx">propertyName</span><span class="o">,</span> <span class="nx">name</span><span class="o">:</span> <span class="nx">propertyName</span><span class="p">}</span> <span class="p">};</span>
 	   <span class="kd">var</span> <span class="nx">schemaMap</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">schemaToParamMap</span><span class="o">;</span>
-    	<span class="kd">var</span> <span class="nx">referencedSchema</span> <span class="o">=</span> <span class="nx">p</span><span class="p">[</span><span class="s2">&quot;$ref&quot;</span><span class="p">];</span> 
+    	<span class="kd">var</span> <span class="nx">referencedSchema</span> <span class="o">=</span> <span class="nx">p</span><span class="p">[</span><span class="s2">&quot;$ref&quot;</span><span class="p">];</span>
 		<span class="kd">var</span> <span class="nx">key</span><span class="o">;</span>
-	    
+
 	   <span class="k">if</span><span class="p">(</span><span class="nx">referencedSchema</span><span class="p">){</span>
 	    	<span class="kd">var</span> <span class="nx">new_schema</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 	    	<span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">referenceResolver</span><span class="p">)</span> <span class="p">{</span>
@@ -274,7 +274,7 @@
 	    	<span class="c">// copy options into new schema, for example we can overide presentation</span>
 	    	<span class="c">// of a defined schema depending on where it is used</span>
 	    	<span class="nx">new_schema</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">new_schema</span><span class="p">);</span>	<span class="c">// copy new_schema</span>
-	    	
+
 	    	<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">pk</span> <span class="k">in</span> <span class="nx">p</span><span class="p">)</span> <span class="p">{</span>
 	    		<span class="k">if</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">pk</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">new_schema</span><span class="p">[</span><span class="nx">pk</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nx">pk</span> <span class="o">!=</span> <span class="s1">&#39;$ref&#39;</span><span class="p">)</span> <span class="p">{</span>
 	    			<span class="nx">new_schema</span><span class="p">[</span><span class="nx">pk</span><span class="p">]</span> <span class="o">=</span> <span class="nx">p</span><span class="p">[</span><span class="nx">pk</span><span class="p">];</span>
@@ -289,7 +289,7 @@
 
 	    <span class="k">for</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">schemaMap</span><span class="p">)</span> <span class="p">{</span>
 	        <span class="k">if</span><span class="p">(</span><span class="nx">schemaMap</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
-	      	  <span class="kd">var</span> <span class="nx">paramName</span> <span class="o">=</span> <span class="nx">schemaMap</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span> 
+	      	  <span class="kd">var</span> <span class="nx">paramName</span> <span class="o">=</span> <span class="nx">schemaMap</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
 	      	  <span class="kd">var</span> <span class="nx">v</span> <span class="o">=</span> <span class="nx">p</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
 	      	  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">v</span><span class="p">))</span> <span class="p">{</span>
 	      		  <span class="k">if</span><span class="p">(</span><span class="nx">paramName</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
@@ -310,7 +310,7 @@
 	    <span class="p">}</span>
 	    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">p</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="nx">p</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;object&#39;</span><span class="o">;</span>
 	    <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">type</span><span class="o">;</span>
-	       
+
 	       <span class="c">// If type is a &quot;Union type definition&quot;, we&#39;ll use the first type for the field</span>
 	       <span class="c">// &quot;array&quot; &lt;=&gt;  [] &lt;=&gt; [&quot;any&quot;]</span>
 	       <span class="k">if</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">type</span><span class="p">))</span> <span class="p">{</span>
@@ -325,29 +325,29 @@
 	          <span class="c">// What do we do ??</span>
 	          <span class="c">//console.log(&quot;type is an object !!&quot;);</span>
 	       <span class="c">//}</span>
-	       
+
 	       <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">type</span><span class="o">;</span>
-	       
+
 	       <span class="c">// default value</span>
 	       <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">p</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">])</span> <span class="p">)</span> <span class="p">{</span>
 	          <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">p</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">];</span>
 	       <span class="p">}</span>
-	    
+
 	       <span class="k">if</span><span class="p">(</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;array&quot;</span> <span class="p">)</span> <span class="p">{</span>
 	          <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;list&quot;</span><span class="o">;</span>
 	          <span class="k">if</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">items</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">items</span><span class="p">))</span> <span class="p">{</span>
 	        	  <span class="c">// when items is an object, it&#39;s a schema that describes each item in the list</span>
 	        	  <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">elementType</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">schemaToInputEx</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">items</span><span class="o">,</span> <span class="nx">propertyName</span><span class="p">);</span>
 	          <span class="p">}</span>
-	
+
 		       <span class="k">if</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">minItems</span><span class="p">)</span> <span class="p">{</span> <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">minItems</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">minItems</span><span class="o">;</span> <span class="p">}</span>
 				 <span class="k">if</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">maxItems</span><span class="p">)</span> <span class="p">{</span> <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">maxItems</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">maxItems</span><span class="o">;</span> <span class="p">}</span>
-	
+
 	       <span class="p">}</span>
 	       <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;object&quot;</span> <span class="p">)</span> <span class="p">{</span>
 	          <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;group&quot;</span><span class="o">;</span>
 	          <span class="k">if</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">title</span> <span class="o">&amp;&amp;</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">legend</span><span class="p">))</span> <span class="p">{</span>
-	        	  <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">legend</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">title</span><span class="o">;</span> 
+	        	  <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">legend</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">title</span><span class="o">;</span>
 	          <span class="p">}</span>
 	          <span class="c">//fieldDef.inputParams = this.schemaToInputEx(p, propertyName);</span>
 	          <span class="c">//fieldDef.inputParams = this._parseSchemaProperty(p, propertyName);</span>
@@ -355,19 +355,19 @@
 	          <span class="k">if</span><span class="p">(</span><span class="nx">propertyName</span><span class="p">)</span> <span class="p">{</span>
 	        	  <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">propertyName</span><span class="o">;</span>
 	          <span class="p">}</span>
-	
+
 	          <span class="k">for</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">p</span><span class="p">.</span><span class="nx">properties</span><span class="p">)</span> <span class="p">{</span>
 	             <span class="k">if</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
 	                <span class="nx">fields</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">schemaToInputEx</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">properties</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="o">,</span> <span class="nx">key</span><span class="p">)</span> <span class="p">);</span>
 	             <span class="p">}</span>
 	          <span class="p">}</span>
-	
+
 	          <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">fields</span> <span class="o">=</span> <span class="nx">fields</span><span class="o">;</span>
-	          
+
 	       <span class="p">}</span>
 	       <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">p</span><span class="p">[</span><span class="s2">&quot;enum&quot;</span><span class="p">]</span> <span class="o">||</span> <span class="nx">p</span><span class="p">[</span><span class="s2">&quot;options&quot;</span><span class="p">])</span> <span class="p">)</span> <span class="p">{</span>
 	          <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;select&quot;</span><span class="o">;</span>
-	          
+
 	          <span class="k">if</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
   	             <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">selectOptions</span> <span class="o">=</span> <span class="p">[];</span>
      	          <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">selectValues</span> <span class="o">=</span> <span class="p">[];</span>
@@ -390,15 +390,15 @@
 	    		  <span class="p">}</span>
 	    	  <span class="p">}</span>
 	    	  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">maxLength</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">maxLength</span><span class="p">))</span> <span class="p">{</span>
-	    		  <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">maxLength</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">maxLength</span><span class="o">;</span> 
+	    		  <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">maxLength</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">maxLength</span><span class="o">;</span>
 	    	  <span class="p">}</span>
 
 	    	  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">minLength</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">minLength</span><span class="p">))</span> <span class="p">{</span>
-	    		  <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">minLength</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">minLength</span><span class="o">;</span> 
+	    		  <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">minLength</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">minLength</span><span class="o">;</span>
 	    	  <span class="p">}</span>
 
 	    	  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">readonly</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">readonly</span><span class="p">))</span> <span class="p">{</span>
-	    		  <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">readonly</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">readonly</span><span class="o">;</span> 
+	    		  <span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">readonly</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">readonly</span><span class="o">;</span>
 	    	  <span class="p">}</span>
 
            <span class="c">// According to http://groups.google.com/group/json-schema/web/json-schema-possible-formats</span>
@@ -423,17 +423,17 @@
     	          <span class="p">}</span>
 	          <span class="p">}</span>
 	       <span class="p">}</span>
-	
+
 			 <span class="c">// Override inputEx&#39;s type with the &quot;_type&quot; attribute</span>
 			 <span class="k">if</span><span class="p">(</span> <span class="o">!!</span><span class="nx">p</span><span class="p">[</span><span class="s2">&quot;_inputex&quot;</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="o">!!</span><span class="nx">p</span><span class="p">[</span><span class="s2">&quot;_inputex&quot;</span><span class="p">][</span><span class="s2">&quot;_type&quot;</span><span class="p">])</span> <span class="p">{</span>
 				<span class="nx">fieldDef</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">p</span><span class="p">[</span><span class="s2">&quot;_inputex&quot;</span><span class="p">][</span><span class="s2">&quot;_type&quot;</span><span class="p">];</span>
 			 <span class="p">}</span>
-	
+
 	    <span class="c">// Add the defaultOptions</span>
 	    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">kk</span> <span class="k">in</span> <span class="k">this</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">)</span> <span class="p">{</span>
 	        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">kk</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">[</span><span class="nx">kk</span><span class="p">]))</span> <span class="p">{</span>
-	        	<span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">[</span><span class="nx">kk</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">[</span><span class="nx">kk</span><span class="p">];</span> 
-	        <span class="p">}</span>	    	
+	        	<span class="nx">fieldDef</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">[</span><span class="nx">kk</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">[</span><span class="nx">kk</span><span class="p">];</span>
+	        <span class="p">}</span>
 	    <span class="p">}</span>
 	    <span class="k">return</span> <span class="nx">fieldDef</span><span class="o">;</span>
 	<span class="p">}</span><span class="o">,</span>
@@ -446,18 +446,18 @@
       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">instanceObject</span> <span class="o">||</span> <span class="o">!</span><span class="nx">instanceObject</span><span class="p">[</span><span class="s2">&quot;$schema&quot;</span><span class="p">])</span> <span class="p">{</span>
          <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid json schema instance object. Object must have a &#39;$schema&#39; property.&quot;</span><span class="p">);</span>
       <span class="p">}</span>
-      
+
       <span class="kd">var</span> <span class="nx">formDef</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">schemaToInputEx</span><span class="p">(</span><span class="nx">instanceObject</span><span class="p">[</span><span class="s2">&quot;$schema&quot;</span><span class="p">]);</span>
-      
+
       <span class="c">// Set the default value of each property to the instance value</span>
       <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">formDef</span><span class="p">.</span><span class="nx">fields</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
          <span class="kd">var</span> <span class="nx">fieldName</span> <span class="o">=</span> <span class="nx">formDef</span><span class="p">.</span><span class="nx">fields</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">name</span><span class="o">;</span>
          <span class="nx">formDef</span><span class="p">.</span><span class="nx">fields</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">instanceObject</span><span class="p">[</span><span class="nx">fieldName</span><span class="p">];</span>
       <span class="p">}</span>
-      
+
       <span class="k">return</span> <span class="nx">formDef</span><span class="o">;</span>
    <span class="p">}</span>
-   
+
 <span class="p">};</span>
 
 
@@ -554,7 +554,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

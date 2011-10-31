@@ -1,15 +1,15 @@
 /**
- * The ComposableWiringEditor 
+ * The ComposableWiringEditor
  *
  * @class ComposableWiringEditor
  * @extends WireIt.ComposableWiringEditor
  * @constructor
  */
 WireIt.ComposableWiringEditor = function(options) {
-	
+
 	// Add the "input" and "output" modules
 	options.modules = WireIt.ComposableWiringEditor.modules.concat(options.modules);
-	
+
    WireIt.ComposableWiringEditor.superclass.constructor.call(this, options);
 };
 
@@ -35,13 +35,13 @@ WireIt.ComposableWiringEditor.modules = [
 		   ]
       }
    },
-   
+
    {
       "name": "output",
       "container": {
          "xtype": "WireIt.FormContainer",
    		"title": "output",
-   		"fields": [ 
+   		"fields": [
    			{"type": "string", "inputParams": {"label": "name", "name": "name", "wirable": false}}
    		],
 	   	"terminals": [
@@ -58,22 +58,22 @@ WireIt.ComposableWiringEditor.modules = [
 
 
 YAHOO.lang.extend(WireIt.ComposableWiringEditor, WireIt.WiringEditor, {
-   
+
 	/**
 	 * Customize the load success handler for the composed module list
 	 */
 	onLoadSuccess: function(wirings) {
 		WireIt.ComposableWiringEditor.superclass.onLoadSuccess.call(this,wirings);
-	
+
 		//  Customize to display composed module in the left list
 		this.updateComposedModuleList();
 	},
-	
+
 	/**
 	 * All the saved wirings are reusable modules :
 	 */
 	updateComposedModuleList: function() {
-		
+
 		// Remove all previous module with the ComposedModule class
 		var el = YAHOO.util.Dom.get("module-category-Composed");
 		if( el ) {
@@ -81,12 +81,12 @@ YAHOO.lang.extend(WireIt.ComposableWiringEditor, WireIt.WiringEditor, {
 	      YAHOO.util.Event.purgeElement(el, true);
 			el.innerHTML = "";
 		}
-		
-		
+
+
 		if(YAHOO.lang.isArray(this.pipes)) {
 	       for(var i = 0 ; i < this.pipes.length ; i++) {
 	          var module = this.pipes[i];
-	
+
 				 var m = {
 					category: "Composed",
 					container: {
@@ -96,11 +96,11 @@ YAHOO.lang.extend(WireIt.ComposableWiringEditor, WireIt.WiringEditor, {
 		         }
 				 };
 				 YAHOO.lang.augmentObject(m, this.pipes[i]);
-					
+
 				 this.addModuleToList(m);
 			}
 		}
-		
+
 	}
-	
+
 });

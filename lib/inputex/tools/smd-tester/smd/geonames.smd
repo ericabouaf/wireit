@@ -4,9 +4,9 @@
 	"transport":"JSONP",
 	"envelope":"URL",
 	"target": "http://ws.geonames.org/",
-   
+
    "additionalParameters": true,
-	"parameters" : [ 
+	"parameters" : [
 		{"name":"type", "optional": false, "default":"JSON"}
 	],
 	"callbackParamName": "callback",
@@ -19,7 +19,7 @@
 				{ "name": "country", "type":"string", "optional": true, "default": "FR", "_inputex": {"label": "Country code"}  },
 				{ "name": "lang", "type":"string",  "enum":["en", "de", "fr", "it", "es"], "default": "en", "_inputex": {"label": "Lang"} },
 				{ "name": "maxRows", "type":"integer", "optional": true, "default": 10 }
-			]	
+			]
 		},
 
 		"getCities":{
@@ -32,7 +32,7 @@
 				{ "name": "west", "type":"float"},
 				{ "name": "lang", "type":"string", "default": "en"},
 				{ "name": "maxRows", "type":"integer", "optional": true, "default": 10 }
-			]	
+			]
 		},
 
 		"getQuakes":{
@@ -110,7 +110,7 @@
 			"parameters":[
 				{ "name":"lat", "type":"float" },
 				{ "name":"lng", "type":"float" },
-				{ "name":"radius", "type":"float" } 
+				{ "name":"radius", "type":"float" }
 			]
 		},
 
@@ -128,7 +128,7 @@
 			"parameters": [
 				{ "name":"lat", "type":"float" },
 				{ "name":"lng", "type":"float" },
-				{ "name":"lang", "type":"string","optional":true }, 
+				{ "name":"lang", "type":"string","optional":true },
 				{ "name":"radius", "type":"float" }
 			]
 		},
@@ -141,7 +141,7 @@
 				{ "name":"long", "type":"float" },
 				{ "name":"radius", "type":"float" }
 			]
-                }, 
+                },
 
 		"getWikipediaBoundingBox":{
 			"description": "returns the wikipedia entries within the bounding box as xml document Example http://ws.geonames.org/wikipediaBoundingBoxJSON?north=44.1&south=-9.9&east=-22.4&west=55.2",
@@ -151,7 +151,7 @@
 				{ "name": "south", "type":"float" },
 				{ "name": "east", "type":"float" },
 				{ "name": "west", "type":"float" },
-				{ "name": "lang", "type":"string","optional":true, "default": "en" }, 
+				{ "name": "lang", "type":"string","optional":true, "default": "en" },
 				{ "name": "maxRows", "type":"integer","optional":true, "default": 10}
          ]
       },
@@ -160,9 +160,9 @@
 			"description": "returns the wikipedia entries found for the searchterm as xml document Example http://ws.geonames.org/wikipediaSearchJSON?q=london&maxRows=10",
 			"target":"wikipediaSearchJSON",
 			"parameters":[
-				{ "name": "q", "type":"string", "label": "Place name" }, 
+				{ "name": "q", "type":"string", "label": "Place name" },
 				{ "name": "title", "type":"string", "optional": true },
-				{ "name": "lang", "type":"float","optional":true, "default": "en" }, 
+				{ "name": "lang", "type":"float","optional":true, "default": "en" },
 				{ "name": "maxRows", "type":"integer","optional":true, "default": 10 }
 			]
 		},
@@ -183,7 +183,7 @@
 				{ "name":"q", "type":"string" },
 				{ "name":"name", "type":"string" },
 				{ "name":"name_equals", "type":"string" },
-				{ "name":"maxRows", "type":"integer","optional":true }, 
+				{ "name":"maxRows", "type":"integer","optional":true },
 				{ "name":"startRow", "type":"integer","optional":true },
 				{ "name":"country", "type":"string","optional":true },
 				{ "name":"featureClass", "type":"string","optional":true},
@@ -217,6 +217,6 @@
             { "name":"charset", "type":"string","optional":true}
          ]
       }
-                
-	} 
+
+	}
 }

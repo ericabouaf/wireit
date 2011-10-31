@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; DataTable.js (source view) 
+
+                 &gt; DataTable.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -75,17 +75,17 @@
 <span class="c"> * &lt;/ul&gt;</span>
 <span class="c"> */</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">DataTable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-   
+
    <span class="k">this</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
-   
+
    <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-   
+
    <span class="k">this</span><span class="p">.</span><span class="nx">initEvents</span><span class="p">();</span>
-	
+
 <span class="p">};</span>
 
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">DataTable</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Set the options</span>
 <span class="c">    */</span>
@@ -94,15 +94,15 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">id</span> <span class="o">||</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">();</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isString</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">)</span> <span class="o">?</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">)</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="o">;</span>
-      
+
 		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">columnDefs</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">columnDefs</span><span class="o">;</span>
 
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowInsert</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowInsert</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">allowInsert</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowModify</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowModify</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">allowModify</span><span class="o">;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowDelete</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowDelete</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">allowDelete</span><span class="o">;</span> 
-      
-      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showHideColumnsDlg</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">showHideColumnsDlg</span><span class="p">)</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">showHideColumnsDlg</span><span class="o">;</span> 
-      
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowDelete</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowDelete</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">allowDelete</span><span class="o">;</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showHideColumnsDlg</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">showHideColumnsDlg</span><span class="p">)</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">showHideColumnsDlg</span><span class="o">;</span>
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">datasource</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">datasource</span><span class="o">;</span>
 
 		<span class="c">// Create a datasource if it does not exist, from the datasourceConfig Object</span>
@@ -123,27 +123,27 @@
 
 		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">dialogId</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dialogId</span> <span class="o">||</span> <span class="kc">null</span><span class="o">;</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">dialogLabel</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dialogLabel</span> <span class="o">||</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
-		
+
 		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">panelConfig</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">panelConfig</span> <span class="o">||</span> <span class="p">{</span>
-			<span class="nx">constraintoviewport</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> 
-			<span class="nx">underlay</span><span class="o">:</span><span class="s2">&quot;shadow&quot;</span><span class="o">,</span> 
-			<span class="nx">close</span><span class="o">:</span><span class="kc">true</span><span class="o">,</span> 
+			<span class="nx">constraintoviewport</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
+			<span class="nx">underlay</span><span class="o">:</span><span class="s2">&quot;shadow&quot;</span><span class="o">,</span>
+			<span class="nx">close</span><span class="o">:</span><span class="kc">true</span><span class="o">,</span>
 			<span class="nx">fixedcenter</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
-			<span class="nx">visible</span><span class="o">:</span><span class="kc">true</span><span class="o">,</span> 
+			<span class="nx">visible</span><span class="o">:</span><span class="kc">true</span><span class="o">,</span>
 			<span class="nx">draggable</span><span class="o">:</span><span class="kc">true</span><span class="o">,</span>
 			<span class="nx">modal</span><span class="o">:</span> <span class="kc">true</span>
 		<span class="p">};</span>
    <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="c">/**</span>
 <span class="c">    * Init the events</span>
 <span class="c">    */</span>
    <span class="nx">initEvents</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      
+
       <span class="c">// Call the rendering method when the container is available</span>
       <span class="nx">Event</span><span class="p">.</span><span class="nx">onAvailable</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">id</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">renderDatatable</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-      
+
       <span class="c">// Table options</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showHideColumnsDlg</span><span class="p">)</span> <span class="p">{</span>
          <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">tableOptions</span><span class="o">,</span> <span class="s1">&#39;click&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">showTableOptions</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
@@ -170,32 +170,32 @@
 <span class="c">   	 */</span>
     	<span class="k">this</span><span class="p">.</span><span class="nx">itemModifiedEvt</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s1">&#39;itemModified&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Render the main container only (not the datatable)</span>
 <span class="c">    */</span>
    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      
+
       <span class="c">/**</span>
 <span class="c">       * Main container </span>
 <span class="c">       */</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">element</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">id</span> <span class="p">});</span>
-      
+
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showHideColumnsDlg</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">renderShowHideColumnsDlg</span><span class="p">();</span>
       <span class="p">}</span>
 
       <span class="c">// append it immediatly to the parent DOM element</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">);</span>
-      
+
    <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="c">/**</span>
 <span class="c">    * Render the datatable</span>
 <span class="c">    */</span>
    <span class="nx">renderDatatable</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      
+
       <span class="kd">var</span> <span class="nx">columndefs</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">setColumnDefs</span><span class="p">();</span>
 
 		<span class="c">/**</span>
@@ -213,7 +213,7 @@
 	        	<span class="k">return</span> <span class="nx">oPayload</span><span class="o">;</span>
 	    	<span class="p">};</span>
 		<span class="p">}</span>
-            
+
       <span class="c">// Insert button</span>
       <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowInsert</span> <span class="p">){</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">insertButton</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="s1">&#39;button&#39;</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span><span class="nx">msgs</span><span class="p">.</span><span class="nx">insertItemText</span><span class="p">}</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="p">);</span>
@@ -221,7 +221,7 @@
          <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">insertButton</span><span class="p">);</span>
       <span class="p">}</span>
 
-		
+
       <span class="c">// Set up editing flow</span>
       <span class="kd">var</span> <span class="nx">highlightEditableCell</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">oArgs</span><span class="p">)</span> <span class="p">{</span>
           <span class="kd">var</span> <span class="nx">elCell</span> <span class="o">=</span> <span class="nx">oArgs</span><span class="p">.</span><span class="nx">target</span><span class="o">;</span>
@@ -229,7 +229,7 @@
               <span class="k">this</span><span class="p">.</span><span class="nx">highlightCell</span><span class="p">(</span><span class="nx">elCell</span><span class="p">);</span>
           <span class="p">}</span>
       <span class="p">};</span>
-		
+
 		<span class="c">// Locals</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">datatable</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;MSG_LOADING&quot;</span><span class="o">,</span> <span class="nx">msgs</span><span class="p">.</span><span class="nx">loadingText</span> <span class="p">);</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">datatable</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;MSG_EMPTY&quot;</span><span class="o">,</span> <span class="nx">msgs</span><span class="p">.</span><span class="nx">emptyDataText</span> <span class="p">);</span>
@@ -244,7 +244,7 @@
 <span class="c">	 * Set the column definitions, create them if none from the fields, adds the modify and delete buttons</span>
 <span class="c">	 */</span>
 	<span class="nx">setColumnDefs</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-		
+
 		<span class="kd">var</span> <span class="nx">columndefs</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">columnDefs</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">fieldsToColumndefs</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">fields</span><span class="p">);</span>
 
     	<span class="c">// Adding modify column if we use form editing and if allowModify is true</span>
@@ -258,7 +258,7 @@
             <span class="p">}</span>
          <span class="p">}]);</span>
       <span class="p">}</span>
-      
+
       <span class="c">// Adding delete column</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowDelete</span><span class="p">)</span> <span class="p">{</span>
       	 <span class="nx">columndefs</span> <span class="o">=</span> <span class="nx">columndefs</span><span class="p">.</span><span class="nx">concat</span><span class="p">([{</span>
@@ -270,17 +270,17 @@
             <span class="p">}</span>
          <span class="p">}]);</span>
       <span class="p">}</span>
-		
+
 		<span class="k">return</span> <span class="nx">columndefs</span><span class="o">;</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
    <span class="c">/**</span>
 <span class="c">    * Render the dialog for row edition</span>
 <span class="c">    */</span>
    <span class="nx">renderDialog</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      
+
      <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
-      
+
      <span class="k">this</span><span class="p">.</span><span class="nx">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">({</span>
 				<span class="nx">id</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">dialogId</span><span class="o">,</span>
 				<span class="nx">inputExDef</span><span class="o">:</span> <span class="p">{</span>
@@ -290,40 +290,40 @@
 				            <span class="nx">buttons</span><span class="o">:</span> <span class="p">[</span>
 				               <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;button&#39;</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="nx">msgs</span><span class="p">.</span><span class="nx">saveText</span><span class="o">,</span> <span class="nx">onClick</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">that</span><span class="p">.</span><span class="nx">onDialogSave</span><span class="p">();}</span> <span class="p">}</span><span class="o">,</span>
 				               <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;button&#39;</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="nx">msgs</span><span class="p">.</span><span class="nx">cancelText</span><span class="o">,</span> <span class="nx">onClick</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">that</span><span class="p">.</span><span class="nx">onDialogCancel</span><span class="p">();</span> <span class="p">}</span> <span class="p">}</span>
-				            <span class="p">]</span>				
+				            <span class="p">]</span>
 				         <span class="p">}</span>
 				      <span class="p">}</span><span class="o">,</span>
 				<span class="nx">title</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">dialogLabel</span><span class="o">,</span>
 				<span class="nx">panelConfig</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">panelConfig</span>
 		<span class="p">});</span>
-		
+
 		<span class="c">// Add a listener on the closing button and hook it to onDialogCancel()</span>
 		<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="nx">that</span><span class="p">.</span><span class="nx">dialog</span><span class="p">.</span><span class="nx">close</span><span class="o">,</span><span class="s2">&quot;click&quot;</span><span class="o">,</span><span class="kd">function</span><span class="p">(){</span>
 			<span class="nx">that</span><span class="p">.</span><span class="nx">onDialogCancel</span><span class="p">();</span>
 		<span class="p">}</span><span class="o">,</span><span class="nx">that</span><span class="p">);</span>
-		
+
    <span class="p">}</span><span class="o">,</span>
 
 	<span class="c">/**</span>
 <span class="c">    * When saving the Dialog</span>
 <span class="c">    */</span>
    <span class="nx">onDialogSave</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-		
+
 		<span class="kd">var</span> <span class="nx">newvalues</span><span class="o">,</span> <span class="nx">record</span><span class="o">;</span>
-		
+
 	  	<span class="c">//Validate the Form</span>
 	  	<span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">dialog</span><span class="p">.</span><span class="nx">getForm</span><span class="p">().</span><span class="nx">validate</span><span class="p">()</span> <span class="p">)</span> <span class="k">return</span> <span class="o">;</span>
-	   
+
 		<span class="c">// Update the record</span>
 		<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">insertNewRecord</span><span class="p">){</span>
-						
+
 			<span class="c">// Update the row</span>
 			<span class="nx">newvalues</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">dialog</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">datatable</span><span class="p">.</span><span class="nx">updateRow</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">selectedRecord</span> <span class="o">,</span> <span class="nx">newvalues</span> <span class="p">);</span>
 
 			<span class="c">// Get the new record</span>
 			<span class="nx">record</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">datatable</span><span class="p">.</span><span class="nx">getRecord</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">selectedRecord</span><span class="p">);</span>
-			
+
 			<span class="c">// Fire the modify event</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">itemModifiedEvt</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">record</span><span class="p">);</span>
 
@@ -336,18 +336,18 @@
 			<span class="c">// Set the Selected Record</span>
 			<span class="kd">var</span> <span class="nx">rowIndex</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">datatable</span><span class="p">.</span><span class="nx">getRecordSet</span><span class="p">().</span><span class="nx">getLength</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">selectedRecord</span> <span class="o">=</span> <span class="nx">rowIndex</span><span class="o">;</span>
-			
+
 			<span class="c">// Update the row</span>
 			<span class="nx">newvalues</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">dialog</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">datatable</span><span class="p">.</span><span class="nx">updateRow</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">selectedRecord</span> <span class="o">,</span> <span class="nx">newvalues</span> <span class="p">);</span>
-			
+
 			<span class="c">// Get the new record</span>
 			<span class="nx">record</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">datatable</span><span class="p">.</span><span class="nx">getRecord</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">selectedRecord</span><span class="p">);</span>
-						
+
 			<span class="c">// Fire the add event</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">itemAddedEvt</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">record</span><span class="p">);</span>
 		<span class="p">}</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">dialog</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
    <span class="p">}</span><span class="o">,</span>
 
@@ -359,13 +359,13 @@
 		<span class="k">this</span><span class="p">.</span><span class="nx">dialog</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
 	<span class="p">}</span><span class="o">,</span>
 
-   
+
    <span class="c">/**</span>
 <span class="c">    * Handling cell click events</span>
 <span class="c">    */</span>
    <span class="nx">_onCellClick</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ev</span><span class="o">,</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">Event</span><span class="p">.</span><span class="nx">getTarget</span><span class="p">(</span><span class="nx">ev</span><span class="p">);</span>
-      <span class="kd">var</span> <span class="nx">column</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">datatable</span><span class="p">.</span><span class="nx">getColumn</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>      
+      <span class="kd">var</span> <span class="nx">column</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">datatable</span><span class="p">.</span><span class="nx">getColumn</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
       <span class="kd">var</span> <span class="nx">rowIndex</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">datatable</span><span class="p">.</span><span class="nx">getTrIndex</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">column</span><span class="p">.</span><span class="nx">key</span> <span class="o">==</span> <span class="s1">&#39;delete&#39;</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">if</span> <span class="p">(</span><span class="nx">confirm</span><span class="p">(</span><span class="nx">msgs</span><span class="p">.</span><span class="nx">confirmDeletion</span><span class="p">))</span> <span class="p">{</span>
@@ -382,8 +382,8 @@
       <span class="p">}</span>
       <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">column</span><span class="p">.</span><span class="nx">key</span> <span class="o">==</span> <span class="s1">&#39;modify&#39;</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">onClickModify</span><span class="p">(</span><span class="nx">rowIndex</span><span class="p">);</span>
-      <span class="p">}</span> 
-      <span class="k">else</span> <span class="p">{</span>				
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="p">{</span>
       	<span class="k">this</span><span class="p">.</span><span class="nx">onCellClick</span><span class="p">(</span><span class="nx">ev</span><span class="o">,</span><span class="nx">rowIndex</span><span class="p">);</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
@@ -394,7 +394,7 @@
    <span class="nx">onCellClick</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ev</span><span class="o">,</span> <span class="nx">rowIndex</span><span class="p">)</span> <span class="p">{</span>
 
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Opens the Dialog to edit the row</span>
 <span class="c">    * Called when the user clicked on modify button</span>
@@ -407,10 +407,10 @@
 
       <span class="c">// NOT Inserting new record</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">insertNewRecord</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-		
+
 		<span class="c">// Set the selected Record</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">selectedRecord</span> <span class="o">=</span> <span class="nx">rowIndex</span><span class="o">;</span>
-		
+
 		<span class="c">// Get the selected Record</span>
       <span class="kd">var</span> <span class="nx">record</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">datatable</span><span class="p">.</span><span class="nx">getRecord</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">selectedRecord</span><span class="p">);</span>
 
@@ -422,7 +422,7 @@
 		<span class="p">}</span><span class="o">,</span><span class="mi">0</span><span class="p">);</span>
 
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Insert button event handler</span>
 <span class="c">    */</span>
@@ -431,10 +431,10 @@
       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">dialog</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">renderDialog</span><span class="p">();</span>
       <span class="p">}</span>
-		
+
 		<span class="c">// Inserting new record</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">insertNewRecord</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-		
+
 		<span class="c">// Escaping stack</span>
 		<span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
 		<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -443,28 +443,28 @@
 		<span class="p">}</span><span class="o">,</span><span class="mi">0</span><span class="p">);</span>
 
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Remove the record that has not been saved</span>
 <span class="c">    */</span>
    <span class="nx">removeUnsavedRecord</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">record</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">datatable</span><span class="p">.</span><span class="nx">deleteRow</span><span class="p">(</span><span class="nx">record</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Cancel row edition</span>
 <span class="c">    */</span>
    <span class="nx">onCancelForm</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">Event</span><span class="p">.</span><span class="nx">stopEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span> 
+      <span class="nx">Event</span><span class="p">.</span><span class="nx">stopEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">hideSubform</span><span class="p">();</span>
-      
+
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">editingNewRecord</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">removeUnsavedRecord</span><span class="p">();</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">editingNewRecord</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="c">/**</span>
 <span class="c">    * Convert an inputEx fields definition to a DataTable columns definition</span>
 <span class="c">    */</span>
@@ -483,7 +483,7 @@
       <span class="kd">var</span> <span class="nx">columnDef</span> <span class="o">=</span> <span class="p">{</span>
          <span class="nx">key</span><span class="o">:</span> <span class="nx">field</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="nx">name</span><span class="o">,</span>
          <span class="kd">label</span><span class="o">:</span> <span class="nx">field</span><span class="p">.</span><span class="nx">inputParams</span><span class="p">.</span><span class="kd">label</span><span class="o">,</span>
-         <span class="nx">sortable</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> 
+         <span class="nx">sortable</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
          <span class="nx">resizeable</span><span class="o">:</span> <span class="kc">true</span>
       <span class="p">};</span>
 
@@ -501,42 +501,42 @@
       <span class="c">// TODO: other formatters</span>
       <span class="k">return</span> <span class="nx">columnDef</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Render the dialog (+link) to show/hide columns</span>
 <span class="c">    */</span>
    <span class="nx">renderShowHideColumnsDlg</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">tableOptions</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">href</span><span class="o">:</span> <span class="s1">&#39;#&#39;</span><span class="p">}</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="nx">msgs</span><span class="p">.</span><span class="nx">tableOptions</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">tableOptions</span><span class="p">);</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">tableOptionsDlg</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">SimpleDialog</span><span class="p">(</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">()</span><span class="o">,</span> <span class="p">{</span>
               <span class="nx">width</span><span class="o">:</span> <span class="s2">&quot;30em&quot;</span><span class="o">,</span>
 		        <span class="nx">visible</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span>
 		        <span class="nx">modal</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
-		        <span class="nx">buttons</span><span class="o">:</span> <span class="p">[</span> 
+		        <span class="nx">buttons</span><span class="o">:</span> <span class="p">[</span>
 				      <span class="p">{</span> <span class="nx">text</span><span class="o">:</span><span class="nx">msgs</span><span class="p">.</span><span class="nx">columnDialogCloseButton</span><span class="o">,</span>  <span class="nx">handler</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span> <span class="p">}</span> <span class="p">}</span>
               <span class="p">]</span><span class="o">,</span>
               <span class="nx">fixedcenter</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
               <span class="nx">constrainToViewport</span><span class="o">:</span> <span class="kc">true</span>
 	   <span class="p">});</span>
-	
+
 		<span class="nx">Dom</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">tableOptionsDlg</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">firstChild</span><span class="o">,</span> <span class="s2">&quot;inputex-datatable-columnsDlg&quot;</span><span class="p">);</span>
-		
+
 	   <span class="k">this</span><span class="p">.</span><span class="nx">tableOptionsDlg</span><span class="p">.</span><span class="nx">bodyId</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">();</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">tableOptionsDlg</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="nx">msgs</span><span class="p">.</span><span class="nx">columnDialogTitle</span><span class="p">);</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">tableOptionsDlg</span><span class="p">.</span><span class="nx">setBody</span><span class="p">(</span><span class="s2">&quot;&lt;div id=&#39;&quot;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">tableOptionsDlg</span><span class="p">.</span><span class="nx">bodyId</span><span class="o">+</span><span class="s2">&quot;&#39;&gt;&lt;/div&gt;&quot;</span><span class="p">);</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">tableOptionsDlg</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Display the dialog to show/hide fields</span>
 <span class="c">    */</span>
    <span class="nx">showTableOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="nx">Event</span><span class="p">.</span><span class="nx">stopEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
-      
+
       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">noNewCols</span><span class="p">)</span> <span class="p">{</span>
-          
+
           <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
           <span class="kd">var</span> <span class="nx">handleButtonClick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span> <span class="nx">oSelf</span><span class="p">)</span> <span class="p">{</span>
               <span class="kd">var</span> <span class="nx">sKey</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">);</span>
@@ -549,12 +549,12 @@
                   <span class="nx">that</span><span class="p">.</span><span class="nx">datatable</span><span class="p">.</span><span class="nx">showColumn</span><span class="p">(</span><span class="nx">sKey</span><span class="p">);</span>
               <span class="p">}</span>
           <span class="p">};</span>
-          
+
            <span class="c">// Populate Dialog</span>
            <span class="c">// Using a template to create elements for the SimpleDialog</span>
            <span class="kd">var</span> <span class="nx">allColumns</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">datatable</span><span class="p">.</span><span class="nx">getColumnSet</span><span class="p">().</span><span class="nx">keys</span><span class="o">;</span>
            <span class="kd">var</span> <span class="nx">elPicker</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">tableOptionsDlg</span><span class="p">.</span><span class="nx">bodyId</span><span class="p">);</span>
-           
+
            <span class="kd">var</span> <span class="nx">elTemplateCol</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span>
            <span class="nx">Dom</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">elTemplateCol</span><span class="o">,</span> <span class="s2">&quot;dt-dlg-pickercol&quot;</span><span class="p">);</span>
            <span class="kd">var</span> <span class="nx">elTemplateKey</span> <span class="o">=</span> <span class="nx">elTemplateCol</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;span&quot;</span><span class="p">));</span>
@@ -562,42 +562,42 @@
            <span class="kd">var</span> <span class="nx">elTemplateBtns</span> <span class="o">=</span> <span class="nx">elTemplateCol</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;span&quot;</span><span class="p">));</span>
            <span class="nx">Dom</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">elTemplateBtns</span><span class="o">,</span> <span class="s2">&quot;dt-dlg-pickerbtns&quot;</span><span class="p">);</span>
            <span class="kd">var</span> <span class="nx">onclickObj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">fn</span><span class="o">:</span><span class="nx">handleButtonClick</span><span class="o">,</span> <span class="nx">obj</span><span class="o">:</span><span class="k">this</span><span class="o">,</span> <span class="nx">scope</span><span class="o">:</span><span class="kc">false</span> <span class="p">};</span>
-           
+
            <span class="c">// Create one section in the SimpleDialog for each Column</span>
            <span class="kd">var</span> <span class="nx">elColumn</span><span class="o">,</span> <span class="nx">elKey</span><span class="o">,</span> <span class="nx">elButton</span><span class="o">,</span> <span class="nx">oButtonGrp</span><span class="o">;</span>
            <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="o">,</span><span class="nx">l</span><span class="o">=</span><span class="nx">allColumns</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">l</span><span class="o">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
                <span class="kd">var</span> <span class="nx">oColumn</span> <span class="o">=</span> <span class="nx">allColumns</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-               
+
                <span class="c">// Use the template</span>
                <span class="nx">elColumn</span> <span class="o">=</span> <span class="nx">elTemplateCol</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
-               
+
                <span class="c">// Write the Column key</span>
                <span class="nx">elKey</span> <span class="o">=</span> <span class="nx">elColumn</span><span class="p">.</span><span class="nx">firstChild</span><span class="o">;</span>
                <span class="nx">elKey</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="p">(</span><span class="nx">oColumn</span><span class="p">.</span><span class="kd">label</span> <span class="o">&amp;&amp;</span> <span class="nx">oColumn</span><span class="p">.</span><span class="kd">label</span> <span class="o">!==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="nx">oColumn</span><span class="p">.</span><span class="kd">label</span> <span class="o">:</span> <span class="nx">oColumn</span><span class="p">.</span><span class="nx">getKey</span><span class="p">();</span>
-               
+
                <span class="k">if</span><span class="p">(</span><span class="nx">oColumn</span><span class="p">.</span><span class="nx">getKey</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;delete&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">oColumn</span><span class="p">.</span><span class="nx">getKey</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;modify&quot;</span><span class="p">)</span> <span class="p">{</span>
-               
+
                   <span class="c">// Create a ButtonGroup</span>
-                  <span class="nx">oButtonGrp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">ButtonGroup</span><span class="p">({</span> 
-                                  <span class="nx">id</span><span class="o">:</span> <span class="s2">&quot;buttongrp&quot;</span><span class="o">+</span><span class="nx">i</span><span class="o">,</span> 
-                                  <span class="nx">name</span><span class="o">:</span> <span class="nx">oColumn</span><span class="p">.</span><span class="nx">getKey</span><span class="p">()</span><span class="o">,</span> 
+                  <span class="nx">oButtonGrp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">ButtonGroup</span><span class="p">({</span>
+                                  <span class="nx">id</span><span class="o">:</span> <span class="s2">&quot;buttongrp&quot;</span><span class="o">+</span><span class="nx">i</span><span class="o">,</span>
+                                  <span class="nx">name</span><span class="o">:</span> <span class="nx">oColumn</span><span class="p">.</span><span class="nx">getKey</span><span class="p">()</span><span class="o">,</span>
                                   <span class="nx">container</span><span class="o">:</span> <span class="nx">elKey</span><span class="p">.</span><span class="nx">nextSibling</span>
                   <span class="p">});</span>
                   <span class="nx">oButtonGrp</span><span class="p">.</span><span class="nx">addButtons</span><span class="p">([</span>
                       <span class="p">{</span> <span class="kd">label</span><span class="o">:</span> <span class="nx">msgs</span><span class="p">.</span><span class="nx">showColumnButton</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&quot;Show&quot;</span><span class="o">,</span> <span class="nx">checked</span><span class="o">:</span> <span class="p">((</span><span class="o">!</span><span class="nx">oColumn</span><span class="p">.</span><span class="nx">hidden</span><span class="p">))</span><span class="o">,</span> <span class="nx">onclick</span><span class="o">:</span> <span class="nx">onclickObj</span><span class="p">}</span><span class="o">,</span>
                       <span class="p">{</span> <span class="kd">label</span><span class="o">:</span> <span class="nx">msgs</span><span class="p">.</span><span class="nx">hideColumnButton</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&quot;Hide&quot;</span><span class="o">,</span> <span class="nx">checked</span><span class="o">:</span> <span class="p">((</span><span class="nx">oColumn</span><span class="p">.</span><span class="nx">hidden</span><span class="p">))</span><span class="o">,</span> <span class="nx">onclick</span><span class="o">:</span> <span class="nx">onclickObj</span><span class="p">}</span>
                   <span class="p">]);</span>
-                    
+
                   <span class="nx">elPicker</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">elColumn</span><span class="p">);</span>
-               
+
                <span class="p">}</span>
            <span class="p">}</span>
            <span class="k">this</span><span class="p">.</span><span class="nx">noNewCols</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
    	<span class="p">}</span>
        <span class="k">this</span><span class="p">.</span><span class="nx">tableOptionsDlg</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
-      
+
    <span class="p">}</span>
-   
+
 <span class="p">};</span>
 
 
@@ -709,7 +709,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

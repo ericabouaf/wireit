@@ -1,5 +1,5 @@
 var demoLanguage = {
-	
+
 	// Set a unique name for the language
 	languageName: "meltingpotDemo",
 
@@ -8,39 +8,39 @@ var demoLanguage = {
 		// default fields (the "name" field is required by the WiringEditor):
 		{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
 		{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30} },
-		
+
 		// Additional fields
 		{"type": "boolean", inputParams: {"name": "isTest", value: true, label: "Test"}},
 		{"type": "select", inputParams: {"name": "category", label: "Category", selectValues: ["Demo", "Test", "Other"]} }
 	],
-	
+
 	// List of node types definition
 	modules: [
-	
+
 	   {
 	      "name": "FormContainer",
 			"category": "form",
 	      "container": {
 	   		"xtype": "WireIt.FormContainer",
-	   		"title": "WireIt.FormContainer demo",    
+	   		"title": "WireIt.FormContainer demo",
 	   		"icon": "../../res/icons/application_edit.png",
 
 	   		"collapsible": true,
-	   		"fields": [ 
+	   		"fields": [
 	   			{"type": "select", "inputParams": {"label": "Title", "name": "title", "selectValues": ["Mr","Mrs","Mme"] } },
-	   			{"inputParams": {"label": "Firstname", "name": "firstname", "required": true } }, 
-	   			{"inputParams": {"label": "Lastname", "name": "lastname", "value":"Dupont"} }, 
-	   			{"type":"email", "inputParams": {"label": "Email", "name": "email", "required": true, "wirable": true}}, 
-	   			{"type":"boolean", "inputParams": {"label": "Happy to be there ?", "name": "happy"}}, 
-	   			{"type":"url", "inputParams": {"label": "Website", "name":"website", "size": 25}} 
+	   			{"inputParams": {"label": "Firstname", "name": "firstname", "required": true } },
+	   			{"inputParams": {"label": "Lastname", "name": "lastname", "value":"Dupont"} },
+	   			{"type":"email", "inputParams": {"label": "Email", "name": "email", "required": true, "wirable": true}},
+	   			{"type":"boolean", "inputParams": {"label": "Happy to be there ?", "name": "happy"}},
+	   			{"type":"url", "inputParams": {"label": "Website", "name":"website", "size": 25}}
 	   		],
 	   		"legend": "Tell us about yourself..."
 	   	}
 	   },
-	
+
 		{
 	      "name": "comment",
-	
+
 	      "container": {
 	         "xtype": "WireIt.FormContainer",
 				"icon": "../../res/icons/comment.png",
@@ -60,7 +60,7 @@ var demoLanguage = {
 	         "name": "AND gate",
 				"category": "images",
 	         "container": {
-	      		"xtype":"WireIt.ImageContainer", 
+	      		"xtype":"WireIt.ImageContainer",
 	      		"image": "../logicGates/images/gate_and.png",
 	      		"icon": "../../res/icons/arrow_join.png",
 	      		"terminals": [
@@ -76,7 +76,7 @@ var demoLanguage = {
 					"name": "Bubble",
 					"category": "images",
 					"container": {
-	         		"xtype":"WireIt.ImageContainer", 
+	         		"xtype":"WireIt.ImageContainer",
 	         		"className": "WireIt-Container WireIt-ImageContainer Bubble",
 	            	"icon": "../../res/icons/color_wheel.png",
 	         		"image": "../images/bubble.png",
@@ -97,13 +97,13 @@ var demoLanguage = {
 	   				"xtype": "WireIt.FormContainer",
 	   				"outputTerminals": [],
 	   				"propertiesForm": [],
-	   				"fields": [ 
+	   				"fields": [
 	   					{"type": "select", "inputParams": {"label": "Title", "name": "title", "selectValues": ["Mr","Mrs","Mme"] } },
-	   					{"inputParams": {"label": "Firstname", "name": "firstname", "required": true } }, 
-	   					{"inputParams": {"label": "Lastname", "name": "lastname", "value":"Dupont"} }, 
-	   					{"type":"email", "inputParams": {"label": "Email", "name": "email", "required": true}}, 
-	   					{"type":"boolean", "inputParams": {"label": "Happy to be there ?", "name": "happy"}}, 
-	   					{"type":"url", "inputParams": {"label": "Website", "name":"website", "size": 25}} 
+	   					{"inputParams": {"label": "Firstname", "name": "firstname", "required": true } },
+	   					{"inputParams": {"label": "Lastname", "name": "lastname", "value":"Dupont"} },
+	   					{"type":"email", "inputParams": {"label": "Email", "name": "email", "required": true}},
+	   					{"type":"boolean", "inputParams": {"label": "Happy to be there ?", "name": "happy"}},
+	   					{"type":"url", "inputParams": {"label": "Website", "name":"website", "size": 25}}
 	   				]
 					}
 				},
@@ -113,21 +113,21 @@ var demoLanguage = {
 					"category": "form",
 	            "container": {
 	         		"xtype": "WireIt.FormContainer",
-	         		"title": "Post",    
+	         		"title": "Post",
 	         		"icon": "../../res/icons/comments.png",
 
-	         		"fields": [ 
+	         		"fields": [
 
 	         		   {"type": "inplaceedit", "inputParams": {
 										"name": "post",
-	         		      "editorField":{"type":"text", "inputParams": {} },  
+	         		      "editorField":{"type":"text", "inputParams": {} },
 	         		      "animColors":{"from":"#FFFF99" , "to":"#DDDDFF"}
 	         		   }},
 
 	         			{"type": "list", "inputParams": {
 	         			   "label": "Comments", "name": "comments", "wirable": false,
 	         			   "elementType": {"type":"string", "inputParams": { "wirable": false } }
-	         			   } 
+	         			   }
 	         			}
 
 	         		],
@@ -138,18 +138,18 @@ var demoLanguage = {
 	               			]
 	         	}
 	         },
-	
-	
+
+
 				{
 		         "name": "InOut test",
 		         "container": {
-		      		"xtype":"WireIt.InOutContainer", 
+		      		"xtype":"WireIt.InOutContainer",
 		      		"icon": "../../res/icons/arrow_right.png",
 						"inputs": ["text1", "text2", "option1"],
 						"outputs": ["result", "error"]
 		      	}
 		      }
-				
+
 			]
 
 };

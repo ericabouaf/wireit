@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; Group.js (source view) 
+
+                 &gt; Group.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -48,9 +48,9 @@
                             #doc3 .classopts { display:none; }
                         </style>
                         <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-   
+
    <span class="kd">var</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">,</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="o">,</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">;</span>
-   
+
 <span class="c">/**</span>
 <span class="c"> * Handle a group of fields</span>
 <span class="c"> * @class inputEx.Group</span>
@@ -67,44 +67,44 @@
 <span class="c"> */</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Group</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
    <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Group</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
-   
+
    <span class="c">// Run default field interactions (if setValue has not been called before)</span>
    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">runFieldsInteractions</span><span class="p">();</span>
    <span class="p">}</span>
 <span class="p">};</span>
 <span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">Group</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Field</span><span class="o">,</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Adds some options: legend, collapsible, fields...</span>
 <span class="c">    * @param {Object} options Options object (inputEx inputParams) as passed to the constructor</span>
 <span class="c">    */</span>
    <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-   
+
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
-   	
+
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">||</span> <span class="s1">&#39;inputEx-Group&#39;</span><span class="o">;</span>
-   	
+
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">fields</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">fields</span><span class="o">;</span>
-   	
+
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">id</span><span class="o">;</span>
-   	
+
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="o">;</span>
-   	
+
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="o">;</span>
-   	
+
    	<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">flatten</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">flatten</span><span class="o">;</span>
-   
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">legend</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">legend</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="o">;</span>
-   
+
       <span class="c">// leave this for compatibility reasons</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">inputConfigs</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">fields</span><span class="o">;</span>
-   
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">collapsible</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">collapsible</span><span class="p">)</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">collapsible</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">collapsed</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">collapsed</span><span class="p">)</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">collapsed</span><span class="o">;</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">disabled</span><span class="p">)</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">disabled</span><span class="o">;</span>
-      
+
       <span class="c">// Array containing the list of the field instances</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">inputs</span> <span class="o">=</span> <span class="p">[];</span>
 
@@ -116,67 +116,67 @@
 <span class="c">    * Render the group</span>
 <span class="c">    */</span>
    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-   
+
       <span class="c">// Create the div wrapper for this group</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span><span class="p">});</span>
 	   <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
    	   <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">id</span><span class="o">;</span>
    	<span class="p">}</span>
-  	   
-  	   <span class="k">this</span><span class="p">.</span><span class="nx">renderFields</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">);</span>  	  
-  	   
+
+  	   <span class="k">this</span><span class="p">.</span><span class="nx">renderFields</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">);</span>
+
   	   <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">disabled</span><span class="p">)</span> <span class="p">{</span>
   	      <span class="k">this</span><span class="p">.</span><span class="nx">disable</span><span class="p">();</span>
   	   <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Render all the fields.</span>
 <span class="c">    * We use the parentEl so that inputEx.Form can append them to the FORM tag</span>
 <span class="c">    */</span>
    <span class="nx">renderFields</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">parentEl</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">fieldset</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;fieldset&#39;</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">legend</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;legend&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-Group-legend&#39;</span><span class="p">});</span>
-   
+
       <span class="c">// Option Collapsible</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">collapsible</span><span class="p">)</span> <span class="p">{</span>
          <span class="kd">var</span> <span class="nx">collapseImg</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-Group-collapseImg&#39;</span><span class="p">}</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s1">&#39; &#39;</span><span class="p">);</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">legend</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">collapseImg</span><span class="p">);</span>
          <span class="nx">inputEx</span><span class="p">.</span><span class="nx">sn</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">fieldset</span><span class="o">,</span><span class="p">{</span><span class="nx">className</span><span class="o">:</span><span class="s1">&#39;inputEx-Expanded&#39;</span><span class="p">});</span>
       <span class="p">}</span>
-   
+
       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">legend</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">legend</span> <span class="o">!==</span> <span class="s1">&#39;&#39;</span><span class="p">){</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">legend</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">legend</span><span class="p">)</span> <span class="p">);</span>
       <span class="p">}</span>
-   
+
       <span class="k">if</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">collapsible</span> <span class="o">||</span> <span class="p">(</span><span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">legend</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">legend</span> <span class="o">!==</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">fieldset</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">legend</span><span class="p">);</span>
       <span class="p">}</span>
-  	   
+
       <span class="c">// Iterate this.createInput on input fields</span>
       <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">fields</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
          <span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">fields</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-        
+
 			<span class="c">// Throw Error if input is undefined</span>
 			<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">input</span><span class="p">)</span> <span class="p">{</span>
 				<span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;inputEx.Form: One of the provided fields is undefined ! (check trailing comma)&quot;</span><span class="p">);</span>
 			<span class="p">}</span>
-			
+
          <span class="c">// Render the field</span>
          <span class="kd">var</span> <span class="nx">field</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">renderField</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">fieldset</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nx">getEl</span><span class="p">()</span> <span class="p">);</span>
   	   <span class="p">}</span>
-  	
+
   	   <span class="c">// Collapsed at creation ?</span>
   	   <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">collapsed</span><span class="p">)</span> <span class="p">{</span>
   	      <span class="k">this</span><span class="p">.</span><span class="nx">toggleCollapse</span><span class="p">();</span>
   	   <span class="p">}</span>
-  	
+
   	   <span class="c">// Append the fieldset</span>
   	   <span class="nx">parentEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">fieldset</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-  
+
    <span class="c">/**</span>
 <span class="c">    * Instanciate one field given its parameters, type or fieldClass</span>
 <span class="c">    * @param {Object} fieldOptions The field properties as required by the inputEx() method</span>
@@ -184,26 +184,26 @@
    <span class="nx">renderField</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fieldOptions</span><span class="p">)</span> <span class="p">{</span>
 
       <span class="c">// Instanciate the field</span>
-      <span class="kd">var</span> <span class="nx">fieldInstance</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">(</span><span class="nx">fieldOptions</span><span class="p">);</span>      
-      
+      <span class="kd">var</span> <span class="nx">fieldInstance</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">(</span><span class="nx">fieldOptions</span><span class="p">);</span>
+
 	   <span class="k">this</span><span class="p">.</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">fieldInstance</span><span class="p">);</span>
-      
+
       <span class="c">// Create an index to access fields by their name</span>
       <span class="k">if</span><span class="p">(</span><span class="nx">fieldInstance</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">inputsNames</span><span class="p">[</span><span class="nx">fieldInstance</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">fieldInstance</span><span class="o">;</span>
       <span class="p">}</span>
-      
+
       <span class="c">// Create the this.hasInteractions to run interactions at startup</span>
       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">hasInteractions</span> <span class="o">&amp;&amp;</span> <span class="nx">fieldOptions</span><span class="p">.</span><span class="nx">interactions</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">hasInteractions</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
       <span class="p">}</span>
-      
+
 	   <span class="c">// Subscribe to the field &quot;updated&quot; event to send the group &quot;updated&quot; event</span>
       <span class="nx">fieldInstance</span><span class="p">.</span><span class="nx">updatedEvt</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">onChange</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-   	  
+
       <span class="k">return</span> <span class="nx">fieldInstance</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-  
+
    <span class="c">/**</span>
 <span class="c">    * Add a listener for the &#39;collapsible&#39; option</span>
 <span class="c">    */</span>
@@ -224,14 +224,14 @@
          <span class="nx">Dom</span><span class="p">.</span><span class="nx">replaceClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">fieldset</span><span class="o">,</span> <span class="s1">&#39;inputEx-Collapsed&#39;</span><span class="o">,</span><span class="s1">&#39;inputEx-Expanded&#39;</span><span class="p">);</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Validate each field</span>
 <span class="c">    * @returns {Boolean} true if all fields validate and required fields are not empty</span>
 <span class="c">    */</span>
    <span class="nx">validate</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">response</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-      
+
       <span class="c">// Validate all the sub fields</span>
       <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
    	   <span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inputs</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
@@ -243,7 +243,7 @@
       <span class="p">}</span>
       <span class="k">return</span> <span class="nx">response</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Enable all fields in the group</span>
 <span class="c">    */</span>
@@ -252,7 +252,7 @@
  	      <span class="k">this</span><span class="p">.</span><span class="nx">inputs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">enable</span><span class="p">();</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Disable all fields in the group</span>
 <span class="c">    */</span>
@@ -261,7 +261,7 @@
  	      <span class="k">this</span><span class="p">.</span><span class="nx">inputs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">disable</span><span class="p">();</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Set the values of each field from a key/value hash object</span>
 <span class="c">     * @param {Any} value The group value</span>
@@ -281,15 +281,15 @@
 	         <span class="nx">field</span><span class="p">.</span><span class="nx">clear</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
 	      <span class="p">}</span>
       <span class="p">}</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">runFieldsInteractions</span><span class="p">();</span>
-      
+
 	   <span class="k">if</span><span class="p">(</span><span class="nx">sendUpdatedEvt</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
 	      <span class="c">// fire update event</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="p">();</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Return an object with all the values of the fields</span>
 <span class="c">    */</span>
@@ -308,7 +308,7 @@
       <span class="p">}</span>
 	   <span class="k">return</span> <span class="nx">o</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-  
+
    <span class="c">/**</span>
 <span class="c">    * Close the group (recursively calls &quot;close&quot; on each field, does NOT hide the group )</span>
 <span class="c">    * Call this function before hidding the group to close any field popup</span>
@@ -338,8 +338,8 @@
       <span class="p">}</span>
       <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inputsNames</span><span class="p">[</span><span class="nx">fieldName</span><span class="p">];</span>
    <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="c">/**</span>
 <span class="c">    * Called when one of the group subfields is updated.</span>
 <span class="c">    * @param {String} eventName Event name</span>
@@ -351,9 +351,9 @@
       <span class="kd">var</span> <span class="nx">fieldValue</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
       <span class="kd">var</span> <span class="nx">fieldInstance</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">runInteractions</span><span class="p">(</span><span class="nx">fieldInstance</span><span class="o">,</span><span class="nx">fieldValue</span><span class="p">);</span>
-      
+
       <span class="c">//this.setClassFromState();</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="p">();</span>
    <span class="p">}</span><span class="o">,</span>
 
@@ -374,18 +374,18 @@
          <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;action &quot;</span><span class="o">+</span><span class="nx">action</span><span class="p">.</span><span class="nx">action</span><span class="o">+</span><span class="s2">&quot; is not a valid action for field &quot;</span><span class="o">+</span><span class="nx">action</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Run the interactions for the given field instance</span>
 <span class="c">    * @param {inputEx.Field} fieldInstance Field that just changed</span>
 <span class="c">    * @param {Any} fieldValue Field value</span>
 <span class="c">    */</span>
    <span class="nx">runInteractions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fieldInstance</span><span class="o">,</span><span class="nx">fieldValue</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">fieldInstance</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">inputs</span><span class="p">);</span>
       <span class="kd">var</span> <span class="nx">fieldConfig</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">fields</span><span class="p">[</span><span class="nx">index</span><span class="p">];</span>
       <span class="k">if</span><span class="p">(</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">fieldConfig</span><span class="p">.</span><span class="nx">interactions</span><span class="p">)</span> <span class="p">)</span> <span class="k">return</span><span class="o">;</span>
-      
+
       <span class="c">// Let&#39;s run the interactions !</span>
       <span class="kd">var</span> <span class="nx">interactions</span> <span class="o">=</span> <span class="nx">fieldConfig</span><span class="p">.</span><span class="nx">interactions</span><span class="o">;</span>
       <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">interactions</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -396,9 +396,9 @@
             <span class="p">}</span>
          <span class="p">}</span>
       <span class="p">}</span>
-      
+
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Run the interactions for all fields</span>
 <span class="c">    */</span>
@@ -409,7 +409,7 @@
          <span class="p">}</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
 	<span class="c">/**</span>
 <span class="c">	 * Clear all subfields</span>
 <span class="c">	 * @param {boolean} [sendUpdatedEvt] (optional) Wether this clear should fire the updatedEvt or not (default is true, pass false to NOT send the event)</span>
@@ -423,12 +423,12 @@
          <span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="p">();</span>
       <span class="p">}</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Write error messages for fields as specified in the hash</span>
 <span class="c">	 * @param {Object || Array} errors Hash object containing error messages as Strings referenced by the field name, or array [ [&quot;fieldName&quot;, &quot;Message&quot;], ...]</span>
 <span class="c">	 */</span>
-	<span class="nx">setErrors</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">errors</span><span class="p">)</span> <span class="p">{</span>	
+	<span class="nx">setErrors</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">errors</span><span class="p">)</span> <span class="p">{</span>
 		<span class="kd">var</span> <span class="nx">i</span><span class="o">,</span><span class="nx">k</span><span class="o">;</span>
 		<span class="k">if</span><span class="p">(</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">errors</span><span class="p">))</span> <span class="p">{</span>
 			<span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -455,11 +455,11 @@
 			<span class="p">}</span>
 		<span class="p">}</span>
 	<span class="p">}</span>
-   
-   
+
+
 <span class="p">});</span>
 
-   
+
 <span class="c">// Register this class as &quot;group&quot; type</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">registerType</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Group</span><span class="o">,</span> <span class="p">[</span>
    <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;string&quot;</span><span class="o">,</span> <span class="nx">inputParams</span><span class="o">:</span><span class="p">{</span><span class="kd">label</span><span class="o">:</span> <span class="s2">&quot;Name&quot;</span><span class="o">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;name&quot;</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">}</span> <span class="p">}</span><span class="o">,</span>
@@ -561,7 +561,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

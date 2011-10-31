@@ -2,7 +2,7 @@
 <head>
 <title>inputExChart</title>
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-	
+
 <!-- YUI CSS -->
 <link rel="stylesheet" type="text/css" href="../lib/yui/reset-fonts/reset-fonts.css">
 <link rel="stylesheet" type="text/css" href="../lib/yui/assets/skins/sam/skin.css">
@@ -52,14 +52,14 @@
 </head>
 
 <body class="yui-skin-sam">
-	
+
 	<div id='container'>
 		<p class="title">inputExChart</p>
 		<p class="description">
 			Enter the desired configuration and click the 'Update' button.<br />
 			This application is an example for the <a href="http://javascript.neyric.com/inputex">inputEx Library</a>.<br />
 		</p>
-		
+
 		<table id='mainTable'>
 			<tr>
 				<td class="splitcell">
@@ -67,14 +67,14 @@
 					<div id='htmlFormContainer'>
 					</div>
 				</td>
-		
+
 				<td class="splitcell">
-		
+
 					<p class="subtitle" style="margin-top: 20px;">Preview :</p>
 					<p class="description" id='preview'>
 						<button id='updateButton'>Update</button>
 					</p>
-		
+
 					<img src='../images/space.gif' id='chart'/>
 					<br />
 					Url:
@@ -96,24 +96,24 @@
 inputEx.spacerUrl = "../images/space.gif";
 
 YAHOO.util.Event.onDOMReady( function() {
-	
+
 	var form = null;
-	
+
 	var updateChart = function() {
-		
+
 		var val = form.getValue();
 		var url = 'http://chart.apis.google.com/chart?';
-	
+
 		var colors = val.colors;
 		for(var i = 0 ; i < colors.length ; i++) {
 			colors[i] = colors[i].substr(1);
 		}
-		
+
 		var series = val.series;
 		for(var i = 0 ; i < series.length ; i++) {
 			series[i] = series[i].join(',');
 		}
-	
+
 	  var params = ['cht=lc',
 								  'chs='+val.width+'x'+val.height,
 									'chtt='+encodeURI(val.title),
@@ -121,19 +121,19 @@ YAHOO.util.Event.onDOMReady( function() {
 									'chco='+colors.join(','),
 									'chd=t:'+series.join('%7C')
 								];
-		
+
 		url += params.join('&');
-		
+
 		var chart = YAHOO.util.Dom.get('chart');
 		chart.src = url;
-		
+
 		var urlInput = YAHOO.util.Dom.get('url');
 		urlInput.value = url;
-		
+
 	};
-	
+
 	YAHOO.util.Event.addListener('updateButton', 'click', updateChart);
-	
+
 	form = new inputEx.Form({
 		parentEl: 'htmlFormContainer',
 		fields: [
@@ -144,9 +144,9 @@ YAHOO.util.Event.onDOMReady( function() {
 				{ type: 'list', inputParams: {label: 'Colors',name: 'colors', elementType: {type: 'color', inputParams:{} }, value: ['#ff0000','#00ff00','#0000ff','#ffff00'] }},
 				{ type: 'list', inputParams: {
 					label: 'Series',
-					name: 'series', 
+					name: 'series',
 					elementType: {
-						type: 'list', 
+						type: 'list',
 						inputParams: { type: 'integer', inputParams: {} }
 					},
 					value: [[10,20,30,40],[40,30,20,10],[15,15,15,15],[0,10,25,50]]
@@ -158,7 +158,7 @@ YAHOO.util.Event.onDOMReady( function() {
 });
 
 </script>
-	
+
 </body>
 </html>
 
