@@ -12,32 +12,32 @@
  * @param {Obj} options configuration object
  */
 WireIt.LayerMap = function(layer,options) {
-   
+
    /**
     * @property layer
     */
    this.layer = layer;
-   
+
    this.setOptions(options);
-   
+
    // Create the canvas element
    WireIt.LayerMap.superclass.constructor.call(this, this.options.parentEl);
-   
+
    // Set the className
    this.element.className = this.options.className;
-   
+
    this.initEvents();
-   
+
    this.draw();
 };
 
 YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
-   
+
    /**
     * @method setOptions
     * @param {Object} options
     */
-   setOptions: function(options) { 
+   setOptions: function(options) {
       var options = options || {};
       /**
        * Options:
@@ -55,21 +55,21 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       this.options.style = options.style || "rgba(0, 0, 200, 0.5)";
       this.options.lineWidth = options.lineWidth || 2;
    },
-   
-   
+
+
    /**
     * Listen for various events that should redraw the layer map
     * @method initEvents
     */
    initEvents: function() {
-      
+
       var layer = this.layer;
-      
+
       Event.addListener(this.element, 'mousedown', this.onMouseDown, this, true);
       Event.addListener(this.element, 'mouseup', this.onMouseUp, this, true);
       Event.addListener(this.element, 'mousemove', this.onMouseMove, this, true);
       Event.addListener(this.element, 'mouseout', this.onMouseUp, this, true);
-      
+
       layer.eventAddWire.subscribe(this.draw, this, true);
       layer.eventRemoveWire.subscribe(this.draw, this, true);
       layer.eventAddContainer.subscribe(this.draw, this, true);
@@ -79,19 +79,19 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
 
       Event.addListener(this.layer.el, "scroll", this.onLayerScroll, this, true);
    },
-   
+
    /**
     * When a mouse move is received
     * @method onMouseMove
     * @param {Event} e Original event
     * @param {Array} args event parameters
     */
-   onMouseMove: function(e, args) { 
+   onMouseMove: function(e, args) {
       Event.stopEvent(e);
-      if(this.isMouseDown) 
+      if(this.isMouseDown)
          this.scrollLayer(e.clientX,e.clientY);
-   },   
-   
+   },
+
    /**
     * When a mouseup or mouseout is received
     * @method onMouseUp
@@ -102,7 +102,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       Event.stopEvent(e);
       this.isMouseDown = false;
    },
-   
+
    /**
     * When a mouse down is received
     * @method onMouseDown
@@ -114,7 +114,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       this.scrollLayer(e.clientX,e.clientY);
       this.isMouseDown = true;
    },
-   
+
    /**
     * Scroll the layer from mousedown/mousemove
     * @method scrollLayer
@@ -122,29 +122,29 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
     * @param {Integer} clientY mouse event y coordinate
     */
    scrollLayer: function(clientX, clientY) {
-      
+
       var canvasPos = Dom.getXY(this.element);
       var click = [ clientX-canvasPos[0], clientY-canvasPos[1] ];
-      
+
       // Canvas Region
       var canvasRegion = Dom.getRegion(this.element);
       var canvasWidth = canvasRegion.right-canvasRegion.left-4;
       var canvasHeight = canvasRegion.bottom-canvasRegion.top-4;
-      
+
       // Calculate ratio
       var layerWidth = this.layer.el.scrollWidth;
       var layerHeight = this.layer.el.scrollHeight;
       var hRatio = Math.floor(100*canvasWidth/layerWidth)/100;
       var vRatio = Math.floor(100*canvasHeight/layerHeight)/100;
-      
+
       // Center position:
       var center = [ click[0]/hRatio, click[1]/vRatio ];
-      
+
       // Region
       var region = Dom.getRegion(this.layer.el);
       var viewportWidth = region.right-region.left;
       var viewportHeight = region.bottom-region.top;
-      
+
       // Calculate the scroll position of the layer
       var topleft = [ Math.max(Math.floor(center[0]-viewportWidth/2),0) ,  Math.max(Math.floor(center[1]-viewportHeight/2), 0) ];
       if( topleft[0]+viewportWidth > layerWidth ) {
@@ -153,41 +153,41 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       if( topleft[1]+viewportHeight > layerHeight ) {
          topleft[1] = layerHeight-viewportHeight;
       }
-     
+
       this.layer.el.scrollLeft = topleft[0];
       this.layer.el.scrollTop = topleft[1];
-   
+
    },
-   
+
    /**
     * Redraw after a timeout
     * @method onLayerScroll
     */
    onLayerScroll: function() {
-      
+
       if(this.scrollTimer) { clearTimeout(this.scrollTimer); }
       var that = this;
       this.scrollTimer = setTimeout(function() {
          that.draw();
       },50);
-      
+
    },
-   
+
    /**
     * Redraw the layer map
     * @method draw
     */
    draw: function() {
       var ctxt=this.getContext();
-      
+
       // Canvas Region
       var canvasRegion = Dom.getRegion(this.element);
       var canvasWidth = canvasRegion.right-canvasRegion.left-4;
       var canvasHeight = canvasRegion.bottom-canvasRegion.top-4;
-      
+
       // Clear Rect
       ctxt.clearRect(0,0, canvasWidth, canvasHeight);
-      
+
       // Calculate ratio
       var layerWidth = this.layer.el.scrollWidth;
       var layerHeight = this.layer.el.scrollHeight;
@@ -203,7 +203,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       ctxt.strokeStyle= "rgb(200, 50, 50)";
       ctxt.lineWidth=1;
       ctxt.strokeRect(viewportX*hRatio, viewportY*vRatio, viewportWidth*hRatio, viewportHeight*vRatio);
-   
+
       // Draw containers and wires
       ctxt.fillStyle = this.options.style;
       ctxt.strokeStyle= this.options.style;
@@ -211,7 +211,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       this.drawContainers(ctxt, hRatio, vRatio);
       this.drawWires(ctxt, hRatio, vRatio);
    },
-   
+
    /**
     * Subroutine to draw the containers
     * @method drawContainers
@@ -221,11 +221,11 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       var n = containers.length,i,gIS = WireIt.getIntStyle,containerEl;
       for(i = 0 ; i < n ; i++) {
          containerEl = containers[i].el;
-         ctxt.fillRect(gIS(containerEl, "left")*hRatio, gIS(containerEl, "top")*vRatio, 
+         ctxt.fillRect(gIS(containerEl, "left")*hRatio, gIS(containerEl, "top")*vRatio,
                        gIS(containerEl, "width")*hRatio, gIS(containerEl, "height")*vRatio);
       }
    },
-   
+
    /**
     * Subroutine to draw the wires
     * @method drawWires
@@ -235,7 +235,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       var n = wires.length,i,wire;
       for(i = 0 ; i < n ; i++) {
          wire = wires[i];
-         var pos1 = wire.terminal1.getXY(), 
+         var pos1 = wire.terminal1.getXY(),
              pos2 = wire.terminal2.getXY();
 
          // Stroked line
@@ -246,10 +246,10 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
          ctxt.closePath();
          ctxt.stroke();
       }
-      
+
    }
-   
-   
+
+
 });
 
 })();

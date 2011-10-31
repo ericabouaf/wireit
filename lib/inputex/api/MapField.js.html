@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; MapField.js (source view) 
+
+                 &gt; MapField.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -122,10 +122,10 @@
 	<span class="c">/**</span>
 <span class="c">	 * Adds the &#39;inputEx-MapField&#39; default className</span>
 <span class="c">	 */</span>
-	<span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span> 
+	<span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
 		<span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">||</span> <span class="s1">&#39;inputEx-Field inputEx-MapField&#39;</span><span class="o">;</span>
-		
+
 		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">width</span> <span class="o">||</span> <span class="s1">&#39;400px&#39;</span><span class="o">;</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">height</span> <span class="o">||</span> <span class="s1">&#39;400px&#39;</span><span class="o">;</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">loading</span> <span class="o">||</span> <span class="s1">&#39;loading....&#39;</span><span class="o">;</span>
@@ -299,7 +299,7 @@
 				<span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">);</span>
 				<span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&quot;http://us.js2.yimg.com/us.js.yimg.com/lib/map/js/api/ymapapi_3_8_0_7.js&quot;</span><span class="o">;</span>
 				<span class="nx">script</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;text/javascript&quot;</span><span class="o">;</span>
-		
+
 				<span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
 			<span class="p">}</span>
 
@@ -328,7 +328,7 @@
 			<span class="nx">YEvent</span><span class="p">.</span><span class="nx">Capture</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">y_map</span><span class="o">,</span> <span class="nx">EventsList</span><span class="p">.</span><span class="nx">endPan</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onposition</span><span class="p">);</span>
 
 			<span class="k">this</span><span class="p">.</span><span class="nx">y_map</span><span class="p">.</span><span class="nx">drawZoomAndCenter</span><span class="p">(</span>
-				<span class="k">new</span> <span class="nx">YGeoPoint</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">.</span><span class="nx">elLat</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">superwrapper</span><span class="p">.</span><span class="nx">elLon</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="o">,</span> 
+				<span class="k">new</span> <span class="nx">YGeoPoint</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">.</span><span class="nx">elLat</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">superwrapper</span><span class="p">.</span><span class="nx">elLon</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="o">,</span>
 				<span class="nx">inputEx</span><span class="p">.</span><span class="nx">MapFieldZoom</span><span class="p">.</span><span class="nx">yahoo</span><span class="p">.</span><span class="nx">to_native</span><span class="p">(</span><span class="nx">superwrapper</span><span class="p">.</span><span class="nx">elUZoom</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
 			<span class="p">);</span>
 		<span class="p">}</span><span class="o">,</span>
@@ -611,7 +611,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

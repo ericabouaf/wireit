@@ -67,7 +67,7 @@ Event.onAvailable('yui-classopts-form', function() {
             dl.hash = hash;
         }
     }
-    
+
 });
 
 //Starting the AutoComplete code
@@ -139,7 +139,7 @@ Event.onAvailable('yui-classopts-form', function() {
         // Subscribe to Custom Events
         oAutoComp.dataReturnEvent.subscribe(myOnDataReturn);
         oAutoComp.itemSelectEvent.subscribe(myOnItemSelect);
-        
+
         // Set initial content in the container
         oAutoComp.sendQuery(Dom.get("searchinput").value);
 
@@ -148,14 +148,14 @@ Event.onAvailable('yui-classopts-form', function() {
     var validateForm = function() {
         return false;
     };
-    
+
     YAHOO.util.Event.onAvailable('classTab', function() {
         var tabs = new YAHOO.widget.TabView('classTab');
     });
     /*
     YAHOO.util.Event.onAvailable('codeTree', function() {
         var tree1 = new YAHOO.widget.TreeView('codeTree');
-        tree1.render();    
+        tree1.render();
     });
     */
 

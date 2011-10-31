@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/wireit" title="WireItLibrary">WireItLibrary</a></h1>
         <h3>WireIt&nbsp; <span class="subtitle">0.6.0</span></h3>
-        <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
+        <a href="./index.html" title="WireItLibrary">WireItLibrary</a>
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
-                
-                 &gt; InOutContainer.js (source view) 
+
+                 &gt; InOutContainer.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -60,18 +60,18 @@
 <span class="p">};</span>
 
 <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">InOutContainer</span><span class="o">,</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Container</span><span class="o">,</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * @method setOptions</span>
 <span class="c">    * @param {Object} options the options object</span>
 <span class="c">    */</span>
    <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">WireIt</span><span class="p">.</span><span class="nx">InOutContainer</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">xtype</span> <span class="o">=</span> <span class="s2">&quot;WireIt.InOutContainer&quot;</span><span class="o">;</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">||</span> <span class="s2">&quot;WireIt-Container WireIt-InOutContainer&quot;</span><span class="o">;</span>
-      
+
       <span class="c">// Overwrite default value for options:</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">resizable</span> <span class="o">=</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">resizable</span> <span class="o">==</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">resizable</span><span class="o">;</span>
 
@@ -79,16 +79,16 @@
 		<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">outputs</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">outputs</span> <span class="o">||</span> <span class="p">[];</span>
 
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="nx">WireIt</span><span class="p">.</span><span class="nx">InOutContainer</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">render</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 
 		<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 			<span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">inputs</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">terminals</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
-				<span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="nx">input</span><span class="o">,</span> 
-				<span class="s2">&quot;direction&quot;</span><span class="o">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span> 
-				<span class="s2">&quot;offsetPosition&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;left&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">14</span><span class="o">,</span> <span class="s2">&quot;top&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="o">+</span><span class="mi">30</span><span class="o">*</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">}</span><span class="o">,</span> 
+				<span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="nx">input</span><span class="o">,</span>
+				<span class="s2">&quot;direction&quot;</span><span class="o">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span>
+				<span class="s2">&quot;offsetPosition&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;left&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">14</span><span class="o">,</span> <span class="s2">&quot;top&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="o">+</span><span class="mi">30</span><span class="o">*</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">}</span><span class="o">,</span>
 				<span class="s2">&quot;ddConfig&quot;</span><span class="o">:</span> <span class="p">{</span>
              	<span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;input&quot;</span><span class="o">,</span>
              	<span class="s2">&quot;allowedTypes&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span>
@@ -96,13 +96,13 @@
  			<span class="p">});</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">bodyEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="p">{</span><span class="nx">lineHeight</span><span class="o">:</span> <span class="s2">&quot;30px&quot;</span><span class="p">}</span><span class="o">,</span> <span class="nx">input</span><span class="p">));</span>
 		<span class="p">}</span>
-		
+
 		<span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 			<span class="kd">var</span> <span class="nx">output</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">outputs</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">terminals</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
-				<span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="nx">output</span><span class="o">,</span> 
-				<span class="s2">&quot;direction&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="o">,</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span> 
-				<span class="s2">&quot;offsetPosition&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;right&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">14</span><span class="o">,</span> <span class="s2">&quot;top&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="o">+</span><span class="mi">30</span><span class="o">*</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">}</span><span class="o">,</span> 
+				<span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="nx">output</span><span class="o">,</span>
+				<span class="s2">&quot;direction&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="o">,</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span>
+				<span class="s2">&quot;offsetPosition&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;right&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">14</span><span class="o">,</span> <span class="s2">&quot;top&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="o">+</span><span class="mi">30</span><span class="o">*</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">}</span><span class="o">,</span>
 				<span class="s2">&quot;ddConfig&quot;</span><span class="o">:</span> <span class="p">{</span>
              <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;output&quot;</span><span class="o">,</span>
              <span class="s2">&quot;allowedTypes&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;input&quot;</span><span class="p">]</span>
@@ -111,9 +111,9 @@
 			<span class="p">});</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">bodyEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="p">{</span><span class="nx">lineHeight</span><span class="o">:</span> <span class="s2">&quot;30px&quot;</span><span class="o">,</span> <span class="nx">textAlign</span><span class="o">:</span> <span class="s2">&quot;right&quot;</span><span class="p">}</span><span class="o">,</span> <span class="nx">output</span><span class="p">));</span>
 		<span class="p">}</span>
-		
+
    <span class="p">}</span>
-   
+
 <span class="p">});</span>
 </pre></div>
 
@@ -163,7 +163,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
                                 <li class=""><a href="Anim.js.html" title="Anim.js">Anim.js</a></li>
                                 <li class=""><a href="BaseEditor.js.html" title="BaseEditor.js">BaseEditor.js</a></li>

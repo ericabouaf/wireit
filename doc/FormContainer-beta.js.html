@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/wireit" title="WireItLibrary">WireItLibrary</a></h1>
         <h3>WireIt&nbsp; <span class="subtitle">0.6.0</span></h3>
-        <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
+        <a href="./index.html" title="WireItLibrary">WireItLibrary</a>
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
-                
-                 &gt; FormContainer-beta.js (source view) 
+
+                 &gt; FormContainer-beta.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -61,18 +61,18 @@
 <span class="p">};</span>
 
 <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">FormContainer</span><span class="o">,</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Container</span><span class="o">,</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * @method setOptions</span>
 <span class="c">    */</span>
    <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">WireIt</span><span class="p">.</span><span class="nx">FormContainer</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
-      
-      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">legend</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">legend</span><span class="o">;</span> 
-      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">collapsible</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">collapsible</span><span class="o">;</span> 
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">legend</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">legend</span><span class="o">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">collapsible</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">collapsible</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">fields</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">fields</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * The render method is overrided to call renderForm</span>
 <span class="c">    * @method render</span>
@@ -81,18 +81,18 @@
       <span class="nx">WireIt</span><span class="p">.</span><span class="nx">FormContainer</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">render</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">renderForm</span><span class="p">();</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Render the form</span>
 <span class="c">    * @method renderForm</span>
 <span class="c">    */</span>
    <span class="nx">renderForm</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 	  <span class="k">this</span><span class="p">.</span><span class="nx">setBackReferenceOnFieldOptionsRecursively</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">fields</span><span class="p">);</span>
-      
+
       <span class="kd">var</span> <span class="nx">groupParams</span> <span class="o">=</span> <span class="p">{</span><span class="nx">parentEl</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">bodyEl</span><span class="o">,</span> <span class="nx">fields</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">fields</span><span class="o">,</span> <span class="nx">legend</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">legend</span><span class="o">,</span> <span class="nx">collapsible</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">collapsible</span><span class="p">};</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">form</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">Group</span><span class="p">(</span><span class="nx">groupParams</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
 	<span class="c">/**</span>
 <span class="c">	 * When creating wirable input fields, the field configuration (inputParams) must have a reference to the current container (this is used for positionning).</span>
 <span class="c">	 * For complex fields (like object or list), the reference is set recursively AFTER the field creation.</span>
@@ -119,21 +119,21 @@
     	  <span class="p">}</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * @method getValue</span>
 <span class="c">    */</span>
    <span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">form</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * @method setValue</span>
 <span class="c">    */</span>
    <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">form</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
    <span class="p">}</span>
-   
+
 <span class="p">});</span>
 </pre></div>
 
@@ -183,7 +183,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
                                 <li class=""><a href="Anim.js.html" title="Anim.js">Anim.js</a></li>
                                 <li class=""><a href="BaseEditor.js.html" title="BaseEditor.js">BaseEditor.js</a></li>

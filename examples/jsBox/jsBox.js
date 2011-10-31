@@ -2,17 +2,17 @@
  * jsBox
  */
 var jsBox = {
-	   
+
    language: {
-	
+
 	   languageName: "jsBox",
-	
+
 		modules: [
 		   {
 		      "name": "jsBox",
 		      "container": {"xtype": "jsBox.Container"}
 		   },
-		   
+
 		   {
 		      "name": "comment",
 		      "container": {
@@ -28,7 +28,7 @@ var jsBox = {
 		         }
 		      }
 		   },
-		   
+
 		   {
 		      "name": "callback",
 		      "container": {
@@ -55,7 +55,7 @@ var jsBox = {
 		   }
 		]
 	},
-   
+
    /**
     * @method init
     * @static
@@ -66,7 +66,7 @@ var jsBox = {
 		// Open the infos panel
 		editor.accordionView.openPanel(2);
    },
-   
+
    /**
     * Execute the module in the "ExecutionFrame" virtual machine
     * @method run
@@ -76,7 +76,7 @@ var jsBox = {
       var ef = new ExecutionFrame( this.editor.getValue() );
       ef.run();
    }
-   
+
 };
 
 
@@ -110,13 +110,13 @@ YAHOO.lang.extend(jsBox.WiringEditor, WireIt.ComposableWiringEditor, {
  * @constructor
  */
 jsBox.Container = function(options, layer) {
-         
+
    jsBox.Container.superclass.constructor.call(this, options, layer);
-   
+
    this.buildTextArea(options.codeText || "function(e) {\n\n  return 0;\n}");
-   
+
    this.createTerminals();
-   
+
    // Reposition the terminals when the jsBox is being resized
    this.ddResize.eventResize.subscribe(function(e, args) {
       this.positionTerminals();
@@ -125,7 +125,7 @@ jsBox.Container = function(options, layer) {
 };
 
 YAHOO.extend(jsBox.Container, WireIt.Container, {
-   
+
    /**
     * Create the textarea for the javascript code
     * @method buildTextArea
@@ -137,27 +137,27 @@ YAHOO.extend(jsBox.Container, WireIt.Container, {
       this.setBody(this.textarea);
 
       YAHOO.util.Event.addListener(this.textarea, 'change', this.createTerminals, this, true);
-      
+
    },
-   
+
    /**
     * Create (and re-create) the terminals with this.nParams input terminals
     * @method createTerminals
     */
    createTerminals: function() {
-      
+
       // Output Terminal
       if(!this.outputTerminal) {
-   	   this.outputTerminal = this.addTerminal({xtype: "WireIt.util.TerminalOutput", "name": "out"});      
+   	   this.outputTerminal = this.addTerminal({xtype: "WireIt.util.TerminalOutput", "name": "out"});
          this.outputTerminal.jsBox = this;
       }
-      
+
       // Input terminals :
       var match = (this.textarea.value).match((/^[ ]*function[ ]*\((.*)\)[ ]*\{/));
    	var sParamList = match ? match[1] : "";
       var params = sParamList.split(',');
       var nParams = (sParamList=="") ? 0 : params.length;
-      
+
       var curTerminalN = this.nParams || 0;
       if(curTerminalN < nParams) {
          // add terminals
@@ -176,13 +176,13 @@ YAHOO.extend(jsBox.Container, WireIt.Container, {
          this.terminals = WireIt.compact(this.terminals);
       }
       this.nParams = nParams;
-   
+
       this.positionTerminals();
 
       // Declare the new terminals to the drag'n drop handler (so the wires are moved around with the container)
       this.dd.setTerminals(this.terminals);
    },
-   
+
    /**
     * Reposition the terminals
     * @method positionTerminals
@@ -199,14 +199,14 @@ YAHOO.extend(jsBox.Container, WireIt.Container, {
             term.wires[j].redraw();
          }
       }
-      
+
       // Output terminal
       WireIt.sn(this.outputTerminal.el, null, {position: "absolute", bottom: "-15px", left: (Math.floor(width/2)-15)+"px"});
       for(var j = 0 ; j < this.outputTerminal.wires.length ; j++) {
          this.outputTerminal.wires[j].redraw();
       }
    },
-   
+
    /**
     * Extend the getConfig to add the "codeText" property
     * @method getConfig
@@ -216,5 +216,5 @@ YAHOO.extend(jsBox.Container, WireIt.Container, {
       obj.codeText = this.textarea.value;
       return obj;
    }
-   
+
 });

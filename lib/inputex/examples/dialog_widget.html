@@ -7,17 +7,17 @@
 <link rel="stylesheet" type="text/css" href="css/demo.css"/>
 <link rel="stylesheet" type="text/css" href="css/dpSyntaxHighlighter.css">
 
-<!-- YUI loader-->	
-<script src="../lib/yui/yuiloader/yuiloader-min.js"></script> 
+<!-- YUI loader-->
+<script src="../lib/yui/yuiloader/yuiloader-min.js"></script>
 
 <!-- inputEx loader -->
 <script src="../js/inputex-loader.js"></script>
 
 </head>
 <body class="yui-skin-sam">
-	
+
 	<p class='demoTitle'>inputEx - Dialog Widget Usage</p>
-	
+
 	<!-- Example 1 -->
 	<div class='exampleDiv'>
 
@@ -31,25 +31,25 @@
 
 		<div class='codeContainer'>
 			<textarea name="code" class="JScript">
-				
+
 				// HTML code
 				<button onclick="Example1.myPanel.show();">Show Panel</button>
-				
+
 				// Javascript code
 				Example1 = {};
 				var formConfig =		{
 				         type: 'form',
 				         inputParams: {
-				            fields: [ 
+				            fields: [
 												{type: 'select', inputParams: {label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] } },
-												{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } }, 
-												{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } }, 
-												{type:'email', inputParams: {label: 'Email', name: 'email'}}, 
-												{type:'url', inputParams: {label: 'Website',name:'website'}} 
+												{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } },
+												{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } },
+												{type:'email', inputParams: {label: 'Email', name: 'email'}},
+												{type:'url', inputParams: {label: 'Website',name:'website'}}
 											],
 				            buttons: [
-				               {type: 'button', value: 'Send', onClick: function() { 
-														alert(YAHOO.lang.JSON.stringify(Example1.myPanel.getForm().getValue())); 
+				               {type: 'button', value: 'Send', onClick: function() {
+														alert(YAHOO.lang.JSON.stringify(Example1.myPanel.getForm().getValue()));
 											 }},
 				               {type: 'button', value: 'Cancel', onClick: function() { Example1.myPanel.hide(); } }
 				            ]
@@ -64,8 +64,8 @@
 
 	</div>
 
-	
-	
+
+
 	<!-- Example 2 -->
 	<div class='exampleDiv'>
 
@@ -84,15 +84,15 @@
 						inputExDef: {
 						         type: 'form',
 						         inputParams: {
-						            fields: [ 
-														{type:'string', inputParams: {label: 'Name', name: 'firstname', required: true } }, 
-														{type:'email', inputParams: {label: 'Email', name: 'email', description: 'Won\'t be displayed...'}}, 
-														{type:'url', inputParams: {label: 'Website',name:'website', typeInvite: '(optional)'}}, 
+						            fields: [
+														{type:'string', inputParams: {label: 'Name', name: 'firstname', required: true } },
+														{type:'email', inputParams: {label: 'Email', name: 'email', description: 'Won\'t be displayed...'}},
+														{type:'url', inputParams: {label: 'Website',name:'website', typeInvite: '(optional)'}},
 														{type:'text', inputParams: {label: 'Your comment',name:'comments'}}
 													],
 						            buttons: [
-						               {type: 'button', value: 'Send', onClick: function() { 
-																alert(YAHOO.lang.JSON.stringify(Example2.myPanel.getForm().getValue())); 
+						               {type: 'button', value: 'Send', onClick: function() {
+																alert(YAHOO.lang.JSON.stringify(Example2.myPanel.getForm().getValue()));
 													 }},
 						               {type: 'button', value: 'Cancel', onClick: function() { Example2.myPanel.hide(); } }
 						            ]
@@ -100,11 +100,11 @@
 						      },
 						title: 'Please post a comment !',
 						panelConfig: {
-							constraintoviewport: true, 
-							underlay:"shadow", 
-							close:true, 
+							constraintoviewport: true,
+							underlay:"shadow",
+							close:true,
 							fixedcenter: true,
-							visible:false, 
+							visible:false,
 							draggable:true,
 							modal: true
 						}
@@ -114,8 +114,8 @@
 
 	</div>
 
-	
-	
+
+
 <script>
 
 
@@ -123,25 +123,25 @@
  * The function to call when all script/css resources have been loaded
  */
 function init() {
-	
+
 	// Required for the UrlField
 	inputEx.spacerUrl = "../images/space.gif";
-		
-	// Example 1	
+
+	// Example 1
 	Example1 = {};
 	var formConfig =		{
 	         type: 'form',
 	         inputParams: {
-	            fields: [ 
+	            fields: [
 									{type: 'select', inputParams: {label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] } },
-									{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } }, 
-									{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } }, 
-									{type:'email', inputParams: {label: 'Email', name: 'email'}}, 
-									{type:'url', inputParams: {label: 'Website',name:'website'}} 
+									{inputParams: {label: 'Firstname', name: 'firstname', required: true, value:'Jacques' } },
+									{inputParams: {label: 'Lastname', name: 'lastname', value:'Dupont' } },
+									{type:'email', inputParams: {label: 'Email', name: 'email'}},
+									{type:'url', inputParams: {label: 'Website',name:'website'}}
 								],
 	            buttons: [
-	               {type: 'button', value: 'Send', onClick: function() { 
-											alert(YAHOO.lang.JSON.stringify(Example1.myPanel.getForm().getValue())); 
+	               {type: 'button', value: 'Send', onClick: function() {
+											alert(YAHOO.lang.JSON.stringify(Example1.myPanel.getForm().getValue()));
 								 }},
 	               {type: 'button', value: 'Cancel', onClick: function() { Example1.myPanel.hide(); } }
 	            ]
@@ -151,22 +151,22 @@ function init() {
 		inputExDef: formConfig,
 		title: 'Here the title of your dialog'
 	});
-	
+
 	// Example 2
 	Example2 = {};
 	Example2.myPanel = new inputEx.widget.Dialog({
 			inputExDef: {
 			         type: 'form',
 			         inputParams: {
-			            fields: [ 
-											{type:'string', inputParams: {label: 'Name', name: 'firstname', required: true } }, 
-											{type:'email', inputParams: {label: 'Email', name: 'email', description: 'Won\'t be displayed...'}}, 
-											{type:'url', inputParams: {label: 'Website',name:'website', typeInvite: '(optional)'}}, 
+			            fields: [
+											{type:'string', inputParams: {label: 'Name', name: 'firstname', required: true } },
+											{type:'email', inputParams: {label: 'Email', name: 'email', description: 'Won\'t be displayed...'}},
+											{type:'url', inputParams: {label: 'Website',name:'website', typeInvite: '(optional)'}},
 											{type:'text', inputParams: {label: 'Your comment',name:'comments'}}
 										],
 			            buttons: [
-			               {type: 'button', value: 'Send', onClick: function() { 
-													alert(YAHOO.lang.JSON.stringify(Example2.myPanel.getForm().getValue())); 
+			               {type: 'button', value: 'Send', onClick: function() {
+													alert(YAHOO.lang.JSON.stringify(Example2.myPanel.getForm().getValue()));
 										 }},
 			               {type: 'button', value: 'Cancel', onClick: function() { Example2.myPanel.hide(); } }
 			            ]
@@ -174,16 +174,16 @@ function init() {
 			      },
 			title: 'Please post a comment !',
 			panelConfig: {
-				constraintoviewport: true, 
-				underlay:"shadow", 
-				close:true, 
+				constraintoviewport: true,
+				underlay:"shadow",
+				close:true,
 				fixedcenter: true,
-				visible:false, 
+				visible:false,
 				draggable:true,
 				modal: true
 			}
 	});
-	
+
 };
 
 
@@ -203,7 +203,7 @@ loader.insert();
 
 
 <script src="js/dpSyntaxHighlighter.js"></script>
-<script language="javascript"> 
+<script language="javascript">
 dp.SyntaxHighlighter.HighlightAll('code');
 </script>
 

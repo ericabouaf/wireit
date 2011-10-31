@@ -50,8 +50,8 @@ version: 2.8.0r4
     padding-right: 20px;
 
     /*
-        Prevents the label from shifting left in IE when the 
-        ".yui-skin-sam .yuimenubarnav .yuimenubaritemlabel-selected" 
+        Prevents the label from shifting left in IE when the
+        ".yui-skin-sam .yuimenubarnav .yuimenubaritemlabel-selected"
         rule us applied.
     */
 
@@ -130,7 +130,7 @@ version: 2.8.0r4
 .yui-skin-sam .yuimenu .bd {
 
 	/*
-		The following application of zoom:1 prevents first tier submenus of a MenuBar from hiding 
+		The following application of zoom:1 prevents first tier submenus of a MenuBar from hiding
 		when the mouse is moving from an item in a MenuBar to a submenu in IE 7.
 	*/
 
@@ -138,7 +138,7 @@ version: 2.8.0r4
 	_zoom: normal;	/* Remove this rule for IE 6. */
     border: solid 1px #808080;
     background-color: #fff;
-    
+
 }
 
 .yui-skin-sam .yuimenu .yuimenu .bd {
@@ -165,13 +165,13 @@ version: 2.8.0r4
 
 /* Group titles */
 
-.yui-skin-sam .yuimenu h6 { 
+.yui-skin-sam .yuimenu h6 {
 
     font-weight: bold;
     border-style: solid;
     border-color: #ccc;
     border-width: 1px 0 0 0;
-    color: #a4a4a4;    
+    color: #a4a4a4;
     padding: 3px 10px 0 10px;
 
 }
@@ -256,14 +256,14 @@ version: 2.8.0r4
 .yui-skin-sam .yuimenuitemlabel:visited {
 
     color: #000;
-	
+
 }
 
 .yui-skin-sam .yuimenuitemlabel .helptext {
 
     margin-top: -1.5em;
     *margin-top: -1.45em;  /* For IE*/
-    
+
 }
 
 .yui-skin-sam .yuimenuitem-hassubmenu {
@@ -293,7 +293,7 @@ version: 2.8.0r4
     background-color: #000;
 
     /*
-        Opacity can be expensive, so defer the use of opacity until the 
+        Opacity can be expensive, so defer the use of opacity until the
         menu is visible.
     */
 

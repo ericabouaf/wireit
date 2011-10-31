@@ -81,7 +81,7 @@ a:visited { color: #003399;}
 #doc3 .nav .module UL.content A { text-decoration: none; color: black; display: block; padding: 2px 4px 2px 4px; }
 #doc3 .nav .module LI,
 #doc3 .nav .module LI A {
-    zoom: 1; 
+    zoom: 1;
 }
 #doc3 .nav .module LI.selected A,
 #doc3 .nav .module LI A:hover {
@@ -179,8 +179,8 @@ body.show_protected .protected {
 
 
 /* source code view */
-#srcout {min-width: 580px; } 
-*html #srcout { width: 100%; padding-bottom:1em; overflow-x:auto } 
+#srcout {min-width: 580px; }
+*html #srcout { width: 100%; padding-bottom:1em; overflow-x:auto }
 
 .highlight .c { color: #60a0b0; font-style: italic } /* Comment */
 .highlight .err { border: 1px solid #FF0000 } /* Error */

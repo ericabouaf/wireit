@@ -1,6 +1,6 @@
 // Smaller version of gears_init.js
 (function() {
-	
+
 	// We are already defined. Hooray!
    if (window.google && google.gears) {
 		return;
@@ -57,20 +57,20 @@
 /**
  * Gears Adapter (using http://gears.google.com)
  * @class WireIt.WiringEditor.adapters.Gears
- * @static 
+ * @static
  */
 WireIt.WiringEditor.adapters.Gears = {
-	
+
 	config: {
 		dbName: 'database-test'
 	},
-	
+
 	init: function() {
 		this.db = google.gears.factory.create('beta.database');
 		this.db.open(this.config.dbName);
 		this.db.execute('create table if not exists wirings (name text, working text, language text)');
 	},
-	
+
 	saveWiring: function(val, callbacks) {
 		var rs = this.db.execute('select * from wirings where name=? and language=?', [val.name, val.language]);
 		if(rs.isValidRow()) {
@@ -81,12 +81,12 @@ WireIt.WiringEditor.adapters.Gears = {
 		}
 		callbacks.success.call(callbacks.scope, "ok");
 	},
-	
+
 	deleteWiring: function(val, callbacks) {
 		this.db.execute('delete from wirings where name=? and language=?', [val.name, val.language]);
 		callbacks.success.call(callbacks.scope, "ok");
 	},
-	
+
 	listWirings: function(val, callbacks) {
 		var rs = this.db.execute('select * from wirings where language=?', [val.language]);
 		var results = [];
@@ -101,5 +101,5 @@ WireIt.WiringEditor.adapters.Gears = {
 		rs.close();
 		callbacks.success.call(callbacks.scope, results);
 	}
-	
+
 };

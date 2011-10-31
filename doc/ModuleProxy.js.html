@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/wireit" title="WireItLibrary">WireItLibrary</a></h1>
         <h3>WireIt&nbsp; <span class="subtitle">0.6.0</span></h3>
-        <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
+        <a href="./index.html" title="WireItLibrary">WireItLibrary</a>
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
-                
-                 &gt; ModuleProxy.js (source view) 
+
+                 &gt; ModuleProxy.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -60,18 +60,18 @@
 <span class="c"> * @param {WireIt.WiringEditor} WiringEditor</span>
 <span class="c"> */</span>
 <span class="nx">WireIt</span><span class="p">.</span><span class="nx">ModuleProxy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">WiringEditor</span><span class="p">)</span> <span class="p">{</span>
-   
+
    <span class="k">this</span><span class="p">.</span><span class="nx">_WiringEditor</span> <span class="o">=</span> <span class="nx">WiringEditor</span><span class="o">;</span>
-   
+
    <span class="c">// Init the DDProxy</span>
    <span class="nx">WireIt</span><span class="p">.</span><span class="nx">ModuleProxy</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">el</span><span class="o">,</span> <span class="s2">&quot;module&quot;</span><span class="o">,</span> <span class="p">{</span>
         <span class="nx">dragElId</span><span class="o">:</span> <span class="s2">&quot;moduleProxy&quot;</span>
     <span class="p">});</span>
-    
-    <span class="k">this</span><span class="p">.</span><span class="nx">isTarget</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span> 
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">isTarget</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 <span class="p">};</span>
 <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">ModuleProxy</span><span class="o">,</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">DDProxy</span><span class="o">,</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * copy the html and apply selected classes</span>
 <span class="c">    * @method startDrag</span>
@@ -83,18 +83,18 @@
        <span class="nx">del</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">lel</span><span class="p">.</span><span class="nx">innerHTML</span><span class="o">;</span>
        <span class="nx">del</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">lel</span><span class="p">.</span><span class="nx">className</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Override default behavior of DDProxy</span>
 <span class="c">    * @method endDrag</span>
 <span class="c">    */</span>
    <span class="nx">endDrag</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{}</span><span class="o">,</span>
-    
+
    <span class="c">/**</span>
 <span class="c">    * Add the module to the WiringEditor on drop on layer</span>
 <span class="c">    * @method onDragDrop</span>
 <span class="c">    */</span>
-   <span class="nx">onDragDrop</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span> <span class="nx">ddTargets</span><span class="p">)</span> <span class="p">{</span> 
+   <span class="nx">onDragDrop</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span> <span class="nx">ddTargets</span><span class="p">)</span> <span class="p">{</span>
       <span class="c">// The layer is the only target :</span>
       <span class="kd">var</span> <span class="nx">layerTarget</span> <span class="o">=</span> <span class="nx">ddTargets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span>
 			 <span class="nx">layer</span> <span class="o">=</span> <span class="nx">ddTargets</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">_layer</span><span class="o">,</span>
@@ -103,7 +103,7 @@
 			 <span class="nx">layerPos</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">getXY</span><span class="p">(</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">_WiringEditor</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">_module</span> <span class="o">,</span><span class="p">[</span><span class="nx">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="nx">layerPos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">scrollLeft</span><span class="o">,</span> <span class="nx">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nx">layerPos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">scrollTop</span><span class="p">]);</span>
     <span class="p">}</span>
-   
+
 <span class="p">});</span>
 
 <span class="p">})();</span>
@@ -155,7 +155,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
                                 <li class=""><a href="Anim.js.html" title="Anim.js">Anim.js</a></li>
                                 <li class=""><a href="BaseEditor.js.html" title="BaseEditor.js">BaseEditor.js</a></li>

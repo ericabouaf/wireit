@@ -8,7 +8,7 @@
  * @param {Object} config Configuration object
  */
 WireIt.util.DDResize = function(container, config) {
-   
+
    /**
     * Configuration object
     * <ul>
@@ -22,13 +22,13 @@ WireIt.util.DDResize = function(container, config) {
    this.myConf.container = container;
    this.myConf.minWidth = this.myConf.minWidth || 50;
    this.myConf.minHeight = this.myConf.minHeight || 50;
-   
+
    // Call the superconstructor
    WireIt.util.DDResize.superclass.constructor.apply(this, [container.el, container.ddResizeHandle]);
-   
+
    // Set the resize handle
    this.setHandleElId(container.ddResizeHandle);
-   
+
    /**
     * The event fired when the container is resized
     * @event eventResize
@@ -64,7 +64,7 @@ YAHOO.extend(WireIt.util.DDResize, YAHOO.util.DragDrop, {
         var panel = this.getEl();
         panel.style.width = newWidth + "px";
         panel.style.height = newHeight + "px";
-        
+
         // Fire the resize event
         this.eventResize.fire([newWidth, newHeight]);
     }

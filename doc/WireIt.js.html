@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/wireit" title="WireItLibrary">WireItLibrary</a></h1>
         <h3>WireIt&nbsp; <span class="subtitle">0.6.0</span></h3>
-        <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
+        <a href="./index.html" title="WireItLibrary">WireItLibrary</a>
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
-                
-                 &gt; WireIt.js (source view) 
+
+                 &gt; WireIt.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -57,7 +57,7 @@
 <span class="c"> * @namespace WireIt</span>
 <span class="c"> */</span>
 <span class="kd">var</span> <span class="nx">WireIt</span> <span class="o">=</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Get a css property in pixels and convert it to an integer</span>
 <span class="c">    * @method getIntStyle</span>
@@ -107,7 +107,7 @@
             <span class="p">}</span>
          <span class="p">}</span>
       <span class="p">}</span>
-   
+
    <span class="p">}</span><span class="o">,</span>
 
 
@@ -127,7 +127,7 @@
       <span class="k">if</span><span class="p">(</span><span class="nx">innerHTML</span><span class="p">){</span> <span class="nx">el</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">innerHTML</span><span class="o">;</span> <span class="p">}</span>
       <span class="k">return</span> <span class="nx">el</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * indexOf replace Array.indexOf for cases where it isn&#39;t available (IE6 only ?)</span>
 <span class="c">    * @method indexOf</span>
@@ -136,8 +136,8 @@
 <span class="c">    * @param {Array} arr Array to search into</span>
 <span class="c">    * @return {Integer} element index or -1 if not found</span>
 <span class="c">    */</span>
-   <span class="nx">indexOf</span><span class="o">:</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">)</span> <span class="o">?</span> 
-                        <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">el</span><span class="p">);}</span> <span class="o">:</span> 
+   <span class="nx">indexOf</span><span class="o">:</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">)</span> <span class="o">?</span>
+                        <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">el</span><span class="p">);}</span> <span class="o">:</span>
                         <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
                            <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
                               <span class="k">if</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="nx">el</span><span class="p">)</span> <span class="k">return</span> <span class="nx">i</span><span class="o">;</span>
@@ -152,8 +152,8 @@
 <span class="c">    * @param {Array} arr Array to compact</span>
 <span class="c">    * @return {Array} compacted array</span>
 <span class="c">    */</span>
-   <span class="nx">compact</span><span class="o">:</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">compact</span><span class="p">)</span> <span class="o">?</span> 
-                        <span class="kd">function</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">compact</span><span class="p">();}</span> <span class="o">:</span>          
+   <span class="nx">compact</span><span class="o">:</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">compact</span><span class="p">)</span> <span class="o">?</span>
+                        <span class="kd">function</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">compact</span><span class="p">();}</span> <span class="o">:</span>
                         <span class="kd">function</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
                            <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="p">[];</span>
                            <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -218,7 +218,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
                                 <li class=""><a href="Anim.js.html" title="Anim.js">Anim.js</a></li>
                                 <li class=""><a href="BaseEditor.js.html" title="BaseEditor.js">BaseEditor.js</a></li>

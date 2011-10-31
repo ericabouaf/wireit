@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/wireit" title="WireItLibrary">WireItLibrary</a></h1>
         <h3>WireIt&nbsp; <span class="subtitle">0.6.0</span></h3>
-        <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
+        <a href="./index.html" title="WireItLibrary">WireItLibrary</a>
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
-                
-                 &gt; ajax.js (source view) 
+
+                 &gt; ajax.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -53,7 +53,7 @@
 <span class="c"> * @static </span>
 <span class="c"> */</span>
 <span class="nx">WireIt</span><span class="p">.</span><span class="nx">WiringEditor</span><span class="p">.</span><span class="nx">adapters</span><span class="p">.</span><span class="nx">Ajax</span> <span class="o">=</span> <span class="p">{</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * You can configure this adapter to different schemas.</span>
 <span class="c">	 * TIP: &quot;url&quot; can be a function !</span>
@@ -72,7 +72,7 @@
 			<span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;listWirings&#39;</span>
 		<span class="p">}</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * init the adapter </span>
 <span class="c">	 * @method init</span>
@@ -81,7 +81,7 @@
 	<span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 		<span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Connect</span><span class="p">.</span><span class="nx">setDefaultPostHeader</span><span class="p">(</span><span class="s1">&#39;application/json&#39;</span><span class="p">);</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * called when saved</span>
 <span class="c">	 * @method saveWiring</span>
@@ -90,7 +90,7 @@
 	<span class="nx">saveWiring</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="o">,</span> <span class="nx">callbacks</span><span class="p">)</span> <span class="p">{</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">_sendRequest</span><span class="p">(</span><span class="s2">&quot;saveWiring&quot;</span><span class="o">,</span> <span class="nx">val</span><span class="o">,</span> <span class="nx">callbacks</span><span class="p">);</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * called when deleted</span>
 <span class="c">	 * @method deleteWiring</span>
@@ -99,7 +99,7 @@
 	<span class="nx">deleteWiring</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="o">,</span> <span class="nx">callbacks</span><span class="p">)</span> <span class="p">{</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">_sendRequest</span><span class="p">(</span><span class="s2">&quot;deleteWiring&quot;</span><span class="o">,</span> <span class="nx">val</span><span class="o">,</span> <span class="nx">callbacks</span><span class="p">);</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * called to load the wirings</span>
 <span class="c">	 * @method listWirings</span>
@@ -108,14 +108,14 @@
 	<span class="nx">listWirings</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="o">,</span> <span class="nx">callbacks</span><span class="p">)</span> <span class="p">{</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">_sendRequest</span><span class="p">(</span><span class="s2">&quot;listWirings&quot;</span><span class="o">,</span> <span class="nx">val</span><span class="o">,</span> <span class="nx">callbacks</span><span class="p">);</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * send a request in JSON</span>
 <span class="c">	 * @method _sendRequest</span>
 <span class="c">	 * @static</span>
 <span class="c">	 */</span>
 	<span class="nx">_sendRequest</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">action</span><span class="o">,</span> <span class="nx">value</span><span class="o">,</span> <span class="nx">callbacks</span><span class="p">)</span> <span class="p">{</span>
-	
+
 		<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">[];</span>
 		<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
 			<span class="k">if</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
@@ -123,7 +123,7 @@
 			<span class="p">}</span>
 		<span class="p">}</span>
 		<span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">);</span>
-		
+
 		<span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
 		<span class="k">if</span><span class="p">(</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">action</span><span class="p">].</span><span class="nx">url</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
 			<span class="nx">url</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">action</span><span class="p">].</span><span class="nx">url</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
@@ -131,7 +131,7 @@
 		<span class="k">else</span> <span class="p">{</span>
 			<span class="nx">url</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">action</span><span class="p">].</span><span class="nx">url</span><span class="o">;</span>
 		<span class="p">}</span>
-		
+
 		<span class="kd">var</span> <span class="nx">method</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
 		<span class="k">if</span><span class="p">(</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">action</span><span class="p">].</span><span class="nx">url</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
 			<span class="nx">method</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">action</span><span class="p">].</span><span class="nx">method</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
@@ -152,7 +152,7 @@
 			<span class="p">}</span>
 		<span class="p">}</span><span class="o">,</span><span class="nx">postData</span><span class="p">);</span>
 	<span class="p">}</span>
-	
+
 <span class="p">};</span>
 </pre></div>
 
@@ -202,7 +202,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class="selected"><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
                                 <li class=""><a href="Anim.js.html" title="Anim.js">Anim.js</a></li>
                                 <li class=""><a href="BaseEditor.js.html" title="BaseEditor.js">BaseEditor.js</a></li>

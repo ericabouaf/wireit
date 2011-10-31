@@ -1,10 +1,10 @@
-/** 
+/**
  * @fileoverview Main inputEx file. Define inputEx namespace in YAHOO.inputEx
  */
 (function() {
- 
+
  var lang = YAHOO.lang;
- 
+
 /**
  * Build a field from an object like: { type: 'color' or fieldClass: inputEx.ColorField, inputParams: {} }<br />
  * The inputParams property is the object that will be passed as the <code>options</code> parameter to the field class constructor.<br />
@@ -32,7 +32,7 @@ YAHOO.inputEx = function(fieldOptions) {
    /*if(fieldOptions.flatten) {
       inputInstance._flatten = true;
    }*/
-	  
+
    return inputInstance;
 };
 
@@ -41,44 +41,44 @@ YAHOO.inputEx = function(fieldOptions) {
  */
 var inputEx = YAHOO.inputEx;
 
-lang.augmentObject(inputEx, 
+lang.augmentObject(inputEx,
 /**
  * @scope inputEx
- */   
+ */
 {
-   
+
    VERSION: "0.2.1",
-   
+
    /**
     * Url to the spacer image. This url schould be changed according to your project directories
     * @type String
     */
    spacerUrl: "images/space.gif", // 1x1 px
-   
+
    /**
     * Field empty state constant
     * @type String
     */
    stateEmpty: 'empty',
-   
+
    /**
     * Field required state constant
     * @type String
     */
    stateRequired: 'required',
-   
+
    /**
     * Field valid state constant
     * @type String
     */
    stateValid: 'valid',
-   
+
    /**
     * Field invalid state constant
     * @type String
     */
    stateInvalid: 'invalid',
-   
+
    /**
     * Associative array containing field messages
     */
@@ -89,12 +89,12 @@ lang.augmentObject(inputEx,
    	defaultDateFormat: "m/d/Y",
    	months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
    },
-   
+
    /**
     * @namespace inputEx widget namespace
     */
    widget: {},
-   
+
    /**
     * Associative array containing common regular expressions
     */
@@ -103,13 +103,13 @@ lang.augmentObject(inputEx,
       url: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/i,
       password: /^[0-9a-zA-Z\x20-\x7E]*$/
    },
-   
+
    /**
     * Hash between inputEx types and classes (ex: <code>inputEx.typeClasses.color = inputEx.ColorField</code>)<br />
     * Please register the types with the <code>registerType</code> method
     */
    typeClasses: {},
-   
+
    /**
     * When you create a new inputEx Field Class, you can register it to give it a simple type.
     * ex:   inputEx.registerType("color", inputEx.ColorField);
@@ -124,7 +124,7 @@ lang.augmentObject(inputEx,
       }
       this.typeClasses[type] = field;
    },
-   
+
    /**
     * Returns the class for the given type
     * ex: inputEx.getFieldClass("color") returns inputEx.ColorField
@@ -134,7 +134,7 @@ lang.augmentObject(inputEx,
    getFieldClass: function(type) {
       return lang.isFunction(this.typeClasses[type]) ? this.typeClasses[type] : null;
    },
-   
+
    /**
     * Get the inputex type for the given class (ex: <code>inputEx.getType(inputEx.ColorField)</code> returns "color")
     * @static
@@ -151,17 +151,17 @@ lang.augmentObject(inputEx,
       }
       return null;
    },
-   
+
    /**
     * Kept for backward compatibility
     * @alias inputEx
     * @param {Object} fieldOptions
     * @return {inputEx.Field} Created field instance
     */
-   buildField: function(fieldOptions) {      
+   buildField: function(fieldOptions) {
       return inputEx(fieldOptions);
    },
-   
+
    /**
     * Helper function to set DOM node attributes and style attributes.
     * @static
@@ -239,8 +239,8 @@ lang.augmentObject(inputEx,
             return el;
         }
     },
-   
-   
+
+
    /**
     * Find the position of the given element. (This method is not available in IE 6)
     * @static
@@ -256,7 +256,7 @@ lang.augmentObject(inputEx,
       return -1;
    },
 
-   
+
    /**
     * Create a new array without the null or undefined values
     * @static
@@ -272,7 +272,7 @@ lang.augmentObject(inputEx,
       }
       return n;
    }
-   
+
 });
 
 })();
@@ -283,7 +283,7 @@ var inputEx = YAHOO.inputEx;
 (function() {
    var inputEx = YAHOO.inputEx, Dom = YAHOO.util.Dom, lang = YAHOO.lang, util = YAHOO.util;
 
-/** 
+/**
  * @class An abstract class that contains the shared features for all fields
  * @constructor
  * @param {Object} options Configuration object
@@ -296,35 +296,35 @@ var inputEx = YAHOO.inputEx;
  * </ul>
  */
 inputEx.Field = function(options) {
-	
+
    if(!options) {var options = {}; }
-	
+
 	// Set the default values of the options
 	this.setOptions(options);
-	
+
 	// Call the render of the dom
 	this.render();
-	
+
 	/**
 	 * @event
 	 * @param {Any} value The new value of the field
 	 * @desc YAHOO custom event fired when the field is "updated"<br /> subscribe with: this.updatedEvt.subscribe(function(e, params) { var value = params[0]; console.log("updated",value, this.updatedEvt); }, this, true);
 	 */
 	this.updatedEvt = new util.CustomEvent('updated', this);
-	
+
 	// initialize behaviour events
 	this.initEvents();
-	
+
 	// Set the initial value
 	//   -> no initial value = no style (setClassFromState called by setValue)
 	if(!lang.isUndefined(this.options.value)) {
 		this.setValue(this.options.value, false);
 	}
-	
+
 	// append it immediatly to the parent DOM element
 	if(options.parentEl) {
 	   if( lang.isString(options.parentEl) ) {
-	     Dom.get(options.parentEl).appendChild(this.getEl());  
+	     Dom.get(options.parentEl).appendChild(this.getEl());
 	   }
 	   else {
 	      options.parentEl.appendChild(this.getEl());
@@ -334,7 +334,7 @@ inputEx.Field = function(options) {
 
 
 inputEx.Field.prototype = {
-  
+
    /**
     * Set the default values of the options
     * @param {Object} options Options object (inputEx inputParams) as passed to the constructor
@@ -345,20 +345,20 @@ inputEx.Field.prototype = {
    	 * Configuration object to set the options for this class and the parent classes. See constructor details for options added by this class.
    	 */
    	this.options = {};
-   	
+
    	// Basic options
    	this.options.name = options.name;
    	this.options.value = options.value;
    	this.options.id = options.id || Dom.generateId();
    	this.options.label = options.label;
    	this.options.description = options.description;
-   
+
       // Define default messages
 	   this.options.messages = {};
 	   this.options.messages.required = (options.messages && options.messages.required) ? options.messages.required : inputEx.messages.required;
 	   this.options.messages.invalid = (options.messages && options.messages.invalid) ? options.messages.invalid : inputEx.messages.invalid;
 	   //this.options.messages.valid = (options.messages && options.messages.valid) ? options.messages.valid : inputEx.messages.valid;
-	
+
 	   // Other options
 	   this.options.className = options.className ? options.className : 'inputEx-Field';
 	   this.options.required = lang.isUndefined(options.required) ? false : options.required;
@@ -369,7 +369,7 @@ inputEx.Field.prototype = {
     * Default render of the dom element. Create a divEl that wraps the field.
     */
 	render: function() {
-	
+
 	   // Create a DIV element to wrap the editing el and the image
 	   this.divEl = inputEx.cn('div', {className: 'inputEx-fieldWrapper'});
 	   if(this.options.id) {
@@ -378,7 +378,7 @@ inputEx.Field.prototype = {
 	   if(this.options.required) {
 	      Dom.addClass(this.divEl, "inputEx-required");
 	   }
-	   
+
 	   // Label element
 	   if(this.options.label) {
 	      this.labelDiv = inputEx.cn('div', {id: this.divEl.id+'-label', className: 'inputEx-label', 'for': this.divEl.id+'-field'});
@@ -387,24 +387,24 @@ inputEx.Field.prototype = {
 	      this.labelDiv.appendChild(this.labelEl);
 	      this.divEl.appendChild(this.labelDiv);
       }
-      
+
       this.fieldContainer = inputEx.cn('div', {className: this.options.className}); // for wrapping the field and description
-	
+
       // Render the component directly
       this.renderComponent();
-      
+
       // Description
       if(this.options.description) {
          this.fieldContainer.appendChild(inputEx.cn('div', {id: this.divEl.id+'-desc', className: 'inputEx-description'}, null, this.options.description));
       }
-      
+
    	this.divEl.appendChild(this.fieldContainer);
-      
+
 	   // Insert a float breaker
 	   this.divEl.appendChild( inputEx.cn('div',null, {clear: 'both'}," ") );
-	
+
 	},
-	
+
 	/**
 	 * Fire the "updated" event (only if the field validated)
 	 * Escape the stack using a setTimeout
@@ -443,7 +443,7 @@ inputEx.Field.prototype = {
     * Return the value of the input
     * @return {Any} value of the field
     */
-	getValue: function() { 
+	getValue: function() {
 	   // override me
 	},
 
@@ -454,10 +454,10 @@ inputEx.Field.prototype = {
     */
 	setValue: function(value, sendUpdatedEvt) {
 	   // to be inherited
-	   
+
 	   // set corresponding style
 	   this.setClassFromState();
-	   
+
 	   if(sendUpdatedEvt !== false) {
 	      // fire update event
          this.fireUpdatedEvt();
@@ -468,14 +468,14 @@ inputEx.Field.prototype = {
     * Set the styles for valid/invalide state
     */
 	setClassFromState: function() {
-	
+
 	   // remove previous class
 	   if( this.previousState ) {
 	      // remove invalid className for both required and invalid fields
 	      var className = 'inputEx-'+((this.previousState == inputEx.stateRequired) ? inputEx.stateInvalid : this.previousState);
 		   Dom.removeClass(this.divEl, className);
 	   }
-	   
+
 	   // add new class
 	   var state = this.getState();
 	   if( !(state == inputEx.stateEmpty && Dom.hasClass(this.divEl, 'inputEx-focused') ) ) {
@@ -483,11 +483,11 @@ inputEx.Field.prototype = {
 	      var className = 'inputEx-'+((state == inputEx.stateRequired) ? inputEx.stateInvalid : state);
 	      Dom.addClass(this.divEl, className );
       }
-	
+
 	   if(this.options.showMsg) {
 	      this.displayMessage( this.getStateString(state) );
       }
-	   
+
 	   this.previousState = state;
 	},
 
@@ -510,7 +510,7 @@ inputEx.Field.prototype = {
     * Returns the current state (given its value)
     * @return {String} One of the following states: 'empty', 'required', 'valid' or 'invalid'
     */
-	getState: function() { 
+	getState: function() {
 	   // if the field is empty :
 	   if( this.isEmpty() ) {
 	      return this.options.required ? inputEx.stateRequired : inputEx.stateEmpty;
@@ -542,7 +542,7 @@ inputEx.Field.prototype = {
     */
 	onBlur: function(e) {
 	   Dom.removeClass(this.getEl(), 'inputEx-focused');
-	   
+
 	   // Call setClassFromState on Blur
 	   this.setClassFromState();
 	},
@@ -578,27 +578,27 @@ inputEx.Field.prototype = {
     */
    focus: function() {
    },
-   
+
    /**
     * Purge all event listeners and remove the component from the dom
     */
    destroy: function() {
       var el = this.getEl();
-      
+
       // Unsubscribe all listeners on the updatedEvt
       this.updatedEvt.unsubscribeAll();
-      
+
       // Remove from DOM
       if(Dom.inDocument(el)) {
          el.parentNode.removeChild(el);
       }
-      
+
       // recursively purge element
       util.Event.purgeElement(el, true);
    },
-   
+
    /**
-    * Update the message 
+    * Update the message
     * @param {String} msg Message to display
     */
    displayMessage: function(msg) {
@@ -619,14 +619,14 @@ inputEx.Field.prototype = {
    show: function() {
       this.divEl.style.display = '';
    },
-   
+
    /**
     * Hide the field
     */
    hide: function() {
       this.divEl.style.display = 'none';
    },
-   
+
    /**
     * Clear the field by setting the field value to this.options.value
     * @param {boolean} [sendUpdatedEvt] (optional) Wether this clear should fire the updatedEvt or not (default is true, pass false to NOT send the event)
@@ -634,14 +634,14 @@ inputEx.Field.prototype = {
    clear: function(sendUpdatedEvt) {
       this.setValue(lang.isUndefined(this.options.value) ? '' : this.options.value, sendUpdatedEvt);
    },
-   
+
    /**
     * Should return true if empty
     */
    isEmpty: function() {
       return this.getValue() === '';
    }
-   
+
 };
 
 })();// This file should be placed between "inputEx/field.js" and all other inputEx fields
@@ -675,23 +675,23 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
     */
    setOptions: function(options) {
       inputEx.Field.superclass.setOptions.call(this, options);
-      
+
       this.options.wirable = lang.isUndefined(options.wirable) ? false : options.wirable;
       this.options.container = options.container;
    },
-   
+
    /**
     * Adds a terminal to each field
     * @method render
     */
    render: function() {
       inputEx.Field.superclass.render.call(this);
-      
+
       if(this.options.wirable) {
          this.renderTerminal();
       }
    },
-   
+
    /**
     * Render the associated input terminal
     * @method renderTerminal
@@ -702,7 +702,7 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
       this.divEl.insertBefore(wrapper, this.fieldContainer);
 
       this.terminal = new WireIt.Terminal(wrapper, {
-         name: this.options.name, 
+         name: this.options.name,
          direction: [-1,0],
          fakeDirection: [0, 1],
          ddConfig: {
@@ -725,7 +725,7 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
     },
 
     /**
-     * Remove the input wired state on the 
+     * Remove the input wired state on the
      * @method onAddWire
      */
     onAddWire: function(e, params) {
@@ -736,10 +736,10 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
     },
 
     /**
-     * Remove the input wired state on the 
+     * Remove the input wired state on the
      * @method onRemoveWire
      */
-    onRemoveWire: function(e, params) { 
+    onRemoveWire: function(e, params) {
        this.options.container.onRemoveWire(e,params);
 
        this.enable();
@@ -750,9 +750,9 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
 
 
 })();(function() {
-   
+
    var inputEx = YAHOO.inputEx, lang = YAHOO.lang, Dom = YAHOO.util.Dom, Event = YAHOO.util.Event;
-   
+
 /**
  * @class Handle a group of fields
  * @extends inputEx.Field
@@ -768,49 +768,49 @@ lang.extend(inputEx.Field, inputEx.BaseField, {
  */
 inputEx.Group = function(options) {
    inputEx.Group.superclass.constructor.call(this,options);
-   
+
    if(this.hasInteractions) {
       for(var i = 0 ; i < this.inputs.length ; i++) {
          this.runInteractions(this.inputs[i],this.inputs[i].getValue());
       }
    }
 };
-lang.extend(inputEx.Group, inputEx.Field, 
+lang.extend(inputEx.Group, inputEx.Field,
 /**
- * @scope inputEx.Group.prototype   
- */   
+ * @scope inputEx.Group.prototype
+ */
 {
-   
+
    /**
     * Adds some options: legend, collapsible, fields...
     * @param {Object} options Options object (inputEx inputParams) as passed to the constructor
     */
    setOptions: function(options) {
-   
+
    	this.options = {};
-   	
+
    	this.options.className = options.className || 'inputEx-Group';
-   	
+
    	this.options.fields = options.fields;
-   	
+
    	this.options.id = options.id;
-   	
+
    	this.options.name = options.name;
-   	
+
    	this.options.value = options.value;
-   	
+
    	this.options.flatten = options.flatten;
-   
+
       this.options.legend = options.legend || '';
-   
+
       // leave this for compatibility reasons
       this.inputConfigs = options.fields;
-   
+
       this.options.collapsible = lang.isUndefined(options.collapsible) ? false : options.collapsible;
       this.options.collapsed = lang.isUndefined(options.collapsed) ? false : options.collapsed;
-      
+
       this.options.disabled = lang.isUndefined(options.disabled) ? false : options.disabled;
-      
+
       // Array containing the list of the field instances
       this.inputs = [];
 
@@ -822,29 +822,29 @@ lang.extend(inputEx.Group, inputEx.Field,
     * Render the group
     */
    render: function() {
-   
+
       // Create the div wrapper for this group
 	   this.divEl = inputEx.cn('div', {className: this.options.className});
 	   if(this.options.id) {
    	   this.divEl.id = this.options.id;
    	}
-  	   
-  	   this.renderFields(this.divEl);  	  
-  	   
+
+  	   this.renderFields(this.divEl);
+
   	   if(this.options.disabled) {
   	      this.disable();
   	   }
    },
-   
+
    /**
     * Render all the fields.
     * We use the parentEl so that inputEx.Form can append them to the FORM tag
     */
    renderFields: function(parentEl) {
-      
+
       this.fieldset = inputEx.cn('fieldset');
       this.legend = inputEx.cn('legend', {className: 'inputEx-Group-legend'});
-   
+
       // Option Collapsible
       //TODO: <MF> should it be renamed to 'collapsed'?
       if(this.options.collapsible) {
@@ -852,33 +852,33 @@ lang.extend(inputEx.Group, inputEx.Field,
          this.legend.appendChild(collapseImg);
          inputEx.sn(this.fieldset,{className:'inputEx-Expanded'});
       }
-   
+
       if(!lang.isUndefined(this.options.legend) && this.options.legend !== ''){
          this.legend.appendChild( document.createTextNode(" "+this.options.legend) );
       }
-   
+
       if( this.options.collapsible || (!lang.isUndefined(this.options.legend) && this.options.legend !== '') ) {
          this.fieldset.appendChild(this.legend);
       }
-  	   
+
       // Iterate this.createInput on input fields
       for (var i = 0 ; i < this.options.fields.length ; i++) {
          var input = this.options.fields[i];
-        
+
          // Render the field
          var field = this.renderField(input);
          this.fieldset.appendChild(field.getEl() );
   	   }
-  	
+
   	   // Collapsed at creation ?
   	   if(this.options.collapsed) {
   	      this.toggleCollapse();
   	   }
-  	
+
   	   // Append the fieldset
   	   parentEl.appendChild(this.fieldset);
    },
-  
+
    /**
     * Instanciate one field given its parameters, type or fieldClass
     * @param {Object} fieldOptions The field properties as required bu inputEx.buildField
@@ -886,26 +886,26 @@ lang.extend(inputEx.Group, inputEx.Field,
    renderField: function(fieldOptions) {
 
       // Instanciate the field
-      var fieldInstance = inputEx.buildField(fieldOptions);      
-      
+      var fieldInstance = inputEx.buildField(fieldOptions);
+
 	   this.inputs.push(fieldInstance);
-      
+
       // Create an index to access fields by their name
       if(fieldInstance.options.name) {
          this.inputsNames[fieldInstance.options.name] = fieldInstance;
       }
-      
+
       // Create the this.hasInteractions to run interactions at startup
       if(!this.hasInteractions && fieldOptions.interactions) {
          this.hasInteractions = true;
       }
-      
+
 	   // Subscribe to the field "updated" event to send the group "updated" event
       fieldInstance.updatedEvt.subscribe(this.onChange, this, true);
-   	  
+
       return fieldInstance;
    },
-  
+
    /**
     * Add a listener for the 'collapsible' option
     */
@@ -926,14 +926,14 @@ lang.extend(inputEx.Group, inputEx.Field,
          Dom.replaceClass(this.fieldset, 'inputEx-Collapsed','inputEx-Expanded');
       }
    },
-   
+
    /**
     * Validate each field
     * @returns {Boolean} true if all fields validate and required fields are not empty
     */
    validate: function() {
       var response = true;
-      
+
       // Validate all the sub fields
       for (var i = 0 ; i < this.inputs.length ; i++) {
    	   var input = this.inputs[i];
@@ -945,7 +945,7 @@ lang.extend(inputEx.Group, inputEx.Field,
       }
       return response;
    },
-   
+
    /**
     * Enable all fields in the group
     */
@@ -954,7 +954,7 @@ lang.extend(inputEx.Group, inputEx.Field,
  	      this.inputs[i].enable();
       }
    },
-   
+
    /**
     * Disable all fields in the group
     */
@@ -963,7 +963,7 @@ lang.extend(inputEx.Group, inputEx.Field,
  	      this.inputs[i].disable();
       }
    },
-   
+
    /**
     * Set the values of each field from a key/value hash object
      * @param {Any} value The group value
@@ -983,13 +983,13 @@ lang.extend(inputEx.Group, inputEx.Field,
 	         field.clear(false);
 	      }
       }
-      
+
 	   if(sendUpdatedEvt !== false) {
 	      // fire update event
          this.fireUpdatedEvt();
       }
    },
-   
+
    /**
     * Return an object with all the values of the fields
     */
@@ -1008,7 +1008,7 @@ lang.extend(inputEx.Group, inputEx.Field,
       }
 	   return o;
    },
-  
+
    /**
     * Close the group (recursively calls "close" on each field, does NOT hide the group )
     * Call this function before hidding the group to close any field popup
@@ -1038,12 +1038,12 @@ lang.extend(inputEx.Group, inputEx.Field,
       }
       return this.inputsNames[fieldName];
    },
-   
-   
+
+
    /**
     * Called when one of the group subfields is updated.
     * @param {String} eventName Event name
-    * @param {Array} args Array of [fieldValue, fieldInstance] 
+    * @param {Array} args Array of [fieldValue, fieldInstance]
     */
    onChange: function(eventName, args) {
 
@@ -1051,9 +1051,9 @@ lang.extend(inputEx.Group, inputEx.Field,
       var fieldValue = args[0];
       var fieldInstance = args[1];
       this.runInteractions(fieldInstance,fieldValue);
-      
+
       //this.setClassFromState();
-      
+
       this.fireUpdatedEvt();
    },
 
@@ -1074,18 +1074,18 @@ lang.extend(inputEx.Group, inputEx.Field,
          throw new Error("action "+action.action+" is not a valid action for field "+action.name);
       }
    },
-   
+
    /**
     * Run the interactions for the given field instance
     * @param {inputEx.Field} fieldInstance Field that just changed
     * @param {Any} fieldValue Field value
     */
    runInteractions: function(fieldInstance,fieldValue) {
-      
+
       var index = inputEx.indexOf(fieldInstance, this.inputs);
       var fieldConfig = this.options.fields[index];
       if( YAHOO.lang.isUndefined(fieldConfig.interactions) ) return;
-      
+
       // Let's run the interactions !
       var interactions = fieldConfig.interactions;
       for(var i = 0 ; i < interactions.length ; i++) {
@@ -1096,9 +1096,9 @@ lang.extend(inputEx.Group, inputEx.Field,
             }
          }
       }
-      
+
    },
-   
+
 	/**
 	 * Clear all subfields
 	 * @param {boolean} [sendUpdatedEvt] (optional) Wether this clear should fire the updatedEvt or not (default is true, pass false to NOT send the event)
@@ -1112,11 +1112,11 @@ lang.extend(inputEx.Group, inputEx.Field,
          this.fireUpdatedEvt();
       }
 	}
-   
-   
+
+
 });
 
-   
+
 /**
  * Register this class as "group" type
  */
@@ -1124,13 +1124,13 @@ inputEx.registerType("group", inputEx.Group);
 
 
 })();(function() {
-   
+
    var inputEx = YAHOO.inputEx, lang = YAHOO.lang;
 /**
  * Contains the various visualization methods
  */
 inputEx.visus = {
-  
+
   /**
    * Use the trimpath-template engine
    * see http://code.google.com/p/trimpath/wiki/JavaScriptTemplates for syntax
@@ -1142,7 +1142,7 @@ inputEx.visus = {
      	var ret = tpl.process(data);
      	return ret;
   },
-  
+
   /**
    * Use a rendering function
    * options = {visuType: 'func', func: function(data) { ...code here...} }
@@ -1150,7 +1150,7 @@ inputEx.visus = {
   "func": function(options, data) {
      return options.func(data);
   },
-  
+
   /**
    * Use YAHOO.lang.dump
    * options = {visuType: 'dump'}
@@ -1158,7 +1158,7 @@ inputEx.visus = {
   dump: function(options, data) {
      return lang.dump(data);
   }
-   
+
 };
 
 /**
@@ -1170,19 +1170,19 @@ inputEx.visus = {
  * @return {HTMLElement || String} Either the inserted HTMLElement or the String set to parentEl.innerHTML
  */
 inputEx.renderVisu = function(visuOptions,data, parentEl) {
-   
+
    var opts = visuOptions || {};
    var visuType = opts.visuType || 'dump';
-   
+
    if( !inputEx.visus.hasOwnProperty(visuType) ) {
       throw new Error("inputEx: no visu for visuType: "+visuType);
    }
-   
+
    var f = inputEx.visus[visuType];
    if( !lang.isFunction(f) ) {
       throw new Error("inputEx: no visu for visuType: "+visuType);
    }
-   
+
    var v = null;
    try {
       v = f(opts,data);
@@ -1191,7 +1191,7 @@ inputEx.renderVisu = function(visuOptions,data, parentEl) {
       throw new Error("inputEx: error while running visu "+visuType+" : "+ex.message);
       return;
    }
-   
+
    // Get the node
    var node = null;
    if(parentEl) {
@@ -1202,7 +1202,7 @@ inputEx.renderVisu = function(visuOptions,data, parentEl) {
          node = parentEl;
       }
    }
-   
+
    // Insert it
    if(node) {
       if(YAHOO.lang.isObject(v) && v.tagName ) {
@@ -1213,7 +1213,7 @@ inputEx.renderVisu = function(visuOptions,data, parentEl) {
          node.innerHTML = v;
       }
    }
-   
+
    return v;
 };
 
@@ -1484,10 +1484,10 @@ inputEx.registerType("string", inputEx.StringField);
 inputEx.Textarea = function(options) {
 	inputEx.Textarea.superclass.constructor.call(this,options);
 };
-YAHOO.lang.extend(inputEx.Textarea, inputEx.StringField, 
+YAHOO.lang.extend(inputEx.Textarea, inputEx.StringField,
 /**
- * @scope inputEx.Textarea.prototype   
- */   
+ * @scope inputEx.Textarea.prototype
+ */
 {
 
    /**
@@ -1499,54 +1499,54 @@ YAHOO.lang.extend(inputEx.Textarea, inputEx.StringField,
       this.options.rows = options.rows || 6;
       this.options.cols = options.cols || 23;
    },
-   
+
    /**
     * Render an 'INPUT' DOM node
     */
    renderComponent: function() {
-      
+
       // This element wraps the input node in a float: none div
       this.wrapEl = inputEx.cn('div', {className: 'inputEx-StringField-wrapper'});
-      
+
       // Attributes of the input field
       var attributes = {};
       attributes.id = this.divEl.id?this.divEl.id+'-field':YAHOO.util.Dom.generateId();
       attributes.rows = this.options.rows;
       attributes.cols = this.options.cols;
       if(this.options.name) attributes.name = this.options.name;
-      
+
       //if(this.options.maxLength) attributes.maxLength = this.options.maxLength;
-   
+
       // Create the node
       this.el = inputEx.cn('textarea', attributes, null, this.options.value);
-      
+
       // Append it to the main element
       this.wrapEl.appendChild(this.el);
       this.fieldContainer.appendChild(this.wrapEl);
    },
-   
+
 	/**
     * Uses the optional regexp to validate the field value
     */
-   validate: function() { 
+   validate: function() {
       var previous = inputEx.Textarea.superclass.validate.call(this);
-      
+
       // emulate maxLength property for textarea
       //   -> user can still type but field is invalid
       if (this.options.maxLength) {
          previous = previous && this.getValue().length <= this.options.maxLength;
       }
-      
+
       return previous;
    },
-   
+
    /**
     * Add the minLength string message handling
     */
     getStateString: function(state) {
-	   if(state == inputEx.stateInvalid && this.options.minLength && this.el.value.length < this.options.minLength) {  
+	   if(state == inputEx.stateInvalid && this.options.minLength && this.el.value.length < this.options.minLength) {
 	      return inputEx.messages.stringTooShort[0]+this.options.minLength+inputEx.messages.stringTooShort[1];
-	   
+
 	   // Add message too long
       } else if (state == inputEx.stateInvalid && this.options.maxLength && this.el.value.length > this.options.maxLength) {
          return inputEx.messages.stringTooLong[0]+this.options.maxLength+inputEx.messages.stringTooLong[1];
@@ -1581,10 +1581,10 @@ inputEx.registerType("text", inputEx.Textarea);
 inputEx.SelectField = function(options) {
 	inputEx.SelectField.superclass.constructor.call(this,options);
  };
-lang.extend(inputEx.SelectField, inputEx.Field, 
+lang.extend(inputEx.SelectField, inputEx.Field,
 /**
  * @scope inputEx.SelectField.prototype
- */   
+ */
 {
    /**
     * Set the default values of the options
@@ -1592,43 +1592,43 @@ lang.extend(inputEx.SelectField, inputEx.Field,
     */
 	setOptions: function(options) {
 	   inputEx.SelectField.superclass.setOptions.call(this,options);
-	   
+
 	   this.options.multiple = lang.isUndefined(options.multiple) ? false : options.multiple;
 	   this.options.selectValues = [];
 	   this.options.selectOptions = [];
-	   
+
 	   for (var i=0, length=options.selectValues.length; i<length; i++) {
-	      
+
 	      this.options.selectValues.push(options.selectValues[i]);
 	      // ""+  hack to convert into text (values may be 0 for example)
 	      this.options.selectOptions.push(""+((options.selectOptions && !lang.isUndefined(options.selectOptions[i])) ? options.selectOptions[i] : options.selectValues[i]));
-	      
+
       }
-      
+
    },
-   
+
    /**
     * Build a select tag with options
     */
    renderComponent: function() {
 
       this.el = inputEx.cn('select', {id: this.divEl.id?this.divEl.id+'-field':YAHOO.util.Dom.generateId(), name: this.options.name || ''});
-      
+
       if (this.options.multiple) {this.el.multiple = true; this.el.size = this.options.selectValues.length;}
-      
+
       this.optionEls = {};
-      
+
       var optionEl;
       for( var i = 0 ; i < this.options.selectValues.length ; i++) {
-         
+
          optionEl = inputEx.cn('option', {value: this.options.selectValues[i]}, null, this.options.selectOptions[i]);
-         
+
          this.optionEls[this.options.selectOptions[i]] = optionEl;
          this.el.appendChild(optionEl);
       }
       this.fieldContainer.appendChild(this.el);
-   },  
-   
+   },
+
    /**
     * Register the "change" event
     */
@@ -1637,7 +1637,7 @@ lang.extend(inputEx.SelectField, inputEx.Field,
 	   Event.addFocusListener(this.el, this.onFocus, this, true);
 	   Event.addBlurListener(this.el, this.onBlur, this, true);
    },
-   
+
    /**
     * Set the value
     * @param {String} value The value to set
@@ -1652,11 +1652,11 @@ lang.extend(inputEx.SelectField, inputEx.Field,
 		      option.selected = "selected";
          }
       }
-      
+
 		// Call Field.setValue to set class and fire updated event
 		inputEx.SelectField.superclass.setValue.call(this,value, sendUpdatedEvt);
    },
-   
+
    /**
     * Return the value
     * @return {Any} the selected value from the selectValues array
@@ -1664,7 +1664,7 @@ lang.extend(inputEx.SelectField, inputEx.Field,
    getValue: function() {
       return this.options.selectValues[this.el.selectedIndex];
    },
-   
+
    /**
     * Disable the field
     */
@@ -1678,7 +1678,7 @@ lang.extend(inputEx.SelectField, inputEx.Field,
    enable: function() {
       this.el.disabled = false;
    },
-   
+
    /**
     * Add an option in the selector
     * @param {Object} item
@@ -1688,22 +1688,22 @@ lang.extend(inputEx.SelectField, inputEx.Field,
       var value = config.value;
       var option = ""+(!lang.isUndefined(config.option) ? config.option : config.value);
       var nbOptions = this.options.selectOptions.length;
-      
+
       // position of new option (default last)
       var position = nbOptions;
-      
+
       if (lang.isNumber(config.position) && config.position >= 0 && config.position <= position) {
          position = parseInt(config.position,10);
-         
+
       } else if (lang.isString(config.before)) {
-         
+
             for (var i = 0 ; i < nbOptions ; i++) {
                if (this.options.selectOptions[i] === config.before) {
                   position = i;
                   break;
                }
             }
-            
+
       } else if (lang.isString(config.after)) {
 
             for (var i = 0 ; i < nbOptions ; i++) {
@@ -1713,7 +1713,7 @@ lang.extend(inputEx.SelectField, inputEx.Field,
                }
             }
       }
-      
+
       // update values and options lists
       this.options.selectValues = this.options.selectValues.slice(0,position).concat([value]).concat(this.options.selectValues.slice(position,nbOptions));
       this.options.selectOptions = this.options.selectOptions.slice(0,position).concat([option]).concat(this.options.selectOptions.slice(position,nbOptions));
@@ -1721,7 +1721,7 @@ lang.extend(inputEx.SelectField, inputEx.Field,
       // new option in select
       var newOption = inputEx.cn('option', {value: value}, null, option);
       this.optionEls[option] = newOption;
-      
+
       if (position<nbOptions) {
          YAHOO.util.Dom.insertBefore(newOption,this.el.childNodes[position]);
       } else {
@@ -1741,20 +1741,20 @@ lang.extend(inputEx.SelectField, inputEx.Field,
       var position;
       var nbOptions = this.options.selectOptions.length;
       var selectedIndex = this.el.selectedIndex;
-      
+
       if (lang.isNumber(config.position) && config.position >= 0 && config.position <= nbOptions) {
-         
+
          position = parseInt(config.position,10);
-         
+
       } else if (lang.isString(config.option)) {
-         
+
             for (var i = 0 ; i < nbOptions ; i++) {
                if (this.options.selectOptions[i] === config.option) {
                   position = i;
                   break;
                }
             }
-            
+
       } else if (lang.isString(config.value)) {
 
             for (var i = 0 ; i < nbOptions ; i++) {
@@ -1764,7 +1764,7 @@ lang.extend(inputEx.SelectField, inputEx.Field,
                }
             }
       }
-      
+
       if (!lang.isNumber(position)) {
          throw new Error("SelectField : invalid or missing position, option or value in removeOption");
       }
@@ -1776,13 +1776,13 @@ lang.extend(inputEx.SelectField, inputEx.Field,
       // remove from selector
       this.el.removeChild(this.optionEls[removedOption]);
       delete this.optionEls[removedOption];
-      
+
       // clear if previous selected value doesn't exist anymore
       if (selectedIndex == position) {
          this.clear();
       }
    }
-   
+
 });
 
 /**
@@ -1803,12 +1803,12 @@ inputEx.registerType("select", inputEx.SelectField);
 inputEx.EmailField = function(options) {
    inputEx.EmailField.superclass.constructor.call(this,options);
 };
-YAHOO.lang.extend(inputEx.EmailField, inputEx.StringField, 
+YAHOO.lang.extend(inputEx.EmailField, inputEx.StringField,
 /**
- * @scope inputEx.EmailField.prototype   
- */   
+ * @scope inputEx.EmailField.prototype
+ */
 {
-   
+
    /**
     * Set the email regexp and invalid message
     * @param {Object} options Options object (inputEx inputParams) as passed to the constructor
@@ -1819,7 +1819,7 @@ YAHOO.lang.extend(inputEx.EmailField, inputEx.StringField,
       this.options.messages.invalid = inputEx.messages.invalidEmail;
       this.options.regexp = inputEx.regexps.email;
    },
-   
+
    /**
     * Set the value to lower case since email have no case
     * @return {String} The email string
@@ -1829,7 +1829,7 @@ YAHOO.lang.extend(inputEx.EmailField, inputEx.StringField,
    }
 
 });
-   
+
 // Specific message for the email field
 inputEx.messages.invalidEmail = "Invalid email, ex: sample@test.com";
 
@@ -1944,9 +1944,9 @@ inputEx.messages.invalidUrl = "Invalid URL, ex: http://www.test.com";
 inputEx.registerType("url", inputEx.UrlField);
 
 })();(function() {
-	
+
    var inputEx = YAHOO.inputEx, lang = YAHOO.lang, Event = YAHOO.util.Event, Dom = YAHOO.util.Dom;
-	
+
 /**
  * @class   Meta field to create a list of other fields
  * @extends inputEx.Field
@@ -1962,70 +1962,70 @@ inputEx.registerType("url", inputEx.UrlField);
  * </ul>
  */
 inputEx.ListField = function(options) {
-	   
+
    /**
     * List of all the subField instances
     */
    this.subFields = [];
-	   
+
    inputEx.ListField.superclass.constructor.call(this, options);
 };
-lang.extend(inputEx.ListField,inputEx.Field, 
+lang.extend(inputEx.ListField,inputEx.Field,
 /**
- * @scope inputEx.ListField.prototype   
- */   
+ * @scope inputEx.ListField.prototype
+ */
 {
-	   
+
 	/**
 	 * Set the ListField classname
 	 * @param {Object} options Options object (inputEx inputParams) as passed to the constructor
 	 */
 	setOptions: function(options) {
 	   inputEx.ListField.superclass.setOptions.call(this, options);
-	   
+
 	   this.options.className = options.className ? options.className : 'inputEx-Field inputEx-ListField';
-	   
+
 	   this.options.sortable = lang.isUndefined(options.sortable) ? false : options.sortable;
 	   this.options.elementType = options.elementType || {type: 'string'};
 	   this.options.useButtons = lang.isUndefined(options.useButtons) ? false : options.useButtons;
 	   this.options.unique = lang.isUndefined(options.unique) ? false : options.unique;
-	   
+
 	   this.options.listAddLabel = options.listAddLabel || inputEx.messages.listAddLink;
 	   this.options.listRemoveLabel = options.listRemoveLabel || inputEx.messages.listRemoveLink;
 	},
-	   
+
 	/**
-	 * Render the addButton 
+	 * Render the addButton
 	 */
 	renderComponent: function() {
-	      
+
 	   // Add element button
 	   if(this.options.useButtons) {
 	      this.addButton = inputEx.cn('img', {src: inputEx.spacerUrl, className: 'inputEx-ListField-addButton'});
 	      this.fieldContainer.appendChild(this.addButton);
       }
-	      
+
 	   // List label
 	   this.fieldContainer.appendChild( inputEx.cn('span', null, {marginLeft: "4px"}, this.options.listLabel) );
-	      
+
 	   // Div element to contain the children
 	   this.childContainer = inputEx.cn('div', {className: 'inputEx-ListField-childContainer'});
 	   this.fieldContainer.appendChild(this.childContainer);
-	   
+
 	   // Add link
 	   if(!this.options.useButtons) {
 	      this.addButton = inputEx.cn('a', {className: 'inputEx-List-link'}, null, this.options.listAddLabel);
 	      this.fieldContainer.appendChild(this.addButton);
       }
 	},
-	   
+
 	/**
 	 * Handle the click event on the add button
 	 */
 	initEvents: function() {
 	   Event.addListener(this.addButton, 'click', this.onAddButton, this, true);
 	},
-	
+
 	/**
     * Validate each field
     * @returns {Boolean} true if all fields validate, required fields are not empty and unique constraint (if specified) is not violated
@@ -2054,19 +2054,19 @@ lang.extend(inputEx.ListField,inputEx.Field,
       }
       return response;
    },
-	   
+
 	/**
 	 * Set the value of all the subfields
 	 * @param {Array} value The list of values to set
 	 * @param {boolean} [sendUpdatedEvt] (optional) Wether this setValue should fire the updatedEvt or not (default is true, pass false to NOT send the event)
 	 */
 	setValue: function(value, sendUpdatedEvt) {
-	   
+
 	   if(!lang.isArray(value) ) {
 	      // TODO: throw exceptions ?
 	      return;
 	   }
-	      
+
 	   // Set the values (and add the lines if necessary)
 	   for(var i = 0 ; i < value.length ; i++) {
 	      if(i == this.subFields.length) {
@@ -2076,18 +2076,18 @@ lang.extend(inputEx.ListField,inputEx.Field,
 	         this.subFields[i].setValue(value[i], false);
 	      }
 	   }
-	      
+
 	   // Remove additional subFields
 	   var additionalElements = this.subFields.length-value.length;
 	   if(additionalElements > 0) {
-	      for(var i = 0 ; i < additionalElements ; i++) { 
+	      for(var i = 0 ; i < additionalElements ; i++) {
 	         this.removeElement(value.length);
 	      }
 	   };
-	   
+
 	   inputEx.ListField.superclass.setValue.call(this, value, sendUpdatedEvt);
 	},
-	   
+
 	/**
 	 * Return the array of values
 	 * @return {Array} The array
@@ -2099,72 +2099,72 @@ lang.extend(inputEx.ListField,inputEx.Field,
 	   }
 	   return values;
 	},
-	   
+
 	/**
 	 * Adds an element
 	 * @param {Any} The initial value of the subfield to create
 	 * @return {inputEx.Field} SubField added instance
 	 */
 	addElement: function(value) {
-	
+
 	   // Render the subField
 	   var subFieldEl = this.renderSubField(value);
-	      
+
 	   // Adds it to the local list
 	   this.subFields.push(subFieldEl);
-	   
+
 	   return subFieldEl;
 	},
-	
+
 	/**
 	 * Add a new element to the list and fire updated event
 	 * @param {Event} e The original click event
 	 */
 	onAddButton: function(e) {
 	   Event.stopEvent(e);
-	   
-	   // Add a field with no value: 
+
+	   // Add a field with no value:
 	   var subFieldEl = this.addElement();
-	   
+
 	   // Focus on this field
 	   subFieldEl.focus();
-	   
+
 	   // Fire updated !
 	   this.fireUpdatedEvt();
 	},
-	   
+
 	/**
 	 * Adds a new line to the List Field
  	 * @param {Any} The initial value of the subfield to create
 	 * @return  {inputEx.Field} instance of the created field (inputEx.Field or derivative)
 	 */
 	renderSubField: function(value) {
-	      
+
 	   // Div that wraps the deleteButton + the subField
 	   var newDiv = inputEx.cn('div');
-	      
+
 	   // Delete button
 	   if(this.options.useButtons) {
 	      var delButton = inputEx.cn('img', {src: inputEx.spacerUrl, className: 'inputEx-ListField-delButton'});
 	      Event.addListener( delButton, 'click', this.onDelete, this, true);
 	      newDiv.appendChild( delButton );
       }
-	      
+
 	   // Instanciate the new subField
 	   var opts = lang.merge({}, this.options.elementType);
 	   if(!opts.inputParams) opts.inputParams = {};
 	   if(!lang.isUndefined(value)) opts.inputParams.value = value;
-	   
+
 	   var el = inputEx.buildField(opts);
-	   
+
 	   var subFieldEl = el.getEl();
 	   Dom.setStyle(subFieldEl, 'margin-left', '4px');
 	   Dom.setStyle(subFieldEl, 'float', 'left');
 	   newDiv.appendChild( subFieldEl );
-	   
-	   // Subscribe the onChange event to resend it 
+
+	   // Subscribe the onChange event to resend it
 	   el.updatedEvt.subscribe(this.onChange, this, true);
-	
+
 	   // Arrows to order:
 	   if(this.options.sortable) {
 	      var arrowUp = inputEx.cn('div', {className: 'inputEx-ListField-Arrow inputEx-ListField-ArrowUp'});
@@ -2174,22 +2174,22 @@ lang.extend(inputEx.ListField,inputEx.Field,
 	      newDiv.appendChild( arrowUp );
 	      newDiv.appendChild( arrowDown );
 	   }
-	   
+
 	   // Delete link
 	   if(!this.options.useButtons) {
 	      var delButton = inputEx.cn('a', {className: 'inputEx-List-link'}, null, this.options.listRemoveLabel);
 	      Event.addListener( delButton, 'click', this.onDelete, this, true);
 	      newDiv.appendChild( delButton );
       }
-	
+
 	   // Line breaker
 	   newDiv.appendChild( inputEx.cn('div', null, {clear: "both"}) );
-	
+
 	   this.childContainer.appendChild(newDiv);
-	      
+
 	   return el;
 	},
-	   
+
 	/**
 	 * Switch a subField with its previous one
 	 * Called when the user clicked on the up arrow of a sortable list
@@ -2197,7 +2197,7 @@ lang.extend(inputEx.ListField,inputEx.Field,
 	 */
 	onArrowUp: function(e) {
 	   var childElement = Event.getTarget(e).parentNode;
-	   
+
 	   var previousChildNode = null;
 	   var nodeIndex = -1;
 	   for(var i = 1 ; i < childElement.parentNode.childNodes.length ; i++) {
@@ -2208,19 +2208,19 @@ lang.extend(inputEx.ListField,inputEx.Field,
 	         break;
 	      }
 	   }
-	   
+
 	   if(previousChildNode) {
 	      // Remove the line
 	      var removedEl = this.childContainer.removeChild(childElement);
-	      
+
 	      // Adds it before the previousChildNode
 	      var insertedEl = this.childContainer.insertBefore(removedEl, previousChildNode);
-	      
+
 	      // Swap this.subFields elements (i,i-1)
 	      var temp = this.subFields[nodeIndex];
 	      this.subFields[nodeIndex] = this.subFields[nodeIndex-1];
 	      this.subFields[nodeIndex-1] = temp;
-	      
+
 	      // Color Animation
 	      if(this.arrowAnim) {
 	         this.arrowAnim.stop(true);
@@ -2228,12 +2228,12 @@ lang.extend(inputEx.ListField,inputEx.Field,
 	      this.arrowAnim = new YAHOO.util.ColorAnim(insertedEl, {backgroundColor: { from: '#eeee33' , to: '#eeeeee' }}, 0.4);
 	      this.arrowAnim.onComplete.subscribe(function() { Dom.setStyle(insertedEl, 'background-color', ''); });
 	      this.arrowAnim.animate();
-	      
+
 	      // Fire updated !
 	      this.fireUpdatedEvt();
 	   }
 	},
-	
+
 	/**
 	 * Switch a subField with its next one
 	 * Called when the user clicked on the down arrow of a sortable list
@@ -2241,7 +2241,7 @@ lang.extend(inputEx.ListField,inputEx.Field,
 	 */
 	onArrowDown: function(e) {
 	   var childElement = Event.getTarget(e).parentNode;
-	   
+
 	   var nodeIndex = -1;
 	   var nextChildNode = null;
 	   for(var i = 0 ; i < childElement.parentNode.childNodes.length ; i++) {
@@ -2252,18 +2252,18 @@ lang.extend(inputEx.ListField,inputEx.Field,
 	         break;
 	      }
 	   }
-	   
+
 	   if(nextChildNode) {
 	      // Remove the line
 	      var removedEl = this.childContainer.removeChild(childElement);
 	      // Adds it after the nextChildNode
 	      var insertedEl = Dom.insertAfter(removedEl, nextChildNode);
-	      
+
 	      // Swap this.subFields elements (i,i+1)
 	      var temp = this.subFields[nodeIndex];
 	      this.subFields[nodeIndex] = this.subFields[nodeIndex+1];
 	      this.subFields[nodeIndex+1] = temp;
-	      
+
 	      // Color Animation
 	      if(this.arrowAnim) {
 	         this.arrowAnim.stop(true);
@@ -2271,26 +2271,26 @@ lang.extend(inputEx.ListField,inputEx.Field,
 	      this.arrowAnim = new YAHOO.util.ColorAnim(insertedEl, {backgroundColor: { from: '#eeee33' , to: '#eeeeee' }}, 1);
 	      this.arrowAnim.onComplete.subscribe(function() { Dom.setStyle(insertedEl, 'background-color', ''); });
 	      this.arrowAnim.animate();
-	      
+
 	      // Fire updated !
 	      this.fireUpdatedEvt();
 	   }
 	},
-	   
+
 	/**
 	 * Called when the user clicked on a delete button.
 	 * @param {Event} e The original click event
 	 */
 	onDelete: function(e) {
-	      
+
 	   Event.stopEvent(e);
-	      
+
 	   // Get the wrapping div element
 	   var elementDiv = Event.getTarget(e).parentNode;
-	   
+
 	   // Get the index of the subField
 	   var index = -1;
-	   
+
 	   var subFieldEl = elementDiv.childNodes[this.options.useButtons ? 1 : 0];
 	   for(var i = 0 ; i < this.subFields.length ; i++) {
 	      if(this.subFields[i].getEl() == subFieldEl) {
@@ -2298,32 +2298,32 @@ lang.extend(inputEx.ListField,inputEx.Field,
 	         break;
 	      }
 	   }
-	      
+
 	   // Remove it
 	   if(index != -1) {
 	      this.removeElement(index);
 	   }
-	      
+
 	   // Fire the updated event
 	   this.fireUpdatedEvt();
 	},
-	   
+
 	/**
 	 * Remove the line from the dom and the subField from the list.
 	 * @param {integer} index The index of the element to remove
 	 */
 	removeElement: function(index) {
 	   var elementDiv = this.subFields[index].getEl().parentNode;
-	      
+
 	   this.subFields[index] = undefined;
 	   this.subFields = inputEx.compactArray(this.subFields);
-	      
+
 	   // Remove the element
 	   elementDiv.parentNode.removeChild(elementDiv);
 	}
-	
+
 });
-	
+
 /**
  * Register this class as "list" type
  */
@@ -2332,11 +2332,11 @@ inputEx.registerType("list", inputEx.ListField);
 
 inputEx.messages.listAddLink = "Add";
 inputEx.messages.listRemoveLink = "remove";
-	
+
 })();(function() {
-	
+
 	var inputEx = YAHOO.inputEx, lang = YAHOO.lang, Event = YAHOO.util.Event, Dom = YAHOO.util.Dom;
-	
+
 /**
  * @class Create a checkbox.
  * @extends inputEx.Field
@@ -2349,82 +2349,82 @@ inputEx.messages.listRemoveLink = "remove";
 inputEx.CheckBox = function(options) {
 	inputEx.CheckBox.superclass.constructor.call(this,options);
 };
-	
-lang.extend(inputEx.CheckBox, inputEx.Field, 
+
+lang.extend(inputEx.CheckBox, inputEx.Field,
 /**
- * @scope inputEx.CheckBox.prototype   
+ * @scope inputEx.CheckBox.prototype
  */
 {
-	   
+
 	/**
 	 * Adds the CheckBox specific options
 	 * @param {Object} options Options object (inputEx inputParams) as passed to the constructor
 	 */
 	setOptions: function(options) {
 	   inputEx.CheckBox.superclass.setOptions.call(this, options);
-	   
+
 	   // Overwrite options:
 	   this.options.className = options.className ? options.className : 'inputEx-Field inputEx-CheckBox';
-	   
+
 	   this.options.rightLabel = options.rightLabel || '';
-	   
+
 	   // Added options
 	   this.sentValues = options.sentValues || [true, false];
 	   this.options.sentValues = this.sentValues; // for compatibility
 	   this.checkedValue = this.sentValues[0];
 	   this.uncheckedValue = this.sentValues[1];
 	},
-	   
+
 	/**
 	 * Render the checkbox and the hidden field
 	 */
 	renderComponent: function() {
-	
+
    	var checkBoxId = this.divEl.id?this.divEl.id+'-field':YAHOO.util.Dom.generateId();
-   	
+
 	   this.el = inputEx.cn('input', { id: checkBoxId, type: 'checkbox', checked:(this.options.checked === false) ? false : true });
 	   this.fieldContainer.appendChild(this.el);
-	
+
 	   this.rightLabelEl = inputEx.cn('label', {"for": checkBoxId, className: 'inputEx-CheckBox-rightLabel'}, null, this.options.rightLabel);
 	   this.fieldContainer.appendChild(this.rightLabelEl);
-	
+
 	   // Keep state of checkbox in a hidden field (format : this.checkedValue or this.uncheckedValue)
 	   this.hiddenEl = inputEx.cn('input', {type: 'hidden', name: this.options.name || '', value: this.el.checked ? this.checkedValue : this.uncheckedValue});
 	   this.fieldContainer.appendChild(this.hiddenEl);
 	},
-	   
+
 	/**
 	 * Clear the previous events and listen for the "change" event
 	 */
 	initEvents: function() {
-	   Event.addListener(this.el, "change", this.onChange, this, true);	
-	   
+	   Event.addListener(this.el, "change", this.onChange, this, true);
+
 	   // Awful Hack to work in IE6 and below (the checkbox doesn't fire the change event)
 	   // It seems IE 8 removed this behavior from IE7 so it only works with IE 7 ??
 	   /*if( YAHOO.env.ua.ie && parseInt(YAHOO.env.ua.ie,10) != 7 ) {
-	      Event.addListener(this.el, "click", function() { this.fireUpdatedEvt(); }, this, true);	
+	      Event.addListener(this.el, "click", function() { this.fireUpdatedEvt(); }, this, true);
 	   }*/
 	   if( YAHOO.env.ua.ie ) {
-	      Event.addListener(this.el, "click", function() { YAHOO.lang.later(10,this,this.fireUpdatedEvt); }, this, true);	
+	      Event.addListener(this.el, "click", function() { YAHOO.lang.later(10,this,this.fireUpdatedEvt); }, this, true);
 	   }
-	   
+
 	   Event.addFocusListener(this.el, this.onFocus, this, true);
 	   Event.addBlurListener(this.el, this.onBlur, this, true);
 	},
-	   
+
 	/**
 	 * Function called when the checkbox is toggled
 	 * @param {Event} e The original 'change' event
 	 */
 	onChange: function(e) {
 	   this.hiddenEl.value = this.el.checked ? this.checkedValue : this.uncheckedValue;
-	
-      // In IE the fireUpdatedEvent is sent by the click ! We need to send it only once ! 
+
+      // In IE the fireUpdatedEvent is sent by the click ! We need to send it only once !
       if( !YAHOO.env.ua.ie ) {
 	      inputEx.CheckBox.superclass.onChange.call(this,e);
       }
 	},
-	
+
 	/**
 	 * Get the state value
 	 * @return {Any} one of [checkedValue,uncheckedValue]
@@ -2432,7 +2432,7 @@ lang.extend(inputEx.CheckBox, inputEx.Field,
 	getValue: function() {
 	      return this.el.checked ? this.checkedValue : this.uncheckedValue;
 	},
-	
+
 	/**
 	 * Set the value of the checkedbox
 	 * @param {Any} value The value schould be one of [checkedValue,uncheckedValue]
@@ -2451,11 +2451,11 @@ lang.extend(inputEx.CheckBox, inputEx.Field,
 			this.hiddenEl.value = value;
 			this.el.checked = false;
 		}
-		
+
 		// Call Field.setValue to set class and fire updated event
 		inputEx.CheckBox.superclass.setValue.call(this,value, sendUpdatedEvt);
 	},
-	
+
 	/**
     * Disable the field
     */
@@ -2469,20 +2469,20 @@ lang.extend(inputEx.CheckBox, inputEx.Field,
    enable: function() {
       this.el.disabled = false;
    }
-	
-});   
-	
+
+});
+
 /**
  * Register this class as "boolean" type
  */
 inputEx.registerType("boolean", inputEx.CheckBox);
-	
+
 })();(function() {
 
    var inputEx = YAHOO.inputEx, lang = YAHOO.lang, Event = YAHOO.util.Event, Dom = YAHOO.util.Dom;
 
 /**
- * @class Meta field providing in place editing (the editor appears when you click on the formatted value). 
+ * @class Meta field providing in place editing (the editor appears when you click on the formatted value).
  * @extends inputEx.Field
  * @constructor
  * @param {Object} options Added options:
@@ -2496,10 +2496,10 @@ inputEx.InPlaceEdit = function(options) {
    inputEx.InPlaceEdit.superclass.constructor.call(this, options);
 };
 
-lang.extend(inputEx.InPlaceEdit, inputEx.Field, 
+lang.extend(inputEx.InPlaceEdit, inputEx.Field,
 /**
- * @scope inputEx.InPlaceEdit.prototype   
- */   
+ * @scope inputEx.InPlaceEdit.prototype
+ */
 {
    /**
     * Set the default values of the options
@@ -2507,7 +2507,7 @@ lang.extend(inputEx.InPlaceEdit, inputEx.Field,
     */
    setOptions: function(options) {
       inputEx.InPlaceEdit.superclass.setOptions.call(this, options);
-      
+
       this.options.animColors = options.animColors || {from: '#ffff99' , to: '#ffffff'};
       /*this.options.formatDom = options.formatDom;
       this.options.formatValue = options.formatValue;*/
@@ -2522,37 +2522,37 @@ lang.extend(inputEx.InPlaceEdit, inputEx.Field,
       this.renderVisuDiv();
 	   this.renderEditor();
    },
-   
+
    /**
     * Render the editor
     */
    renderEditor: function() {
-      
+
       this.editorContainer = inputEx.cn('div', {className: 'inputEx-InPlaceEdit-editor'}, {display: 'none'});
-      
+
       // Render the editor field
       this.editorField = inputEx.buildField(this.options.editorField);
-   
+
       this.editorContainer.appendChild( this.editorField.getEl() );
       Dom.setStyle(this.editorField.getEl(), 'float', 'left');
-      
+
       this.okButton = inputEx.cn('input', {type: 'button', value: inputEx.messages.okEditor, className: 'inputEx-InPlaceEdit-OkButton'});
       Dom.setStyle(this.okButton, 'float', 'left');
       this.editorContainer.appendChild(this.okButton);
-      
+
       this.cancelLink = inputEx.cn('a', {className: 'inputEx-InPlaceEdit-CancelLink'}, null, inputEx.messages.cancelEditor);
       this.cancelLink.href = ""; // IE required (here, not in the cn fct)
       Dom.setStyle(this.cancelLink, 'float', 'left');
       this.editorContainer.appendChild(this.cancelLink);
-      
+
       // Line breaker
       this.editorContainer.appendChild( inputEx.cn('div',null, {clear: 'both'}) );
-      
+
       //this.divEl.appendChild(this.editorContainer);
       this.fieldContainer.appendChild(this.editorContainer);
-      
+
    },
-   
+
    /**
     * Set the color when hovering the field
     * @param {Event} e The original mouseover event
@@ -2563,7 +2563,7 @@ lang.extend(inputEx.InPlaceEdit, inputEx.Field,
       }
       inputEx.sn(this.formattedContainer, null, {backgroundColor: this.options.animColors.from });
    },
-   
+
    /**
     * Start the color animation when hovering the field
     * @param {Event} e The original mouseout event
@@ -2575,15 +2575,15 @@ lang.extend(inputEx.InPlaceEdit, inputEx.Field,
       }
       this.colorAnim = new YAHOO.util.ColorAnim(this.formattedContainer, {backgroundColor: this.options.animColors}, 1);
       this.colorAnim.onComplete.subscribe(function() { Dom.setStyle(this.formattedContainer, 'background-color', ''); }, this, true);
-      this.colorAnim.animate();   
+      this.colorAnim.animate();
    },
-   
+
    /**
     * Create the div that will contain the visualization of the value
     */
    renderVisuDiv: function() {
       this.formattedContainer = inputEx.cn('div', {className: 'inputEx-InPlaceEdit-visu'});
-      
+
       if( lang.isFunction(this.options.formatDom) ) {
          this.formattedContainer.appendChild( this.options.formatDom(this.options.value) );
       }
@@ -2593,32 +2593,32 @@ lang.extend(inputEx.InPlaceEdit, inputEx.Field,
       else {
          this.formattedContainer.innerHTML = lang.isUndefined(this.options.value) ? inputEx.messages.emptyInPlaceEdit: this.options.value;
       }
-      
+
       this.fieldContainer.appendChild(this.formattedContainer);
-      
+
    },
 
    /**
     * Adds the events for the editor and color animations
     */
-   initEvents: function() {  
+   initEvents: function() {
       Event.addListener(this.formattedContainer, "click", this.openEditor, this, true);
-            
+
       // For color animation
       Event.addListener(this.formattedContainer, 'mouseover', this.onVisuMouseOver, this, true);
       Event.addListener(this.formattedContainer, 'mouseout', this.onVisuMouseOut, this, true);
-         
-      // Editor: 
+
+      // Editor:
       Event.addListener(this.okButton, 'click', this.onOkEditor, this, true);
       Event.addListener(this.cancelLink, 'click', this.onCancelEditor, this, true);
-         
+
       if(this.editorField.el) {
          // Register some listeners
          Event.addListener(this.editorField.el, "keyup", this.onKeyUp, this, true);
          Event.addListener(this.editorField.el, "keydown", this.onKeyDown, this, true);
       }
    },
-   
+
    /**
     * Handle some keys events to close the editor
     * @param {Event} e The original keyup event
@@ -2633,7 +2633,7 @@ lang.extend(inputEx.InPlaceEdit, inputEx.Field,
          this.onCancelEditor(e);
       }
    },
-   
+
    /**
     * Handle the tabulation key to close the editor
     * @param {Event} e The original keydown event
@@ -2644,22 +2644,22 @@ lang.extend(inputEx.InPlaceEdit, inputEx.Field,
          this.onOkEditor();
       }
    },
-   
+
    /**
     * Validate the editor (ok button, enter key or tabulation key)
     */
    onOkEditor: function() {
       var newValue = this.editorField.getValue();
       this.setValue(newValue);
-      
+
       this.editorContainer.style.display = 'none';
       this.formattedContainer.style.display = '';
-      
+
       var that = this;
-      setTimeout(function() {that.updatedEvt.fire(newValue);}, 50);      
+      setTimeout(function() {that.updatedEvt.fire(newValue);}, 50);
    },
 
-   
+
    /**
     * Close the editor on cancel (cancel button, blur event or escape key)
     * @param {Event} e The original event (click, blur or keydown)
@@ -2669,7 +2669,7 @@ lang.extend(inputEx.InPlaceEdit, inputEx.Field,
       this.editorContainer.style.display = 'none';
       this.formattedContainer.style.display = '';
    },
-   
+
    /**
     * Display the editor
     */
@@ -2677,21 +2677,21 @@ lang.extend(inputEx.InPlaceEdit, inputEx.Field,
       var value = this.getValue();
       this.editorContainer.style.display = '';
       this.formattedContainer.style.display = 'none';
-   
+
       if(!lang.isUndefined(value)) {
-         this.editorField.setValue(value);   
+         this.editorField.setValue(value);
       }
-      
+
       // Set focus in the element !
       this.editorField.focus();
-   
+
       // Select the content
       if(this.editorField.el && lang.isFunction(this.editorField.el.setSelectionRange) && (!!value && !!value.length)) {
          this.editorField.el.setSelectionRange(0,value.length);
       }
-      
+
    },
-   
+
    /**
     * Returned the previously stored value
     * @return {Any} The value of the subfield
@@ -2706,25 +2706,25 @@ lang.extend(inputEx.InPlaceEdit, inputEx.Field,
     * @param {Any} value The value to set
     * @param {boolean} [sendUpdatedEvt] (optional) Wether this setValue should fire the updatedEvt or not (default is true, pass false to NOT send the event)
     */
-   setValue: function(value, sendUpdatedEvt) {   
+   setValue: function(value, sendUpdatedEvt) {
       // Store the value
 	   this.value = value;
-   
+
       if(lang.isUndefined(value) || value == "") {
          inputEx.renderVisu(this.options.visu, inputEx.messages.emptyInPlaceEdit, this.formattedContainer);
       }
       else {
          inputEx.renderVisu(this.options.visu, this.value, this.formattedContainer);
       }
-      
-      // If the editor is opened, update it 
+
+      // If the editor is opened, update it
       if(this.editorContainer.style.display == '') {
          this.editorField.setValue(value);
       }
-      
+
       inputEx.InPlaceEdit.superclass.setValue.call(this, value, sendUpdatedEvt);
    },
-   
+
    /**
     * Close the editor when calling the close function on this field
     */
@@ -2734,7 +2734,7 @@ lang.extend(inputEx.InPlaceEdit, inputEx.Field,
 	}
 
 });
-  
+
 inputEx.messages.emptyInPlaceEdit = "(click to edit)";
 inputEx.messages.cancelEditor = "cancel";
 inputEx.messages.okEditor = "Ok";
@@ -2754,7 +2754,7 @@ inputEx.registerType("inplaceedit", inputEx.InPlaceEdit);
  * @namespace WireIt
  */
 var WireIt = {
-   
+
    /**
     * Get a css property in pixels and convert it to an integer
     * @method getIntStyle
@@ -2804,7 +2804,7 @@ var WireIt = {
             }
          }
       }
-   
+
    },
 
 
@@ -2824,7 +2824,7 @@ var WireIt = {
       if(innerHTML){ el.innerHTML = innerHTML; }
       return el;
    },
-   
+
    /**
     * indexOf replace Array.indexOf for cases where it isn't available (IE6 only ?)
     * @method indexOf
@@ -2833,8 +2833,8 @@ var WireIt = {
     * @param {Array} arr Array to search into
     * @return {Integer} element index or -1 if not found
     */
-   indexOf: YAHOO.lang.isFunction(Array.prototype.indexOf) ? 
-                        function(el, arr) { return arr.indexOf(el);} : 
+   indexOf: YAHOO.lang.isFunction(Array.prototype.indexOf) ?
+                        function(el, arr) { return arr.indexOf(el);} :
                         function(el, arr) {
                            for(var i = 0 ;i < arr.length ; i++) {
                               if(arr[i] == el) return i;
@@ -2849,8 +2849,8 @@ var WireIt = {
     * @param {Array} arr Array to compact
     * @return {Array} compacted array
     */
-   compact: YAHOO.lang.isFunction(Array.prototype.compact) ? 
-                        function(arr) { return arr.compact();} :          
+   compact: YAHOO.lang.isFunction(Array.prototype.compact) ?
+                        function(arr) { return arr.compact();} :
                         function(arr) {
                            var n = [];
                            for(var i = 0 ; i < arr.length ; i++) {
@@ -2868,7 +2868,7 @@ var WireIt = {
  */
 WireIt.util = {};
 (function () {
-   
+
    // Shortcuts
    var Event = YAHOO.util.Event, UA = YAHOO.env.ua;
 
@@ -2880,26 +2880,26 @@ WireIt.util = {};
     * @param {HTMLElement} parentNode The canvas tag will be append to this parent DOM node.
     */
    WireIt.CanvasElement = function(parentNode) {
-      
+
       /**
        * The canvas element
        * @property element
        * @type HTMLElement
        */
       this.element = document.createElement('canvas');
-      
+
       // Append to parentNode
       parentNode.appendChild(this.element);
-      
+
       // excanvas.js for dynamic canvas tags
       if(typeof (G_vmlCanvasManager)!="undefined"){
          this.element = G_vmlCanvasManager.initElement(this.element);
       }
-      
+
    };
-   
+
    WireIt.CanvasElement.prototype = {
-      
+
       /**
        * Get a drawing context
        * @method getContext
@@ -2909,7 +2909,7 @@ WireIt.util = {};
       getContext: function(mode) {
        return this.element.getContext(mode || "2d");
       },
-      
+
       /**
        * Purge all event listeners and remove the component from the dom
        * @method destroy
@@ -2925,7 +2925,7 @@ WireIt.util = {};
          // recursively purge element
          Event.purgeElement(el, true);
       },
-      
+
       /**
        * Set the canvas position and size.
        * <b>Warning:</b> This method changes the <i>element</i> property under some brother. Don't copy references !
@@ -2935,15 +2935,15 @@ WireIt.util = {};
        * @param {Number} width New width
        * @param {Number} height New height
        */
-      SetCanvasRegion: UA.ie ? 
+      SetCanvasRegion: UA.ie ?
                // IE
                function(left,top,width,height){
                   var el = this.element;
                   WireIt.sn(el,null,{left:left+"px",top:top+"px",width:width+"px",height:height+"px"});
                   el.getContext("2d").clearRect(0,0,width,height);
                   this.element = el;
-               } : 
-               ( (UA.webkit || UA.opera) ? 
+               } :
+               ( (UA.webkit || UA.opera) ?
                   // Webkit (Safari & Chrome) and Opera
                   function(left,top,width,height){
                      var el = this.element;
@@ -2956,13 +2956,13 @@ WireIt.util = {};
                      Event.purgeElement(el);
                      el.parentNode.replaceChild(newCanvas,el);
                      this.element = newCanvas;
-                  } :  
+                  } :
                   // Other (Firefox)
                   function(left,top,width,height){
                      WireIt.sn(this.element,{width:width,height:height},{left:left+"px",top:top+"px"});
                   })
    };
-   
+
 })();/**
  * The wire widget that uses a canvas to render
  * @class Wire
@@ -2975,21 +2975,21 @@ WireIt.util = {};
  * @param  {Obj}                options      Wire configuration (see options property)
  */
 WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
-   
+
    /**
     * Reference to the parent dom element
     * @property parentEl
     * @type HTMLElement
     */
    this.parentEl = parentEl;
-   
+
    /**
     * Source terminal
     * @property terminal1
     * @type WireIt.Terminal
     */
    this.terminal1 = terminal1;
-   
+
    /**
     * Target terminal
     * @property terminal2
@@ -2997,7 +2997,7 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
     */
    this.terminal2 = terminal2;
 
-	
+
    /**
     * Event that is fired when a wire is clicked (on the wire, not the canvas)
     * You can register this event with myWire.eventWireClick.subscribe(function(e,params) { var wire = params[0], xy = params[1];}, scope);
@@ -3011,14 +3011,14 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
     * @event eventMouseIn
     */
 	this.eventMouseIn = new YAHOO.util.CustomEvent("eventMouseIn");
-	
+
 	/**
     * Event that is fired when the mouse exits the wire
     * You can register this event with myWire.eventMouseOut.subscribe(function(e,params) { var wire = params[0], xy = params[1];}, scope);
     * @event eventMouseOut
     */
 	this.eventMouseOut = new YAHOO.util.CustomEvent("eventMouseOut");
-	
+
 	/**
     * Event that is fired when the mouse moves inside the wire
     * You can register this event with myWire.eventMouseMove.subscribe(function(e,params) { var wire = params[0], xy = params[1];}, scope);
@@ -3027,16 +3027,16 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
 	this.eventMouseMove = new YAHOO.util.CustomEvent("eventMouseMove");
 
 
-   
+
    // Init the options property
    this.setOptions(options || {});
-   
+
    // Create the canvas element and append it to parentEl
    WireIt.Wire.superclass.constructor.call(this, this.parentEl);
-   
+
    // CSS classname
    YAHOO.util.Dom.addClass(this.element, this.options.className);
-   
+
    // Call addWire on both terminals
    this.terminal1.addWire(this);
    this.terminal2.addWire(this);
@@ -3044,7 +3044,7 @@ WireIt.Wire = function( terminal1, terminal2, parentEl, options) {
 
 
 YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
-   
+
    /**
     * Build options object and set default properties
     * @method setOptions
@@ -3077,16 +3077,16 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       this.options.color = options.color || 'rgb(173, 216, 230)';
       this.options.bordercolor = options.bordercolor || '#0000ff';
    },
-   
+
    /**
     * Remove a Wire from the Dom
     * @method remove
     */
    remove: function() {
-   
+
       // Remove the canvas from the dom
       this.parentEl.removeChild(this.element);
-   
+
       // Remove the wire reference from the connected terminals
       if(this.terminal1 && this.terminal1.removeWire) {
          this.terminal1.removeWire(this);
@@ -3094,7 +3094,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       if(this.terminal2 && this.terminal2.removeWire) {
          this.terminal2.removeWire(this);
       }
-   
+
       // Remove references to old terminals
       this.terminal1 = null;
       this.terminal2 = null;
@@ -3105,27 +3105,27 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @method drawBezierCurve
     */
    drawBezierCurve: function() {
-   
+
       // Get the positions of the terminals
       var p1 = this.terminal1.getXY();
       var p2 = this.terminal2.getXY();
-      
+
       // Coefficient multiplicateur de direction
       // 100 par defaut, si distance(p1,p2) < 100, on passe en distance/2
       var coeffMulDirection = this.options.coeffMulDirection;
-   
-   
+
+
       var distance=Math.sqrt(Math.pow(p1[0]-p2[0],2)+Math.pow(p1[1]-p2[1],2));
       if(distance < coeffMulDirection){
          coeffMulDirection = distance/2;
       }
-   
+
       // Calcul des vecteurs directeurs d1 et d2 :
       var d1 = [this.terminal1.options.direction[0]*coeffMulDirection,
                 this.terminal1.options.direction[1]*coeffMulDirection];
       var d2 = [this.terminal2.options.direction[0]*coeffMulDirection,
                 this.terminal2.options.direction[1]*coeffMulDirection];
-   
+
       var bezierPoints=[];
       bezierPoints[0] = p1;
       bezierPoints[1] = [p1[0]+d1[0],p1[1]+d1[1]];
@@ -3156,15 +3156,15 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       max[1] = max[1]+margin[1];
       var lw = Math.abs(max[0]-min[0]);
       var lh = Math.abs(max[1]-min[1]);
-   
+
       this.SetCanvasRegion(min[0],min[1],lw,lh);
-   
+
       var ctxt = this.getContext();
       for(i = 0 ; i<bezierPoints.length ; i++){
          bezierPoints[i][0] = bezierPoints[i][0]-min[0];
          bezierPoints[i][1] = bezierPoints[i][1]-min[1];
       }
-   
+
       // Draw the border
       ctxt.lineCap = this.options.bordercap;
       ctxt.strokeStyle = this.options.bordercolor;
@@ -3173,7 +3173,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
       ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]);
       ctxt.stroke();
-   
+
       // Draw the inner bezier curve
       ctxt.lineCap = this.options.cap;
       ctxt.strokeStyle = this.options.color;
@@ -3182,7 +3182,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
       ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]);
       ctxt.stroke();
-   
+
    },
 
 	/**
@@ -3284,8 +3284,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    	var dlug = arrowLength; //arrow length
    	var t = 1-(dlug/distance);
    	z[0] = Math.abs( t1[0] +  t*(t2[0]-t1[0]) );
-   	z[1] = Math.abs( t1[1] + t*(t2[1]-t1[1]) );	
-   	
+   	z[1] = Math.abs( t1[1] + t*(t2[1]-t1[1]) );
+
 	//line which connects the terminals: y=ax+b
    	var W = t1[0] - t2[0];
    	var Wa = t1[1] - t2[1];
@@ -3311,21 +3311,21 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 			 B = 2*aProst*bProst - 2*z[0] - 2*z[1]*aProst,
 			 C = -2*z[1]*bProst + Math.pow(z[0],2) + Math.pow(z[1],2) - Math.pow(d,2) + Math.pow(bProst,2),
 			 delta = Math.pow(B,2) - 4*A*C;
-			
+
    	if (delta < 0) { return; }
-	   
+
    	var x1 = (-B + Math.sqrt(delta)) / (2*A),
 			 x2 = (-B - Math.sqrt(delta)) / (2*A),
 			 y1 = aProst*x1 + bProst,
 			 y2 = aProst*x2 + bProst;
-   	
+
    	if(t1[1] == t2[1]) {
    	      var o = (t1[0] > t2[0]) ? 1 : -1;
       	   x1 = t2[0]+o*dlug;
       	   x2 = x1;
       	   y1 -= d;
       	   y2 += d;
-   	}   	
+   	}
 
    	//triangle fill
    	ctxt.fillStyle = this.options.color;
@@ -3335,7 +3335,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    	ctxt.lineTo(x2,y2);
    	ctxt.fill();
 
-   	//triangle border	
+   	//triangle border
    	ctxt.strokeStyle = this.options.bordercolor;
    	ctxt.lineWidth = this.options.borderwidth;
    	ctxt.beginPath();
@@ -3352,14 +3352,14 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    /**
     * This function returns terminal1 if the first argument is terminal2 and vice-versa
     * @method getOtherTerminal
-    * @param   {WireIt.Terminal} terminal    
+    * @param   {WireIt.Terminal} terminal
     * @return  {WireIt.Terminal} terminal    the terminal that is NOT passed as argument
     */
    getOtherTerminal: function(terminal) {
       return (terminal == this.terminal1) ? this.terminal2 : this.terminal1;
    },
-   
-   
+
+
    /**
     * Drawing methods for arrows
     * @method drawArrows
@@ -3378,9 +3378,9 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 
       var min=[ Math.min(p1[0],p2[0])-margin[0], Math.min(p1[1],p2[1])-margin[1]];
       var max=[ Math.max(p1[0],p2[0])+margin[0], Math.max(p1[1],p2[1])+margin[1]];
-      
+
       // Redimensionnement du canvas
-      
+
       var lw=Math.abs(max[0]-min[0])+redim;
       var lh=Math.abs(max[1]-min[1])+redim;
 
@@ -3392,7 +3392,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       this.SetCanvasRegion(min[0],min[1],lw,lh);
 
       var ctxt=this.getContext();
-      
+
       // Draw the border
       ctxt.lineCap=this.options.bordercap;
       ctxt.strokeStyle=this.options.bordercolor;
@@ -3420,7 +3420,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    	var dlug = 20; //arrow length
    	var t = (distance == 0) ? 0 : 1-(dlug/distance);
    	z[0] = Math.abs( t1[0] +  t*(t2[0]-t1[0]) );
-   	z[1] = Math.abs( t1[1] + t*(t2[1]-t1[1]) );	
+   	z[1] = Math.abs( t1[1] + t*(t2[1]-t1[1]) );
 
    	//line which connects the terminals: y=ax+b
    	var W = t1[0] - t2[0];
@@ -3448,19 +3448,19 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    	var C = -2*z[1]*bProst + Math.pow(z[0],2) + Math.pow(z[1],2) - Math.pow(d,2) + Math.pow(bProst,2);
    	var delta = Math.pow(B,2) - 4*A*C;
    	if (delta < 0) { return; }
-	   
+
    	var x1 = (-B + Math.sqrt(delta)) / (2*A);
-   	var x2 = (-B - Math.sqrt(delta)) / (2*A);	 
+   	var x2 = (-B - Math.sqrt(delta)) / (2*A);
    	var y1 = aProst*x1 + bProst;
    	var y2 = aProst*x2 + bProst;
-   	
+
    	if(t1[1] == t2[1]) {
    	      var o = (t1[0] > t2[0]) ? 1 : -1;
       	   x1 = t2[0]+o*dlug;
       	   x2 = x1;
       	   y1 -= d;
       	   y2 += d;
-   	}   	
+   	}
 
    	//triangle fill
    	ctxt.fillStyle = this.options.color;
@@ -3470,7 +3470,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    	ctxt.lineTo(x2,y2);
    	ctxt.fill();
 
-   	//triangle border	
+   	//triangle border
    	ctxt.strokeStyle = this.options.bordercolor;
    	ctxt.lineWidth = this.options.borderwidth;
    	ctxt.beginPath();
@@ -3481,7 +3481,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    	ctxt.stroke();
 
    },
-   
+
    /**
     * Drawing method for arrows
     * @method drawStraight
@@ -3496,7 +3496,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 
       var min=[ Math.min(p1[0],p2[0])-margin[0], Math.min(p1[1],p2[1])-margin[1]];
       var max=[ Math.max(p1[0],p2[0])+margin[0], Math.max(p1[1],p2[1])+margin[1]];
-      
+
       // Redimensionnement du canvas
       var lw=Math.abs(max[0]-min[0]);
       var lh=Math.abs(max[1]-min[1]);
@@ -3510,7 +3510,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
       this.SetCanvasRegion(min[0],min[1],lw,lh);
 
       var ctxt=this.getContext();
-      
+
       // Draw the border
       ctxt.lineCap=this.options.bordercap;
       ctxt.strokeStyle=this.options.bordercolor;
@@ -3551,7 +3551,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
          throw new Error("WireIt.Wire unable to find '"+this.drawingMethod+"' drawing method.");
       }
    },
-   
+
    /**
     * Determine if the wire is drawn at position (x,y) relative to the canvas element. This is used for mouse events.
     * @method wireDrawnAt
@@ -3563,7 +3563,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 	   var pixel = imgData.data;
 	   return !( pixel[0] === 0 && pixel[1] === 0 && pixel[2] === 0 && pixel[3] === 0 );
    },
-   
+
    /**
     * Called by the Layer when the mouse moves over the canvas element.
     * Note: the event is not listened directly, to receive the event event if the wire is behind another wire
@@ -3572,7 +3572,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @param {Integer} y top position of the mouse (relative to the canvas)
     */
    onMouseMove: function(x,y) {
-      
+
       if(typeof this.mouseInState === undefined) {
          this.mouseInState = false;
       }
@@ -3581,7 +3581,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 			if(!this.mouseInState) {
 			   this.mouseInState=true;
 			   this.onWireIn(x,y);
-			}	
+			}
 			// should we call both ??
 			// else {
 			this.onWireMove(x,y);
@@ -3593,9 +3593,9 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 			   this.onWireOut(x,y);
 	      }
 	   }
-      
+
    },
-   
+
    /**
     * When the mouse moves over a wire
     * Note: this will only work within a layer
@@ -3606,7 +3606,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    onWireMove: function(x,y) {
 		this.eventMouseMove.fire(this, [x,y]);
    },
-   
+
    /**
     * When the mouse comes into the wire
     * Note: this will only work within a layer
@@ -3617,7 +3617,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    onWireIn: function(x,y) {
 		this.eventMouseIn.fire(this, [x,y]);
    },
-   
+
    /**
     * When the mouse comes out of the wire
     * Note: this will only work within a layer
@@ -3628,7 +3628,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
    onWireOut: function(x,y) {
 		this.eventMouseOut.fire(this, [x,y]);
    },
-   
+
    /**
     * When the mouse clicked on the canvas
     * Note: this will only work within a layer
@@ -3641,7 +3641,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
  	      this.onWireClick(x,y);
       }
    },
-   
+
    /**
     * When the mouse clicked on the wire
     * Note: this will only work within a layer
@@ -3669,7 +3669,7 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
     * @extends YAHOO.util.Element
     * @constructor
     * @param {WireIt.Terminal} terminal Associated terminal
-    * @param {Object} oConfigs 
+    * @param {Object} oConfigs
     */
    WireIt.Scissors = function(terminal, oConfigs) {
       WireIt.Scissors.superclass.constructor.call(this, document.createElement('div'), oConfigs);
@@ -3680,22 +3680,22 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
        * @type {WireIt.Terminal}
        */
       this._terminal = terminal;
-      
+
       this.initScissors();
    };
 	WireIt.Scissors.visibleInstance = null;
    lang.extend(WireIt.Scissors, util.Element, {
-      
+
       /**
        * Init the scissors
        * @method initScissors
        */
       initScissors: function() {
-         
+
          // Display the cut button
          this.hideNow();
          this.addClass(CSS_PREFIX+"Wire-scissors");
-         
+
          // The scissors are within the terminal element
          this.appendTo(this._terminal.container ? this._terminal.container.layer.el : this._terminal.el.parentNode.parentNode);
 
@@ -3703,12 +3703,12 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
          this.on("mouseover", this.show, this, true);
          this.on("mouseout", this.hide, this, true);
          this.on("click", this.scissorClick, this, true);
-         
+
          // On mouseover/mouseout to display/hide the scissors
          Event.addListener(this._terminal.el, "mouseover", this.mouseOver, this, true);
          Event.addListener(this._terminal.el, "mouseout", this.hide, this, true);
       },
-      
+
       /**
        * @method setPosition
        */
@@ -3733,20 +3733,20 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
          this._terminal.removeAllWires();
          if(this.terminalTimeout) { this.terminalTimeout.cancel(); }
          this.hideNow();
-      },   
+      },
       /**
        * @method show
        */
       show: function() {
          this.setPosition();
          this.setStyle('display','');
-			
+
 			if(WireIt.Scissors.visibleInstance && WireIt.Scissors.visibleInstance != this) {
 				if(WireIt.Scissors.visibleInstance.terminalTimeout) { WireIt.Scissors.visibleInstance.terminalTimeout.cancel(); }
-				WireIt.Scissors.visibleInstance.hideNow(); 
+				WireIt.Scissors.visibleInstance.hideNow();
 			}
 			WireIt.Scissors.visibleInstance = this;
-			
+
          if(this.terminalTimeout) { this.terminalTimeout.cancel(); }
       },
       /**
@@ -3768,8 +3768,8 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
 
 
 
-   
-   
+
+
 /**
  * This class is used for wire edition. It inherits from YAHOO.util.DDProxy and acts as a "temporary" Terminal.
  * @class TerminalProxy
@@ -3780,12 +3780,12 @@ YAHOO.lang.extend(WireIt.Wire, WireIt.CanvasElement, {
  * @param {Object} options Configuration object (see "termConfig" property for details)
  */
 WireIt.TerminalProxy = function(terminal, options) {
-   
+
    /**
     * Reference to the terminal parent
     */
    this.terminal = terminal;
-   
+
    /**
     * Object containing the configuration object
     * <ul>
@@ -3797,14 +3797,14 @@ WireIt.TerminalProxy = function(terminal, options) {
     */
    // WARNING: the object config cannot be called "config" because YAHOO.util.DDProxy already has a "config" property
    this.termConfig = options || {};
-   
+
    this.terminalProxySize = options.terminalProxySize || 10;
-   
+
    /**
     * Object that emulate a terminal which is following the mouse
     */
    this.fakeTerminal = null;
-   
+
    // Init the DDProxy
    WireIt.TerminalProxy.superclass.constructor.call(this,this.terminal.el, undefined, {
       dragElId: "WireIt-TerminalProxy",
@@ -3817,7 +3817,7 @@ WireIt.TerminalProxy = function(terminal, options) {
 util.DDM.mode = util.DDM.INTERSECT;
 
 lang.extend(WireIt.TerminalProxy, util.DDProxy, {
-   
+
    /**
     * Took this method from the YAHOO.util.DDProxy class
     * to overwrite the creation of the proxy Element with our custom size
@@ -3840,7 +3840,7 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
             s.border     = "2px solid #aaa";
             s.zIndex     = 999;
             var size = this.terminalProxySize+"px";
-            s.height     = size; 
+            s.height     = size;
             s.width      = size;
             var _data = document.createElement('div');
             Dom.setStyle(_data, 'height', '100%');
@@ -3851,12 +3851,12 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
             body.insertBefore(div, body.firstChild);
         }
     },
-   
+
    /**
     * @method startDrag
     */
    startDrag: function() {
-      
+
       // If only one wire admitted, we remove the previous wire
       if(this.terminal.options.nMaxWires == 1 && this.terminal.wires.length == 1) {
          this.terminal.wires[0].remove();
@@ -3865,23 +3865,23 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
       else if(this.terminal.wires.length >= this.terminal.options.nMaxWires) {
          return;
       }
-      
+
       var halfProxySize = this.terminalProxySize/2;
       this.fakeTerminal = {
          options: {direction: this.terminal.options.fakeDirection},
-         pos: [200,200], 
+         pos: [200,200],
          addWire: function() {},
          removeWire: function() {},
-         getXY: function() { 
+         getXY: function() {
             var layers = Dom.getElementsByClassName('WireIt-Layer');
             if(layers.length > 0) {
                var orig = Dom.getXY(layers[0]);
-               return [this.pos[0]-orig[0]+halfProxySize, this.pos[1]-orig[1]+halfProxySize]; 
+               return [this.pos[0]-orig[0]+halfProxySize, this.pos[1]-orig[1]+halfProxySize];
             }
             return this.pos;
          }
       };
-      
+
       var parentEl = this.terminal.parentEl.parentNode;
       if(this.terminal.container) {
          parentEl = this.terminal.container.layer.el;
@@ -3889,15 +3889,15 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
       this.editingWire = new WireIt.Wire(this.terminal, this.fakeTerminal, parentEl, this.terminal.options.editingWireConfig);
       Dom.addClass(this.editingWire.element, CSS_PREFIX+'Wire-editing');
    },
-   
+
    /**
     * @method onDrag
     */
    onDrag: function(e) {
-      
+
       // Prevention when the editing wire could not be created (due to nMaxWires)
       if(!this.editingWire) { return; }
-      
+
       if(this.terminal.container) {
          var obj = this.terminal.container.layer.el;
          var curleft = curtop = 0;
@@ -3917,8 +3917,8 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
       }
       this.editingWire.redraw();
    },
-   
-   
+
+
    /**
     * @method endDrag
     */
@@ -3928,47 +3928,47 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
          this.editingWire = null;
       }
    },
-   
+
    /**
     * @method onDragEnter
     */
    onDragEnter: function(e,ddTargets) {
-      
+
       // Prevention when the editing wire could not be created (due to nMaxWires)
       if(!this.editingWire) { return; }
-      
+
       for(var i = 0 ; i < ddTargets.length ; i++) {
          if( this.isValidWireTerminal(ddTargets[i]) ) {
             ddTargets[i].terminal.setDropInvitation(true);
          }
       }
    },
-   
+
    /**
     * @method onDragOut
     */
-   onDragOut: function(e,ddTargets) { 
-      
+   onDragOut: function(e,ddTargets) {
+
       // Prevention when the editing wire could not be created (due to nMaxWires)
       if(!this.editingWire) { return; }
-      
+
       for(var i = 0 ; i < ddTargets.length ; i++) {
          if( this.isValidWireTerminal(ddTargets[i]) ) {
             ddTargets[i].terminal.setDropInvitation(false);
          }
       }
    },
-   
+
    /**
     * @method onDragDrop
     */
    onDragDrop: function(e,ddTargets) {
-      
+
       // Prevention when the editing wire could not be created (due to nMaxWires)
       if(!this.editingWire) { return; }
-      
+
       this.onDragOut(e,ddTargets);
-      
+
       // Connect to the FIRST target terminal
       var targetTerminalProxy = null;
       for(var i = 0 ; i < ddTargets.length ; i++) {
@@ -3979,14 +3979,14 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
       }
 
       // Quit if no valid terminal found
-      if( !targetTerminalProxy ) { 
+      if( !targetTerminalProxy ) {
          return;
       }
-      
+
       // Remove the editing wire
       this.editingWire.remove();
       this.editingWire = null;
-         
+
       // Don't create the wire if it already exists between the 2 terminals !!
       var termAlreadyConnected = false;
       for(var i = 0 ; i < this.terminal.wires.length ; i++) {
@@ -4003,18 +4003,18 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
             }
          }
       }
-      
+
       // Create the wire only if the terminals aren't connected yet
       if(termAlreadyConnected) {
          //console.log("terminals already connected ");
          return;
       }
-         
+
       var parentEl = this.terminal.parentEl.parentNode;
       if(this.terminal.container) {
          parentEl = this.terminal.container.layer.el;
       }
-      
+
       // Switch the order of the terminals if tgt as the "alwaysSrc" property
       var term1 = this.terminal;
       var term2 = targetTerminalProxy.terminal;
@@ -4022,7 +4022,7 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
          term1 = targetTerminalProxy.terminal;
          term2 = this.terminal;
       }
-      
+
       // Check the number of wires for this terminal
       var tgtTerm = targetTerminalProxy.terminal;
       if( tgtTerm.options.nMaxWires == 1) {
@@ -4039,23 +4039,23 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
       /*else {
          console.log("Cannot connect to this terminal: nMaxWires = ", ddTargets[0].terminal.options.nMaxWires);
       }*/
-      
+
    },
-   
-   
+
+
    // to distinct from other YAHOO.util.DragDrop objects
    isWireItTerminal: true,
-   
-   
+
+
    /**
     * @method isValidWireTerminal
     */
    isValidWireTerminal: function(DDterminal) {
-      
+
       if( !DDterminal.isWireItTerminal ) {
          return false;
       }
-      
+
       // If this terminal has the type property:
       if(this.termConfig.type) {
          if(this.termConfig.allowedTypes) {
@@ -4082,7 +4082,7 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
             }
          }
       }
-      
+
       // Check the allowSelfWiring
       if(this.terminal.container) {
          if(this.terminal.container.options.preventSelfWiring) {
@@ -4091,14 +4091,14 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
             }
          }
       }
-      
+
       return true;
    }
-   
+
 });
 
 
-   
+
 /**
  * Terminals represent the end points of the "wires"
  * @class Terminal
@@ -4108,55 +4108,55 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
  * @param {WireIt.Container} container (Optional) Container containing this terminal
  */
 WireIt.Terminal = function(parentEl, options, container) {
-   
+
    /**
     * DOM parent element
     * @property parentEl
     * @type {HTMLElement}
     */
    this.parentEl = parentEl;
-   
+
    /**
     * Container (optional). Parent container of this terminal
     * @property container
     * @type {WireIt.Container}
     */
    this.container = container;
-   
+
    /**
     * List of the associated wires
     * @property wires
     * @type {Array}
     */
     this.wires = [];
-   
-   
+
+
    this.setOptions(options);
-   
+
    /**
     * Event that is fired when a wire is added
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventAddWire
     */
    this.eventAddWire = new util.CustomEvent("eventAddWire");
-   
+
    /**
     * Event that is fired when a wire is removed
     * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventRemoveWire
     */
    this.eventRemoveWire = new util.CustomEvent("eventRemoveWire");
-   
+
    /**
     * DIV dom element that will display the Terminal
     * @property el
     * @type {HTMLElement}
     */
    this.el = null;
-   
-   
+
+
    this.render();
-   
+
    // Create the TerminalProxy object to make the terminal editable
    if(this.options.editable) {
       this.dd = new WireIt.TerminalProxy(this, this.options.ddConfig);
@@ -4165,16 +4165,16 @@ WireIt.Terminal = function(parentEl, options, container) {
 };
 
 WireIt.Terminal.prototype = {
-   
+
    /**
     * @method setOptions
     * @param {Object} options
     */
    setOptions: function(options) {
-      
+
       /**
        * <p>Object that contains the terminal configuration:</p>
-       * 
+       *
        * <ul>
        *   <li><b>name</b>: terminal name</li>
        *   <li><b>direction</b>: direction vector of the wires when connected to this terminal (default [0,1])</li>
@@ -4189,7 +4189,7 @@ WireIt.Terminal.prototype = {
        *   <li><b>dropinviteClassName</b>: CSS class added for drop invitation (default to "WireIt-Terminal-dropinvite")</li>
        * </ul>
        * @property options
-       */  
+       */
       this.options = {};
       this.options.name = options.name;
       this.options.direction = options.direction || [0,1];
@@ -4225,7 +4225,7 @@ WireIt.Terminal.prototype = {
     * @method render
     */
    render: function() {
-   
+
       // Create the DIV element
       this.el = WireIt.cn('div', {className: this.options.className} );
       if(this.options.name) { this.el.title = this.options.name; }
@@ -4247,7 +4247,7 @@ WireIt.Terminal.prototype = {
             }
          }
       }
-   
+
       // Append the element to the parent
       this.parentEl.appendChild(this.el);
    },
@@ -4259,13 +4259,13 @@ WireIt.Terminal.prototype = {
     * @param {WireIt.Wire} wire Wire instance to add
     */
    addWire: function(wire) {
-   
+
       // Adds this wire to the list of connected wires :
       this.wires.push(wire);
-   
+
       // Set class indicating that the wire is connected
       Dom.addClass(this.el, this.options.connectedClassName);
-   
+
       // Fire the event
       this.eventAddWire.fire(wire);
    },
@@ -4276,19 +4276,19 @@ WireIt.Terminal.prototype = {
     * @param {WireIt.Wire} wire Wire instance to remove
     */
    removeWire: function(wire) {
-      var index = WireIt.indexOf(wire, this.wires), w;   
+      var index = WireIt.indexOf(wire, this.wires), w;
       if( index != -1 ) {
-         
+
          this.wires[index].destroy();
-         
+
          this.wires[index] = null;
          this.wires = WireIt.compact(this.wires);
-      
+
          // Remove the connected class if it has no more wires:
          if(this.wires.length == 0) {
             Dom.removeClass(this.el, this.options.connectedClassName);
          }
-      
+
          // Fire the event
          this.eventRemoveWire.fire(wire);
       }
@@ -4301,7 +4301,7 @@ WireIt.Terminal.prototype = {
     * @method getXY
     */
    getXY: function() {
-   
+
       var layerEl = this.container && this.container.layer ? this.container.layer.el : document.body;
 
       var obj = this.el;
@@ -4313,7 +4313,7 @@ WireIt.Terminal.prototype = {
      			obj = obj.offsetParent;
      		} while ( !!obj && obj != layerEl);
      	}
-  	
+
      	return [curleft+15,curtop+15];
    },
 
@@ -4330,15 +4330,15 @@ WireIt.Terminal.prototype = {
          this.wires[0].remove();
       }
       this.parentEl.removeChild(this.el);
-      
+
       // Remove all event listeners
       Event.purgeElement(this.el);
-      
+
       // Remove scissors widget
       if(this.scissors) {
          Event.purgeElement(this.scissors.get('element'));
       }
-      
+
    },
 
 
@@ -4370,8 +4370,8 @@ WireIt.Terminal.prototype = {
          }
       }
    },
-   
-   /** 
+
+   /**
     * Remove all wires
     * @method removeAllWires
     */
@@ -4396,15 +4396,15 @@ WireIt.util.TerminalInput = function(parentEl, options, container) {
    WireIt.util.TerminalInput.superclass.constructor.call(this,parentEl, options, container);
 };
 lang.extend(WireIt.util.TerminalInput, WireIt.Terminal, {
-   
+
    /**
     * Override setOptions to add the default options for TerminalInput
     * @method setOptions
     */
    setOptions: function(options) {
-      
+
       WireIt.util.TerminalInput.superclass.setOptions.call(this,options);
-      
+
       this.options.direction = options.direction || [0,-1];
       this.options.fakeDirection = options.fakeDirection || [0,1];
       this.options.ddConfig = {
@@ -4413,7 +4413,7 @@ lang.extend(WireIt.util.TerminalInput, WireIt.Terminal, {
       };
       this.options.nMaxWires = options.nMaxWires || 1;
    }
-   
+
 });
 
 
@@ -4432,15 +4432,15 @@ WireIt.util.TerminalOutput = function(parentEl, options, container) {
    WireIt.util.TerminalOutput.superclass.constructor.call(this,parentEl, options, container);
 };
 lang.extend(WireIt.util.TerminalOutput, WireIt.Terminal, {
-   
+
    /**
     * Override setOptions to add the default options for TerminalOutput
     * @method setOptions
     */
    setOptions: function(options) {
-      
+
       WireIt.util.TerminalOutput.superclass.setOptions.call(this,options);
-      
+
       this.options.direction = options.direction || [0,1];
       this.options.fakeDirection = options.fakeDirection || [0,-1];
       this.options.ddConfig = {
@@ -4449,7 +4449,7 @@ lang.extend(WireIt.util.TerminalOutput, WireIt.Terminal, {
       };
       this.options.alwaysSrc = true;
    }
-   
+
 });
 
 
@@ -4474,7 +4474,7 @@ WireIt.util.DD = function( terminals, id, sGroup, config) {
     * @type {Array}
     */
    this._WireItTerminals = terminals;
-   
+
    WireIt.util.DD.superclass.constructor.call(this, id, sGroup, config);
 };
 
@@ -4504,7 +4504,7 @@ YAHOO.extend(WireIt.util.DD, YAHOO.util.DD, {
    setTerminals: function(terminals) {
       this._WireItTerminals = terminals;
    }
-   
+
 });
 /**
  * Make a container resizable
@@ -4516,7 +4516,7 @@ YAHOO.extend(WireIt.util.DD, YAHOO.util.DD, {
  * @param {Object} config Configuration object
  */
 WireIt.util.DDResize = function(container, config) {
-   
+
    /**
     * Configuration object
     * <ul>
@@ -4530,13 +4530,13 @@ WireIt.util.DDResize = function(container, config) {
    this.myConf.container = container;
    this.myConf.minWidth = this.myConf.minWidth || 50;
    this.myConf.minHeight = this.myConf.minHeight || 50;
-   
+
    // Call the superconstructor
    WireIt.util.DDResize.superclass.constructor.apply(this, [container.el, container.ddResizeHandle]);
-   
+
    // Set the resize handle
    this.setHandleElId(container.ddResizeHandle);
-   
+
    /**
     * The event fired when the container is resized
     * @event eventResize
@@ -4572,16 +4572,16 @@ YAHOO.extend(WireIt.util.DDResize, YAHOO.util.DragDrop, {
         var panel = this.getEl();
         panel.style.width = newWidth + "px";
         panel.style.height = newHeight + "px";
-        
+
         // Fire the resize event
         this.eventResize.fire([newWidth, newHeight]);
     }
 });
 (function() {
-   
+
    var util = YAHOO.util;
    var Dom = util.Dom, Event = util.Event, CSS_PREFIX = "WireIt-";
-   
+
 /**
  * Visual module that contains terminals. The wires are updated when the module is dragged around.
  * @class Container
@@ -4591,99 +4591,99 @@ YAHOO.extend(WireIt.util.DDResize, YAHOO.util.DragDrop, {
  * @param {WireIt.Layer}   layer The WireIt.Layer (or subclass) instance that contains this container
  */
 WireIt.Container = function(options, layer) {
-   
+
    // Set the options
    this.setOptions(options);
-   
+
    /**
     * the WireIt.Layer object that schould contain this container
     * @property layer
     * @type {WireIt.Layer}
     */
    this.layer = layer;
-   
+
    /**
-    * List of the terminals 
+    * List of the terminals
     * @property terminals
     * @type {Array}
     */
    this.terminals = [];
-   
+
    /**
     * List of all the wires connected to this container terminals
     * @property wires
     * @type {Array}
     */
    this.wires = [];
-   
+
    /**
     * Container DOM element
     * @property el
     * @type {HTMLElement}
     */
    this.el = null;
-   
+
    /**
     * Body element
     * @property bodyEl
     * @type {HTMLElement}
     */
    this.bodyEl = null;
-   
+
    /**
     * Event that is fired when a wire is added
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventAddWire
     */
    this.eventAddWire = new util.CustomEvent("eventAddWire");
-   
+
    /**
     * Event that is fired when a wire is removed
     * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventRemoveWire
     */
    this.eventRemoveWire = new util.CustomEvent("eventRemoveWire");
-   
+
    // Render the div object
    this.render();
-   
+
    // Init the terminals
    this.initTerminals( this.options.terminals);
-   
+
 	// Make the container draggable
 	if(this.options.draggable) {
-		   
+
 	   if(this.options.resizable) {
-      	// Make resizeable   
+      	// Make resizeable
       	this.ddResize = new WireIt.util.DDResize(this);
       	this.ddResize.eventResize.subscribe(this.onResize, this, true);
 	   }
-	   
+
 	   // Use the drag'n drop utility to make the container draggable
 	   this.dd = new WireIt.util.DD(this.terminals,this.el);
-	   
+
 	   // Sets ddHandle as the drag'n drop handle
 	   if(this.options.ddHandle) {
    	   this.dd.setHandleElId(this.ddHandle);
 	   }
-	   
+
 	   // Mark the resize handle as an invalid drag'n drop handle and vice versa
 	   if(this.options.resizable) {
    	   this.dd.addInvalidHandleId(this.ddResizeHandle);
       	this.ddResize.addInvalidHandleId(this.ddHandle);
 	   }
    }
-   
+
 };
 
 WireIt.Container.prototype = {
-   
+
    /**
     * set the options
     * @method setOptions
     */
    setOptions: function(options) {
-      
+
       /**
        * Main options object
        * <ul>
@@ -4725,9 +4725,9 @@ WireIt.Container.prototype = {
       this.options.closeButtonClassName = options.closeButtonClassName || CSS_PREFIX+"Container-closebutton";
 
       this.options.title = options.title; // no default
-      
+
       this.options.icon = options.icon;
-      
+
       this.options.preventSelfWiring = (typeof options.preventSelfWiring == "undefined") ? true : options.preventSelfWiring;
    },
 
@@ -4746,30 +4746,30 @@ WireIt.Container.prototype = {
     * @method render
     */
    render: function() {
-   
+
       // Create the element
       this.el = WireIt.cn('div', {className: this.options.className});
-   
+
       if(this.options.width) {
          this.el.style.width = this.options.width+"px";
       }
       if(this.options.height) {
          this.el.style.height = this.options.height+"px";
       }
-   
+
       // Adds a handler for mousedown so we can notice the layer
       Event.addListener(this.el, "mousedown", this.onMouseDown, this, true);
-   
+
       if(this.options.ddHandle) {
          // Create the drag/drop handle
       	this.ddHandle = WireIt.cn('div', {className: this.options.ddHandleClassName});
       	this.el.appendChild(this.ddHandle);
-      	
+
          // Set title
          if(this.options.title) {
             this.ddHandle.appendChild( WireIt.cn('span', null, null, this.options.title) );
          }
-         
+
          // Icon
          if (this.options.icon) {
             var iconCn = WireIt.cn('img', {src: this.options.icon, className: 'WireIt-Container-icon'});
@@ -4777,27 +4777,27 @@ WireIt.Container.prototype = {
          }
 
       }
-   
+
       // Create the body element
       this.bodyEl = WireIt.cn('div', {className: "body"});
       this.el.appendChild(this.bodyEl);
-   
+
       if(this.options.resizable) {
          // Create the resize handle
       	this.ddResizeHandle = WireIt.cn('div', {className: this.options.resizeHandleClassName} );
       	this.el.appendChild(this.ddResizeHandle);
       }
-   
+
       if(this.options.close) {
          // Close button
          this.closeButton = WireIt.cn('div', {className: this.options.closeButtonClassName} );
          this.el.appendChild(this.closeButton);
          Event.addListener(this.closeButton, "click", this.onCloseButton, this, true);
       }
-   
+
       // Append to the layer element
       this.layer.el.appendChild(this.el);
-   
+
    	// Set the position
    	this.el.style.left = this.options.position[0]+"px";
    	this.el.style.top = this.options.position[1]+"px";
@@ -4862,13 +4862,13 @@ WireIt.Container.prototype = {
     * @method remove
     */
    remove: function() {
-   
+
       // Remove the terminals (and thus remove the wires)
       this.removeAllTerminals();
-   
+
       // Remove from the dom
       this.layer.el.removeChild(this.el);
-      
+
       // Remove all event listeners
       Event.purgeElement(this.el);
    },
@@ -4891,20 +4891,20 @@ WireIt.Container.prototype = {
     * @return {WireIt.Terminal}  terminal Created terminal
     */
    addTerminal: function(terminalConfig) {
-   
+
       // Terminal type
       var type = eval(terminalConfig.xtype || "WireIt.Terminal");
-   
+
       // Instanciate the terminal
       var term = new type(this.el, terminalConfig, this);
-   
+
       // Add the terminal to the list
       this.terminals.push( term );
-   
+
       // Event listeners
       term.eventAddWire.subscribe(this.onAddWire, this, true);
       term.eventRemoveWire.subscribe(this.onRemoveWire, this, true);
-   
+
       return term;
    },
 
@@ -4920,7 +4920,7 @@ WireIt.Container.prototype = {
       if( WireIt.indexOf(wire, this.wires) == -1 ) {
          this.wires.push(wire);
          this.eventAddWire.fire(wire);
-      } 
+      }
    },
 
    /**
@@ -4966,7 +4966,7 @@ WireIt.Container.prototype = {
     */
    getConfig: function() {
       var obj = {};
-   
+
       // Position
       obj.position = Dom.getXY(this.el);
       if(this.layer) {
@@ -4978,15 +4978,15 @@ WireIt.Container.prototype = {
          obj.position[0] += this.layer.el.scrollLeft;
          obj.position[1] += this.layer.el.scrollTop;
       }
-   
+
       // xtype
       if(this.options.xtype) {
          obj.xtype = this.options.xtype;
       }
-   
+
       return obj;
    },
-   
+
    /**
     * Subclasses should override this method.
     * @method getValue
@@ -4999,12 +4999,12 @@ WireIt.Container.prototype = {
    /**
     * Subclasses should override this method.
     * @method setValue
-    * @param {Any} val Value 
+    * @param {Any} val Value
     */
    setValue: function(val) {
    },
-   
-   
+
+
    /**
     * @method getTerminal
     */
@@ -5029,23 +5029,23 @@ WireIt.Container.prototype = {
  * @param {Object}   options   Configuration object (see the properties)
  */
 WireIt.Layer = function(options) {
-   
+
    this.setOptions(options);
-   
+
    /**
     * List of all the WireIt.Container (or subclass) instances in this layer
     * @property containers
     * @type {Array}
     */
    this.containers = [];
-   
+
    /**
     * List of all the WireIt.Wire (or subclass) instances in this layer
     * @property wires
     * @type {Array}
     */
    this.wires = [];
-   
+
    /**
     * Layer DOM element
     * @property el
@@ -5059,59 +5059,59 @@ WireIt.Layer = function(options) {
     * @event eventChanged
     */
    this.eventChanged = new YAHOO.util.CustomEvent("eventChanged");
-   
+
    /**
     * Event that is fired when a wire is added
     * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventAddWire
     */
    this.eventAddWire = new YAHOO.util.CustomEvent("eventAddWire");
-   
+
    /**
     * Event that is fired when a wire is removed
     * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);
     * @event eventRemoveWire
     */
    this.eventRemoveWire = new YAHOO.util.CustomEvent("eventRemoveWire");
-   
+
    /**
     * Event that is fired when a container is added
     * You can register this event with myTerminal.eventAddContainer.subscribe(function(e,params) { var container=params[0];}, scope);
     * @event eventAddContainer
     */
    this.eventAddContainer = new YAHOO.util.CustomEvent("eventAddContainer");
-   
+
    /**
     * Event that is fired when a container is removed
     * You can register this event with myTerminal.eventRemoveContainer.subscribe(function(e,params) { var container=params[0];}, scope);
     * @event eventRemoveContainer
     */
    this.eventRemoveContainer = new YAHOO.util.CustomEvent("eventRemoveContainer");
-   
+
    /**
     * Event that is fired when a container has been moved
     * You can register this event with myTerminal.eventContainerDragged.subscribe(function(e,params) { var container=params[0];}, scope);
     * @event eventContainerDragged
     */
    this.eventContainerDragged = new YAHOO.util.CustomEvent("eventContainerDragged");
-   
+
    /**
     * Event that is fired when a container has been resized
     * You can register this event with myTerminal.eventContainerResized.subscribe(function(e,params) { var container=params[0];}, scope);
     * @event eventContainerResized
     */
    this.eventContainerResized = new YAHOO.util.CustomEvent("eventContainerResized");
-   
+
    this.render();
-   
+
    this.initContainers();
-   
+
    this.initWires();
-   
-   if(this.options.layerMap) { 
+
+   if(this.options.layerMap) {
       new WireIt.LayerMap(this, this.options.layerMapOptions);
    }
-   
+
 };
 
 WireIt.Layer.prototype = {
@@ -5125,7 +5125,7 @@ WireIt.Layer.prototype = {
        * <ul>
        *   <li>className: CSS class name for the layer element (default 'WireIt-Layer')</li>
        *   <li>parentEl: DOM element that schould contain the layer (default document.body)</li>
-       *   <li>containers: array of container configuration objects</li>  
+       *   <li>containers: array of container configuration objects</li>
        *   <li>wires: array of wire configuration objects</li>
        *   <li>layerMap: boolean</li>
        *   <li>layerMapOptions: layer map options</li>
@@ -5147,9 +5147,9 @@ WireIt.Layer.prototype = {
     * @method render
     */
    render: function() {
-   
+
       this.el = WireIt.cn('div', {className: this.options.className} );
-   
+
       this.options.parentEl.appendChild(this.el);
    },
 
@@ -5161,7 +5161,7 @@ WireIt.Layer.prototype = {
    initContainers: function() {
       for(var i = 0 ; i < this.options.containers.length ; i++) {
          this.addContainer(this.options.containers[i]);
-      } 
+      }
    },
 
    /**
@@ -5182,15 +5182,15 @@ WireIt.Layer.prototype = {
     */
    addWire: function(wireConfig) {
       var type = eval(wireConfig.xtype || "WireIt.Wire");
-   
+
       var src = wireConfig.src;
       var tgt = wireConfig.tgt;
-   
+
       var terminal1 = this.containers[src.moduleId].getTerminal(src.terminal);
       var terminal2 = this.containers[tgt.moduleId].getTerminal(tgt.terminal);
       var wire = new type( terminal1, terminal2, this.el, wireConfig);
       wire.redraw();
-   
+
       return wire;
    },
 
@@ -5201,19 +5201,19 @@ WireIt.Layer.prototype = {
     * @return {WireIt.Container} Container instance build from the xtype
     */
    addContainer: function(containerConfig) {
-   
+
       var type = eval('('+(containerConfig.xtype || "WireIt.Container")+')');
       if(!YAHOO.lang.isFunction(type)) {
          throw new Error("WireIt layer unable to add container: xtype '"+containerConfig.xtype+"' not found");
       }
       var container = new type(containerConfig, this);
-   
+
       this.containers.push( container );
-   
+
       // Event listeners
       container.eventAddWire.subscribe(this.onAddWire, this, true);
       container.eventRemoveWire.subscribe(this.onRemoveWire, this, true);
-   
+
       if(container.ddResize) {
          container.ddResize.on('endDragEvent', function() {
             this.eventContainerResized.fire(container);
@@ -5226,11 +5226,11 @@ WireIt.Layer.prototype = {
 				this.eventChanged.fire(this);
          }, this, true);
       }
-   
+
       this.eventAddContainer.fire(container);
 
 		this.eventChanged.fire(this);
-   
+
       return container;
    },
 
@@ -5245,7 +5245,7 @@ WireIt.Layer.prototype = {
          container.remove();
          this.containers[index] = null;
          this.containers = WireIt.compact(this.containers);
-      
+
          this.eventRemoveContainer.fire(container);
 
 			this.eventChanged.fire(this);
@@ -5263,12 +5263,12 @@ WireIt.Layer.prototype = {
       // add the wire to the list if it isn't in
       if( WireIt.indexOf(wire, this.wires) == -1 ) {
          this.wires.push(wire);
-         
+
          if(this.options.enableMouseEvents) {
             YAHOO.util.Event.addListener(wire.element, "mousemove", this.onWireMouseMove, this, true);
             YAHOO.util.Event.addListener(wire.element, "click", this.onWireClick, this, true);
          }
-         
+
          // Re-Fire an event at the layer level
          this.eventAddWire.fire(wire);
 
@@ -5321,24 +5321,24 @@ WireIt.Layer.prototype = {
     * @return {Obj} layer configuration
     */
    getWiring: function() {
-   
+
       var i;
       var obj = {containers: [], wires: []};
-   
+
       for( i = 0 ; i < this.containers.length ; i++) {
          obj.containers.push( this.containers[i].getConfig() );
       }
-   
+
       for( i = 0 ; i < this.wires.length ; i++) {
          var wire = this.wires[i];
-      
-         var wireObj = { 
-            src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.containers), terminal: wire.terminal1.name }, 
+
+         var wireObj = {
+            src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.containers), terminal: wire.terminal1.name },
             tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.containers), terminal: wire.terminal2.name }
          };
          obj.wires.push(wireObj);
       }
-   
+
       return obj;
    },
 
@@ -5349,7 +5349,7 @@ WireIt.Layer.prototype = {
     */
    setWiring: function(wiring) {
       this.clear();
-      
+
       if(YAHOO.lang.isArray(wiring.containers)) {
          for(var i = 0 ; i < wiring.containers.length ; i++) {
             this.addContainer(wiring.containers[i]);
@@ -5361,7 +5361,7 @@ WireIt.Layer.prototype = {
          }
        }
    },
-   
+
    /**
     * Returns a position relative to the layer from a mouse event
     * @method _getMouseEvtPos
@@ -5413,8 +5413,8 @@ WireIt.Layer.prototype = {
    	   }
    	}
    },
-   
-   
+
+
    /**
     * Layer explosing animation
     * @method clearExplode
@@ -5441,13 +5441,13 @@ WireIt.Layer.prototype = {
    	        duration: 3
           });
           if(i == this.containers.length-1) {
-             myAnim.onComplete.subscribe(function() { this.clear(); callback.call(bind);}, this, true); 
+             myAnim.onComplete.subscribe(function() { this.clear(); callback.call(bind);}, this, true);
           }
    	    myAnim.animate();
       }
 
    }
-   
+
 
 };
 /**
@@ -5464,18 +5464,18 @@ WireIt.FormContainer = function(options, layer) {
 };
 
 YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
-   
+
    /**
     * @method setOptions
     */
    setOptions: function(options) {
       WireIt.FormContainer.superclass.setOptions.call(this, options);
-      
-      this.options.legend = options.legend; 
-      this.options.collapsible = options.collapsible; 
+
+      this.options.legend = options.legend;
+      this.options.collapsible = options.collapsible;
       this.options.fields = options.fields;
    },
-   
+
    /**
     * The render method is overrided to call renderForm
     * @method render
@@ -5484,18 +5484,18 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
       WireIt.FormContainer.superclass.render.call(this);
       this.renderForm();
    },
-   
+
    /**
     * Render the form
     * @method renderForm
     */
    renderForm: function() {
 	  this.setBackReferenceOnFieldOptionsRecursively(this.options.fields);
-      
+
       var groupParams = {parentEl: this.bodyEl, fields: this.options.fields, legend: this.options.legend, collapsible: this.options.collapsible};
       this.form = new YAHOO.inputEx.Group(groupParams);
    },
-   
+
 	/**
 	 * When creating wirable input fields, the field configuration (inputParams) must have a reference to the current container (this is used for positionning).
 	 * For complex fields (like object or list), the reference is set recursively AFTER the field creation.
@@ -5522,21 +5522,21 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
     	  }
       }
    },
-   
+
    /**
     * @method getValue
     */
    getValue: function() {
       return this.form.getValue();
    },
-   
+
    /**
     * @method setValue
     */
    setValue: function(val) {
       this.form.setValue(val);
    }
-   
+
 });
 (function() {
 
@@ -5552,32 +5552,32 @@ YAHOO.lang.extend(WireIt.FormContainer, WireIt.Container, {
  * @param {Obj} options configuration object
  */
 WireIt.LayerMap = function(layer,options) {
-   
+
    /**
     * @property layer
     */
    this.layer = layer;
-   
+
    this.setOptions(options);
-   
+
    // Create the canvas element
    WireIt.LayerMap.superclass.constructor.call(this, this.options.parentEl);
-   
+
    // Set the className
    this.element.className = this.options.className;
-   
+
    this.initEvents();
-   
+
    this.draw();
 };
 
 YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
-   
+
    /**
     * @method setOptions
     * @param {Object} options
     */
-   setOptions: function(options) { 
+   setOptions: function(options) {
       var options = options || {};
       /**
        * Options:
@@ -5595,21 +5595,21 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       this.options.style = options.style || "rgba(0, 0, 200, 0.5)";
       this.options.lineWidth = options.lineWidth || 2;
    },
-   
-   
+
+
    /**
     * Listen for various events that should redraw the layer map
     * @method initEvents
     */
    initEvents: function() {
-      
+
       var layer = this.layer;
-      
+
       Event.addListener(this.element, 'mousedown', this.onMouseDown, this, true);
       Event.addListener(this.element, 'mouseup', this.onMouseUp, this, true);
       Event.addListener(this.element, 'mousemove', this.onMouseMove, this, true);
       Event.addListener(this.element, 'mouseout', this.onMouseUp, this, true);
-      
+
       layer.eventAddWire.subscribe(this.draw, this, true);
       layer.eventRemoveWire.subscribe(this.draw, this, true);
       layer.eventAddContainer.subscribe(this.draw, this, true);
@@ -5619,19 +5619,19 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
 
       Event.addListener(this.layer.el, "scroll", this.onLayerScroll, this, true);
    },
-   
+
    /**
     * When a mouse move is received
     * @method onMouseMove
     * @param {Event} e Original event
     * @param {Array} args event parameters
     */
-   onMouseMove: function(e, args) { 
+   onMouseMove: function(e, args) {
       Event.stopEvent(e);
-      if(this.isMouseDown) 
+      if(this.isMouseDown)
          this.scrollLayer(e.clientX,e.clientY);
-   },   
-   
+   },
+
    /**
     * When a mouseup or mouseout is received
     * @method onMouseUp
@@ -5642,7 +5642,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       Event.stopEvent(e);
       this.isMouseDown = false;
    },
-   
+
    /**
     * When a mouse down is received
     * @method onMouseDown
@@ -5654,7 +5654,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       this.scrollLayer(e.clientX,e.clientY);
       this.isMouseDown = true;
    },
-   
+
    /**
     * Scroll the layer from mousedown/mousemove
     * @method scrollLayer
@@ -5662,29 +5662,29 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
     * @param {Integer} clientY mouse event y coordinate
     */
    scrollLayer: function(clientX, clientY) {
-      
+
       var canvasPos = Dom.getXY(this.element);
       var click = [ clientX-canvasPos[0], clientY-canvasPos[1] ];
-      
+
       // Canvas Region
       var canvasRegion = Dom.getRegion(this.element);
       var canvasWidth = canvasRegion.right-canvasRegion.left-4;
       var canvasHeight = canvasRegion.bottom-canvasRegion.top-4;
-      
+
       // Calculate ratio
       var layerWidth = this.layer.el.scrollWidth;
       var layerHeight = this.layer.el.scrollHeight;
       var hRatio = Math.floor(100*canvasWidth/layerWidth)/100;
       var vRatio = Math.floor(100*canvasHeight/layerHeight)/100;
-      
+
       // Center position:
       var center = [ click[0]/hRatio, click[1]/vRatio ];
-      
+
       // Region
       var region = Dom.getRegion(this.layer.el);
       var viewportWidth = region.right-region.left;
       var viewportHeight = region.bottom-region.top;
-      
+
       // Calculate the scroll position of the layer
       var topleft = [ Math.max(Math.floor(center[0]-viewportWidth/2),0) ,  Math.max(Math.floor(center[1]-viewportHeight/2), 0) ];
       if( topleft[0]+viewportWidth > layerWidth ) {
@@ -5693,41 +5693,41 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       if( topleft[1]+viewportHeight > layerHeight ) {
          topleft[1] = layerHeight-viewportHeight;
       }
-     
+
       this.layer.el.scrollLeft = topleft[0];
       this.layer.el.scrollTop = topleft[1];
-   
+
    },
-   
+
    /**
     * Redraw after a timeout
     * @method onLayerScroll
     */
    onLayerScroll: function() {
-      
+
       if(this.scrollTimer) { clearTimeout(this.scrollTimer); }
       var that = this;
       this.scrollTimer = setTimeout(function() {
          that.draw();
       },50);
-      
+
    },
-   
+
    /**
     * Redraw the layer map
     * @method draw
     */
    draw: function() {
       var ctxt=this.getContext();
-      
+
       // Canvas Region
       var canvasRegion = Dom.getRegion(this.element);
       var canvasWidth = canvasRegion.right-canvasRegion.left-4;
       var canvasHeight = canvasRegion.bottom-canvasRegion.top-4;
-      
+
       // Clear Rect
       ctxt.clearRect(0,0, canvasWidth, canvasHeight);
-      
+
       // Calculate ratio
       var layerWidth = this.layer.el.scrollWidth;
       var layerHeight = this.layer.el.scrollHeight;
@@ -5743,7 +5743,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       ctxt.strokeStyle= "rgb(200, 50, 50)";
       ctxt.lineWidth=1;
       ctxt.strokeRect(viewportX*hRatio, viewportY*vRatio, viewportWidth*hRatio, viewportHeight*vRatio);
-   
+
       // Draw containers and wires
       ctxt.fillStyle = this.options.style;
       ctxt.strokeStyle= this.options.style;
@@ -5751,7 +5751,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       this.drawContainers(ctxt, hRatio, vRatio);
       this.drawWires(ctxt, hRatio, vRatio);
    },
-   
+
    /**
     * Subroutine to draw the containers
     * @method drawContainers
@@ -5761,11 +5761,11 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       var n = containers.length,i,gIS = WireIt.getIntStyle,containerEl;
       for(i = 0 ; i < n ; i++) {
          containerEl = containers[i].el;
-         ctxt.fillRect(gIS(containerEl, "left")*hRatio, gIS(containerEl, "top")*vRatio, 
+         ctxt.fillRect(gIS(containerEl, "left")*hRatio, gIS(containerEl, "top")*vRatio,
                        gIS(containerEl, "width")*hRatio, gIS(containerEl, "height")*vRatio);
       }
    },
-   
+
    /**
     * Subroutine to draw the wires
     * @method drawWires
@@ -5775,7 +5775,7 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
       var n = wires.length,i,wire;
       for(i = 0 ; i < n ; i++) {
          wire = wires[i];
-         var pos1 = wire.terminal1.getXY(), 
+         var pos1 = wire.terminal1.getXY(),
              pos2 = wire.terminal2.getXY();
 
          // Stroked line
@@ -5786,10 +5786,10 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
          ctxt.closePath();
          ctxt.stroke();
       }
-      
+
    }
-   
-   
+
+
 });
 
 })();(function() {
@@ -5805,18 +5805,18 @@ YAHOO.lang.extend(WireIt.LayerMap, WireIt.CanvasElement, {
  * @param {WireIt.WiringEditor} WiringEditor
  */
 WireIt.ModuleProxy = function(el, WiringEditor) {
-   
+
    this._WiringEditor = WiringEditor;
-   
+
    // Init the DDProxy
    WireIt.ModuleProxy.superclass.constructor.call(this,el, "module", {
         dragElId: "moduleProxy"
     });
-    
-    this.isTarget = false; 
+
+    this.isTarget = false;
 };
 YAHOO.extend(WireIt.ModuleProxy,YAHOO.util.DDProxy, {
-   
+
    /**
     * copy the html and apply selected classes
     * @method startDrag
@@ -5828,18 +5828,18 @@ YAHOO.extend(WireIt.ModuleProxy,YAHOO.util.DDProxy, {
        del.innerHTML = lel.innerHTML;
        del.className = lel.className;
    },
-   
+
    /**
     * Override default behavior of DDProxy
     * @method endDrag
     */
    endDrag: function(e) {},
-    
+
    /**
     * Add the module to the WiringEditor on drop on layer
     * @method onDragDrop
     */
-   onDragDrop: function(e, ddTargets) { 
+   onDragDrop: function(e, ddTargets) {
       // The layer is the only target :
       var layerTarget = ddTargets[0],
 			 layer = ddTargets[0]._layer,
@@ -5848,18 +5848,18 @@ YAHOO.extend(WireIt.ModuleProxy,YAHOO.util.DDProxy, {
 			 layerPos = YAHOO.util.Dom.getXY(layer.el);
       this._WiringEditor.addModule( this._module ,[pos[0]-layerPos[0]+layer.el.scrollLeft, pos[1]-layerPos[1]+layer.el.scrollTop]);
     }
-   
+
 });
 
 
 /**
- * The WiringEditor class provides a full page interface 
+ * The WiringEditor class provides a full page interface
  * @class WiringEditor
  * @constructor
  * @param {Object} options
  */
 WireIt.WiringEditor = function(options) {
-	
+
 	 /**
 	  * Hash object to reference module definitions by their name
 	  * @property modulesByName
@@ -5869,13 +5869,13 @@ WireIt.WiringEditor = function(options) {
 
     // set the default options
     this.setOptions(options);
-    
+
     /**
      * Container DOM element
      * @property el
      */
     this.el = Dom.get(options.parentEl);
-    
+
     /**
      * @property helpPanel
      * @type {YAHOO.widget.Panel}
@@ -5887,8 +5887,8 @@ WireIt.WiringEditor = function(options) {
         modal: true
      });
      this.helpPanel.render();
-	
-    
+
+
     /**
      * @property layout
      * @type {YAHOO.widget.Layout}
@@ -5938,13 +5938,13 @@ WireIt.WiringEditor.prototype = {
   * @param {Object} options
   */
  setOptions: function(options) {
-    
+
     /**
      * @property options
      * @type {Object}
      */
     this.options = {};
-    
+
     // Load the modules from options
     this.modules = options.modules || [];
     for(var i = 0 ; i < this.modules.length ; i++) {
@@ -5953,25 +5953,25 @@ WireIt.WiringEditor.prototype = {
     }
 
 	 this.adapter = options.adapter || WireIt.WiringEditor.adapters.JsonRpc;
-     
+
     this.options.languageName = options.languageName || 'anonymousLanguage';
-    
+
     this.options.propertiesFields = options.propertiesFields || [
 		{"type": "string", inputParams: {"name": "name", label: "Title", typeInvite: "Enter a title" } },
 		{"type": "text", inputParams: {"name": "description", label: "Description", cols: 30, rows: 4} }
 	 ];
-    
+
     this.options.layoutOptions = options.layoutOptions || {
 	 	units: [
 	   	{ position: 'top', height: 50, body: 'top'},
-	      { position: 'left', width: 200, resize: true, body: 'left', gutter: '5px', collapse: true, 
+	      { position: 'left', width: 200, resize: true, body: 'left', gutter: '5px', collapse: true,
 	        collapseSize: 25, header: 'Modules', scroll: true, animate: true },
 	      { position: 'center', body: 'center', gutter: '5px' },
-	      { position: 'right', width: 320, resize: true, body: 'right', gutter: '5px', collapse: true, 
+	      { position: 'right', width: 320, resize: true, body: 'right', gutter: '5px', collapse: true,
 	        collapseSize: 25, /*header: 'Properties', scroll: true,*/ animate: true }
 	   ]
 	};
-     
+
     this.options.layerOptions = {};
     var layerOptions = options.layerOptions || {};
     this.options.layerOptions.parentEl = layerOptions.parentEl ? layerOptions.parentEl : Dom.get('center');
@@ -5979,24 +5979,24 @@ WireIt.WiringEditor.prototype = {
     this.options.layerOptions.layerMapOptions = layerOptions.layerMapOptions || { parentEl: 'layerMap' };
 
 	 this.options.accordionViewParams = options.accordionViewParams || {
-												collapsible: true, 
+												collapsible: true,
 												expandable: true, // remove this parameter to open only one panel at a time
-												width: '308px', 
-												expandItem: 0, 
-												animationSpeed: '0.3', 
-												animate: true, 
+												width: '308px',
+												expandItem: 0,
+												animationSpeed: '0.3',
+												animate: true,
 												effect: YAHOO.util.Easing.easeBothStrong
 											};
  },
 
-	
+
 	/**
 	 * Render the accordion using yui-accordion
   	 */
 	renderAccordion: function() {
 		this.accordionView = new YAHOO.widget.AccordionView('accordionView', this.options.accordionViewParams);
 	},
- 
+
  /**
   * Render the properties form
   * @method renderPropertiesForm
@@ -6011,7 +6011,7 @@ WireIt.WiringEditor.prototype = {
 		this.markUnsaved();
 	}, this, true);
  },
- 
+
  /**
   * Build the left menu on the left
   * @method buildModulesList
@@ -6028,14 +6028,14 @@ WireIt.WiringEditor.prototype = {
        this.ddTarget = new YAHOO.util.DDTarget(this.layer.el, "module");
        this.ddTarget._layer = this.layer;
      }
-     
+
  },
 
  /**
   * Add a module definition to the left list
   */
  addModuleToList: function(module) {
-	
+
 		var div = WireIt.cn('div', {className: "WiringEditor-module"});
       if(module.container.icon) {
          div.appendChild( WireIt.cn('img',{src: module.container.icon}) );
@@ -6047,7 +6047,7 @@ WireIt.WiringEditor.prototype = {
 
       this.leftEl.appendChild(div);
  },
- 
+
  /**
   * add a module at the given pos
   */
@@ -6061,7 +6061,7 @@ WireIt.WiringEditor.prototype = {
     }
     catch(ex) {
        this.alert("Error Layer.addContainer: "+ ex.message);
-    }    
+    }
  },
 
  /**
@@ -6101,16 +6101,16 @@ WireIt.WiringEditor.prototype = {
   * @method saveModule
   */
  saveModule: function() {
-    
+
     var value = this.getValue();
-    
+
     if(value.name === "") {
        this.alert("Please choose a name");
        return;
     }
 
 	this.tempSavedWiring = {name: value.name, working: JSON.stringify(value.working), language: this.options.languageName };
-                
+
     this.adapter.saveWiring(this.tempSavedWiring, {
        success: this.saveModuleSuccess,
        failure: this.saveModuleFailure,
@@ -6130,14 +6130,14 @@ WireIt.WiringEditor.prototype = {
    this.alert("Saved !");
 
 	// TODO:
-	/*var name = this.tempSavedWiring.name;	
+	/*var name = this.tempSavedWiring.name;
 	if(this.modulesByName.hasOwnProperty(name) ) {
 		//already exists
 	}
 	else {
 		//new one
 	}*/
-	
+
  },
 
  /**
@@ -6166,16 +6166,16 @@ WireIt.WiringEditor.prototype = {
   * @method onNew
   */
  onNew: function() {
-	
+
 	if(!this.isSaved()) {
 		if( !confirm("Warning: Your work is not saved yet ! Press ok to continue anyway.") ) {
 			return;
 		}
 	}
-	
+
 	this.preventLayerChangedEvent = true;
-	
-   this.layer.clear(); 
+
+   this.layer.clear();
 
    this.propertiesForm.clear(false); // false to tell inputEx to NOT send the updatedEvt
 
@@ -6189,7 +6189,7 @@ WireIt.WiringEditor.prototype = {
   */
  onDelete: function() {
     if( confirm("Are you sure you want to delete this wiring ?") ) {
-       
+
       var value = this.getValue();
  		this.adapter.deleteWiring({name: value.name, language: this.options.languageName},{
  			success: function(result) {
@@ -6201,7 +6201,7 @@ WireIt.WiringEditor.prototype = {
 			},
 			scope: this
  		});
-       
+
     }
  },
 
@@ -6256,7 +6256,7 @@ WireIt.WiringEditor.prototype = {
   * @method updateLoadPanelList
   */
  updateLoadPanelList: function(filter) {
-	
+
     var list = WireIt.cn("ul");
     if(lang.isArray(this.pipes)) {
        for(var i = 0 ; i < this.pipes.length ; i++) {
@@ -6281,7 +6281,7 @@ WireIt.WiringEditor.prototype = {
   * @method load
   */
  load: function() {
-    
+
     this.adapter.listWirings({language: this.options.languageName},{
 			success: function(result) {
 				this.onLoadSuccess(result);
@@ -6301,7 +6301,7 @@ WireIt.WiringEditor.prototype = {
  onLoadSuccess: function(wirings) {
 		this.pipes = wirings;
 		this.pipesByName = {};
-		
+
 		this.renderLoadPanel();
     	this.updateLoadPanelList();
 
@@ -6342,48 +6342,48 @@ WireIt.WiringEditor.prototype = {
           }
        }
     }
-    
+
     return null;
  },
- 
+
  /**
   * @method loadPipe
   * @param {String} name Pipe name
   */
  loadPipe: function(name) {
-	
+
 	if(!this.isSaved()) {
 		if( !confirm("Warning: Your work is not saved yet ! Press ok to continue anyway.") ) {
 			return;
 		}
 	}
-	
+
 	try {
-	
+
 		this.preventLayerChangedEvent = true;
-	
+
      this.loadPanel.hide();
-	
+
     var wiring = this.getPipeByName(name), i;
 
 	 if(!wiring) {
 		this.alert("The wiring '"+name+"' was not found.");
 		return;
   	 }
-    
+
     // TODO: check if current wiring is saved...
     this.layer.clear();
-    
+
     this.propertiesForm.setValue(wiring.properties, false); // the false tells inputEx to NOT fire the updatedEvt
-    
+
     if(lang.isArray(wiring.modules)) {
-      
+
        // Containers
        for(i = 0 ; i < wiring.modules.length ; i++) {
           var m = wiring.modules[i];
           if(this.modulesByName[m.name]) {
              var baseContainerConfig = this.modulesByName[m.name].container;
-             YAHOO.lang.augmentObject(m.config, baseContainerConfig); 
+             YAHOO.lang.augmentObject(m.config, baseContainerConfig);
              m.config.title = m.name;
              var container = this.layer.addContainer(m.config);
              Dom.addClass(container.el, "WiringEditor-module-"+m.name);
@@ -6393,7 +6393,7 @@ WireIt.WiringEditor.prototype = {
              throw new Error("WiringEditor: module '"+m.name+"' not found !");
           }
        }
-       
+
        // Wires
        if(lang.isArray(wiring.wires)) {
            for(i = 0 ; i < wiring.wires.length ; i++) {
@@ -6402,11 +6402,11 @@ WireIt.WiringEditor.prototype = {
            }
         }
      }
-     
+
 	this.markSaved();
-	
+
 	this.preventLayerChangedEvent = false;
-	
+
   	}
   	catch(ex) {
      	this.alert(ex);
@@ -6414,7 +6414,7 @@ WireIt.WiringEditor.prototype = {
  },
 
  	renderAlertPanel: function() {
-		
+
  	 /**
      * @property alertPanel
      * @type {YAHOO.widget.Panel}
@@ -6443,7 +6443,7 @@ WireIt.WiringEditor.prototype = {
 	markSaved: function() {
 		this.savedStatusEl.style.display = 'none';
 	},
-	
+
 	markUnsaved: function() {
 		this.savedStatusEl.style.display = '';
 	},
@@ -6451,13 +6451,13 @@ WireIt.WiringEditor.prototype = {
 	isSaved: function() {
 		return (this.savedStatusEl.style.display == 'none');
 	},
- 
+
  /**
   * This method return a wiring within the given vocabulary described by the modules list
   * @method getValue
   */
  getValue: function() {
-    
+
    var i;
    var obj = {modules: [], wires: [], properties: null};
 
@@ -6468,15 +6468,15 @@ WireIt.WiringEditor.prototype = {
    for( i = 0 ; i < this.layer.wires.length ; i++) {
       var wire = this.layer.wires[i];
 
-      var wireObj = { 
-         src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.layer.containers), terminal: wire.terminal1.options.name}, 
+      var wireObj = {
+         src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.layer.containers), terminal: wire.terminal1.options.name},
          tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.layer.containers), terminal: wire.terminal2.options.name}
       };
       obj.wires.push(wireObj);
    }
-   
+
    obj.properties = this.propertiesForm.getValue();
-    
+
    return {
       name: obj.properties.name,
       working: obj
@@ -6508,24 +6508,24 @@ WireIt.ImageContainer = function(options, layer) {
 };
 
 YAHOO.lang.extend(WireIt.ImageContainer, WireIt.Container, {
-   
+
    /**
     * @method setOptions
     * @param {Object} options the options object
     */
    setOptions: function(options) {
       WireIt.ImageContainer.superclass.setOptions.call(this, options);
-      
+
       this.options.image = options.image;
       this.options.xtype = "WireIt.ImageContainer";
-      
+
       this.options.className = options.className || "WireIt-Container WireIt-ImageContainer";
-      
+
       // Overwrite default value for options:
       this.options.resizable = (typeof options.resizable == "undefined") ? false : options.resizable;
       this.options.ddHandle = (typeof options.ddHandle == "undefined") ? false : options.ddHandle;
    },
-   
+
    /**
     * @method render
     */
@@ -6533,7 +6533,7 @@ YAHOO.lang.extend(WireIt.ImageContainer, WireIt.Container, {
       WireIt.ImageContainer.superclass.render.call(this);
       YAHOO.util.Dom.setStyle(this.bodyEl, "background-image", "url("+this.options.image+")");
    }
-   
+
 });/**
  * Container with left inputs and right outputs
  * @class InOutContainer
@@ -6547,18 +6547,18 @@ WireIt.InOutContainer = function(options, layer) {
 };
 
 YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
-   
+
    /**
     * @method setOptions
     * @param {Object} options the options object
     */
    setOptions: function(options) {
       WireIt.InOutContainer.superclass.setOptions.call(this, options);
-      
+
       this.options.xtype = "WireIt.InOutContainer";
-      
+
       this.options.className = options.className || "WireIt-Container WireIt-InOutContainer";
-      
+
       // Overwrite default value for options:
       this.options.resizable = (typeof options.resizable == "undefined") ? false : options.resizable;
 
@@ -6566,16 +6566,16 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
 		this.options.outputs = options.outputs || [];
 
    },
-   
+
    render: function() {
       WireIt.InOutContainer.superclass.render.call(this);
 
 		for(var i = 0 ; i < this.options.inputs.length ; i++) {
 			var input = this.options.inputs[i];
 			this.options.terminals.push({
-				"name": input, 
-				"direction": [-1,0], 
-				"offsetPosition": {"left": -14, "top": 3+30*(i+1) }, 
+				"name": input,
+				"direction": [-1,0],
+				"offsetPosition": {"left": -14, "top": 3+30*(i+1) },
 				"ddConfig": {
              	"type": "input",
              	"allowedTypes": ["output"]
@@ -6583,13 +6583,13 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
  			});
 			this.bodyEl.appendChild(WireIt.cn('div', null, {lineHeight: "30px"}, input));
 		}
-		
+
 		for(i = 0 ; i < this.options.outputs.length ; i++) {
 			var output = this.options.outputs[i];
 			this.options.terminals.push({
-				"name": output, 
-				"direction": [1,0], 
-				"offsetPosition": {"right": -14, "top": 3+30*(i+1+this.options.inputs.length) }, 
+				"name": output,
+				"direction": [1,0],
+				"offsetPosition": {"right": -14, "top": 3+30*(i+1+this.options.inputs.length) },
 				"ddConfig": {
              "type": "output",
              "allowedTypes": ["input"]
@@ -6598,7 +6598,7 @@ YAHOO.lang.extend(WireIt.InOutContainer, WireIt.Container, {
 			});
 			this.bodyEl.appendChild(WireIt.cn('div', null, {lineHeight: "30px", textAlign: "right"}, output));
 		}
-		
+
    }
-   
+
 });

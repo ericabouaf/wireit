@@ -2,7 +2,7 @@
 <head>
 <title>inputExHTML</title>
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-	
+
 <!-- YUI CSS -->
 <link rel="stylesheet" type="text/css" href="../../lib/yui/reset-fonts/reset-fonts.css">
 <link rel="stylesheet" type="text/css" href="../../lib/yui/assets/skins/sam/skin.css">
@@ -32,11 +32,11 @@ div.inputEx-Group div.inputEx-label {
 </head>
 
 <body class="yui-skin-sam">
-	
+
 	<div id='htmlFormContainer'>
 		<p class="title">inputExHTML</p>
 		<p class="description">
-			inputExHTML is a form to create HTML elements dynamically. 
+			inputExHTML is a form to create HTML elements dynamically.
 			Select a tagName, enter its attributes, and click on the "Create !" button.
 			(We make the element draggable and resizeable for more fun)<br />
 			<br />
@@ -56,7 +56,7 @@ div.inputEx-Group div.inputEx-label {
 inputEx.spacerUrl = "../../images/space.gif";
 
 YAHOO.util.Event.onDOMReady( function() {
-	
+
 	var createHTMLElement = function() {
 
      var val = form.getValue();
@@ -69,13 +69,13 @@ YAHOO.util.Event.onDOMReady( function() {
 
 		 // Make the element draggable and resizable
      var resize = new YAHOO.util.Resize(el);
-     new YAHOO.util.DD(resize._wrap); 
+     new YAHOO.util.DD(resize._wrap);
   };
-	
+
 	form = new inputEx.Form({
 		parentEl: 'htmlFormContainer',
 		fields: [
-	      { type: 'select', inputParams: {label: 'Tag', name: 'tagName', 
+	      { type: 'select', inputParams: {label: 'Tag', name: 'tagName',
 											 selectValues: ["div", "script", "img", "a", "input", "p", "br", "span", "b", "iframe"]} },
 				{ type: 'object', inputParams: {label: ' ', listLabel: 'attributes', name: 'attributes'} },
 				{ type: 'object', inputParams: {label: ' ', listLabel: 'css attributes', name: 'cssStyles'} },
@@ -96,9 +96,9 @@ YAHOO.util.Event.onDOMReady( function() {
 			"width": "200px",
 			"height": "200px",
 			"cursor": "pointer"
-		}, 
-		attributes:{}, 
-		innerHTML: "<p>Hello world !</p><p>Try to drag me !</p><p>You can also resize me !</p>" 
+		},
+		attributes:{},
+		innerHTML: "<p>Hello world !</p><p>Try to drag me !</p><p>You can also resize me !</p>"
   });
 
   createHTMLElement();
@@ -106,7 +106,7 @@ YAHOO.util.Event.onDOMReady( function() {
 });
 
 </script>
-	
+
 </body>
 </html>
 

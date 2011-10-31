@@ -1,5 +1,5 @@
 (function () {
-   
+
    // Shortcuts
    var Event = YAHOO.util.Event, UA = YAHOO.env.ua;
 
@@ -11,26 +11,26 @@
     * @param {HTMLElement} parentNode The canvas tag will be append to this parent DOM node.
     */
    WireIt.CanvasElement = function(parentNode) {
-      
+
       /**
        * The canvas element
        * @property element
        * @type HTMLElement
        */
       this.element = document.createElement('canvas');
-      
+
       // Append to parentNode
       parentNode.appendChild(this.element);
-      
+
       // excanvas.js for dynamic canvas tags
       if(typeof (G_vmlCanvasManager)!="undefined"){
          this.element = G_vmlCanvasManager.initElement(this.element);
       }
-      
+
    };
-   
+
    WireIt.CanvasElement.prototype = {
-      
+
       /**
        * Get a drawing context
        * @method getContext
@@ -40,7 +40,7 @@
       getContext: function(mode) {
        return this.element.getContext(mode || "2d");
       },
-      
+
       /**
        * Purge all event listeners and remove the component from the dom
        * @method destroy
@@ -56,7 +56,7 @@
          // recursively purge element
          Event.purgeElement(el, true);
       },
-      
+
       /**
        * Set the canvas position and size.
        * <b>Warning:</b> This method changes the <i>element</i> property under some brother. Don't copy references !
@@ -66,15 +66,15 @@
        * @param {Number} width New width
        * @param {Number} height New height
        */
-      SetCanvasRegion: UA.ie ? 
+      SetCanvasRegion: UA.ie ?
                // IE
                function(left,top,width,height){
                   var el = this.element;
                   WireIt.sn(el,null,{left:left+"px",top:top+"px",width:width+"px",height:height+"px"});
                   el.getContext("2d").clearRect(0,0,width,height);
                   this.element = el;
-               } : 
-               ( (UA.webkit || UA.opera) ? 
+               } :
+               ( (UA.webkit || UA.opera) ?
                   // Webkit (Safari & Chrome) and Opera
                   function(left,top,width,height){
                      var el = this.element;
@@ -87,11 +87,11 @@
                      Event.purgeElement(el);
                      el.parentNode.replaceChild(newCanvas,el);
                      this.element = newCanvas;
-                  } :  
+                  } :
                   // Other (Firefox)
                   function(left,top,width,height){
                      WireIt.sn(this.element,{width:width,height:height},{left:left+"px",top:top+"px"});
                   })
    };
-   
+
 })();

@@ -2,7 +2,7 @@
 
  $method = $_SERVER["REQUEST_METHOD"];
  $filename = "store.json";
- 
+
  if($method == "GET") {
     echo stripslashes(file_get_contents($filename) );
  }

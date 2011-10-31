@@ -13,22 +13,22 @@ WireIt.util.Anim = function( terminals, el, attributes, duration, method) {
    if(!terminals) {
       throw new Error("WireIt.util.Anim needs at least terminals and id");
    }
-   
+
    /**
     * List of the contained terminals
     * @property _WireItTerminals
     * @type {Array}
     */
    this._WireItTerminals = terminals;
-   
+
    WireIt.util.Anim.superclass.constructor.call(this, el, attributes, duration, method);
-   
+
    // Subscribe the onTween event to move the wires
    this.onTween.subscribe(this.moveWireItWires, this, true);
 };
 
 YAHOO.extend(WireIt.util.Anim, YAHOO.util.Anim, {
-   
+
    /**
     * Listen YAHOO.util.Anim.onTween events to redraw the wires
     * @method moveWireItWires

@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/wireit" title="WireItLibrary">WireItLibrary</a></h1>
         <h3>WireIt&nbsp; <span class="subtitle">0.6.0</span></h3>
-        <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
+        <a href="./index.html" title="WireItLibrary">WireItLibrary</a>
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
-                
-                 &gt; LayerMap.js (source view) 
+
+                 &gt; LayerMap.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -61,32 +61,32 @@
 <span class="c"> * @param {Obj} options configuration object</span>
 <span class="c"> */</span>
 <span class="nx">WireIt</span><span class="p">.</span><span class="nx">LayerMap</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">layer</span><span class="o">,</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * @property layer</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">layer</span> <span class="o">=</span> <span class="nx">layer</span><span class="o">;</span>
-   
+
    <span class="k">this</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
-   
+
    <span class="c">// Create the canvas element</span>
    <span class="nx">WireIt</span><span class="p">.</span><span class="nx">LayerMap</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">);</span>
-   
+
    <span class="c">// Set the className</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span><span class="o">;</span>
-   
+
    <span class="k">this</span><span class="p">.</span><span class="nx">initEvents</span><span class="p">();</span>
-   
+
    <span class="k">this</span><span class="p">.</span><span class="nx">draw</span><span class="p">();</span>
 <span class="p">};</span>
 
 <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">WireIt</span><span class="p">.</span><span class="nx">LayerMap</span><span class="o">,</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">CanvasElement</span><span class="o">,</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * @method setOptions</span>
 <span class="c">    * @param {Object} options</span>
 <span class="c">    */</span>
-   <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span> 
+   <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
       <span class="c">/**</span>
 <span class="c">       * Options:</span>
@@ -104,21 +104,21 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">style</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">style</span> <span class="o">||</span> <span class="s2">&quot;rgba(0, 0, 200, 0.5)&quot;</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">lineWidth</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">lineWidth</span> <span class="o">||</span> <span class="mi">2</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="c">/**</span>
 <span class="c">    * Listen for various events that should redraw the layer map</span>
 <span class="c">    * @method initEvents</span>
 <span class="c">    */</span>
    <span class="nx">initEvents</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      
+
       <span class="kd">var</span> <span class="nx">layer</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="o">;</span>
-      
+
       <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="o">,</span> <span class="s1">&#39;mousedown&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onMouseDown</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="o">,</span> <span class="s1">&#39;mouseup&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onMouseUp</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="o">,</span> <span class="s1">&#39;mousemove&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onMouseMove</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="o">,</span> <span class="s1">&#39;mouseout&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onMouseUp</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-      
+
       <span class="nx">layer</span><span class="p">.</span><span class="nx">eventAddWire</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">draw</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="nx">layer</span><span class="p">.</span><span class="nx">eventRemoveWire</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">draw</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="nx">layer</span><span class="p">.</span><span class="nx">eventAddContainer</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">draw</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
@@ -128,19 +128,19 @@
 
       <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="s2">&quot;scroll&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onLayerScroll</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * When a mouse move is received</span>
 <span class="c">    * @method onMouseMove</span>
 <span class="c">    * @param {Event} e Original event</span>
 <span class="c">    * @param {Array} args event parameters</span>
 <span class="c">    */</span>
-   <span class="nx">onMouseMove</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span> <span class="nx">args</span><span class="p">)</span> <span class="p">{</span> 
+   <span class="nx">onMouseMove</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span> <span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">Event</span><span class="p">.</span><span class="nx">stopEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
-      <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isMouseDown</span><span class="p">)</span> 
+      <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isMouseDown</span><span class="p">)</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">scrollLayer</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">clientX</span><span class="o">,</span><span class="nx">e</span><span class="p">.</span><span class="nx">clientY</span><span class="p">);</span>
-   <span class="p">}</span><span class="o">,</span>   
-   
+   <span class="p">}</span><span class="o">,</span>
+
    <span class="c">/**</span>
 <span class="c">    * When a mouseup or mouseout is received</span>
 <span class="c">    * @method onMouseUp</span>
@@ -151,7 +151,7 @@
       <span class="nx">Event</span><span class="p">.</span><span class="nx">stopEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">isMouseDown</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * When a mouse down is received</span>
 <span class="c">    * @method onMouseDown</span>
@@ -163,7 +163,7 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">scrollLayer</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">clientX</span><span class="o">,</span><span class="nx">e</span><span class="p">.</span><span class="nx">clientY</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">isMouseDown</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Scroll the layer from mousedown/mousemove</span>
 <span class="c">    * @method scrollLayer</span>
@@ -171,29 +171,29 @@
 <span class="c">    * @param {Integer} clientY mouse event y coordinate</span>
 <span class="c">    */</span>
    <span class="nx">scrollLayer</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">clientX</span><span class="o">,</span> <span class="nx">clientY</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="kd">var</span> <span class="nx">canvasPos</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">getXY</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">);</span>
       <span class="kd">var</span> <span class="nx">click</span> <span class="o">=</span> <span class="p">[</span> <span class="nx">clientX</span><span class="o">-</span><span class="nx">canvasPos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span> <span class="nx">clientY</span><span class="o">-</span><span class="nx">canvasPos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">];</span>
-      
+
       <span class="c">// Canvas Region</span>
       <span class="kd">var</span> <span class="nx">canvasRegion</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">getRegion</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">);</span>
       <span class="kd">var</span> <span class="nx">canvasWidth</span> <span class="o">=</span> <span class="nx">canvasRegion</span><span class="p">.</span><span class="nx">right</span><span class="o">-</span><span class="nx">canvasRegion</span><span class="p">.</span><span class="nx">left</span><span class="o">-</span><span class="mi">4</span><span class="o">;</span>
       <span class="kd">var</span> <span class="nx">canvasHeight</span> <span class="o">=</span> <span class="nx">canvasRegion</span><span class="p">.</span><span class="nx">bottom</span><span class="o">-</span><span class="nx">canvasRegion</span><span class="p">.</span><span class="nx">top</span><span class="o">-</span><span class="mi">4</span><span class="o">;</span>
-      
+
       <span class="c">// Calculate ratio</span>
       <span class="kd">var</span> <span class="nx">layerWidth</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">scrollWidth</span><span class="o">;</span>
       <span class="kd">var</span> <span class="nx">layerHeight</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="o">;</span>
       <span class="kd">var</span> <span class="nx">hRatio</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="nx">canvasWidth</span><span class="o">/</span><span class="nx">layerWidth</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span><span class="o">;</span>
       <span class="kd">var</span> <span class="nx">vRatio</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="nx">canvasHeight</span><span class="o">/</span><span class="nx">layerHeight</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span><span class="o">;</span>
-      
+
       <span class="c">// Center position:</span>
       <span class="kd">var</span> <span class="nx">center</span> <span class="o">=</span> <span class="p">[</span> <span class="nx">click</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="nx">hRatio</span><span class="o">,</span> <span class="nx">click</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="nx">vRatio</span> <span class="p">];</span>
-      
+
       <span class="c">// Region</span>
       <span class="kd">var</span> <span class="nx">region</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">getRegion</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
       <span class="kd">var</span> <span class="nx">viewportWidth</span> <span class="o">=</span> <span class="nx">region</span><span class="p">.</span><span class="nx">right</span><span class="o">-</span><span class="nx">region</span><span class="p">.</span><span class="nx">left</span><span class="o">;</span>
       <span class="kd">var</span> <span class="nx">viewportHeight</span> <span class="o">=</span> <span class="nx">region</span><span class="p">.</span><span class="nx">bottom</span><span class="o">-</span><span class="nx">region</span><span class="p">.</span><span class="nx">top</span><span class="o">;</span>
-      
+
       <span class="c">// Calculate the scroll position of the layer</span>
       <span class="kd">var</span> <span class="nx">topleft</span> <span class="o">=</span> <span class="p">[</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="nx">viewportWidth</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">,</span><span class="mi">0</span><span class="p">)</span> <span class="o">,</span>  <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nx">viewportHeight</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">];</span>
       <span class="k">if</span><span class="p">(</span> <span class="nx">topleft</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="nx">viewportWidth</span> <span class="o">&gt;</span> <span class="nx">layerWidth</span> <span class="p">)</span> <span class="p">{</span>
@@ -202,41 +202,41 @@
       <span class="k">if</span><span class="p">(</span> <span class="nx">topleft</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="nx">viewportHeight</span> <span class="o">&gt;</span> <span class="nx">layerHeight</span> <span class="p">)</span> <span class="p">{</span>
          <span class="nx">topleft</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">layerHeight</span><span class="o">-</span><span class="nx">viewportHeight</span><span class="o">;</span>
       <span class="p">}</span>
-     
+
       <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="o">=</span> <span class="nx">topleft</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">topleft</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-   
+
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Redraw after a timeout</span>
 <span class="c">    * @method onLayerScroll</span>
 <span class="c">    */</span>
    <span class="nx">onLayerScroll</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      
+
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">scrollTimer</span><span class="p">)</span> <span class="p">{</span> <span class="nx">clearTimeout</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">scrollTimer</span><span class="p">);</span> <span class="p">}</span>
       <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">scrollTimer</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
          <span class="nx">that</span><span class="p">.</span><span class="nx">draw</span><span class="p">();</span>
       <span class="p">}</span><span class="o">,</span><span class="mi">50</span><span class="p">);</span>
-      
+
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Redraw the layer map</span>
 <span class="c">    * @method draw</span>
 <span class="c">    */</span>
    <span class="nx">draw</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">ctxt</span><span class="o">=</span><span class="k">this</span><span class="p">.</span><span class="nx">getContext</span><span class="p">();</span>
-      
+
       <span class="c">// Canvas Region</span>
       <span class="kd">var</span> <span class="nx">canvasRegion</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">getRegion</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">);</span>
       <span class="kd">var</span> <span class="nx">canvasWidth</span> <span class="o">=</span> <span class="nx">canvasRegion</span><span class="p">.</span><span class="nx">right</span><span class="o">-</span><span class="nx">canvasRegion</span><span class="p">.</span><span class="nx">left</span><span class="o">-</span><span class="mi">4</span><span class="o">;</span>
       <span class="kd">var</span> <span class="nx">canvasHeight</span> <span class="o">=</span> <span class="nx">canvasRegion</span><span class="p">.</span><span class="nx">bottom</span><span class="o">-</span><span class="nx">canvasRegion</span><span class="p">.</span><span class="nx">top</span><span class="o">-</span><span class="mi">4</span><span class="o">;</span>
-      
+
       <span class="c">// Clear Rect</span>
       <span class="nx">ctxt</span><span class="p">.</span><span class="nx">clearRect</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span> <span class="nx">canvasWidth</span><span class="o">,</span> <span class="nx">canvasHeight</span><span class="p">);</span>
-      
+
       <span class="c">// Calculate ratio</span>
       <span class="kd">var</span> <span class="nx">layerWidth</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">scrollWidth</span><span class="o">;</span>
       <span class="kd">var</span> <span class="nx">layerHeight</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="o">;</span>
@@ -252,7 +252,7 @@
       <span class="nx">ctxt</span><span class="p">.</span><span class="nx">strokeStyle</span><span class="o">=</span> <span class="s2">&quot;rgb(200, 50, 50)&quot;</span><span class="o">;</span>
       <span class="nx">ctxt</span><span class="p">.</span><span class="nx">lineWidth</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>
       <span class="nx">ctxt</span><span class="p">.</span><span class="nx">strokeRect</span><span class="p">(</span><span class="nx">viewportX</span><span class="o">*</span><span class="nx">hRatio</span><span class="o">,</span> <span class="nx">viewportY</span><span class="o">*</span><span class="nx">vRatio</span><span class="o">,</span> <span class="nx">viewportWidth</span><span class="o">*</span><span class="nx">hRatio</span><span class="o">,</span> <span class="nx">viewportHeight</span><span class="o">*</span><span class="nx">vRatio</span><span class="p">);</span>
-   
+
       <span class="c">// Draw containers and wires</span>
       <span class="nx">ctxt</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">style</span><span class="o">;</span>
       <span class="nx">ctxt</span><span class="p">.</span><span class="nx">strokeStyle</span><span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">style</span><span class="o">;</span>
@@ -260,7 +260,7 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">drawContainers</span><span class="p">(</span><span class="nx">ctxt</span><span class="o">,</span> <span class="nx">hRatio</span><span class="o">,</span> <span class="nx">vRatio</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">drawWires</span><span class="p">(</span><span class="nx">ctxt</span><span class="o">,</span> <span class="nx">hRatio</span><span class="o">,</span> <span class="nx">vRatio</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Subroutine to draw the containers</span>
 <span class="c">    * @method drawContainers</span>
@@ -270,11 +270,11 @@
       <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">containers</span><span class="p">.</span><span class="nx">length</span><span class="o">,</span><span class="nx">i</span><span class="o">,</span><span class="nx">gIS</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">getIntStyle</span><span class="o">,</span><span class="nx">containerEl</span><span class="o">;</span>
       <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
          <span class="nx">containerEl</span> <span class="o">=</span> <span class="nx">containers</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">el</span><span class="o">;</span>
-         <span class="nx">ctxt</span><span class="p">.</span><span class="nx">fillRect</span><span class="p">(</span><span class="nx">gIS</span><span class="p">(</span><span class="nx">containerEl</span><span class="o">,</span> <span class="s2">&quot;left&quot;</span><span class="p">)</span><span class="o">*</span><span class="nx">hRatio</span><span class="o">,</span> <span class="nx">gIS</span><span class="p">(</span><span class="nx">containerEl</span><span class="o">,</span> <span class="s2">&quot;top&quot;</span><span class="p">)</span><span class="o">*</span><span class="nx">vRatio</span><span class="o">,</span> 
+         <span class="nx">ctxt</span><span class="p">.</span><span class="nx">fillRect</span><span class="p">(</span><span class="nx">gIS</span><span class="p">(</span><span class="nx">containerEl</span><span class="o">,</span> <span class="s2">&quot;left&quot;</span><span class="p">)</span><span class="o">*</span><span class="nx">hRatio</span><span class="o">,</span> <span class="nx">gIS</span><span class="p">(</span><span class="nx">containerEl</span><span class="o">,</span> <span class="s2">&quot;top&quot;</span><span class="p">)</span><span class="o">*</span><span class="nx">vRatio</span><span class="o">,</span>
                        <span class="nx">gIS</span><span class="p">(</span><span class="nx">containerEl</span><span class="o">,</span> <span class="s2">&quot;width&quot;</span><span class="p">)</span><span class="o">*</span><span class="nx">hRatio</span><span class="o">,</span> <span class="nx">gIS</span><span class="p">(</span><span class="nx">containerEl</span><span class="o">,</span> <span class="s2">&quot;height&quot;</span><span class="p">)</span><span class="o">*</span><span class="nx">vRatio</span><span class="p">);</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Subroutine to draw the wires</span>
 <span class="c">    * @method drawWires</span>
@@ -284,7 +284,7 @@
       <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">wires</span><span class="p">.</span><span class="nx">length</span><span class="o">,</span><span class="nx">i</span><span class="o">,</span><span class="nx">wire</span><span class="o">;</span>
       <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
          <span class="nx">wire</span> <span class="o">=</span> <span class="nx">wires</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-         <span class="kd">var</span> <span class="nx">pos1</span> <span class="o">=</span> <span class="nx">wire</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">getXY</span><span class="p">()</span><span class="o">,</span> 
+         <span class="kd">var</span> <span class="nx">pos1</span> <span class="o">=</span> <span class="nx">wire</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">getXY</span><span class="p">()</span><span class="o">,</span>
              <span class="nx">pos2</span> <span class="o">=</span> <span class="nx">wire</span><span class="p">.</span><span class="nx">terminal2</span><span class="p">.</span><span class="nx">getXY</span><span class="p">();</span>
 
          <span class="c">// Stroked line</span>
@@ -295,10 +295,10 @@
          <span class="nx">ctxt</span><span class="p">.</span><span class="nx">closePath</span><span class="p">();</span>
          <span class="nx">ctxt</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
       <span class="p">}</span>
-      
+
    <span class="p">}</span>
-   
-   
+
+
 <span class="p">});</span>
 
 <span class="p">})();</span>
@@ -350,7 +350,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
                                 <li class=""><a href="Anim.js.html" title="Anim.js">Anim.js</a></li>
                                 <li class=""><a href="BaseEditor.js.html" title="BaseEditor.js">BaseEditor.js</a></li>

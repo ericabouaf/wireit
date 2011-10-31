@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; MenuField.js (source view) 
+
+                 &gt; MenuField.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -75,46 +75,46 @@
 <span class="c">    */</span>
 	<span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
 	   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MenuField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
-	   
+
 	   <span class="c">// Overwrite options:</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">:</span> <span class="s1">&#39;inputEx-Field inputEx-MenuField&#39;</span><span class="o">;</span>
-	   
+
 	   <span class="c">// New options</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">menuInvite</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">menuInvite</span> <span class="o">||</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">menuInvite</span><span class="o">;</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">menuTrigger</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">menuTrigger</span> <span class="o">||</span> <span class="s2">&quot;click&quot;</span><span class="o">;</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">menuPosition</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">menuPosition</span> <span class="o">||</span> <span class="p">[</span><span class="s2">&quot;tl&quot;</span><span class="o">,</span><span class="s2">&quot;tr&quot;</span><span class="p">];</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">menuItems</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">menuItems</span><span class="o">;</span>
 	<span class="p">}</span><span class="o">,</span>
-	
-	
+
+
 	<span class="c">/**</span>
 <span class="c">    * Build a menu</span>
 <span class="c">    */</span>
    <span class="nx">renderComponent</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      
+
       <span class="c">// Div to display the invite, then the selected text</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span><span class="s1">&#39;inputEx-Result&#39;</span><span class="p">}</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">menuInvite</span><span class="p">);</span>
       <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">menuPosition</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;tr&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="s2">&quot;inputEx-RightArrow&quot;</span> <span class="o">:</span> <span class="s2">&quot;inputEx-DownArrow&quot;</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
-      
+
       <span class="c">// Keep selected value in a hidden field</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">hiddenEl</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;hidden&#39;</span><span class="o">,</span> <span class="nx">name</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">});</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">hiddenEl</span><span class="p">);</span>
-	   
+
 	   <span class="c">// Init Menu</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">initMenu</span><span class="p">();</span>
    <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="c">// Parse menuItems option to add ids, listeners, etc.</span>
 	<span class="nx">initMenuItems</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-	   
+
 	   <span class="c">// Keep corresponding text for each value selectable in the menu</span>
 	   <span class="c">//   -&gt; will be used to display selection after click</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">_textFromValue</span> <span class="o">=</span> <span class="p">{};</span>
-	   
+
 	   <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
-	   
+
 	   <span class="c">/*</span>
 <span class="c">	   * Recursive function to edit a level of menuItems</span>
 <span class="c">	   *</span>
@@ -124,23 +124,23 @@
 <span class="c">	   */</span>
 	   <span class="kd">var</span> <span class="nx">levelInit</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">conf</span><span class="o">,</span><span class="nx">level</span><span class="p">)</span> <span class="p">{</span>
 	      <span class="k">if</span> <span class="p">(</span><span class="nx">level</span><span class="o">&gt;</span><span class="mi">4</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;MenuField : too much recursion, menuItems property should be 5 level deep at most.&quot;</span><span class="p">);</span>
-	      
+
 	      <span class="kd">var</span> <span class="nx">item</span><span class="o">;</span>
 	      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="o">,</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 	         <span class="nx">item</span> <span class="o">=</span> <span class="nx">conf</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-            
+
             <span class="c">// item with submenu</span>
             <span class="c">//   -&gt; explore deeper</span>
 	         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">submenu</span><span class="p">))</span> <span class="p">{</span>
-	            
+
 	            <span class="c">// ensure there is an id on submenu (else submenu is not created)</span>
 	            <span class="k">if</span> <span class="p">(</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">submenu</span><span class="p">.</span><span class="nx">id</span><span class="p">))</span> <span class="p">{</span>
 	               <span class="nx">item</span><span class="p">.</span><span class="nx">submenu</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">();</span>
 	            <span class="p">}</span>
-	            
+
 	            <span class="c">// continue one level deeper</span>
 	            <span class="nx">levelInit</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">submenu</span><span class="p">.</span><span class="nx">itemdata</span><span class="o">,</span><span class="nx">level</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
-	            
+
 	         <span class="c">// item without submenu</span>
 	         <span class="c">//   -&gt; add click listener to this item</span>
 	         <span class="c">//   -&gt; pass selected value to the listener (as the 3rd argument)</span>
@@ -150,29 +150,29 @@
 	         <span class="p">}</span>
 	      <span class="p">}</span>
 	   <span class="p">};</span>
-	   
+
 	   <span class="nx">levelInit</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">menuItems</span><span class="o">,</span><span class="mi">0</span><span class="p">);</span>
-	   
+
 	<span class="p">}</span><span class="o">,</span>
-	
-	
+
+
    <span class="nx">initMenu</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">initMenuItems</span><span class="p">();</span> <span class="c">// edit this.options.menuItems</span>
-	   
+
       <span class="k">this</span><span class="p">.</span><span class="nx">menuContainer</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">menuContainer</span><span class="p">);</span>
-	   
+
 	   <span class="kd">var</span> <span class="nx">context</span> <span class="o">=</span> <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">].</span><span class="nx">concat</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">menuPosition</span><span class="p">);</span>
-	   
+
       <span class="k">this</span><span class="p">.</span><span class="nx">menu</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Menu</span><span class="p">(</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">()</span><span class="o">,</span><span class="p">{</span><span class="nx">context</span><span class="o">:</span><span class="nx">context</span><span class="p">});</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">menu</span><span class="p">.</span><span class="nx">addItems</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">menuItems</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">menu</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">menuContainer</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="nx">initEvents</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">menu</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s2">&quot;show&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">menu</span><span class="p">.</span><span class="nx">focus</span><span class="p">);</span>
-      
+
       <span class="c">// Listener to show menu</span>
       <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">menuTrigger</span><span class="o">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
          <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">menu</span><span class="p">.</span><span class="nx">cfg</span><span class="p">.</span><span class="nx">getProperty</span><span class="p">(</span><span class="s2">&quot;visible&quot;</span><span class="p">))</span> <span class="p">{</span>
@@ -181,27 +181,27 @@
          <span class="p">}</span>
       <span class="p">}</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">this</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="nx">onItemClick</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_Value</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">p_Value</span><span class="o">,</span><span class="kc">true</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">hiddenEl</span><span class="p">.</span><span class="nx">value</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
       <span class="c">// update text</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_textFromValue</span><span class="p">[</span><span class="nx">value</span><span class="p">]</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">menuInvite</span><span class="o">;</span>
-      
+
       <span class="c">// set value</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">hiddenEl</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="p">(</span><span class="o">!!</span><span class="k">this</span><span class="p">.</span><span class="nx">_textFromValue</span><span class="p">[</span><span class="nx">value</span><span class="p">])</span> <span class="o">?</span> <span class="nx">value</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="o">;</span>
 	   <span class="nx">inputEx</span><span class="p">.</span><span class="nx">MenuField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">);</span>
    <span class="p">}</span>
-   
+
 <span class="p">});</span>
 
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">menuInvite</span> <span class="o">=</span> <span class="s2">&quot;Click here to select&quot;</span><span class="o">;</span>
@@ -300,7 +300,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

@@ -30,7 +30,7 @@ div.WireIt-Wire-scissors {
 div.WireIt-Terminal {
    width: 30px;
    height: 30px;
-   cursor: pointer;   
+   cursor: pointer;
    position: absolute;
    background: transparent url(../images/terminals.png) no-repeat scroll 0 0;
    z-index: 6;
@@ -78,7 +78,7 @@ div.WireIt-Container-ddhandle {
 	font-weight:bold;
 	text-align:center;
 	font-size: 10pt;
-} 
+}
 div.WireIt-Container-ddhandle span {
    /*margin-right: 32px;*/
 	text-align:center;
@@ -123,7 +123,7 @@ div.WireIt-Container-focused {
  * ImageContainer
  */
 
-div.WireIt-ImageContainer div.body {	
+div.WireIt-ImageContainer div.body {
 	width: 128px;
 	height: 60px;
 	background-color: transparent;
@@ -143,15 +143,15 @@ div.WireIt-ImageContainer:hover div.WireIt-Container-closebutton {
  * InOutContainer
  */
 
-div.WireIt-InOutContainer {	
+div.WireIt-InOutContainer {
 	width: 150px;
 }
 
-div.WireIt-InOutContainer div.body {	
+div.WireIt-InOutContainer div.body {
 	padding: 5px 10px;
 	font-size: 10pt;
 }
- 
+
 /**
  * Layers
  */
@@ -160,7 +160,7 @@ div.WireIt-Layer {
    overflow: scroll;
    margin: auto;
    position: relative;
-	height: 100%; 
+	height: 100%;
 	width: 100%;
 	background-color: white;
 }

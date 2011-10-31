@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/wireit" title="WireItLibrary">WireItLibrary</a></h1>
         <h3>WireIt&nbsp; <span class="subtitle">0.6.0</span></h3>
-        <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
+        <a href="./index.html" title="WireItLibrary">WireItLibrary</a>
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
-                
-                 &gt; Layer.js (source view) 
+
+                 &gt; Layer.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -55,23 +55,23 @@
 <span class="c"> * @param {Object}   options   Configuration object (see the properties)</span>
 <span class="c"> */</span>
 <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Layer</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-   
+
    <span class="k">this</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * List of all the WireIt.Container (or subclass) instances in this layer</span>
 <span class="c">    * @property containers</span>
 <span class="c">    * @type {Array}</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">containers</span> <span class="o">=</span> <span class="p">[];</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * List of all the WireIt.Wire (or subclass) instances in this layer</span>
 <span class="c">    * @property wires</span>
 <span class="c">    * @type {Array}</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">wires</span> <span class="o">=</span> <span class="p">[];</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Layer DOM element</span>
 <span class="c">    * @property el</span>
@@ -85,59 +85,59 @@
 <span class="c">    * @event eventChanged</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">eventChanged</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s2">&quot;eventChanged&quot;</span><span class="p">);</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Event that is fired when a wire is added</span>
 <span class="c">    * You can register this event with myTerminal.eventAddWire.subscribe(function(e,params) { var wire=params[0];}, scope);</span>
 <span class="c">    * @event eventAddWire</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">eventAddWire</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s2">&quot;eventAddWire&quot;</span><span class="p">);</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Event that is fired when a wire is removed</span>
 <span class="c">    * You can register this event with myTerminal.eventRemoveWire.subscribe(function(e,params) { var wire=params[0];}, scope);</span>
 <span class="c">    * @event eventRemoveWire</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">eventRemoveWire</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s2">&quot;eventRemoveWire&quot;</span><span class="p">);</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Event that is fired when a container is added</span>
 <span class="c">    * You can register this event with myTerminal.eventAddContainer.subscribe(function(e,params) { var container=params[0];}, scope);</span>
 <span class="c">    * @event eventAddContainer</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">eventAddContainer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s2">&quot;eventAddContainer&quot;</span><span class="p">);</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Event that is fired when a container is removed</span>
 <span class="c">    * You can register this event with myTerminal.eventRemoveContainer.subscribe(function(e,params) { var container=params[0];}, scope);</span>
 <span class="c">    * @event eventRemoveContainer</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">eventRemoveContainer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s2">&quot;eventRemoveContainer&quot;</span><span class="p">);</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Event that is fired when a container has been moved</span>
 <span class="c">    * You can register this event with myTerminal.eventContainerDragged.subscribe(function(e,params) { var container=params[0];}, scope);</span>
 <span class="c">    * @event eventContainerDragged</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">eventContainerDragged</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s2">&quot;eventContainerDragged&quot;</span><span class="p">);</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Event that is fired when a container has been resized</span>
 <span class="c">    * You can register this event with myTerminal.eventContainerResized.subscribe(function(e,params) { var container=params[0];}, scope);</span>
 <span class="c">    * @event eventContainerResized</span>
 <span class="c">    */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">eventContainerResized</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s2">&quot;eventContainerResized&quot;</span><span class="p">);</span>
-   
+
    <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-   
+
    <span class="k">this</span><span class="p">.</span><span class="nx">initContainers</span><span class="p">();</span>
-   
+
    <span class="k">this</span><span class="p">.</span><span class="nx">initWires</span><span class="p">();</span>
-   
-   <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">layerMap</span><span class="p">)</span> <span class="p">{</span> 
+
+   <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">layerMap</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">new</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">LayerMap</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">layerMapOptions</span><span class="p">);</span>
    <span class="p">}</span>
-   
+
 <span class="p">};</span>
 
 <span class="nx">WireIt</span><span class="p">.</span><span class="nx">Layer</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
@@ -173,9 +173,9 @@
 <span class="c">    * @method render</span>
 <span class="c">    */</span>
    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-   
+
       <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span><span class="p">}</span> <span class="p">);</span>
-   
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">parentEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
 
@@ -187,7 +187,7 @@
    <span class="nx">initContainers</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">containers</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">addContainer</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">containers</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
-      <span class="p">}</span> 
+      <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
 
    <span class="c">/**</span>
@@ -208,15 +208,15 @@
 <span class="c">    */</span>
    <span class="nx">addWire</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">wireConfig</span><span class="p">)</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">wireConfig</span><span class="p">.</span><span class="nx">xtype</span> <span class="o">||</span> <span class="s2">&quot;WireIt.Wire&quot;</span><span class="p">);</span>
-   
+
       <span class="kd">var</span> <span class="nx">src</span> <span class="o">=</span> <span class="nx">wireConfig</span><span class="p">.</span><span class="nx">src</span><span class="o">;</span>
       <span class="kd">var</span> <span class="nx">tgt</span> <span class="o">=</span> <span class="nx">wireConfig</span><span class="p">.</span><span class="nx">tgt</span><span class="o">;</span>
-   
+
       <span class="kd">var</span> <span class="nx">terminal1</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">containers</span><span class="p">[</span><span class="nx">src</span><span class="p">.</span><span class="nx">moduleId</span><span class="p">].</span><span class="nx">getTerminal</span><span class="p">(</span><span class="nx">src</span><span class="p">.</span><span class="nx">terminal</span><span class="p">);</span>
       <span class="kd">var</span> <span class="nx">terminal2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">containers</span><span class="p">[</span><span class="nx">tgt</span><span class="p">.</span><span class="nx">moduleId</span><span class="p">].</span><span class="nx">getTerminal</span><span class="p">(</span><span class="nx">tgt</span><span class="p">.</span><span class="nx">terminal</span><span class="p">);</span>
       <span class="kd">var</span> <span class="nx">wire</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">type</span><span class="p">(</span> <span class="nx">terminal1</span><span class="o">,</span> <span class="nx">terminal2</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="nx">wireConfig</span><span class="p">);</span>
       <span class="nx">wire</span><span class="p">.</span><span class="nx">redraw</span><span class="p">();</span>
-   
+
       <span class="k">return</span> <span class="nx">wire</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
 
@@ -227,19 +227,19 @@
 <span class="c">    * @return {WireIt.Container} Container instance build from the xtype</span>
 <span class="c">    */</span>
    <span class="nx">addContainer</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">containerConfig</span><span class="p">)</span> <span class="p">{</span>
-   
+
       <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="o">+</span><span class="p">(</span><span class="nx">containerConfig</span><span class="p">.</span><span class="nx">xtype</span> <span class="o">||</span> <span class="s2">&quot;WireIt.Container&quot;</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;)&#39;</span><span class="p">);</span>
       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nx">type</span><span class="p">))</span> <span class="p">{</span>
          <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;WireIt layer unable to add container: xtype &#39;&quot;</span><span class="o">+</span><span class="nx">containerConfig</span><span class="p">.</span><span class="nx">xtype</span><span class="o">+</span><span class="s2">&quot;&#39; not found&quot;</span><span class="p">);</span>
       <span class="p">}</span>
       <span class="kd">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">type</span><span class="p">(</span><span class="nx">containerConfig</span><span class="o">,</span> <span class="k">this</span><span class="p">);</span>
-   
+
       <span class="k">this</span><span class="p">.</span><span class="nx">containers</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">container</span> <span class="p">);</span>
-   
+
       <span class="c">// Event listeners</span>
       <span class="nx">container</span><span class="p">.</span><span class="nx">eventAddWire</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">onAddWire</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="nx">container</span><span class="p">.</span><span class="nx">eventRemoveWire</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">onRemoveWire</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-   
+
       <span class="k">if</span><span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">ddResize</span><span class="p">)</span> <span class="p">{</span>
          <span class="nx">container</span><span class="p">.</span><span class="nx">ddResize</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;endDragEvent&#39;</span><span class="o">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">eventContainerResized</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">container</span><span class="p">);</span>
@@ -252,11 +252,11 @@
 				<span class="k">this</span><span class="p">.</span><span class="nx">eventChanged</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
          <span class="p">}</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="p">}</span>
-   
+
       <span class="k">this</span><span class="p">.</span><span class="nx">eventAddContainer</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">container</span><span class="p">);</span>
 
 		<span class="k">this</span><span class="p">.</span><span class="nx">eventChanged</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-   
+
       <span class="k">return</span> <span class="nx">container</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
 
@@ -271,7 +271,7 @@
          <span class="nx">container</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">containers</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">containers</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">compact</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">containers</span><span class="p">);</span>
-      
+
          <span class="k">this</span><span class="p">.</span><span class="nx">eventRemoveContainer</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">container</span><span class="p">);</span>
 
 			<span class="k">this</span><span class="p">.</span><span class="nx">eventChanged</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
@@ -289,12 +289,12 @@
       <span class="c">// add the wire to the list if it isn&#39;t in</span>
       <span class="k">if</span><span class="p">(</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">wire</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">wires</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">wires</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">wire</span><span class="p">);</span>
-         
+
          <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">enableMouseEvents</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="nx">wire</span><span class="p">.</span><span class="nx">element</span><span class="o">,</span> <span class="s2">&quot;mousemove&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onWireMouseMove</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
             <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="nx">wire</span><span class="p">.</span><span class="nx">element</span><span class="o">,</span> <span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onWireClick</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
          <span class="p">}</span>
-         
+
          <span class="c">// Re-Fire an event at the layer level</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">eventAddWire</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">wire</span><span class="p">);</span>
 
@@ -346,24 +346,24 @@
 <span class="c">    * @return {Obj} layer configuration</span>
 <span class="c">    */</span>
    <span class="nx">getWiring</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-   
+
       <span class="kd">var</span> <span class="nx">i</span><span class="o">;</span>
       <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">containers</span><span class="o">:</span> <span class="p">[]</span><span class="o">,</span> <span class="nx">wires</span><span class="o">:</span> <span class="p">[]};</span>
-   
+
       <span class="k">for</span><span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">containers</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
          <span class="nx">obj</span><span class="p">.</span><span class="nx">containers</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">containers</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">getConfig</span><span class="p">()</span> <span class="p">);</span>
       <span class="p">}</span>
-   
+
       <span class="k">for</span><span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">wires</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
          <span class="kd">var</span> <span class="nx">wire</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">wires</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-      
-         <span class="kd">var</span> <span class="nx">wireObj</span> <span class="o">=</span> <span class="p">{</span> 
-            <span class="nx">src</span><span class="o">:</span> <span class="p">{</span><span class="nx">moduleId</span><span class="o">:</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">wire</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">container</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">containers</span><span class="p">)</span><span class="o">,</span> <span class="nx">terminal</span><span class="o">:</span> <span class="nx">wire</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">name</span> <span class="p">}</span><span class="o">,</span> 
+
+         <span class="kd">var</span> <span class="nx">wireObj</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">src</span><span class="o">:</span> <span class="p">{</span><span class="nx">moduleId</span><span class="o">:</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">wire</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">container</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">containers</span><span class="p">)</span><span class="o">,</span> <span class="nx">terminal</span><span class="o">:</span> <span class="nx">wire</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">name</span> <span class="p">}</span><span class="o">,</span>
             <span class="nx">tgt</span><span class="o">:</span> <span class="p">{</span><span class="nx">moduleId</span><span class="o">:</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">wire</span><span class="p">.</span><span class="nx">terminal2</span><span class="p">.</span><span class="nx">container</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">containers</span><span class="p">)</span><span class="o">,</span> <span class="nx">terminal</span><span class="o">:</span> <span class="nx">wire</span><span class="p">.</span><span class="nx">terminal2</span><span class="p">.</span><span class="nx">name</span> <span class="p">}</span>
          <span class="p">};</span>
          <span class="nx">obj</span><span class="p">.</span><span class="nx">wires</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">wireObj</span><span class="p">);</span>
       <span class="p">}</span>
-   
+
       <span class="k">return</span> <span class="nx">obj</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
 
@@ -374,7 +374,7 @@
 <span class="c">    */</span>
    <span class="nx">setWiring</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">wiring</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
-      
+
       <span class="k">if</span><span class="p">(</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">wiring</span><span class="p">.</span><span class="nx">containers</span><span class="p">))</span> <span class="p">{</span>
          <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">wiring</span><span class="p">.</span><span class="nx">containers</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">addContainer</span><span class="p">(</span><span class="nx">wiring</span><span class="p">.</span><span class="nx">containers</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
@@ -386,7 +386,7 @@
          <span class="p">}</span>
        <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Returns a position relative to the layer from a mouse event</span>
 <span class="c">    * @method _getMouseEvtPos</span>
@@ -438,8 +438,8 @@
    	   <span class="p">}</span>
    	<span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="c">/**</span>
 <span class="c">    * Layer explosing animation</span>
 <span class="c">    * @method clearExplode</span>
@@ -466,13 +466,13 @@
    	        <span class="nx">duration</span><span class="o">:</span> <span class="mi">3</span>
           <span class="p">});</span>
           <span class="k">if</span><span class="p">(</span><span class="nx">i</span> <span class="o">==</span> <span class="k">this</span><span class="p">.</span><span class="nx">containers</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-             <span class="nx">myAnim</span><span class="p">.</span><span class="nx">onComplete</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span> <span class="nx">callback</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">bind</span><span class="p">);}</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span> 
+             <span class="nx">myAnim</span><span class="p">.</span><span class="nx">onComplete</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span> <span class="nx">callback</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">bind</span><span class="p">);}</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
           <span class="p">}</span>
    	    <span class="nx">myAnim</span><span class="p">.</span><span class="nx">animate</span><span class="p">();</span>
       <span class="p">}</span>
 
    <span class="p">}</span>
-   
+
 
 <span class="p">};</span>
 </pre></div>
@@ -523,7 +523,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
                                 <li class=""><a href="Anim.js.html" title="Anim.js">Anim.js</a></li>
                                 <li class=""><a href="BaseEditor.js.html" title="BaseEditor.js">BaseEditor.js</a></li>

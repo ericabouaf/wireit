@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; inputex.js (source view) 
+
+                 &gt; inputex.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -53,9 +53,9 @@
 <span class="c"> */</span>
 <span class="c">/*global inputEx: false, YAHOO: false */</span>
 <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
- 
+
  <span class="kd">var</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">;</span>
- 
+
 <span class="c">/**</span>
 <span class="c"> * The inputEx method lets you create a field from the JSON definition:</span>
 <span class="c"> * &lt;pre&gt;</span>
@@ -87,44 +87,44 @@
    <span class="c">/*if(fieldOptions.flatten) {</span>
 <span class="c">      inputInstance._flatten = true;</span>
 <span class="c">   }*/</span>
-	  
+
    <span class="k">return</span> <span class="nx">inputInstance</span><span class="o">;</span>
 <span class="p">};</span>
 
 <span class="nx">lang</span><span class="p">.</span><span class="nx">augmentObject</span><span class="p">(</span><span class="nx">inputEx</span><span class="o">,</span> <span class="p">{</span>
-   
+
    <span class="nx">VERSION</span><span class="o">:</span> <span class="s2">&quot;0.4.0&quot;</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Url to the spacer image. This url schould be changed according to your project directories</span>
 <span class="c">    * @type String</span>
 <span class="c">    */</span>
    <span class="nx">spacerUrl</span><span class="o">:</span> <span class="s2">&quot;images/space.gif&quot;</span><span class="o">,</span> <span class="c">// 1x1 px</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Field empty state constant</span>
 <span class="c">    * @type String</span>
 <span class="c">    */</span>
    <span class="nx">stateEmpty</span><span class="o">:</span> <span class="s1">&#39;empty&#39;</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Field required state constant</span>
 <span class="c">    * @type String</span>
 <span class="c">    */</span>
    <span class="nx">stateRequired</span><span class="o">:</span> <span class="s1">&#39;required&#39;</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Field valid state constant</span>
 <span class="c">    * @type String</span>
 <span class="c">    */</span>
    <span class="nx">stateValid</span><span class="o">:</span> <span class="s1">&#39;valid&#39;</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Field invalid state constant</span>
 <span class="c">    * @type String</span>
 <span class="c">    */</span>
    <span class="nx">stateInvalid</span><span class="o">:</span> <span class="s1">&#39;invalid&#39;</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Associative array containing field messages</span>
 <span class="c">    */</span>
@@ -135,13 +135,13 @@
    	<span class="nx">defaultDateFormat</span><span class="o">:</span> <span class="s2">&quot;m/d/Y&quot;</span><span class="o">,</span>
    	<span class="nx">months</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;January&quot;</span><span class="o">,</span> <span class="s2">&quot;February&quot;</span><span class="o">,</span> <span class="s2">&quot;March&quot;</span><span class="o">,</span> <span class="s2">&quot;April&quot;</span><span class="o">,</span> <span class="s2">&quot;May&quot;</span><span class="o">,</span> <span class="s2">&quot;June&quot;</span><span class="o">,</span> <span class="s2">&quot;July&quot;</span><span class="o">,</span> <span class="s2">&quot;August&quot;</span><span class="o">,</span> <span class="s2">&quot;September&quot;</span><span class="o">,</span> <span class="s2">&quot;October&quot;</span><span class="o">,</span> <span class="s2">&quot;November&quot;</span><span class="o">,</span> <span class="s2">&quot;December&quot;</span><span class="p">]</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * inputEx widget namespace</span>
 <span class="c">    * @static </span>
 <span class="c">    */</span>
    <span class="nx">widget</span><span class="o">:</span> <span class="p">{}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Associative array containing common regular expressions</span>
 <span class="c">    */</span>
@@ -150,13 +150,13 @@
       <span class="nx">url</span><span class="o">:</span> <span class="sr">/^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/i</span><span class="o">,</span>
       <span class="nx">password</span><span class="o">:</span> <span class="o">/^</span><span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="nx">a</span><span class="o">-</span><span class="nx">zA</span><span class="o">-</span><span class="nx">Z</span><span class="o">\</span><span class="nx">x20</span><span class="o">-\</span><span class="nx">x7E</span><span class="p">]</span><span class="o">*</span><span class="nx">$</span><span class="o">/</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Hash between inputEx types and classes (ex: &lt;code&gt;inputEx.typeClasses.color = inputEx.ColorField&lt;/code&gt;)&lt;br /&gt;</span>
 <span class="c">    * Please register the types with the &lt;code&gt;registerType&lt;/code&gt; method</span>
 <span class="c">    */</span>
    <span class="nx">typeClasses</span><span class="o">:</span> <span class="p">{}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * When you create a new inputEx Field Class, you can register it to give it a simple type.</span>
 <span class="c">    * ex:   inputEx.registerType(&quot;color&quot;, inputEx.ColorField);</span>
@@ -174,7 +174,7 @@
          <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;inputEx.registerType: second argument must be a function&quot;</span><span class="p">);</span>
       <span class="p">}</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">typeClasses</span><span class="p">[</span><span class="nx">type</span><span class="p">]</span> <span class="o">=</span> <span class="nx">fieldClass</span><span class="o">;</span>
-      
+
       <span class="c">// Setup the groupOptions property on the class</span>
       <span class="kd">var</span> <span class="nx">opts</span> <span class="o">=</span> <span class="p">[];</span>
       <span class="k">if</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">groupOptions</span><span class="p">))</span> <span class="p">{</span> <span class="nx">opts</span> <span class="o">=</span> <span class="nx">groupOptions</span><span class="o">;</span> <span class="p">}</span>
@@ -183,7 +183,7 @@
       <span class="p">}</span>
       <span class="nx">fieldClass</span><span class="p">.</span><span class="nx">groupOptions</span> <span class="o">=</span> <span class="nx">opts</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Returns the class for the given type</span>
 <span class="c">    * ex: inputEx.getFieldClass(&quot;color&quot;) returns inputEx.ColorField</span>
@@ -193,7 +193,7 @@
    <span class="nx">getFieldClass</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">return</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">typeClasses</span><span class="p">[</span><span class="nx">type</span><span class="p">])</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">typeClasses</span><span class="p">[</span><span class="nx">type</span><span class="p">]</span> <span class="o">:</span> <span class="kc">null</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Get the inputex type for the given class (ex: &lt;code&gt;inputEx.getType(inputEx.ColorField)&lt;/code&gt; returns &quot;color&quot;)</span>
 <span class="c">    * @static</span>
@@ -210,16 +210,16 @@
       <span class="p">}</span>
       <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * @deprecated Kept for backward compatibility (alias for inputEx() )</span>
 <span class="c">    * @param {Object} fieldOptions</span>
 <span class="c">    * @return {inputEx.Field} Created field instance</span>
 <span class="c">    */</span>
-   <span class="nx">buildField</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fieldOptions</span><span class="p">)</span> <span class="p">{</span>      
+   <span class="nx">buildField</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fieldOptions</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">return</span> <span class="nx">inputEx</span><span class="p">(</span><span class="nx">fieldOptions</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Helper function to set DOM node attributes and style attributes.</span>
 <span class="c">    * @static</span>
@@ -297,8 +297,8 @@
             <span class="k">return</span> <span class="nx">el</span><span class="o">;</span>
         <span class="p">}</span>
     <span class="p">}</span><span class="o">,</span>
-   
-   
+
+
    <span class="c">/**</span>
 <span class="c">    * Find the position of the given element. (This method is not available in IE 6)</span>
 <span class="c">    * @static</span>
@@ -314,7 +314,7 @@
       <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
 
-   
+
    <span class="c">/**</span>
 <span class="c">    * Create a new array without the null or undefined values</span>
 <span class="c">    * @static</span>
@@ -349,7 +349,7 @@
 					  <span class="nx">replace</span><span class="p">(</span><span class="sr">/[œ]/g</span><span class="o">,</span><span class="s2">&quot;oe&quot;</span><span class="p">).</span>
 					  <span class="nx">replace</span><span class="p">(</span><span class="sr">/[æ]/g</span><span class="o">,</span><span class="s2">&quot;ae&quot;</span><span class="p">);</span>
 	<span class="p">}</span>
-   
+
 <span class="p">});</span>
 
 <span class="p">})();</span>
@@ -447,7 +447,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

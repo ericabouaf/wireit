@@ -19,7 +19,7 @@ WireIt.util.DD = function( terminals, id, sGroup, config) {
     * @type {Array}
     */
    this._WireItTerminals = terminals;
-   
+
    WireIt.util.DD.superclass.constructor.call(this, id, sGroup, config);
 };
 
@@ -49,5 +49,5 @@ YAHOO.extend(WireIt.util.DD, YAHOO.util.DD, {
    setTerminals: function(terminals) {
       this._WireItTerminals = terminals;
    }
-   
+
 });

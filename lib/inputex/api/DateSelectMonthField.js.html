@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; DateSelectMonthField.js (source view) 
+
+                 &gt; DateSelectMonthField.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -57,14 +57,14 @@
 <span class="c"> * @extends inputEx.CombineField</span>
 <span class="c"> */</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">DateSelectMonthField</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-   	
+
    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">dateFormat</span><span class="p">)</span> <span class="p">{</span><span class="nx">options</span><span class="p">.</span><span class="nx">dateFormat</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">defaultDateFormat</span><span class="o">;</span> <span class="p">}</span>
-   
+
    <span class="kd">var</span> <span class="nx">formatSplit</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dateFormat</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">);</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">yearIndex</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="o">,</span><span class="nx">formatSplit</span><span class="p">);</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">monthIndex</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="o">,</span><span class="nx">formatSplit</span><span class="p">);</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">dayIndex</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="o">,</span><span class="nx">formatSplit</span><span class="p">);</span>
-   
+
    <span class="nx">options</span><span class="p">.</span><span class="nx">fields</span> <span class="o">=</span> <span class="p">[];</span>
    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">if</span><span class="p">(</span><span class="nx">i</span> <span class="o">==</span> <span class="k">this</span><span class="p">.</span><span class="nx">dayIndex</span><span class="p">)</span> <span class="p">{</span>
@@ -79,15 +79,15 @@
    <span class="p">}</span>
 
    <span class="nx">options</span><span class="p">.</span><span class="nx">separators</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">separators</span> <span class="o">||</span> <span class="p">[</span><span class="kc">false</span><span class="o">,</span><span class="s2">&quot;&amp;nbsp;&quot;</span><span class="o">,</span><span class="s2">&quot;&amp;nbsp;&quot;</span><span class="o">,</span><span class="kc">false</span><span class="p">];</span>
-   
+
 	<span class="nx">inputEx</span><span class="p">.</span><span class="nx">DateSelectMonthField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
 <span class="p">};</span>
 <span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">DateSelectMonthField</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">CombineField</span><span class="o">,</span> <span class="p">{</span>
-   
+
    <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="kd">var</span> <span class="nx">values</span> <span class="o">=</span> <span class="p">[];</span>
-      
+
       <span class="c">// !value catches &quot;&quot; (empty field), other tests invalid dates (Invalid Date, or NaN)</span>
       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">value</span> <span class="o">||</span> <span class="o">!</span><span class="p">(</span><span class="nx">value</span> <span class="k">instanceof</span> <span class="nb">Date</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isNumber</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">getTime</span><span class="p">())</span> <span class="p">)</span> <span class="p">{</span>
          <span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">monthIndex</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
@@ -100,29 +100,29 @@
       <span class="p">}</span>
       <span class="nx">inputEx</span><span class="p">.</span><span class="nx">DateSelectMonthField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">values</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isEmpty</span><span class="p">())</span> <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
-      
+
       <span class="kd">var</span> <span class="nx">values</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">DateSelectMonthField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">getValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-      
+
       <span class="c">// if selected month index is -1, new Date(..) would create a valid date with month == December !!!)</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">monthIndex</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">return</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="kc">NaN</span><span class="o">,</span><span class="kc">NaN</span><span class="o">,</span><span class="kc">NaN</span><span class="p">);</span> <span class="c">// -&gt; Invalid Date (Firefox) or NaN (IE) (both instanceof Date ...)</span>
       <span class="p">}</span>
-      
+
       <span class="k">return</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">yearIndex</span><span class="p">]</span><span class="o">,</span><span class="mi">10</span><span class="p">)</span><span class="o">,</span> <span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">monthIndex</span><span class="p">]</span><span class="o">,</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">dayIndex</span><span class="p">]</span><span class="o">,</span><span class="mi">10</span><span class="p">)</span> <span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="nx">validate</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">val</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
-            
+
       <span class="c">// empty field</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">val</span> <span class="o">===</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span>
          <span class="c">// validate only if not required</span>
          <span class="k">return</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">required</span><span class="o">;</span>
       <span class="p">}</span>
-      
+
       <span class="c">// val is :</span>
       <span class="c">//  -&gt; a Date, when valid</span>
       <span class="c">//  -&gt; an Invalid Date (== &quot;Invalid Date&quot;), when invalid on FF</span>
@@ -132,12 +132,12 @@
       <span class="c">// but last 2 cases return NaN on val.getDate(), so &quot;isFinite&quot; test fails.</span>
       <span class="k">return</span> <span class="p">(</span><span class="nx">val</span> <span class="k">instanceof</span> <span class="nb">Date</span> <span class="o">&amp;&amp;</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isNumber</span><span class="p">(</span><span class="nx">val</span><span class="p">.</span><span class="nx">getTime</span><span class="p">()));</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
 	<span class="nx">isEmpty</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 	   <span class="kd">var</span> <span class="nx">values</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">DateSelectMonthField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">getValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 	   <span class="k">return</span> <span class="p">(</span><span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">monthIndex</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">yearIndex</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="o">&amp;&amp;</span>  <span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">dayIndex</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>
 	<span class="p">}</span>
-   
+
 <span class="p">});</span>
 
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">selectMonth</span> <span class="o">=</span> <span class="s2">&quot;- Select Month -&quot;</span><span class="o">;</span>
@@ -238,7 +238,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

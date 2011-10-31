@@ -1,4 +1,4 @@
-var logicGatesLang = {	
+var logicGatesLang = {
 	languageName: "logicGates",
 	modules: [
 		{
@@ -6,7 +6,7 @@ var logicGatesLang = {
 			"category": "gate",
 			"description": "AND Gate with 2 inputs",
 			"container" : {
-				"xtype":"LogicContainer", 
+				"xtype":"LogicContainer",
 				"icon": "../logicGates/images/gate_and.png",
 				"image": "../logicGates/images/gate_and.png",
   				"terminals": [
@@ -17,11 +17,11 @@ var logicGatesLang = {
 			}
 		},
 		{
-		  "name": "OR",	
+		  "name": "OR",
 			"category": "gate",
 			"description": "OR Gate with 2 inputs",
 			"container": {
-		   		"xtype":"LogicContainer", 
+		   		"xtype":"LogicContainer",
 		   		"icon": "../logicGates/images/gate_or.png",
 		   		"image": "../logicGates/images/gate_or.png",
 					"terminals": [
@@ -32,11 +32,11 @@ var logicGatesLang = {
 			}
 		},
 		{
-		  "name": "NOT",	
+		  "name": "NOT",
 			"category": "gate",
 			"description": "NOT Gate with 1 input",
 		  "container": {
-				"xtype":"LogicContainer", 
+				"xtype":"LogicContainer",
 			   "icon": "../logicGates/images/gate_not.png",
 			   "image": "../logicGates/images/gate_not.png",
 				"terminals": [
@@ -50,7 +50,7 @@ var logicGatesLang = {
 			"category": "gate",
 			"description": "NAND Gate with 2 inputs",
 		   "container": {
-			   "xtype":"LogicContainer", 
+			   "xtype":"LogicContainer",
 			   "icon": "../logicGates/images/gate_nand.png",
 			   "image": "../logicGates/images/gate_nand.png",
 				"terminals": [
@@ -65,7 +65,7 @@ var logicGatesLang = {
 			"category": "gate",
 			"description": "XOR Gate with 2 inputs",
 		   "container": {
-		   	"xtype":"LogicContainer", 
+		   	"xtype":"LogicContainer",
 		   	"icon": "../logicGates/images/gate_xor.png",
 		   	"image": "../logicGates/images/gate_xor.png",
 				"terminals": [
@@ -80,7 +80,7 @@ var logicGatesLang = {
 			"category": "output",
 			"description": "Lamp display",
 			"container" : {
-				"xtype":"LightbulbContainer", 
+				"xtype":"LightbulbContainer",
 				"icon": "../logicGates/images/lightbulb_off.png",
 				"image": "../logicGates/images/lightbulb_off.png",
   				"terminals": [ {"name": "_INPUT", "direction": [0,1], "offsetPosition": {"left": 5, "bottom": -10 },"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 } ]
@@ -91,7 +91,7 @@ var logicGatesLang = {
 			"category": "input",
 			"description": "Switch",
 			"container" : {
-				"xtype":"SwitchContainer", 
+				"xtype":"SwitchContainer",
 				"icon": "../logicGates/images/switch_off.png",
 				"image": "../logicGates/images/switch_off.png",
   				"terminals": [ {"name": "_OUTPUT", "direction": [1,0], "offsetPosition": {"right": 6, "top": 11 },"ddConfig": {"type": "output","allowedTypes": ["input"]}} ]
@@ -102,7 +102,7 @@ var logicGatesLang = {
 			"category": "input",
 			"description": "Clock",
 			"container" : {
-				"xtype":"ClockContainer", 
+				"xtype":"ClockContainer",
 				"icon": "../logicGates/images/clock_off.png",
 				"image": "../logicGates/images/clock_off.png",
   				"terminals": [ {"name": "_OUTPUT", "direction": [1,0], "offsetPosition": {"right": 7, "top": 5 },"ddConfig": {"type": "output","allowedTypes": ["input"]}} ]
@@ -122,15 +122,15 @@ LogicContainer = function(opts, layer) {
 	this.logicInputValues = [];
 };
 YAHOO.lang.extend(LogicContainer, WireIt.ImageContainer, {
-	
+
 	setOptions: function(options) {
       LogicContainer.superclass.setOptions.call(this, options);
       this.options.xtype = "LogicContainer";
    },
-	
+
 	setInput: function(bStatus,term) {
 		this.logicInputValues[term.options.name] = bStatus;
-		
+
 		if(this.options.title == "AND") {
 			this.setLogic( this.logicInputValues["_INPUT1"] && this.logicInputValues["_INPUT2"]  );
 		}
@@ -148,16 +148,16 @@ YAHOO.lang.extend(LogicContainer, WireIt.ImageContainer, {
 			  					(this.logicInputValues["_INPUT1"] && !this.logicInputValues["_INPUT2"]) );
 		}
 	},
-	
+
 	setLogic: function(bStatus) {
 		this.status = bStatus;
-		
+
 		// Set the image
 		if(this.imageName) {
 			var image = this.imageName+"_"+(bStatus ? "on" : "off")+".png";
 			YAHOO.util.Dom.setStyle(this.bodyEl, "background-image", "url(images/"+image+")");
 		}
-		
+
 		// trigger the output wires !
 		for(var i = 0 ; i < this.terminals.length ; i++) {
 			var term = this.terminals[i];
@@ -182,7 +182,7 @@ YAHOO.lang.extend(LogicContainer, WireIt.ImageContainer, {
 
 ClockContainer = function(opts, layer) {
 	ClockContainer.superclass.constructor.call(this, opts, layer);
-	this.imageName = "clock";	
+	this.imageName = "clock";
 	var that = this;
 	setInterval(function() { that.switchStatus();	}, 800);
 };
@@ -219,9 +219,9 @@ YAHOO.lang.extend(LightbulbContainer, LogicContainer, {
    }
 });
 
-YAHOO.util.Event.onDOMReady( function() { 
+YAHOO.util.Event.onDOMReady( function() {
 	try {
-	var editor = new WireIt.WiringEditor(logicGatesLang); 
+	var editor = new WireIt.WiringEditor(logicGatesLang);
 }catch(ex) {
 	console.log(ex);
 }

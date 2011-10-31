@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; yql.js (source view) 
+
+                 &gt; yql.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -62,10 +62,10 @@
 <span class="c"> * @static</span>
 <span class="c"> */</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">YQL</span> <span class="o">=</span> <span class="p">{</span>
-	
+
 	<span class="c">// Used as an identifier for the JSONP callback hack</span>
 	<span class="nx">query_index</span><span class="o">:</span> <span class="mi">0</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Generate the jsonp request to YQL</span>
 <span class="c">	 * @param {String} yql YQL query string</span>
@@ -81,9 +81,9 @@
           <span class="nx">s</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;text/javascript&#39;</span><span class="o">;</span>
 	       <span class="nx">s</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">url</span><span class="o">;</span>
 	       <span class="k">return</span> <span class="nx">s</span><span class="o">;</span>
-	    <span class="p">})());</span>	
+	    <span class="p">})());</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Dynamically build a XML from javascript code and generate a dummy request for YQL</span>
 <span class="c">	 * @param {String} codeStr YQL-execute javascript code</span>
@@ -94,7 +94,7 @@
 		<span class="kd">var</span> <span class="nx">yql</span> <span class="o">=</span> <span class="s2">&quot;use &#39;&quot;</span><span class="o">+</span><span class="nx">url</span><span class="o">+</span><span class="s2">&quot;&#39; as yqlexconsole; select * from yqlexconsole;&quot;</span><span class="o">;</span>
 		<span class="nx">inputEx</span><span class="p">.</span><span class="nx">YQL</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">yql</span><span class="o">,</span><span class="nx">callback</span><span class="p">);</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Dynamically build a XML from a URL and generate a dummy request for YQL</span>
 <span class="c">	 * @param {String} codeUrl Url to a YQL-execute javascript file</span>
@@ -105,7 +105,7 @@
 		<span class="kd">var</span> <span class="nx">yql</span> <span class="o">=</span> <span class="s2">&quot;use &#39;&quot;</span><span class="o">+</span><span class="nx">url</span><span class="o">+</span><span class="s2">&quot;&#39; as yqlexconsole; select * from yqlexconsole;&quot;</span><span class="o">;</span>
 		<span class="nx">inputEx</span><span class="p">.</span><span class="nx">YQL</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">yql</span><span class="o">,</span><span class="nx">callback</span><span class="p">);</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Run script type=&quot;text/yql&quot; tags on YQL servers</span>
 <span class="c">	 * If you have just one script tag and one callback, pass [[function(results) {}]]</span>
@@ -131,7 +131,7 @@
       	<span class="nx">inputEx</span><span class="p">.</span><span class="nx">YQL</span><span class="p">.</span><span class="nx">queryCode</span><span class="p">(</span><span class="nx">yqlCode</span><span class="o">,</span> <span class="nx">genCallbackFunction</span><span class="p">(</span><span class="nx">callbacks</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">);</span>
       <span class="p">}</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * YQL-trimpath-page is a utility to create pages using YQL queries ant Trimpath templating</span>
 <span class="c">	 * All YQL queries are made using the rpc/yql.js utility.</span>
@@ -140,7 +140,7 @@
 <span class="c">	 * @param {Array} additionalCallbacks List of [list of callbacks] (each yql query can call multiple callbacks)</span>
 <span class="c">	 */</span>
 	<span class="nx">initTrimpathPage</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">additionalCallbacks</span><span class="p">)</span> <span class="p">{</span>
-   
+
 		 <span class="kd">var</span> <span class="nx">templates</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">getElementsBy</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
 	   		<span class="k">return</span> <span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">type</span> <span class="o">&amp;&amp;</span> <span class="nx">el</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;text/trimpath&quot;</span><span class="p">);</span>
 	   <span class="p">}</span> <span class="o">,</span> <span class="s2">&quot;script&quot;</span> <span class="p">);</span>
@@ -154,7 +154,7 @@
 			<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">callbacks</span><span class="p">[</span><span class="nx">requestId</span><span class="p">])</span> <span class="nx">callbacks</span><span class="p">[</span><span class="nx">requestId</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
 			<span class="nx">callbacks</span><span class="p">[</span><span class="nx">requestId</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">YQL</span><span class="p">.</span><span class="nx">genTrimpathCallback</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">);</span>
 		<span class="p">}</span>
-	
+
 		<span class="k">if</span><span class="p">(</span><span class="nx">additionalCallbacks</span><span class="p">)</span> <span class="p">{</span>
 		   <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">additionalCallbacks</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 		      <span class="kd">var</span> <span class="nx">cbks</span> <span class="o">=</span> <span class="nx">additionalCallbacks</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
@@ -274,7 +274,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

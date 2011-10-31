@@ -1,16 +1,16 @@
 {
 	"SMDVersion": "2.0",
-	"id": "http://json-tinyurl.appspot.com/", 
+	"id": "http://json-tinyurl.appspot.com/",
 	"description": "TinyUrl API",
 
    "target": "http://json-tinyurl.appspot.com/",
    "transport": "JSONP",
    "envelope": "URL",
-	
+
    "callbackParamName": "callback",
 
 	"services": {
-												
+
 		"tinyurl": {
 		   "parameters": [
 				{ "name": "url", "type": "string", "optional": false, "default": "http://scripting.com" }
@@ -18,5 +18,5 @@
 		}
 
    }
-	
+
 }

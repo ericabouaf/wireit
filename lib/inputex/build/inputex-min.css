@@ -1,4 +1,4 @@
-/* 
+/*
 Distributed under the MIT License :
 Visit http://javascript.neyric.com/inputex for more informations
 

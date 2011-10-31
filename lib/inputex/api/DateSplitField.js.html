@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; DateSplitField.js (source view) 
+
+                 &gt; DateSplitField.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -57,14 +57,14 @@
 <span class="c"> * @extends inputEx.CombineField</span>
 <span class="c"> */</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">DateSplitField</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-   	
+
    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">dateFormat</span><span class="p">)</span> <span class="p">{</span><span class="nx">options</span><span class="p">.</span><span class="nx">dateFormat</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">defaultDateFormat</span><span class="o">;</span> <span class="p">}</span>
-   
+
    <span class="kd">var</span> <span class="nx">formatSplit</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dateFormat</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">);</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">yearIndex</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="o">,</span><span class="nx">formatSplit</span><span class="p">);</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">monthIndex</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="o">,</span><span class="nx">formatSplit</span><span class="p">);</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">dayIndex</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="o">,</span><span class="nx">formatSplit</span><span class="p">);</span>
-   
+
    <span class="nx">options</span><span class="p">.</span><span class="nx">fields</span> <span class="o">=</span> <span class="p">[];</span>
    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">if</span><span class="p">(</span><span class="nx">i</span> <span class="o">==</span> <span class="k">this</span><span class="p">.</span><span class="nx">dayIndex</span><span class="p">)</span> <span class="p">{</span>
@@ -79,14 +79,14 @@
    <span class="p">}</span>
 
    <span class="nx">options</span><span class="p">.</span><span class="nx">separators</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">separators</span> <span class="o">||</span> <span class="p">[</span><span class="kc">false</span><span class="o">,</span><span class="s2">&quot;&amp;nbsp;&quot;</span><span class="o">,</span><span class="s2">&quot;&amp;nbsp;&quot;</span><span class="o">,</span><span class="kc">false</span><span class="p">];</span>
-   
+
 	<span class="nx">inputEx</span><span class="p">.</span><span class="nx">DateSplitField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
 
    <span class="k">this</span><span class="p">.</span><span class="nx">initAutoTab</span><span class="p">();</span>
 <span class="p">};</span>
 
 <span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">DateSplitField</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">CombineField</span><span class="o">,</span> <span class="p">{</span>
-   
+
    <span class="c">/**</span>
 <span class="c">	 * Set the value. Format the date according to options.dateFormat</span>
 <span class="c">	 * @param {Date} val Date to set</span>
@@ -94,7 +94,7 @@
 <span class="c">	 */</span>
    <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">values</span> <span class="o">=</span> <span class="p">[];</span>
-      
+
       <span class="c">// !value catches &quot;&quot; (empty field), and invalid dates</span>
       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">value</span> <span class="o">||</span> <span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">getTime</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isNumber</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">getTime</span><span class="p">())</span> <span class="p">)</span> <span class="p">{</span>
          <span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">monthIndex</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
@@ -107,66 +107,66 @@
       <span class="p">}</span>
       <span class="nx">inputEx</span><span class="p">.</span><span class="nx">DateSplitField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">values</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isEmpty</span><span class="p">())</span> <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
-      
+
       <span class="kd">var</span> <span class="nx">values</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">DateSplitField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">getValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-      
+
       <span class="k">return</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">yearIndex</span><span class="p">]</span><span class="o">,</span> <span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">monthIndex</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">dayIndex</span><span class="p">]</span> <span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="nx">validate</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">subFieldsValidation</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">DateSplitField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">validate</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
       <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">subFieldsValidation</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-      
+
       <span class="kd">var</span> <span class="nx">values</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">DateSplitField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">getValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
       <span class="kd">var</span> <span class="nx">day</span> <span class="o">=</span> <span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">dayIndex</span><span class="p">];</span>
       <span class="kd">var</span> <span class="nx">month</span> <span class="o">=</span> <span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">monthIndex</span><span class="p">];</span>
       <span class="kd">var</span> <span class="nx">year</span> <span class="o">=</span> <span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">yearIndex</span><span class="p">];</span>
-      
+
       <span class="kd">var</span> <span class="nx">val</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
       <span class="c">//console.log(&quot;datesplit value = &quot;,val);</span>
-      
+
       <span class="c">// 3 empty fields</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">val</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-      
+
       <span class="c">// if a field is empty, it will be set by default (day : 31, month:12, year: 1899/1900)</span>
       <span class="c">//   -&gt; val == &quot;&quot; MUST be checked first !</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">day</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="o">||</span> <span class="nx">month</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="o">||</span> <span class="nx">year</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-      
+
       <span class="k">if</span> <span class="p">(</span><span class="nx">year</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">year</span> <span class="o">&gt;</span> <span class="mi">9999</span> <span class="o">||</span> <span class="nx">day</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">||</span> <span class="nx">day</span> <span class="o">&gt;</span> <span class="mi">31</span> <span class="o">||</span> <span class="nx">month</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">||</span> <span class="nx">month</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-      
+
       <span class="c">// val == any date -&gt; true</span>
       <span class="c">// val == &quot;Invalid Date&quot; -&gt; false</span>
       <span class="k">return</span> <span class="p">(</span><span class="nx">val</span> <span class="o">!=</span> <span class="s2">&quot;Invalid Date&quot;</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
 	<span class="nx">isEmpty</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 	   <span class="kd">var</span> <span class="nx">values</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">DateSplitField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">getValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 	   <span class="k">return</span> <span class="p">(</span><span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">monthIndex</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">yearIndex</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="o">&amp;&amp;</span>  <span class="nx">values</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">dayIndex</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="nx">initAutoTab</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 	   <span class="c">// &quot;keypress&quot; event codes for numeric keys (keyboard &amp; numpad) </span>
 	   <span class="c">//  (warning : &quot;keydown&quot; codes are different with numpad)</span>
 	   <span class="kd">var</span> <span class="nx">numKeyCodes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">48</span><span class="o">,</span><span class="mi">49</span><span class="o">,</span><span class="mi">50</span><span class="o">,</span><span class="mi">51</span><span class="o">,</span><span class="mi">52</span><span class="o">,</span><span class="mi">53</span><span class="o">,</span><span class="mi">54</span><span class="o">,</span><span class="mi">55</span><span class="o">,</span><span class="mi">56</span><span class="o">,</span><span class="mi">57</span><span class="p">];</span>
-	   
+
       <span class="c">// verify charCode (don&#39;t auto tab when pressing &quot;tab&quot;, &quot;arrow&quot;, etc...)</span>
 	   <span class="kd">var</span> <span class="nx">checkNumKey</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">charCode</span><span class="p">)</span> <span class="p">{</span>
    	   <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="o">,</span> <span class="nx">length</span><span class="o">=</span><span class="nx">numKeyCodes</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
    	      <span class="k">if</span> <span class="p">(</span><span class="nx">charCode</span> <span class="o">==</span> <span class="nx">numKeyCodes</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
    	   <span class="p">}</span>
-   	   <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>       
+   	   <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
 	   <span class="p">};</span>
-	   
+
 	   <span class="c">// Function that checks charCode and execute tab action</span>
 	   <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
 	   <span class="kd">var</span> <span class="nx">autoTab</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">inputIndex</span><span class="p">)</span> <span class="p">{</span>
          <span class="c">// later to let input update its value</span>
    	   <span class="nx">lang</span><span class="p">.</span><span class="nx">later</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="nx">that</span><span class="o">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       	   <span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span> <span class="nx">that</span><span class="p">.</span><span class="nx">inputs</span><span class="p">[</span><span class="nx">inputIndex</span><span class="p">];</span>
-      	   
+
       	   <span class="c">// check input.el.value (string) because getValue doesn&#39;t work</span>
       	   <span class="c">// example : if input.el.value == &quot;06&quot;, getValue() == 6 (length == 1 instead of 2)</span>
       	   <span class="k">if</span> <span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="nx">input</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span> <span class="p">{</span>
@@ -174,7 +174,7 @@
       	   <span class="p">}</span>
    	   <span class="p">});</span>
 	   <span class="p">};</span>
-	   
+
 	   <span class="c">// add listeners on inputs</span>
 	   <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">el</span><span class="o">,</span> <span class="s2">&quot;keypress&quot;</span><span class="o">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
 	      <span class="k">if</span> <span class="p">(</span><span class="nx">checkNumKey</span><span class="p">(</span><span class="nx">Event</span><span class="p">.</span><span class="nx">getCharCode</span><span class="p">(</span><span class="nx">e</span><span class="p">)))</span> <span class="p">{</span>
@@ -187,7 +187,7 @@
          <span class="p">}</span>
    	<span class="p">}</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
 	<span class="p">}</span>
-   
+
 <span class="p">});</span>
 
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">monthTypeInvite</span> <span class="o">=</span> <span class="s2">&quot;Month&quot;</span><span class="o">;</span>
@@ -288,7 +288,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

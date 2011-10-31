@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; SliderField.js (source view) 
+
+                 &gt; SliderField.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -49,7 +49,7 @@
                         </style>
                         <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
      <span class="kd">var</span> <span class="nx">lang</span><span class="o">=</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">;</span>
-     
+
 <span class="c">/**</span>
 <span class="c"> * Create a slider using YUI widgets</span>
 <span class="c"> * @class inputEx.SliderField</span>
@@ -68,41 +68,41 @@
 <span class="c">    */</span>
    <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">inputEx</span><span class="p">.</span><span class="nx">SliderField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">className</span> <span class="o">:</span> <span class="s1">&#39;inputEx-SliderField&#39;</span><span class="o">;</span>
-   	   
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">minValue</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">minValue</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minValue</span><span class="o">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxValue</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxValue</span><span class="p">)</span> <span class="o">?</span> <span class="mi">100</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxValue</span><span class="o">;</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">displayValue</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">displayValue</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">displayValue</span><span class="o">;</span>
    <span class="p">}</span><span class="o">,</span>
-      
+
    <span class="c">/**</span>
 <span class="c">    * render a slider widget</span>
 <span class="c">    */</span>
    <span class="nx">renderComponent</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            
+
       <span class="k">this</span><span class="p">.</span><span class="nx">sliderbg</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">()</span><span class="o">,</span> <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-SliderField-bg&#39;</span><span class="p">});</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">sliderthumb</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-SliderField-thumb&#39;</span><span class="p">}</span> <span class="p">);</span>      
+      <span class="k">this</span><span class="p">.</span><span class="nx">sliderthumb</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-SliderField-thumb&#39;</span><span class="p">}</span> <span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">sliderbg</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">sliderthumb</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">sliderbg</span><span class="p">);</span>
-      
+
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">displayValue</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">valueDisplay</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-SliderField-value&#39;</span><span class="p">}</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="nb">String</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">minValue</span><span class="p">)</span> <span class="p">);</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">valueDisplay</span><span class="p">);</span>
       <span class="p">}</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span><span class="kc">null</span><span class="o">,</span><span class="p">{</span><span class="nx">clear</span><span class="o">:</span> <span class="s1">&#39;both&#39;</span><span class="p">})</span> <span class="p">);</span>
-            
+
       <span class="k">this</span><span class="p">.</span><span class="nx">slider</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">Slider</span><span class="p">.</span><span class="nx">getHorizSlider</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">sliderbg</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">sliderthumb</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span><span class="mi">100</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="nx">initEvents</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      
+
       <span class="c">// Fire the updated event when we released the slider</span>
       <span class="c">// the slider &#39;change&#39; event would generate too much events (if used in a group, it gets validated too many times)</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">slider</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;slideEnd&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-      
+
       <span class="c">// Update the displayed value</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">displayValue</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">updatedEvt</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
@@ -111,14 +111,14 @@
          <span class="p">}</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="p">}</span>
    <span class="p">}</span><span class="o">,</span>
-   
+
    <span class="c">/**</span>
 <span class="c">    * Function to set the value</span>
 <span class="c">    * @param {Any} value The new value</span>
 <span class="c">    * @param {boolean} [sendUpdatedEvt] (optional) Wether this setValue should fire the updatedEvt or not (default is true, pass false to NOT send the event)</span>
-<span class="c">    */</span>  
+<span class="c">    */</span>
    <span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
-      
+
       <span class="kd">var</span> <span class="nx">v</span> <span class="o">=</span> <span class="nx">val</span><span class="o">;</span>
       <span class="k">if</span><span class="p">(</span><span class="nx">v</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">minValue</span><span class="p">)</span> <span class="p">{</span>
          <span class="nx">v</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">minValue</span><span class="o">;</span>
@@ -126,11 +126,11 @@
       <span class="k">if</span><span class="p">(</span><span class="nx">v</span> <span class="o">&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxValue</span><span class="p">)</span> <span class="p">{</span>
          <span class="nx">v</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxValue</span><span class="o">;</span>
       <span class="p">}</span>
-      
+
       <span class="kd">var</span> <span class="nx">percent</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">v</span><span class="o">-</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">minValue</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxValue</span><span class="o">;</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">slider</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">percent</span><span class="p">);</span>
-      
+
       <span class="nx">inputEx</span><span class="p">.</span><span class="nx">SliderField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">val</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
 
@@ -142,7 +142,7 @@
       <span class="kd">var</span> <span class="nx">val</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">minValue</span><span class="o">+</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxValue</span><span class="o">-</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">minValue</span><span class="p">)</span><span class="o">*</span><span class="k">this</span><span class="p">.</span><span class="nx">slider</span><span class="p">.</span><span class="nx">getValue</span><span class="p">()</span><span class="o">/</span><span class="mi">100</span><span class="p">);</span>
       <span class="k">return</span> <span class="nx">val</span><span class="o">;</span>
    <span class="p">}</span>
-    
+
 <span class="p">});</span>
 
 <span class="c">// Register this class as &quot;slider&quot; type</span>
@@ -242,7 +242,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/inputex" title="inputEx-library">inputEx-library</a></h1>
         <h3>inputEx&nbsp; <span class="subtitle">0.4.0</span></h3>
-        <a href="./index.html" title="inputEx-library">inputEx-library</a> 
+        <a href="./index.html" title="inputEx-library">inputEx-library</a>
             &gt; <a href="./module_inputex.html" title="inputEx">inputEx</a>
-                
-                 &gt; RadioField.js (source view) 
+
+                 &gt; RadioField.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -47,9 +47,9 @@
                         <style>
                             #doc3 .classopts { display:none; }
                         </style>
-                        <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>	
+                        <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 	<span class="kd">var</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="o">,</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Event</span><span class="o">,</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="o">;</span>
-	
+
 <span class="c">/**</span>
 <span class="c"> * Create a radio button. Here are the added options :</span>
 <span class="c"> * &lt;ul&gt;</span>
@@ -64,7 +64,7 @@
 <span class="c"> */</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">RadioField</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
 	<span class="nx">inputEx</span><span class="p">.</span><span class="nx">RadioField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">options</span><span class="p">);</span>
-	
+
 	<span class="c">// IE BUG: doesn&#39;t want to set the value if the node is not in the DOM</span>
 	<span class="k">if</span><span class="p">(</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ua</span><span class="p">.</span><span class="nx">ie</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
 		<span class="c">// Set the initial value, use setTimeout to escape the stack (for nested usage in Group or Form)</span>
@@ -73,11 +73,11 @@
 			<span class="nx">that</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">that</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="kc">false</span><span class="p">);</span>
 		<span class="p">}</span><span class="o">,</span><span class="mi">0</span><span class="p">);</span>
 	<span class="p">}</span>
-	
+
 <span class="p">};</span>
-	
+
 <span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inputEx</span><span class="p">.</span><span class="nx">RadioField</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">Field</span><span class="o">,</span> <span class="p">{</span>
-	   
+
 	<span class="c">/**</span>
 <span class="c">	 * Adds the Radio button specific options</span>
 <span class="c">	 * @param {Object} options Options object (inputEx inputParams) as passed to the constructor</span>
@@ -94,44 +94,44 @@
         <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowAny</span><span class="p">.</span><span class="nx">validator</span> <span class="o">=</span> <span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowAny</span><span class="p">.</span><span class="nx">validator</span><span class="p">))</span> <span class="o">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">allowAny</span><span class="p">.</span><span class="nx">validator</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="kc">true</span><span class="o">;</span><span class="p">};</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowAny</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="p">(</span><span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowAny</span><span class="p">.</span><span class="nx">value</span><span class="p">))</span> <span class="o">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">allowAny</span><span class="p">.</span><span class="nx">value</span> <span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
       <span class="p">}</span>
-      
+
       <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">choices</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">choices</span><span class="o">;</span>
       <span class="c">// values == choices if not provided</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">values</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">values</span><span class="p">)</span> <span class="o">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">values</span> <span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">choices</span><span class="o">;</span>
 	<span class="p">}</span><span class="o">,</span>
-	   
+
 	<span class="c">/**</span>
 <span class="c">	 * Render the checkbox and the hidden field</span>
 <span class="c">	 */</span>
 	<span class="nx">renderComponent</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-	
+
 		<span class="kd">var</span> <span class="nx">div</span><span class="o">,</span><span class="nx">sep</span><span class="o">;</span>
 	   <span class="k">this</span><span class="p">.</span><span class="nx">optionEls</span> <span class="o">=</span> <span class="p">[];</span>
-	
+
 	   <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">choices</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-	
+
 	      <span class="nx">div</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-RadioField-choice&#39;</span><span class="p">});</span>
-	      
+
 	      <span class="c">// radioId MUST be different for each option,</span>
 	      <span class="c">// so add &quot;-opt&quot;+i (where i = option&#39;s position) to generated id</span>
 	      <span class="kd">var</span> <span class="nx">radioId</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">id</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">divEl</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;-field-opt&#39;</span><span class="o">+</span><span class="nx">i</span> <span class="o">:</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">generateId</span><span class="p">();</span>
-	      
+
 	      <span class="kd">var</span> <span class="nx">radio</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="o">,</span> <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">radioId</span><span class="o">,</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;radio&#39;</span><span class="o">,</span> <span class="nx">name</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">});</span>
-           
+
          <span class="nx">div</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">radio</span><span class="p">);</span>
          <span class="kd">var</span> <span class="kd">label</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="o">,</span> <span class="p">{</span><span class="s2">&quot;for&quot;</span><span class="o">:</span> <span class="nx">radioId</span><span class="o">,</span> <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-RadioField-rightLabel&#39;</span><span class="p">}</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s2">&quot;&quot;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">choices</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
       	<span class="nx">div</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="kd">label</span><span class="p">);</span>
-	      
-      	
+
+
       	<span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">div</span> <span class="p">);</span>
-      	
+
       	<span class="k">this</span><span class="p">.</span><span class="nx">optionEls</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">radio</span><span class="p">);</span>
      <span class="p">}</span>
-     
+
      <span class="c">// Build a &quot;any&quot; radio combined with a StringField</span>
      <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowAny</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">div</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;inputEx-RadioField-choice&#39;</span><span class="p">});</span>
-        
+
         <span class="k">if</span><span class="p">(</span><span class="nx">YAHOO</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ua</span><span class="p">.</span><span class="nx">ie</span><span class="p">)</span> <span class="p">{</span>
            <span class="k">this</span><span class="p">.</span><span class="nx">radioAny</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;&lt;input type=&#39;radio&#39; name=&#39;&quot;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="o">+</span><span class="s2">&quot;&#39;&gt;&quot;</span><span class="p">);</span>
         <span class="p">}</span>
@@ -139,56 +139,56 @@
            <span class="k">this</span><span class="p">.</span><span class="nx">radioAny</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="o">,</span> <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;radio&#39;</span><span class="o">,</span> <span class="nx">name</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span> <span class="p">});</span>
         <span class="p">}</span>
 	     <span class="nx">div</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">radioAny</span><span class="p">);</span>
-	     
+
         <span class="k">this</span><span class="p">.</span><span class="nx">anyField</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">StringField</span><span class="p">({</span><span class="nx">value</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowAny</span><span class="p">.</span><span class="nx">value</span><span class="p">});</span>
         <span class="nx">Dom</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">radioAny</span><span class="o">,</span> <span class="s2">&quot;float&quot;</span><span class="o">,</span><span class="s2">&quot;left&quot;</span><span class="p">);</span>
         <span class="nx">Dom</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">anyField</span><span class="p">.</span><span class="nx">getEl</span><span class="p">()</span><span class="o">,</span> <span class="s2">&quot;float&quot;</span><span class="o">,</span><span class="s2">&quot;left&quot;</span><span class="p">);</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">anyField</span><span class="p">.</span><span class="nx">disable</span><span class="p">();</span>
-        
+
         <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowAny</span><span class="p">.</span><span class="nx">separators</span><span class="p">)</span> <span class="p">{</span>
      	     <span class="nx">sep</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="o">,</span><span class="kc">null</span><span class="o">,</span><span class="p">{</span><span class="nx">margin</span><span class="o">:</span><span class="s2">&quot;3px&quot;</span><span class="p">}</span><span class="o">,</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowAny</span><span class="p">.</span><span class="nx">separators</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
      	     <span class="nx">Dom</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">sep</span><span class="o">,</span> <span class="s2">&quot;float&quot;</span><span class="o">,</span><span class="s2">&quot;left&quot;</span><span class="p">);</span>
      	     <span class="nx">div</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">sep</span><span class="p">);</span>
   	     <span class="p">}</span>
-  	     
+
      	  <span class="nx">div</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">anyField</span><span class="p">.</span><span class="nx">getEl</span><span class="p">());</span>
-     	  
+
         <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowAny</span><span class="p">.</span><span class="nx">separators</span><span class="p">)</span> <span class="p">{</span>
      	     <span class="nx">sep</span> <span class="o">=</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="o">,</span><span class="kc">null</span><span class="o">,</span><span class="p">{</span><span class="nx">margin</span><span class="o">:</span><span class="s2">&quot;3px&quot;</span><span class="p">}</span><span class="o">,</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowAny</span><span class="p">.</span><span class="nx">separators</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
      	     <span class="nx">Dom</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">sep</span><span class="o">,</span> <span class="s2">&quot;float&quot;</span><span class="o">,</span><span class="s2">&quot;left&quot;</span><span class="p">);</span>
      	     <span class="nx">div</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">sep</span><span class="p">);</span>
   	     <span class="p">}</span>
-  	     
+
   	     <span class="k">this</span><span class="p">.</span><span class="nx">fieldContainer</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">div</span> <span class="p">);</span>
      	  <span class="k">this</span><span class="p">.</span><span class="nx">optionEls</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">radioAny</span><span class="p">);</span>
      <span class="p">}</span>
-     
+
 	<span class="p">}</span><span class="o">,</span>
-	   
+
 	<span class="c">/**</span>
 <span class="c">	 * Listen for change events on all radios</span>
 <span class="c">	 */</span>
 	<span class="nx">initEvents</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 	   <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">optionEls</span><span class="o">,</span> <span class="s2">&quot;change&quot;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onChange</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-	   
+
 	   <span class="nx">Event</span><span class="p">.</span><span class="nx">addFocusListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">optionEls</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onFocus</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
 	   <span class="nx">Event</span><span class="p">.</span><span class="nx">addBlurListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">optionEls</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onBlur</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
 
 
 	   <span class="k">if</span><span class="p">(</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ua</span><span class="p">.</span><span class="nx">ie</span> <span class="p">)</span> <span class="p">{</span>
-	      <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">optionEls</span><span class="o">,</span> <span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">later</span><span class="p">(</span><span class="mi">10</span><span class="o">,</span><span class="k">this</span><span class="o">,</span><span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="p">);</span> <span class="p">}</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>	
+	      <span class="nx">Event</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">optionEls</span><span class="o">,</span> <span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">later</span><span class="p">(</span><span class="mi">10</span><span class="o">,</span><span class="k">this</span><span class="o">,</span><span class="k">this</span><span class="p">.</span><span class="nx">fireUpdatedEvt</span><span class="p">);</span> <span class="p">}</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
 	   <span class="p">}</span>
-	   
+
 	   <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">anyField</span><span class="p">)</span>	<span class="p">{</span>
 	      <span class="k">this</span><span class="p">.</span><span class="nx">anyField</span><span class="p">.</span><span class="nx">updatedEvt</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
 	         <span class="nx">inputEx</span><span class="p">.</span><span class="nx">RadioField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">onChange</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">e</span><span class="p">);</span>
 	      <span class="p">}</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
-	      
+
 	      <span class="c">// Update radio field style after editing anyField content !</span>
 	      <span class="nx">Event</span><span class="p">.</span><span class="nx">addBlurListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">anyField</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onBlur</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
 	   <span class="p">}</span>
 	<span class="p">}</span><span class="o">,</span>
-	   
+
 	<span class="c">/**</span>
 <span class="c">	 * Function called when the checkbox is toggled</span>
 <span class="c">	 * @param {Event} e The original &#39;change&#39; event</span>
@@ -209,7 +209,7 @@
 	      <span class="nx">inputEx</span><span class="p">.</span><span class="nx">RadioField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">onChange</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span><span class="nx">e</span><span class="p">);</span>
       <span class="p">}</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Get the field value</span>
 <span class="c">	 * @return {Any} </span>
@@ -226,7 +226,7 @@
 	   <span class="p">}</span>
 	   <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">	 * Set the value of the checkedbox</span>
 <span class="c">	 * @param {Any} value The value schould be one of this.options.values (which defaults to this.options.choices if missing) if allowAny option not true.</span>
@@ -234,7 +234,7 @@
 <span class="c">	 */</span>
 	<span class="nx">setValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">)</span> <span class="p">{</span>
 	   <span class="kd">var</span> <span class="nx">checkAny</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="nx">anyEl</span><span class="o">;</span>
-	   
+
 	   <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">optionEls</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 	      <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">==</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">{</span>
 	         <span class="k">this</span><span class="p">.</span><span class="nx">optionEls</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">checked</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
@@ -242,12 +242,12 @@
          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">optionEls</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">checked</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
          <span class="p">}</span>
-         
+
          <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">radioAny</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">radioAny</span> <span class="o">==</span> <span class="k">this</span><span class="p">.</span><span class="nx">optionEls</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">{</span>
             <span class="nx">anyEl</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">optionEls</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
          <span class="p">}</span>
 	   <span class="p">}</span>
-	   
+
 		<span class="c">// Option allowAny</span>
 		<span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">radioAny</span><span class="p">){</span>
 			<span class="k">if</span><span class="p">(</span><span class="nx">checkAny</span><span class="p">){</span>
@@ -262,7 +262,7 @@
       <span class="c">// call parent class method to set style and fire updatedEvt</span>
       <span class="nx">inputEx</span><span class="p">.</span><span class="nx">StringField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setValue</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">value</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">);</span>
 	<span class="p">}</span><span class="o">,</span>
-	
+
 	<span class="c">/**</span>
 <span class="c">    * Clear the field by setting the field value to this.options.value</span>
 <span class="c">    * @param {boolean} [sendUpdatedEvt] (optional) Wether this clear should fire the updatedEvt or not (default is true, pass false to NOT send the event)</span>
@@ -271,7 +271,7 @@
 		<span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">radioAny</span><span class="p">){</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">anyField</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowAny</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="kc">false</span><span class="p">);</span>
 		<span class="p">}</span>
-		
+
       <span class="nx">inputEx</span><span class="p">.</span><span class="nx">RadioField</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">clear</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">sendUpdatedEvt</span><span class="p">);</span>
    <span class="p">}</span><span class="o">,</span>
 
@@ -279,7 +279,7 @@
 <span class="c">    * Should return true if empty</span>
 <span class="c">    */</span>
    <span class="nx">isEmpty</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-	
+
 	   <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">optionEls</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 	      <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">optionEls</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">checked</span><span class="p">)</span> <span class="p">{</span>
 	         <span class="c">// if &quot;any&quot; option checked</span>
@@ -290,9 +290,9 @@
 				<span class="p">}</span>
 	      <span class="p">}</span>
 	   <span class="p">}</span>
-	
+
 		<span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-		
+
    <span class="p">}</span><span class="o">,</span>
 
 	<span class="nx">validate</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -307,18 +307,18 @@
    	      <span class="p">}</span>
    	   <span class="p">}</span>
 	   <span class="p">}</span>
-	   
+
 	   <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
 	<span class="p">}</span>
-	
-<span class="p">});</span>   
-	
+
+<span class="p">});</span>
+
 <span class="c">// Register this class as &quot;radio&quot; type</span>
 <span class="nx">inputEx</span><span class="p">.</span><span class="nx">registerType</span><span class="p">(</span><span class="s2">&quot;radio&quot;</span><span class="o">,</span> <span class="nx">inputEx</span><span class="p">.</span><span class="nx">RadioField</span><span class="o">,</span> <span class="p">[</span>
    <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;list&#39;</span><span class="o">,</span> <span class="nx">inputParams</span><span class="o">:</span> <span class="p">{</span><span class="kd">label</span><span class="o">:</span> <span class="s1">&#39;Options&#39;</span><span class="o">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;choices&#39;</span><span class="o">,</span> <span class="nx">elementType</span><span class="o">:</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;string&#39;</span><span class="p">}</span> <span class="p">}</span> <span class="p">}</span><span class="o">,</span>
    <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;boolean&#39;</span><span class="o">,</span> <span class="nx">inputParams</span><span class="o">:</span> <span class="p">{</span><span class="kd">label</span><span class="o">:</span> <span class="s1">&#39;Allow custom value&#39;</span><span class="o">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;allowAny&#39;</span><span class="p">}</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="kc">false</span>  <span class="p">}</span>
 <span class="p">]);</span>
-	
+
 <span class="p">})();</span>
 </pre></div>
 
@@ -410,7 +410,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="AutoComplete.js.html" title="AutoComplete.js">AutoComplete.js</a></li>
                                 <li class=""><a href="CheckBox.js.html" title="CheckBox.js">CheckBox.js</a></li>
                                 <li class=""><a href="ColorField.js.html" title="ColorField.js">ColorField.js</a></li>

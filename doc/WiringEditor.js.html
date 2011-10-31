@@ -17,10 +17,10 @@
 	<div id="hd">
         <h1><a href="http://javascript.neyric.com/wireit" title="WireItLibrary">WireItLibrary</a></h1>
         <h3>WireIt&nbsp; <span class="subtitle">0.6.0</span></h3>
-        <a href="./index.html" title="WireItLibrary">WireItLibrary</a> 
+        <a href="./index.html" title="WireItLibrary">WireItLibrary</a>
             &gt; <a href="./module_wireit.html" title="WireIt">WireIt</a>
-                
-                 &gt; WiringEditor.js (source view) 
+
+                 &gt; WiringEditor.js (source view)
         <form onsubmit="return false">
             <div id="propertysearch">
                 Search: <input autocomplete="off" id="searchinput" />
@@ -66,7 +66,7 @@
 <span class="c">	  * @type {Object}</span>
 <span class="c">	  */</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">modulesByName</span> <span class="o">=</span> <span class="p">{};</span>
-	
+
 	<span class="nx">WireIt</span><span class="p">.</span><span class="nx">WiringEditor</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
 
 	 <span class="c">// LoadWirings</span>
@@ -83,9 +83,9 @@
 <span class="c">	  * @param {Object} options</span>
 <span class="c">	  */</span>
 	 <span class="nx">setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-    
+
 		<span class="nx">WireIt</span><span class="p">.</span><span class="nx">WiringEditor</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
-    
+
 	    <span class="c">// Load the modules from options</span>
 	    <span class="k">this</span><span class="p">.</span><span class="nx">modules</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">modules</span> <span class="o">||</span> <span class="p">[];</span>
 	    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -94,22 +94,22 @@
 	    <span class="p">}</span>
 
 		 <span class="k">this</span><span class="p">.</span><span class="nx">adapter</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">adapter</span> <span class="o">||</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">WiringEditor</span><span class="p">.</span><span class="nx">adapters</span><span class="p">.</span><span class="nx">JsonRpc</span><span class="o">;</span>
-     
+
 	    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">languageName</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">languageName</span> <span class="o">||</span> <span class="s1">&#39;anonymousLanguage&#39;</span><span class="o">;</span>
-     
+
 	    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">layerOptions</span> <span class="o">=</span> <span class="p">{};</span>
 	    <span class="kd">var</span> <span class="nx">layerOptions</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">layerOptions</span> <span class="o">||</span> <span class="p">{};</span>
 	    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">layerOptions</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">=</span> <span class="nx">layerOptions</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">?</span> <span class="nx">layerOptions</span><span class="p">.</span><span class="nx">parentEl</span> <span class="o">:</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;center&#39;</span><span class="p">);</span>
 	    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">layerOptions</span><span class="p">.</span><span class="nx">layerMap</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">layerOptions</span><span class="p">.</span><span class="nx">layerMap</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="nx">layerOptions</span><span class="p">.</span><span class="nx">layerMap</span><span class="o">;</span>
 	    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">layerOptions</span><span class="p">.</span><span class="nx">layerMapOptions</span> <span class="o">=</span> <span class="nx">layerOptions</span><span class="p">.</span><span class="nx">layerMapOptions</span> <span class="o">||</span> <span class="p">{</span> <span class="nx">parentEl</span><span class="o">:</span> <span class="s1">&#39;layerMap&#39;</span> <span class="p">};</span>
-										
+
 	 	 <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">modulesAccordionViewParams</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">merge</span><span class="p">({</span>
-														<span class="nx">collapsible</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> 
+														<span class="nx">collapsible</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
 														<span class="nx">expandable</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> <span class="c">// remove this parameter to open only one panel at a time</span>
-														<span class="nx">width</span><span class="o">:</span> <span class="s1">&#39;auto&#39;</span><span class="o">,</span> 
-														<span class="nx">expandItem</span><span class="o">:</span> <span class="mi">0</span><span class="o">,</span> 
-														<span class="nx">animationSpeed</span><span class="o">:</span> <span class="s1">&#39;0.3&#39;</span><span class="o">,</span> 
-														<span class="nx">animate</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> 
+														<span class="nx">width</span><span class="o">:</span> <span class="s1">&#39;auto&#39;</span><span class="o">,</span>
+														<span class="nx">expandItem</span><span class="o">:</span> <span class="mi">0</span><span class="o">,</span>
+														<span class="nx">animationSpeed</span><span class="o">:</span> <span class="s1">&#39;0.3&#39;</span><span class="o">,</span>
+														<span class="nx">animate</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
 														<span class="nx">effect</span><span class="o">:</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Easing</span><span class="p">.</span><span class="nx">easeBothStrong</span>
 													<span class="p">}</span><span class="o">,</span><span class="nx">options</span><span class="p">.</span><span class="nx">modulesAccordionViewParams</span> <span class="o">||</span> <span class="p">{});</span>
 	 <span class="p">}</span><span class="o">,</span>
@@ -120,7 +120,7 @@
   	<span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 
 		 <span class="nx">WireIt</span><span class="p">.</span><span class="nx">WiringEditor</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">render</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-	
+
 	    <span class="c">/**</span>
 <span class="c">	     * @property layer</span>
 <span class="c">	     * @type {WireIt.Layer}</span>
@@ -139,7 +139,7 @@
 <span class="c">	 * render the modules accordion in the left panel</span>
 <span class="c">	 */</span>
 	<span class="nx">renderModulesAccordion</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-		
+
 		<span class="c">// Create the modules accordion DOM if not found</span>
 		<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;modulesAccordionView&#39;</span><span class="p">))</span> <span class="p">{</span>
 			<span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;modulesAccordionView&#39;</span><span class="p">})</span> <span class="p">);</span>
@@ -150,16 +150,16 @@
 			<span class="nx">li</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">d</span><span class="p">);</span>
 			<span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;modulesAccordionView&#39;</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">li</span><span class="p">);</span>
 		<span class="p">}</span>
-		
+
 		<span class="k">this</span><span class="p">.</span><span class="nx">modulesAccordionView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">widget</span><span class="p">.</span><span class="nx">AccordionView</span><span class="p">(</span><span class="s1">&#39;modulesAccordionView&#39;</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">modulesAccordionViewParams</span><span class="p">);</span>
-		
+
 		<span class="c">// Open all panels</span>
 		<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">l</span> <span class="o">=</span> <span class="mi">1</span><span class="o">,</span> <span class="nx">n</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">modulesAccordionView</span><span class="p">.</span><span class="nx">getPanels</span><span class="p">().</span><span class="nx">length</span><span class="o">;</span> <span class="nx">l</span> <span class="o">&lt;</span> <span class="nx">n</span> <span class="o">;</span> <span class="nx">l</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">modulesAccordionView</span><span class="p">.</span><span class="nx">openPanel</span><span class="p">(</span><span class="nx">l</span><span class="p">);</span>
 		<span class="p">}</span>
 	<span class="p">}</span><span class="o">,</span>
-	
- 
+
+
  	<span class="c">/**</span>
 <span class="c">  	 * Build the left menu on the left</span>
 <span class="c">  	 * @method buildModulesList</span>
@@ -182,13 +182,13 @@
 <span class="c">  	 * Add a module definition to the left list</span>
 <span class="c">  	 */</span>
  	<span class="nx">addModuleToList</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">module</span><span class="p">)</span> <span class="p">{</span>
-	
+
 		<span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="o">,</span> <span class="p">{</span><span class="nx">className</span><span class="o">:</span> <span class="s2">&quot;WiringEditor-module&quot;</span><span class="p">});</span>
-		
+
 		<span class="k">if</span><span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">description</span><span class="p">)</span> <span class="p">{</span>
 			<span class="nx">div</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">module</span><span class="p">.</span><span class="nx">description</span><span class="o">;</span>
 		<span class="p">}</span>
-		
+
       <span class="k">if</span><span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">icon</span><span class="p">)</span> <span class="p">{</span>
          <span class="nx">div</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="o">,</span><span class="p">{</span><span class="nx">src</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">icon</span><span class="p">})</span> <span class="p">);</span>
       <span class="p">}</span>
@@ -208,10 +208,10 @@
 			<span class="k">this</span><span class="p">.</span><span class="nx">modulesAccordionView</span><span class="p">.</span><span class="nx">openPanel</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">modulesAccordionView</span><span class="p">.</span><span class="nx">_panels</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 			<span class="nx">el</span> <span class="o">=</span> <span class="nx">Dom</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;module-category-&quot;</span><span class="o">+</span><span class="nx">category</span><span class="p">);</span>
 		<span class="p">}</span>
-		
+
 		<span class="nx">el</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">div</span><span class="p">);</span>
  	<span class="p">}</span><span class="o">,</span>
- 
+
  	<span class="c">/**</span>
 <span class="c">	 * add a module at the given pos</span>
 <span class="c">	 */</span>
@@ -225,23 +225,23 @@
 	   <span class="p">}</span>
 	   <span class="k">catch</span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span>
 	      <span class="k">this</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Error Layer.addContainer: &quot;</span><span class="o">+</span> <span class="nx">ex</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
-	   <span class="p">}</span>    
+	   <span class="p">}</span>
 	<span class="p">}</span><span class="o">,</span>
 
  	<span class="c">/**</span>
 <span class="c">  	 * save the current module</span>
 <span class="c">  	 */</span>
  	<span class="nx">save</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  
+
     	<span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
-    
+
     	<span class="k">if</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
        	<span class="k">this</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Please choose a name&quot;</span><span class="p">);</span>
        	<span class="k">return</span><span class="o">;</span>
     	<span class="p">}</span>
 
 		<span class="k">this</span><span class="p">.</span><span class="nx">tempSavedWiring</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="nx">value</span><span class="p">.</span><span class="nx">name</span><span class="o">,</span> <span class="nx">working</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">working</span><span class="p">)</span><span class="o">,</span> <span class="nx">language</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">languageName</span> <span class="p">};</span>
-                
+
     	<span class="k">this</span><span class="p">.</span><span class="nx">adapter</span><span class="p">.</span><span class="nx">saveWiring</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">tempSavedWiring</span><span class="o">,</span> <span class="p">{</span>
        	<span class="nx">success</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">saveModuleSuccess</span><span class="o">,</span>
        	<span class="nx">failure</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">saveModuleFailure</span><span class="o">,</span>
@@ -267,7 +267,7 @@
 <span class="c">		else {</span>
 <span class="c">			//new one</span>
 <span class="c">		}*/</span>
-	
+
 	 <span class="p">}</span><span class="o">,</span>
 
 	 <span class="c">/**</span>
@@ -283,16 +283,16 @@
 <span class="c">	  * @method onNew</span>
 <span class="c">	  */</span>
 	 <span class="nx">onNew</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-	
+
 		<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isSaved</span><span class="p">())</span> <span class="p">{</span>
 			<span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="nx">confirm</span><span class="p">(</span><span class="s2">&quot;Warning: Your work is not saved yet ! Press ok to continue anyway.&quot;</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
 				<span class="k">return</span><span class="o">;</span>
 			<span class="p">}</span>
 		<span class="p">}</span>
-	
+
 		<span class="k">this</span><span class="p">.</span><span class="nx">preventLayerChangedEvent</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-	
-	   <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span> 
+
+	   <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
 
 	   <span class="k">this</span><span class="p">.</span><span class="nx">propertiesForm</span><span class="p">.</span><span class="nx">clear</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span> <span class="c">// false to tell inputEx to NOT send the updatedEvt</span>
 
@@ -306,7 +306,7 @@
 <span class="c">	  */</span>
 	 <span class="nx">onDelete</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 	    <span class="k">if</span><span class="p">(</span> <span class="nx">confirm</span><span class="p">(</span><span class="s2">&quot;Are you sure you want to delete this wiring ?&quot;</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
-       
+
 	      <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
 	 		<span class="k">this</span><span class="p">.</span><span class="nx">adapter</span><span class="p">.</span><span class="nx">deleteWiring</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span> <span class="nx">value</span><span class="p">.</span><span class="nx">name</span><span class="o">,</span> <span class="nx">language</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">languageName</span><span class="p">}</span><span class="o">,</span><span class="p">{</span>
 	 			<span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
@@ -318,7 +318,7 @@
 				<span class="p">}</span><span class="o">,</span>
 				<span class="nx">scope</span><span class="o">:</span> <span class="k">this</span>
 	 		<span class="p">});</span>
-       
+
 	    <span class="p">}</span>
 	 <span class="p">}</span><span class="o">,</span>
 
@@ -366,7 +366,7 @@
 <span class="c">	  * @method updateLoadPanelList</span>
 <span class="c">	  */</span>
 	 <span class="nx">updateLoadPanelList</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filter</span><span class="p">)</span> <span class="p">{</span>
-	
+
 	    <span class="kd">var</span> <span class="nx">list</span> <span class="o">=</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">cn</span><span class="p">(</span><span class="s2">&quot;ul&quot;</span><span class="p">);</span>
 	    <span class="k">if</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">pipes</span><span class="p">))</span> <span class="p">{</span>
 	       <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">pipes</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -391,7 +391,7 @@
 <span class="c">	  * @method load</span>
 <span class="c">	  */</span>
 	 <span class="nx">load</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    
+
 	    <span class="k">this</span><span class="p">.</span><span class="nx">adapter</span><span class="p">.</span><span class="nx">listWirings</span><span class="p">({</span><span class="nx">language</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">languageName</span><span class="p">}</span><span class="o">,</span><span class="p">{</span>
 				<span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
 					<span class="k">this</span><span class="p">.</span><span class="nx">onLoadSuccess</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
@@ -411,7 +411,7 @@
 	 <span class="nx">onLoadSuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">wirings</span><span class="p">)</span> <span class="p">{</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">pipes</span> <span class="o">=</span> <span class="nx">wirings</span><span class="o">;</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">pipesByName</span> <span class="o">=</span> <span class="p">{};</span>
-		
+
 			<span class="k">this</span><span class="p">.</span><span class="nx">renderLoadPanel</span><span class="p">();</span>
 	    	<span class="k">this</span><span class="p">.</span><span class="nx">updateLoadPanelList</span><span class="p">();</span>
 
@@ -452,48 +452,48 @@
 	          <span class="p">}</span>
 	       <span class="p">}</span>
 	    <span class="p">}</span>
-    
+
 	    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
 	 <span class="p">}</span><span class="o">,</span>
- 
+
 	 <span class="c">/**</span>
 <span class="c">	  * @method loadPipe</span>
 <span class="c">	  * @param {String} name Pipe name</span>
 <span class="c">	  */</span>
 	 <span class="nx">loadPipe</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-	
+
 		<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isSaved</span><span class="p">())</span> <span class="p">{</span>
 			<span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="nx">confirm</span><span class="p">(</span><span class="s2">&quot;Warning: Your work is not saved yet ! Press ok to continue anyway.&quot;</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
 				<span class="k">return</span><span class="o">;</span>
 			<span class="p">}</span>
 		<span class="p">}</span>
-	
+
 		<span class="k">try</span> <span class="p">{</span>
-	
+
 			<span class="k">this</span><span class="p">.</span><span class="nx">preventLayerChangedEvent</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-	
+
 	     <span class="k">this</span><span class="p">.</span><span class="nx">loadPanel</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
-	
+
 	    <span class="kd">var</span> <span class="nx">wiring</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getPipeByName</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="o">,</span> <span class="nx">i</span><span class="o">;</span>
 
 		 <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">wiring</span><span class="p">)</span> <span class="p">{</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;The wiring &#39;&quot;</span><span class="o">+</span><span class="nx">name</span><span class="o">+</span><span class="s2">&quot;&#39; was not found.&quot;</span><span class="p">);</span>
 			<span class="k">return</span><span class="o">;</span>
 	  	 <span class="p">}</span>
-    
+
 	    <span class="c">// TODO: check if current wiring is saved...</span>
 	    <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
-    
+
 	    <span class="k">this</span><span class="p">.</span><span class="nx">propertiesForm</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">wiring</span><span class="p">.</span><span class="nx">properties</span><span class="o">,</span> <span class="kc">false</span><span class="p">);</span> <span class="c">// the false tells inputEx to NOT fire the updatedEvt</span>
-    
+
 	    <span class="k">if</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">wiring</span><span class="p">.</span><span class="nx">modules</span><span class="p">))</span> <span class="p">{</span>
-      
+
 	       <span class="c">// Containers</span>
 	       <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">wiring</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 	          <span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="nx">wiring</span><span class="p">.</span><span class="nx">modules</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
 	          <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">modulesByName</span><span class="p">[</span><span class="nx">m</span><span class="p">.</span><span class="nx">name</span><span class="p">])</span> <span class="p">{</span>
 	             <span class="kd">var</span> <span class="nx">baseContainerConfig</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">modulesByName</span><span class="p">[</span><span class="nx">m</span><span class="p">.</span><span class="nx">name</span><span class="p">].</span><span class="nx">container</span><span class="o">;</span>
-	             <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">augmentObject</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">config</span><span class="o">,</span> <span class="nx">baseContainerConfig</span><span class="p">);</span> 
+	             <span class="nx">YAHOO</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">augmentObject</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">config</span><span class="o">,</span> <span class="nx">baseContainerConfig</span><span class="p">);</span>
 	             <span class="nx">m</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">name</span><span class="o">;</span>
 	             <span class="kd">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">addContainer</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">config</span><span class="p">);</span>
 	             <span class="nx">Dom</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">el</span><span class="o">,</span> <span class="s2">&quot;WiringEditor-module-&quot;</span><span class="o">+</span><span class="nx">m</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
@@ -503,7 +503,7 @@
 	             <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;WiringEditor: module &#39;&quot;</span><span class="o">+</span><span class="nx">m</span><span class="p">.</span><span class="nx">name</span><span class="o">+</span><span class="s2">&quot;&#39; not found !&quot;</span><span class="p">);</span>
 	          <span class="p">}</span>
 	       <span class="p">}</span>
-       
+
 	       <span class="c">// Wires</span>
 	       <span class="k">if</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">wiring</span><span class="p">.</span><span class="nx">wires</span><span class="p">))</span> <span class="p">{</span>
 	           <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">wiring</span><span class="p">.</span><span class="nx">wires</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -512,11 +512,11 @@
 	           <span class="p">}</span>
 	        <span class="p">}</span>
 	     <span class="p">}</span>
-     
+
 		<span class="k">this</span><span class="p">.</span><span class="nx">markSaved</span><span class="p">();</span>
-	
+
 		<span class="k">this</span><span class="p">.</span><span class="nx">preventLayerChangedEvent</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-	
+
 	  	<span class="p">}</span>
 	  	<span class="k">catch</span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span>
 	     	<span class="k">this</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="nx">ex</span><span class="p">);</span>
@@ -530,13 +530,13 @@
 		<span class="p">}</span>
 	<span class="p">}</span><span class="o">,</span>
 
- 
+
  <span class="c">/**</span>
 <span class="c">  * This method return a wiring within the given vocabulary described by the modules list</span>
 <span class="c">  * @method getValue</span>
 <span class="c">  */</span>
  <span class="nx">getValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    
+
    <span class="kd">var</span> <span class="nx">i</span><span class="o">;</span>
    <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">modules</span><span class="o">:</span> <span class="p">[]</span><span class="o">,</span> <span class="nx">wires</span><span class="o">:</span> <span class="p">[]</span><span class="o">,</span> <span class="nx">properties</span><span class="o">:</span> <span class="kc">null</span><span class="p">};</span>
 
@@ -547,15 +547,15 @@
    <span class="k">for</span><span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">wires</span><span class="p">.</span><span class="nx">length</span> <span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">wire</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">wires</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
 
-      <span class="kd">var</span> <span class="nx">wireObj</span> <span class="o">=</span> <span class="p">{</span> 
-         <span class="nx">src</span><span class="o">:</span> <span class="p">{</span><span class="nx">moduleId</span><span class="o">:</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">wire</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">container</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">containers</span><span class="p">)</span><span class="o">,</span> <span class="nx">terminal</span><span class="o">:</span> <span class="nx">wire</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">,</span> 
+      <span class="kd">var</span> <span class="nx">wireObj</span> <span class="o">=</span> <span class="p">{</span>
+         <span class="nx">src</span><span class="o">:</span> <span class="p">{</span><span class="nx">moduleId</span><span class="o">:</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">wire</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">container</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">containers</span><span class="p">)</span><span class="o">,</span> <span class="nx">terminal</span><span class="o">:</span> <span class="nx">wire</span><span class="p">.</span><span class="nx">terminal1</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">,</span>
          <span class="nx">tgt</span><span class="o">:</span> <span class="p">{</span><span class="nx">moduleId</span><span class="o">:</span> <span class="nx">WireIt</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">wire</span><span class="p">.</span><span class="nx">terminal2</span><span class="p">.</span><span class="nx">container</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">containers</span><span class="p">)</span><span class="o">,</span> <span class="nx">terminal</span><span class="o">:</span> <span class="nx">wire</span><span class="p">.</span><span class="nx">terminal2</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span>
       <span class="p">};</span>
       <span class="nx">obj</span><span class="p">.</span><span class="nx">wires</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">wireObj</span><span class="p">);</span>
    <span class="p">}</span>
-   
+
    <span class="nx">obj</span><span class="p">.</span><span class="nx">properties</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">propertiesForm</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
-    
+
    <span class="k">return</span> <span class="p">{</span>
       <span class="nx">name</span><span class="o">:</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">name</span><span class="o">,</span>
       <span class="nx">working</span><span class="o">:</span> <span class="nx">obj</span>
@@ -622,7 +622,7 @@
 
                     <div id="fileList" class="module">
                         <h4>Files</h4>
-                        <ul class="content">        
+                        <ul class="content">
                                 <li class=""><a href="ajax.js.html" title="ajax.js">ajax.js</a></li>
                                 <li class=""><a href="Anim.js.html" title="Anim.js">Anim.js</a></li>
                                 <li class=""><a href="BaseEditor.js.html" title="BaseEditor.js">BaseEditor.js</a></li>

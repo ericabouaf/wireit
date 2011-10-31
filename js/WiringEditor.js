@@ -3,7 +3,7 @@
     var Event = util.Event, Dom = util.Dom, Connect = util.Connect,JSON = lang.JSON,widget = YAHOO.widget;
 
 /**
- * The WiringEditor class provides a full page interface 
+ * The WiringEditor class provides a full page interface
  * @class WiringEditor
  * @extends WireIt.BaseEditor
  * @constructor
@@ -17,7 +17,7 @@ WireIt.WiringEditor = function(options) {
 	  * @type {Object}
 	  */
    this.modulesByName = {};
-	
+
 	WireIt.WiringEditor.superclass.constructor.call(this, options);
 
 	 // LoadWirings
@@ -34,9 +34,9 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	  * @param {Object} options
 	  */
 	 setOptions: function(options) {
-    
+
 		WireIt.WiringEditor.superclass.setOptions.call(this, options);
-    
+
 	    // Load the modules from options
 	    this.modules = options.modules || [];
 	    for(var i = 0 ; i < this.modules.length ; i++) {
@@ -45,22 +45,22 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	    }
 
 		 this.adapter = options.adapter || WireIt.WiringEditor.adapters.JsonRpc;
-     
+
 	    this.options.languageName = options.languageName || 'anonymousLanguage';
-     
+
 	    this.options.layerOptions = {};
 	    var layerOptions = options.layerOptions || {};
 	    this.options.layerOptions.parentEl = layerOptions.parentEl ? layerOptions.parentEl : Dom.get('center');
 	    this.options.layerOptions.layerMap = YAHOO.lang.isUndefined(layerOptions.layerMap) ? true : layerOptions.layerMap;
 	    this.options.layerOptions.layerMapOptions = layerOptions.layerMapOptions || { parentEl: 'layerMap' };
-										
+
 	 	 this.options.modulesAccordionViewParams = YAHOO.lang.merge({
-														collapsible: true, 
+														collapsible: true,
 														expandable: true, // remove this parameter to open only one panel at a time
-														width: 'auto', 
-														expandItem: 0, 
-														animationSpeed: '0.3', 
-														animate: true, 
+														width: 'auto',
+														expandItem: 0,
+														animationSpeed: '0.3',
+														animate: true,
 														effect: YAHOO.util.Easing.easeBothStrong
 													},options.modulesAccordionViewParams || {});
 	 },
@@ -71,7 +71,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
   	render: function() {
 
 		 WireIt.WiringEditor.superclass.render.call(this);
-	
+
 	    /**
 	     * @property layer
 	     * @type {WireIt.Layer}
@@ -90,7 +90,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	 * render the modules accordion in the left panel
 	 */
 	renderModulesAccordion: function() {
-		
+
 		// Create the modules accordion DOM if not found
 		if(!Dom.get('modulesAccordionView')) {
 			Dom.get('left').appendChild( WireIt.cn('ul', {id: 'modulesAccordionView'}) );
@@ -101,16 +101,16 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 			li.appendChild(d);
 			Dom.get('modulesAccordionView').appendChild(li);
 		}
-		
+
 		this.modulesAccordionView = new YAHOO.widget.AccordionView('modulesAccordionView', this.options.modulesAccordionViewParams);
-		
+
 		// Open all panels
 		for(var l = 1, n = this.modulesAccordionView.getPanels().length; l < n ; l++) {
 			this.modulesAccordionView.openPanel(l);
 		}
 	},
-	
- 
+
+
  	/**
   	 * Build the left menu on the left
   	 * @method buildModulesList
@@ -133,13 +133,13 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
   	 * Add a module definition to the left list
   	 */
  	addModuleToList: function(module) {
-	
+
 		var div = WireIt.cn('div', {className: "WiringEditor-module"});
-		
+
 		if(module.description) {
 			div.title = module.description;
 		}
-		
+
       if(module.container.icon) {
          div.appendChild( WireIt.cn('img',{src: module.container.icon}) );
       }
@@ -159,10 +159,10 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 			this.modulesAccordionView.openPanel(this.modulesAccordionView._panels.length-1);
 			el = Dom.get("module-category-"+category);
 		}
-		
+
 		el.appendChild(div);
  	},
- 
+
  	/**
 	 * add a module at the given pos
 	 */
@@ -176,23 +176,23 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	   }
 	   catch(ex) {
 	      this.alert("Error Layer.addContainer: "+ ex.message);
-	   }    
+	   }
 	},
 
  	/**
   	 * save the current module
   	 */
  	save: function() {
-  
+
     	var value = this.getValue();
-    
+
     	if(value.name === "") {
        	this.alert("Please choose a name");
        	return;
     	}
 
 		this.tempSavedWiring = {name: value.name, working: JSON.stringify(value.working), language: this.options.languageName };
-                
+
     	this.adapter.saveWiring(this.tempSavedWiring, {
        	success: this.saveModuleSuccess,
        	failure: this.saveModuleFailure,
@@ -211,14 +211,14 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	   this.alert("Saved !");
 
 		// TODO:
-		/*var name = this.tempSavedWiring.name;	
+		/*var name = this.tempSavedWiring.name;
 		if(this.modulesByName.hasOwnProperty(name) ) {
 			//already exists
 		}
 		else {
 			//new one
 		}*/
-	
+
 	 },
 
 	 /**
@@ -234,16 +234,16 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	  * @method onNew
 	  */
 	 onNew: function() {
-	
+
 		if(!this.isSaved()) {
 			if( !confirm("Warning: Your work is not saved yet ! Press ok to continue anyway.") ) {
 				return;
 			}
 		}
-	
+
 		this.preventLayerChangedEvent = true;
-	
-	   this.layer.clear(); 
+
+	   this.layer.clear();
 
 	   this.propertiesForm.clear(false); // false to tell inputEx to NOT send the updatedEvt
 
@@ -257,7 +257,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	  */
 	 onDelete: function() {
 	    if( confirm("Are you sure you want to delete this wiring ?") ) {
-       
+
 	      var value = this.getValue();
 	 		this.adapter.deleteWiring({name: value.name, language: this.options.languageName},{
 	 			success: function(result) {
@@ -269,7 +269,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 				},
 				scope: this
 	 		});
-       
+
 	    }
 	 },
 
@@ -317,7 +317,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	  * @method updateLoadPanelList
 	  */
 	 updateLoadPanelList: function(filter) {
-	
+
 	    var list = WireIt.cn("ul");
 	    if(lang.isArray(this.pipes)) {
 	       for(var i = 0 ; i < this.pipes.length ; i++) {
@@ -329,7 +329,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	       }
 	    }
 	    var panelBody = Dom.get('loadPanelBody');
-	
+
 		 // Purge element (remove listeners on panelBody and childNodes recursively)
 	    YAHOO.util.Event.purgeElement(panelBody, true);
 
@@ -346,7 +346,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	  * @method load
 	  */
 	 load: function() {
-    
+
 	    this.adapter.listWirings({language: this.options.languageName},{
 				success: function(result) {
 					this.onLoadSuccess(result);
@@ -366,7 +366,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	 onLoadSuccess: function(wirings) {
 			this.pipes = wirings;
 			this.pipesByName = {};
-		
+
 			this.renderLoadPanel();
 	    	this.updateLoadPanelList();
 
@@ -407,48 +407,48 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	          }
 	       }
 	    }
-    
+
 	    return null;
 	 },
- 
+
 	 /**
 	  * @method loadPipe
 	  * @param {String} name Pipe name
 	  */
 	 loadPipe: function(name) {
-	
+
 		if(!this.isSaved()) {
 			if( !confirm("Warning: Your work is not saved yet ! Press ok to continue anyway.") ) {
 				return;
 			}
 		}
-	
+
 		try {
-	
+
 			this.preventLayerChangedEvent = true;
-	
+
 	     this.loadPanel.hide();
-	
+
 	    var wiring = this.getPipeByName(name), i;
 
 		 if(!wiring) {
 			this.alert("The wiring '"+name+"' was not found.");
 			return;
 	  	 }
-    
+
 	    // TODO: check if current wiring is saved...
 	    this.layer.clear();
-    
+
 	    this.propertiesForm.setValue(wiring.properties, false); // the false tells inputEx to NOT fire the updatedEvt
-    
+
 	    if(lang.isArray(wiring.modules)) {
-      
+
 	       // Containers
 	       for(i = 0 ; i < wiring.modules.length ; i++) {
 	          var m = wiring.modules[i];
 	          if(this.modulesByName[m.name]) {
 	             var baseContainerConfig = this.modulesByName[m.name].container;
-	             YAHOO.lang.augmentObject(m.config, baseContainerConfig); 
+	             YAHOO.lang.augmentObject(m.config, baseContainerConfig);
 	             m.config.title = m.name;
 	             var container = this.layer.addContainer(m.config);
 	             Dom.addClass(container.el, "WiringEditor-module-"+m.name);
@@ -458,7 +458,7 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	             throw new Error("WiringEditor: module '"+m.name+"' not found !");
 	          }
 	       }
-       
+
 	       // Wires
 	       if(lang.isArray(wiring.wires)) {
 	           for(i = 0 ; i < wiring.wires.length ; i++) {
@@ -467,11 +467,11 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 	           }
 	        }
 	     }
-     
+
 		this.markSaved();
-	
+
 		this.preventLayerChangedEvent = false;
-	
+
 	  	}
 	  	catch(ex) {
 	     	this.alert(ex);
@@ -485,13 +485,13 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
 		}
 	},
 
- 
+
  /**
   * This method return a wiring within the given vocabulary described by the modules list
   * @method getValue
   */
  getValue: function() {
-    
+
    var i;
    var obj = {modules: [], wires: [], properties: null};
 
@@ -502,15 +502,15 @@ lang.extend(WireIt.WiringEditor, WireIt.BaseEditor, {
    for( i = 0 ; i < this.layer.wires.length ; i++) {
       var wire = this.layer.wires[i];
 
-      var wireObj = { 
-         src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.layer.containers), terminal: wire.terminal1.options.name}, 
+      var wireObj = {
+         src: {moduleId: WireIt.indexOf(wire.terminal1.container, this.layer.containers), terminal: wire.terminal1.options.name},
          tgt: {moduleId: WireIt.indexOf(wire.terminal2.container, this.layer.containers), terminal: wire.terminal2.options.name}
       };
       obj.wires.push(wireObj);
    }
-   
+
    obj.properties = this.propertiesForm.getValue();
-    
+
    return {
       name: obj.properties.name,
       working: obj

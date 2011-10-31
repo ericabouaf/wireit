@@ -6,33 +6,33 @@
  * @param {Object} wiringConfig The wiring config
  */
 var ExecutionFrame = function(wiringConfig, frameLevel, parentFrame, parentIndex) {
-   
+
    // save the initial config
    this.wiringConfig = wiringConfig;
-   
+
    // save the parent frame
    this.frameLevel = frameLevel || 0;
    this.parentFrame = parentFrame;
    this.parentIndex = parentIndex;
-   
+
    // Will contains the execution values (this.execValues[module][outputName] = the value)
    this.execValues = {};
-   
+
 };
 
 ExecutionFrame.prototype = {
-   
+
    /**
     * @method run
     * @param {Object} params The input parameters
     */
    run: function(params) {
-      
+
       //console.log("running frame "+this.wiringConfig.name, " with params ", params);
-      
+
       var modules = this.wiringConfig.working.modules,
           i;
-      
+
       try {
 
          var moduleIdsToExecute = [];
@@ -54,11 +54,11 @@ ExecutionFrame.prototype = {
       catch(ex) {
          console.log("Error while running: ", ex);
       }
-      
-      
+
+
    },
-   
-   
+
+
    mayEval: function(moduleId) {
       var t = this.wiringConfig.working.modules[moduleId].name;
 
@@ -84,18 +84,18 @@ ExecutionFrame.prototype = {
                }
             }
          }
-         
+
          return true;
       }
-      
+
    },
-   
-   
+
+
    executeModules: function(moduleId, srcTerminal) {
-      
+
          //console.log("executeModules", moduleId, srcTerminal);
          var params = this.execValues[moduleId][srcTerminal];
-      
+
       // Execute the modules linked to the callbackFunction
       var i, wires = this.wiringConfig.working.wires;
       for(i = 0 ; i < wires.length ; i++)  {
@@ -106,25 +106,25 @@ ExecutionFrame.prototype = {
             }
          }
       }
-      
-      
+
+
    },
-   
-   
+
+
    execute: function(moduleId,params) {
-      
+
       try {
-         
-      
+
+
       var module = this.wiringConfig.working.modules[moduleId];
       var t = module.name;
-      
+
       //console.log("execute", module);
 
       if(t == "input") {
-         
+
          var inputName = module.value.input.inputParams.name;
-         
+
          // "execution"
          var value = (!!params && typeof params[inputName] != "undefined") ? params[inputName] : module.value.input.inputParams.value;
 
@@ -134,10 +134,10 @@ ExecutionFrame.prototype = {
          };
 
          this.executeModules(moduleId, "out");
-         
+
       }
       else if(t == "callback") {
-         
+
          // "execution"
          var that = this;
          // TODO: do the slice thing for parameters
@@ -147,7 +147,7 @@ ExecutionFrame.prototype = {
             that.execValues[moduleId] = {
                output: [a,b,c,d,e,f,g,h]
             };
-            
+
             that.executeModules(moduleId, "output");
          };
 
@@ -155,22 +155,22 @@ ExecutionFrame.prototype = {
          this.execValues[moduleId] = {
             callbackFunction: value
          };
-         
-         
+
+
          this.executeModules(moduleId, "callbackFunction");
-         
+
       }
       else if(t == "jsBox") {
-         
+
          //console.log("execute jsbox ", module.config.codeText);
-         
+
          // build the params list
          var params = [];
          var wires = this.wiringConfig.working.wires;
          for(var i = 0 ; i < wires.length ; i++) {
             var wire = wires[i];
             if(wire.tgt.moduleId == moduleId) {
-               var paramId = parseInt(wire.tgt.terminal.substr(5,wire.tgt.terminal.length-5)); 
+               var paramId = parseInt(wire.tgt.terminal.substr(5,wire.tgt.terminal.length-5));
                var paramValue = this.execValues[wire.src.moduleId][wire.src.terminal];
                params[paramId] = paramValue;
             }
@@ -186,26 +186,26 @@ ExecutionFrame.prototype = {
             out: evalResult
          };
 
-         
+
          this.executeModules(moduleId, "out");
-         
+
       }
       else if(t == "output") {
          if(!this.parentFrame) return;
-         
+
          var outputName = module.value.name;
-         
+
          if(typeof params == "undefined") {
             throw new Error("Undefined output '"+outputName+"' at frame "+this.wiringConfig.name+" (lvl: "+this.frameLevel+")");
-         }         
-         
+         }
+
          // store the value in the parentFrame !
          if(!this.parentFrame.execValues[this.parentIndex]) {
             this.parentFrame.execValues[this.parentIndex] = {};
          }
          this.parentFrame.execValues[this.parentIndex][outputName] = params;
          //console.log("setting output value : ", outputName, " to ", params);
-         
+
          this.parentFrame.executeModules(this.parentIndex, outputName);
       }
       else {
@@ -216,7 +216,7 @@ ExecutionFrame.prototype = {
             working: YAHOO.lang.JSON.parse(wiringText)
          };
          var f = new ExecutionFrame(wiringConfig, this.frameLevel+1, this, moduleId);
-         
+
          // build the params list
          var params = {};
          // Copy the default parameters value
@@ -237,12 +237,12 @@ ExecutionFrame.prototype = {
          }
          f.run(params);
       }
-      
+
       }
       catch(ex){
          console.log("error while executing module", module, ex);
       }
-      
+
    }
-   
+
 };
