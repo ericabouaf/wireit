@@ -3,23 +3,15 @@
  <head>
   <title>WireIt: Label containers</title>
   
-<!-- YUI CSS -->
-<link rel="stylesheet" type="text/css" href="../lib/yui/reset-fonts/reset-fonts.css" /> 
-
-<!-- WireIt CSS -->
-<link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
-
 <!-- YUI -->
-<script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
+<link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.4.1/build/cssreset/reset-min.css&3.4.1/build/cssfonts/fonts-min.css">
+<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
 
 <script type="text/javascript" src="../lib/excanvas.js"></script>
 
 <!-- WireIt -->
-<script type="text/javascript" src="../build/wireit-inputex-min.js"></script>
-
-<script type="text/javascript" src="../js/RectLabelContainer.js"></script>
-<script type="text/javascript" src="../js/CanvasContainer.js"></script>
-<script type="text/javascript" src="../js/EllipseLabelContainer.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
+<script src="../src/loader.js"  type='text/javascript'></script>
 
 
 
@@ -85,10 +77,11 @@ div.WireIt-RectLabelContainer:hover div.WireIt-Container-resizehandle {
 
 	var demoLayer;
 
-	YAHOO.util.Event.addListener(window, 'load', function() {
+  YUI_config.groups.wireit.base = '../src/';
+  YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
 		
 		// Layer Demo
-	  demoLayer = new WireIt.Layer({layerMap: false});
+	  demoLayer = new Y.WireIt.Layer({layerMap: false});
 		
 		// You can use a global setWiring method	
 		demoLayer.setWiring({
@@ -97,7 +90,7 @@ div.WireIt-RectLabelContainer:hover div.WireIt-Container-resizehandle {
 			  // ImageContainer
 				{
 					position:[150,100],
-					"xtype":"WireIt.EllipseLabelContainer", 
+					"xtype":"Y.WireIt.EllipseLabelContainer", 
 					label: "http://neyric.github.com/wireit",
 					width: 250,
 	 				"terminals": [
@@ -109,7 +102,7 @@ div.WireIt-RectLabelContainer:hover div.WireIt-Container-resizehandle {
 				// ImageContainer
 				{
 					position:[300,300],
-					"xtype":"WireIt.RectLabelContainer", 
+					"xtype":"Y.WireIt.RectLabelContainer", 
 					label: "Eric Abouaf",
  					"terminals": [
 							{"name": "in", direction: [0,-1], offsetPosition: {top: -15, left: 90} }
@@ -133,7 +126,7 @@ div.WireIt-RectLabelContainer:hover div.WireIt-Container-resizehandle {
 					labelStyle: { fontSize: "150%"},
 					labelEditor: {type: 'select', choices: ['dc:title', 'dc:author'] },
 					
-					xtype: "WireIt.BezierArrowWire"
+					xtype: "Y.WireIt.BezierArrowWire"
 				}
 			]
 			

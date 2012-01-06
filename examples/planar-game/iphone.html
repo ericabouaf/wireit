@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wire test</title>
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"> 
+  <meta name="apple-touch-fullscreen" content="yes"> 
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
+<script type="text/javascript" src="../../../build/wireit-loader/wireit-loader.js"></script>
+<style>
+.demo {
+    height: 30px;
+    width: 30px;
+    border: 1px solid black;
+    background-color: #8DD5E7;
+    cursor: move;
+}
+</style>
+</head>
+
+<body>
+  
+<div style="position: relative;" id="layer"></div>
+
+<script>
+// Create new YUI instance, and populate it with the required modules
+YUI({debug: true, rollups: false}).use( "wireit", function(Y) {
+  window.Y = Y;
+
+  var layerEl =  Y.one('#layer');
+  
+  var t1 = new Y.Terminal({
+  });
+  t1.render(layerEl);
+  t1.set('xy',[280,250]);
+  
+  var t2 = new Y.Terminal({
+  });
+  t2.render(layerEl);
+  t2.set('xy',[90,120]);
+  
+  var t3 = new Y.Terminal({});
+  t3.render(layerEl);
+  t3.set('xy',[280,100]);
+  
+  var t4 = new Y.Terminal({});
+  t4.render(layerEl);
+  t4.set('xy',[380,200]);
+  
+    w1 = new Y.Wire({src: t2,tgt: t3});
+    w1.render(layerEl);
+    w1._drawWire();
+    //console.log(w1.getAttrs());
+  
+});
+</script>
+
+</body>
+</html>

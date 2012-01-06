@@ -3,16 +3,16 @@
  <head>
   <title>WireIt Example, handle wire events</title>
   
-<!-- Libs -->
-<link rel="stylesheet" type="text/css" href="../lib/yui/reset-fonts/reset-fonts.css" /> 
-<link rel="stylesheet" type="text/css" href="../lib/yui/container/assets/container.css"> 
-<script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
-<script type="text/javascript" src="../lib/yui/container/container-min.js"></script> 
+  
+<!-- YUI -->
+<link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.4.1/build/cssreset/reset-min.css&3.4.1/build/cssfonts/fonts-min.css">
+<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
+
 <script type="text/javascript" src="../lib/excanvas.js"></script>
 
 <!-- WireIt -->
-<script type="text/javascript" src="../build/wireit-min.js"></script>
 <link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
+<script src="../src/loader.js"  type='text/javascript'></script>
 
 
 <style>
@@ -29,37 +29,38 @@ div.wireInfos {
 
 <script>
 
-window.onload = function() {
+YUI_config.groups.wireit.base = '../src/';
+YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', 'wireit-layer', function(Y) {
+
 	
-	
-	var layer = new WireIt.Layer({});
+	var layer = new Y.WireIt.Layer({});
 	
 	
 	// The wire tooltip
-	var wireInfos = WireIt.cn('div', {className: 'wireInfos'}, {display: 'none'}, "<div id='wireTooltip'></div>");
+	var wireInfos = Y.WireIt.cn('div', {className: 'wireInfos'}, {display: 'none'}, "<div id='wireTooltip'></div>");
 	layer.el.appendChild(wireInfos);
 	// method to close the tooltip
 	var closeWireInfos = function(e) {
-		YAHOO.util.Event.stopEvent(e); 
+		e.stop(); 
 		wireInfos.style.display = "none";
 	};
 	// close button
-	var wireClose = WireIt.cn('div', {className: "WireIt-Container-closebutton"});
+	var wireClose = Y.WireIt.cn('div', {className: "WireIt-Container-closebutton"});
 	wireInfos.appendChild(wireClose);
-	YAHOO.util.Event.addListener(wireClose, 'click', closeWireInfos);
+	Y.one(wireClose).on('click', closeWireInfos);
 	
 	// Generate the tooltip contents
-	YAHOO.util.Event.onAvailable('wireTooltip', function() {
-		var el = YAHOO.util.Dom.get('wireTooltip');
+	Y.Event.onAvailable('wireTooltip', function() {
+		var el = Y.one('#wireTooltip');
 		el.innerHTML = "Wires properties :<br />name <input type='text'/><br />";
 		
-		var okButton = WireIt.cn('button', null, null, 'Ok');
+		var okButton = Y.WireIt.cn('button', null, null, 'Ok');
 		el.appendChild(okButton);
-		YAHOO.util.Event.addListener(okButton, 'click', closeWireInfos);
+		Y.one(okButton).on('click', closeWireInfos);
 		
-		var cancelLink = WireIt.cn('a', {href: "#"}, null, 'cancel');
+		var cancelLink = Y.WireIt.cn('a', {href: "#"}, null, 'cancel');
 		el.appendChild(cancelLink);
-		YAHOO.util.Event.addListener(cancelLink, 'click', closeWireInfos);
+		Y.one(cancelLink).on('click', closeWireInfos);
 	});
 	
 	
@@ -100,12 +101,12 @@ window.onload = function() {
 		});
 
 		// Subscribe to the wire events
-		w.eventMouseIn.subscribe(wireRed, w, true);
-		w.eventMouseOut.subscribe(wireBlue, w, true);
-		w.eventMouseClick.subscribe(wireClick, w, true);
+		w.on('eventMouseIn', wireRed, w, true);
+		w.on('eventMouseOut', wireBlue, w, true);
+		w.on('eventMouseClick', wireClick, w, true);
 	}
 	
-};
+});
 
 
 </script>

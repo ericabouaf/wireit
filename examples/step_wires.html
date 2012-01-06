@@ -3,14 +3,18 @@
  <head>
   <title>WireIt Example, Creating Terminals and Wires.</title>
   
+  
 <!-- YUI -->
-<link rel="stylesheet" type="text/css" href="../lib/yui/reset-fonts/reset-fonts.css" />
-<script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
+<link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.4.1/build/cssreset/reset-min.css&3.4.1/build/cssfonts/fonts-min.css">
+<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
+
 <script type="text/javascript" src="../lib/excanvas.js"></script>
 
 <!-- WireIt -->
-<script type="text/javascript" src="../build/wireit-min.js"></script>
 <link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
+<script src="../src/loader.js"  type='text/javascript'></script>
+
+
 
 <style>
 div.blockBox {
@@ -39,20 +43,20 @@ div.WireIt-Terminal {
 </style>
 <script>
 
-WireIt.defaultWireClass = "WireIt.StepWire";
+Y.WireIt.defaultWireClass = "WireIt.StepWire";
 
 window.onload = function() {
 	
-	var bl = YAHOO.util.Dom.get('blockLeft');
-	var br = YAHOO.util.Dom.get('blockRight');
-	var bt = YAHOO.util.Dom.get('blockTop');
-	var bb = YAHOO.util.Dom.get('blockBottom');
+	var bl = Y.one('#blockLeft');
+	var br = Y.one('#blockRight');
+	var bt = Y.one('#blockTop');
+	var bb = Y.one('#blockBottom');
 	
 	for( var i = 0 ; i < 7 ; i++) {
-		new WireIt.Terminal(bl, {direction: [1,0], offsetPosition:[0,i*50] });
-		new WireIt.Terminal(br, {direction: [-1,0], offsetPosition:[0,i*50] });
-		new WireIt.Terminal(bt, {direction: [0,1], offsetPosition:[i*50,0] });
-		new WireIt.Terminal(bb, {direction: [0,-1], offsetPosition:[i*50,0] });
+		new Y.WireIt.Terminal(bl, {direction: [1,0], offsetPosition:[0,i*50] });
+		new Y.WireIt.Terminal(br, {direction: [-1,0], offsetPosition:[0,i*50] });
+		new Y.WireIt.Terminal(bt, {direction: [0,1], offsetPosition:[i*50,0] });
+		new Y.WireIt.Terminal(bb, {direction: [0,-1], offsetPosition:[i*50,0] });
 	}
 	
 };

@@ -4,11 +4,11 @@
  <head>
   <title>WireIt Guide</title>
 	<meta name="author" content="Eric Abouaf" />
-	<meta name="copyright" content="Copyright 2009 Eric Abouaf" />
+	<meta name="copyright" content="Copyright 2006-2012 Eric Abouaf" />
 	<meta name="keywords" content="wireit,javascript,library,pipes,visualization,yui,programming,canvas,wire,wires,framework,webdev,ajax,ui,web,graphics,graph,graphs,opensource,tools" />
 	<meta name="description" content="WireIt is an open-source javascript library to create web wirable interfaces for dataflow applications, visual programming languages or graphical modeling." />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="alternate" type="application/rss+xml" title="WireIt blog" href="http://javascript.neyric.com/blog/feed/" />
+	<link rel="alternate" type="application/rss+xml" title="WireIt blog" href="http://neyric.com/feed/" />
 	<link rel="shortcut icon" type="images/x-icon" href="res/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="res/style.css" />
 	<link rel="stylesheet" type="text/css" href="res/guide.css" />
@@ -36,8 +36,8 @@
 		<li><a href="http://github.com/neyric/wireit/issues">Issues</a></li>
 		<li><a href="guide.html">Guide</a></li>
 		<li><a href="api/index.html">API Documentation</a></li>		
-		<li><a href="http://javascript.neyric.com/blog/category/wireit/">Blog</a> 
-			  <a href="http://javascript.neyric.com/blog/feed/"><img src="doc/rss.png" border="0"/></a></li>	
+		<li><a href="http://neyric.com/category/wireit/">Blog</a> 
+			  <a href="http://neyric.com/feed/"><img src="doc/rss.png" border="0"/></a></li>	
 		<li><a href="http://groups.google.com/group/wireit/">Forums</a></li>
 	</ul>
 	
@@ -60,7 +60,7 @@
 
 <h1>WireIt Guide</h1>
 
-<p>This guide tries to centralize everything that has been written on WireIt. If you think something is missing or need better explanation, please contact us through the <a href="http://groups.google.com/group/wireit/">forum</a>. Being written by a french, help in finding typos, technical errors, or poorly worded sentences is greatly appreciated.</p>
+<p>This guide tries to centralize everything that has been written on Y.WireIt. If you think something is missing or need better explanation, please contact us through the <a href="http://groups.google.com/group/wireit/">forum</a>. Being written by a french, help in finding typos, technical errors, or poorly worded sentences is greatly appreciated.</p>
 
 
 <div id='index'>
@@ -459,12 +459,12 @@
 <p>For a concrete example, let's see how the TerminalOutput works :</p>
 
 <pre class="brush:js">
-	// use YUI2 class inheritance
-	WireIt.util.TerminalOutput = function(parentEl, options, container) {
-	   WireIt.util.TerminalOutput.superclass.constructor.call(this,parentEl, options, container);
+	// use YUI class inheritance
+	Y.WireIt.TerminalOutput = function(parentEl, options, container) {
+	   Y.WireIt.TerminalOutput.superclass.constructor.call(this,parentEl, options, container);
 	};
-	YAHOO.lang.extend(WireIt.util.TerminalOutput, WireIt.Terminal, {
-	   xtype: "WireIt.TerminalOutput",
+	Y.extend(Y.WireIt.TerminalOutput, Y.WireIt.Terminal, {
+	   xtype: "Y.WireIt.TerminalOutput",
 		
 		 // override some options
 		 direction: [0,1],
@@ -488,7 +488,7 @@
 	WeirdTerminal = function(parentEl, options, container) {
 	   WeirdTerminal.superclass.constructor.call(this,parentEl, options, container);
 	};
-	YAHOO.lang.extend(WeirdTerminal, WireIt.Terminal, {
+	Y.extend(WeirdTerminal, Y.WireIt.Terminal, {
 	   xtype: "WeirdTerminal",
 		
 		 wireConfig: {"xtype":"WeirdWire", "weirdness": 7},
@@ -517,7 +517,7 @@
 		modules: [
 				{
 					name: "module1",
-					container: {"xtype":"WireIt.InOutContainer", ...}
+					container: {"xtype":"Y.WireIt.InOutContainer", ...}
 				},
 				...
 		]
@@ -527,9 +527,10 @@
 <p>This language definition is passed to the WiringEditor constructor :</p>
 
 <pre class="brush:js">
-	YAHOO.util.Event.onDOMReady( function() { 
+  YUI_config.groups.wireit.base = '../src/';
+  YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
 		try {
-			logicGates = new WireIt.WiringEditor(myLanguageDef); 
+			logicGates = new Y.WireIt.WiringEditor(myLanguageDef); 
 		}catch(ex) {
 			alert(ex);
 		}
@@ -549,7 +550,7 @@
   "container": {
 	
 		// which container class to use
-		"xtype":"WireIt.InOutContainer",
+		"xtype":"Y.WireIt.InOutContainer",
 	
 		// The options depends of the container class used in xtype
 		"inputs": ["text1", "text2", "option1"],
@@ -580,7 +581,7 @@
     {
        "name": "demoModule",
        "container": {
-    		"xtype":"WireIt.Container", 
+    		"xtype":"Y.WireIt.Container", 
 
 			"icon": "../../assets/application_edit.png",
     		"terminals": [
@@ -610,7 +611,7 @@
 {
  "name": "InOut test",
  "container": {
-	"xtype":"WireIt.InOutContainer",
+	"xtype":"Y.WireIt.InOutContainer",
 	"inputs": ["text1", "text2", "option1"],
 	"outputs": ["result", "error"]
   }
@@ -659,7 +660,7 @@
     {
        "name": "AND gate",
        "container": {
-    		"xtype":"WireIt.ImageContainer", 
+    		"xtype":"Y.WireIt.ImageContainer", 
     		"image": "../logicGates/images/gate_and.png",
     		"terminals": [
     			{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": {"left": -3, "top": 2 }},
@@ -776,12 +777,12 @@ div.WireIt-Container.WiringEditor-module-comment div.body textarea {
 <pre class="brush:js">
 	
 	// Override adapter default parameters
-	WireIt.WiringEditor.adapters.MyAdapter.config.configParam1 = value1;
+	Y.WireIt.WiringEditor.adapters.MyAdapter.config.configParam1 = value1;
 	
 	// Instantiate the WiringEditor with a custom adapter
-	new WireIt.WiringEditor({
+	new Y.WireIt.WiringEditor({
 		...
-		adapter: WireIt.WiringEditor.adapters.MyAdapter
+		adapter: Y.WireIt.WiringEditor.adapters.MyAdapter
 		...
 	})
 
@@ -799,7 +800,7 @@ div.WireIt-Container.WiringEditor-module-comment div.body textarea {
 
 <pre class="brush:js">
 	
-	WireIt.WiringEditor.adapters.Ajax.config = 	{
+	Y.WireIt.WiringEditor.adapters.Ajax.config = 	{
 		saveWiring: {
 			method: 'GET',
 			// The url can be hard-coded
@@ -843,7 +844,7 @@ div.WireIt-Container.WiringEditor-module-comment div.body textarea {
 <p>The JSON-RPC adapter configuration resides in the single service url :</p>
 
 <pre class="brush:js">
-	WireIt.WiringEditor.adapters.JsonRpc.config.url = '/my/json-rpc/serviceUrl';
+	Y.WireIt.WiringEditor.adapters.JsonRpc.config.url = '/my/json-rpc/serviceUrl';
 </pre>
 
 
@@ -877,7 +878,7 @@ div.WireIt-Container.WiringEditor-module-comment div.body textarea {
 
 <pre class="brush:js">
 
-WireIt.WiringEditor.adapters.MyAdapter = {
+Y.WireIt.WiringEditor.adapters.MyAdapter = {
 	
 	// adapter default options
 	config: {
@@ -942,31 +943,6 @@ WireIt.WiringEditor.adapters.MyAdapter = {
 </pre>
 
 
-<p>The asynchronous pattern is particularly useful for ajax-based adapters. Here is an example with YUI :</p>
-
-<pre class="brush:js">
-	function(val, callbacks) {
-		
-		YAHOO.util.Connect.asyncRequest('POST', 'myUrl', {
-			success: function(r) {
-				//...
-				
-				callbacks.success.call(callbacks.scope, results);
-			},
-			failure: function(r) {
-				callbacks.failure.call(callbacks.scope, error);
-			}
-		});
-		
-	}
-</pre>
-
-
-
-
-
-
-
 <br /><br />
 
 <a name="advancedTopics"><h1>5 Working with Wirings</h1></a>
@@ -982,7 +958,7 @@ var working = {
 		{
 			"config":{
 				"position":[166,195],
-				"xtype":"WireIt.ImageContainer"
+				"xtype":"Y.WireIt.ImageContainer"
 			},
 			"name":"AND gate",
 			"value":{}
@@ -990,7 +966,7 @@ var working = {
 		{
 			"config":{
 				"position":[454,271],
-				"xtype":"WireIt.ImageContainer"
+				"xtype":"Y.WireIt.ImageContainer"
 			},
 			"name":"AND gate",
 			"value":{}
@@ -998,7 +974,7 @@ var working = {
 		{
 			"config":{
 				"position":[149,403],
-				"xtype":"WireIt.ImageContainer"
+				"xtype":"Y.WireIt.ImageContainer"
 			},
 			"name":"AND gate",
 			"value":{}
@@ -1067,7 +1043,7 @@ var working = {
 
 <a name="yuiInheritance"><h2>6.1 YUI Inheritance</h2></a>
 
-<p>YUI 2 is used all over the place in WireIt. We especially use <a href="http://developer.yahoo.com/yui/yahoo/#extend">YAHOO.lang.extend</a> for setting up the prototype, constructor, and superclass properties for objects that are extending other objects.</p>
+<p>YUI 3 is used all over the place in Y.WireIt. We especially use <a href="http://developer.yahoo.com/yui/yahoo/#extend">Y.extend</a> for setting up the prototype, constructor, and superclass properties for objects that are extending other objects.</p>
 
 <p>The pattern for this type of inheritance is quite easy :</p>
 
@@ -1087,7 +1063,7 @@ var working = {
 	};
 
 	// Class2 extends Class1.  Must be done immediately after the Class2 constructor
-	YAHOO.lang.extend(Class2, Class1);
+	Y.extend(Class2, Class1);
 
 	Class2.prototype.testMethod = function(info) {
 	    // chain the method
@@ -1102,13 +1078,13 @@ var working = {
 
 <a name="createContainers"><h2>6.2 Creating new Containers / Extending existing containers</h2></a>
 
-<p>The general way to create a new <i>Container</i> class is to extend the WireIt.Container class. We do this YUI-style :</p>
+<p>The general way to create a new <i>Container</i> class is to extend the Y.WireIt.Container class. We do this YUI-style :</p>
 
 <pre class="brush:js">
-	WireIt.MyContainer = function(options, layer) {
-	   WireIt.MyContainer.superclass.constructor.call(this, options, layer);
+	Y.WireIt.MyContainer = function(options, layer) {
+	   Y.WireIt.MyContainer.superclass.constructor.call(this, options, layer);
 	};
-	YAHOO.lang.extend(WireIt.MyContainer, WireIt.Container, {
+	Y.extend(Y.WireIt.MyContainer, Y.WireIt.Container, {
 		
 		setOptions: function(options) {
 	      MyContainer.superclass.setOptions.call(this, options);
@@ -1122,7 +1098,7 @@ var working = {
 
 <p class="advanced"><u>Important :</u> you must override the <i>xtype</i> option as above for the editor to save the wiring using the right container class.</p>
 
-<p class="advanced">You can extend from WireIt.Container, WireIt.InOutContainer, WireIt.ImageContainer or WireIt.FormContainer. For more details about <i>WireIt.Container</i> methods, please refer to the <a href="api/WireIt.Container.html">Container API Documentation</a>.</p>
+<p class="advanced">You can extend from Y.WireIt.Container, Y.WireIt.InOutContainer, Y.WireIt.ImageContainer or Y.WireIt.FormContainer. For more details about <i>WireIt.Container</i> methods, please refer to the <a href="api/WireIt.Container.html">Container API Documentation</a>.</p>
 
 
 <a name="logicgates"><h2>6.3 Example - Logic Gates</h2></a>
@@ -1136,7 +1112,7 @@ var working = {
 		LogicContainer.superclass.constructor.call(this, opts, layer);
 		this.logicInputValues = [];
 	};
-	YAHOO.lang.extend(LogicContainer, WireIt.ImageContainer, {
+	Y.extend(LogicContainer, Y.WireIt.ImageContainer, {
 
 		setOptions: function(options) {
 	      LogicContainer.superclass.setOptions.call(this, options);
@@ -1178,7 +1154,7 @@ var working = {
 			// Set the image
 			if(this.imageName) {
 				var image = this.imageName+"_"+(bStatus ? "on" : "off")+".png";
-				YAHOO.util.Dom.setStyle(this.bodyEl, "background-image", "url(images/"+image+")");
+				Y.one(this.bodyEl).setStyle("backgroundImage", "url(images/"+image+")");
 			}
 
 			// trigger the output wires !
@@ -1218,7 +1194,7 @@ ClockContainer = function(opts, layer) {
 	var that = this;
 	setInterval(function() { that.switchStatus();	}, 800);
 };
-YAHOO.lang.extend(ClockContainer, LogicContainer, {
+Y.extend(ClockContainer, LogicContainer, {
 	setOptions: function(options) {
       ClockContainer.superclass.setOptions.call(this, options);
       this.options.xtype = "ClockContainer";
@@ -1231,9 +1207,9 @@ YAHOO.lang.extend(ClockContainer, LogicContainer, {
 SwitchContainer = function(opts, layer) {
 	SwitchContainer.superclass.constructor.call(this, opts, layer);
 	this.imageName = "switch";
-	YAHOO.util.Event.addListener(this.bodyEl, "click", this.switchStatus, this, true);
+	Y.one(this.bodyEl).on("click", this.switchStatus, this, true);
 };
-YAHOO.lang.extend(SwitchContainer, LogicContainer, {
+Y.extend(SwitchContainer, LogicContainer, {
 	setOptions: function(options) {
       SwitchContainer.superclass.setOptions.call(this, options);
       this.options.xtype = "SwitchContainer";
@@ -1247,7 +1223,7 @@ LightbulbContainer = function(opts, layer) {
 	LightbulbContainer.superclass.constructor.call(this, opts, layer);
 	this.imageName = "lightbulb";
 };
-YAHOO.lang.extend(LightbulbContainer, LogicContainer, {
+Y.extend(LightbulbContainer, LogicContainer, {
 	setInput: function(bStatus,term) {
 		this.setLogic(bStatus);
 	},
@@ -1458,9 +1434,9 @@ YAHOO.lang.extend(LightbulbContainer, LogicContainer, {
 		<p>Listen to wire events (recommanded)</p>
 		
 		<pre class="brush:js">
-		wire.eventMouseIn.subscribe(wireRed, wire, true);
-		wire.eventMouseOut.subscribe(wireBlue, wire, true);
-		wire.eventMouseClick.subscribe(wireClick, wire, true);
+		wire.on('eventMouseIn', wireRed, wire, true);
+		wire.on('eventMouseOut', wireBlue, wire, true);
+		wire.on('eventMouseClick', wireClick, wire, true);
 		</pre>
 		
 	</li>
@@ -1498,7 +1474,7 @@ YAHOO.lang.extend(LightbulbContainer, LogicContainer, {
 		};
 	
 	// Generate a random layer
-	var layer = new WireIt.Layer({});
+	var layer = new Y.WireIt.Layer({});
 	for(var i = 0 ; i &lt; 5 ; i++) {
 		layer.addContainer({
 			terminals: [ {direction: [0,1], offsetPosition: {bottom: -13, left: 25} }],
@@ -1515,9 +1491,9 @@ YAHOO.lang.extend(LightbulbContainer, LogicContainer, {
 		});
 	
 		// Subscribe methods to mouse events for all wires
-		w.eventMouseIn.subscribe(wireRed, w, true);
-		w.eventMouseOut.subscribe(wireBlue, w, true);
-		w.eventMouseClick.subscribe(wireClick, w, true);
+		w.on('eventMouseIn', wireRed, w, true);
+		w.on('eventMouseOut', wireBlue, w, true);
+		w.on('eventMouseClick', wireClick, w, true);
 	}
 </pre>
 
@@ -1714,7 +1690,7 @@ YAHOO.lang.extend(LightbulbContainer, LogicContainer, {
 	<li><a href="http://neyric.github.com/wireit/">Project home page</a></li>
 	<li><a href="http://github.com/neyric/wireit">Source code repository</a> on GitHub</li>
 	<li><a href="http://github.com/neyric/wireit/issues">Issue tracker</a></li>
-	<li><a href="http://javascript.neyric.com/blog/category/wireit/">WireIt Blog</a></li>
+	<li><a href="http://neyric.com/category/wireit/">WireIt Blog</a></li>
 	<li><a href="http://twitter.com/wireit">WireIt changelog on twitter</a></li>
 </ul>
 
@@ -1761,7 +1737,7 @@ YAHOO.lang.extend(LightbulbContainer, LogicContainer, {
 		<li><a href="http://github.com/neyric/wireit/issues">Issues</a></li>
 		<li><a href="guide.html">Guide</a></li>		
 		<li><a href="api/index.html">API Documentation</a></li>		
-		<li><a href="http://javascript.neyric.com/blog/category/wireit/">Blog</a></a></li>	
+		<li><a href="http://neyric.com/category/wireit/">Blog</a></a></li>	
 		<li><a href="http://groups.google.com/group/wireit/">Forums</a></li>
 	</ul>
 	

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<script src="http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael-min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+window.onload = function() {
+
+  
+    // Inserting foreignObject into the markup svg
+    var g = document.getElementById("g");
+    var fo = document.createElement('foreignObject');
+    g.appendChild(fo);
+    var div = document.createElement('div');
+    fo.appendChild(div);
+    var h1 = document.createElement('h1');
+    h1.innerHTML = "Test";
+    div.appendChild(h1);
+  
+  
+    // Using Raphael: NOT WORKING :(
+    r = Raphael("holder", 200, 200 );
+    r.circle(30, 30, 20);
+    // Inserting foreignObject into the paper
+    var g = r.canvas;
+    var svg = document.createElement('svg');
+    g.appendChild(svg);
+    var fo = document.createElement('foreignObject');
+    svg.appendChild(fo);
+    var div = document.createElement('div');
+    fo.appendChild(div);
+    var h1 = document.createElement('h1');
+    h1.innerHTML = "Test";
+    div.appendChild(h1);
+  
+};
+
+</script>
+</head>
+<body>
+
+<div> 
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="200" height="200">
+    <desc>Created by markup</desc>
+    <defs></defs>
+    <svg id="g">
+      <circle cx="30" cy="30" r="20" fill="none" stroke="#000"></circle>
+    </svg>
+  </svg>
+</div>
+        
+<div id="holder"></div>
+        
+</body>
+</html>

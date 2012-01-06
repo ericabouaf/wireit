@@ -1,0 +1,248 @@
+
+.yui3-skin-sam .yui3-layout-vertical > .yui3-layout-content {
+	border:5px solid black;
+	padding:1px;
+}
+
+/*.yui3-skin-sam .yui3-layoutchild {
+	opacity:0.8;
+}*/
+
+/*#left {
+	background:yellow;
+}
+
+#right {
+	background:red
+}*/
+
+#top {
+	background: black;
+}
+
+#top .yui3-toolbar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+#bottom {
+	background:magenta
+}
+/*
+#center {
+	background:blue
+}*/
+
+#bottom .yui3-layoutchild {
+	background:white;
+	border:1px solid black;
+}
+
+/*#bottom1 {
+	opacity:0.1;
+}
+
+#bottom2 {
+	opacity:0.2;
+}
+
+#bottom3 {
+	opacity:0.3;
+}
+
+#bottom4 {
+	opacity:0.4;
+}*/
+
+.yui3-layoutchild-content .yui3-widget-hd {
+	background: white;
+	color: black;
+	border:solid black 1px;
+	padding-left:5px;
+	height:23px;
+}
+
+.yui3-layoutChild-button-collapse, .yui3-layoutChild-button-expand {
+	width: 17px;
+	height: 13px;
+	right:5px;
+	top:5px;
+	position: absolute;
+	background: transparent url(http://developer.yahoo.com/yui/build/layout/assets/skins/sam/layout_sprite.png) no-repeat;
+}
+
+#left .yui3-layoutChild-button-collapse {
+	background-position: -20px -160px;
+} 
+
+#left .yui3-layoutChild-button-expand {
+	background-position: -20px -140px;
+} 
+
+#right .yui3-layoutChild-button-collapse {
+	background-position: -20px -200px;
+} 
+
+#right .yui3-layoutChild-button-expand {
+	background-position: -20px -120px;
+} 
+
+
+
+
+
+
+
+
+.yui3-js-enabled .yui3-widget-loading { display: none; }
+
+	/* YUI 3 Accordion Examples Page Styling 
+	 */
+
+	h1 {padding-left:10px;}
+	#controls {float:right;width:300px;padding:10px;margin-right:10px;background-color:#ccc;}
+	#accordions {margin:0 340px 0 10px;padding:0 10px 10px;background-color:#aaa;}
+	#accordions h4 {padding:10px 0 6px;}
+
+	/* YUI 3 Accordion Sample Skin Styling
+	 */
+
+	.accordion-test-vert,
+	.accordion-test-horiz {width:auto;background-color:#fff;}
+	.accordion-test-horiz {height:150px;}
+	.accordion-test-horiz .yui3-accordion-section-clip .yui3-accordion-section {height:128px;width:20em;}
+	.my-title-vert,	
+	.my-title-horiz {background-color:#ccc;margin:1px;}
+	.my-title-horiz {height:148px;}
+	
+	.my-title-horiz a,
+	.my-title-vert a {display:block;text-align:left;cursor:pointer; }
+	
+	
+	.my-title-vert a {padding:4px 0;}
+	.my-title-horiz a {height:148px;padding:62px 4px 0;}
+	.my-title-vert a:focus,
+	.my-title-horiz a:focus,
+	.my-title-vert a:hover,
+	.my-title-horiz a:hover {background-color:#eee;}
+	.my-section-vert,
+	.my-section-horiz {margin:1px;padding:10px;}
+	.my-section-vert-constrained {height: 50px;}
+	
+	
+	
+.leftLayout .yui3-widget-content-expanded {
+   overflow: hidden;
+}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ .yui3-tabview {
+     margin-bottom: 1em;
+ }
+
+ .yui3-skin-sam .yui3-tab {
+     position: relative;
+ }
+
+ .yui3-skin-sam .yui3-tabview-removeable .yui3-tab-label,
+ .yui3-skin-sam .yui3-tabview-removeable .yui3-tab-selected .yui3-tab-label {
+     padding-right: 1.3em; /* make room for close link */
+ }
+
+ .yui3-skin-sam .yui3-tabview-removeable .yui3-tab-add {
+     padding-right: 0.75em; /* no close link for add tab link */
+ }
+
+ .yui3-skin-sam .yui3-tab-add {
+     color: #999;
+     font: bold 120%/1 verdana;
+     margin-left: 0.25em;
+ }
+
+ .yui3-tab-remove {
+     color: #999;
+     font:bold 80% verdana;
+     position: absolute;
+     right: 0.4em;
+     top: 0.4em;
+ }
+
+ .yui3-tab-remove:hover {
+     color: #666;
+ }
+
+ .yui3-skin-sam .yui3-tab-selected .yui3-tab-remove {
+     top: 0.52em;
+ }
+
+ .yui3-skin-sam .yui3-tab-selected .yui3-tab-remove:hover {
+     color: #fff;
+ }
+
+ #main #example-canvas .yui3-tabview .yui3-tab-selected a {
+ 	color:white;
+ }
+ 
+ 
+ 
+ 
+ .yui3-tabview-list, .yui3-tab-active, .yui3-dialog-content, .yui3-dialog .yui3-widget-hd, input[type="submit"], input[type="button"], input[type="reset"], button, .yui3-panel-content, .yui3-panel-collapsed .yui3-panel-hd {
+    border-radius: 0;
+ }
+ 
+ 
+ 
+.accordion-item { 
+   margin-left: 10px;
+   cursor: pointer;
+}
+.accordion-item:hover {
+   background-color: #CCC;
+}
+
+.accordion-item img { 
+   
+}
+
+.accordion-item span { 
+   margin-left: 10px;
+}
+
+   
+
+
+
+.yui3-skin-sam .yui3-tabview-panel {
+   background-color: white;
+}
+
+.yui3-skin-sam .yui3-tabview-list {
+   border-width: 0;
+}
+
+
+.yui3-skin-sam .yui3-tab-selected .yui3-tab-label, .yui3-skin-sam .yui3-tab-selected .yui3-tab-label:focus, .yui3-skin-sam .yui3-tab-selected .yui3-tab-label:hover {
+    background: url("http://yui.yahooapis.com/3.3.0/build/assets/skins/sam/sprite.png") repeat-x scroll left -1400px #FFFFFF;
+ }
+    
+    
+    
+
+a.yui3-tab-label span {
+     font-size: 120%;
+     margin: 4px;
+     position: relative;
+     top: -2px;
+ }

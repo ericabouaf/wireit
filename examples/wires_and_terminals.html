@@ -3,14 +3,15 @@
  <head>
   <title>WireIt: How to use Wire and Terminals definitions</title>
   
-<!-- Libs -->
-<link rel="stylesheet" type="text/css" href="../lib/yui/reset-fonts/reset-fonts.css" /> 
-<script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
+<!-- YUI -->
+<link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.4.1/build/cssreset/reset-min.css&3.4.1/build/cssfonts/fonts-min.css">
+<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
+
 <script type="text/javascript" src="../lib/excanvas.js"></script>
 
 <!-- WireIt -->
-<script type="text/javascript" src="../build/wireit-min.js"></script>
 <link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
+<script src="../src/loader.js"  type='text/javascript'></script>
 
 <style>
 
@@ -35,67 +36,71 @@ div.blockBox {
 </style>
 <script>
 
-window.onload = function() {
+YUI_config.groups.wireit.base = '../src/';
+YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
+
+  // For debug
+  window.Y = Y;
 	
-	var block1 = YAHOO.util.Dom.get('block1');
-	new WireIt.Terminal(block1, {offsetPosition:[30,30] });
-	
-	
-	var block2 = YAHOO.util.Dom.get('block2');
-	new WireIt.Terminal(block2, { wireConfig: { xtype: "WireIt.BezierWire"}, offsetPosition:[30,30] });
-	new WireIt.Terminal(block2, { wireConfig: { xtype: "WireIt.StepWire"}, offsetPosition:[100,30] });
-	new WireIt.Terminal(block2, { wireConfig: { xtype: "WireIt.BezierArrowWire"}, offsetPosition:[30,100] });
-	new WireIt.Terminal(block2, { wireConfig: { xtype: "WireIt.ArrowWire"}, offsetPosition:[100,100] });
+	var block1 = Y.one('#block1');
+	new Y.WireIt.Terminal(block1, {offsetPosition:[30,30] });
 	
 	
-	var block3 = YAHOO.util.Dom.get('block3');
-	new WireIt.Terminal(block3, { direction: [-1,-1], offsetPosition:[30,30] });
-	new WireIt.Terminal(block3, { direction: [1,-1], offsetPosition:[100,30] });
-	new WireIt.Terminal(block3, { direction: [-1,1], offsetPosition:[30,100] });
-	new WireIt.Terminal(block3, { direction: [1,1], offsetPosition:[100,100] });
+	var block2 = Y.one('#block2');
+	new Y.WireIt.Terminal(block2, { wireConfig: { xtype: "Y.WireIt.BezierWire"}, offsetPosition:[30,30] });
+	new Y.WireIt.Terminal(block2, { wireConfig: { xtype: "Y.WireIt.StepWire"}, offsetPosition:[100,30] });
+	new Y.WireIt.Terminal(block2, { wireConfig: { xtype: "Y.WireIt.BezierArrowWire"}, offsetPosition:[30,100] });
+	new Y.WireIt.Terminal(block2, { wireConfig: { xtype: "Y.WireIt.ArrowWire"}, offsetPosition:[100,100] });
 	
 	
-	var block4 = YAHOO.util.Dom.get('block4');
-	new WireIt.Terminal(block4, {direction: [1,0], offsetPosition:[30,30], 
+	var block3 = Y.one('#block3');
+	new Y.WireIt.Terminal(block3, { direction: [-1,-1], offsetPosition:[30,30] });
+	new Y.WireIt.Terminal(block3, { direction: [1,-1], offsetPosition:[100,30] });
+	new Y.WireIt.Terminal(block3, { direction: [-1,1], offsetPosition:[30,100] });
+	new Y.WireIt.Terminal(block3, { direction: [1,1], offsetPosition:[100,100] });
+	
+	
+	var block4 = Y.one('#block4');
+	new Y.WireIt.Terminal(block4, {direction: [1,0], offsetPosition:[30,30], 
 												wireConfig:{color: "#EEEE11", bordercolor:"#FFFF00"} });
-	new WireIt.Terminal(block4, {direction: [1,0], offsetPosition:[100,30], 
+	new Y.WireIt.Terminal(block4, {direction: [1,0], offsetPosition:[100,30], 
 												wireConfig:{color: "#EE1111", bordercolor:"#FF0000"} });
-	new WireIt.Terminal(block4, {direction: [1,0], offsetPosition:[100,100], 
+	new Y.WireIt.Terminal(block4, {direction: [1,0], offsetPosition:[100,100], 
 												wireConfig:{color: "#EE11EE", bordercolor:"#FF00FF"} });
 	
 	
-	var block5 = YAHOO.util.Dom.get('block5');
-	new WireIt.Terminal(block5, {direction: [1,0], offsetPosition:[30,30], 
+	var block5 = Y.one('#block5');
+	new Y.WireIt.Terminal(block5, {direction: [1,0], offsetPosition:[30,30], 
 												wireConfig:{width: 5, borderwidth:3} });	
-	new WireIt.Terminal(block5, {direction: [1,0], offsetPosition:[100,100], 
+	new Y.WireIt.Terminal(block5, {direction: [1,0], offsetPosition:[100,100], 
 												wireConfig:{width: 4, borderwidth:0} });
-	new WireIt.Terminal(block5, {direction: [1,0], offsetPosition:[100,30], 
+	new Y.WireIt.Terminal(block5, {direction: [1,0], offsetPosition:[100,30], 
 												wireConfig:{width: 1, borderwidth:0} });
-	new WireIt.Terminal(block5, {direction: [1,0], offsetPosition:[30,100], 
+	new Y.WireIt.Terminal(block5, {direction: [1,0], offsetPosition:[30,100], 
 												wireConfig:{width: 1, borderwidth:4} });
 
 
-	var block6 = YAHOO.util.Dom.get('block6');
-	new WireIt.Terminal(block6, { direction: [1,0], fakeDirection: [1,0], offsetPosition:[30,30] });
-	new WireIt.Terminal(block6, { direction: [1,0], fakeDirection: [0,1], offsetPosition:[100,30] });
-	new WireIt.Terminal(block6, { direction: [0,1], fakeDirection: [0,1], offsetPosition:[30,100] });
-	new WireIt.Terminal(block6, { direction: [1,0], fakeDirection: [0,-1], offsetPosition:[100,100] });
+	var block6 = Y.one('#block6');
+	new Y.WireIt.Terminal(block6, { direction: [1,0], fakeDirection: [1,0], offsetPosition:[30,30] });
+	new Y.WireIt.Terminal(block6, { direction: [1,0], fakeDirection: [0,1], offsetPosition:[100,30] });
+	new Y.WireIt.Terminal(block6, { direction: [0,1], fakeDirection: [0,1], offsetPosition:[30,100] });
+	new Y.WireIt.Terminal(block6, { direction: [1,0], fakeDirection: [0,-1], offsetPosition:[100,100] });
 
 	
-	var block7 = YAHOO.util.Dom.get('block7');
-	var w1 = new WireIt.Wire(
-		new WireIt.Terminal(block7, {offsetPosition:[30,30], editable: false }),
-		new WireIt.Terminal(block7, {offsetPosition:[100,30], editable: false }), 
+	var block7 = Y.one('#block7');
+	var w1 = new Y.WireIt.Wire(
+		new Y.WireIt.Terminal(block7, {offsetPosition:[30,30], editable: false }),
+		new Y.WireIt.Terminal(block7, {offsetPosition:[100,30], editable: false }), 
 		document.body);
 	w1.redraw();
 	
 	
-	var block8 = YAHOO.util.Dom.get('block8');
-	new WireIt.Terminal(block8, { nMaxWires: 1, offsetPosition:[30,30] });
-	new WireIt.Terminal(block8, { nMaxWires: 2, offsetPosition:[100,30] });
-	new WireIt.Terminal(block8, { nMaxWires: 3, offsetPosition:[30,100] });
+	var block8 = Y.one('#block8');
+	new Y.WireIt.Terminal(block8, { nMaxWires: 1, offsetPosition:[30,30] });
+	new Y.WireIt.Terminal(block8, { nMaxWires: 2, offsetPosition:[100,30] });
+	new Y.WireIt.Terminal(block8, { nMaxWires: 3, offsetPosition:[30,100] });
 	
-};
+});
 </script>
 
  </head>

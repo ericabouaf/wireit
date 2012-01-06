@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Why WireIt won't run on svg (yet...) even using Raphaël.js</title>
+</head>
+
+<body>
+
+<article>
+
+<h1>Why WireIt won't run on svg (yet...) even using Raphaël.js</h1>
+  
+<p>Even tough <a href="http://raphaeljs.com/">Raphaël.js</a> is awesome, my experiment to make WireIt run on it failed.</p>
+
+<p>The advantages of using Raphaël.js for WireIt would be great :</p>
+
+<p>A demo on Raphael website sums it all: http://raphaeljs.com/graffle.html</p>
+
+<ul>
+  <li>Export du wiring en format vectorielle</li>
+  <li>zoom plus facile</li>
+  <li>Performances</li>
+  <li>Les "fils" ne prennent pas un gros carré (plus facile pour les event)</li>
+  <li>Le drag drop peut utiliser les touch events (marche sous iPhone, iPad, tu peux tester sur Android ?)
+    et même du multi-touch: http://vimeo.com/11610421</li>
+  <li>Plus facile de styliser les containers, wires, terminals ...</li>
+  <li>très belle API (Le code est concis !)</li>
+  <li>Pas de dépendance à YUI (pour les composants de base... l'éditeur garde la dépendance à YUI...)</li>
+  <li>Un système de plugins (http://g.raphaeljs.com/ , http://echonest.streamgraphing.org/ )</li>
+</ul>
+
+<p>Bref, ca commence à faire beaucoup de raisons pour abandonner le hack du canvas...</p>
+<p>Y'a une bonne vidéo de présentation faite par son créateur à la JSConf: http://jsconf.blip.tv/file/3731552/</p>
+
+
+
+<h2>No support for foreing objects</h2>
+
+<p>foreignObject seemed like the perfect property to store any kind of HTML within containers. 
+   However, forget it on IE, because Raphael is using VML to render the SVG. </p>
+  
+<p>We could add a layer with HTML elements absolutely positionned over the SVG, but things would get nasty...</p>
+  
+<h2>All is not lost !</h2>
+  
+<p>For some use cases, it would be awesome: planarGame</p>
+
+<p>What if the library could use both ?</p>
+  
+</article>
+
+</body>
+</html>

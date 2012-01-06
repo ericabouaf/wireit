@@ -3,21 +3,25 @@
  <head>
   <title>WireIt Example, handle wire events</title>
   
-<!-- Libs -->
-<link rel="stylesheet" type="text/css" href="../lib/yui/reset-fonts/reset-fonts.css" /> 
-<link rel="stylesheet" type="text/css" href="../lib/yui/container/assets/container.css"> 
-<script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
+  
+<!-- YUI -->
+<link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.4.1/build/cssreset/reset-min.css&3.4.1/build/cssfonts/fonts-min.css">
+<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
+
 <script type="text/javascript" src="../lib/excanvas.js"></script>
 
 <!-- WireIt -->
-<script type="text/javascript" src="../build/wireit-min.js"></script>
 <link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
+<script src="../src/loader.js"  type='text/javascript'></script>
+
+
 
 
 <script>
 
-window.onload = function() {
-	
+YUI_config.groups.wireit.base = '../src/';
+YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', 'wireit-layer', function(Y) {
+
 	// Functions executed with the scope of a wire
 	var wireRed = function() {
 			this.color = 'rgb(255, 0, 0)';
@@ -32,7 +36,7 @@ window.onload = function() {
 		};
 	
 	// Generate a random layer
-	var layer = new WireIt.Layer({});
+	var layer = new Y.WireIt.Layer({});
 	for(var i = 0 ; i < 5 ; i++) {
 		layer.addContainer({
 			terminals: [ {direction: [0,1], offsetPosition: {bottom: -13, left: 25} }],
@@ -49,12 +53,12 @@ window.onload = function() {
 		});
 	
 		// Subscribe methods to mouse events for all wires
-		w.eventMouseIn.subscribe(wireRed, w, true);
-		w.eventMouseOut.subscribe(wireBlue, w, true);
-		w.eventMouseClick.subscribe(wireClick, w, true);
+		w.on('eventMouseIn', wireRed, w, true);
+		w.on('eventMouseOut', wireBlue, w, true);
+		w.on('eventMouseClick', wireClick, w, true);
 	}
-};
-
+	
+});
 
 </script>
 </head><body></body></html>

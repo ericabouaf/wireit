@@ -33,7 +33,7 @@ div.WireIt-Wire-Label {
  * Terminals :
  */
 
-div.WireIt-Terminal {
+.WireIt-Terminal {
    width: 30px;
    height: 30px;
    cursor: pointer;   
@@ -42,13 +42,23 @@ div.WireIt-Terminal {
    z-index: 6;
 }
 
-div.WireIt-Terminal-connected {
+.WireIt-Terminal-connected {
    background-position: 0 -30px;
 }
 
-div.WireIt-Terminal-dropinvite {
+/*.WireIt-Terminal-dropinvite {
+   background-position: 0 -60px;
+}*/
+
+
+.yui3-dd-drop-active-valid  {
    background-position: 0 -60px;
 }
+
+.yui3-dd-drop-over {
+   background-position: 0 -90px;
+}
+
 
 /**
  * Containers

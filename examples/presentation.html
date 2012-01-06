@@ -3,16 +3,18 @@
  <head>
   <title>WireIt interactive presentation</title>
   
+  
 <!-- YUI -->
-<link rel="stylesheet" type="text/css" href="../lib/yui/reset-fonts/reset-fonts.css" /> 
-<script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
+<link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.4.1/build/cssreset/reset-min.css&3.4.1/build/cssfonts/fonts-min.css">
+<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
+
 <script type="text/javascript" src="../lib/excanvas.js"></script>
 
 <!-- WireIt -->
-<script type="text/javascript" src="../build/wireit-min.js"></script>
-<script type="text/javascript" src="../js/LeftSquareArrowWire.js"></script>
-<script type="text/javascript" src="../js/RightSquareArrowWire.js"></script>
 <link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
+<script src="../src/loader.js"  type='text/javascript'></script>
+
+
 
 <style>
 
@@ -51,29 +53,32 @@ h2 {
 </style>
 <script>
 
-WireIt.samples = [
+YUI_config.groups.wireit.base = '../src/';
+YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
+
+Y.WireIt.samples = [
 	{
 		innerHTML: '<p>This presentation will show you some features of WireIt through interactive examples.</p>'+
 							 '<h2>Try to create a wire by "drag-dropping" the "terminals".</h2>'+
 							 '<div style="width: 100px;"></div>',
 		init: function() {
-			var t1 = new WireIt.Terminal(SampleMgr.container, {direction: [1,0], offsetPosition:[80,100] });
-			var t2 = new WireIt.Terminal(SampleMgr.container, {direction: [-1,0], offsetPosition:[200,210] });
+			var t1 = new Y.WireIt.Terminal(SampleMgr.container, {direction: [1,0], offsetPosition:[80,100] });
+			var t2 = new Y.WireIt.Terminal(SampleMgr.container, {direction: [-1,0], offsetPosition:[200,210] });
 			this.t1 = t1;
 			this.t2 = t2;
 				
-			t1.eventAddWire.subscribe(function(e, args) {
+			t1.on('eventAddWire',function(e, args) {
 				var wire = args[0];
 				if(wire.terminal1 == t2 || wire.terminal2 == t2) {
-					SampleMgr.container.appendChild(WireIt.cn('h2', null, null, "Good ! Now try to cut this wire. (click on the scissors)") );
+					SampleMgr.container.appendChild(Y.WireIt.cn('h2', null, null, "Good ! Now try to cut this wire. (click on the scissors)") );
 				}
 			});
 			
-			t1.eventRemoveWire.subscribe(function(e, args) {
+			t1.on('eventRemoveWire', function(e, args) {
 				var wire = args[0];
 				if(wire.terminal1 == t2 || wire.terminal2 == t2) {
 					var wire = args[0];
-					SampleMgr.container.appendChild(WireIt.cn('h2', null, null, "Perfect ! <button onclick='SampleMgr.next()'>Next</button>") );
+					SampleMgr.container.appendChild(Y.WireIt.cn('h2', null, null, "Perfect ! <button onclick='SampleMgr.next()'>Next</button>") );
 				}
 			});
 		},
@@ -88,10 +93,10 @@ WireIt.samples = [
 		init: function() {
 			var wireConfig = { xtype: 'WireIt.ArrowWire' };
 			this.terminals = [
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,100] }),
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,210] }),
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,210] }),
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,100] })
+				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,100] }),
+				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,210] }),
+				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,210] }),
+				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,100] })
 			];
 		},
 		unload: function() {
@@ -106,10 +111,10 @@ WireIt.samples = [
 		init: function() {
 			var wireConfig = { xtype: 'WireIt.LeftSquareArrow', fakeDirection: [0,-1] };
 			this.terminals = [
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,100] }),
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,210] }),
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,210] }),
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,100] })
+				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,100] }),
+				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,210] }),
+				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,210] }),
+				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,100] })
 			];
 		},
 		unload: function() {
@@ -123,10 +128,10 @@ WireIt.samples = [
 		innerHTML: '<p>Straight lines too</p>',
 		init: function() {
 			this.terminals = [
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "WireIt.Wire"}, offsetPosition:[80,100] }),
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "WireIt.Wire"}, offsetPosition:[80,210] }),
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "WireIt.Wire"}, offsetPosition:[200,210] }),
-				new WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "WireIt.Wire"}, offsetPosition:[200,100] })
+				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "Y.WireIt.Wire"}, offsetPosition:[80,100] }),
+				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "Y.WireIt.Wire"}, offsetPosition:[80,210] }),
+				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "Y.WireIt.Wire"}, offsetPosition:[200,210] }),
+				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "Y.WireIt.Wire"}, offsetPosition:[200,100] })
 			];
 		},
 		unload: function() {
@@ -144,15 +149,15 @@ WireIt.samples = [
 			for(var x = 0 ; x < 5 ; x++) {
 				for(var y = 0 ; y < 4 ; y++) {
 					var color = colors[(x+y*5) % colors.length];
-					var t = new WireIt.Terminal(SampleMgr.container, {
+					var t = new Y.WireIt.Terminal(SampleMgr.container, {
 						fakeDirection:  [0,1],
 						offsetPosition:[50+x*60,50+y*60],
 						ddConfig: {
 					      type: color
 						}
 					});
-						YAHOO.util.Dom.setStyle(t.el, "background-color", color);
-						YAHOO.util.Dom.setStyle(t.el, "opacity", "0.5");
+						Y.one(t.el).setStyle("backgroundColor", color);
+						Y.one(t.el).setStyle("opacity", "0.5");
 					this.terminals.push(t);
 				}
 			}
@@ -171,10 +176,10 @@ WireIt.samples = [
 	}
 ];
 
-var SampleMgr = {
+window.SampleMgr = {
 	sampleIndex: 0,
 	init: function() {
-		this.container = YAHOO.util.Dom.get('container');
+		this.container = Y.one('#container');
 		this.next();
 	},
 	previous: function() {
@@ -182,20 +187,22 @@ var SampleMgr = {
 		this.next();
 	},
 	next: function() {
-		if(!YAHOO.lang.isUndefined(this.lastLoaded) && YAHOO.lang.isFunction(WireIt.samples[this.lastLoaded].unload) ) {
-			 WireIt.samples[this.lastLoaded].unload(); 
+		if(!Y.Lang.isUndefined(this.lastLoaded) && Y.Lang.isFunction(Y.WireIt.samples[this.lastLoaded].unload) ) {
+			 Y.WireIt.samples[this.lastLoaded].unload(); 
 		}
-		if(this.sampleIndex == WireIt.samples.length) return;
-		this.container.innerHTML = WireIt.samples[this.sampleIndex].innerHTML;
+		if(this.sampleIndex == Y.WireIt.samples.length) return;
+		this.container.innerHTML = Y.WireIt.samples[this.sampleIndex].innerHTML;
 		this.lastLoaded = this.sampleIndex;
-		WireIt.samples[this.sampleIndex].init();
+		Y.WireIt.samples[this.sampleIndex].init();
 		this.sampleIndex += 1;
 	}
 }
 
-window.onload = function() {
 	SampleMgr.init();
-};
+
+  
+});
+	
 </script>
 
  </head>

@@ -1,3 +1,7 @@
+
+YUI_config.groups.wireit.base = '../../src/';
+YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
+   
 /**
  * @fileoverview Planar Game
  */
@@ -6,27 +10,36 @@ var Bubble = function(position, nTerminals) {
 	this.id = 'bubble'+Nbubbles++;
 	
 	// Create the main bubble div
-	this.el = WireIt.cn('div', {id: this.id, className: "bubble"});
+	this.el = Y.WireIt.cn('div', {id: this.id, className: "bubble"});
 	document.body.appendChild(this.el);
 	
 	// Create the nTerminals terminals
 	this.terminals = [];
 	for(i = 0 ; i < nTerminals ; i++) {
-		this.terminals[i] = new WireIt.Terminal(this.el, {offsetPosition: [2,2], editable: false});
+		this.terminals[i] = new Y.WireIt.Terminal(this.el, {offsetPosition: [2,2], editable: false});
 		this.terminals[i]._bubble = this;
 	}						
 	
 	// Make Drag/drop !
-	var dd = new WireIt.util.DD(this.terminals,this.el);
+	var drag = new Y.DD.Drag({ 
+		node: this.el
+	});
+	var that = this;
+	drag.on('drag:drag', function(ev) {
+		Y.Array.each(that.terminals, function(t) {
+		  t.redrawAllWires();
+		});
+	});
+		
 	
 	// Position the bubble
 	if(position) {
-		YAHOO.util.Dom.setXY(this.el, position);
+		Y.one(this.el).setXY(position);
 	}
 	
 	// On mousedown:
-	YAHOO.util.Event.addListener(this.el, 'mousedown', this.onMouseDown, this, true);
-	YAHOO.util.Event.addListener(this.el, 'mouseup', this.onMouseUp, this, true);
+	Y.one(this.el).on('mousedown', this.onMouseDown, this, true);
+	Y.one(this.el).on('mouseup', this.onMouseUp, this, true);
 };
 
 Bubble.prototype.onMouseDown = function() {
@@ -34,7 +47,7 @@ Bubble.prototype.onMouseDown = function() {
       var term = this.terminals[i];
       if(term.wires[0]) {
          var otherTerm = term.wires[0].getOtherTerminal(term);
-         YAHOO.util.Dom.addClass(otherTerm._bubble.el, 'redBubble');
+         Y.one(otherTerm._bubble.el).addClass('redBubble');
       }
    }
 };
@@ -44,17 +57,11 @@ Bubble.prototype.onMouseUp = function() {
       var term = this.terminals[i];
       if(term.wires[0]) {
          var otherTerm = term.wires[0].getOtherTerminal(term);
-         YAHOO.util.Dom.removeClass(otherTerm._bubble.el, 'redBubble');
+         Y.one(otherTerm._bubble.el).removeClass('redBubble');
       }
    }
 };
 
-
-
-YAHOO.util.Event.addListener(window, "load", function() {	
-   planarGame.init();
-	planarGame.loadLevel(2);
-});
 
 var planarGame = {
 	bubbles: [],
@@ -64,17 +71,17 @@ var planarGame = {
 	
 	init: function() {
 	   // Init the check routine on button click
-	   YAHOO.util.Event.addListener('checkButton', 'click', this.check, this, true);
+	   Y.one('#checkButton').on('click', this.check, this, true);
 	},
 
 	loadLevel: function(level) {
 	   
-	   YAHOO.util.Dom.get('levelContainer').innerHTML = level;
+	   Y.one('#levelContainer').innerHTML = level;
 	   
 	   var c = level+1;
 	   
-	   var w = YAHOO.util.Dom.getViewportHeight();
-	   var h = YAHOO.util.Dom.getViewportWidth();
+	   var w = Y.DOM.viewportRegion().width;
+	   var h = Y.DOM.viewportRegion().height;
 	   
 	   var nTerminals = c*c;
 		var center = [h/2,w/2];
@@ -151,7 +158,7 @@ var planarGame = {
 	      var src = liaisons[i][0];
 	      var tgt = liaisons[i][1];
 	      
-	      this.wires[nWires] = new WireIt.Wire( this.bubbles[src].terminals[ bubblesTerminals[src]++] ,
+	      this.wires[nWires] = new Y.WireIt.Wire( this.bubbles[src].terminals[ bubblesTerminals[src]++] ,
 			 											   this.bubbles[tgt].terminals[ bubblesTerminals[tgt]++], 
 														   document.body, {width: 1, bordercolor: "#b0b0b0"});
 		   this.wires[nWires].redraw();
@@ -207,10 +214,10 @@ var planarGame = {
 	
 	// Return true if 2 wires cross
 	checkCross: function(wire1, wire2) {
-		var term11 = YAHOO.util.Dom.getXY(wire1.terminal1.el);
-		var term12 = YAHOO.util.Dom.getXY(wire1.terminal2.el);
-		var term21 = YAHOO.util.Dom.getXY(wire2.terminal1.el);
-		var term22 = YAHOO.util.Dom.getXY(wire2.terminal2.el);
+		var term11 = Y.one(wire1.terminal1.el).getXY();
+		var term12 = Y.one(wire1.terminal2.el).getXY();
+		var term21 = Y.one(wire2.terminal1.el).getXY();
+		var term22 = Y.one(wire2.terminal2.el).getXY();
 		var X1 = term11[0]; var Y1 = term11[1];
 		var X2 = term12[0]; var Y2 = term12[1];
 		var X3 = term21[0]; var Y3 = term21[1];
@@ -223,3 +230,9 @@ var planarGame = {
 	}
 	
 };
+
+planarGame.init();
+planarGame.loadLevel(2);
+
+
+});

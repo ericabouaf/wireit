@@ -1,0 +1,186 @@
+<html>
+<head>
+  <title>IDE test</title>
+  
+<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
+<script type="text/javascript" src="../src/yide-loader.js"></script>
+
+<link rel="stylesheet" type="text/css" href="http://axosoft.github.com/yui3-gallery/layout/build/assets/skins/sam/gallery-axo-layout.css"> 
+<link rel="stylesheet" type="text/css" href="http://axosoft.github.com/yui3-gallery/layout/build/assets/skins/sam/gallery-axo-layout-skin.css">
+<script type="text/javascript" src="http://axosoft.github.com/yui3-gallery/layout/build/gallery-axo-layout.js"></script>
+
+</head>
+<body class="yui3-skin-sam">
+<script>
+
+YUI_config.groups.wireit.base = '../src/';
+
+var gallery = 'gallery-2011.07.06-19-30'; //'gallery-2011.02.09-21-32';
+YUI({
+  gallery: gallery,
+  /*filter: 'raw',
+  combine: false,*/
+  modules: {
+    'gallery-aui-skin-base': {
+        fullpath: 'http://yui.yahooapis.com/'+gallery+'/build/gallery-aui-skin-base/css/gallery-aui-skin-base-min.css',
+        type: 'css'
+    },
+    'gallery-aui-skin-classic': {
+      fullpath: 
+           'http://yui.yahooapis.com/'+gallery+'/build/gallery-aui-skin-classic/css/gallery-aui-skin-classic-min.css',
+        type: 'css',
+        requires: ['gallery-aui-skin-base']
+    }
+  }
+}).use('yide',
+       //'yide-menubar',
+       'yide-toolbar',
+       'yide-helppanel',
+       'yide-tabview',
+       //'yide-treeview',
+       'yide-accordionview',
+function(Y) {
+  window.Y = Y;
+  
+  
+  var config =  {
+    
+    groups: {
+      
+      'desktop': {
+        label: 'DESKTOP',
+        icon: 'house.png',
+        items: [
+          {
+            label: 'Home',
+            icon: 'house.png',
+            type: 'Tab'
+          },
+          {
+            label: 'New process',
+            icon: 'cog_add.png',
+            type: 'LayerTab',
+            requires: ['yide-layertab']
+          },
+          {
+            label: 'My Charts',
+            icon: 'chart_bar.png',
+            type: 'ChartsTab',
+            requires: ['yide-chartstab']
+          },
+          {
+            label: 'My Dashboard',
+            icon: 'chart_bar.png',
+            type: 'Tab',
+            requires: []
+          },
+          {
+            label: 'My Tasks',
+            icon: 'chart_bar.png',
+            type: 'Tab'
+          },
+          {
+            label: 'My Applications',
+            icon: 'chart_bar.png',
+            type: 'Tab'
+          },
+          {
+            label: 'Files',
+            icon: 'folder_find.png',
+            type: 'Tab'
+          },
+          {
+            label: 'Forms search',
+            icon: 'application_form.png',
+            type: 'Tab'
+          }
+        ]
+        
+      },
+      
+      'design': {
+        label: 'DESIGN',
+        icon: 'house.png',
+        items: [
+          {
+            label: 'Share process',
+            icon: 'chart_bar.png',
+            type: 'Tab'
+          },
+          {
+            label: 'Services / Connectors',
+            icon: 'chart_bar.png',
+            type: 'Tab'
+          },
+          {
+            label: 'Organization',
+            icon: 'building.png',
+            type: 'OrganizationTab',
+            requires: ['yide-organizationtab']
+          },
+          {
+            label: 'Processes',
+            icon: 'cog.png',
+            type: 'Tab'
+          },
+          {
+            label: 'User Interface',
+            icon: 'application_form.png',
+            type: 'Tab'
+          },
+          {
+            label: 'Custom Lists',
+            icon: 'chart_bar.png',
+            type: 'Tab'
+          }
+        ]
+      },
+      
+      'librairies': {
+        label: 'LIBRAIRIES',
+        icon: 'house.png',
+        items: [
+          {
+            label: 'Process Library',
+            icon: 'plugin.png',
+            type: 'Tab'
+          },
+          {
+            label: 'Pre-configured services',
+            icon: 'plugin_link.png',
+            type: 'Tab'
+          }
+        ]
+      },
+      
+      'monitoring': {
+        label: 'MONITORING',
+        icon: 'monitor.png',
+        items: [
+          {
+            label: 'Launched process',
+            icon: 'cog_go.png',
+            type: 'Tab'
+          },
+          {
+            label: 'Messages',
+            icon: 'email.png',
+            type: 'Tab'
+          },
+          {
+            label: 'Scheduled process',
+            icon: 'clock.png',
+            type: 'Tab'
+          }
+        ]
+      }
+      
+    }
+    
+  };
+  
+  Y.ide.init(config);
+});
+</script>
+</body>
+</html>

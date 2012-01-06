@@ -3,21 +3,17 @@
  <head>
   <title>WireIt: How to use the Layer</title>
   
-<!-- YUI CSS -->
-<link rel="stylesheet" type="text/css" href="../lib/yui/reset-fonts/reset-fonts.css" /> 
-
-<!-- WireIt CSS -->
-<link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
-
-<link rel="stylesheet" type="text/css" href="../plugins/inputex/lib/inputex/css/inputEx.css" />
-
 <!-- YUI -->
-<script type="text/javascript" src="../lib/yui/utilities/utilities.js"></script>
+<link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.4.1/build/cssreset/reset-min.css&3.4.1/build/cssfonts/fonts-min.css">
+<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
 
 <script type="text/javascript" src="../lib/excanvas.js"></script>
 
 <!-- WireIt -->
-<script type="text/javascript" src="../build/wireit-inputex-min.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
+<script src="../src/loader.js"  type='text/javascript'></script>
+
+  
 
 <style>
 body {
@@ -44,10 +40,11 @@ div.Bubble div.body {
 
 	var demoLayer;
 
-	YAHOO.util.Event.addListener(window, 'load', function() {
+  YUI_config.groups.wireit.base = '../src/';
+  YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
 		
 		// Layer Demo
-	  demoLayer = new WireIt.Layer({layerMap: false});
+	  demoLayer = new Y.WireIt.Layer({layerMap: false});
 		
 		// You can use a global setWiring method	
 		demoLayer.setWiring({
@@ -56,7 +53,7 @@ div.Bubble div.body {
 			  // ImageContainer
 				{
 					position:[600,240],
-					"xtype":"WireIt.ImageContainer", 
+					"xtype":"Y.WireIt.ImageContainer", 
 					"image": "bubble.png",
 					//draggable: false,
 					close: false,
@@ -71,7 +68,7 @@ div.Bubble div.body {
 				// ImageContainer
 				{
 					position:[700,140],
-					"xtype":"WireIt.ImageContainer", 
+					"xtype":"Y.WireIt.ImageContainer", 
 					className: "WireIt-Container WireIt-ImageContainer Bubble",
 					"image": "bubble.png",
 					//draggable: false,
@@ -100,7 +97,7 @@ div.Bubble div.body {
 					label: 'Ouf !!',
 					labelEditor: {type: 'string', value: "Testst"},
 					
-					xtype: "WireIt.BezierWire"
+					xtype: "Y.WireIt.BezierWire"
 				}
 			]
 			

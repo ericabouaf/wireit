@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+ <head>
+  <title>WireIt Example, Move and Animate elements containing terminals</title>
+  
+<!-- YUI -->
+<link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.4.1/build/cssreset/reset-min.css&3.4.1/build/cssfonts/fonts-min.css">
+<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
+
+<!-- Excanvas -->
+<!--[if IE]><script type="text/javascript" src="../lib/excanvas.js"></script><![endif]-->
+
+<!-- WireIt -->
+<script type="text/javascript" src="../src/loader.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
+
+<style>
+
+div.blockBox {
+	/* WireIt */
+	position: absolute;
+	z-index: 5;
+	opacity: 0.8;
+	
+	/* Others */
+	width: 100px;
+	height: 100px;
+	background-color: rgb(255,200,200);
+	cursor: move;
+}
+
+</style>
+
+<script>
+YUI_config.groups.wireit.base = '../src/';
+YUI({filter: 'raw'}).use('anim', 'wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
+	
+	// Create 2 terminals into Block1
+	var block1 = Y.one('#block1');
+	var terminals1 = [new Y.WireIt.Terminal(block1, {direction: [-1,0], offsetPosition: [-14,35]}), 
+							new Y.WireIt.Terminal(block1, {direction: [1,0], offsetPosition: [85,35]})];
+	
+	// Make the block1 draggable
+	var drag = new Y.DD.Drag({ 
+		node: block1
+	});
+	var that = this;
+	drag.on('drag:drag', function(ev) {
+		Y.Array.each(terminals1, function(t) {
+		  t.redrawAllWires();
+		});
+	});
+	
+	// Create 2 terminals into Block2
+	var block2 = Y.one('#block2');
+	var terminals2 = [new Y.WireIt.Terminal(block2, {direction: [-1,0], offsetPosition: [-14,35]}), 
+							new Y.WireIt.Terminal(block2, {direction: [1,0], offsetPosition: [85,35]})];
+	
+  // Make the block2 draggable
+	var drag = new Y.DD.Drag({ 
+		node: block2
+	});
+	var that = this;
+	drag.on('drag:drag', function(ev) {
+		Y.Array.each(terminals2, function(t) {
+		  t.redrawAllWires();
+		});
+	});
+	
+	// Create a wire between some terminals
+	var w1 = new Y.WireIt.Wire(terminals1[0], terminals2[0], document.body);
+	w1.redraw();
+	
+	var w2 = new Y.WireIt.Wire(terminals1[1], terminals2[1], document.body);
+	w2.redraw();
+	
+	// Create the animations for both blocks
+	
+	var myAnim1 = new Y.Anim({
+	  node: block1, 
+	  to: {
+	    left: 500, 
+	    top: 150
+    }
+	});
+	
+	myAnim1.on('tween', function() {
+	  Y.Array.each(terminals1, function(t) {
+		  t.redrawAllWires();
+		});
+	});
+	
+	var myAnim2 = new Y.Anim({
+	  node: block2, 
+	  to: { left: 100 }
+	});
+	
+	
+	myAnim2.on('tween', function() {
+	  Y.Array.each(terminals2, function(t) {
+		  t.redrawAllWires();
+		});
+	});
+	
+	// OnClick on the button, launch both animations
+	Y.one('#animButton').on('click', function() {
+		myAnim1.run();
+		myAnim2.run();
+	})
+	
+});
+
+
+</script>
+
+ </head>
+ <body>
+	
+	<p style="margin: 15px;"><a href="../index.html">&lt; Back</a></p>
+	<p style="margin: 15px;">Show how to make terminal containers draggable</p>
+	
+	<button id='animButton' style="margin: 15px;">Click to animate !</button>
+	
+	<div id='block1' class="blockBox" style="left: 300px; top: 100px;">Move Me !</div>
+	
+	<div id='block2' class="blockBox" style="left: 500px; top: 200px;">Move Me !</div>
+	
+ </body>
+</html>

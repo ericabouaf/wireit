@@ -1,0 +1,89 @@
+<html>
+<head>
+  <title>Wire test</title>
+
+
+<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
+
+<script type="text/javascript" src="../src/yide-loader.js"></script>
+<style>
+.demo {
+    height: 30px;
+    width: 30px;
+    border: 1px solid black;
+    background-color: #8DD5E7;
+    cursor: move;
+}
+</style>
+</head>
+
+<body>
+  
+<div id="attributes">
+  
+<p id="color">
+  color: <button id="red">red</button> <button id="yellow">yellow</button> <button id="blue">blue</button> <button id="rgb(173,216,230)">rgb(173,216,230)</button>
+</p>
+
+<p id="bordercolor">
+  bordercolor: <button id="red">red</button> <button id="yellow">yellow</button> <button id="blue">blue</button>
+</p>
+
+<p id="cap">
+  cap: <button id="square">square</button> <button id="round">round</button> <button id="butt">butt</button>
+</p>
+  
+<p id="linewidth">
+  linewidth: <button id="1">1</button> <button id="3">3</button> <button id="5">5</button>
+</p>
+
+<p id="borderwidth">
+  borderwidth: <button id="0">0</button> <button id="1">1</button> <button id="2">2</button>
+</p>
+
+<!--p id="shape">
+  shape: <button id="Bezier">Bezier</button> <button id="Straight">Straight</button>
+</p-->
+
+</div>
+  
+<div style="position: relative;" id="layer"></div>
+
+<script>
+
+YUI_config.groups.wireit.base = '../src/';
+
+YUI({combine: false}).use("layer",'wire-bezier-plugin',function(Y) {
+
+  window.Y = Y;
+  
+  w = new Y.Wire({
+    render: Y.one('#layer'),
+    src: {
+      getXY: function() {
+        return [300,50];
+      }
+    },
+    tgt: {
+      getXY: function() {
+        return [700,250];
+      }
+    },
+    
+    plugins: [ 
+        {fn: Y.WireBezierPlugin, pluginType: "WireBezierPlugin", cfg:{bezierTangentNorm:300} }
+    ]
+    
+  });
+  
+  Y.all('#attributes button').on('click',function(ev) { 
+    var attrName = ev.target.get('parentNode').get('id');
+    var value = ev.target.get('id');
+    w.Bezier.set(attrName,value);
+  });
+  
+});
+</script>
+
+</body>
+</html>

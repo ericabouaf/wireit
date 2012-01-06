@@ -1,0 +1,142 @@
+<html>
+<head>
+  <title>Wire test</title>
+
+<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
+<script type="text/javascript" src="../src/yide-loader.js"></script>
+
+</head>
+
+<body>
+
+
+<div style="position: relative;" id="layer">
+
+</div>
+
+<script>
+
+YUI_config.groups.wireit.base = '../src/';
+
+YUI({combine: false}).use("layer",'wire-bezier-plugin','image-container',function(Y) {
+
+  window.Y = Y;
+
+  var layerEl = Y.one('#layer');
+
+  c1 = new Y.Container({
+    children: [
+      {
+        align: {points:["tl", "tl"]}
+      },
+      {
+        align: {points:["tl", "bc"]}
+      }
+    ],
+    
+    render: layerEl,
+    xy: [200,100],
+    width: 200,
+    height: 100,
+    headerContent: 'headerContent',
+    bodyContent: 'bodyContent',
+    footerContent: 'footerContent',
+    zIndex: 5,
+    fillHeight: true
+  });
+  
+  c2 = new Y.Container({
+    children: [
+      {
+        align: {points:["tl", "tl"]}
+      }
+    ],
+    render: layerEl,
+    xy: [350,200],
+    headerContent: 'sample container',
+    bodyContent: 'bodyContent',
+    zIndex: 5,
+    fillHeight: true
+  });
+  
+  c3 = new Y.Container({
+    children: [
+      { align: {points:["tl", "tl"]} },
+      { align: {points:["tl", "tc"]} },
+      { align: {points:["tl", "tr"]} },
+      { align: {points:["tl", "lc"]} },
+      { align: {points:["tl", "rc"]} },
+      { align: {points:["tl", "br"]} },
+      { align: {points:["tl", "bc"]} },
+      { align: {points:["tl", "bl"]} }
+    ],
+    render: layerEl,
+    width: 200,
+    height: 100,
+    xy: [500,200],
+    headerContent: '9 terminals',
+    bodyContent: 'bodyContent',
+    footerContent: 'footerContent',
+    zIndex: 5,
+    fillHeight: true
+  });
+  
+  
+  c4 = new Y.Container({
+    children: [
+      { align: {points:["tl", "tl"]} },
+      { align: {points:["tl", "tc"]} },
+      { align: {points:["tl", "tr"]} },
+      { align: {points:["tl", "lc"]} },
+      { align: {points:["tl", "rc"]} },
+      { align: {points:["tl", "br"]} },
+      { align: {points:["tl", "bc"]} },
+      { align: {points:["tl", "bl"]} }
+    ],
+    render: layerEl,
+    width: 200,
+    height: 100,
+    xy: [500,200],
+    headerContent: '9 terminals',
+    bodyContent: 'bodyContent',
+    footerContent: 'footerContent',
+    zIndex: 5,
+    fillHeight: true
+  });
+  
+  
+  
+  c5 = new Y.ImageContainer({
+    children: [
+      { align: {points:["tl", "tl"]} },
+      { align: {points:["tl", "tc"]} },
+      { align: {points:["tl", "tr"]} },
+      { align: {points:["tl", "lc"]} },
+      { align: {points:["tl", "rc"]} },
+      { align: {points:["tl", "br"]} },
+      { align: {points:["tl", "bc"]} },
+      { align: {points:["tl", "bl"]} }
+    ],
+    render: layerEl,
+  /*  width: 200,
+    height: 100,*/
+    xy: [700,30],
+    zIndex: 5,
+    fillHeight: true
+  });
+
+  /*
+  var w1 = new Y.Wire({
+    src: c1.item(1),
+    tgt: c2.item(0), 
+    render: layerEl,
+    plugins: [ 
+        {fn: Y.WireBezierPlugin, cfg:{bezierTangentNorm:300} }
+    ]
+  });*/
+
+});
+</script>
+
+</body>
+</html>

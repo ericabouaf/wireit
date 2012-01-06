@@ -1,0 +1,44 @@
+
+.yui3-dd-draggable {
+	width: 30px;
+	height: 30px;
+	background-color: red;
+	border: 1px solid black;
+	cursor: move;
+	z-index: 1;
+	border-radius: 15px;
+}
+
+
+.yui3-dd-draggable:hover {
+   background-color: blue;
+}
+
+.connected-to-dragged {
+   background-color: yellow;
+}
+
+#aboutFrame {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 240px;
+	background-color: #ffd75e;
+	border: 5px solid black;
+	padding: 10px;
+}
+
+#aboutFrame p#title {
+	font-size: 18pt;
+	font-weight: bold;
+}
+
+#aboutFrame p#level {
+font-size: 18pt;
+font-weight: bold;
+}
+
+#footer {
+	margin-top: 10px;
+	text-align: center;
+}

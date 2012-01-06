@@ -1,0 +1,231 @@
+<html>
+<head>
+  <title>YIDE - YUI IDE</title>
+
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?3.1.1/build/cssreset/reset-min.css&3.1.1/build/cssfonts/fonts-min.css&3.1.1/build/cssbase/base-min.css">
+
+<script src="http://yui.yahooapis.com/3.2.0/build/yui/yui-min.js" type="text/javascript" charset="utf-8"></script>
+  
+</head>
+
+<body class="yui3-skin-sam  yui-skin-sam">
+
+  <button id="clear">clear</button>
+  <button id="remove">remove</button>
+  <button id="hide">hide</button>
+  <button id="show">show</button>
+  <button id="rotate">rotate</button>
+  <button id="creep">creep</button>
+  <button id="animate">animate</button>
+  <button id="whatColor">whatColor</button>
+  <button id="yellow">yellow</button>
+
+
+  <div id="log"></div>
+
+
+<div id="rcanvas"></div>
+
+<script>
+/*
+YUI({gallery: 'gallery-2010.10.15-19-32'}).use('gallery-svg', function(Y) {
+ 
+// =======================================================
+// Animation extensions:
+// - support SVG specific attributes (transform here)
+// - add easier animation synchronization and time offsets
+//
+// Other SVG attributes can be animated, see the full test
+// page for more examples.
+// =======================================================
+var Easing = Y.Easing;
+var anim = new Y.Animate({
+            node: '#translate',
+            from: {transform: {tx: 0, ty: 0}},
+            to: {transform: {tx: 100, ty: 0}},
+            transformTemplate: "translate(#tx, #ty)",
+            easing: Easing.easeIn,
+            duration: 1
+        });
+ 
+// Start animation with a 0.5s delay
+anim.run(0.5);
+ 
+// Other animation
+var anim2 = new Y.Animate({
+            node: "#translate",
+            from: {fill: 'crimson'},
+            to: {fill: 'gold'},
+            duration: 0.5
+});
+ 
+anim.onEnd(anim2, 0.25); // Start anim2 0.25s after anim ends
+ 
+// =======================================================
+// Misc extensions:
+// - support SVG specific attributes and properties
+// - additional DOM convenience methods for manipulating SVG
+//   bounding boxes
+// - additional DOM convenience methods for loading DOM
+// fragments.
+// - support for the play method on media elements
+// =======================================================
+ 
+var myGroup = Y.one("#myGroup");
+ 
+// Get / set the computed SVG 'fill' paint
+var groupFill = myGroup.getStyle('fill');
+myGroup.setStyle('fill', 'crimson');
+ 
+// Get / set the computed SVG 'stroke-width' value
+var groupStrokeWidth = myGroup.getStyle('stroke-width');
+myGroup.setStyle('stroke-width', '5');
+ 
+// Get / set the circle radius
+var circleRadius = Y.one('#myCircle').get('r');
+Y.one('#myCircle').set('r', 20);
+ 
+// Get the group's bounding box
+var bbox = myGroup.getBBox();
+ 
+// Load a DOM fragment
+myGroup.loadContent({
+        tag: 'rect',
+        x: bbox.x -5,
+        y: bbox.y -5,
+        width: bbox.width + 10,
+        height: bbox.height + 10,
+        stroke: 'gray',
+        fill: 'none'
+});
+ 
+// Play audio
+Y.one("#myAudioTrack").play();
+});
+*/
+
+YUI({gallery: 'gallery-2010.09.22-20-15'}).use('gallery-raphael', function(Y) {
+ 
+	var log = Y.one('#log');
+	function alert(s) {
+		log.set('innerHTML', s);
+	}
+ 
+	var plugins = [
+		//'r-test-plugin-canvas.js',
+		//'r-test-plugin-element.js'
+	];
+ 
+	Y.Raphael({type:'raw'}).use(plugins, function(Raphael) {
+ 
+		// use Raphael just like normal
+		var paper = Raphael('rcanvas', 600, 800),
+			rect, circ, ellipse, img, group, redText;
+ 
+		paper.setSize(600, 799);
+ 
+		// create SVG objects normally as well
+		rect = paper.rect(0,0,100,200);
+		rect.attr({fill: 'cyan', stroke: '#000', 'stroke-width': 1});
+ 
+		circ = paper.circle(200, 200, 80);
+		circ.attr({fill: 'red', stroke: '#333', 'stroke-width': 5});
+ 
+		ellipse = paper.ellipse(20, 40, 400, 30);
+		ellipse.attr({fill: 'yellow'});
+		ellipse.$node.on('mouseover', function() {
+			rect.animate({
+			    "20%": {cx: 20, r: 20, easing: ">"},
+			    "50%": {cx: 70, r: 120},
+			    "100%": {cx: 10, r: 10}
+			}, 2000);
+		});
+ 
+		img = paper.image('images/gi_christ.jpg', 300,300,150,100)
+ 
+		img.node.onclick = function() {
+			alert('manual onclick');
+		}
+ 
+		// but now each has a .$node property that is a Y.Node wrapped around the SVG HTMLElement
+		circ.$node.on('click', function() {
+			// and each object Raphael creates is an EventTarget, so we can fire events now
+			circ.fire('bam');
+		});
+		// listening for circle events
+		circ.on('bam', function() {
+			alert('it worked');
+		});
+ 
+		// use .$node as a normal Y.Node for event handling
+		rect.$node.on('mouseover', function() {
+			circ.attr('fill', 'blue').attr('stroke', '#123432').attr('stroke-width', 1);
+		});
+		rect.$node.on('mouseout', function() {
+			circ.attr({fill: 'red', stroke: '#333', 'stroke-width': 5});
+		});
+ 
+		group = paper.set();
+		group.push(circ, rect, ellipse, img);
+ 
+		group.attr({fill: 'cyan', stroke: '#000', 'stroke-width': 1});
+ 
+		redText = paper.text(300,100, 'red text');
+ 
+		Y.one('#clear').on('click', function() {
+			paper.clear();
+		});
+ 
+		Y.one('#remove').on('click', function() {
+			group.pop().remove();
+		});
+ 
+		Y.one('#hide').on('click', function() {
+			circ.hide();
+		});
+ 
+		Y.one('#show').on('click', function() {
+			circ.show();
+		});
+ 
+		Y.one('#rotate').on('click', function() {
+			group.rotate(45);
+			ellipse.rotate(10);
+		});
+ 
+		Y.one('#creep').on('click', function() {
+			group.translate(10, 1);
+			img.translate(-10, -33);
+		});
+ 
+		Y.one('#animate').on('click', function() {
+			var c = circ;
+			c.animate({cx: 20, r: 20}, 2000);
+			c.animate({cx: 20, r: 20}, 2000, "bounce");
+			c.animate({
+			    "20%": {cx: 20, r: 20, easing: ">"},
+			    "50%": {cx: 70, r: 120},
+			    "100%": {cx: 10, r: 10}
+			}, 2000);
+		});
+ 
+		Y.one('#whatColor').on('click', function() {
+			var stroke = Raphael.getRGB(circ.attr("fill")).hex;
+			alert(stroke);
+		});
+ 
+		Y.one('#yellow').on('click', function() {
+			Y.Array.each(group, function(it) {
+				it.yellow();
+			});
+		});
+ 
+		var angle = Raphael.angle(10, 10, 50, 50);
+		alert(angle);
+ 
+	});
+ 
+});
+</script>
+</body>
+</html>

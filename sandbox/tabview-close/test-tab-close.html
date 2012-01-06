@@ -1,0 +1,119 @@
+<html>
+<head>
+  <title></title>
+
+<script src="http://yui.yahooapis.com/3.2.0/build/yui/yui-min.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body class="yui3-skin-sam">
+
+<div id="tabviewContainer"></div>
+
+<style>
+
+.yui3-skin-sam .yui3-tab-label {
+  position: relative;
+  padding-right: 1.2em;
+}
+.yui3-skin-sam .yui3-tab-selected .yui3-tab-label { 
+  position: relative;
+  padding-right: 1.2em;
+}
+
+.yui3-skin-sam .yui3-tab-close {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 10px;
+  height: 10px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.yui3-skin-sam .yui3-tab-close:hover {
+  background-color: #CCC;
+}
+
+</style>
+
+<script>
+
+
+
+YUI.add('tabview-closable', function(Y) {
+
+    var CLOSE_BUTTON_TEMPLATE = "<div class='yui3-tab-close'>x</<div>";
+
+    function ClosableTabPlugin(config) {
+      ClosableTabPlugin.superclass.constructor.apply(this, arguments);
+    }
+
+    ClosableTabPlugin.NAME = 'closableTabPlugin';
+    ClosableTabPlugin.NS = 'closableTab';
+
+    Y.extend(ClosableTabPlugin, Y.Plugin.Base, {
+
+      // Automatically called by Base, during construction
+      initializer: function(config) { 
+        
+        this.get("host").addAttr("closable", {
+          value: false
+        });
+        
+         // "render" is a widget event 
+        this.afterHostEvent('render', this.insertCloseButton);
+      },
+
+      insertCloseButton: function() {
+        var widget = this.get("host");
+        var boundingBox = widget.get("boundingBox");
+
+        var closeButton = Y.Node.create(CLOSE_BUTTON_TEMPLATE);
+        
+        closeButton.on('click', function() {
+            widget.destroy();
+        });
+        
+        widget.get("contentBox").appendChild(closeButton);
+      }
+    });
+    
+  Y.ClosableTabPlugin = ClosableTabPlugin;
+    
+}, '3.2.0', {requires: ['tabview','plugin']});
+
+
+
+YUI().use("tabview", 'tabview-closable', function(Y) {
+
+				var tabview = new Y.TabView({
+				        children: [{
+				            label: 'foo',
+				            content: '<p>foo content</p>'
+				        }, {
+				            label: 'bar',
+				            content: '<p>bar content</p>'
+				        }, {
+				            label: 'baz',
+				            content: '<p>baz content</p>'
+				        }]
+				    });
+
+				tabview.render('#tabviewContainer');
+
+        var t = new Y.Tab({label: 'dynamic', content: 'lsjdfsdkfj'});
+        
+        t.plug(Y.ClosableTabPlugin);
+        
+        console.log( t.get('closable') );
+        t.set('closable', true);
+        console.log( t.get('closable') );
+        
+        tabview.add(t);
+
+});
+</script>
+
+</body>
+</html>
