@@ -1,82 +1,53 @@
 <html>
 <head>
-  <title>Layer test</title>
-
+<title>Layer test</title>
 <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
-<script type="text/javascript" src="../src/yide-loader.js"></script>
-
+<script type="text/javascript" src="../src/loader.js"></script>
 </head>
-
 <body>
 
 <div style="position: relative;" id="layer"></div>
 
 <script>
-
 YUI_config.groups.wireit.base = '../src/';
-
-YUI({combine: false}).use("layer",'wire-bezier-plugin','image-container',function(Y) {
-
-
-  window.Y = Y;
+YUI({combine: false, filter: 'raw'}).use('layer', 'bezier-wire', 'container', 'image-container', function(Y) {
 
   l = new Y.Layer({
-    
         width: 900,
         height: 500,
-    
+        render: Y.one('#layer'),
         // first container : 
         children: [
           {
-            children: [
-              { align: {points:["tl", "tl"]} },
-              { align: {points:["tl", "tc"]} },
-              { align: {points:["tl", "tr"]} },
-              { align: {points:["tl", "lc"]} },
-              { align: {points:["tl", "rc"]} },
-              { align: {points:["tl", "br"]} },
-              { align: {points:["tl", "bc"]} },
-              { align: {points:["tl", "bl"]} }
-            ],
+            children: Y.ContainerBase.EIGHT_POINTS,  // terminals
             type: 'Container',
             width: 200,
             height: 100,
             xy: [500,200],
             headerContent: '9 terminals',
             bodyContent: 'bodyContent',
-            footerContent: 'footerContent',
-            zIndex: 5,
-            fillHeight: true
+            footerContent: 'footerContent'
+         },
+         {
+            children: Y.ContainerBase.FOUR_CORNERS,
+            type: 'Container',
+            width: 200,
+            height: 200,
+            xy: [200,250],
+            headerContent: '9 terminals',
+            bodyContent: 'Do this after'
           },
-          
           {
-            type: "ImageContainer",
-            children: [
-              { align: {points:["tl", "tl"]} },
-              { align: {points:["tl", "tc"]} },
-              { align: {points:["tl", "tr"]} },
-              { align: {points:["tl", "lc"]} },
-              { align: {points:["tl", "rc"]} },
-              { align: {points:["tl", "br"]} },
-              { align: {points:["tl", "bc"]} },
-              { align: {points:["tl", "bl"]} }
-            ],
-          /*  width: 200,
-            height: 100,*/
-            xy: [700,30],
-            zIndex: 5,
-            fillHeight: true
+            type: 'ImageContainer',
+            children: Y.ContainerBase.FOUR_EDGES,
+            imageUrl: 'http://www.google.fr/images/logos/ps_logo2.png',
+            xy: [700,30]
           }
-          
         ]
   });
 
-  l.render( Y.one('#layer') );
-
   window.l=l;
-
 });
 </script>
-
 </body>
 </html>

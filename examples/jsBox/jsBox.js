@@ -16,7 +16,7 @@ var jsBox = {
 		   {
 		      "name": "comment",
 		      "container": {
-		         "xtype": "WireIt.FormContainer",
+		         "xtype": "Y.FormContainer",
 		   		"title": "Comment",
 		   		"fields": [
 		            {"type": "text", "label": "", "name": "comment", "wirable": false }
@@ -63,7 +63,7 @@ var jsBox = {
    init: function() {
 	
 		// Configure the adapter backend url :
-		Y.WireIt.WiringEditor.adapters.JsonRpc.config.url = "../../../editor/backend/php/WiringEditor.php";
+		Y.WiringEditor.adapters.JsonRpc.config.url = "../../../editor/backend/php/WiringEditor.php";
 	
    	this.editor = new jsBox.WiringEditor(this.language);
 
@@ -91,7 +91,7 @@ jsBox.WiringEditor = function(options) {
    jsBox.WiringEditor.superclass.constructor.call(this, options);
 };
 
-Y.extend(jsBox.WiringEditor, Y.WireIt.ComposableWiringEditor, {
+Y.extend(jsBox.WiringEditor, Y.ComposableWiringEditor, {
    /**
     * Add the "run" button
     */
@@ -129,7 +129,7 @@ jsBox.Container = function(options, layer) {
    }, this, true);
 };
 
-Y.extend(jsBox.Container, Y.WireIt.Container, {
+Y.extend(jsBox.Container, Y.Container, {
    
    /**
     * Create the textarea for the javascript code
@@ -153,7 +153,7 @@ Y.extend(jsBox.Container, Y.WireIt.Container, {
       
       // Output Terminal
       if(!this.outputTerminal) {
-   	   this.outputTerminal = this.addTerminal({xtype: "Y.WireIt.TerminalOutput", "name": "out"});      
+   	   this.outputTerminal = this.addTerminal({xtype: "Y.TerminalOutput", "name": "out"});      
          this.outputTerminal.jsBox = this;
       }
       
@@ -167,7 +167,7 @@ Y.extend(jsBox.Container, Y.WireIt.Container, {
       if(curTerminalN < nParams) {
          // add terminals
          for(var i = curTerminalN ; i < nParams ; i++) {
-            var term = this.addTerminal({xtype: "Y.WireIt.TerminalInput", "name": "param"+i});
+            var term = this.addTerminal({xtype: "Y.TerminalInput", "name": "param"+i});
             //term.jsBox = this;
             Y.WireIt.sn(term.el, null, {position: "absolute", top: "-15px"});
          }

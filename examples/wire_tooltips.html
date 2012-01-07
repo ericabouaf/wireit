@@ -30,10 +30,10 @@ div.wireInfos {
 <script>
 
 YUI_config.groups.wireit.base = '../src/';
-YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', 'wireit-layer', function(Y) {
+YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', 'layer', function(Y) {
 
 	
-	var layer = new Y.WireIt.Layer({});
+	var layer = new Y.Layer({});
 	
 	
 	// The wire tooltip

@@ -17,7 +17,7 @@
 
 div.blockBox {
 	/* WireIt */
-	position: absolute;
+	position: relative;
 	z-index: 5;
 	opacity: 0.8;
 	
@@ -31,12 +31,15 @@ div.blockBox {
 </style>
 
 <script>
-window.onload = function() {
+YUI_config.groups.wireit.base = '../src/';
+YUI({filter: 'raw'}).use('anim', 'bezier-wire', 'terminal', function(Y) {
 	
 	// Create 2 terminals into Block1
 	var block1 = Y.one('#block1');
-	var terminals1 = [new Y.WireIt.Terminal(block1, {direction: [-1,0], offsetPosition: [-14,35]}), 
-							new Y.WireIt.Terminal(block1, {direction: [1,0], offsetPosition: [85,35]})];
+	var terminals1 = [
+		new Y.Terminal({direction: [-1,0], offsetPosition: [-14,35], render: '#block1'}),
+		new Y.Terminal({direction: [1,0], offsetPosition: [85,35], render: '#block1'})
+	];
 	
 	// Make the block1 draggable
 	var drag = new Y.DD.Drag({ 
@@ -49,10 +52,14 @@ window.onload = function() {
 		});
 	});
 	
+	
+	
 	// Create 2 terminals into Block2
 	var block2 = Y.one('#block2');
-	var terminals2 = [new Y.WireIt.Terminal(block2, {direction: [-1,0], offsetPosition: [-14,35]}), 
-							new Y.WireIt.Terminal(block2, {direction: [1,0], offsetPosition: [85,35]})];
+	var terminals2 = [
+		new Y.Terminal({direction: [-1,0], offsetPosition: [-14,35], render: '#block2'}), 
+		new Y.Terminal({direction: [1,0], offsetPosition: [85,35], render: '#block2'})
+	];
 	
 	// Make the block2 draggable
 	var drag = new Y.DD.Drag({ 
@@ -66,13 +73,21 @@ window.onload = function() {
 	});
 	
 	// Create a wire between some terminals
-	var w1 = new Y.WireIt.BezierWire(terminals1[0], terminals2[0], document.body);
-	w1.redraw();
+	var w1 = new Y.BezierWire({
+		render: document.body,
+		src: terminals1[0], 
+		tgt: terminals2[0]
+	});
+	//w1.redraw();
 	
-	var w2 = new Y.WireIt.BezierWire(terminals1[1], terminals2[1], document.body);
-	w2.redraw();
+	var w2 = new Y.BezierWire({
+		render: document.body,
+		src: terminals1[1],
+		tgt: terminals2[1]
+	});
+	//w2.redraw();
 	
-};
+});
 
 
 </script>

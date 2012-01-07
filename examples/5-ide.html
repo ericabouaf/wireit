@@ -3,7 +3,7 @@
   <title>IDE test</title>
   
 <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
-<script type="text/javascript" src="../src/yide-loader.js"></script>
+<script type="text/javascript" src="../src/loader.js"></script>
 
 <link rel="stylesheet" type="text/css" href="http://axosoft.github.com/yui3-gallery/layout/build/assets/skins/sam/gallery-axo-layout.css"> 
 <link rel="stylesheet" type="text/css" href="http://axosoft.github.com/yui3-gallery/layout/build/assets/skins/sam/gallery-axo-layout-skin.css">
@@ -18,8 +18,8 @@ YUI_config.groups.wireit.base = '../src/';
 var gallery = 'gallery-2011.07.06-19-30'; //'gallery-2011.02.09-21-32';
 YUI({
   gallery: gallery,
-  /*filter: 'raw',
-  combine: false,*/
+  filter: 'raw',
+  combine: false,
   modules: {
     'gallery-aui-skin-base': {
         fullpath: 'http://yui.yahooapis.com/'+gallery+'/build/gallery-aui-skin-base/css/gallery-aui-skin-base-min.css',
@@ -33,7 +33,7 @@ YUI({
     }
   }
 }).use('yide',
-       //'yide-menubar',
+       	//'yide-menubar',
        'yide-toolbar',
        'yide-helppanel',
        'yide-tabview',

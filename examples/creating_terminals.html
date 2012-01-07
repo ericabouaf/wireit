@@ -61,7 +61,7 @@ div.WireIt-Terminal {
 <!--script src="../res/inputex-examples.js"  type='text/javascript'></script-->
 <script>
 YUI_config.groups.wireit.base = '../src/';
-YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
+YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', function(Y) {
 
   // For debug
   window.Y = Y;
@@ -74,13 +74,13 @@ YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal',
 	var terminals = [];
 	
 	for( var i = 0 ; i < 7 ; i++) {
-		terminals.push( new Y.WireIt.Terminal(bl, {direction: [1,0], offsetPosition:[0,i*50] }) );
-		terminals.push( new Y.WireIt.Terminal(br, {direction: [-1,0], offsetPosition:[0,i*50] }) );
-		terminals.push( new Y.WireIt.Terminal(bt, {direction: [0,1], offsetPosition:[i*50,0] }) );
-		terminals.push( new Y.WireIt.Terminal(bb, {direction: [0,-1], offsetPosition:[i*50,0] }) );
+		terminals.push( new Y.Terminal(bl, {direction: [1,0], offsetPosition:[0,i*50] }) );
+		terminals.push( new Y.Terminal(br, {direction: [-1,0], offsetPosition:[0,i*50] }) );
+		terminals.push( new Y.Terminal(bt, {direction: [0,1], offsetPosition:[i*50,0] }) );
+		terminals.push( new Y.Terminal(bb, {direction: [0,-1], offsetPosition:[i*50,0] }) );
 	}
   
-  var w = new Y.WireIt.BezierWire( terminals[3], terminals[10], document.body, {});
+  var w = new Y.BezierWire( terminals[3], terminals[10], document.body, {});
   w.draw();
   
   

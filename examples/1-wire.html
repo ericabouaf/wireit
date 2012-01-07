@@ -5,7 +5,7 @@
 
 <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
 
-<script type="text/javascript" src="../src/yide-loader.js"></script>
+<script type="text/javascript" src="../src/loader.js"></script>
 <style>
 .demo {
     height: 30px;
@@ -41,9 +41,9 @@
   borderwidth: <button id="0">0</button> <button id="1">1</button> <button id="2">2</button>
 </p>
 
-<!--p id="shape">
-  shape: <button id="Bezier">Bezier</button> <button id="Straight">Straight</button>
-</p-->
+<p id="bezierTangentNorm">
+  bezierTangentNorm: <button id="50">50</button> <button id="100">100</button>
+</p>
 
 </div>
   
@@ -53,11 +53,10 @@
 
 YUI_config.groups.wireit.base = '../src/';
 
-YUI({combine: false}).use("layer",'wire-bezier-plugin',function(Y) {
+YUI({combine: false, filter: 'raw'}).use('bezier-wire', function(Y) {
 
-  window.Y = Y;
-  
-  w = new Y.Wire({
+
+  w = new Y.BezierWire({
     render: Y.one('#layer'),
     src: {
       getXY: function() {
@@ -69,17 +68,19 @@ YUI({combine: false}).use("layer",'wire-bezier-plugin',function(Y) {
         return [700,250];
       }
     },
-    
-    plugins: [ 
-        {fn: Y.WireBezierPlugin, pluginType: "WireBezierPlugin", cfg:{bezierTangentNorm:300} }
-    ]
-    
+
+	bezierTangentNorm:300
+	
   });
-  
+
   Y.all('#attributes button').on('click',function(ev) { 
     var attrName = ev.target.get('parentNode').get('id');
     var value = ev.target.get('id');
-    w.Bezier.set(attrName,value);
+
+	console.log(attrName +" has value ", value);
+    w.set(attrName,value);
+
+	console.log(attrName +" has value ", w.get(attrName) );
   });
   
 });

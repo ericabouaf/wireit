@@ -83,12 +83,12 @@ div.WireIt-Container.WiringEditor-module-comment div.body textarea { background-
 <script>
 
 YUI_config.groups.wireit.base = '../src/';
-YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
+YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', function(Y) {
 	
 	try {
 	
 	
-	Y.WireIt.WiringEditor.adapters.Ajax.config = 	{
+	Y.WiringEditor.adapters.Ajax.config = 	{
 		saveWiring: {
 			method: 'GET',
 			url: 'fakeSaveDelete.json'
@@ -109,9 +109,9 @@ YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal',
 		}
 	};
 		
-	demoLanguage.adapter = Y.WireIt.WiringEditor.adapters.Ajax;
+	demoLanguage.adapter = Y.WiringEditor.adapters.Ajax;
 	
-	editor = new Y.WireIt.WiringEditor(demoLanguage); 
+	editor = new Y.WiringEditor(demoLanguage); 
 	
 	// Open the infos panel
 	editor.accordionView.openPanel(2);

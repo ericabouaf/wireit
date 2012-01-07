@@ -82,19 +82,19 @@ div.WireIt-Container.WiringEditor-module-comment div.body textarea { background-
 
 <script>
 
-Y.WireIt.Terminal.prototype.wireConfig = {
+Y.Terminal.prototype.wireConfig = {
                    label: 'Ouf !!',
                    labelEditor: {type: 'string', value: "Testst"},                    
-                   xtype: "Y.WireIt.BezierWire"
+                   xtype: "Y.BezierWire"
        };
-       Y.WireIt.Terminal.prototype.editingWireConfig = Y.WireIt.Terminal.prototype.wireConfig;
+       Y.Terminal.prototype.editingWireConfig = Y.Terminal.prototype.wireConfig;
 
 
 YUI_config.groups.wireit.base = '../src/';
-YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
+YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', function(Y) {
 
 	try {
-		var editor = new Y.WireIt.WiringEditor(demoLanguage); 
+		var editor = new Y.WiringEditor(demoLanguage); 
 		
 		// Open the infos panel
 		editor.accordionView.openPanel(2);

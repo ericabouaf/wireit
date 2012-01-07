@@ -51,16 +51,16 @@ div.inputEx-Group div.inputEx-label {
 
 
   YUI_config.groups.wireit.base = '../src/';
-  YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
+  YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', function(Y) {
 
 		// Example 1
-	   demoLayer = new Y.WireIt.Layer({layerMap: false});
+	   demoLayer = new Y.Layer({layerMap: false});
 			
 		 demoLayer.setWiring({
 			containers: [
 		 		{
 					position:[380,240],
-					xtype: "Y.WireIt.FormContainer",
+					xtype: "Y.WireFormContainer",
 					collapsible: true,
 					fields: [ 
 						{type: 'select', label: 'Title', name: 'title', selectValues: ['Mr','Mrs','Mme'] },
@@ -74,7 +74,7 @@ div.inputEx-Group div.inputEx-label {
 		 		},
 				{
 					position:[145,80],
-					xtype: "Y.WireIt.FormContainer",
+					xtype: "Y.WireFormContainer",
 					collapsible: true,
 					fields: [
 					    {label: 'Firstname', name: 'firstname' },
@@ -100,7 +100,7 @@ div.inputEx-Group div.inputEx-label {
 							terminal: "_OUT1"
 						},
 
-						xtype: "Y.WireIt.BezierWire"
+						xtype: "Y.BezierWire"
 					}
 				]
 		});

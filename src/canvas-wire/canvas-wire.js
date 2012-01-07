@@ -1,0 +1,95 @@
+YUI.add('canvas-wire', function(Y) {
+
+/**
+ * Plugin for Wire to use a canvas element to render the wire
+ * @class CanvasWire
+ * @extends WireBase
+ * @param {Object} config the configuration for the WireCanvasPlugin attributes
+ */
+var CanvasWire = Y.Base.create("canvaswire", Y.WireBase, [], {
+	
+	bindUI: function() {
+		CanvasWire.superclass.bindUI.call(this);
+		
+		this.after("capChange", this._afterChangeRedraw, this);
+		this.after("colorChange", this._afterChangeRedraw, this);
+		this.after("bordercolorChange", this._afterChangeRedraw, this);
+		this.after("linewidthChange", this._afterChangeRedraw, this);
+		this.after("borderwidthChange", this._afterChangeRedraw, this);
+	},
+	
+	renderUI: function() {
+		this._renderCanvas();
+		this.draw();
+	},
+	
+	_renderCanvas: function() {
+		var canvas = new Y.CanvasNode();
+		this.set('canvas', canvas);
+		
+		var contentBox = this.get("contentBox");
+		contentBox.appendChild( canvas );
+	},
+
+	destructor: function() {
+		this.get('canvas').remove();
+	}
+	
+});
+
+CanvasWire.ATTRS = {
+	
+	/**
+	 * Y.CanvasNode instance
+	 * @attribute canvas
+	 */
+	canvas: {
+		value: null,
+	},
+	
+	/**
+	 * cap attribute of the line ("round","butt", or "square")
+	 * @attribute cap
+	 * @type String
+	 * @default "round"
+	 */
+	cap: {
+		validator: Y.Lang.isString,
+		value: 'round'
+	},
+	
+	/**
+	 * @attribute color
+	 */
+	color: {
+		validator: Y.Lang.isString,
+		value: 'rgb(173,216,230)'
+	},
+	
+	/**
+	 * @attribute bordercolor
+	 */
+	bordercolor: {
+		validator: Y.Lang.isString,
+		value: '#0000ff'
+	},
+	
+	/**
+	 * @attribute linewidth
+	 */
+	linewidth: {
+		value: 3
+	},
+	
+	/**
+	 * @attribute borderwidth
+	 */
+	borderwidth: {
+		value: 1
+	}
+
+};
+
+Y.CanvasWire = CanvasWire;
+
+}, '3.0.0a', {requires: ['wire-base','canvas-node']});

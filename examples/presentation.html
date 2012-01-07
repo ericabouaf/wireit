@@ -54,7 +54,7 @@ h2 {
 <script>
 
 YUI_config.groups.wireit.base = '../src/';
-YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
+YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', function(Y) {
 
 Y.WireIt.samples = [
 	{
@@ -62,8 +62,8 @@ Y.WireIt.samples = [
 							 '<h2>Try to create a wire by "drag-dropping" the "terminals".</h2>'+
 							 '<div style="width: 100px;"></div>',
 		init: function() {
-			var t1 = new Y.WireIt.Terminal(SampleMgr.container, {direction: [1,0], offsetPosition:[80,100] });
-			var t2 = new Y.WireIt.Terminal(SampleMgr.container, {direction: [-1,0], offsetPosition:[200,210] });
+			var t1 = new Y.Terminal(SampleMgr.container, {direction: [1,0], offsetPosition:[80,100] });
+			var t2 = new Y.Terminal(SampleMgr.container, {direction: [-1,0], offsetPosition:[200,210] });
 			this.t1 = t1;
 			this.t2 = t2;
 				
@@ -93,10 +93,10 @@ Y.WireIt.samples = [
 		init: function() {
 			var wireConfig = { xtype: 'WireIt.ArrowWire' };
 			this.terminals = [
-				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,100] }),
-				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,210] }),
-				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,210] }),
-				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,100] })
+				new Y.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,100] }),
+				new Y.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,210] }),
+				new Y.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,210] }),
+				new Y.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,100] })
 			];
 		},
 		unload: function() {
@@ -111,10 +111,10 @@ Y.WireIt.samples = [
 		init: function() {
 			var wireConfig = { xtype: 'WireIt.LeftSquareArrow', fakeDirection: [0,-1] };
 			this.terminals = [
-				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,100] }),
-				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,210] }),
-				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,210] }),
-				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,100] })
+				new Y.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,100] }),
+				new Y.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[80,210] }),
+				new Y.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,210] }),
+				new Y.Terminal(SampleMgr.container, { wireConfig: wireConfig, offsetPosition:[200,100] })
 			];
 		},
 		unload: function() {
@@ -128,10 +128,10 @@ Y.WireIt.samples = [
 		innerHTML: '<p>Straight lines too</p>',
 		init: function() {
 			this.terminals = [
-				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "Y.WireIt.Wire"}, offsetPosition:[80,100] }),
-				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "Y.WireIt.Wire"}, offsetPosition:[80,210] }),
-				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "Y.WireIt.Wire"}, offsetPosition:[200,210] }),
-				new Y.WireIt.Terminal(SampleMgr.container, { wireConfig: { xtype: "Y.WireIt.Wire"}, offsetPosition:[200,100] })
+				new Y.Terminal(SampleMgr.container, { wireConfig: { xtype: "Y.Wire"}, offsetPosition:[80,100] }),
+				new Y.Terminal(SampleMgr.container, { wireConfig: { xtype: "Y.Wire"}, offsetPosition:[80,210] }),
+				new Y.Terminal(SampleMgr.container, { wireConfig: { xtype: "Y.Wire"}, offsetPosition:[200,210] }),
+				new Y.Terminal(SampleMgr.container, { wireConfig: { xtype: "Y.Wire"}, offsetPosition:[200,100] })
 			];
 		},
 		unload: function() {
@@ -149,7 +149,7 @@ Y.WireIt.samples = [
 			for(var x = 0 ; x < 5 ; x++) {
 				for(var y = 0 ; y < 4 ; y++) {
 					var color = colors[(x+y*5) % colors.length];
-					var t = new Y.WireIt.Terminal(SampleMgr.container, {
+					var t = new Y.Terminal(SampleMgr.container, {
 						fakeDirection:  [0,1],
 						offsetPosition:[50+x*60,50+y*60],
 						ddConfig: {

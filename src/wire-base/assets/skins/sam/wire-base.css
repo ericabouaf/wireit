@@ -1,0 +1,12 @@
+/**
+ * Wires
+ */
+.yui3-wire {
+   position: absolute;
+   border: 0;
+   z-index: 0;
+}
+
+.yui3-wire-editing {
+	z-index: 10;
+}

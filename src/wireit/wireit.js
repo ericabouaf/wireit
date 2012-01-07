@@ -17,21 +17,21 @@ Y.WireIt = {
 	 * TODO
 	 */
 	
-	defaultWireClass: "Y.WireIt.BezierWire",
+	defaultWireClass: "Y.BezierWire",
 	
 	wireClassFromXtype: function(xtype) {
 		return this.classFromXtype(xtype, this.defaultWireClass);
 	},
 	
 	
-	defaultTerminalClass: "Y.WireIt.Terminal",
+	defaultTerminalClass: "Y.WireTerminal",
 	
 	terminalClassFromXtype: function(xtype) {
 		return this.classFromXtype(xtype, this.defaultTerminalClass);
 	},
 	
 
-	defaultContainerClass: "Y.WireIt.Container",
+	defaultContainerClass: "Y.WireContainer",
 	
 	containerClassFromXtype: function(xtype) {
 		return this.classFromXtype(xtype, this.defaultContainerClass);

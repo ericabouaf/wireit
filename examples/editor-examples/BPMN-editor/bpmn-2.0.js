@@ -21,7 +21,7 @@ var bpmnLanguage = {
 			"name": "Task",
 			"category": "activity",
 			"container": {
-      		"xtype":"Y.WireIt.FormContainer", 
+      		"xtype":"Y.FormContainer", 
       		"className": "WireIt-Container WireIt-ImageContainer BPMN-Task",
          	"icon": "icons/activity/task.png",
       		"image": "icons/activity/task.png",
@@ -40,7 +40,7 @@ var bpmnLanguage = {
 			"name": "Collapsed Subprocess",
 			"category": "activity",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/activity/subprocess.png",
       		"image": "icons/activity/subprocess.png",
@@ -54,7 +54,7 @@ var bpmnLanguage = {
 			"name": "Expanded Subprocess",
 			"category": "activity",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/activity/expanded.subprocess.png",
       		"image": "icons/activity/expanded.subprocess.png",
@@ -68,7 +68,7 @@ var bpmnLanguage = {
 			"name": "Collapsed Event-Subprocess",
 			"category": "activity",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/activity/event.subprocess.collapsed.png",
       		"image": "icons/activity/event.subprocess.collapsed.png",
@@ -82,7 +82,7 @@ var bpmnLanguage = {
 			"name": "Event-Subprocess",
 			"category": "activity",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/activity/event.subprocess.png",
       		"image": "icons/activity/event.subprocess.png",
@@ -100,7 +100,7 @@ var bpmnLanguage = {
 			"name": "Data-based Exclusive (XOR) Gateway",
 			"category": "gateway",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/gateway/exclusive.databased.png",
       		"image": "images/gateway/exclusive.png",
@@ -115,7 +115,7 @@ var bpmnLanguage = {
 			"name": "Event-based Gateway",
 			"category": "gateway",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/gateway/eventbased.png",
       		"image": "icons/gateway/eventbased.png",
@@ -129,7 +129,7 @@ var bpmnLanguage = {
 			"name": "Parallel Gateway",
 			"category": "gateway",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/gateway/parallel.png",
       		"image": "icons/gateway/parallel.png",
@@ -143,7 +143,7 @@ var bpmnLanguage = {
 			"name": "Inclusive Gateway",
 			"category": "gateway",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/gateway/inclusive.png",
       		"image": "icons/gateway/inclusive.png",
@@ -157,7 +157,7 @@ var bpmnLanguage = {
 			"name": "Complex Gateway",
 			"category": "gateway",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/gateway/complex.png",
       		"image": "icons/gateway/complex.png",
@@ -176,7 +176,7 @@ var bpmnLanguage = {
 			"name": "Pool",
 			"category": "swimlane",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/swimlane/pool.png",
       		"image": "icons/swimlane/pool.png",
@@ -190,7 +190,7 @@ var bpmnLanguage = {
 			"name": "Collapsed Pool",
 			"category": "swimlane",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/swimlane/lane.png",
       		"image": "icons/swimlane/lane.png",
@@ -204,7 +204,7 @@ var bpmnLanguage = {
 			"name": "Lane",
 			"category": "swimlane",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/swimlane/lane.png",
       		"image": "icons/swimlane/lane.png",
@@ -222,7 +222,7 @@ var bpmnLanguage = {
 			"name": "Group",
 			"category": "artifact",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/artifact/group.png",
       		"image": "icons/artifact/group.png",
@@ -236,7 +236,7 @@ var bpmnLanguage = {
 			"name": "Text Annotation",
 			"category": "artifact",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/artifact/text.annotation.png",
       		"image": "icons/artifact/text.annotation.png",
@@ -254,7 +254,7 @@ var bpmnLanguage = {
 			"name": "Data Object",
 			"category": "dataobject",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/dataobject/data.object.png",
       		"image": "icons/dataobject/data.object.png",
@@ -268,7 +268,7 @@ var bpmnLanguage = {
 			"name": "IT System",
 			"category": "dataobject",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/dataobject/it.system.png",
       		"image": "icons/dataobject/it.system.png",
@@ -282,7 +282,7 @@ var bpmnLanguage = {
 			"name": "Data Store",
 			"category": "dataobject",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/dataobject/data.store.png",
       		"image": "icons/dataobject/data.store.png",
@@ -296,7 +296,7 @@ var bpmnLanguage = {
 			"name": "Message",
 			"category": "dataobject",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/dataobject/message.png",
       		"image": "icons/dataobject/message.png",
@@ -314,7 +314,7 @@ var bpmnLanguage = {
 			"name": "Start Event",
 			"category": "startevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/startevent/none.png",
       		"image": "icons/startevent/none.png",
@@ -328,7 +328,7 @@ var bpmnLanguage = {
 			"name": "Start Message Event",
 			"category": "startevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/startevent/message.png",
       		"image": "icons/startevent/message.png",
@@ -342,7 +342,7 @@ var bpmnLanguage = {
 			"name": "Start Timer Event",
 			"category": "startevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/startevent/timer.png",
       		"image": "icons/startevent/timer.png",
@@ -356,7 +356,7 @@ var bpmnLanguage = {
 			"name": "Start Conditional Event",
 			"category": "startevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/startevent/conditional.png",
       		"image": "icons/startevent/conditional.png",
@@ -370,7 +370,7 @@ var bpmnLanguage = {
 			"name": "Start Error Event",
 			"category": "startevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/startevent/error.png",
       		"image": "icons/startevent/error.png",
@@ -384,7 +384,7 @@ var bpmnLanguage = {
 			"name": "Start Compensation Event",
 			"category": "startevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/startevent/compensation.png",
       		"image": "icons/startevent/compensation.png",
@@ -398,7 +398,7 @@ var bpmnLanguage = {
 			"name": "Start Signal Event",
 			"category": "startevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/startevent/signal.png",
       		"image": "icons/startevent/signal.png",
@@ -412,7 +412,7 @@ var bpmnLanguage = {
 			"name": "Start Multiple Event",
 			"category": "startevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/startevent/multiple.png",
       		"image": "icons/startevent/multiple.png",
@@ -426,7 +426,7 @@ var bpmnLanguage = {
 			"name": "Start Parallel Multiple Event",
 			"category": "startevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/startevent/multiple.parallel.png",
       		"image": "icons/startevent/multiple.parallel.png",
@@ -440,7 +440,7 @@ var bpmnLanguage = {
 			"name": "Start Escalation Event",
 			"category": "startevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/startevent/escalation.png",
       		"image": "icons/startevent/escalation.png",
@@ -458,7 +458,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Message Event",
 			"category": "catching",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/catching/message.png",
       		"image": "icons/catching/message.png",
@@ -472,7 +472,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Timer Event",
 			"category": "catching",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/catching/timer.png",
       		"image": "icons/catching/timer.png",
@@ -486,7 +486,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Conditional Event",
 			"category": "catching",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/catching/conditional.png",
       		"image": "icons/catching/conditional.png",
@@ -500,7 +500,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Link Event",
 			"category": "catching",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/catching/link.png",
       		"image": "icons/catching/link.png",
@@ -514,7 +514,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Error Event",
 			"category": "catching",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/catching/error.png",
       		"image": "icons/catching/error.png",
@@ -528,7 +528,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Cancel Event",
 			"category": "catching",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/catching/cancel.png",
       		"image": "icons/catching/cancel.png",
@@ -542,7 +542,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Compensation Event",
 			"category": "catching",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/catching/compensation.png",
       		"image": "icons/catching/compensation.png",
@@ -556,7 +556,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Signal Event",
 			"category": "catching",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/catching/signal.png",
       		"image": "icons/catching/signal.png",
@@ -570,7 +570,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Multiple Event",
 			"category": "catching",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/catching/multiple.png",
       		"image": "icons/catching/multiple.png",
@@ -583,7 +583,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Parallel Multiple Event",
 			"category": "catching",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/catching/multiple.parallel.png",
       		"image": "icons/catching/multiple.parallel.png",
@@ -597,7 +597,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Escalation Event",
 			"category": "catching",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/catching/escalation.png",
       		"image": "icons/catching/escalation.png",
@@ -615,7 +615,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Event",
 			"category": "throwing",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/throwing/none.png",
       		"image": "icons/throwing/none.png",
@@ -629,7 +629,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Message Event",
 			"category": "throwing",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/throwing/message.png",
       		"image": "icons/throwing/message.png",
@@ -643,7 +643,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Link Event",
 			"category": "throwing",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/throwing/link.png",
       		"image": "icons/throwing/link.png",
@@ -657,7 +657,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Compensation Event",
 			"category": "throwing",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/throwing/compensation.png",
       		"image": "icons/throwing/compensation.png",
@@ -671,7 +671,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Signal Event",
 			"category": "throwing",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/throwing/signal.png",
       		"image": "icons/throwing/signal.png",
@@ -685,7 +685,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Multiple Event",
 			"category": "throwing",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/throwing/multiple.png",
       		"image": "icons/throwing/multiple.png",
@@ -699,7 +699,7 @@ var bpmnLanguage = {
 			"name": "Intermediate Escalation",
 			"category": "throwing",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/throwing/escalation.png",
       		"image": "icons/throwing/escalation.png",
@@ -717,7 +717,7 @@ var bpmnLanguage = {
 			"name": "End Event",
 			"category": "endevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/endevent/none.png",
       		"image": "icons/endevent/none.png",
@@ -731,7 +731,7 @@ var bpmnLanguage = {
 			"name": "End Message Event",
 			"category": "endevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/endevent/message.png",
       		"image": "icons/endevent/message.png",
@@ -745,7 +745,7 @@ var bpmnLanguage = {
 			"name": "End Error Event",
 			"category": "endevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/endevent/error.png",
       		"image": "icons/endevent/error.png",
@@ -759,7 +759,7 @@ var bpmnLanguage = {
 			"name": "Cancel End Event",
 			"category": "endevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/endevent/cancel.png",
       		"image": "icons/endevent/cancel.png",
@@ -773,7 +773,7 @@ var bpmnLanguage = {
 			"name": "End Compensation Event",
 			"category": "endevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/endevent/compensation.png",
       		"image": "icons/endevent/compensation.png",
@@ -787,7 +787,7 @@ var bpmnLanguage = {
 			"name": "End Signal Event",
 			"category": "endevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/endevent/signal.png",
       		"image": "icons/endevent/signal.png",
@@ -801,7 +801,7 @@ var bpmnLanguage = {
 			"name": "End Multiple Event",
 			"category": "endevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/endevent/multiple.png",
       		"image": "icons/endevent/multiple.png",
@@ -815,7 +815,7 @@ var bpmnLanguage = {
 			"name": "Terminate End Event",
 			"category": "endevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/endevent/terminate.png",
       		"image": "icons/endevent/terminate.png",
@@ -829,7 +829,7 @@ var bpmnLanguage = {
 			"name": "End Escalation Event",
 			"category": "endevent",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer", 
+      		"xtype":"Y.ImageContainer", 
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/endevent/escalation.png",
       		"image": "icons/endevent/escalation.png",
@@ -847,7 +847,7 @@ var bpmnLanguage = {
 			"name": "Sequence Flow",
 			"category": "connector",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer",  // TODO: Y.WireIt.Wire
+      		"xtype":"Y.ImageContainer",  // TODO: Y.Wire
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/connector/sequenceflow.png",
       		"image": "icons/connector/sequenceflow.png",
@@ -861,7 +861,7 @@ var bpmnLanguage = {
 			"name": "Message Flow",
 			"category": "connector",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer",  // TODO: Y.WireIt.Wire
+      		"xtype":"Y.ImageContainer",  // TODO: Y.Wire
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/connector/messageflow.png",
       		"image": "icons/connector/messageflow.png",
@@ -875,7 +875,7 @@ var bpmnLanguage = {
 			"name": "Association (undirected)",
 			"category": "connector",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer",  // TODO: Y.WireIt.Wire
+      		"xtype":"Y.ImageContainer",  // TODO: Y.Wire
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/connector/association.undirected.png",
       		"image": "icons/connector/association.directional.png",
@@ -889,7 +889,7 @@ var bpmnLanguage = {
 			"name": "Association (unidirectional)",
 			"category": "connector",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer",  // TODO: Y.WireIt.Wire
+      		"xtype":"Y.ImageContainer",  // TODO: Y.Wire
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/connector/association.unidirectional.png",
       		"image": "icons/connector/association.unidirectional.png",
@@ -903,7 +903,7 @@ var bpmnLanguage = {
 			"name": "Association (bidirectional)",
 			"category": "connector",
 			"container": {
-      		"xtype":"Y.WireIt.ImageContainer",  // TODO: Y.WireIt.Wire
+      		"xtype":"Y.ImageContainer",  // TODO: Y.Wire
       		//"className": "WireIt-Container WireIt-ImageContainer",
          	"icon": "icons/connector/association.bidirectional.png",
       		"image": "icons/connector/association.bidirectional.png",
@@ -918,8 +918,8 @@ var bpmnLanguage = {
 	      "name": "FormContainer",
 			"category": "form",
 	      "container": {
-	   		"xtype": "WireIt.FormContainer",
-	   		"title": "WireIt.FormContainer demo",    
+	   		"xtype": "Y.FormContainer",
+	   		"title": "Y.FormContainer demo",    
 	   		"icon": "../../res/icons/application_edit.png",
 
 	   		"collapsible": true,
@@ -939,7 +939,7 @@ var bpmnLanguage = {
 	      "name": "comment",
 	
 	      "container": {
-	         "xtype": "WireIt.FormContainer",
+	         "xtype": "Y.FormContainer",
 				"icon": "../../res/icons/comment.png",
 	   		"title": "Comment",
 	   		"fields": [
@@ -957,7 +957,7 @@ var bpmnLanguage = {
 	         "name": "AND gate",
 				"category": "images",
 	         "container": {
-	      		"xtype":"Y.WireIt.ImageContainer", 
+	      		"xtype":"Y.ImageContainer", 
 	      		"image": "../logicGates/images/gate_and.png",
 	      		"icon": "../../res/icons/arrow_join.png",
 	      		"terminals": [
@@ -973,7 +973,7 @@ var bpmnLanguage = {
 					"name": "Bubble",
 					"category": "images",
 					"container": {
-	         		"xtype":"Y.WireIt.ImageContainer", 
+	         		"xtype":"Y.ImageContainer", 
 	         		"className": "WireIt-Container WireIt-ImageContainer Bubble",
 	            	"icon": "../../res/icons/color_wheel.png",
 	         		"image": "../images/bubble.png",
@@ -991,7 +991,7 @@ var bpmnLanguage = {
 					"category": "form",
 					"container": {
 	   				"icon": "../../res/icons/application_edit.png",
-	   				"xtype": "WireIt.FormContainer",
+	   				"xtype": "Y.FormContainer",
 	   				"outputTerminals": [],
 	   				"propertiesForm": [],
 	   				"fields": [ 
@@ -1009,7 +1009,7 @@ var bpmnLanguage = {
 	            "name": "PostContainer",
 					"category": "form",
 	            "container": {
-	         		"xtype": "WireIt.FormContainer",
+	         		"xtype": "Y.FormContainer",
 	         		"title": "Post",    
 	         		"icon": "../../res/icons/comments.png",
 
@@ -1039,7 +1039,7 @@ var bpmnLanguage = {
 				{
 		         "name": "InOut test",
 		         "container": {
-		      		"xtype":"Y.WireIt.InOutContainer", 
+		      		"xtype":"Y.InOutContainer", 
 		      		"icon": "../../res/icons/arrow_right.png",
 						"inputs": ["text1", "text2", "option1"],
 						"outputs": ["result", "error"]
@@ -1066,7 +1066,7 @@ BPMNEditor = function(options) {
    BPMNEditor.superclass.constructor.call(this, options);
 };
 
-Y.extend(BPMNEditor, Y.WireIt.WiringEditor, {
+Y.extend(BPMNEditor, Y.WiringEditor, {
    
 
 	onLoadSuccess: function(wirings) {
@@ -1097,7 +1097,7 @@ Y.extend(BPMNEditor, Y.WireIt.WiringEditor, {
 
 
 YUI_config.groups.wireit.base = '../src/';
-YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
+YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', function(Y) {
 	
 	var editor = new BPMNEditor(bpmnLanguage); 
 	

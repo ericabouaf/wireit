@@ -86,13 +86,13 @@ if (!window.google || !google.gears) {
 
 
 YUI_config.groups.wireit.base = '../src/';
-YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
+YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', function(Y) {
 	
 	try {
 	
-	demoLanguage.adapter = Y.WireIt.WiringEditor.adapters.Gears;
+	demoLanguage.adapter = Y.WiringEditor.adapters.Gears;
 	
-	editor = new Y.WireIt.WiringEditor(demoLanguage); 
+	editor = new Y.WiringEditor(demoLanguage); 
 	
 	// Open the infos panel
 	editor.accordionView.openPanel(2);

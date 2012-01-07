@@ -39,12 +39,12 @@ div.blockBox {
 YUI_config.groups.wireit.base = '../src/';
 YUI_config.groups.inputex.base = '../../inputex/master/src/';
 
-YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', 'inputex', 'inputex-inplaceedit', 'inputex-select', function(Y) {
+YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', 'inputex', 'inputex-inplaceedit', 'inputex-select', function(Y) {
 	
 	// Create 2 terminals into Block1
 	var block1 = Y.one('#block1');
-	var terminals1 = [new Y.WireIt.Terminal(block1, {direction: [-1,0], offsetPosition: [-14,35]}), 
-							new Y.WireIt.Terminal(block1, {direction: [1,0], offsetPosition: [85,35]})];
+	var terminals1 = [new Y.Terminal(block1, {direction: [-1,0], offsetPosition: [-14,35]}), 
+							new Y.Terminal(block1, {direction: [1,0], offsetPosition: [85,35]})];
 	
 	// Make the block1 draggable
 	var drag = new Y.DD.Drag({ 
@@ -59,8 +59,8 @@ YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal',
 	
 	// Create 2 terminals into Block2
 	var block2 = Y.one('#block2');
-	var terminals2 = [new Y.WireIt.Terminal(block2, {direction: [-1,0], offsetPosition: [-14,35]}), 
-							new Y.WireIt.Terminal(block2, {direction: [1,0], offsetPosition: [85,35]})];
+	var terminals2 = [new Y.Terminal(block2, {direction: [-1,0], offsetPosition: [-14,35]}), 
+							new Y.Terminal(block2, {direction: [1,0], offsetPosition: [85,35]})];
 	
 	// Make the block2 draggable
 	var drag = new Y.DD.Drag({ 
@@ -74,10 +74,10 @@ YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal',
 	});
 	
 	// Create a wire between some terminals
-	var w1 = new Y.WireIt.BezierWire(terminals1[0], terminals2[0], document.body, {label: "Hello world !", labelStyle: {fontSize: "16pt", fontWeight: "bold", color: "yellow", backgroundColor: "black", border: "2px solid red"} });
+	var w1 = new Y.BezierWire(terminals1[0], terminals2[0], document.body, {label: "Hello world !", labelStyle: {fontSize: "16pt", fontWeight: "bold", color: "yellow", backgroundColor: "black", border: "2px solid red"} });
 	w1.redraw();
 	
-	var w2 = new Y.WireIt.BezierWire(terminals1[1], terminals2[1], document.body, {
+	var w2 = new Y.BezierWire(terminals1[1], terminals2[1], document.body, {
 		
 		label: 'test',
 		labelEditor: /*{type: 'string', value: "Testst"}*/

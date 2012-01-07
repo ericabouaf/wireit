@@ -1,140 +1,83 @@
-YUI.add('wire', function(Y) {
+YUI.add('wire-straight-plugin', function(Y) {
 
-/**
- * WireIt - Wiring javascript library
- * @module wireit
- */
-/**
- * The wire widget that uses a canvas to render. 
- * The wire is drawn between "src" and "tgt" (so they might be directional).
- *
- * "src" and "tgt" MUST have a "getXY" function
- *
- * "src" and "tgt" MAY additionnaly have the "addWire", "removeWire" methods.
- * Those methods are designed to be used through the WiringsDelegate extension,
- * which provide basic list-handling on wires.
- *
- * @class Wire
- * @constructor
- * @extends Widget
- * @uses WidgetPosition
- * @param {Object} oConfigs The user configuration for the instance.
- */
-var Wire = Y.Base.create("wire", Y.Widget, [Y.WidgetPosition,Y.Persistable,Y.BetterPluginsExtension], {
+function WireStraightPlugin(config) {
+   WireStraightPlugin.superclass.constructor.apply(this, arguments);
+}
+ 
+WireStraightPlugin.NAME = 'WireStraightPlugin';
+WireStraightPlugin.NS = "Straight";
+
+WireStraightPlugin.ATTRS = {
+};
+
+// Extend Plugin.Base
+Y.extend(WireStraightPlugin, Y.WireCanvasPlugin, {
 	
-	/**
-	 * Notify the WiresDeletates through addWire
-	 */
 	initializer: function() {
-		var src = this.get('src'), tgt = this.get('tgt');
-		
-		if(src && Y.Lang.isFunction(src.addWire) ) {
-			src.addWire(this);
+		this.afterHostMethod("draw", this.draw);
+	},
+	
+	draw: function() {
+	
+		var w = this.get('host');
+	
+		//console.log("Straight draw");
+		var src = w.get('src'), tgt = w.get('tgt');
+		if( !src || !tgt) {
+			return;
 		}
-		if(tgt && Y.Lang.isFunction(tgt.addWire) ) {
-			tgt.addWire(this);
-		}
-	},
-	
-	/**
-	 * Listen for src/tgt changes
-	 */
-	bindUI: function() {
-		
-		this.on("srcChange", this._onSrcChange);
-		this.on("tgtChange", this._onTgtChange);
-		
-		this.after("srcChange", this._afterChangeRedraw);
-		this.after("tgtChange", this._afterChangeRedraw);
-	},
-	
-	renderUI: function() {
-		this._drawWire();
-	},
-	
-	/**
-	 * syncUI just redraws the wire
-	 */
-	syncUI: function() {
-		this._drawWire();
-	},
-	
-	/**
-	 * call removeWire on WiringsDelegate
-	 */
-	destructor: function() {
-		var src = this.get('src'), tgt = this.get('tgt');
-		
-		if(src && Y.Lang.isFunction(src.removeWire) ) {
-			src.removeWire(this);
-		}
-		if(tgt && Y.Lang.isFunction(tgt.removeWire) ) {
-			tgt.removeWire(this);
-		}
-	},
-	
-   /**
-    * Drawing method. Meant to be overriden by a plugin
-    */
-   _drawWire: function() {
-		//throw new Error("Y.Wire has no _drawWire method. Consider using a plugin such as 'wire-bezier-plugin' in your YUI.use statement");
-	},
-	
-		
-	_onEndpointChange: function(e) {
-		// remove this wire from the list of the previous src/tgt item
-		if(e.prevVal && Y.Lang.isFunction(e.prevVal.removeWire) ) {
-			e.prevVal.removeWire(this);
-		}
-		
-		// add this wire to the list of the new src/tgt item
-		if(e.newVal && Y.Lang.isFunction(e.newVal.addWire)) {
-			e.newVal.addWire(this);
-		}
-	},
-	
-	_onSrcChange: function(e) {
-		this._onEndpointChange(e);
-	},
-	
-	_onTgtChange: function(e) {
-		this._onEndpointChange(e);
-	},
-	
-	_afterChangeRedraw: function() {
-		if( this.get('rendered') ) {
-			this._drawWire();
-		}
-	},
-	
-	getOtherTerminal: function(term) {
-	   return (term == this.get('src')) ? this.get('tgt') : this.get('src');
-	},
-	
-	DEFAULT_PLUGINS: [ 
-		{ ns: "WireBezierPlugin", cfg:{bezierTangentNorm: 30} }
-	],
-	
-	PERSISTENT_ATTRS: ["src"]
+			
+      var margin = [4,4];
+
+      // Get the positions of the terminals
+      var p1 = src.getXY();
+      var p2 = tgt.getXY();
+
+		p1[0]+=15;p1[1]+=15;p2[0]+=15;p2[1]+=15;
+
+      var min=[ Math.min(p1[0],p2[0])-margin[0], Math.min(p1[1],p2[1])-margin[1]];
+      var max=[ Math.max(p1[0],p2[0])+margin[0], Math.max(p1[1],p2[1])+margin[1]];
+
+		// Store the min, max positions to display the label later
+		w.min = min;
+		w.max = max;      
+
+      // Redimensionnement du canvas
+      var lw=Math.abs(max[0]-min[0]);
+      var lh=Math.abs(max[1]-min[1]);
+
+      // Convert points in canvas coordinates
+      p1[0] = p1[0]-min[0];
+      p1[1] = p1[1]-min[1];
+      p2[0] = p2[0]-min[0];
+      p2[1] = p2[1]-min[1];
+ 		
+      w.set('xy', [ min[0],min[1] ]);
+		this.get('canvas').resize(lw,lh);
+
+      var ctxt=this.get('canvas').getContext();
+      
+      // Draw the border
+      ctxt.lineCap=this.get('cap');
+      ctxt.strokeStyle=this.get('bordercolor');
+      ctxt.lineWidth=this.get('linewidth')+this.get('borderwidth')*2;
+      ctxt.beginPath();
+      ctxt.moveTo(p1[0],p1[1]);
+      ctxt.lineTo(p2[0],p2[1]);
+      ctxt.stroke();
+
+      // Draw the inner bezier curve
+      ctxt.lineCap=this.get('cap');
+      ctxt.strokeStyle=this.get('color');
+      ctxt.lineWidth=this.get('linewidth');
+      ctxt.beginPath();
+      ctxt.moveTo(p1[0],p1[1]);
+      ctxt.lineTo(p2[0],p2[1]);
+      ctxt.stroke();
+   }
 	
 });
 
-Wire.NAME = "wire";
+Y.WireStraightPlugin = WireStraightPlugin;
 
-Wire.ATTRS = {
-	
-	CSS_PREFIX: "wireit",
-
-	src: {
-		value: null
-	},
-	
-	tgt: {
-		value: null
-	}
-	
-};
-
-Y.Wire = Wire;
-
-}, '3.0.0a', {requires: ['widget','widget-position','persistable','better-plugins-extension']});
+}, '3.0.0a', {requires: ['wire','wire-canvas-plugin']});

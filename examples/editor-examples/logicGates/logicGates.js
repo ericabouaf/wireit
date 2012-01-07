@@ -121,7 +121,7 @@ LogicContainer = function(opts, layer) {
 	LogicContainer.superclass.constructor.call(this, opts, layer);
 	this.logicInputValues = [];
 };
-Y.extend(LogicContainer, Y.WireIt.ImageContainer, {
+Y.extend(LogicContainer, Y.ImageContainer, {
 
 	/** 
     * @property xtype
@@ -216,9 +216,9 @@ Y.extend(LightbulbContainer, LogicContainer, {
 });
 
 YUI_config.groups.wireit.base = '../src/';
-YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
+YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', function(Y) {
 	try {
-		logicGates = new Y.WireIt.WiringEditor(logicGatesLang); 
+		logicGates = new Y.WiringEditor(logicGatesLang); 
 	}catch(ex) {
 		alert(ex);
 	}

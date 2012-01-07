@@ -1,7 +1,4 @@
-/*global YAHOO,WireIt,G_vmlCanvasManager,document */
 
-// Shortcuts
-var Event = YAHOO.util.Event, UA = YAHOO.env.ua;
 
 /**
  * Create a canvas element and wrap cross-browser hacks to resize it
@@ -10,7 +7,7 @@ var Event = YAHOO.util.Event, UA = YAHOO.env.ua;
  * @constructor
  * @param {HTMLElement} parentNode The canvas tag will be append to this parent DOM node.
  */
-WireIt.CanvasElement = function(parentNode) {
+var CanvasElement = function(parentNode) {
   
    /**
     * The canvas element
@@ -29,7 +26,7 @@ WireIt.CanvasElement = function(parentNode) {
   
 };
 
-WireIt.CanvasElement.prototype = {
+CanvasElement.prototype = {
   
    /**
     * Get a drawing context
@@ -95,3 +92,5 @@ WireIt.CanvasElement.prototype = {
                   WireIt.sn(this.element,{width:width,height:height},{left:left+"px",top:top+"px"});
                })
 };
+
+Y.CanvasElement = CanvasElement;

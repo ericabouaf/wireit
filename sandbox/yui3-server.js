@@ -60,7 +60,7 @@ YUI({
 				  });
 				
 					w1.render('#demo');
-					w1._drawWire();
+					w1.drawWire();
 										
 					w1.Bezier._ccc.toBuffer(function(err, buf){
 							var base64_encode = require('base64').encode;

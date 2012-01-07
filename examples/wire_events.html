@@ -20,7 +20,7 @@
 <script>
 
 YUI_config.groups.wireit.base = '../src/';
-YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', 'wireit-layer', function(Y) {
+YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', 'layer', function(Y) {
 
 	// Functions executed with the scope of a wire
 	var wireRed = function() {
@@ -36,7 +36,7 @@ YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal',
 		};
 	
 	// Generate a random layer
-	var layer = new Y.WireIt.Layer({});
+	var layer = new Y.Layer({});
 	for(var i = 0 ; i < 5 ; i++) {
 		layer.addContainer({
 			terminals: [ {direction: [0,1], offsetPosition: {bottom: -13, left: 25} }],

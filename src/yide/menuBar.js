@@ -1,6 +1,4 @@
 YUI.add('yide-menubar', function(Y) {
-
-	var YAHOO = Y.YUI2, Dom = YAHOO.util.Dom, Event = YAHOO.util.Event;
 		
     var menuBar = function(args) {
         menuBar.superclass.constructor.apply(this, arguments);

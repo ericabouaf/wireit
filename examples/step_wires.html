@@ -53,10 +53,10 @@ window.onload = function() {
 	var bb = Y.one('#blockBottom');
 	
 	for( var i = 0 ; i < 7 ; i++) {
-		new Y.WireIt.Terminal(bl, {direction: [1,0], offsetPosition:[0,i*50] });
-		new Y.WireIt.Terminal(br, {direction: [-1,0], offsetPosition:[0,i*50] });
-		new Y.WireIt.Terminal(bt, {direction: [0,1], offsetPosition:[i*50,0] });
-		new Y.WireIt.Terminal(bb, {direction: [0,-1], offsetPosition:[i*50,0] });
+		new Y.Terminal(bl, {direction: [1,0], offsetPosition:[0,i*50] });
+		new Y.Terminal(br, {direction: [-1,0], offsetPosition:[0,i*50] });
+		new Y.Terminal(bt, {direction: [0,1], offsetPosition:[i*50,0] });
+		new Y.Terminal(bb, {direction: [0,-1], offsetPosition:[i*50,0] });
 	}
 	
 };

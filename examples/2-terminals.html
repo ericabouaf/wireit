@@ -3,7 +3,7 @@
   <title>Terminal test</title>
 
 <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
-<script type="text/javascript" src="../src/yide-loader.js"></script>
+<script type="text/javascript" src="../src/loader.js"></script>
 <style>
 .demo {
     height: 30px;
@@ -24,7 +24,7 @@
 
 YUI_config.groups.wireit.base = '../src/';
 
-YUI({combine: false}).use("layer",'wire-bezier-plugin','image-container',function(Y) {
+YUI({combine: false, filter: 'raw'}).use('terminal','bezier-wire',function(Y) {
 
   window.Y = Y;
 
@@ -41,14 +41,10 @@ YUI({combine: false}).use("layer",'wire-bezier-plugin','image-container',functio
   var t8 = new Y.Terminal({render: layerEl, x: 780, y: 240, groups:["string","url"] });
   
   // Add a wire
-  w1 = new Y.Wire({
+  w1 = new Y.BezierWire({
     src: t1, 
     tgt: t2, 
-    render: layerEl,
-    
-    plugins: [ 
-        {fn: Y.WireBezierPlugin, cfg:{bezierTangentNorm:300} }
-    ]
+    render: layerEl
   });
     
   //w1.set('tgt', t3);

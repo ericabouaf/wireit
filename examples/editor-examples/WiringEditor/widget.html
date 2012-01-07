@@ -89,7 +89,7 @@ h1 { font-size: 18px; font-weight: bold; margin: 30px;}
 
 
 YUI_config.groups.wireit.base = '../src/';
-YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
+YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', function(Y) {
 	
 	demoLanguage.layoutOptions = {
 		
@@ -108,7 +108,7 @@ YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal',
 	
 	demoLanguage.parentEl = 'wiring-editor-widget';
 	
-	var editor = new Y.WireIt.WiringEditor(demoLanguage); 
+	var editor = new Y.WiringEditor(demoLanguage); 
 	
 	// Open the infos panel
 	editor.accordionView.openPanel(2);

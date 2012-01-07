@@ -75,4 +75,4 @@ YUI.add('yide-layertab', function(Y) {
    Y.LayerTab.NAME = "tab";
 
 
-}, '3.2.0', {requires: ['yide','layer','wire-bezier-plugin','image-container']});
+}, '3.2.0', {requires: ['yide','layer','bezier-wire','image-container']});

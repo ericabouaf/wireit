@@ -6,42 +6,125 @@ YUI().use(function(Y) {
 				base: 'wireit/src/',
 				combine: false,
 				modules: {
-				   'wireit': {
-				      requires: ['node']
-				   },
-				   'wireit-wire': {
-						requires: ['wireit','wireit-canvas-element']
+					
+					/**
+					 * Wire
+					 */
+					'wire-base': {
+					    skinnable: true,
+					    requires: ['widget','widget-position']
 					},
-				   'wireit-terminal': {
-						requires: ['dd-drop','wireit','wireit-wire','wireit-terminal-proxy','wireit-scissors']
+					'canvas-node': {
+					   requires: ['node']
 					},
-					'wireit-canvas-element': {
-					   requires: ['wireit']
+					'canvas-wire': {
+					    requires: ['wire-base','canvas-node']
 					},
-					'wireit-terminal-proxy': {
-					   requires: ['wireit','dd-drag','dd-proxy']
+					'bezier-wire': {
+					    requires: ['canvas-wire']
 					},
-					'wireit-scissors': {
-					   requires: ['wireit']
+					'wire': {
+						requires: ['canvas-wire']
 					},
-					'wireit-bezier-wire': {
-					   requires: ['wireit-wire']
+					'wires-delegate': {
+					    requires: ['wire-base']
 					},
-					'wireit-bezierarrow-wire': {
-					   requires: ['wireit-wire']
+					
+					
+					/**
+					 * Terminal
+					 */
+					'terminal-base': {
+						requires: ['widget','widget-child','widget-position','widget-position-align','wires-delegate']
 					},
-					'wireit-arrow-wire': {
-					   requires: ['wireit-wire']
+					'terminal-proxy': {
+					   requires: ['dd-drag','dd-proxy']
 					},
-					'wireit-canvas-container': {
-					   requires: ['wireit-container']
+					'scissors': {
+					   requires: []
 					},
-					'wireit-container': {
-					   requires: ['wireit-terminal']
+					'terminal': { // aka editable terminal
+					    skinnable: true,
+						requires: ['terminal-base', 'dd-drop','wire-base','terminal-proxy','scissors','overlay']
 					},
-					'wireit-layer': {
-					   requires: ['wireit-container']
+					
+					
+					/**
+					 * Container
+					 */
+					'container-base': {
+					   requires: ['overlay','widget-parent','widget-child','dd','resize','terminal','wires-delegate']
+					},
+					'container': {
+					   skinnable: true,
+					   requires: ['container-base']
+					},
+					'image-container': {
+						requires: ['container-base']
+					},
+					'form-container': {
+						requires: ['container-base','inputex'],
+					},
+					
+					/**
+					 * Layer
+					 */
+					'layer': {
+					  requires: ['widget-parent','container','wires-delegate']
+					},
+					
+					
+					
+					
+					/**
+					 * IDE
+					 */
+					/*'yide-css': {
+					   'path': 'yide/assets/ide-core.css',
+					    'type': 'css'
+					},*/
+					'yide': {
+					   'path': 'yide/core.js',
+					   skinnable: true,
+					requires: ['gallery-axo-layout', 'gallery-aui-skin-classic','resize'/*,'yide-css'*/]
+					},
+					'yide-helppanel': {
+					   'path': 'yide/helpPanel.js',
+					    requires: ['yide', 'gallery-aui-dialog'/*, 'yide-menubar'*/]
+					},
+					/*'yide-menubar': {
+					'path': 'yide/menuBar.js',
+					    requires: ['yide', 'yui2-menu']
+					},*/
+					'yide-tabview': {
+						'path': 'yide/tabView.js',
+						requires: ['yide','event-delegate','tabview']
+					},
+					'yide-toolbar': {
+						'path': 'yide/toolbar.js',
+						requires: ['yide', 'gallery-aui-toolbar']
+					},
+					'yide-treeview': {
+						'path': 'yide/treeView.js',
+						requires: ['yide', 'gallery-aui-tree-view']
+					},
+					'yide-accordionview': {
+						'path': 'yide/accordionView.js',
+						requires: ['yide', 'gallery-accordion-horiz-vert']
+					},
+					'yide-layertab': {
+						'path': 'yide/tabs/layerTab.js',
+						requires: ['yide','layer','bezier-wire','image-container']
+					},
+					'yide-chartstab': {
+						'path': 'yide/tabs/chartsTab.js',
+						requires: ['yide','charts']
+					},
+					'yide-organizationtab': {
+						'path': 'yide/tabs/organizationTab.js',
+						requires: ['yide','gallery-aui-tree-view']
 					}
+
 				}
 			}
 		}
@@ -49,25 +132,5 @@ YUI().use(function(Y) {
 
 	if(typeof YUI_config === 'undefined') { YUI_config = {groups: {}}; }
 	Y.mix(YUI_config.groups, CONFIG.groups);
-
-   // Loop through all modules
-   /*var modules = YUI_config.groups.wireit.modules,
-       allModules = [],
-       modulesByType = {};
-   for(var moduleName in modules) {
-     if (modules.hasOwnProperty(moduleName) ) {
-       
-       // Build a list of all wireit modules
-       allModules.push(moduleName);
-       
-       // Build a reverse index on which module provides what type
-       if(modules[moduleName].ix_provides) {
-          modulesByType[modules[moduleName].ix_provides] = moduleName;
-       }
-       
-     }
-   }
-   YUI_config.groups.wireit.allModules = allModules;
-   YUI_config.groups.wireit.modulesByType = modulesByType;*/
 
 });

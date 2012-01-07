@@ -21,8 +21,8 @@ var demoLanguage = {
 	      "name": "FormContainer",
 			"category": "form",
 	      "container": {
-	   		"xtype": "WireIt.FormContainer",
-	   		"title": "WireIt.FormContainer demo",    
+	   		"xtype": "Y.FormContainer",
+	   		"title": "Y.FormContainer demo",    
 	   		"icon": "../../assets/application_edit.png",
 
 	   		"collapsible": true,
@@ -42,7 +42,7 @@ var demoLanguage = {
 	      "name": "comment",
 	
 	      "container": {
-	         "xtype": "WireIt.FormContainer",
+	         "xtype": "Y.FormContainer",
 				"icon": "../../assets/comment.png",
 	   		"title": "Comment",
 	   		"fields": [
@@ -60,7 +60,7 @@ var demoLanguage = {
 	         "name": "AND gate",
 				"category": "images",
 	         "container": {
-	      		"xtype":"Y.WireIt.ImageContainer", 
+	      		"xtype":"Y.ImageContainer", 
 	      		"image": "../logicGates/images/gate_and.png",
 	      		"icon": "../../assets/arrow_join.png",
 	      		"terminals": [
@@ -76,7 +76,7 @@ var demoLanguage = {
 					"name": "Bubble",
 					"category": "images",
 					"container": {
-	         		"xtype":"Y.WireIt.ImageContainer", 
+	         		"xtype":"Y.ImageContainer", 
 	         		"className": "WireIt-Container WireIt-ImageContainer Bubble",
 	            	"icon": "../../assets/color_wheel.png",
 	         		"image": "../../../../examples/bubble.png",
@@ -94,7 +94,7 @@ var demoLanguage = {
 					"category": "form",
 					"container": {
 	   				"icon": "../../assets/application_edit.png",
-	   				"xtype": "WireIt.FormContainer",
+	   				"xtype": "Y.FormContainer",
 	   				"outputTerminals": [],
 	   				"propertiesForm": [],
 	   				"fields": [ 
@@ -112,7 +112,7 @@ var demoLanguage = {
 	            "name": "PostContainer",
 					"category": "form",
 	            "container": {
-	         		"xtype": "WireIt.FormContainer",
+	         		"xtype": "Y.FormContainer",
 	         		"title": "Post",    
 	         		"icon": "../../assets/comments.png",
 
@@ -142,7 +142,7 @@ var demoLanguage = {
 				{
 		         "name": "InOut test",
 		         "container": {
-		      		"xtype":"Y.WireIt.InOutContainer", 
+		      		"xtype":"Y.InOutContainer", 
 		      		"icon": "../../assets/arrow_right.png",
 						"inputs": ["text1", "text2", "option1"],
 						"outputs": ["result", "error"]

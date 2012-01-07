@@ -27,7 +27,7 @@ div.bubble {
 <script>
 
 YUI_config.groups.wireit.base = '../src/';
-YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal', function(Y) {
+YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', function(Y) {
 
 
   var Bubble = function(id, position) {
@@ -44,7 +44,7 @@ YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal',
   								  {direction: [1,1], offsetPosition: [25,25]}];
   	this.terminals = [];
   	for(i = 0 ; i < 4 ; i++) {
-  		this.terminals[i] = new Y.WireIt.Terminal(this.el, terminalConfigs[i]);
+  		this.terminals[i] = new Y.Terminal(this.el, terminalConfigs[i]);
   	}					
 	
   	// Make Drag/drop !
@@ -82,7 +82,7 @@ YUI({filter: 'raw'}).use('wireit-wire', 'wireit-bezier-wire', 'wireit-terminal',
   		var wire = wires[i];
   		var src = wire[0];
   		var tgt = wire[1];
-  		var w = new Y.WireIt.BezierWire( bubbles[src[0]].terminals[src[1]] , bubbles[tgt[0]].terminals[tgt[1]], document.body);
+  		var w = new Y.BezierWire( bubbles[src[0]].terminals[src[1]] , bubbles[tgt[0]].terminals[tgt[1]], document.body);
   		w.redraw();
   	}
 	

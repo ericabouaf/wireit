@@ -51,7 +51,7 @@ YUI({debug: true, rollups: false}).use( "wireit", function(Y) {
   
     w1 = new Y.Wire({src: t2,tgt: t3});
     w1.render(layerEl);
-    w1._drawWire();
+    w1.drawWire();
     //console.log(w1.getAttrs());
   
 });
