@@ -68,7 +68,7 @@ Y.TerminalDragEdit.prototype = {
 		var drag = this.drag;
 		if(drag) {
 			drag.on('drag:start',    this._onDragEditStart, this);
-			drag.on('drag:drag',     this. _onDragEditDrag, this);
+			drag.on('drag:drag',     this._onDragEditDrag, this);
 			drag.on('drag:drophit',  this._onDragEditDrophit, this);
 			drag.on('drag:dropmiss', this._onDragEditDropmiss, this);
 			drag.on('drag:enter',    this._onDragEditEnter, this);

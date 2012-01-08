@@ -22,6 +22,34 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
 		content.append(this.containerTypeListView.render().get('container'));
 		this.get('container').setContent(content);
 		
+		
+		// Make items draggable to the layer
+		var that = this;
+		this.containerTypeListView.get('container').all('.containerType-name').each(function(node) {
+			
+			var drag = new Y.DD.Drag({ 
+				node: node,
+				groups: ['containerType']
+			}).plug(Y.Plugin.DDProxy, {
+				cloneNode: true,
+				moveOnEnd: false
+			});
+			drag._containerTypeName = node._node.innerHTML;
+			
+			// On drom, add it to the layer
+			drag.on('drag:drophit',  function(ev) {
+				that._addContainerFromName(ev.drag._containerTypeName, {
+					x: ev.drag.lastXY[0],
+					y: ev.drag.lastXY[1]
+				});
+			});
+			
+			
+		});
+		
+		
+		
+		
 		Y.Node.create('<a href="#/">List</a>').appendTo( this.get('container') );
 		
 		Y.Node.create('<input id="wiring-name" />').appendTo( this.get('container') );
@@ -44,6 +72,13 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
 			height: 500
 		});
 		
+		// Create the Drop object
+		var drop = new Y.DD.Drop({
+			node: this.layer.get('contentBox'),
+			groups: ['containerType']
+		});
+		//drop.layer = this.layer;
+		
 		var wiring = this.get('wiring');
 		if(wiring) {
 			this.setWiring( wiring );
@@ -60,15 +95,7 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
 		
 		Y.Array.each( wiring.get('containers'), function(container) {
 			
-			var containerTypeName = container.containerType,
-				containerType = that.get('containerTypes').getById(containerTypeName),
-				containerTypeConfig = containerType.get('config');
-			
-			var containerConf = Y.mix({}, containerTypeConfig);
-			
-			containerConf = Y.mix(containerConf, container.config);
-			
-			that.layer.add(containerConf);
+			that._addContainerFromName(container.containerType,  container.config);
 			
 			Y.on('available', function(el) {
 				Y.one('#wiring-name').set('value', wiring.get('name') );
@@ -76,6 +103,16 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
 			
 		});
 		
+	},
+	
+	_addContainerFromName: function(containerTypeName, containerConfig) {
+		var containerType = this.get('containerTypes').getById(containerTypeName);
+		
+		var containerConf = Y.mix({}, containerType.get('config'));
+		
+		containerConf = Y.mix(containerConf, containerConfig);
+		
+		this.layer.add(containerConf);
 	}
 	
 }, {

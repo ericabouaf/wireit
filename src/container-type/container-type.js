@@ -38,8 +38,6 @@ Y.ContainerTypeListView = Y.Base.create('containerTypeListView', Y.View, [], {
 		content = this.template({containerTypes: containerTypesData});
 		this.get('container').setContent(content);
 		
-		// TODO: Make items draggable to the layer !
-		
 		return this;
 	}
 }, {
