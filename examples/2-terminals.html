@@ -1,18 +1,8 @@
 <html>
 <head>
-  <title>Terminal test</title>
-
-<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
+<title>Terminal test</title>
+<script src="http://yui.yahooapis.com/3.5.0pr1/build/yui/yui.js"></script>
 <script type="text/javascript" src="../src/loader.js"></script>
-<style>
-.demo {
-    height: 30px;
-    width: 30px;
-    border: 1px solid black;
-    background-color: #8DD5E7;
-    cursor: move;
-}
-</style>
 </head>
 
 <body>
@@ -20,8 +10,6 @@
 <div style="position: relative;" id="layer"></div>
 
 <script>
-
-
 YUI_config.groups.wireit.base = '../src/';
 
 YUI({combine: false, filter: 'raw'}).use('terminal','bezier-wire',function(Y) {
@@ -41,16 +29,13 @@ YUI({combine: false, filter: 'raw'}).use('terminal','bezier-wire',function(Y) {
   var t8 = new Y.Terminal({render: layerEl, x: 780, y: 240, groups:["string","url"] });
   
   // Add a wire
-  w1 = new Y.BezierWire({
+  new Y.BezierWire({
     src: t1, 
     tgt: t2, 
     render: layerEl
   });
     
-  //w1.set('tgt', t3);
-  
 });
 </script>
-
 </body>
 </html>

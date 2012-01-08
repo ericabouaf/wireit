@@ -12,16 +12,39 @@ YUI.add('wires-delegate', function(Y) {
  */
 Y.WiresDelegate = function(config) {
 	
+	this._wires = [];
+	
 	this.publish("addWire");
 	
 	this.publish("removeWire");
 	
-	this._wires = [];
+	Y.after(this._bindUIwiresdelegate, this, "bindUI");
 };
 
 Y.WiresDelegate.ATTRS = {};
 
 Y.WiresDelegate.prototype = {
+	
+	
+	_bindUIwiresdelegate: function() {
+		
+		// Bubble events from terminals
+		this.on('terminal:addWire', this._onAddWire, this);
+		this.on('terminal:removeWire', this._onRemoveWire, this);
+		
+	},
+	
+	_onAddWire: function(e) {
+		var w = e;
+		while(!!w._event) { w = w.details[0]; }
+		this.addWire(w);
+	},
+	
+	_onRemoveWire: function(e) {
+		var w = e;
+		while(!!w._event) { w = w.details[0]; }
+		this.removeWire(w);
+	},
 	
 	/**
     * Add a wire to this terminal.
@@ -93,4 +116,4 @@ Y.WiresDelegate.prototype = {
 	
 };
 
-}, '3.0.0a', {requires: ['wire-base']});
+}, '3.5.0pr1a', {requires: ['wire-base']});

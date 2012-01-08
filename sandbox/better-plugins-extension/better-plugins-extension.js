@@ -67,4 +67,4 @@ Y.BetterPluginsExtension.prototype = {
 	
 };
 
-}, '3.0.0a', {requires: ['plugin','widget']});
+}, '3.5.0pr1a', {requires: ['plugin','widget']});

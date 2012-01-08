@@ -1097,7 +1097,7 @@ Y.extend(BPMNEditor, Y.WiringEditor, {
 
 
 YUI_config.groups.wireit.base = '../src/';
-YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', function(Y) {
+YUI({filter: 'raw', combine: false}).use('wire', 'bezier-wire', 'terminal', function(Y) {
 	
 	var editor = new BPMNEditor(bpmnLanguage); 
 	

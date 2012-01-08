@@ -8,7 +8,7 @@ YUI.add('image-container', function(Y) {
  * @extends Overlay
  * @constructor
  */
-var ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
+Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
 	
 	renderUI: function() {
 		
@@ -50,6 +50,7 @@ var ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
 			var h = p.bottom-p.top;
 			//console.log(w+"x"+h);
 			
+			// WARNING !!!
 			this.image.set('width',w);
 			this.image.set('height',h);
 			
@@ -65,7 +66,7 @@ var ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
 	}/*,
 	
 	toJSON: function() {
-		var o = ImageContainer.superclass.toJSON();
+		var o = Y.ImageContainer.superclass.toJSON();
 		o.type="ImageContainer";
 		return o;
 	}*/
@@ -73,14 +74,9 @@ var ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
 }, {
 
 	ATTRS: {
-		defaultChildType: {
-			value: 'Terminal'
-		},
-		
-		zIndex: {
-			value: 5
-		},
-		
+		/**
+		 * Url of the image you want to render (relative to the script's page)
+		 */
 		imageUrl: {
 			value: ''
 		}
@@ -88,6 +84,5 @@ var ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
 	
 });
 
-Y.ImageContainer = ImageContainer;
 
-}, '3.0.0a', {requires: ['container-base']});
+}, '3.5.0pr1a', {requires: ['container-base']});

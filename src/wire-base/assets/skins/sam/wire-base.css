@@ -1,7 +1,7 @@
 /**
  * Wires
  */
-.yui3-wire {
+.yui3-wire-base {
    position: absolute;
    border: 0;
    z-index: 0;

@@ -301,7 +301,7 @@ Y.extend(Y.WireWire, Y.WireCanvasElement, {
 	 */
 	renderLabel: function() {
 		
-		this.labelEl = Y.Wirecn('div',{className:"WireIt-Wire-Label"}, this.labelStyle );
+		this.labelEl = Y.WireIt.cn('div',{className:"WireIt-Wire-Label"}, this.labelStyle );
 		
 		if(this.labelEditor) {
 			this.labelField = new Y.inputEx.InPlaceEdit({parentEl: this.labelEl, editorField: this.labelEditor, animColors:{from:"#FFFF99" , to:"#DDDDFF"} });

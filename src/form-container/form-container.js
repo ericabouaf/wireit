@@ -17,12 +17,71 @@ YUI.add('form-container', function(Y) {
  * @param {WireIt.Layer}   layer The Y.Layer (or subclass) instance that contains this container
  */
 
+var FormContainer = Y.Base.create("form-container", Y.Container, [], {
 
-var FormContainer = Y.Base.create("form-container", Y.ContainerBase, [], {
-
+	renderUI: function() {
+		FormContainer.superclass.renderUI.call(this);
+		this._renderForm();
+	},
+	
+	/**
+	 * Render the form in the widget body
+	 */
+	_renderForm: function() {
+		
+		var that = this;
+		Y.on('available', function() {
+			
+			//var n = that.get('contentBox').one('.inputex-container')
+			
+			that.form = new Y.inputEx.Group({
+			    parentEl: 'inputex-container',
+			    fields: that.get('fields')
+			});
+			
+			that.alignTerminals();
+			
+		}, '#inputex-container');
+		
+	}
+	
 }, {
 
 	ATTRS: {
+		
+		/**
+		 * Value of the form
+		 */
+		form: {
+			setter: function(val) {
+				if(this.form) {
+					return this.form.setValue(val);
+				}
+			},
+			getter: function() {
+				if(this.form) {
+					return this.form.getValue();
+				}
+				else {
+					return {};
+				}
+			}
+		},
+		
+		/**
+		 * Keep to render the form
+		 */
+		bodyContent: {
+			value: '<div id="inputex-container" />'
+		},
+		
+		fields: {
+			value: []
+		},
+		
+		resizable: {
+			value: false
+		}
 		
 	}
 
@@ -30,24 +89,6 @@ var FormContainer = Y.Base.create("form-container", Y.ContainerBase, [], {
 
 Y.FormContainer = FormContainer;
 
-
-//Y.extend(Y.FormContainer, Y.WireContainer, {
-	
-	/** 
-    * @property xtype
-    * @description String representing this class for exporting as JSON
-    * @default "Y.FormContainer"
-    * @type String
-    */
-   //xtype: "Y.FormContainer", 
-
-	/** 
-    * @property fields
-    * @description List of inputEx field definitions
-    * @default []
-    * @type Array
-    */
-   //fields: [],
 
 	/** 
     * @property legend
@@ -64,15 +105,6 @@ Y.FormContainer = FormContainer;
     * @type Boolean
     */
 	//collapsible: false,
-   
-   /**
-    * The render method is overrided to call renderForm
-    * @method render
-    */
-   /*render: function() {
-      Y.FormContainer.superclass.render.call(this);
-      this.renderForm();
-   },*/
    
    /**
     * Render the form
@@ -116,19 +148,6 @@ Y.FormContainer = FormContainer;
 		}
    },*/
    
-   /**
-    * @method getValue
-    */
-   /*getValue: function() {
-      return this.form.getValue();
-   },*/
-   
-   /**
-    * @method setValue
-    */
-   /*setValue: function(val) {
-      this.form.setValue(val);
-   }*/
 //});
 
-}, '3.0.0a', {requires: ['container-base','inputex']});
+}, '3.5.0pr1a', {requires: ['container','inputex-group','inputex-string']});

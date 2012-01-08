@@ -8,18 +8,6 @@ YUI.add('container', function(Y) {
  * @extends Overlay
  * @constructor
  */
-var Container = Y.Base.create("container", Y.ContainerBase, [], {
+Y.Container = Y.Base.create("container", Y.ContainerBase, [/* TODO: Y.WidgetIcon, Y.WidgetClose */]);
 
-}, {
-
-	ATTRS: {
-		fillHeight: {
-			value: true
-		}
-	}
-
-});
-
-Y.Container = Container;
-
-}, '3.0.0a', {requires: ['container-base']});
+}, '3.5.0pr1a', {requires: ['container-base']});

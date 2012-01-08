@@ -528,7 +528,7 @@
 
 <pre class="brush:js">
   YUI_config.groups.wireit.base = '../src/';
-  YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', function(Y) {
+  YUI({filter: 'raw', combine: false}).use('wire', 'bezier-wire', 'terminal', function(Y) {
 		try {
 			logicGates = new Y.WiringEditor(myLanguageDef); 
 		}catch(ex) {

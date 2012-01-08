@@ -107,8 +107,9 @@ var WireBase = Y.Base.create("wire-base", Y.Widget, [Y.WidgetPosition], {
 	   return (term == this.get('src')) ? this.get('tgt') : this.get('src');
 	},
 	
-	SERIALIZABLE_ATTRS: ["src","tgt"],
 	
+	// TODO:
+	SERIALIZABLE_ATTRS: ["src","tgt"],
 	toJSON: function() {
 		return {};
 	}
@@ -129,4 +130,4 @@ WireBase.ATTRS = {
 
 Y.WireBase = WireBase;
 
-}, '3.0.0a', {requires: ['widget','widget-position']});
+}, '3.5.0pr1a', {requires: ['widget','widget-position']});

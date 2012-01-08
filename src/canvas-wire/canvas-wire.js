@@ -44,7 +44,7 @@ CanvasWire.ATTRS = {
 	 * @attribute canvas
 	 */
 	canvas: {
-		value: null,
+		value: null
 	},
 	
 	/**
@@ -78,6 +78,9 @@ CanvasWire.ATTRS = {
 	 * @attribute linewidth
 	 */
 	linewidth: {
+		setter: function(val) {
+			return parseInt(val, 10);
+		},
 		value: 3
 	},
 	
@@ -85,6 +88,9 @@ CanvasWire.ATTRS = {
 	 * @attribute borderwidth
 	 */
 	borderwidth: {
+		setter: function(val) {
+			return parseInt(val, 10);
+		},
 		value: 1
 	}
 
@@ -92,4 +98,4 @@ CanvasWire.ATTRS = {
 
 Y.CanvasWire = CanvasWire;
 
-}, '3.0.0a', {requires: ['wire-base','canvas-node']});
+}, '3.5.0pr1a', {requires: ['wire-base','canvas-node']});

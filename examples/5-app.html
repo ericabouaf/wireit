@@ -1,0 +1,154 @@
+<html>
+<head>
+<title>IDE test</title>
+<script src="http://yui.yahooapis.com/3.5.0pr1/build/yui/yui.js"></script>
+<script type="text/javascript" src="../src/loader.js"></script>
+</head>
+<body class="yui3-skin-sam">
+<style scoped>
+#wireit-app h1 {
+    padding: 0;
+}
+
+#wireit-app .loading {
+    opacity: 0.5;
+    -webkit-transition: opacity 0.15s;
+}
+</style>
+
+<script id="t-containerType-list" type="text/x-handlebars-template">
+    <h2 class="no-toc">Container Types</h2>
+
+    <ul class="containerTypes">
+    {{#each containerTypes}}
+        <li class="containerType yui3-g">
+            <div class="containerType-name yui3-u-2-3">{{name}}</div>
+        </li>
+    {{/each}}
+    </ul>
+</script>
+
+<script id="t-wiring-list" type="text/x-handlebars-template">
+    <h2 class="no-toc">Wirings</h2>
+
+    <a id="wiring-add-link" href="#/wirings/new">or create a new one</a>
+
+    <ul class="wiring">
+    {{#each wirings}}
+        <li class="wiring yui3-g">
+            <div class="wiring-name yui3-u-2-3"><a href="#/wirings/{{id}}/edit">{{name}}</a></div>
+        </li>
+    {{/each}}
+    </ul>
+</script>
+
+<div id="wireit-app"></div>
+
+<script>
+YUI_config.groups.wireit.base = '../src/';
+YUI({filter: 'raw', combine: false}).use('wireit-app', 'image-container', function (Y) {
+
+	window.Y = Y;
+
+	var containerTypes = new Y.ContainerTypeList();
+	containerTypes.add({
+		name: "Fetch",
+		icon: "super.png",
+		config: {
+			type: 'ImageContainer',
+			children: Y.ContainerBase.FOUR_EDGES,
+			imageUrl: 'http://www.google.fr/images/logos/ps_logo2.png'
+		}
+	});
+	containerTypes.add({
+		name: "Loop",
+		icon: "super.png",
+		config: {
+			children: Y.ContainerBase.EIGHT_POINTS,  // terminals
+			type: 'Container',
+			headerContent: 'Loop',
+			bodyContent: 'bodyContent',
+			footerContent: 'footerContent'
+		}
+	});
+	
+	var wirings = new Y.WiringModelList();
+	
+	// Load saved items from localStorage, if available.
+	wirings.load();
+	
+	/*var w1 = new Y.WiringModel({
+		id: '18927',
+		name: "Module 1",
+		containers: [
+			{
+				containerType: "Fetch",
+				config: {
+					xy: [700,30]
+				}
+			},
+			{
+				containerType: "Fetch",
+				config: {
+					width: 200,
+					height: 100,
+					xy: [500,200]
+				}
+			}
+		],
+		wires: [
+		
+		]
+	});
+	w1.save();*/
+	
+	/*wirings.add({
+		id: '9823GHJGH981',
+		name: "Wiring 2",
+		containers: [
+			{
+				containerType: "Loop",
+				config: {
+					xy: [700,30]
+				}
+			},
+			{
+				containerType: "Fetch",
+				config: {
+					width: 200,
+					height: 100,
+					xy: [500,200]
+				}
+			}
+		],
+		wires: [
+		
+		]
+	});*/
+	
+	Y.wireitApp = new Y.WireItApp({
+		
+		// We force this to false for this example app because there is no server.
+		serverRouting: false,
+		
+		// Here we set our app's rendering container, and restrict which links on
+		// the page should cause the app to navigate.
+		container   : '#wireit-app',
+		linkSelector: '#wireit-app a',
+		
+		// We'll define the default GitHub user to be "yui".
+		//user: new User({login: 'yui'})
+		
+		containerTypes: containerTypes,
+		
+		wirings: wirings
+		
+	});
+	
+	Y.wireitApp.render();
+
+});
+</script>
+
+</body>
+</html>

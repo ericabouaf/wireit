@@ -4,8 +4,8 @@
   <title>WireIt Example, Move and Animate elements containing terminals</title>
   
 <!-- YUI -->
-<link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.4.1/build/cssreset/reset-min.css&3.4.1/build/cssfonts/fonts-min.css">
-<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-debug.js"></script>
+<link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.5.0pr1/build/cssreset/reset-min.css&3.5.0pr1/build/cssfonts/fonts-min.css">
+<script src="http://yui.yahooapis.com/3.5.0pr1/build/yui/yui.js"></script>
 
 <!-- Excanvas -->
 <!--[if IE]><script type="text/javascript" src="../lib/excanvas.js"></script><![endif]-->
@@ -13,7 +13,7 @@
 <!-- WireIt -->
 <script type="text/javascript" src="../src/loader.js"></script>
 
-<link rel="stylesheet" type="text/css" href="../assets/WireIt.css" />
+<!--link rel="stylesheet" type="text/css" href="../assets/WireIt.css" /-->
 
 <style>
 
@@ -34,12 +34,15 @@ div.blockBox {
 
 <script>
 YUI_config.groups.wireit.base = '../src/';
-YUI({filter: 'raw'}).use('anim', 'wire', 'bezier-wire', 'terminal', function(Y) {
+YUI({filter: 'raw', combine: false}).use('anim', 'bezier-wire', 'terminal', function(Y) {
 	
 	// Create 2 terminals into Block1
-	var block1 = Y.one('#block1');
-	var terminals1 = [new Y.Terminal(block1, {direction: [-1,0], offsetPosition: [-14,35]}), 
-							new Y.Terminal(block1, {direction: [1,0], offsetPosition: [85,35]})];
+	var block1 = Y.Node.create("<div id='block1'>Move Me !</div>");
+	block1.addClass('blockBox').setStyle('left', '300px').setStyle('top', '100px').appendTo(document.body);
+	
+	
+	var terminals1 = [new Y.Terminal({render: block1, direction: [-1,0], offsetPosition: [-14,35]}), 
+							new Y.Terminal({render:block1, direction: [1,0], offsetPosition: [85,35]})];
 	
 	// Make the block1 draggable
 	var drag = new Y.DD.Drag({ 
@@ -54,8 +57,8 @@ YUI({filter: 'raw'}).use('anim', 'wire', 'bezier-wire', 'terminal', function(Y) 
 	
 	// Create 2 terminals into Block2
 	var block2 = Y.one('#block2');
-	var terminals2 = [new Y.Terminal(block2, {direction: [-1,0], offsetPosition: [-14,35]}), 
-							new Y.Terminal(block2, {direction: [1,0], offsetPosition: [85,35]})];
+	var terminals2 = [new Y.Terminal({render: block2, direction: [-1,0], offsetPosition: [-14,35]}), 
+							new Y.Terminal({render: block2, direction: [1,0], offsetPosition: [85,35]})];
 	
   // Make the block2 draggable
 	var drag = new Y.DD.Drag({ 
@@ -69,11 +72,17 @@ YUI({filter: 'raw'}).use('anim', 'wire', 'bezier-wire', 'terminal', function(Y) 
 	});
 	
 	// Create a wire between some terminals
-	var w1 = new Y.Wire(terminals1[0], terminals2[0], document.body);
-	w1.redraw();
+	var w1 = new Y.BezierWire({
+		src: terminals1[0], 
+		tgt: terminals2[0], 
+		render: document.body
+	});
 	
-	var w2 = new Y.Wire(terminals1[1], terminals2[1], document.body);
-	w2.redraw();
+	var w2 = new Y.BezierWire({
+		src: terminals1[1], 
+		tgt: terminals2[1], 
+		render: document.body
+	});
 	
 	// Create the animations for both blocks
 	
@@ -122,7 +131,7 @@ YUI({filter: 'raw'}).use('anim', 'wire', 'bezier-wire', 'terminal', function(Y) 
 	
 	<button id='animButton' style="margin: 15px;">Click to animate !</button>
 	
-	<div id='block1' class="blockBox" style="left: 300px; top: 100px;">Move Me !</div>
+	<!--div id='block1' class="blockBox" style="left: 300px; top: 100px;">Move Me !</div-->
 	
 	<div id='block2' class="blockBox" style="left: 500px; top: 200px;">Move Me !</div>
 	

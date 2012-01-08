@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Wire test</title>
-<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
+<script src="http://yui.yahooapis.com/3.5.0pr1/build/yui/yui.js"></script>
 <script type="text/javascript" src="../src/loader.js"></script>
 </head>
 <body>
@@ -34,7 +34,8 @@ YUI({combine: false, filter: 'raw'}).use('bezier-wire', 'container','image-conta
   c2 = new Y.Container({
     children: [
       {
-        align: {points:["tl", "tl"]}
+        align: {points:["tl", "tl"]},
+		dir: [-1,-1]
       }
     ],
     render: layerEl,
@@ -44,16 +45,7 @@ YUI({combine: false, filter: 'raw'}).use('bezier-wire', 'container','image-conta
   });
   
   c3 = new Y.Container({
-    children: [
-      { align: {points:["tl", "tl"]} },
-      { align: {points:["tl", "tc"]} },
-      { align: {points:["tl", "tr"]} },
-      { align: {points:["tl", "lc"]} },
-      { align: {points:["tl", "rc"]} },
-      { align: {points:["tl", "br"]} },
-      { align: {points:["tl", "bc"]} },
-      { align: {points:["tl", "bl"]} }
-    ],
+    children: Y.ContainerBase.EIGHT_POINTS,
     render: layerEl,
     width: 200,
     height: 100,
@@ -62,54 +54,20 @@ YUI({combine: false, filter: 'raw'}).use('bezier-wire', 'container','image-conta
     bodyContent: 'bodyContent',
     footerContent: 'footerContent'
   });
-  
-  
-  c4 = new Y.Container({
-    children: [
-      { align: {points:["tl", "tl"]} },
-      { align: {points:["tl", "tc"]} },
-      { align: {points:["tl", "tr"]} },
-      { align: {points:["tl", "lc"]} },
-      { align: {points:["tl", "rc"]} },
-      { align: {points:["tl", "br"]} },
-      { align: {points:["tl", "bc"]} },
-      { align: {points:["tl", "bl"]} }
-    ],
-    render: layerEl,
-    width: 200,
-    height: 100,
-    xy: [500,200],
-    headerContent: '9 terminals',
-    bodyContent: 'bodyContent',
-    footerContent: 'footerContent'
-  });
-  
-  
   
   c5 = new Y.ImageContainer({
-    children: [
-      { align: {points:["tl", "tl"]} },
-      { align: {points:["tl", "tc"]} },
-      { align: {points:["tl", "tr"]} },
-      { align: {points:["tl", "lc"]} },
-      { align: {points:["tl", "rc"]} },
-      { align: {points:["tl", "br"]} },
-      { align: {points:["tl", "bc"]} },
-      { align: {points:["tl", "bl"]} }
-    ],
+    children: Y.ContainerBase.EIGHT_POINTS,
     render: layerEl,
-  /*  width: 200,
-    height: 100,*/
     xy: [700,30],
     imageUrl: 'http://www.google.fr/images/logos/ps_logo2.png'
   });
 
-  /*
+  
   var w1 = new Y.BezierWire({
     src: c1.item(1),
     tgt: c2.item(0), 
     render: layerEl
-  });*/
+  });
 
 });
 </script>

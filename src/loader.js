@@ -35,17 +35,20 @@ YUI().use(function(Y) {
 					 * Terminal
 					 */
 					'terminal-base': {
-						requires: ['widget','widget-child','widget-position','widget-position-align','wires-delegate']
+						requires: ['widget','widget-child','widget-position','widget-position-align','wire-base', 'wires-delegate']
 					},
-					'terminal-proxy': {
-					   requires: ['dd-drag','dd-proxy']
+					'terminal-dragedit': {
+						requires: ['dd-drop', 'dd-drag','dd-proxy']
 					},
-					'scissors': {
-					   requires: []
+					'terminal-scissors': {
+						requires: ['overlay']
+					},
+					'terminal-groups': {
+						requires: ['terminal-dragedit']
 					},
 					'terminal': { // aka editable terminal
 					    skinnable: true,
-						requires: ['terminal-base', 'dd-drop','wire-base','terminal-proxy','scissors','overlay']
+						requires: ['terminal-base', 'terminal-dragedit', 'terminal-scissors', 'terminal-groups']
 					},
 					
 					
@@ -63,7 +66,10 @@ YUI().use(function(Y) {
 						requires: ['container-base']
 					},
 					'form-container': {
-						requires: ['container-base','inputex'],
+						requires: ['container','inputex-group','inputex-string']
+					},
+					'inout-container': {
+						requires: ['container']
 					},
 					
 					/**
@@ -74,57 +80,19 @@ YUI().use(function(Y) {
 					},
 					
 					
-					
-					
 					/**
-					 * IDE
+					 * App
 					 */
-					/*'yide-css': {
-					   'path': 'yide/assets/ide-core.css',
-					    'type': 'css'
-					},*/
-					'yide': {
-					   'path': 'yide/core.js',
-					   skinnable: true,
-					requires: ['gallery-axo-layout', 'gallery-aui-skin-classic','resize'/*,'yide-css'*/]
+					'container-type': {
+						requires: ['model', 'model-list', 'json', 'view']
 					},
-					'yide-helppanel': {
-					   'path': 'yide/helpPanel.js',
-					    requires: ['yide', 'gallery-aui-dialog'/*, 'yide-menubar'*/]
+					'wiring-model': {
+						requires: ['model', 'model-list', 'json', 'view']
 					},
-					/*'yide-menubar': {
-					'path': 'yide/menuBar.js',
-					    requires: ['yide', 'yui2-menu']
-					},*/
-					'yide-tabview': {
-						'path': 'yide/tabView.js',
-						requires: ['yide','event-delegate','tabview']
-					},
-					'yide-toolbar': {
-						'path': 'yide/toolbar.js',
-						requires: ['yide', 'gallery-aui-toolbar']
-					},
-					'yide-treeview': {
-						'path': 'yide/treeView.js',
-						requires: ['yide', 'gallery-aui-tree-view']
-					},
-					'yide-accordionview': {
-						'path': 'yide/accordionView.js',
-						requires: ['yide', 'gallery-accordion-horiz-vert']
-					},
-					'yide-layertab': {
-						'path': 'yide/tabs/layerTab.js',
-						requires: ['yide','layer','bezier-wire','image-container']
-					},
-					'yide-chartstab': {
-						'path': 'yide/tabs/chartsTab.js',
-						requires: ['yide','charts']
-					},
-					'yide-organizationtab': {
-						'path': 'yide/tabs/organizationTab.js',
-						requires: ['yide','gallery-aui-tree-view']
+					'wireit-app': {
+						requires: ['app', 'handlebars', 'container-type', 'wiring-model', 'layer', 'bezier-wire']
 					}
-
+					
 				}
 			}
 		}

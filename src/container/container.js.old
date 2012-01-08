@@ -317,7 +317,7 @@ Y.WireContainer.prototype = {
    render: function() {
    
       // Create the element
-      this.el = Y.Wirecn('div', {className: this.className});
+      this.el = Y.WireIt.cn('div', {className: this.className});
    
       if(this.width) {
          this.el.style.width = this.width+"px";
@@ -331,35 +331,35 @@ Y.WireContainer.prototype = {
    
       if(this.ddHandle) {
          // Create the drag/drop handle
-			this.ddHandle = Y.Wirecn('div', {className: this.ddHandleClassName});
+			this.ddHandle = Y.WireIt.cn('div', {className: this.ddHandleClassName});
 			this.el.appendChild(this.ddHandle);
 
          // Icon
          if (this.icon) {
-            var iconCn = Y.Wirecn('img', {src: this.icon, className: 'WireIt-Container-icon'});
+            var iconCn = Y.WireIt.cn('img', {src: this.icon, className: 'WireIt-Container-icon'});
             this.ddHandle.appendChild(iconCn);
          }
 
          // Set title
          if(this.title) {
-            this.ddHandle.appendChild( Y.Wirecn('span', {className: 'floatleft'}, null, this.title) );
+            this.ddHandle.appendChild( Y.WireIt.cn('span', {className: 'floatleft'}, null, this.title) );
          }
          
       }
    
       // Create the body element
-      this.bodyEl = Y.Wirecn('div', {className: "body"});
+      this.bodyEl = Y.WireIt.cn('div', {className: "body"});
       this.el.appendChild(this.bodyEl);
    
       if(this.resizable) {
          // Create the resize handle
-			this.ddResizeHandle = Y.Wirecn('div', {className: this.resizeHandleClassName} );
+			this.ddResizeHandle = Y.WireIt.cn('div', {className: this.resizeHandleClassName} );
 			this.el.appendChild(this.ddResizeHandle);
       }
 
       if(this.close) {
          // Close button
-         this.closeButton = Y.Wirecn('div', {className: this.closeButtonClassName} );
+         this.closeButton = Y.WireIt.cn('div', {className: this.closeButtonClassName} );
 			if (this.ddHandle) {
 				this.ddHandle.appendChild(this.closeButton);
 			}
@@ -370,7 +370,7 @@ Y.WireContainer.prototype = {
       }
       
       if(this.groupable && this.ddHandle) {
-         this.groupButton = Y.Wirecn('div', {className: 'WireIt-Container-groupbutton'} );
+         this.groupButton = Y.WireIt.cn('div', {className: 'WireIt-Container-groupbutton'} );
 			this.ddHandle.appendChild(this.groupButton);
          Y.one(this.groupButton).on("click", this.onGroupButton, this, true);
       }   

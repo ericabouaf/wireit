@@ -4,8 +4,8 @@
   <title>WireIt Example, Move and Animate elements containing terminals</title>
   
 <!-- Libs -->
-<link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.4.1/build/cssreset/reset-min.css&3.4.1/build/cssfonts/fonts-min.css">
-<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
+<link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.5.0pr1/build/cssreset/reset-min.css&3.5.0pr1/build/cssfonts/fonts-min.css">
+<script src="http://yui.yahooapis.com/3.5.0pr1/build/yui/yui.js"></script>
 
 <script type="text/javascript" src="../lib/excanvas.js"></script>
 
@@ -32,7 +32,7 @@ div.blockBox {
 
 <script>
 YUI_config.groups.wireit.base = '../src/';
-YUI({filter: 'raw'}).use('anim', 'bezier-wire', 'terminal', function(Y) {
+YUI({filter: 'raw', combine: false}).use('anim', 'bezier-wire', 'terminal', function(Y) {
 	
 	// Create 2 terminals into Block1
 	var block1 = Y.one('#block1');

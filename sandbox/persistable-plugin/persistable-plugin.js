@@ -20,4 +20,4 @@ Y.extend( Y.PersistablePlugin, Y.Plugin.Base, {
 
 });
 
-}, '3.0.0a', {requires: ['plugin']});
+}, '3.5.0pr1a', {requires: ['plugin']});

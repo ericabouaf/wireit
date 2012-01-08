@@ -80,4 +80,4 @@ Y.extend(WireStraightPlugin, Y.WireCanvasPlugin, {
 
 Y.WireStraightPlugin = WireStraightPlugin;
 
-}, '3.0.0a', {requires: ['wire','wire-canvas-plugin']});
+}, '3.5.0pr1a', {requires: ['wire','wire-canvas-plugin']});

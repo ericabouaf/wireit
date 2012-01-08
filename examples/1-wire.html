@@ -1,49 +1,36 @@
 <html>
 <head>
-  <title>Wire test</title>
-
-
-<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
-
+<title>Wire test</title>
+<script src="http://yui.yahooapis.com/3.5.0pr1/build/yui/yui-min.js"></script>
 <script type="text/javascript" src="../src/loader.js"></script>
-<style>
-.demo {
-    height: 30px;
-    width: 30px;
-    border: 1px solid black;
-    background-color: #8DD5E7;
-    cursor: move;
-}
-</style>
 </head>
-
 <body>
   
 <div id="attributes">
+ 
+	<p id="color">
+	  color: <button id="red">red</button> <button id="yellow">yellow</button> <button id="blue">blue</button> <button id="rgb(173,216,230)">rgb(173,216,230)</button>
+	</p>
+
+	<p id="bordercolor">
+	  bordercolor: <button id="red">red</button> <button id="yellow">yellow</button> <button id="blue">blue</button>
+	</p>
+
+	<p id="cap">
+	  cap: <button id="square">square</button> <button id="round">round</button> <button id="butt">butt</button>
+	</p>
   
-<p id="color">
-  color: <button id="red">red</button> <button id="yellow">yellow</button> <button id="blue">blue</button> <button id="rgb(173,216,230)">rgb(173,216,230)</button>
-</p>
+	<p id="linewidth">
+	  linewidth: <button id="1">1</button> <button id="3">3</button> <button id="5">5</button> <button id="7">7</button>
+	</p>
 
-<p id="bordercolor">
-  bordercolor: <button id="red">red</button> <button id="yellow">yellow</button> <button id="blue">blue</button>
-</p>
+	<p id="borderwidth">
+	  borderwidth: <button id="1">1</button> <button id="2">2</button> <button id="3">3</button>
+	</p>
 
-<p id="cap">
-  cap: <button id="square">square</button> <button id="round">round</button> <button id="butt">butt</button>
-</p>
-  
-<p id="linewidth">
-  linewidth: <button id="1">1</button> <button id="3">3</button> <button id="5">5</button>
-</p>
-
-<p id="borderwidth">
-  borderwidth: <button id="0">0</button> <button id="1">1</button> <button id="2">2</button>
-</p>
-
-<p id="bezierTangentNorm">
-  bezierTangentNorm: <button id="50">50</button> <button id="100">100</button>
-</p>
+	<p id="bezierTangentNorm">
+	  bezierTangentNorm: <button id="50">50</button> <button id="100">100</button> <button id="300">300</button>
+	</p>
 
 </div>
   
@@ -54,7 +41,6 @@
 YUI_config.groups.wireit.base = '../src/';
 
 YUI({combine: false, filter: 'raw'}).use('bezier-wire', function(Y) {
-
 
   w = new Y.BezierWire({
     render: Y.one('#layer'),
@@ -68,23 +54,16 @@ YUI({combine: false, filter: 'raw'}).use('bezier-wire', function(Y) {
         return [700,250];
       }
     },
-
 	bezierTangentNorm:300
-	
   });
 
   Y.all('#attributes button').on('click',function(ev) { 
     var attrName = ev.target.get('parentNode').get('id');
     var value = ev.target.get('id');
-
-	console.log(attrName +" has value ", value);
     w.set(attrName,value);
-
-	console.log(attrName +" has value ", w.get(attrName) );
   });
   
 });
 </script>
-
 </body>
 </html>

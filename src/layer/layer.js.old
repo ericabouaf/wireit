@@ -182,7 +182,7 @@ Y.Layer.prototype = {
     * @method render
     */
    render: function() {
-      this.el = Y.Wirecn('div', {className: this.className} );   
+      this.el = Y.WireIt.cn('div', {className: this.className} );   
       this.parentEl.appendChild(this.el);
    },
 

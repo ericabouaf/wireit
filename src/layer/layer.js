@@ -1,7 +1,7 @@
 YUI.add('layer', function(Y) {
 
 /**
- * Layer :  WidgetParent:  default type "Container", but also "Terminal"
+ * Layer :  WidgetParent and WiresDelegate
  * Children: Container _wires
  * DataSchema: Editor: DataSource
  * @class Layer
@@ -9,29 +9,22 @@ YUI.add('layer', function(Y) {
  */
 var Layer = Y.Base.create("layer", Y.Widget, [Y.WidgetParent, Y.WiresDelegate], {
 	
-	renderUI: function() {
+	clear: function() {
+		// TODO !
 	},
 	
-	bindUI: function() {
+	fromJSON: function(config) {
 		
-		this.on('terminal:addWire', function(e) {
-			var wire = e.details[0].details[0].details[0];
-			//console.log("layer <-", wire, e, e._event._yuid);
-			this.addWire(wire);
-		}, this);
+		this.clear();
 		
-		this.on('terminal:removeWire', function(v) {
-			var wire = e.details[0].details[0].details[0];
-			this.removeWire(wire);
-		}, this);
+		var self = this;
+		Y.Array.each(config.containers, function(c) {
+			self.add(c);
+		});
 		
+		// TODO: Wires
 		
 	},
-	
-	syncUI: function() {
-		//this.draw();
-	},
-	
 	
 	// TODO: 
 	toJSON: function() {
@@ -41,7 +34,7 @@ var Layer = Y.Base.create("layer", Y.Widget, [Y.WidgetParent, Y.WiresDelegate], 
 		// Children are containers
 		o.children = [];
 		Y.Array.each(this._items, function(item) {
-			console.log(item);
+			//console.log(item);
 			o.children.push(item.toJSON());
 		});
 		
@@ -68,4 +61,4 @@ var Layer = Y.Base.create("layer", Y.Widget, [Y.WidgetParent, Y.WiresDelegate], 
 
 Y.Layer = Layer;
 
-}, '3.0.0a', {requires: ['widget-parent','container','wires-delegate']});
+}, '3.5.0pr1a', {requires: ['widget-parent','container','wires-delegate']});
