@@ -13,5 +13,5 @@ YUI.add('terminal', function(Y) {
  */
 Y.Terminal = Y.Base.create("terminal", Y.TerminalBase, [Y.TerminalDragEdit, Y.TerminalScissors, Y.TerminalDDGroups]);
 
-}, '3.5.0pr1a', {requires: ['terminal-base', 'terminal-dragedit', 'terminal-scissors', 'terminal-ddgroups']});
+}, '3.5.0pr1', {requires: ['terminal-base', 'terminal-dragedit', 'terminal-scissors', 'terminal-ddgroups']});
 

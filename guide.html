@@ -35,8 +35,7 @@
     </style>
 
     <!-- Le fav and touch icons -->
-    <!--link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <!--link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"-->
   </head>
@@ -49,10 +48,10 @@
           <a class="brand" href="#">WireIt library</a>
           <ul class="nav">
             <li><a href="index.html">Home</a></li>
-            <li><a href="http://github.com/neyric/wireit/">GitHub</a></li>
-            <li><a href="http://github.com/neyric/wireit/issues">Issues</a></li>
             <li class="active"><a href="guide.html">Guide</a></li>
             <li><a href="api/index.html">API Documentation</a></li>
+            <li><a href="http://github.com/neyric/wireit/">GitHub</a></li>
+            <li><a href="http://github.com/neyric/wireit/issues">Issues</a></li>
             <li><a href="http://neyric.com/category/wireit/">Blog</a></li>
             <li><a href="http://groups.google.com/group/wireit/">Forums</a></li>
           </ul>
@@ -257,14 +256,14 @@
 
               <p><i>Terminals</i> have various configuration options, such as the number of wires that can be connected to them, wether they are editable or not, or style informations about the wires that are connected. <a href="examples/wires_and_terminals.html">Check out this example to see some of those properties in action.</a></p>
 
-              <p class="advanced" style="width: 50%">At this time, two <i>Terminals</i> can only be connected using one <i>Wire</i> only.</p>
+              <div class="alert-message block-message info"><p>At this time, two <i>Terminals</i> can only be connected using one <i>Wire</i> only.</p></div>
 
 
               <h3>Containers</h3>
 
               <p><i>Containers</i> are "boxes", containing one or more <i>Terminals</i>. <i>Containers</i> are willingly generic, so that an application can easily create custom <i>Containers</i>.</p>
 
-              <p class="advanced" style="width: 50%">See the chapter <a href="#createContainers"><i>Creating new containers/Extending existing containers</i></a>.</p>
+              <div class="alert-message block-message info"><p>See the chapter <a href="#createContainers"><i>Creating new containers/Extending existing containers</i></a>.</p></div>
 
 
 
@@ -296,8 +295,8 @@
 
               <img src="res/guide/containers.png" /><br />	
 
-              <p class="advanced" style="width: 70%">You can create your own <i>Containers</i> by subclassing the base <i>Container</i> class.<br />
-              	 See the chapter <a href="#createContainers"><i>Creating new containers/Extending existing containers</i></a>.</p>
+              <div class="alert-message block-message info"><p>You can create your own <i>Containers</i> by subclassing the base <i>Container</i> class.<br />
+              	 See the chapter <a href="#createContainers"><i>Creating new containers/Extending existing containers</i></a>.</p></div>
 
 
               <a name="plugins"><h2>1.4 Plugins</h2></a>
@@ -330,7 +329,7 @@
               </center>
 
 
-              <p class="advanced">The WiringEditor requires a connection to a database or file system to use save/load features. You can customize it using <a href="#adapters">Adapters</a>.</p>
+              <div class="alert-message block-message info"><p>The WiringEditor requires a connection to a database or file system to use save/load features. You can customize it using <a href="#adapters">Adapters</a>.</p></div>
 
 
               <h3>1.4.3 Other plugins</h3>
@@ -343,7 +342,7 @@
               	<li>layout - provide functions to layout the Layer</li>
               </ul>
 
-              <p class="advanced">Read the README.md file of each plugin to learn more about them !</p>
+              <div class="alert-message block-message info"><p>Read the README.md file of each plugin to learn more about them !</p></div>
 
 
               <br /><br />
@@ -363,9 +362,9 @@
               <p>However, the WiringEditor requires a database connection to use the save/load features. (see <a href="#WiringEditorInstallation">WiringEditor installation</a>)</p>
 
 
-              <p class="advanced">You could also clone the <a href="http://github.com/neyric/wireit">development repository</a> to get the edge version.</p>
+              <div class="alert-message block-message info"><p>You could also clone the <a href="http://github.com/neyric/wireit">development repository</a> to get the edge version.</p></div>
 
-              <p class="advanced">In a production environment, documentation and examples are not necessary. More on this in <a href="#production">production</a>.</p>
+              <div class="alert-message block-message info"><p>In a production environment, documentation and examples are not necessary. More on this in <a href="#production">production</a>.</p></div>
 
 
 
@@ -452,7 +451,7 @@
 
               <p>Setup a webserver to serve your files and launch the index.html file in your browser. You're ready to create your <a href="#visualLanguage">visual language</a> !</p>
 
-              <p class="advanced">The <a href="#gearsAdapter">Gears Adapter</a> is handy for prototyping the interface since it doesn't require a backend. Make sure you have <a href="http://gears.google.com">Google Gears</a> installed.</p>
+              <div class="alert-message block-message info"><p>The <a href="#gearsAdapter">Gears Adapter</a> is handy for prototyping the interface since it doesn't require a backend. Make sure you have <a href="http://gears.google.com">Google Gears</a> installed.</p></div>
 
 
 
@@ -470,7 +469,7 @@
 
               <p>It lets you create specialized widgets by creating a subclass and using it simply from your language definition.</p>
 
-              <p class="advanced">This choice was made to transport the definition using JSON.</p>
+              <div class="alert-message block-message info"><p>This choice was made to transport the definition using JSON.</p></div>
 
               <a name="customizingWiresAndTerminals"><h2>3.2 Customizing Wires and Terminals</h2></a>
 
@@ -527,7 +526,7 @@
               	});
               </pre>
 
-              <p class="advanced">For a complete list of the properties, please refer to the API documentation for <a href="api/WireIt.Terminal.html">Terminal</a>, <a href="api/WireIt.Wire.html">Wire</a> or <a href="api/WireIt.Container.html">Container</a>.</p>
+              <div class="alert-message block-message info"><p>For a complete list of the properties, please refer to the API documentation for <a href="api/WireIt.Terminal.html">Terminal</a>, <a href="api/WireIt.Wire.html">Wire</a> or <a href="api/WireIt.Container.html">Container</a>.</p></div>
 
 
               <a name="visualLanguageDefinition"><h2>3.3 Visual Language Definition</h2></a>
@@ -590,7 +589,7 @@
 
               <p>To declare a module using a different <i>Container</i> class, you'll have to set the container <i>xtype</i> property.</p>
 
-              <p class="advanced">The xtype property is a string representing the class. This had to be a string to remain JSON compliant.</p>
+              <div class="alert-message block-message info"><p>The xtype property is a string representing the class. This had to be a string to remain JSON compliant.</p></div>
 
               <p>Of course, you can use containers provided in WireIt (ImageContainer, FormContainer, InOutContainer), or a <a href="#containers">custom container</a>.</p>
 
@@ -621,7 +620,7 @@
                   }
               </pre>
 
-              <p class="advanced">All other Container classes inherits from this base class, and therefore share the above options.</p>
+              <div class="alert-message block-message info"><p>All other Container classes inherits from this base class, and therefore share the above options.</p></div>
 
 
               <a name="InOutContainer"><h2>3.6 Using InOutContainer</h2></a>
@@ -734,7 +733,7 @@
               	};
               </pre>
 
-              <p class="advanced">The HiddenField can be used to store additional wirings informations.</p>
+              <div class="alert-message block-message info"><p>The HiddenField can be used to store additional wirings informations.</p></div>
 
 
 
@@ -781,7 +780,7 @@
 
               <p>Please refer to the <a href="#adapters">adapters documentation</a> to install the associated backends.</p>
 
-              <p class="advanced">You can <a href="#adaptersCreation">create your own adapters</a>.</p-->
+              <div class="alert-message block-message info"><p>You can <a href="#adaptersCreation">create your own adapters</a>.</p></div-->
 
 
               <a name="adaptersIntroduction"><h2>4.1 Introduction</h2></a>
@@ -889,7 +888,7 @@
 
               <p>This adapter doesn't have any noticeable configuration except <i>WireIt.WiringEditor.adapters.Gears.config.dbName</i> which contains the gears database name (default is 'database-test').</p>
 
-              <p class="advanced">The gears adapter already includes gears-init.js</p>
+              <div class="alert-message block-message info"><p>The gears adapter already includes gears-init.js</p></div>
 
 
               <a name="adaptersCreation"><h2>4.6 Create an adapter</h2></a>
@@ -1124,9 +1123,9 @@
               	});
               </pre>
 
-              <p class="advanced"><u>Important :</u> you must override the <i>xtype</i> option as above for the editor to save the wiring using the right container class.</p>
+              <div class="alert-message block-message info"><p><u>Important :</u> you must override the <i>xtype</i> option as above for the editor to save the wiring using the right container class.</p></div>
 
-              <p class="advanced">You can extend from Y.Container, Y.InOutContainer, Y.ImageContainer or Y.FormContainer. For more details about <i>WireIt.Container</i> methods, please refer to the <a href="api/WireIt.Container.html">Container API Documentation</a>.</p>
+              <div class="alert-message block-message info"><p>You can extend from Y.Container, Y.InOutContainer, Y.ImageContainer or Y.FormContainer. For more details about <i>WireIt.Container</i> methods, please refer to the <a href="api/WireIt.Container.html">Container API Documentation</a>.</p></div>
 
 
               <a name="logicgates"><h2>6.3 Example - Logic Gates</h2></a>
@@ -1550,9 +1549,9 @@
 
               <p><u>Warning :</u>The wiring-editor-min.js file <b>doesn't</b> include any adapter, and only includes <b>some</b> fields of the inputEx library.</p>
 
-              <p class="advanced">It is strongly recommended to build your custom rollup file for production. You can then include the adapter you use, the visual language definition, or even the YUI library dependencies. The script to build those files is available at build/rollups.sh (only in source, not in the zipped library)</p>
+              <div class="alert-message block-message info"><p>It is strongly recommended to build your custom rollup file for production. You can then include the adapter you use, the visual language definition, or even the YUI library dependencies. The script to build those files is available at build/rollups.sh (only in source, not in the zipped library)</p></div>
 
-              <p class="advanced">The YUI library is included in the zip file, but the YUI files can be served from Yahoo or Google servers.</p>
+              <div class="alert-message block-message info"><p>The YUI library is included in the zip file, but the YUI files can be served from Yahoo or Google servers.</p></div>
 
               <p>Moreover, the WireIt zip file contains example, guides, documentation, which are not necessary in a production environment. We recommend you to copy only the required files on your webserver :</p>
 

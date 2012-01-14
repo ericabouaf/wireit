@@ -1,31 +1,196 @@
 YUI.add('wireit-app', function(Y) {
 
-// -- Editor View ------------------------------------------------------------
-Y.EditorView = Y.Base.create('editorView', Y.View, [], {
+// -- LocalStorageSync ---------------------------------------------------------------------
+// Saves WiringModel
+function LocalStorageSync(key) {
+    var localStorage;
+
+    if (!key) {
+        Y.error('No storage key specified.');
+    }
+
+    if (Y.config.win.localStorage) {
+        localStorage = Y.config.win.localStorage;
+    }
+
+    // Try to retrieve existing data from localStorage, if there is any.
+    // Otherwise, initialize `data` to an empty object.
+    var data = Y.JSON.parse((localStorage && localStorage.getItem(key)) || '{}');
+
+    // Delete a model with the specified id.
+    function destroy(id) {
+        var modelHash;
+
+        if ((modelHash = data[id])) {
+            delete data[id];
+            save();
+        }
+
+        return modelHash;
+    }
+
+    // Generate a unique id to assign to a newly-created model.
+    function generateId() {
+        var id = '',
+            i  = 4;
+
+        while (i--) {
+            id += (((1 + Math.random()) * 0x10000) | 0)
+                    .toString(16).substring(1);
+        }
+
+        return id;
+    }
+
+    // Loads a model with the specified id. This method is a little tricky,
+    // since it handles loading for both individual models and for an entire
+    // model list.
+    //
+    // If an id is specified, then it loads a single model. If no id is
+    // specified then it loads an array of all models. This allows the same sync
+    // layer to be used for both the TodoModel and TodoList classes.
+    function get(id) {
+        return id ? data[id] : Y.Object.values(data);
+    }
+
+    // Saves the entire `data` object to localStorage.
+    function save() {
+        localStorage && localStorage.setItem(key, Y.JSON.stringify(data));
+    }
+
+    // Sets the id attribute of the specified model (generating a new id if
+    // necessary), then saves it to localStorage.
+    function set(model) {
+        var hash        = model.toJSON(),
+            idAttribute = model.idAttribute;
+
+        if (!Y.Lang.isValue(hash[idAttribute])) {
+            hash[idAttribute] = generateId();
+        }
+
+        data[hash[idAttribute]] = hash;
+        save();
+
+        return hash;
+    }
+
+    // Returns a `sync()` function that can be used with either a Model or a
+    // ModelList instance.
+    return function (action, options, callback) {
+        // `this` refers to the Model or ModelList instance to which this sync
+        // method is attached.
+        var isModel = Y.Model && this instanceof Y.Model;
+
+        switch (action) {
+        case 'create': // intentional fallthru
+        case 'update':
+            callback(null, set(this));
+            return;
+
+        case 'read':
+            callback(null, get(isModel && this.get('id')));
+            return;
+
+        case 'delete':
+            callback(null, destroy(isModel && this.get('id')));
+            return;
+        }
+    };
+}
+
+
+// -- WiringModel ---------------------------------------------------------------------
+Y.WiringModel = Y.Base.create('wiringModel', Y.Model, [], {
+	sync: LocalStorageSync('wireit-app')
+}, {
+	ATTRS: {
+		id: {value: null},
+		name       : {value: ""},
+		containers   : {value: []},
+		description: {value: ""},
+		wires   : {value: []}
+	}
+});
+
+
+// -- WiringModelList ---------------------------------------------------------------------
+
+Y.WiringModelList = Y.Base.create('wiringModelList', Y.ModelList, [], {
+	sync: LocalStorageSync('wireit-app'),
+    model    : Y.WiringModel
+});
+
+// -- WiringList View ------------------------------------------------------------
+
+Y.WiringListView = Y.Base.create('wiringListView', Y.View, [], {
+	
+	template: Y.Handlebars.compile(Y.one('#t-wiring-list').getContent()),
+	
 	initializer: function () {
-		this.containerTypeListView = new Y.ContainerTypeListView({containerTypes: this.get('containerTypes') });
+		
+		//console.log("WiringListView init");
+		
+		/*var list = this.get('modelList');
+		
+		// Re-render this view when a model is added to or removed from the model list.
+		list.after(['add', 'remove', 'reset'], this._test, this);
+		
+		// We'll also re-render the view whenever the data of one of the models in the list changes.
+		list.after('*:change', this._test, this);*/
 	},
 	
-	create: function (container) {
-		// Adds CSS class to the container node.
-		return Y.one(container).addClass('editor');
+	/*_test: function() {
+		console.log('_test');
+	},*/
+	
+	render: function () {
+		
+		//console.log("WiringListView render");
+		
+		var content = this.template({wirings: this.get('modelList').toJSON() });
+		this.get('container').setContent(content);
+		return this;
+	}
+});
+
+
+// -- ContainerType ---------------------------------------------------------------------
+Y.ContainerType = Y.Base.create('containerModel', Y.Model, [], {
+	// The `id` attribute for this Model will be an alias for `name`.
+	idAttribute: 'name'
+}, {
+	ATTRS: {
+		name       : {value: null},
+		description: {value: null},
+		config   : {value: null}
+	}
+});
+
+// -- ContainerTypeList -----------------------------------------------------------------
+Y.ContainerTypeList = Y.Base.create('containerTypeList', Y.ModelList, [], {
+	model: Y.ContainerType
+});
+
+// -- Editor View ------------------------------------------------------------
+Y.EditorView = Y.Base.create('editorView', Y.View, [], {
+	
+	template: Y.Handlebars.compile(Y.one('#t-editor').getContent()),
+	
+	events: {
+		'#wiring-save-btn': {click: 'saveWiring'}
 	},
 	
 	render: function () {
 		
-		// A document fragment is created to hold the resulting HTML created
-		// from rendering to two sub-views.
-		var content = Y.one(Y.config.doc.createDocumentFragment());
-		
-		// This renders each of the two sub-views into the document fragment,
-		// then sets the fragment as the contents of this view's container.
-		content.append(this.containerTypeListView.render().get('container'));
+		var content = this.template({
+			containerTypes: this.get('containerTypes').toJSON()
+		});
 		this.get('container').setContent(content);
 		
 		
 		// Make items draggable to the layer
 		var that = this;
-		this.containerTypeListView.get('container').all('.containerType-name').each(function(node) {
+		this.get('container').all('.containerType-name').each(function(node) {
 			
 			var drag = new Y.DD.Drag({ 
 				node: node,
@@ -47,28 +212,15 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
 			
 		});
 		
+		this._renderLayer();
 		
-		
-		
-		Y.Node.create('<a href="#/">List</a>').appendTo( this.get('container') );
-		
-		Y.Node.create('<input id="wiring-name" />').appendTo( this.get('container') );
-		
-		Y.Node.create('<a>Save</a>').appendTo( this.get('container') ).on('click', function() {
-			var wiring = this.get('wiring') || new Y.WiringModel({});
-			wiring.set('name', Y.one('#wiring-name').get('value') || 'Unnamed');
-			
-			var layer = this.layer,
-				layerConf = layer.toJSON();
-			wiring.set('containers', []); // TODO
-			wiring.set('wires', []); // TODO
-			
-			wiring.save();
-			
-		}, this);
+		return this;
+	},
+	
+	_renderLayer: function() {
 		
 		this.layer = new Y.Layer({
-			width: 900,
+			//width: 900,
 			height: 500
 		});
 		
@@ -79,19 +231,83 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
 		});
 		//drop.layer = this.layer;
 		
-		var wiring = this.get('wiring');
+		var wiring = this.get('model');
 		if(wiring) {
 			this.setWiring( wiring );
 		}
 		
-		this.layer.render( this.get('container') );
+		this.layer.render( this.get('container').one('#layer-container') );
 		
-		return this;
+	},
+	
+	saveWiring: function(e) {
+		var o = {
+			name: Y.one('#wiring-name').get('value') || 'Unnamed'
+		};
+		
+		// Children are containers
+		o.containers = [];
+		Y.Array.each(this.layer._items, function(item) {
+			o.containers.push({
+				containerType: item.containerTypeName,
+				config: item.toJSON()
+			});
+		});
+		
+		// Wires:
+		o.wires = [];
+		var layer = this.layer;
+		Y.Array.each(this.layer._wires, function(wire) {
+			
+			var src = wire.get('src');
+			var tgt = wire.get('tgt');
+			
+			o.wires.push( {
+				src: { container: layer._items.indexOf( src.get('parent') ), terminal: src.get('name') },
+				tgt: { container: layer._items.indexOf( tgt.get('parent') ), terminal: tgt.get('name') },
+				config: wire.toJSON()
+			});
+		});
+		
+		
+		if( this.get('model') ) {
+			this.get('model').setAttrs(o);
+		}
+		else {
+			this.set('model', new Y.WiringModel(o) );
+		}
+		
+		this.get('model').save();
+		
+		// TODO: add only one message
+		var s = Y.Node.create('<div class="alert-message warning" style="width: 300px; z-index: 10001;"><p>Saved !</p></div>').appendTo(document.body);
+		var anim = new Y.Anim({
+		    node: s,
+		    duration: 0.5,
+		    easing: Y.Easing.easeOut,
+			from: { xy: [400, -50] },
+			to: { xy: [400, 2] }
+		});
+		anim.on('end', function() {
+			Y.later(1000, this, function() {
+				(new Y.Anim({
+				    node: s,
+				    duration: 0.5,
+				    easing: Y.Easing.easeOut,
+					to: { xy: [400, -50] }
+				})).run();
+			});
+		});
+		anim.run();
+		
+		
 	},
 	
 	setWiring: function(wiring) {
 		
 		var that = this;
+		
+		var layer = this.layer;
 		
 		Y.Array.each( wiring.get('containers'), function(container) {
 			
@@ -103,25 +319,45 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
 			
 		});
 		
+		Y.Array.each( wiring.get('wires'), function(wire) {
+			
+			// prevent bad configs...
+			if(!wire.src || !wire.tgt) return;
+			
+			var srcContainer = layer.item(wire.src.container);
+			var srcTerminal = srcContainer.getTerminal(wire.src.terminal);
+			
+			var tgtContainer = layer.item(wire.tgt.container);
+			var tgtTerminal = tgtContainer.getTerminal(wire.tgt.terminal);
+			
+			// TODO: wire.config;
+			
+			var w = new Y.BezierWire({
+				src: srcTerminal,
+				tgt: tgtTerminal
+			}).render( layer.get('contentBox') );
+			
+		});
+		
+		// TODO: this is awful ! But we need to wait for everything to render & position
+		Y.later(1000, this, function() {
+			layer.redrawAllWires();
+		});
+		
 	},
 	
 	_addContainerFromName: function(containerTypeName, containerConfig) {
 		var containerType = this.get('containerTypes').getById(containerTypeName);
-		
 		var containerConf = Y.mix({}, containerType.get('config'));
-		
 		containerConf = Y.mix(containerConf, containerConfig);
-		
 		this.layer.add(containerConf);
+		var container =  this.layer.item(this.layer.size()-1);
+		container.containerTypeName = containerTypeName;
 	}
 	
 }, {
 	ATTRS: {
 		containerTypes: {
-			value: null
-		},
-		
-		wiring: {
 			value: null
 		}
 	}
@@ -130,9 +366,6 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
 // -- WireIt App ---------------------------------------------------------
 Y.WireItApp = new Y.Base.create('contributorsApp', Y.App, [], {
 	
-	// This is where we can declare our page-level views and define the
-	// relationship between the "pages" of our application. We can later use the
-	// `showView()` method to create and display these views.
 	views: {
 		editorPage: {
 			type: Y.EditorView
@@ -143,19 +376,10 @@ Y.WireItApp = new Y.Base.create('contributorsApp', Y.App, [], {
 	},
 	
 	initializer: function () {
-		// When a user navigates to different "pages" within our app, the
-		// `navigate` event will fire; we can listen to this event and show some
-		// indication that the app is busy loading data.
+		
+		// show indication that the app is busy loading data.
 		this.on('navigate', this.indicateLoading);
 		
-		// Here we register a listener for the `HomePageView`'s `changeUser`
-		// event. When the `HomePageView` is the `activeView`, its events will
-		// bubble up to this app instance.
-		//this.on('homePageView:changeUser', this.navigateToUser);
-		
-		// Once our app is ready, we'll either dispatch to our route-handlers if
-		// the current URL matches one of our routes, or we'll simply show the
-		// `HomePageView`.
 		this.once('ready', function (e) {
 			if (this.hasRoute(this.getPath())) {
 				this.dispatch();
@@ -175,7 +399,7 @@ Y.WireItApp = new Y.Base.create('contributorsApp', Y.App, [], {
 	
 	handleWiring: function (req, res, next) {
 		var wiringId = req.params.wiring,
-			wirings = this.get('wirings'),
+			wirings = this.get('modelList'),
 			wiring = wirings.getById(wiringId);
 		
 		this.set('wiring', wiring);
@@ -186,22 +410,29 @@ Y.WireItApp = new Y.Base.create('contributorsApp', Y.App, [], {
 	showEditorPage: function() {
 		this.showView('editorPage', {
 			containerTypes: this.get('containerTypes'),
-			wirings: this.get('wirings'),
-			wiring: this.get('wiring')
+			wirings: this.get('modelList'),
+			model: this.get('wiring')
 		});
 	},
 	
 	blankEditorPage: function() {
 		this.showView('editorPage', {
 			containerTypes: this.get('containerTypes'),
-			wirings: this.get('wirings'),
-			wiring: null
+			wirings: this.get('modelList'),
+			model: null
 		});
 	},
 	
 	showWiringListPage: function() {
+		
+		//this.get('modelList').load();
+		
+		var wirings = new Y.WiringModelList();
+		wirings.load();
+		this.set('modelList', wirings);
+		
 		this.showView('wiringListPage', {
-			wirings: this.get('wirings')
+			modelList: this.get('modelList')
 		});
 	}
 
@@ -212,7 +443,7 @@ Y.WireItApp = new Y.Base.create('contributorsApp', Y.App, [], {
 			value: new Y.ContainerTypeList()
 		},
 		
-		wirings: {
+		modelList: {
 			value: new Y.WiringModelList()
 		},
 		
@@ -220,16 +451,11 @@ Y.WireItApp = new Y.Base.create('contributorsApp', Y.App, [], {
 			value: null
 		},
 		
-		// Our app will use more advanced routing features where multiple
-		// route-handlers will be used to fulfill a "request", allowing us to
-		// encapsulate and reuse our data processing logic. Note: the order the
-		// route-handlers are defined in is significant.
 		routes: {
 			value: [
 				{path: '/', callback: 'showWiringListPage'},
 				{path: '/wirings/:wiring/*', callback: 'handleWiring'},
 				{path: '/wirings/:wiring/edit', callback: 'showEditorPage'},
-				
 				{path: '/wirings/new', callback: 'blankEditorPage'}
 			]
 		}
@@ -237,4 +463,4 @@ Y.WireItApp = new Y.Base.create('contributorsApp', Y.App, [], {
 });
 
 
-}, '3.5.0pr1a', {requires: ['app', 'handlebars', 'container-type', 'wiring-model', 'layer', 'bezier-wire']});
+}, '3.5.0pr1', {requires: ['app', 'handlebars', 'model', 'model-list', 'json', 'view', 'layer', 'bezier-wire', 'anim']});

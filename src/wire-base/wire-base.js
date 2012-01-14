@@ -135,4 +135,4 @@ WireBase.ATTRS = {
 
 Y.WireBase = WireBase;
 
-}, '3.5.0pr1a', {requires: ['widget','widget-position']});
+}, '3.5.0pr1', {requires: ['widget','widget-position']});

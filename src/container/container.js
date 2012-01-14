@@ -10,4 +10,4 @@ YUI.add('container', function(Y) {
  */
 Y.Container = Y.Base.create("container", Y.ContainerBase, [/* TODO: Y.WidgetIcon, Y.WidgetClose */]);
 
-}, '3.5.0pr1a', {requires: ['container-base']});
+}, '3.5.0pr1', {requires: ['container-base']});

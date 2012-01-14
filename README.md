@@ -1,6 +1,6 @@
 # WireIt
 
-Y.WireIt is an open-source javascript library to create web wirable interfaces for dataflow applications, visual programming languages, graphical modeling, or graph editors.
+WireIt is an open-source javascript library to create web wirable interfaces for dataflow applications, visual programming languages, graphical modeling, or graph editors.
 
  * Project home page
    <http://neyric.github.com/wireit/>
@@ -17,5 +17,5 @@ Y.WireIt is an open-source javascript library to create web wirable interfaces f
  * Blog
    <http://neyric.com/category/wireit/>
 
-Wireit is distributed under a BSD license
+Wireit is distributed under a MIT license
 <http://neyric.github.com/wireit/license.txt>

@@ -11,7 +11,7 @@ var Layer = Y.Base.create("layer", Y.Widget, [Y.WidgetParent, Y.WiresDelegate], 
 	
 	clear: function() {
 		// TODO !
-	},
+	}/*,
 	
 	fromJSON: function(config) {
 		
@@ -34,7 +34,6 @@ var Layer = Y.Base.create("layer", Y.Widget, [Y.WidgetParent, Y.WiresDelegate], 
 		// Children are containers
 		o.children = [];
 		Y.Array.each(this._items, function(item) {
-			//console.log(item);
 			o.children.push(item.toJSON());
 		});
 		
@@ -45,7 +44,7 @@ var Layer = Y.Base.create("layer", Y.Widget, [Y.WidgetParent, Y.WiresDelegate], 
 		});
 		
 		return o;
-	}
+	}*/
 	
 }, {
 	
@@ -61,4 +60,4 @@ var Layer = Y.Base.create("layer", Y.Widget, [Y.WidgetParent, Y.WiresDelegate], 
 
 Y.Layer = Layer;
 
-}, '3.5.0pr1a', {requires: ['widget-parent','container','wires-delegate']});
+}, '3.5.0pr1', {requires: ['widget-parent','container','wires-delegate']});

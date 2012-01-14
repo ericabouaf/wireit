@@ -80,10 +80,14 @@ Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
 		 */
 		imageUrl: {
 			value: ''
+		},
+		
+		zIndex: {
+			value: 5
 		}
 	}
 	
 });
 
 
-}, '3.5.0pr1a', {requires: ['container-base']});
+}, '3.5.0pr1', {requires: ['container-base']});

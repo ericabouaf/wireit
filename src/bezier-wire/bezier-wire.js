@@ -7,7 +7,7 @@ YUI.add('bezier-wire', function(Y) {
  * @constructor
  * @param {Object} config the configuration for the BezierWire attributes
  */
-var BezierWire = Y.Base.create("bezier-wire", Y.CanvasWire, [Y.WidgetPosition], {
+Y.BezierWire = Y.Base.create("bezier-wire", Y.CanvasWire, [], {
 	
 	initializer: function() {
 		
@@ -18,7 +18,7 @@ var BezierWire = Y.Base.create("bezier-wire", Y.CanvasWire, [Y.WidgetPosition], 
 	},
 	
 	bindUI: function() {
-		BezierWire.superclass.bindUI.call(this);
+		Y.BezierWire.superclass.bindUI.call(this);
 		
 		this.after("bezierTangentNormChange", this._afterChangeRedraw, this);
 		
@@ -34,10 +34,10 @@ var BezierWire = Y.Base.create("bezier-wire", Y.CanvasWire, [Y.WidgetPosition], 
 	
 	/**
 	 * Draw the bezier curve.
- 	 * The canvas is made bigger to contain the curls
+	 * The canvas is made bigger to contain the curls
 	 * @method draw
 	 */
-   draw: function() {
+	draw: function() {
 	
 		if(!this.get('canvas')) {
 			return;
@@ -141,7 +141,7 @@ var BezierWire = Y.Base.create("bezier-wire", Y.CanvasWire, [Y.WidgetPosition], 
 	}
 });
 
-BezierWire.ATTRS = {
+Y.BezierWire.ATTRS = {
 	
 	SERIALIZABLE_ATTRS: ["color","width","bezierTangentNorm"],
 	
@@ -184,6 +184,4 @@ BezierWire.ATTRS = {
 
 };
 
-Y.BezierWire = BezierWire;
-
-}, '3.5.0pr1a', {requires: ['canvas-wire']});
+}, '3.5.0pr1', {requires: ['canvas-wire']});

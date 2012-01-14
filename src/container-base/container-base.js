@@ -22,6 +22,7 @@ var ContainerBase = Y.Base.create("container-base", Y.Overlay, [Y.WidgetParent, 
 		});
 		
 		this.drag.on('drag:drag', function() {
+			//console.log('drag:drag', this._wires.length);
 			this.redrawAllWires();
 		}, this);
 		
@@ -47,6 +48,11 @@ var ContainerBase = Y.Base.create("container-base", Y.Overlay, [Y.WidgetParent, 
 				this.redrawAllWires();
 			}, this);
 		}
+		
+		// TODO: this is awful ! But we need to wait for everything to render & position
+		Y.later(200, this, function() {
+			this.alignTerminals();
+		});
 		
 	},
 	
@@ -74,28 +80,20 @@ var ContainerBase = Y.Base.create("container-base", Y.Overlay, [Y.WidgetParent, 
 	
 	// TODO: 
 	toJSON: function() {
-		//console.log(this);
-		
 		var o = {
-		width: this.get('width'),
-		height: this.get('height'),
-		xy: this.get('xy'),
-			type: "ContainerBase"/*,
-			children: []*/
+			width: this.get('width'),
+			height: this.get('height'),
+			xy: this.get('xy')
 		};
-		/*Y.Array.each(this._items, function(item) {
-			o.children.push(item.toJSON());
-		});*/
 		return o;
 	},
 	
 	getTerminal: function(name) {
-		Y.Array.each(this._items, function(item) {
-			if(item.get('name') === name) {
-				return item;
+		return Y.Array.find(this._items, function(item) {
+			if(item.get('name') == name) {
+				return true;
 			}
 		});
-		return null;
 	}
 
 }, {
@@ -147,4 +145,4 @@ var ContainerBase = Y.Base.create("container-base", Y.Overlay, [Y.WidgetParent, 
 
 Y.ContainerBase = ContainerBase;
 
-}, '3.5.0pr1a', {requires: ['overlay','widget-parent','widget-child','dd','resize','terminal-base','wires-delegate']});
+}, '3.5.0pr1', {requires: ['overlay','widget-parent','widget-child','dd','resize','terminal-base','wires-delegate']});

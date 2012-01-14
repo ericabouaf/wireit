@@ -73,14 +73,8 @@ YUI().use(function(Y) {
 					
 					
 					// App
-					'container-type': {
-						requires: ['model', 'model-list', 'json', 'view']
-					},
-					'wiring-model': {
-						requires: ['model', 'model-list', 'json', 'view']
-					},
 					'wireit-app': {
-						requires: ['app', 'handlebars', 'container-type', 'wiring-model', 'layer', 'bezier-wire']
+						requires: ['app', 'handlebars', 'model', 'model-list', 'json', 'view', 'layer', 'bezier-wire', 'anim']
 					}
 					
 				}

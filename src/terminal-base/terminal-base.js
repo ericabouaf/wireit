@@ -15,7 +15,7 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
 	
 	renderUI: function() {
 		
-		// For Overlay extensions such as Scissors or Groups
+		// For Overlay extensions such as Scissors or DDGroups
 		var show = Y.bind(function() {
 			this.get('boundingBox').addClass( this.getClassName("show-overlay") );
 		}, this);
@@ -58,6 +58,10 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
 	
 	ATTRS: {
 		
+		name: {
+			value: null
+		},
+		
 		/**
 		 * Vector direction at the terminal
 		 * (used by BezierWire ou Scissors)
@@ -70,5 +74,5 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
 	
 });
 
-}, '3.5.0pr1a', {requires: ['widget','widget-child','widget-position','widget-position-align','wire-base', 'wires-delegate']});
+}, '3.5.0pr1', {requires: ['widget','widget-child','widget-position','widget-position-align','wire-base', 'wires-delegate']});
 

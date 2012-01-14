@@ -150,4 +150,4 @@ Y.FormContainer = FormContainer;
    
 //});
 
-}, '3.5.0pr1a', {requires: ['container','inputex-group','inputex-string']});
+}, '3.5.0pr1', {requires: ['container','inputex-group','inputex-string']});
