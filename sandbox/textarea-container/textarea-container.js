@@ -3,10 +3,10 @@
  * Important: this class takes the exact same arguments as the FormContainer !
  * You still need to specify the "fields".
  * @class Y.WireTextareaContainer
- * @extends Y.WireFormContainer
+ * @extends WireFormContainer
  * @constructor
  * @param {Object}   options  Configuration object (see properties)
- * @param {WireIt.Layer}   layer The Y.Layer (or subclass) instance that contains this container
+ * @param {Layer}   layer The Y.Layer (or subclass) instance that contains this container
  */
 Y.WireTextareaContainer = function(options, layer) {
          

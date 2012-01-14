@@ -52,7 +52,7 @@ Y.extend(inputEx.Field, inputEx.BaseField, {
       var wrapper = inputEx.cn('div', {className: 'WireIt-InputExTerminal'});
       this.divEl.insertBefore(wrapper, this.fieldContainer);
 
-      this.terminal = new Y.WireTerminal(wrapper, {
+      this.terminal = new Y.Terminal(wrapper, {
          name: this.options.name, 
          direction: [-1,0],
          fakeDirection: [0, 1],

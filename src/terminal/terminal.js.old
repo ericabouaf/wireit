@@ -6,9 +6,9 @@ YUI.add("terminal", function(Y){
  * @constructor
  * @param {HTMLElement} parentEl Element that will contain the terminal
  * @param {Object} options Configuration object
- * @param {WireIt.Container} container (Optional) Container containing this terminal
+ * @param {Container} container (Optional) Container containing this terminal
  */
-Y.WireTerminal = function(parentEl, options, container) {
+Y.Terminal = function(parentEl, options, container) {
 
 	/**
     * @property name
@@ -28,7 +28,7 @@ Y.WireTerminal = function(parentEl, options, container) {
    /**
     * @property container
 	 * @description Container (optional). Parent container of this terminal
-    * @type Y.WireContainer
+    * @type Y.Container
     */
    this.container = container;
    
@@ -72,7 +72,7 @@ Y.WireTerminal = function(parentEl, options, container) {
       // Make this terminal a drop target
       /*var drop = new Y.DD.Drop({ node: this.el });
       
-      //this.dd = new Y.WireTerminalProxy(this, this.ddConfig);
+      //this.dd = new Y.TerminalProxy(this, this.ddConfig);
       */
       
       this._makeEditable();
@@ -81,7 +81,7 @@ Y.WireTerminal = function(parentEl, options, container) {
    }
 };
 
-Y.WireTerminal.prototype = {
+Y.Terminal.prototype = {
 
    
 	_makeEditable: function() {
@@ -173,7 +173,7 @@ Y.WireTerminal.prototype = {
     * @default "WireIt.Terminal"
     * @type String
     */
-   xtype: "Y.WireTerminal",
+   xtype: "Y.Terminal",
 
 	/**
     * @property direction
@@ -265,7 +265,7 @@ Y.WireTerminal.prototype = {
 	
 	/**
     * @property ddConfig
-	 * @description configuration of the Y.WireTerminalProxy object
+	 * @description configuration of the Y.TerminalProxy object
     * @type Object
     * @default {}
     */
@@ -356,7 +356,7 @@ Y.WireTerminal.prototype = {
    /**
     * Add a wire to this terminal.
     * @method addWire
-    * @param {WireIt.Wire} wire Wire instance to add
+    * @param {Wire} wire Wire instance to add
     */
    addWire: function(wire) {
    
@@ -370,7 +370,7 @@ Y.WireTerminal.prototype = {
    /**
     * Remove a wire
     * @method removeWire
-    * @param {WireIt.Wire} wire Wire instance to remove
+    * @param {Wire} wire Wire instance to remove
     */
    removeWire: function(wire) {
       var index = Y.Array.indexOf(this.wires, wire);
@@ -474,7 +474,7 @@ Y.WireTerminal.prototype = {
 
 };
 
-Y.augment(Y.WireTerminal, Y.EventTarget);
+Y.augment(Y.Terminal, Y.EventTarget);
 
 }, '0.7.0',{
   requires: ['dd-drop','wire-base','terminal-proxy','scissors']

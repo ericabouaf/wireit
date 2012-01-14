@@ -4,8 +4,11 @@ YUI.add('container-base', function(Y) {
  * ContainerBase is an Overlay (XY positioning)
  * It is a WidgetChild (belongs to Layer)
  * It is also a WidgetParent (has many terminals)
- * @class Container
+ * @class ContainerBase
  * @extends Overlay
+ * @uses WidgetParent
+ * @uses WidgetChild
+ * @uses WiresDelegate
  * @constructor
  */
 var ContainerBase = Y.Base.create("container-base", Y.Overlay, [Y.WidgetParent, Y.WidgetChild, Y.WiresDelegate], {

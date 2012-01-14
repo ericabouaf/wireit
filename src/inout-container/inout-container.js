@@ -3,10 +3,10 @@ YUI.add("inout-container", function(Y){
 /**
  * Container with left inputs and right outputs
  * @class InOutContainer
- * @extends Y.WireContainer
+ * @extends Container
  * @constructor
  * @param {Object} options
- * @param {WireIt.Layer} layer
+ * @param {Layer} layer
  */
 
 var InOutContainer = Y.Base.create("inout-container", Y.Container, [], {
@@ -64,6 +64,7 @@ var InOutContainer = Y.Base.create("inout-container", Y.Container, [], {
 		
 		/**
 		 * Keep to render the form
+		 * @attribute bodyContent
 		 */
 		bodyContent: {
 			value: '<div id="body-container" />'

@@ -4,10 +4,10 @@ YUI.add("canvas-container", function(Y){
 /**
  * Container that draw into a canvas. (Draw an Ellipse by default, override the drawCanvas method to customize)
  * @class CanvasContainer
- * @extends Y.Container
+ * @extends Container
  * @constructor
  * @param {Object} options
- * @param {WireIt.Layer} layer
+ * @param {Layer} layer
  */
 Y.CanvasContainer = function(options, layer) {
    Y.CanvasContainer.superclass.constructor.call(this, options, layer);

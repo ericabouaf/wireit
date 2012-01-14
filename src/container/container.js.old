@@ -5,12 +5,11 @@ YUI.add("container", function(Y){
 /**
  * Visual module that contains terminals. The wires are updated when the module is dragged around.
  * @class Container
- * @namespace WireIt
  * @constructor
  * @param {Object}   options      Configuration object (see options property)
- * @param {WireIt.Layer}   layer The Y.Layer (or subclass) instance that contains this container
+ * @param {Layer}   layer The Y.Layer (or subclass) instance that contains this container
  */
-Y.WireContainer = function(options, layer) {
+Y.Container = function(options, layer) {
    
    // Set the options
    this.setOptions(options);
@@ -103,7 +102,7 @@ Y.WireContainer = function(options, layer) {
 };
 
 
-Y.WireContainer.prototype = {
+Y.Container.prototype = {
 
 	/** 
     * @property xtype
@@ -111,7 +110,7 @@ Y.WireContainer.prototype = {
     * @default "WireIt.Container"
     * @type String
     */
-   xtype: "Y.WireContainer",
+   xtype: "Y.Container",
 
 	/** 
     * @property draggable
@@ -489,7 +488,7 @@ Y.WireContainer.prototype = {
 
 
    /**
-    * Instanciate the terminal from the class pointer "xtype" (default Y.WireTerminal)
+    * Instanciate the terminal from the class pointer "xtype" (default Y.Terminal)
     * @method addTerminal
     * @return {WireIt.Terminal}  terminal Created terminal
     */

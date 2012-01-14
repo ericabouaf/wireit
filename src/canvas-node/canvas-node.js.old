@@ -4,7 +4,6 @@ YUI.add("canvas-node", function(Y){
 /**
  * Create a canvas element and wrap cross-browser hacks to resize it
  * @class CanvasElement
- * @namespace WireIt
  * @constructor
  * @param {HTMLElement} parentNode The canvas tag will be append to this parent DOM node.
  */

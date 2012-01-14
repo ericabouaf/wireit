@@ -35,6 +35,7 @@ var BezierWire = Y.Base.create("bezier-wire", Y.CanvasWire, [Y.WidgetPosition], 
 	/**
 	 * Draw the bezier curve.
  	 * The canvas is made bigger to contain the curls
+	 * @method draw
 	 */
    draw: function() {
 	

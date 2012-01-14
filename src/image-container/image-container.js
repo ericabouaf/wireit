@@ -5,7 +5,7 @@ YUI.add('image-container', function(Y) {
  * It is a WidgetChild (belongs to Layer)
  * It is also a WidgetParent (has many terminals)
  * @class ImageContainer
- * @extends Overlay
+ * @extends ContainerBase
  * @constructor
  */
 Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
@@ -76,6 +76,7 @@ Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
 	ATTRS: {
 		/**
 		 * Url of the image you want to render (relative to the script's page)
+		 * @attribute imageUrl
 		 */
 		imageUrl: {
 			value: ''

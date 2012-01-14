@@ -6,17 +6,14 @@ YUI.add('form-container', function(Y) {
  * <b>WARNING</b>: The "WirableField.js" file MUST be loaded AFTER "inputEx/field.js" and BEFORE all other inputEx fields !<br />
  * <br />
  * See the inputEx website for documentation of the fields & forms: <a href='http://neyric.github.com/inputex'>http://neyric.github.com/inputex</a><br />
- */
-/**
+ *
  * Class used to build a container with inputEx forms
  * @class FormContainer
- * @namespace WireIt
- * @extends Y.WireContainer
+ * @extends Container
  * @constructor
  * @param {Object}   options  Configuration object (see properties)
- * @param {WireIt.Layer}   layer The Y.Layer (or subclass) instance that contains this container
+ * @param {Layer}   layer The Y.Layer (or subclass) instance that contains this container
  */
-
 var FormContainer = Y.Base.create("form-container", Y.Container, [], {
 
 	renderUI: function() {
@@ -25,6 +22,7 @@ var FormContainer = Y.Base.create("form-container", Y.Container, [], {
 	},
 	
 	/**
+	 * @method _renderForm
 	 * Render the form in the widget body
 	 */
 	_renderForm: function() {
@@ -51,6 +49,7 @@ var FormContainer = Y.Base.create("form-container", Y.Container, [], {
 		
 		/**
 		 * Value of the form
+		 * @attribute form
 		 */
 		form: {
 			setter: function(val) {
@@ -70,6 +69,7 @@ var FormContainer = Y.Base.create("form-container", Y.Container, [], {
 		
 		/**
 		 * Keep to render the form
+		 * @attribute bodyContent
 		 */
 		bodyContent: {
 			value: '<div id="inputex-container" />'
@@ -136,7 +136,7 @@ Y.FormContainer = FormContainer;
 								return that.getXY();
 							}
 							else {
-								return Y.WireTerminal.prototype.getXY.call(this);
+								return Y.Terminal.prototype.getXY.call(this);
 							}
 							
 						};

@@ -3,8 +3,7 @@ YUI.add("wire", function(Y){
 /**
  * The wire widget that uses a canvas to render
  * @class Wire
- * @namespace WireIt
- * @extends Y.WireCanvasElement
+ * @extends WireCanvasElement
  * @constructor
  * @param  {WireIt.Terminal}    terminal1   Source terminal
  * @param  {WireIt.Terminal}    terminal2   Target terminal
@@ -23,14 +22,14 @@ Y.WireWire = function( terminal1, terminal2, parentEl, options) {
    /**
     * Source terminal
     * @property terminal1
-    * @type Y.WireTerminal
+    * @type Y.Terminal
     */
    this.terminal1 = terminal1;
    
    /**
     * Target terminal
     * @property terminal2
-    * @type Y.WireTerminal || Y.WireTerminalProxy
+    * @type Y.Terminal || Y.TerminalProxy
     */
    this.terminal2 = terminal2;
 

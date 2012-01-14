@@ -4,7 +4,7 @@ YUI.add("rightsquarearrow-wire", function(Y){
 /**
  * Square type of arrows for representing loops (but not restricted to) in CFG
  * @class RightSquareArrow
- * @extends Y.Wire
+ * @extends Wire
  * @constructor
  * @param  {WireIt.Terminal}    terminal1   Source terminal
  * @param  {WireIt.Terminal}    terminal2   Target terminal

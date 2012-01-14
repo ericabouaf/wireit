@@ -3,8 +3,7 @@ YUI.add("bezierarrow-wire", function(Y){
 /**
  * The bezier wire widget
  * @class BezierArrowWire
- * @namespace WireIt
- * @extends Y.BezierWire
+ * @extends BezierWire
  * @constructor
  * @param  {WireIt.Terminal}    terminal1   Source terminal
  * @param  {WireIt.Terminal}    terminal2   Target terminal

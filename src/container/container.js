@@ -5,7 +5,7 @@ YUI.add('container', function(Y) {
  * It is a WidgetChild (belongs to Layer)
  * It is also a WidgetParent (has many terminals)
  * @class Container
- * @extends Overlay
+ * @extends ContainerBase
  * @constructor
  */
 Y.Container = Y.Base.create("container", Y.ContainerBase, [/* TODO: Y.WidgetIcon, Y.WidgetClose */]);

@@ -4,8 +4,7 @@ YUI.add("arrow-wire", function(Y){
 /**
  * The arrow wire widget
  * @class ArrowWire
- * @namespace WireIt
- * @extends Y.Wire
+ * @extends Wire
  * @constructor
  * @param  {WireIt.Terminal}    terminal1   Source terminal
  * @param  {WireIt.Terminal}    terminal2   Target terminal

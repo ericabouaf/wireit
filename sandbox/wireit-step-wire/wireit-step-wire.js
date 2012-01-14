@@ -4,8 +4,7 @@ YUI.add("step-wire", function(Y){
 /**
  * The step wire widget
  * @class StepWire
- * @namespace WireIt
- * @extends Y.Wire
+ * @extends Wire
  * @constructor
  * @param  {WireIt.Terminal}    terminal1   Source terminal
  * @param  {WireIt.Terminal}    terminal2   Target terminal

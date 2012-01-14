@@ -1,19 +1,20 @@
-YUI.add('terminal-groups', function(Y) {
+YUI.add('terminal-ddgroups', function(Y) {
 
 /**
- * @class TerminalGroups
+ * @class TerminalDDGroups
  * @constructor
  * @param {Object} config configuration object
  */
-Y.TerminalGroups = function(config) {
+Y.TerminalDDGroups = function(config) {
 	Y.after(this._renderUIgroups, this, "renderUI");
 };
 
-Y.TerminalGroups.ATTRS = {
+Y.TerminalDDGroups.ATTRS = {
 	
 	/**
 	 * drag/drop groups : list of supported terminal types
 	 * only used if editable is set to true
+	 * @attribute groups
 	 */
 	groups: {
 		value: ['terminal']
@@ -25,7 +26,7 @@ Y.TerminalGroups.ATTRS = {
 	
 };
 
-Y.TerminalGroups.prototype = {
+Y.TerminalDDGroups.prototype = {
 	
 	_renderUIgroups: function() {
 		if( this.get('editable') ) {
@@ -36,6 +37,7 @@ Y.TerminalGroups.prototype = {
 	/**
 	 * create a persisting tooltip with the scissors class
 	 * listen for click events on the tooltip and call destroyWires
+	 * @method _renderTooltip
 	 */
 	_renderTooltip: function() {
 		

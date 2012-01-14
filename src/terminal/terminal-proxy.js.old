@@ -3,12 +3,11 @@ YUI.add("terminal-proxy", function(Y){
 /**
  * This class is used for wire edition. It uses a DragDrop proxy which acts as a "temporary" Terminal.
  * @class TerminalProxy
- * @namespace WireIt
  * @constructor
- * @param {WireIt.Terminal} terminal Parent terminal
+ * @param {Terminal} terminal Parent terminal
  * @param {Object} options Configuration object (see "termConfig" property for details)
  */
-Y.WireTerminalProxy = function(terminal, options) {
+Y.TerminalProxy = function(terminal, options) {
 
 	/**
 	 * Reference to the terminal parent
@@ -35,7 +34,7 @@ Y.WireTerminalProxy = function(terminal, options) {
 	this.fakeTerminal = null;
 
 	// Init the DDProxy
-	/*Y.WireTerminalProxy.superclass.constructor.call(this,this.terminal.el, undefined, {
+	/*Y.TerminalProxy.superclass.constructor.call(this,this.terminal.el, undefined, {
 	   dragElId: "WireIt-TerminalProxy",
 	   resizeFrame: false,
 	   centerFrame: true
@@ -56,7 +55,7 @@ Y.WireTerminalProxy = function(terminal, options) {
 	
 };
 
-Y.WireTerminalProxy.prototype = {
+Y.TerminalProxy.prototype = {
 
 	/**
 	 * Took this method from the YAHOO.util.DDProxy class
@@ -187,7 +186,7 @@ Y.WireTerminalProxy.prototype = {
 	   if(!this.editingWire) { return; }
    
 	   for(var i = 0 ; i < ddTargets.length ; i++) {
-	      if( this.isValidWireTerminal(ddTargets[i]) ) {
+	      if( this.isValidTerminal(ddTargets[i]) ) {
 	         ddTargets[i].terminal.setDropInvitation(true);
 	      }
 	   }
@@ -202,7 +201,7 @@ Y.WireTerminalProxy.prototype = {
 	   if(!this.editingWire) { return; }
    
 	   for(var i = 0 ; i < ddTargets.length ; i++) {
-	      if( this.isValidWireTerminal(ddTargets[i]) ) {
+	      if( this.isValidTerminal(ddTargets[i]) ) {
 	         ddTargets[i].terminal.setDropInvitation(false);
 	      }
 	   }
@@ -223,7 +222,7 @@ Y.WireTerminalProxy.prototype = {
 	   // Connect to the FIRST target terminal
 	   var targetTerminalProxy = null;
 	   for(i = 0 ; i < ddTargets.length ; i++) {
-	      if( this.isValidWireTerminal(ddTargets[i]) ) {
+	      if( this.isValidTerminal(ddTargets[i]) ) {
 	         targetTerminalProxy =  ddTargets[i];
 	         break;
 	      }
@@ -302,9 +301,9 @@ Y.WireTerminalProxy.prototype = {
 
 
 	/**
-	 * @method isValidWireTerminal
+	 * @method isValidTerminal
 	 */
-	isValidWireTerminal: function(DDterminal) {
+	isValidTerminal: function(DDterminal) {
    
 	   if( !DDterminal.isWireItTerminal ) {
 	      return false;

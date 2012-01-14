@@ -3,9 +3,8 @@ YUI.add("scissors", function(Y){
 /**
  * Scissors widget to cut wires
  * @class Scissors
- * @namespace WireIt
  * @constructor
- * @param {WireIt.Terminal} terminal Associated terminal
+ * @param {Terminal} terminal Associated terminal
  * @param {Object} oConfigs 
  */
 Y.WireScissors = function(terminal, oConfigs) {

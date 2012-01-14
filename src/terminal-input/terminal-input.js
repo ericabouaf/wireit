@@ -2,17 +2,17 @@ YUI.add("terminal-input", function(Y){
 
 /**
  * Class that extends Terminal to differenciate Input/Output terminals
- * @class Y.WireTerminalInput
- * @extends Y.WireTerminal
+ * @class TerminalInput
+ * @extends Terminal
  * @constructor
  * @param {HTMLElement} parentEl Parent dom element
  * @param {Object} options configuration object
- * @param {WireIt.Container} container (Optional) Container containing this terminal
+ * @param {Container} container (Optional) Container containing this terminal
  */
-Y.WireTerminalInput = function(parentEl, options, container) {
-   Y.WireTerminalInput.superclass.constructor.call(this,parentEl, options, container);
+Y.TerminalInput = function(parentEl, options, container) {
+   Y.TerminalInput.superclass.constructor.call(this,parentEl, options, container);
 };
-Y.extend(Y.WireTerminalInput, Y.WireTerminal, {
+Y.extend(Y.TerminalInput, Y.Terminal, {
 
 	/** 
     * @property xtype
@@ -20,7 +20,7 @@ Y.extend(Y.WireTerminalInput, Y.WireTerminal, {
     * @default "WireIt.TerminalInput"
     * @type String
     */
-   xtype: "Y.WireTerminalInput",
+   xtype: "Y.TerminalInput",
 
 	/**
     * @property direction
@@ -48,7 +48,7 @@ Y.extend(Y.WireTerminalInput, Y.WireTerminal, {
 	
 	/**
     * @property ddConfig
-	 * @description configuration of the Y.WireTerminalProxy object
+	 * @description configuration of the Y.TerminalProxy object
     * @type Object
     * @default { type: "input", allowedTypes: ["output"] }
     */

@@ -2,7 +2,7 @@ YUI.add('terminal-base', function(Y) {
 
 /**
  * Terminal is responsible for wire edition
- * @class Terminal
+ * @class TerminalBase
  * @constructor
  * @extends Widget
  * @uses WidgetChild
@@ -44,6 +44,7 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
 	/**
 	 * This function is a temporary test. I added the border width while traversing the DOM and
 	 * I calculated the offset to center the wire in the terminal just after its creation
+	 * @method getXY
 	 */
 	getXY: function() {
 		return this.get('contentBox').getXY();
@@ -60,6 +61,7 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
 		/**
 		 * Vector direction at the terminal
 		 * (used by BezierWire ou Scissors)
+		 * @attribute dir
 		 */
 		dir: {
 			value: [0,1]

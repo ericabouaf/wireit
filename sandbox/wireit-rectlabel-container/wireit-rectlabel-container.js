@@ -3,10 +3,10 @@ YUI.add("rectlabel-container", function(Y){
 /**
  * Draw an Ellipse and add an editable label
  * @class RectLabelContainer
- * @extends Y.Container
+ * @extends Container
  * @constructor
  * @param {Object} options
- * @param {WireIt.Layer} layer
+ * @param {Layer} layer
  */
 Y.RectLabelContainer = function(options, layer) {
    Y.RectLabelContainer.superclass.constructor.call(this, options, layer);

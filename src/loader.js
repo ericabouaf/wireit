@@ -7,9 +7,7 @@ YUI().use(function(Y) {
 				combine: false,
 				modules: {
 					
-					/**
-					 * Wire
-					 */
+					// Wire
 					'wire-base': {
 					    skinnable: true,
 					    requires: ['widget','widget-position']
@@ -31,9 +29,7 @@ YUI().use(function(Y) {
 					},
 					
 					
-					/**
-					 * Terminal
-					 */
+					// Terminal
 					'terminal-base': {
 						requires: ['widget','widget-child','widget-position','widget-position-align','wire-base', 'wires-delegate']
 					},
@@ -43,18 +39,16 @@ YUI().use(function(Y) {
 					'terminal-scissors': {
 						requires: ['overlay']
 					},
-					'terminal-groups': {
+					'terminal-ddgroups': {
 						requires: ['terminal-dragedit']
 					},
 					'terminal': { // aka editable terminal
 					    skinnable: true,
-						requires: ['terminal-base', 'terminal-dragedit', 'terminal-scissors', 'terminal-groups']
+						requires: ['terminal-base', 'terminal-dragedit', 'terminal-scissors', 'terminal-ddgroups']
 					},
 					
 					
-					/**
-					 * Container
-					 */
+					// Container
 					'container-base': {
 					   requires: ['overlay','widget-parent','widget-child','dd','resize','terminal','wires-delegate']
 					},
@@ -72,17 +66,13 @@ YUI().use(function(Y) {
 						requires: ['container']
 					},
 					
-					/**
-					 * Layer
-					 */
+					// Layer
 					'layer': {
 					  requires: ['widget-parent','container','wires-delegate']
 					},
 					
 					
-					/**
-					 * App
-					 */
+					// App
 					'container-type': {
 						requires: ['model', 'model-list', 'json', 'view']
 					},

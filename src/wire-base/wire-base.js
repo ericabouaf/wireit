@@ -19,6 +19,7 @@ var WireBase = Y.Base.create("wire-base", Y.Widget, [Y.WidgetPosition], {
 	
 	/**
 	 * Notify the WiresDeletates through addWire
+	 * @method initializer
 	 */
 	initializer: function() {
 		var src = this.get('src'), tgt = this.get('tgt');
@@ -33,6 +34,7 @@ var WireBase = Y.Base.create("wire-base", Y.Widget, [Y.WidgetPosition], {
 	
 	/**
 	 * Listen for src/tgt changes
+	 * @method bindUI
 	 */
 	bindUI: function() {
 		
@@ -49,6 +51,7 @@ var WireBase = Y.Base.create("wire-base", Y.Widget, [Y.WidgetPosition], {
 	
 	/**
 	 * syncUI just redraws the wire
+	 * @method syncUI
 	 */
 	syncUI: function() {
 		this.draw();
@@ -56,6 +59,7 @@ var WireBase = Y.Base.create("wire-base", Y.Widget, [Y.WidgetPosition], {
 	
 	/**
 	 * call removeWire on WiringsDelegate
+	 * @method destructor
 	 */
 	destructor: function() {
 		var src = this.get('src'), tgt = this.get('tgt');
@@ -70,6 +74,7 @@ var WireBase = Y.Base.create("wire-base", Y.Widget, [Y.WidgetPosition], {
 	
    /**
     * Drawing method. Meant to be overriden by a plugin
+	* @method draw
     */
    draw: function() {
 		//throw new Error("Y.Wire has no draw method. Consider using a plugin such as 'bezier-wire' in your YUI.use statement");

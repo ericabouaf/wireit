@@ -1,14 +1,9 @@
-/**
- * WireIt provide classes to build wirable interfaces
- * @module WireIt
- */
- 
 YUI.add("wireit", function(Y){
  
 /**
+ * WireIt provide classes to build wirable interfaces
  * @class WireIt
  * @static
- * @namespace WireIt
  */
 Y.WireIt = {
 	
@@ -24,14 +19,14 @@ Y.WireIt = {
 	},
 	
 	
-	defaultTerminalClass: "Y.WireTerminal",
+	defaultTerminalClass: "Y.Terminal",
 	
 	terminalClassFromXtype: function(xtype) {
 		return this.classFromXtype(xtype, this.defaultTerminalClass);
 	},
 	
 
-	defaultContainerClass: "Y.WireContainer",
+	defaultContainerClass: "Y.Container",
 	
 	containerClassFromXtype: function(xtype) {
 		return this.classFromXtype(xtype, this.defaultContainerClass);

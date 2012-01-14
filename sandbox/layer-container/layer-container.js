@@ -6,16 +6,16 @@ YUI.add("layer-container", function(Y){
  *
  * Container that has a Layer
  * @class LayerContainer
- * @extends Y.WireContainer
+ * @extends Container
  * @constructor
  * @param {Object} options
- * @param {WireIt.Layer} layer
+ * @param {Layer} layer
  */
 Y.LayerContainer = function(options, layer) {
    Y.LayerContainer.superclass.constructor.call(this, options, layer);
 };
 
-Y.extend(Y.LayerContainer, Y.WireContainer, {
+Y.extend(Y.LayerContainer, Y.Container, {
 	
 	/** 
     * @property xtype
@@ -90,7 +90,7 @@ Y.extend(Y.LayerContainer, Y.WireContainer, {
 	
 				{
 					position:[20,30],
-					"xtype":"Y.WireContainer", 
+					"xtype":"Y.Container", 
 					title: "input",
 					width: 100,
 	 				"terminals": [
@@ -100,7 +100,7 @@ Y.extend(Y.LayerContainer, Y.WireContainer, {
 				},
 				{
 					position:[40,110],
-					"xtype":"Y.WireContainer", 
+					"xtype":"Y.Container", 
 					title: "input",
 					width: 100,
 	 				"terminals": [

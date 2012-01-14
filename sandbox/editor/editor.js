@@ -3,7 +3,7 @@ YUI.add("editor", function(Y){
 /**
  * The WiringEditor class provides a full page interface 
  * @class WiringEditor
- * @extends Y.WireBaseEditor
+ * @extends WireBaseEditor
  * @constructor
  * @param {Object} options
  */

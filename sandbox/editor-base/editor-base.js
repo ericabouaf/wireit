@@ -6,7 +6,6 @@ YUI.add("editor-base", function(Y){
 /**
  * The BaseEditor class provides a full page interface 
  * @class BaseEditor	
- * @namespace WireIt
  * @constructor
  * @param {Object} options (layoutOptions,propertiesFields,accordionViewParams)
  */

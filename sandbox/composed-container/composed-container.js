@@ -6,7 +6,7 @@ YUI.add("composed-container", function(Y){
  * It automatically generates the inputEx Form from the input Params.
  *
  * @class ComposedContainer
- * @extends Y.WireFormContainer
+ * @extends WireFormContainer
  * @constructor
  */
 Y.WireComposedContainer = function(options, layer) {

@@ -47,18 +47,20 @@ Y.WiresDelegate.prototype = {
 	},
 	
 	/**
-    * Add a wire to this terminal.
-    * @param {WireIt.Wire} wire Wire instance to add
-    */
-   addWire: function(wire) {var index = Y.Array.indexOf(this._wires, wire); 
+	 * Add a wire to this terminal.
+	 * @method addWire
+	 * @param {Wire} wire Wire instance to add
+	 */
+	addWire: function(wire) {var index = Y.Array.indexOf(this._wires, wire); 
 		if(index == -1) {
-      	this._wires.push(wire);
+			this._wires.push(wire);
 			this.fire('addWire', wire);
 		}
-   },
-
+	},
+	
 	/**
 	 * When a wire is destroyed
+	 * @method removeWire
 	 */
 	removeWire: function(wire) {
 
@@ -71,28 +73,30 @@ Y.WiresDelegate.prototype = {
 			this._wires = [];
 			var v = this._wires;
 			Y.Array.each(w,function(i) { if(i != wire){ v.push(i); } });
-
-         // Fire the event
-         this.fire('removeWire', wire);
-      }
-
-   },
-
+			
+			// Fire the event
+			this.fire('removeWire', wire);
+		}
+		
+	},
+	
 	/** 
-    * Remove all wires
-    */
-   destroyWires: function() {
+	 * Remove all wires
+	 * @method destroyWires
+	 */
+	destroyWires: function() {
 		// This isn't very nice but...
-      // the method Wire.remove calls Terminal.removeWire to remove the reference
-      while(this._wires.length > 0) {
-         this._wires[0].destroy();
-      }
-   },
-
+		// the method Wire.remove calls Terminal.removeWire to remove the reference
+		while(this._wires.length > 0) {
+			this._wires[0].destroy();
+		}
+	},
+	
 	/**
-    * Returns a list of all the terminals connected to this terminal through its wires.
-    * @return  {Array}  List of all connected terminals
-    */
+	 * Returns a list of all the terminals connected to this terminal through its wires.
+	 * @method getConnected
+	 * @return  {Array}  List of all connected terminals
+	 */
    getConnected: function() {
       var list = [];
       if(this._wires) {
@@ -105,6 +109,7 @@ Y.WiresDelegate.prototype = {
 
    /**
     * Redraw all the wires connected to this terminal
+	 * @method redrawAllWires
     */
    redrawAllWires: function() {
       if(this._wires) {

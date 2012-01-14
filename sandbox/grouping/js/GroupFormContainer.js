@@ -3,11 +3,10 @@
 /**
  * Class used to build a container with inputEx forms
  * @class FormContainer
- * @namespace WireIt
- * @extends Y.Container
+ * @extends Container
  * @constructor
  * @param {Object}   options  Configuration object (see properties)
- * @param {WireIt.Layer}   layer The Y.Layer (or subclass) instance that contains this container
+ * @param {Layer}   layer The Y.Layer (or subclass) instance that contains this container
  */
 Y.GroupFormContainer = function(options, layer) {
    /*var fieldConfigs = Y.GroupUtils.fieldConfigsFromModules(options.groupConfig.modules, options.getBaseConfigFunction);

@@ -5,7 +5,7 @@
  * @class ModuleProxy
  * @constructor
  * @param {HTMLElement} el
- * @param {WireIt.WiringEditor} WiringEditor
+ * @param {WiringEditor} WiringEditor
  */
 Y.WireModuleProxy = function(el, WiringEditor) {
    

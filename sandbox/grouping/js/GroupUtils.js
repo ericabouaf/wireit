@@ -10,7 +10,7 @@
 	/**
 	* Applys the given function to all containers in the group.
 	* @method applyToContainers
-	* @param {WireIt.Group} group The group object to work with
+	* @param {Group} group The group object to work with
 	* @param {boolean} deep Whether to recurse down into sub groups applying to their containers as well
 	* @param {Function} func The function to apply (takes 1 arg, the container)
 	* @param {Object} context The context to call the function with
@@ -48,8 +48,8 @@
     
 	/**
 	* Removes the group's containers and sub groups from the layer
-	* @param {WireIt.Group} The group to remove
-	* @param {WireIt.Layer} The layer to remove them from
+	* @param {Group} The group to remove
+	* @param {Layer} The layer to remove them from
 	*/
 	removeGroupFromLayer : function(group, layer)
 	{
@@ -70,7 +70,7 @@
     
 	/**
 	* Gets the outer most group (e.g. if this group is inside another one it gives you that one (or its parent group if it has one etc etc))
-	* @param {WireIt.Group} The group to get the outer group for
+	* @param {Group} The group to get the outer group for
 	* @param {Function} Optional callback function for each group found (including the given one)
 	* @return {WireIt.Group} The outermost group
 	*/
@@ -93,7 +93,7 @@
     
 	/**
 	* Adds all(recurses down) the containers in a group to the given array
-	* @param {WireIt.Group} The group to get the containers from
+	* @param {Group} The group to get the containers from
 	* @param {Array} The array to add all the containers to
 	*/
 	addAllContainers: function(group, containers)
@@ -146,7 +146,7 @@
     
 	/**
 	* Get the configuration to pass to a group container
-	* @param {WireIt.Group} group The group to get the config for
+	* @param {Group} group The group to get the config for
 	* @param {object} map Optional The group's map (obtained by Y.GroupUtils.getMap(group))
 	* @return {object} The collapsed config
 	*/
@@ -213,7 +213,7 @@
     
 	/**
 	* Works out the center point of a group
-	* @param {WireIt.Group} group The group to get the center of
+	* @param {Group} group The group to get the center of
 	* @return {Array} the x, y position of the center
 	*/
 	workOutCenter: function(group)

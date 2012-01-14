@@ -4,10 +4,9 @@ YUI.add("layer-map", function(Y){
 /**
  * Widget to display a minimap on a layer
  * @class LayerMap
- * @namespace WireIt
- * @extends Y.CanvasElement
+ * @extends CanvasElement
  * @constructor
- * @param {WireIt.Layer} layer the layer object it is attached to
+ * @param {Layer} layer the layer object it is attached to
  * @param {Obj} options configuration object
  */
 Y.LayerMap = function(layer,options) {

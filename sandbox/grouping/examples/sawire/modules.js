@@ -267,7 +267,7 @@ var jsBox = {};
  * ComposedContainer is a class for Container representing Pipes.
  * It automatically generates the inputEx Form from the input Params.
  * @class ComposedContainer
- * @extends Y.FormContainer
+ * @extends FormContainer
  * @constructor
  */
 jsBox.ComposedContainer = function(options, layer) {

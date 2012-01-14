@@ -16,6 +16,7 @@ Y.TerminalDragEdit.ATTRS = {
 	
 	/**
 	 * Sets the terminal editable
+	 * @attribute editable
 	 */
 	editable: {
 		value: true
@@ -23,6 +24,7 @@ Y.TerminalDragEdit.ATTRS = {
 	
 	/**
 	 * target node to render the wire to (generally set to the layer by the container)
+	 * @attribute editwire-parent
 	 */
 	"editwire-parent": {
 		value: document.body
@@ -78,6 +80,7 @@ Y.TerminalDragEdit.prototype = {
 	
 	/**
 	 * on drag start, create the wire between 2 fake terminals
+	 * @method _onDragEditStart
 	 */
 	_onDragEditStart: function(ev) {
 		

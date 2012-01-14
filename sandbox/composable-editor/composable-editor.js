@@ -4,7 +4,7 @@
  * Extend the WiringEditor with composable wirings
  *
  * @class ComposableWiringEditor
- * @extends Y.WireComposableWiringEditor
+ * @extends WireComposableWiringEditor
  * @constructor
  */
 Y.WireComposableWiringEditor = function(options) {

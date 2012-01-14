@@ -1,0 +1,12 @@
+{
+    "name": "WireIt",
+    "description": "WireIt",
+    "version": "3.0.0pr1",
+    "url": "http://neyric.github.com/wireit",
+    "options": {
+        "linkNatives": "true",
+        "attributesEmit": "true",
+        "paths": [ "./src" ],
+        "outdir": "./api"
+    }
+}

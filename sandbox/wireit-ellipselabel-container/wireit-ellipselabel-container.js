@@ -3,10 +3,10 @@ YUI.add("ellipselabel-container", function(Y){
 /**
  * Draw an Ellipse and add an editable label
  * @class EllipseLabelContainer
- * @extends Y.Container
+ * @extends Container
  * @constructor
  * @param {Object} options
- * @param {WireIt.Layer} layer
+ * @param {Layer} layer
  */
 Y.EllipseLabelContainer = function(options, layer) {
    Y.EllipseLabelContainer.superclass.constructor.call(this, options, layer);
