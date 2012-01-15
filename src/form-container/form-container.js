@@ -1,3 +1,6 @@
+/**
+ * @module form-container
+ */
 YUI.add('form-container', function(Y) {
 
 /**
@@ -15,15 +18,18 @@ YUI.add('form-container', function(Y) {
  * @param {Layer}   layer The Y.Layer (or subclass) instance that contains this container
  */
 var FormContainer = Y.Base.create("form-container", Y.Container, [], {
-
+	
+	/**
+	 * @method renderUI
+	 */
 	renderUI: function() {
 		FormContainer.superclass.renderUI.call(this);
 		this._renderForm();
 	},
 	
 	/**
-	 * @method _renderForm
 	 * Render the form in the widget body
+	 * @method _renderForm
 	 */
 	_renderForm: function() {
 		
@@ -75,10 +81,16 @@ var FormContainer = Y.Base.create("form-container", Y.Container, [], {
 			value: '<div id="inputex-container" />'
 		},
 		
+		/**
+		 * @attribute fields
+		 */
 		fields: {
 			value: []
 		},
 		
+		/**
+		 * @attribute resizable
+		 */
 		resizable: {
 			value: false
 		}
@@ -91,7 +103,7 @@ Y.FormContainer = FormContainer;
 
 
 	/** 
-    * @property legend
+    * @attribute legend
     * @description Legend
     * @default null
     * @type String
@@ -99,7 +111,7 @@ Y.FormContainer = FormContainer;
    //legend: null,
 
 	/** 
-    * @property collapsible
+    * @attribute collapsible
     * @description Collapsible
     * @default false
     * @type Boolean

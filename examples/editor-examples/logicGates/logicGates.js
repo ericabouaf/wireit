@@ -124,7 +124,7 @@ LogicContainer = function(opts, layer) {
 Y.extend(LogicContainer, Y.ImageContainer, {
 
 	/** 
-    * @property xtype
+    * @attribute xtype
     * @description String representing this class for exporting as JSON
     * @default "WireIt.LogicContainer"
     * @type String

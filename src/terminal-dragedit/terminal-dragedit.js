@@ -1,3 +1,6 @@
+/**
+ * @module terminal-dragedit
+ */
 YUI.add('terminal-dragedit', function(Y) {
 
 /**

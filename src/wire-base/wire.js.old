@@ -14,21 +14,21 @@ Y.WireWire = function( terminal1, terminal2, parentEl, options) {
    
    /**
     * Reference to the parent dom element
-    * @property parentEl
+    * @attribute parentEl
     * @type HTMLElement
     */
    this.parentEl = parentEl;
    
    /**
     * Source terminal
-    * @property terminal1
+    * @attribute terminal1
     * @type Y.Terminal
     */
    this.terminal1 = terminal1;
    
    /**
     * Target terminal
-    * @property terminal2
+    * @attribute terminal2
     * @type Y.Terminal || Y.TerminalProxy
     */
    this.terminal2 = terminal2;
@@ -87,7 +87,7 @@ Y.WireWire = function( terminal1, terminal2, parentEl, options) {
 Y.extend(Y.WireWire, Y.WireCanvasElement, {
 
 	/** 
-    * @property xtype
+    * @attribute xtype
     * @description String representing this class for exporting as JSON
     * @default "WireIt.Wire"
     * @type String
@@ -95,7 +95,7 @@ Y.extend(Y.WireWire, Y.WireCanvasElement, {
    xtype: "Y.WireWire",
 
 	/** 
-    * @property className
+    * @attribute className
     * @description CSS class name for the wire element
     * @default "WireIt-Wire"
     * @type String
@@ -103,7 +103,7 @@ Y.extend(Y.WireWire, Y.WireCanvasElement, {
 	className: "WireIt-Wire",
 
 	/** 
-    * @property cap
+    * @attribute cap
     * @description TODO
     * @default "round"
     * @type String
@@ -111,7 +111,7 @@ Y.extend(Y.WireWire, Y.WireCanvasElement, {
 	cap: 'round',
 	
 	/** 
-    * @property bordercap
+    * @attribute bordercap
     * @description TODO
     * @default "round"
     * @type String
@@ -119,7 +119,7 @@ Y.extend(Y.WireWire, Y.WireCanvasElement, {
 	bordercap: 'round',
 	
 	/** 
-    * @property width
+    * @attribute width
     * @description Wire width
     * @default 3
     * @type Integer
@@ -127,7 +127,7 @@ Y.extend(Y.WireWire, Y.WireCanvasElement, {
 	width: 3,
 	
 	/** 
-    * @property borderwidth
+    * @attribute borderwidth
     * @description Border width
     * @default 1
     * @type Integer
@@ -135,7 +135,7 @@ Y.extend(Y.WireWire, Y.WireCanvasElement, {
 	borderwidth: 1,
 	
 	/** 
-    * @property color
+    * @attribute color
     * @description Wire color
     * @default 'rgb(173, 216, 230)'
     * @type String
@@ -143,7 +143,7 @@ Y.extend(Y.WireWire, Y.WireCanvasElement, {
 	color: 'rgb(173, 216, 230)',
 	
 	/** 
-    * @property bordercolor
+    * @attribute bordercolor
     * @description Border color
     * @default '#0000ff'
     * @type String
@@ -151,7 +151,7 @@ Y.extend(Y.WireWire, Y.WireCanvasElement, {
 	bordercolor: '#0000ff',
 	
 	/** 
-    * @property label
+    * @attribute label
     * @description Wire label
     * @default null
     * @type String
@@ -159,7 +159,7 @@ Y.extend(Y.WireWire, Y.WireCanvasElement, {
 	label: null,
 	
 	/** 
-    * @property labelStyle
+    * @attribute labelStyle
     * @description Wire label style
     * @default null
     * @type Object
@@ -167,7 +167,7 @@ Y.extend(Y.WireWire, Y.WireCanvasElement, {
 	labelStyle: null,
 	
 	/** 
-    * @property labelEditor
+    * @attribute labelEditor
     * @description inputEx field definition for the label editor
     * @default null
     * @type Object

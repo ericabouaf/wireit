@@ -10,7 +10,7 @@ var CanvasElement = function(parentNode) {
   
    /**
     * The canvas element
-    * @property element
+    * @attribute element
     * @type HTMLElement
     */
    this.element = document.createElement('canvas');

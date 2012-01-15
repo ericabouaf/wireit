@@ -20,7 +20,7 @@ Y.StepWire = function( terminal1, terminal2, parentEl, options) {
 Y.extend(Y.StepWire, Y.Wire, {
 	
 	/** 
-    * @property xtype
+    * @attribute xtype
     * @description String representing this class for exporting as JSON
     * @default "WireIt.StepWire"
     * @type String

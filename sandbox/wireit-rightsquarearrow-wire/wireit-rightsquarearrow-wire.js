@@ -18,7 +18,7 @@ Y.RightSquareArrow = function( terminal1, terminal2, parentEl, options) {
 Y.extend(Y.RightSquareArrow, Y.Wire, {
 	
 	/** 
-    * @property xtype
+    * @attribute xtype
     * @description String representing this class for exporting as JSON
     * @default "WireIt.RightSquareArrow"
     * @type String

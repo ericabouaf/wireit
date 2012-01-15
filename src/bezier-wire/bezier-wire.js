@@ -1,3 +1,6 @@
+/**
+ * @module bezier-wire
+ */
 YUI.add('bezier-wire', function(Y) {
 	
 /**
@@ -9,6 +12,9 @@ YUI.add('bezier-wire', function(Y) {
  */
 Y.BezierWire = Y.Base.create("bezier-wire", Y.CanvasWire, [], {
 	
+	/**
+	 * @method initializer
+	 */
 	initializer: function() {
 		
 		if(this.get('src') && this.get('src').get)
@@ -17,6 +23,9 @@ Y.BezierWire = Y.Base.create("bezier-wire", Y.CanvasWire, [], {
 			this.set('tgtDir', this.get('src').get('dir') );
 	},
 	
+	/**
+	 * @method bindUI
+	 */
 	bindUI: function() {
 		Y.BezierWire.superclass.bindUI.call(this);
 		
@@ -138,12 +147,13 @@ Y.BezierWire = Y.Base.create("bezier-wire", Y.CanvasWire, [], {
 		ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]);
 		ctxt.stroke();
 		
-	}
+	},
+	
+	SERIALIZABLE_ATTRS: ["color","width","bezierTangentNorm"]
+	
 });
 
 Y.BezierWire.ATTRS = {
-	
-	SERIALIZABLE_ATTRS: ["color","width","bezierTangentNorm"],
 	
 	/** 
 	 * Norm of the tangeant vector at the endpoints.

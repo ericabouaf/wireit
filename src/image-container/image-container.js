@@ -1,3 +1,6 @@
+/**
+ * @module image-container
+ */
 YUI.add('image-container', function(Y) {
 
 /**
@@ -10,6 +13,9 @@ YUI.add('image-container', function(Y) {
  */
 Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
 	
+	/**
+	 * @method renderUI
+	 */
 	renderUI: function() {
 		
 		// TODO: 
@@ -63,13 +69,7 @@ Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
 			this.redrawAllWires();
 		}, this);
 		
-	}/*,
-	
-	toJSON: function() {
-		var o = Y.ImageContainer.superclass.toJSON();
-		o.type="ImageContainer";
-		return o;
-	}*/
+	}
 	
 }, {
 

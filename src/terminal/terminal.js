@@ -1,3 +1,6 @@
+/**
+ * @module terminal
+ */
 YUI.add('terminal', function(Y) {
 
 /**

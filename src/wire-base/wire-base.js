@@ -1,3 +1,6 @@
+/**
+ * @module wire-base
+ */
 YUI.add('wire-base', function(Y) {
 
 /**

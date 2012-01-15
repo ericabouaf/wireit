@@ -49,12 +49,15 @@ YUI().use(function(Y) {
 					
 					
 					// Container
+					'widget-icons': {
+						requires: ['silk-sprites']
+					},
 					'container-base': {
 					   requires: ['overlay','widget-parent','widget-child','dd','resize','terminal','wires-delegate']
 					},
 					'container': {
 					   skinnable: true,
-					   requires: ['container-base']
+					   requires: ['container-base','widget-icons']
 					},
 					'image-container': {
 						requires: ['container-base']
@@ -68,13 +71,21 @@ YUI().use(function(Y) {
 					
 					// Layer
 					'layer': {
-					  requires: ['widget-parent','container','wires-delegate']
+						skinnable: true,
+						requires: ['widget-parent','container','wires-delegate']
 					},
 					
 					
 					// App
 					'wireit-app': {
 						requires: ['app', 'handlebars', 'model', 'model-list', 'json', 'view', 'layer', 'bezier-wire', 'anim']
+					},
+					
+					
+					// Other
+					'silk-sprites': {
+						type: 'css',
+						skinnable: true
 					}
 					
 				}

@@ -18,7 +18,7 @@ Y.ArrowWire = function( terminal1, terminal2, parentEl, options) {
 Y.extend(Y.ArrowWire, Y.Wire, {
 	
 	/** 
-    * @property xtype
+    * @attribute xtype
     * @description String representing this class for exporting as JSON
     * @default "WireIt.ArrowWire"
     * @type String

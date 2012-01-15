@@ -1,3 +1,6 @@
+/**
+ * @module container-base
+ */
 YUI.add('container-base', function(Y) {
 
 /**
@@ -11,8 +14,11 @@ YUI.add('container-base', function(Y) {
  * @uses WiresDelegate
  * @constructor
  */
-var ContainerBase = Y.Base.create("container-base", Y.Overlay, [Y.WidgetParent, Y.WidgetChild, Y.WiresDelegate], {
+var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, Y.WidgetChild, Y.WiresDelegate], {
 	
+	/**
+	 * @method renderUI
+	 */
 	renderUI: function() {
 		
 		// make the overlay draggable
@@ -56,23 +62,28 @@ var ContainerBase = Y.Base.create("container-base", Y.Overlay, [Y.WidgetParent, 
 		
 	},
 	
+	/**
+	 * @method alignTerminals
+	 */
 	alignTerminals: function() {
 		var contentBox = this.get('contentBox');
 		this.each(function(term) {
 			if(term.get('align')) {
-				term.align( contentBox, ["tl",term.get('align').points[1]]);
+				term.align( contentBox, ['tl',term.get('align').points[1]]);
 			}
 		}, this);
 	},
 	
-	
+	/**
+	 * @method syncUI
+	 */
 	syncUI: function() {
 		
 		// Align terminals
 		var c = this;
 		this.each(function(term) {
 			if(term.get('align')) {	
-				term.align( c.get('contentBox') , ["tl",term.get('align').points[1]]);
+				term.align( c.get('contentBox') , ['tl',term.get('align').points[1]]);
 			}
 		});
 		
@@ -88,6 +99,10 @@ var ContainerBase = Y.Base.create("container-base", Y.Overlay, [Y.WidgetParent, 
 		return o;
 	},
 	
+	/**
+	 * Get a terminal by name
+	 * @method getTerminal
+	 */
 	getTerminal: function(name) {
 		return Y.Array.find(this._items, function(item) {
 			if(item.get('name') == name) {
@@ -99,46 +114,59 @@ var ContainerBase = Y.Base.create("container-base", Y.Overlay, [Y.WidgetParent, 
 }, {
 
 	ATTRS: {
+		
+		/**
+		 * @attribute defaultChildType
+		 */
 		defaultChildType: {
 			value: 'Terminal'
 		},
 		
+		/**
+		 * @attribute zIndex
+		 */
 		zIndex: {
 			value: 5
 		},
 		
+		/**
+		 * @attribute resizable
+		 */
 		resizable: {
 			value: true
 		},
 		
+		/**
+		 * @attribute fillHeight
+		 */
 		fillHeight: {
 			value: true
 		}
 	},
 	
 	EIGHT_POINTS: [
-		{ align: {points:["tl", "tl"]}, dir: [-0.5, -0.5], name: "tl" },
-		{ align: {points:["tl", "tc"]}, dir: [0, -1], name: "tc" },
-		{ align: {points:["tl", "tr"]}, dir: [0.5, -0.5], name: "tr" },
-		{ align: {points:["tl", "lc"]}, dir: [-1, 0], name: "lc" },
-		{ align: {points:["tl", "rc"]}, dir: [1, 0], name: "rc" },
-		{ align: {points:["tl", "br"]}, dir: [0.5, 0.5], name: "br" },
-		{ align: {points:["tl", "bc"]}, dir: [0,1], name: "bc" },
-		{ align: {points:["tl", "bl"]}, dir: [-0.5, 0.5], name: "bl" }
+		{ align: {points:['tl', 'tl']}, dir: [-0.5, -0.5], name: 'tl' },
+		{ align: {points:['tl', 'tc']}, dir: [0, -1], name: 'tc' },
+		{ align: {points:['tl', 'tr']}, dir: [0.5, -0.5], name: 'tr' },
+		{ align: {points:['tl', 'lc']}, dir: [-1, 0], name: 'lc' },
+		{ align: {points:['tl', 'rc']}, dir: [1, 0], name: 'rc' },
+		{ align: {points:['tl', 'br']}, dir: [0.5, 0.5], name: 'br' },
+		{ align: {points:['tl', 'bc']}, dir: [0,1], name: 'bc' },
+		{ align: {points:['tl', 'bl']}, dir: [-0.5, 0.5], name: 'bl' }
 	],
 
 	FOUR_CORNERS: [
-		{ align: {points:["tl", "tl"]}, dir: [-0.5, -0.5], name: "tl" },
-		{ align: {points:["tl", "tr"]}, dir: [0.5, -0.5], name: "tr" },
-		{ align: {points:["tl", "br"]}, dir: [0.5, 0.5], name: "br" },
-		{ align: {points:["tl", "bl"]}, dir: [-0.5, 0.5], name: "bl" }
+		{ align: {points:['tl', 'tl']}, dir: [-0.5, -0.5], name: 'tl' },
+		{ align: {points:['tl', 'tr']}, dir: [0.5, -0.5], name: 'tr' },
+		{ align: {points:['tl', 'br']}, dir: [0.5, 0.5], name: 'br' },
+		{ align: {points:['tl', 'bl']}, dir: [-0.5, 0.5], name: 'bl' }
 	],
 
 	FOUR_EDGES: [
-		{ align: {points:["tl", "tc"]}, dir: [0, -1], name: "tc" },
-		{ align: {points:["tl", "lc"]}, dir: [-1, 0], name: "lc" },
-		{ align: {points:["tl", "rc"]}, dir: [1, 0], name: "rc" },
-		{ align: {points:["tl", "bc"]}, dir: [0,1], name: "bc" }
+		{ align: {points:['tl', 'tc']}, dir: [0, -1], name: 'tc' },
+		{ align: {points:['tl', 'lc']}, dir: [-1, 0], name: 'lc' },
+		{ align: {points:['tl', 'rc']}, dir: [1, 0], name: 'rc' },
+		{ align: {points:['tl', 'bc']}, dir: [0,1], name: 'bc' }
 	]
 	
 });

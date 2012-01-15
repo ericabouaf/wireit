@@ -18,7 +18,7 @@ Y.LayerContainer = function(options, layer) {
 Y.extend(Y.LayerContainer, Y.Container, {
 	
 	/** 
-    * @property xtype
+    * @attribute xtype
     * @description String representing this class for exporting as JSON
     * @default "WireIt.LayerContainer"
     * @type String
@@ -26,7 +26,7 @@ Y.extend(Y.LayerContainer, Y.Container, {
    xtype: "Y.LayerContainer",
 	
 	/** 
-    * @property ddHandle
+    * @attribute ddHandle
     * @description (only if draggable) boolean indicating we use a handle for drag'n drop
     * @default false
     * @type Boolean
@@ -34,7 +34,7 @@ Y.extend(Y.LayerContainer, Y.Container, {
 	ddHandle: true,
 	
 	/** 
-    * @property className
+    * @attribute className
     * @description CSS class name for the container element
     * @default ""WireIt-Container WireIt-LayerContainer"
     * @type String
@@ -42,7 +42,7 @@ Y.extend(Y.LayerContainer, Y.Container, {
 	className: "WireIt-Container WireIt-LayerContainer",
 	
 	/** 
-    * @property width
+    * @attribute width
     * @description initial width of the container
     * @default 200
     * @type Integer
@@ -50,7 +50,7 @@ Y.extend(Y.LayerContainer, Y.Container, {
 	width: 200,
 	
 	/** 
-    * @property height
+    * @attribute height
     * @description initial height of the container
     * @default 100
     * @type Integer
@@ -157,7 +157,7 @@ Y.LayerContainer.DD = function( terminals, subLayer, id, sGroup, config) {
    }
    /**
     * List of the contained terminals
-    * @property _WireItTerminals
+    * @attribute _WireItTerminals
     * @type {Array}
     */
    this._WireItTerminals = terminals;

@@ -13,7 +13,7 @@ Y.WireBaseEditor = function(options) {
 	
 	/**
     * Container DOM element
-    * @property el
+    * @attribute el
     */
    this.el = Y.one(options.parentEl);
 	
@@ -65,7 +65,7 @@ Y.WireBaseEditor.prototype = {
 	setOptions: function(options) {
 
 	    /**
-	     * @property options
+	     * @attribute options
 	     * @type {Object}
 	     */
 	    this.options = {};
@@ -89,7 +89,7 @@ Y.WireBaseEditor.prototype = {
 	    this.renderHelpPanel();
 
 	    /**
-	     * @property layout
+	     * @attribute layout
 	     * @type {YAHOO.widget.Layout}
 	     */
 	    this.layout = new YAHOO.widget.Layout(this.el, this.options.layoutOptions);

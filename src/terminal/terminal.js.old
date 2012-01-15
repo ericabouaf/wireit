@@ -11,7 +11,7 @@ YUI.add("terminal", function(Y){
 Y.Terminal = function(parentEl, options, container) {
 
 	/**
-    * @property name
+    * @attribute name
 	 * @description Name of the terminal
     * @type String
     * @default null
@@ -19,21 +19,21 @@ Y.Terminal = function(parentEl, options, container) {
 	this.name = null;
 
    /**
-    * @property parentEl
+    * @attribute parentEl
 	 * @description DOM parent element
     * @type DOMElement
     */
    this.parentEl = parentEl;
    
    /**
-    * @property container
+    * @attribute container
 	 * @description Container (optional). Parent container of this terminal
     * @type Y.Container
     */
    this.container = container;
    
    /**
-    * @property wires
+    * @attribute wires
 	 * @description List of the associated wires
     * @type Array
     */
@@ -58,7 +58,7 @@ Y.Terminal = function(parentEl, options, container) {
    
    /**
     * DIV dom element that will display the Terminal
-    * @property el
+    * @attribute el
     * @type {HTMLElement}
     */
    this.el = null;
@@ -168,7 +168,7 @@ Y.Terminal.prototype = {
 	},
 
 	/** 
-    * @property xtype
+    * @attribute xtype
     * @description String representing this class for exporting as JSON
     * @default "WireIt.Terminal"
     * @type String
@@ -176,7 +176,7 @@ Y.Terminal.prototype = {
    xtype: "Y.Terminal",
 
 	/**
-    * @property direction
+    * @attribute direction
 	 * @description direction vector of the wires when connected to this terminal
     * @type Array
     * @default [0,1]
@@ -184,7 +184,7 @@ Y.Terminal.prototype = {
 	direction: [0,1],
 	
 	/**
-    * @property fakeDirection
+    * @attribute fakeDirection
 	 * @description direction vector of the "editing" wire when it started from this terminal
     * @type Array
     * @default [0,-1]
@@ -192,7 +192,7 @@ Y.Terminal.prototype = {
 	fakeDirection: [0,-1],
 
 	/**
-    * @property editable
+    * @attribute editable
 	 * @description boolean that makes the terminal editable
     * @type Boolean
     * @default true
@@ -200,7 +200,7 @@ Y.Terminal.prototype = {
 	editable: true,
 	
 	/**
-    * @property nMaxWires
+    * @attribute nMaxWires
 	 * @description maximum number of wires for this terminal
     * @type Integer
     * @default Infinity
@@ -208,7 +208,7 @@ Y.Terminal.prototype = {
 	nMaxWires: Infinity,
 
 	/**
-    * @property wireConfig
+    * @attribute wireConfig
 	 * @description Options for the wires connected to this terminal
     * @type Object
     * @default {}
@@ -216,7 +216,7 @@ Y.Terminal.prototype = {
 	wireConfig: {},
 	
 	/**
-    * @property editingWireConfig
+    * @attribute editingWireConfig
 	 * @description Options for the wires connected to this terminal
     * @type Object
     * @default {}
@@ -224,7 +224,7 @@ Y.Terminal.prototype = {
 	editingWireConfig: {},
 	
 	/** 
-    * @property className
+    * @attribute className
     * @description CSS class name for the terminal element
     * @default "WireIt-Terminal"
     * @type String
@@ -232,7 +232,7 @@ Y.Terminal.prototype = {
 	className: "WireIt-Terminal",
 	
 	/** 
-    * @property connectedClassName
+    * @attribute connectedClassName
     * @description CSS class added to the terminal when it is connected
     * @default "WireIt-connected"
     * @type String
@@ -240,7 +240,7 @@ Y.Terminal.prototype = {
 	connectedClassName: "WireIt-Terminal-connected",
 	
 	/** 
-    * @property dropinviteClassName
+    * @attribute dropinviteClassName
     * @description CSS class added for drop invitation
     * @default "WireIt-dropinvite"
     * @type String
@@ -248,7 +248,7 @@ Y.Terminal.prototype = {
 	dropinviteClassName: "WireIt-Terminal-dropinvite",
 
 	/** 
-    * @property offsetPosition
+    * @attribute offsetPosition
     * @description offset position from the parentEl position. Can be an array [top,left] or an object {left: 100, bottom: 20} or {right: 10, top: 5} etc...
     * @default null
     * @type Array
@@ -256,7 +256,7 @@ Y.Terminal.prototype = {
 	offsetPosition: null,
 	
 	/**
-    * @property alwaysSrc
+    * @attribute alwaysSrc
 	 * @description forces this terminal to be the src terminal in the wire config
     * @type Boolean
     * @default false
@@ -264,7 +264,7 @@ Y.Terminal.prototype = {
 	alwaysSrc: false,
 	
 	/**
-    * @property ddConfig
+    * @attribute ddConfig
 	 * @description configuration of the Y.TerminalProxy object
     * @type Object
     * @default {}

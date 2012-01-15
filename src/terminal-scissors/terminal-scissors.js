@@ -1,3 +1,6 @@
+/**
+ * @module terminal-scissors
+ */
 YUI.add('terminal-scissors', function(Y) {
 
 /**

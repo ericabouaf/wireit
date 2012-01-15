@@ -12,7 +12,7 @@ YUI.add("layer-map", function(Y){
 Y.LayerMap = function(layer,options) {
    
    /**
-    * @property layer
+    * @attribute layer
     */
    this.layer = layer;
    
@@ -39,7 +39,7 @@ Y.LayerMap = function(layer,options) {
 Y.extend(Y.LayerMap, Y.CanvasElement, {
 
    /** 
-    * @property className
+    * @attribute className
     * @description CSS class name for the layer map element
     * @default "WireIt-LayerMap"
     * @type String
@@ -47,7 +47,7 @@ Y.extend(Y.LayerMap, Y.CanvasElement, {
 	className: "WireIt-LayerMap",
 	
 	/** 
-    * @property style
+    * @attribute style
     * @description display style
     * @default "WireIt-LayerMap"
     * @type String
@@ -55,7 +55,7 @@ Y.extend(Y.LayerMap, Y.CanvasElement, {
 	style: "rgba(0, 0, 200, 0.5)",
 
 	/** 
-    * @property parentEl
+    * @attribute parentEl
     * @description DOM element that schould contain the layer
     * @default null
     * @type DOMElement
@@ -63,7 +63,7 @@ Y.extend(Y.LayerMap, Y.CanvasElement, {
 	parentEl: null,
 	
 	/** 
-    * @property lineWidth
+    * @attribute lineWidth
     * @description Line width
     * @default 2
     * @type Integer

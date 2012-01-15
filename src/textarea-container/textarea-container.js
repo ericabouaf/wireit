@@ -1,4 +1,8 @@
 /**
+ * @module textarea-container
+ */
+
+/**
  * Form container for a single textarea field which is resizeable. 
  * Important: this class takes the exact same arguments as the FormContainer !
  * You still need to specify the "fields".

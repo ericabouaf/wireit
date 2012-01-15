@@ -1,0 +1,9 @@
+
+
+ * yuidocjs: remove YUI3 classes & modules
+
+ * zIndex issue container & wires 
+
+ * Canvas node resizing (& excanvas)
+
+ * Guide review

@@ -1,3 +1,6 @@
+/**
+ * @module canvas-node
+ */
 YUI.add('canvas-node', function(Y) {
 
 /**

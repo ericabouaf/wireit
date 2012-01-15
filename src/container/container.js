@@ -1,3 +1,6 @@
+/**
+ * @module container
+ */
 YUI.add('container', function(Y) {
 
 /**
@@ -8,6 +11,24 @@ YUI.add('container', function(Y) {
  * @extends ContainerBase
  * @constructor
  */
-Y.Container = Y.Base.create("container", Y.ContainerBase, [/* TODO: Y.WidgetIcon, Y.WidgetClose */]);
+Y.Container = Y.Base.create("container", Y.ContainerBase, [Y.WidgetIcons], {
+	
+	_onCloseClick: function() {
+		this.destroy();
+	}
+	
+}, {
+	
+	ATTRS: {
+		
+		icons: {
+			value: [
+			    {title: 'close', click: '_onCloseClick', className: 'ui-silk ui-silk-cancel'}
+			]
+		}
+		
+	}
+	
+});
 
-}, '3.5.0pr1', {requires: ['container-base']});
+}, '3.5.0pr1', {requires: ['container-base', 'widget-icons']});

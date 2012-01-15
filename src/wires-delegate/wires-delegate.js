@@ -1,3 +1,6 @@
+/**
+ * @module wires-delegate
+ */
 YUI.add('wires-delegate', function(Y) {
 
 /**
@@ -14,9 +17,9 @@ Y.WiresDelegate = function(config) {
 	
 	this._wires = [];
 	
-	this.publish("addWire");
+	this.publish('addWire');
 	
-	this.publish("removeWire");
+	this.publish('removeWire');
 	
 	// Bubble events from terminals
 	this.on('terminal:addWire', this._onAddWire, this);

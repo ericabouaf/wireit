@@ -3,14 +3,12 @@
 /**
  * Copy of the original inputEx.Field class that we're gonna override to extend it.
  * @class BaseField
- * @namespace inputEx
  */
 inputEx.BaseField = inputEx.Field;
 
 /**
  * Class to make inputEx Fields "wirable".Re-create inputEx.Field adding the wirable properties
  * @class Field
- * @namespace inputEx
  * @extends inputEx.BaseField
  */
 inputEx.Field = function(options) {

@@ -11,7 +11,7 @@ Y.WireWiringEditor = function(options) {
 
 	 /**
 	  * Hash object to reference module definitions by their name
-	  * @property modulesByName
+	  * @attribute modulesByName
 	  * @type {Object}
 	  */
    this.modulesByName = {};
@@ -90,7 +90,7 @@ Y.extend(Y.WireWiringEditor, Y.WireBaseEditor, {
 		 Y.WireWiringEditor.superclass.render.call(this);
 	
 	    /**
-	     * @property layer
+	     * @attribute layer
 	     * @type {WireIt.Layer}
 	     */
 	    this.layer = new Y.Layer(this.options.layerOptions);

@@ -16,7 +16,7 @@ Y.extend(Y.RectLabelContainer, Y.Container, {
 	
 	
 	/** 
-    * @property xtype
+    * @attribute xtype
     * @description String representing this class for exporting as JSON
     * @default "WireIt.CanvasContainer"
     * @type String
@@ -25,7 +25,7 @@ Y.extend(Y.RectLabelContainer, Y.Container, {
 
 	
 	/** 
-    * @property className
+    * @attribute className
     * @description CSS class name for the container element
     * @default ""WireIt-Container WireIt-CanvasContainer WireIt-RectLabelContainer"
     * @type String
@@ -33,7 +33,7 @@ Y.extend(Y.RectLabelContainer, Y.Container, {
 	className: "WireIt-Container WireIt-CanvasContainer WireIt-RectLabelContainer",
 	
 	/** 
-    * @property ddHandle
+    * @attribute ddHandle
     * @description (only if draggable) boolean indicating we use a handle for drag'n drop
     * @default false
     * @type Boolean
@@ -41,7 +41,7 @@ Y.extend(Y.RectLabelContainer, Y.Container, {
 	ddHandle: false,
 	
 	/** 
-    * @property label
+    * @attribute label
     * @description Label String
     * @default "not set"
     * @type String
@@ -50,7 +50,7 @@ Y.extend(Y.RectLabelContainer, Y.Container, {
 
 	
 	/** 
-    * @property width
+    * @attribute width
     * @description initial width of the container
     * @default 200
     * @type Integer

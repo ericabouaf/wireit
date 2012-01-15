@@ -1,3 +1,6 @@
+/**
+ * @module terminal-ddgroups
+ */
 YUI.add('terminal-ddgroups', function(Y) {
 
 /**

@@ -1,3 +1,6 @@
+/**
+ * @module wireit-app
+ */
 YUI.add('wireit-app', function(Y) {
 
 // -- LocalStorageSync ---------------------------------------------------------------------
@@ -105,9 +108,9 @@ Y.WiringModel = Y.Base.create('wiringModel', Y.Model, [], {
 }, {
 	ATTRS: {
 		id: {value: null},
-		name       : {value: ""},
+		name       : {value: ''},
 		containers   : {value: []},
-		description: {value: ""},
+		description: {value: ''},
 		wires   : {value: []}
 	}
 });
@@ -128,7 +131,7 @@ Y.WiringListView = Y.Base.create('wiringListView', Y.View, [], {
 	
 	initializer: function () {
 		
-		//console.log("WiringListView init");
+		//console.log('WiringListView init');
 		
 		/*var list = this.get('modelList');
 		
@@ -145,7 +148,7 @@ Y.WiringListView = Y.Base.create('wiringListView', Y.View, [], {
 	
 	render: function () {
 		
-		//console.log("WiringListView render");
+		//console.log('WiringListView render');
 		
 		var content = this.template({wirings: this.get('modelList').toJSON() });
 		this.get('container').setContent(content);

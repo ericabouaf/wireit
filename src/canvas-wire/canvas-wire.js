@@ -1,3 +1,6 @@
+/**
+ * @module canvas-wire
+ */
 YUI.add('canvas-wire', function(Y) {
 
 /**
@@ -8,6 +11,9 @@ YUI.add('canvas-wire', function(Y) {
  */
 var CanvasWire = Y.Base.create("canvaswire", Y.WireBase, [], {
 	
+	/**
+	 * @method bindUI
+	 */
 	bindUI: function() {
 		CanvasWire.superclass.bindUI.call(this);
 		
@@ -18,11 +24,17 @@ var CanvasWire = Y.Base.create("canvaswire", Y.WireBase, [], {
 		this.after("borderwidthChange", this._afterChangeRedraw, this);
 	},
 	
+	/**
+	 * @method renderUI
+	 */
 	renderUI: function() {
 		this._renderCanvas();
 		this.draw();
 	},
 	
+	/**
+	 * @method _renderCanvas
+	 */
 	_renderCanvas: function() {
 		var canvas = new Y.CanvasNode();
 		this.set('canvas', canvas);
@@ -30,7 +42,10 @@ var CanvasWire = Y.Base.create("canvaswire", Y.WireBase, [], {
 		var contentBox = this.get("contentBox");
 		contentBox.appendChild( canvas );
 	},
-
+	
+	/**
+	 * @method destructor
+	 */
 	destructor: function() {
 		this.get('canvas').remove();
 	}

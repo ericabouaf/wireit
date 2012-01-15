@@ -16,7 +16,7 @@ Y.extend(Y.EllipseLabelContainer, Y.CanvasContainer, {
 	
 	
 	/** 
-    * @property xtype
+    * @attribute xtype
     * @description String representing this class for exporting as JSON
     * @default "WireIt.CanvasContainer"
     * @type String
@@ -25,7 +25,7 @@ Y.extend(Y.EllipseLabelContainer, Y.CanvasContainer, {
 
 	
 	/** 
-    * @property className
+    * @attribute className
     * @description CSS class name for the container element
     * @default ""WireIt-Container WireIt-CanvasContainer WireIt-EllipseLabelContainer"
     * @type String
@@ -33,7 +33,7 @@ Y.extend(Y.EllipseLabelContainer, Y.CanvasContainer, {
 	className: "WireIt-Container WireIt-CanvasContainer WireIt-EllipseLabelContainer",
 	
 	/** 
-    * @property label
+    * @attribute label
     * @description Label String
     * @default "not set"
     * @type String

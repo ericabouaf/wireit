@@ -62,7 +62,7 @@ Y.WireComposableWiringEditor.modules = [
 Y.extend(Y.WireComposableWiringEditor, Y.WireWiringEditor, {
 
 	/**
-	 * @property composedCategory
+	 * @attribute composedCategory
 	 */
    composedCategory: "Composed",
 

@@ -21,7 +21,7 @@ Y.TerminalProxy = function(terminal, options) {
 	 *   <li>allowedTypes: list of all the allowed types that we can connect to.</li>
 	 *   <li>{Integer} terminalProxySize: size of the drag drop proxy element. default is 10 for "10px"</li>
 	 * </ul>
-	 * @property termConfig
+	 * @attribute termConfig
 	 */
 	 
 	this.termConfig = options || {};

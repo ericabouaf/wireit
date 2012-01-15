@@ -6,7 +6,7 @@
     "options": {
         "linkNatives": "true",
         "attributesEmit": "true",
-        "paths": [ "./src" ],
+        "paths": [ "./src", "../yui3/src" ],
         "outdir": "./api"
     }
 }

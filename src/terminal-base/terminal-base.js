@@ -1,3 +1,6 @@
+/**
+ * @module terminal-base
+ */
 YUI.add('terminal-base', function(Y) {
 
 /**
@@ -48,10 +51,6 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
 	 */
 	getXY: function() {
 		return this.get('contentBox').getXY();
-	},
-	
-	toJSON: function() {
-		return {}; // TODO
 	}
 	
 }, {

@@ -1,3 +1,6 @@
+/**
+ * @module inout-container
+ */
 YUI.add("inout-container", function(Y){
 
 /**
@@ -9,13 +12,19 @@ YUI.add("inout-container", function(Y){
  * @param {Layer} layer
  */
 
-var InOutContainer = Y.Base.create("inout-container", Y.Container, [], {
+Y.InOutContainer = Y.Base.create("inout-container", Y.Container, [], {
 
+	/**
+	 * @method renderUI
+	 */
 	renderUI: function() {
-		InOutContainer.superclass.renderUI.call(this);
+		Y.InOutContainer.superclass.renderUI.call(this);
 		this._renderInputsOutputs();
 	},
 	
+	/**
+	 * @method _renderInputsOutputs
+	 */
 	_renderInputsOutputs: function() {
 		
 		var that = this;
@@ -71,7 +80,7 @@ var InOutContainer = Y.Base.create("inout-container", Y.Container, [], {
 		},
 		
 		/**
-		 * @property inputs
+		 * @attribute inputs
 		 * @description Array of strings for which an Input terminal will be created.
 		 * @default []
 		 * @type Array
@@ -79,7 +88,7 @@ var InOutContainer = Y.Base.create("inout-container", Y.Container, [], {
 		inputs: [],
 
 		/**
-		 * @property outputs
+		 * @attribute outputs
 		 * @description Array of strings for which an Output terminal will be created.
 		 * @default []
 		 * @type Array
@@ -89,10 +98,6 @@ var InOutContainer = Y.Base.create("inout-container", Y.Container, [], {
 	
 });
 
-Y.InOutContainer = InOutContainer;
 
 
-
-}, '0.7.0',{
-  requires: ['container']
-});
+}, '3.5.0pr1', { requires: ['container']} );

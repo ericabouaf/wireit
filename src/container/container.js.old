@@ -16,35 +16,35 @@ Y.Container = function(options, layer) {
    
    /**
     * the Y.Layer object that schould contain this container
-    * @property layer
+    * @attribute layer
     * @type {WireIt.Layer}
     */
    this.layer = layer;
    
    /**
     * List of the terminals 
-    * @property terminals
+    * @attribute terminals
     * @type {Array}
     */
    this.terminals = [];
    
    /**
     * List of all the wires connected to this container terminals
-    * @property wires
+    * @attribute wires
     * @type {Array}
     */
    this.wires = [];
    
    /**
     * Container DOM element
-    * @property el
+    * @attribute el
     * @type {HTMLElement}
     */
    this.el = null;
    
    /**
     * Body element
-    * @property bodyEl
+    * @attribute bodyEl
     * @type {HTMLElement}
     */
    this.bodyEl = null;
@@ -105,7 +105,7 @@ Y.Container = function(options, layer) {
 Y.Container.prototype = {
 
 	/** 
-    * @property xtype
+    * @attribute xtype
     * @description String representing this class for exporting as JSON
     * @default "WireIt.Container"
     * @type String
@@ -113,7 +113,7 @@ Y.Container.prototype = {
    xtype: "Y.Container",
 
 	/** 
-    * @property draggable
+    * @attribute draggable
     * @description boolean that enables drag'n drop on this container
     * @default true
     * @type Boolean
@@ -121,7 +121,7 @@ Y.Container.prototype = {
 	draggable: true,
 	
 	/** 
-    * @property position
+    * @attribute position
     * @description initial position of the container
     * @default [100,100]
     * @type Array
@@ -129,7 +129,7 @@ Y.Container.prototype = {
 	position: [100,100],
 
 	/** 
-    * @property className
+    * @attribute className
     * @description CSS class name for the container element
     * @default "WireIt-Container"
     * @type String
@@ -137,7 +137,7 @@ Y.Container.prototype = {
 	className: CSS_PREFIX+"Container",
 
 	/** 
-    * @property ddHandle
+    * @attribute ddHandle
     * @description (only if draggable) boolean indicating we use a handle for drag'n drop
     * @default true
     * @type Boolean
@@ -145,7 +145,7 @@ Y.Container.prototype = {
 	ddHandle: true,
 	
 	/** 
-    * @property ddHandleClassName
+    * @attribute ddHandleClassName
     * @description CSS class name for the drag'n drop handle
     * @default "WireIt-Container-ddhandle"
     * @type String
@@ -153,7 +153,7 @@ Y.Container.prototype = {
 	ddHandleClassName: CSS_PREFIX+"Container-ddhandle",
 
 	/** 
-    * @property resizable
+    * @attribute resizable
     * @description boolean that makes the container resizable
     * @default true
     * @type Boolean
@@ -161,7 +161,7 @@ Y.Container.prototype = {
 	resizable: true,
 
 	/** 
-    * @property resizeHandleClassName
+    * @attribute resizeHandleClassName
     * @description CSS class name for the resize handle
     * @default "WireIt-Container-resizehandle"
     * @type String
@@ -169,7 +169,7 @@ Y.Container.prototype = {
 	resizeHandleClassName: CSS_PREFIX+"Container-resizehandle",
 
 	/** 
-    * @property close
+    * @attribute close
     * @description display a button to close the container
     * @default true
     * @type Boolean
@@ -177,7 +177,7 @@ Y.Container.prototype = {
 	close: true,
 	
 	/** 
-    * @property closeButtonClassName
+    * @attribute closeButtonClassName
     * @description CSS class name for the close button
     * @default "WireIt-Container-closebutton"
     * @type String
@@ -185,7 +185,7 @@ Y.Container.prototype = {
 	closeButtonClassName: CSS_PREFIX+"Container-closebutton",
 	
 	/** 
-    * @property groupable
+    * @attribute groupable
     * @description option to add the grouping button
     * @default true
     * @type Boolean
@@ -193,7 +193,7 @@ Y.Container.prototype = {
 	groupable: true,
 	
 	/** 
-    * @property preventSelfWiring
+    * @attribute preventSelfWiring
     * @description option to prevent connections between terminals of this same container
     * @default true
     * @type Boolean
@@ -201,7 +201,7 @@ Y.Container.prototype = {
    preventSelfWiring: true,
 
 	/** 
-    * @property title
+    * @attribute title
     * @description text that will appear in the module header
     * @default null
     * @type String
@@ -209,7 +209,7 @@ Y.Container.prototype = {
 	title: null,
 
 	/** 
-    * @property icon
+    * @attribute icon
     * @description image url to be displayed in the module header
     * @default null
     * @type String
@@ -217,7 +217,7 @@ Y.Container.prototype = {
 	icon: null,
 
 	/** 
-    * @property width
+    * @attribute width
     * @description initial width of the container
     * @default null
     * @type Integer
@@ -225,7 +225,7 @@ Y.Container.prototype = {
 	width: null,
 	
 	/** 
-    * @property height
+    * @attribute height
     * @description initial height of the container
     * @default null
     * @type Integer

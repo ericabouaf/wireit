@@ -16,7 +16,7 @@ Y.CanvasContainer = function(options, layer) {
 Y.extend(Y.CanvasContainer, Y.Container, {
 	
 	/** 
-    * @property xtype
+    * @attribute xtype
     * @description String representing this class for exporting as JSON
     * @default "WireIt.CanvasContainer"
     * @type String
@@ -24,7 +24,7 @@ Y.extend(Y.CanvasContainer, Y.Container, {
    xtype: "Y.CanvasContainer",
 	
 	/** 
-    * @property ddHandle
+    * @attribute ddHandle
     * @description (only if draggable) boolean indicating we use a handle for drag'n drop
     * @default false
     * @type Boolean
@@ -32,7 +32,7 @@ Y.extend(Y.CanvasContainer, Y.Container, {
 	ddHandle: false,
 	
 	/** 
-    * @property className
+    * @attribute className
     * @description CSS class name for the container element
     * @default ""WireIt-Container WireIt-CanvasContainer"
     * @type String
@@ -40,7 +40,7 @@ Y.extend(Y.CanvasContainer, Y.Container, {
 	className: "WireIt-Container WireIt-CanvasContainer",
 	
 	/** 
-    * @property width
+    * @attribute width
     * @description initial width of the container
     * @default 200
     * @type Integer
@@ -48,7 +48,7 @@ Y.extend(Y.CanvasContainer, Y.Container, {
 	width: 200,
 	
 	/** 
-    * @property height
+    * @attribute height
     * @description initial height of the container
     * @default 100
     * @type Integer
