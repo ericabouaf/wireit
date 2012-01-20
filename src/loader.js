@@ -63,9 +63,14 @@ YUI().use(function(Y) {
 						requires: ['container-base']
 					},
 					'form-container': {
+					   skinnable: true,
 						requires: ['container','inputex-group','inputex-string']
 					},
 					'inout-container': {
+						requires: ['container']
+					},
+					'textarea-container': {
+					   skinnable: true,
 						requires: ['container']
 					},
 					

@@ -28,7 +28,6 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
 		});
 		
 		this.drag.on('drag:drag', function() {
-			//console.log('drag:drag', this._wires.length);
 			this.redrawAllWires();
 		}, this);
 		
@@ -89,13 +88,14 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
 		
 	},
 	
-	// TODO: 
+	SERIALIZABLE_ATTRS: ['x','y'],
+	
 	toJSON: function() {
-		var o = {
-			width: this.get('width'),
-			height: this.get('height'),
-			xy: this.get('xy')
-		};
+		var o = {}, a = this;
+		Y.Array.each(this.SERIALIZABLE_ATTRS, function(attr) {
+			o[attr] = a.get(attr);
+		});
+		
 		return o;
 	},
 	
@@ -141,7 +141,27 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
 		 */
 		fillHeight: {
 			value: true
+		},
+		
+		x: {
+			getter: function() {
+				var left = this.get('boundingBox').getStyle('left');
+				return parseInt(left.substr(0,left.length-2),10);
+			}
+		},
+		
+		y: {
+			getter: function() {
+				var top = this.get('boundingBox').getStyle('top');
+				return parseInt(top.substr(0,top.length-2),10);
+			}
 		}
+		
+		
+		/*,
+		
+		width: { value: 250 },
+		height: {value: 100}*/
 	},
 	
 	EIGHT_POINTS: [

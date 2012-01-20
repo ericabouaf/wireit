@@ -17,13 +17,13 @@ YUI.add('form-container', function(Y) {
  * @param {Object}   options  Configuration object (see properties)
  * @param {Layer}   layer The Y.Layer (or subclass) instance that contains this container
  */
-var FormContainer = Y.Base.create("form-container", Y.Container, [], {
+Y.FormContainer = Y.Base.create("form-container", Y.Container, [], {
 	
 	/**
 	 * @method renderUI
 	 */
 	renderUI: function() {
-		FormContainer.superclass.renderUI.call(this);
+		Y.FormContainer.superclass.renderUI.call(this);
 		this._renderForm();
 	},
 	
@@ -32,22 +32,20 @@ var FormContainer = Y.Base.create("form-container", Y.Container, [], {
 	 * @method _renderForm
 	 */
 	_renderForm: function() {
-		
-		var that = this;
-		Y.on('available', function() {
+		this.after('bodyContentChange', function() {
+			var inputExContainer = this.getStdModNode(Y.WidgetStdMod.BODY).one('.inputex-container')._node;
 			
-			//var n = that.get('contentBox').one('.inputex-container')
-			
-			that.form = new Y.inputEx.Group({
-			    parentEl: 'inputex-container',
-			    fields: that.get('fields')
+			this.form = new Y.inputEx.Group({
+			    parentEl: inputExContainer,
+			    fields: this.get('fields')
 			});
 			
-			that.alignTerminals();
+			this.alignTerminals();
 			
-		}, '#inputex-container');
-		
-	}
+		}, this);
+	},
+	
+	SERIALIZABLE_ATTRS: Y.Container.prototype.SERIALIZABLE_ATTRS.concat(['value'])
 	
 }, {
 
@@ -55,9 +53,9 @@ var FormContainer = Y.Base.create("form-container", Y.Container, [], {
 		
 		/**
 		 * Value of the form
-		 * @attribute form
+		 * @attribute value
 		 */
-		form: {
+		value: {
 			setter: function(val) {
 				if(this.form) {
 					return this.form.setValue(val);
@@ -78,7 +76,7 @@ var FormContainer = Y.Base.create("form-container", Y.Container, [], {
 		 * @attribute bodyContent
 		 */
 		bodyContent: {
-			value: '<div id="inputex-container" />'
+			value: '<div class="inputex-container" />'
 		},
 		
 		/**
@@ -86,21 +84,18 @@ var FormContainer = Y.Base.create("form-container", Y.Container, [], {
 		 */
 		fields: {
 			value: []
-		},
+		}//,
 		
 		/**
 		 * @attribute resizable
 		 */
-		resizable: {
+		/*resizable: {
 			value: false
-		}
+		}*/
 		
 	}
 
 });
-
-Y.FormContainer = FormContainer;
-
 
 	/** 
     * @attribute legend
