@@ -165,7 +165,7 @@ Y.BezierWire.ATTRS = {
 		setter: function(val) {
 			return parseInt(val, 10);
 		},
-		value: 300
+		value: 200
 	},
 	/**
 	 * TODO: normalize ?

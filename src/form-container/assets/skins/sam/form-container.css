@@ -39,14 +39,15 @@
 
 
 .yui3-form-container-content label,
-.yui3-form-container-content div.inputEx-Group div.inputEx-label { {
+.yui3-form-container-content div.inputEx-Group div.inputEx-label {
+   padding: 0;
 	width: auto;
 }
 
 .yui3-form-container-content input,
 .yui3-form-container-content textarea, 
 .yui3-form-container-content select {
-	height: 12px;
+	height: auto;
    line-height: 12px;
    padding: 1px;
    width: 100px;

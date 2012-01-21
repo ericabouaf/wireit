@@ -1,4 +1,6 @@
-(function() {
+YUI.add('inputex-wirable', function(Y) {
+
+   var inputEx = Y.inputEx;
 
 /**
  * Copy of the original inputEx.Field class that we're gonna override to extend it.
@@ -26,7 +28,6 @@ Y.extend(inputEx.Field, inputEx.BaseField, {
       
       this.options.wirable = Y.Lang.isUndefined(options.wirable) ? false : options.wirable;
       this.options.container = options.container;
-      //options.container = null;
    },
    
    /**
@@ -47,40 +48,35 @@ Y.extend(inputEx.Field, inputEx.BaseField, {
     */
    renderTerminal: function() {
 
-      var wrapper = inputEx.cn('div', {className: 'WireIt-InputExTerminal'});
-      this.divEl.insertBefore(wrapper, this.fieldContainer);
-
-      this.terminal = new Y.Terminal(wrapper, {
-         name: this.options.name, 
-         direction: [-1,0],
-         fakeDirection: [0, 1],
-         ddConfig: {
-            type: "input",
-            allowedTypes: ["output"]
-         },
-      nMaxWires: 1 }, this.options.container);
-
-      // Reference to the container
       if(this.options.container) {
-         this.options.container.terminals.push(this.terminal);
+         this.terminal = this.options.container.add({
+            name: this.options.name, 
+            dir: [-1,0],
+            alignNode: this.divEl,
+            align: {"points":['tl', 'lc']}
+         }).item(0);
+         
+         // Register the events
+         this.terminal.on('addWire', this.onAddWire, this, true);
+         this.terminal.on('removeWire', this.onRemoveWire, this, true);
       }
-
-      // Register the events
-      this.terminal.on('eventAddWire', this.onAddWire, this, true);
-      this.terminal.on('eventRemoveWire', this.onRemoveWire, this, true);
+      
     },
 
 	/**
 	 * Set the container for this field
 	 */
 	setContainer: function(container) {
+	   if(!this.options.container) {
+	      this.renderTerminal();
+	   }
 		this.options.container = container;
-		if(this.terminal) {
+		/*if(this.terminal) {
 			this.terminal.container = container;
 			if( Y.Array.indexOf(container.terminals, this.terminal) == -1 ) {
 				container.terminals.push(this.terminal);
 			}
-		}		
+		}*/
 	},
 
 	/**
@@ -98,7 +94,7 @@ Y.extend(inputEx.Field, inputEx.BaseField, {
      * @method onAddWire
      */
     onAddWire: function(e, params) {
-       this.options.container.onAddWire(e,params);
+       // TODO: this.options.container.onAddWire(e,params);
 
        this.disable();
        this.el.value = "[wired]";
@@ -109,7 +105,7 @@ Y.extend(inputEx.Field, inputEx.BaseField, {
      * @method onRemoveWire
      */
     onRemoveWire: function(e, params) { 
-       this.options.container.onRemoveWire(e,params);
+       // TODO: this.options.container.onRemoveWire(e,params);
 
        this.enable();
        this.el.value = "";
@@ -121,4 +117,4 @@ inputEx.Field.groupOptions = inputEx.BaseField.groupOptions.concat([
 	{ type: 'boolean', label: 'Wirable', name: 'wirable', value: false}
 ]);
 
-})();
+}, '3.5.0pr1', {requires: ['terminal','inputex-field']});

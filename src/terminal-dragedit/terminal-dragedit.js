@@ -105,7 +105,7 @@ Y.TerminalDragEdit.prototype = {
 			srcDir: dir,
 			tgtDir: [-dir[0],-dir[1]],
 			
-			render: this.get('editwire-parent')
+			render: this.get('root').get('contentBox') /*this.get('editwire-parent')*/
 		});
 	},
 	

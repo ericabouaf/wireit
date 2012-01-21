@@ -1,3 +1,7 @@
+YUI.add('inputex-wirable-fields', function(Y) {
+   
+   var inputEx = Y.inputEx;
+   
 // this file ovveride many functions on inputEx fields to make them wirable
 
 /**
@@ -6,8 +10,8 @@
 inputEx.StringField.prototype.setFieldName = function(name) {
 	this.el.name = name;
 	if(this.terminal) {
-		this.terminal.name = name;
-		this.terminal.el.title = name;
+		this.terminal.set('name', name);
+		// TODO: this.terminal.el.title = name;
 	}
 };
 
@@ -55,3 +59,4 @@ inputEx.ListField.prototype.addElement = function(value) {
 };
 
 
+}, '3.5.0pr1', {requires: ['inputex-wirable','inputex-group','inputex-string','inputex-list']});

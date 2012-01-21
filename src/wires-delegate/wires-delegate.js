@@ -48,7 +48,8 @@ Y.WiresDelegate.prototype = {
 	 * @method addWire
 	 * @param {Wire} wire Wire instance to add
 	 */
-	addWire: function(wire) {var index = Y.Array.indexOf(this._wires, wire); 
+	addWire: function(wire) {
+	   var index = Y.Array.indexOf(this._wires, wire); 
 		if(index == -1) {
 			this._wires.push(wire);
 			this.fire('addWire', wire);

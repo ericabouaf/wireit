@@ -35,10 +35,16 @@ Y.FormContainer = Y.Base.create("form-container", Y.Container, [], {
 		this.after('bodyContentChange', function() {
 			var inputExContainer = this.getStdModNode(Y.WidgetStdMod.BODY).one('.inputex-container')._node;
 			
+			var that = this;
 			this.form = new Y.inputEx.Group({
 			    parentEl: inputExContainer,
-			    fields: this.get('fields')
+			    fields: Y.Array.map(this.get('fields'), function(i) {
+			       // add the container reference
+    		       return Y.mix({container: that}, i);
+    		    })
 			});
+			
+			this.form.setValue(this.get('value'));
 			
 			this.alignTerminals();
 			
@@ -157,4 +163,4 @@ Y.FormContainer = Y.Base.create("form-container", Y.Container, [], {
    
 //});
 
-}, '3.5.0pr1', {requires: ['container','inputex-group','inputex-string']});
+}, '3.5.0pr1', {requires: ['container','inputex-wirable-fields']});

@@ -68,7 +68,7 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
 		var contentBox = this.get('contentBox');
 		this.each(function(term) {
 			if(term.get('align')) {
-				term.align( contentBox, ['tl',term.get('align').points[1]]);
+				term.align( term.get('alignNode') || contentBox, ['tl',term.get('align').points[1]]);
 			}
 		}, this);
 	},

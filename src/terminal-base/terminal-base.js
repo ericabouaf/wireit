@@ -68,6 +68,10 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
 		 */
 		dir: {
 			value: [0,1]
+		},
+		
+		alignNode: {
+		   value: null
 		}
 	}
 	
