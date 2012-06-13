@@ -38,4 +38,4 @@ YUI.add('yide-chartstab', function(Y) {
    Y.ChartsTab.NAME = "tab";
 
 
-}, '3.5.0pr1', {requires: ['yide','charts']});
+}, '3.5.1', {requires: ['yide','charts']});

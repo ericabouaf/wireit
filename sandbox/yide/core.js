@@ -75,4 +75,4 @@ YUI.add('yide', function(Y) {
 		
 	};
 
-}, '3.5.0pr1', {requires: ['gallery-axo-layout', 'gallery-aui-skin-classic','resize']});
+}, '3.5.1', {requires: ['gallery-axo-layout', 'gallery-aui-skin-classic','resize']});

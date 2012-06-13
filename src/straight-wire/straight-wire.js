@@ -66,4 +66,4 @@ Y.StraightWire = Y.Base.create("straight-wire", Y.CanvasWire, [], {
 	
 });
 
-}, '3.5.0pr1', {requires: ['canvas-wire']});
+}, '3.5.1', {requires: ['canvas-wire']});

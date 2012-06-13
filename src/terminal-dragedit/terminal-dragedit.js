@@ -152,4 +152,4 @@ Y.TerminalDragEdit.prototype = {
 	
 };
 
-}, '3.5.0pr1', {requires: ['dd-drop', 'dd-drag', 'dd-proxy']});
+}, '3.5.1', {requires: ['dd-drop', 'dd-drag', 'dd-proxy']});

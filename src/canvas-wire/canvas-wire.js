@@ -113,4 +113,4 @@ CanvasWire.ATTRS = {
 
 Y.CanvasWire = CanvasWire;
 
-}, '3.5.0pr1', {requires: ['wire-base','canvas-node']});
+}, '3.5.1', {requires: ['wire-base','canvas-node']});

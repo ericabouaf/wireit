@@ -6,7 +6,11 @@
     "options": {
         "linkNatives": "true",
         "attributesEmit": "true",
-        "paths": [ "./src", "../yui3/src" ],
-        "outdir": "./api"
+        "paths": [ "./src" ],
+        "outdir": "./api",
+        
+        "external": {
+             "data": "http://yuilibrary.com/yui/docs/api/data.json"
+         }
     }
 }

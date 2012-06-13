@@ -42,4 +42,4 @@ YUI.add('yide-organizationtab', function(Y) {
    Y.OrganizationTab.NAME = "tab";
 
 
-}, '3.5.0pr1', {requires: ['yide', 'gallery-aui-tree-view']});
+}, '3.5.1', {requires: ['yide', 'gallery-aui-tree-view']});

@@ -42,4 +42,4 @@ Y.WidgetIcons.prototype = {
 	
 };
 
-}, '3.5.0pr1', {requires: ['silk-sprites']});
+}, '3.5.1', {requires: ['silk-sprites']});

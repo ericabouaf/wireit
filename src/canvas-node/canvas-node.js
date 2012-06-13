@@ -74,4 +74,4 @@ Y.extend( CanvasNode, Y.Node, {
 
 Y.CanvasNode = CanvasNode;
 
-}, '3.5.0pr1', {requires: ['node']});
+}, '3.5.1', {requires: ['node']});

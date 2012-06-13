@@ -193,4 +193,4 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
 
 Y.ContainerBase = ContainerBase;
 
-}, '3.5.0pr1', {requires: ['overlay','widget-parent','widget-child','dd','resize','terminal-base','wires-delegate']});
+}, '3.5.1', {requires: ['overlay','widget-parent','widget-child','dd','resize','terminal-base','wires-delegate']});

@@ -119,4 +119,4 @@ Y.WiresDelegate.prototype = {
 	
 };
 
-}, '3.5.0pr1', {requires: ['wire-base']});
+}, '3.5.1', {requires: ['wire-base']});

@@ -79,4 +79,4 @@ YUI.add('yide-menubar', function(Y) {
 
    Y.ide.register(menuBar);
 
-}, '3.5.0pr1', {requires: ['yide', 'yui2-menu']});
+}, '3.5.1', {requires: ['yide', 'yui2-menu']});

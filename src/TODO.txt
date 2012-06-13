@@ -4,6 +4,10 @@
 
  * zIndex issue container & wires 
 
+ * mettre à jour bootstrap
+
  * Canvas node resizing (& excanvas)
 
  * Guide review
+ 
+ 

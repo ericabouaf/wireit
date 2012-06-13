@@ -31,4 +31,4 @@ Y.Container = Y.Base.create("container", Y.ContainerBase, [Y.WidgetIcons], {
 	
 });
 
-}, '3.5.0pr1', {requires: ['container-base', 'widget-icons']});
+}, '3.5.1', {requires: ['container-base', 'widget-icons']});

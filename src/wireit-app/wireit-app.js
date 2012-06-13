@@ -466,4 +466,4 @@ Y.WireItApp = new Y.Base.create('contributorsApp', Y.App, [], {
 });
 
 
-}, '3.5.0pr1', {requires: ['app', 'handlebars', 'model', 'model-list', 'json', 'view', 'layer', 'bezier-wire', 'anim']});
+}, '3.5.1', {requires: ['app', 'handlebars', 'model', 'model-list', 'json', 'view', 'layer', 'bezier-wire', 'anim']});

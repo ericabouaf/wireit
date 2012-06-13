@@ -77,5 +77,5 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
 	
 });
 
-}, '3.5.0pr1', {requires: ['widget','widget-child','widget-position','widget-position-align','wire-base', 'wires-delegate']});
+}, '3.5.1', {requires: ['widget','widget-child','widget-position','widget-position-align','wire-base', 'wires-delegate']});
 

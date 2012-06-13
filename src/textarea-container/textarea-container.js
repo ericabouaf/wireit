@@ -75,4 +75,4 @@ Y.TextareaContainer = Y.Base.create("textarea-container", Y.Container, [], {
 });
 
 
-}, '3.5.0pr1', { requires: ['container']} );
+}, '3.5.1', { requires: ['container']} );

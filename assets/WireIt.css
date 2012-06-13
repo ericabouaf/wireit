@@ -24,9 +24,9 @@ div.WireIt-Wire-scissors {
 }
 
 div.WireIt-Wire-Label {
-	position: absolute;
-	height: auto;
-	width: auto;
+   position: absolute;
+   height: auto;
+   width: auto;
 }
 
 /**
@@ -65,9 +65,9 @@ div.WireIt-Wire-Label {
  */
 div.WireIt-Container {
    position: absolute;
- 	z-index: 5;
- 	opacity: 0.8;
- 	filter: alpha(opacity = 80);
+    z-index: 5;
+    opacity: 0.8;
+    filter: alpha(opacity = 80);
    border: 0; /* Changing this value causes positioning issues */
    font-size: 8pt;
 }
@@ -75,38 +75,38 @@ div.WireIt-Container {
 div.WireIt-Container div.body {
    padding: 5px;
    /*overflow:auto;*/
- 	border: 2px solid #3366CC;
- 	background-color: #FFFFFF;
+    border: 2px solid #3366CC;
+    background-color: #FFFFFF;
 }
 
 div.WireIt-Container-ddhandle {
    height: 22px;
    background-color: #3366CC;
- 	cursor: move;
- 	-moz-border-radius-topleft: 5px;
- 	-moz-border-radius-topright: 5px;
-	-webkit-border-top-left-radius: 5px;
-	-webkit-border-top-right-radius: 5px;
-	padding-top: 3px;
-	line-height:150%;
-	color:white;
- 	border: 2px solid #3366CC;
-	font-weight:bold;
-	text-align:center;
-	font-size: 10pt;
+    cursor: move;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+   -webkit-border-top-left-radius: 5px;
+   -webkit-border-top-right-radius: 5px;
+   padding-top: 3px;
+   line-height:150%;
+   color:white;
+    border: 2px solid #3366CC;
+   font-weight:bold;
+   text-align:center;
+   font-size: 10pt;
    float : none;
 } 
 
 div.WireIt-Container-ddhandle span {
-	text-align:center;
-	margin-left:4px;
-	margin-right:25px;
+   text-align:center;
+   margin-left:4px;
+   margin-right:25px;
 }
 
 img.WireIt-Container-icon {
    background: white;
-	float: left;
-	margin: 0 0 0 4px;
+   float: left;
+   margin: 0 0 0 4px;
    padding: 1px;
    border: 1px solid #ccc;
 }
@@ -148,33 +148,33 @@ div.WireIt-Container-focused {
  * ImageContainer
  */
 
-div.WireIt-ImageContainer div.body {	
-	width: 128px;
-	height: 60px;
-	background-color: transparent;
-	background-repeat: no-repeat;
-	border: 0;
-	cursor: move;
+div.WireIt-ImageContainer div.body {   
+   width: 128px;
+   height: 60px;
+   background-color: transparent;
+   background-repeat: no-repeat;
+   border: 0;
+   cursor: move;
 }
 
 div.WireIt-ImageContainer div.WireIt-Container-closebutton {
-	display: none;
+   display: none;
 }
 div.WireIt-ImageContainer:hover div.WireIt-Container-closebutton {
-	display: block;
+   display: block;
 }
 
 /**
  * InOutContainer
  */
 
-div.WireIt-InOutContainer {	
-	width: 150px;
+div.WireIt-InOutContainer {   
+   width: 150px;
 }
 
-div.WireIt-InOutContainer div.body {	
-	padding: 5px 10px;
-	font-size: 10pt;
+div.WireIt-InOutContainer div.body {   
+   padding: 5px 10px;
+   font-size: 10pt;
 }
  
 /**
@@ -185,9 +185,9 @@ div.WireIt-Layer {
    overflow: scroll;
    margin: auto;
    position: relative;
-	height: 100%; 
-	width: 100%;
-	background-color: white;
+   height: 100%; 
+   width: 100%;
+   background-color: white;
 }
 
 canvas.WireIt-LayerMap {

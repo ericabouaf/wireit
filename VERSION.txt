@@ -6,5 +6,5 @@ Version 3.0.0pr1
 
 Changeset:
 
- * Complete rewrite of WireIt using YUI 3.5.0pr1
+ * Complete rewrite of WireIt using YUI 3.5.1
 

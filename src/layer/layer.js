@@ -32,4 +32,4 @@ Y.Layer = Y.Base.create("layer", Y.Widget, [Y.WidgetParent, Y.WiresDelegate], {
 	
 });
 
-}, '3.5.0pr1', {requires: ['widget-parent','container','wires-delegate']});
+}, '3.5.1', {requires: ['widget-parent','container','wires-delegate']});

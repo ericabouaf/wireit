@@ -35,4 +35,4 @@ YUI.add('yide-helppanel', function(Y) {
 
    Y.ide.register(helpPanel);
 
-}, '3.5.0pr1', {requires: ['yide', 'gallery-aui-dialog'/*, 'yide-menubar'*/]});
+}, '3.5.1', {requires: ['yide', 'gallery-aui-dialog'/*, 'yide-menubar'*/]});
