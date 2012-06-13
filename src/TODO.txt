@@ -4,6 +4,8 @@
 
  * zIndex issue container & wires 
 
+ * fix suppression d'un container avec des fils
+
  * mettre à jour bootstrap
 
  * Canvas node resizing (& excanvas)
