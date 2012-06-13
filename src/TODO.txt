@@ -1,15 +1,10 @@
 
+ * zIndex issue : editing wire is not over the containers
 
- * yuidocjs: remove YUI3 classes & modules
-
- * zIndex issue container & wires 
-
- * fix suppression d'un container avec des fils
-
- * mettre à jour bootstrap
+ * wires are not deleted when containers are removed
 
  * Canvas node resizing (& excanvas)
 
- * Guide review
+ * Update Guide
  
  
