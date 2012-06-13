@@ -1,0 +1,1848 @@
+{
+    "project": {
+        "name": "WireIt",
+        "description": "WireIt",
+        "version": "3.0.0pr1",
+        "url": "http://neyric.github.com/wireit"
+    },
+    "files": {
+        "src/bezier-wire/bezier-wire.js": {
+            "name": "src/bezier-wire/bezier-wire.js",
+            "modules": {
+                "bezier-wire": 1
+            },
+            "classes": {
+                "BezierWire": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/canvas-node/canvas-node.js": {
+            "name": "src/canvas-node/canvas-node.js",
+            "modules": {
+                "canvas-node": 1
+            },
+            "classes": {
+                "CanvasNode": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/canvas-wire/canvas-wire.js": {
+            "name": "src/canvas-wire/canvas-wire.js",
+            "modules": {
+                "canvas-wire": 1
+            },
+            "classes": {
+                "CanvasWire": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/container/container.js": {
+            "name": "src/container/container.js",
+            "modules": {
+                "container": 1
+            },
+            "classes": {
+                "Container": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/container-base/container-base.js": {
+            "name": "src/container-base/container-base.js",
+            "modules": {
+                "container-base": 1
+            },
+            "classes": {
+                "ContainerBase": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/excanvas/excanvas.js": {
+            "name": "src/excanvas/excanvas.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/form-container/form-container.js": {
+            "name": "src/form-container/form-container.js",
+            "modules": {
+                "form-container": 1
+            },
+            "classes": {
+                "FormContainer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/image-container/image-container.js": {
+            "name": "src/image-container/image-container.js",
+            "modules": {
+                "image-container": 1
+            },
+            "classes": {
+                "ImageContainer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/inout-container/inout-container.js": {
+            "name": "src/inout-container/inout-container.js",
+            "modules": {
+                "inout-container": 1
+            },
+            "classes": {
+                "InOutContainer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/inputex-wirable/inputex-wirable.js": {
+            "name": "src/inputex-wirable/inputex-wirable.js",
+            "modules": {},
+            "classes": {
+                "BaseField": 1,
+                "Field": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/inputex-wirable-fields/inputex-wirable-fields.js": {
+            "name": "src/inputex-wirable-fields/inputex-wirable-fields.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/layer/layer.js": {
+            "name": "src/layer/layer.js",
+            "modules": {
+                "layer": 1
+            },
+            "classes": {
+                "Layer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/straight-wire/straight-wire.js": {
+            "name": "src/straight-wire/straight-wire.js",
+            "modules": {
+                "straight-wire": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/terminal/terminal.js": {
+            "name": "src/terminal/terminal.js",
+            "modules": {
+                "terminal": 1
+            },
+            "classes": {
+                "Terminal": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/terminal-base/terminal-base.js": {
+            "name": "src/terminal-base/terminal-base.js",
+            "modules": {
+                "terminal-base": 1
+            },
+            "classes": {
+                "TerminalBase": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/terminal-ddgroups/terminal-ddgroups.js": {
+            "name": "src/terminal-ddgroups/terminal-ddgroups.js",
+            "modules": {
+                "terminal-ddgroups": 1
+            },
+            "classes": {
+                "TerminalDDGroups": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/terminal-dragedit/terminal-dragedit.js": {
+            "name": "src/terminal-dragedit/terminal-dragedit.js",
+            "modules": {
+                "terminal-dragedit": 1
+            },
+            "classes": {
+                "TerminalDragEdit": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/terminal-input/terminal-input.js": {
+            "name": "src/terminal-input/terminal-input.js",
+            "modules": {
+                "terminal-input": 1
+            },
+            "classes": {
+                "TerminalInput": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/terminal-output/terminal-output.js": {
+            "name": "src/terminal-output/terminal-output.js",
+            "modules": {
+                "terminal-output": 1
+            },
+            "classes": {
+                "TerminalOutput": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/terminal-scissors/terminal-scissors.js": {
+            "name": "src/terminal-scissors/terminal-scissors.js",
+            "modules": {
+                "terminal-scissors": 1
+            },
+            "classes": {
+                "TerminalScissors": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/textarea-container/textarea-container.js": {
+            "name": "src/textarea-container/textarea-container.js",
+            "modules": {
+                "textarea-container": 1
+            },
+            "classes": {
+                "Y.WireTextareaContainer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/widget-icons/widget-icons.js": {
+            "name": "src/widget-icons/widget-icons.js",
+            "modules": {
+                "widget-icons": 1
+            },
+            "classes": {
+                "WidgetIcons": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/wire-base/wire-base.js": {
+            "name": "src/wire-base/wire-base.js",
+            "modules": {
+                "wire-base": 1
+            },
+            "classes": {
+                "WireBase": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/wireit-app/wireit-app.js": {
+            "name": "src/wireit-app/wireit-app.js",
+            "modules": {
+                "wireit-app": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/wires-delegate/wires-delegate.js": {
+            "name": "src/wires-delegate/wires-delegate.js",
+            "modules": {
+                "wires-delegate": 1
+            },
+            "classes": {
+                "WiresDelegate": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "bezier-wire": {
+            "name": "bezier-wire",
+            "submodules": {},
+            "classes": {
+                "BezierWire": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/bezier-wire/bezier-wire.js",
+            "line": 6
+        },
+        "canvas-node": {
+            "name": "canvas-node",
+            "submodules": {},
+            "classes": {
+                "CanvasNode": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/canvas-node/canvas-node.js",
+            "line": 6
+        },
+        "canvas-wire": {
+            "name": "canvas-wire",
+            "submodules": {},
+            "classes": {
+                "CanvasWire": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/canvas-wire/canvas-wire.js",
+            "line": 6
+        },
+        "container": {
+            "name": "container",
+            "submodules": {},
+            "classes": {
+                "Container": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/container/container.js",
+            "line": 6
+        },
+        "container-base": {
+            "name": "container-base",
+            "submodules": {},
+            "classes": {
+                "ContainerBase": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/container-base/container-base.js",
+            "line": 6
+        },
+        "form-container": {
+            "name": "form-container",
+            "submodules": {},
+            "classes": {
+                "FormContainer": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/form-container/form-container.js",
+            "line": 6
+        },
+        "image-container": {
+            "name": "image-container",
+            "submodules": {},
+            "classes": {
+                "ImageContainer": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/image-container/image-container.js",
+            "line": 6
+        },
+        "inout-container": {
+            "name": "inout-container",
+            "submodules": {},
+            "classes": {
+                "InOutContainer": 1,
+                "BaseField": 1,
+                "Field": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/inputex-wirable/inputex-wirable.js",
+            "line": 11
+        },
+        "layer": {
+            "name": "layer",
+            "submodules": {},
+            "classes": {
+                "Layer": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/layer/layer.js",
+            "line": 6
+        },
+        "straight-wire": {
+            "name": "straight-wire",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/straight-wire/straight-wire.js",
+            "line": 1
+        },
+        "terminal": {
+            "name": "terminal",
+            "submodules": {},
+            "classes": {
+                "Terminal": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/terminal/terminal.js",
+            "line": 6
+        },
+        "terminal-base": {
+            "name": "terminal-base",
+            "submodules": {},
+            "classes": {
+                "TerminalBase": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/terminal-base/terminal-base.js",
+            "line": 6
+        },
+        "terminal-ddgroups": {
+            "name": "terminal-ddgroups",
+            "submodules": {},
+            "classes": {
+                "TerminalDDGroups": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/terminal-ddgroups/terminal-ddgroups.js",
+            "line": 6
+        },
+        "terminal-dragedit": {
+            "name": "terminal-dragedit",
+            "submodules": {},
+            "classes": {
+                "TerminalDragEdit": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/terminal-dragedit/terminal-dragedit.js",
+            "line": 6
+        },
+        "terminal-input": {
+            "name": "terminal-input",
+            "submodules": {},
+            "classes": {
+                "TerminalInput": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/terminal-input/terminal-input.js",
+            "line": 6
+        },
+        "terminal-output": {
+            "name": "terminal-output",
+            "submodules": {},
+            "classes": {
+                "TerminalOutput": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/terminal-output/terminal-output.js",
+            "line": 6
+        },
+        "terminal-scissors": {
+            "name": "terminal-scissors",
+            "submodules": {},
+            "classes": {
+                "TerminalScissors": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/terminal-scissors/terminal-scissors.js",
+            "line": 6
+        },
+        "textarea-container": {
+            "name": "textarea-container",
+            "submodules": {},
+            "classes": {
+                "Y.WireTextareaContainer": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/textarea-container/textarea-container.js",
+            "line": 6
+        },
+        "widget-icons": {
+            "name": "widget-icons",
+            "submodules": {},
+            "classes": {
+                "WidgetIcons": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/widget-icons/widget-icons.js",
+            "line": 6
+        },
+        "wire-base": {
+            "name": "wire-base",
+            "submodules": {},
+            "classes": {
+                "WireBase": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/wire-base/wire-base.js",
+            "line": 6
+        },
+        "wireit-app": {
+            "name": "wireit-app",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/wireit-app/wireit-app.js",
+            "line": 1
+        },
+        "wires-delegate": {
+            "name": "wires-delegate",
+            "submodules": {},
+            "classes": {
+                "WiresDelegate": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/wires-delegate/wires-delegate.js",
+            "line": 6
+        }
+    },
+    "classes": {
+        "BezierWire": {
+            "name": "BezierWire",
+            "shortname": "BezierWire",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "bezier-wire",
+            "namespace": "",
+            "file": "src/bezier-wire/bezier-wire.js",
+            "line": 6,
+            "description": "Extend CanvasWire to draw a bezier curve using a canvas",
+            "extends": "CanvasWire",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "config",
+                    "description": "the configuration for the BezierWire attributes",
+                    "type": "Object"
+                }
+            ]
+        },
+        "CanvasNode": {
+            "name": "CanvasNode",
+            "shortname": "CanvasNode",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "canvas-node",
+            "namespace": "",
+            "file": "src/canvas-node/canvas-node.js",
+            "line": 6,
+            "description": "TODO: Fix Resize issue on canvas",
+            "extends": "Node",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "node",
+                    "description": "(optional) the dom element",
+                    "type": "DOMElement"
+                }
+            ]
+        },
+        "CanvasWire": {
+            "name": "CanvasWire",
+            "shortname": "CanvasWire",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "canvas-wire",
+            "namespace": "",
+            "file": "src/canvas-wire/canvas-wire.js",
+            "line": 6,
+            "description": "Plugin for Wire to use a canvas element to render the wire",
+            "extends": "WireBase",
+            "params": [
+                {
+                    "name": "config",
+                    "description": "the configuration for the WireCanvasPlugin attributes",
+                    "type": "Object"
+                }
+            ]
+        },
+        "Container": {
+            "name": "Container",
+            "shortname": "Container",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "container",
+            "namespace": "",
+            "file": "src/container/container.js",
+            "line": 6,
+            "description": "Container is an Overlay (XY positioning)\nIt is a WidgetChild (belongs to Layer)\nIt is also a WidgetParent (has many terminals)",
+            "extends": "ContainerBase",
+            "is_constructor": 1
+        },
+        "ContainerBase": {
+            "name": "ContainerBase",
+            "shortname": "ContainerBase",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "container-base",
+            "namespace": "",
+            "file": "src/container-base/container-base.js",
+            "line": 6,
+            "description": "ContainerBase is an Overlay (XY positioning)\nIt is a WidgetChild (belongs to Layer)\nIt is also a WidgetParent (has many terminals)",
+            "extends": "Overlay",
+            "uses": [
+                "WidgetParent",
+                "WidgetChild",
+                "WiresDelegate"
+            ],
+            "is_constructor": 1
+        },
+        "FormContainer": {
+            "name": "FormContainer",
+            "shortname": "FormContainer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "form-container",
+            "namespace": "",
+            "file": "src/form-container/form-container.js",
+            "line": 6,
+            "description": "Include the form library inputEx + WirableField + FormContainer<br />\n<br />\n<b>WARNING</b>: The \"WirableField.js\" file MUST be loaded AFTER \"inputEx/field.js\" and BEFORE all other inputEx fields !<br />\n<br />\nSee the inputEx website for documentation of the fields & forms: <a href='http://neyric.github.com/inputex'>http://neyric.github.com/inputex</a><br />\n\nClass used to build a container with inputEx forms",
+            "extends": "Container",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "options",
+                    "description": "Configuration object (see properties)",
+                    "type": "Object"
+                },
+                {
+                    "name": "layer",
+                    "description": "The Y.Layer (or subclass) instance that contains this container",
+                    "type": "Layer"
+                }
+            ]
+        },
+        "ImageContainer": {
+            "name": "ImageContainer",
+            "shortname": "ImageContainer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "image-container",
+            "namespace": "",
+            "file": "src/image-container/image-container.js",
+            "line": 6,
+            "description": "ImageContainer is an Overlay (XY positioning)\nIt is a WidgetChild (belongs to Layer)\nIt is also a WidgetParent (has many terminals)",
+            "extends": "ContainerBase",
+            "is_constructor": 1
+        },
+        "InOutContainer": {
+            "name": "InOutContainer",
+            "shortname": "InOutContainer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "inout-container",
+            "namespace": "",
+            "file": "src/inout-container/inout-container.js",
+            "line": 6,
+            "description": "Container with left inputs and right outputs",
+            "extends": "Container",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "layer",
+                    "description": "",
+                    "type": "Layer"
+                }
+            ]
+        },
+        "BaseField": {
+            "name": "BaseField",
+            "shortname": "BaseField",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "inout-container",
+            "namespace": "",
+            "file": "src/inputex-wirable/inputex-wirable.js",
+            "line": 5,
+            "description": "Copy of the original inputEx.Field class that we're gonna override to extend it."
+        },
+        "Field": {
+            "name": "Field",
+            "shortname": "Field",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "inout-container",
+            "namespace": "",
+            "file": "src/inputex-wirable/inputex-wirable.js",
+            "line": 11,
+            "description": "Class to make inputEx Fields \"wirable\".Re-create inputEx.Field adding the wirable properties",
+            "extends": "inputEx.BaseField"
+        },
+        "Layer": {
+            "name": "Layer",
+            "shortname": "Layer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "layer",
+            "namespace": "",
+            "file": "src/layer/layer.js",
+            "line": 6,
+            "description": "Layer : Widget to manage collections of wires (through WiresDelegate) and containers (trough WidgetParent)",
+            "extends": "Widget",
+            "uses": [
+                "WidgetParent",
+                "WiresDelegate"
+            ]
+        },
+        "Terminal": {
+            "name": "Terminal",
+            "shortname": "Terminal",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "terminal",
+            "namespace": "",
+            "file": "src/terminal/terminal.js",
+            "line": 6,
+            "description": "Terminal is responsible for wire edition",
+            "extends": "TerminalBase",
+            "uses": [
+                "TerminalDragEdit",
+                "TerminalScissors",
+                "TerminalDDGroups"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "oConfigs",
+                    "description": "The user configuration for the instance.",
+                    "type": "Object"
+                }
+            ]
+        },
+        "TerminalBase": {
+            "name": "TerminalBase",
+            "shortname": "TerminalBase",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "terminal-base",
+            "namespace": "",
+            "file": "src/terminal-base/terminal-base.js",
+            "line": 6,
+            "description": "Terminal is responsible for wire edition",
+            "is_constructor": 1,
+            "extends": "Widget",
+            "uses": [
+                "WidgetChild",
+                "WidgetPosition",
+                "WidgetPositionAlign",
+                "WiresDelegate"
+            ],
+            "params": [
+                {
+                    "name": "oConfigs",
+                    "description": "The user configuration for the instance.",
+                    "type": "Object"
+                }
+            ]
+        },
+        "TerminalDDGroups": {
+            "name": "TerminalDDGroups",
+            "shortname": "TerminalDDGroups",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Terminal"
+            ],
+            "module": "terminal-ddgroups",
+            "namespace": "",
+            "file": "src/terminal-ddgroups/terminal-ddgroups.js",
+            "line": 6,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "config",
+                    "description": "configuration object",
+                    "type": "Object"
+                }
+            ]
+        },
+        "TerminalDragEdit": {
+            "name": "TerminalDragEdit",
+            "shortname": "TerminalDragEdit",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Terminal"
+            ],
+            "module": "terminal-dragedit",
+            "namespace": "",
+            "file": "src/terminal-dragedit/terminal-dragedit.js",
+            "line": 6,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "config",
+                    "description": "configuration object",
+                    "type": "Object"
+                }
+            ]
+        },
+        "TerminalInput": {
+            "name": "TerminalInput",
+            "shortname": "TerminalInput",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "terminal-input",
+            "namespace": "",
+            "file": "src/terminal-input/terminal-input.js",
+            "line": 6,
+            "description": "Class that extends Terminal to differenciate Input/Output terminals",
+            "extends": "Terminal",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "parentEl",
+                    "description": "Parent dom element",
+                    "type": "HTMLElement"
+                },
+                {
+                    "name": "options",
+                    "description": "configuration object",
+                    "type": "Object"
+                },
+                {
+                    "name": "container",
+                    "description": "(Optional) Container containing this terminal",
+                    "type": "Container"
+                }
+            ]
+        },
+        "TerminalOutput": {
+            "name": "TerminalOutput",
+            "shortname": "TerminalOutput",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "terminal-output",
+            "namespace": "",
+            "file": "src/terminal-output/terminal-output.js",
+            "line": 6,
+            "description": "Class that extends Terminal to differenciate Input/Output terminals",
+            "extends": "Terminal",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "parentEl",
+                    "description": "Parent dom element",
+                    "type": "HTMLElement"
+                },
+                {
+                    "name": "options",
+                    "description": "configuration object",
+                    "type": "Object"
+                },
+                {
+                    "name": "container",
+                    "description": "(Optional) Container containing this terminal",
+                    "type": "Container"
+                }
+            ]
+        },
+        "TerminalScissors": {
+            "name": "TerminalScissors",
+            "shortname": "TerminalScissors",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Terminal"
+            ],
+            "module": "terminal-scissors",
+            "namespace": "",
+            "file": "src/terminal-scissors/terminal-scissors.js",
+            "line": 6,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "config",
+                    "description": "configuration object",
+                    "type": "Object"
+                }
+            ]
+        },
+        "Y.WireTextareaContainer": {
+            "name": "Y.WireTextareaContainer",
+            "shortname": "Y.WireTextareaContainer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "textarea-container",
+            "namespace": "",
+            "file": "src/textarea-container/textarea-container.js",
+            "line": 6,
+            "description": "Form container for a single textarea field which is resizeable. \nImportant: this class takes the exact same arguments as the FormContainer !\nYou still need to specify the \"fields\".",
+            "extends": "WireFormContainer",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "options",
+                    "description": "Configuration object (see properties)",
+                    "type": "Object"
+                },
+                {
+                    "name": "layer",
+                    "description": "The Y.Layer (or subclass) instance that contains this container",
+                    "type": "Layer"
+                }
+            ]
+        },
+        "WidgetIcons": {
+            "name": "WidgetIcons",
+            "shortname": "WidgetIcons",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "widget-icons",
+            "namespace": "",
+            "file": "src/widget-icons/widget-icons.js",
+            "line": 6,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "config",
+                    "description": "configuration object",
+                    "type": "Object"
+                }
+            ]
+        },
+        "WireBase": {
+            "name": "WireBase",
+            "shortname": "WireBase",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "wire-base",
+            "namespace": "",
+            "file": "src/wire-base/wire-base.js",
+            "line": 6,
+            "description": "The wire widget\nThe wire is drawn between \"src\" and \"tgt\" (so they might be directional).\n\n\"src\" and \"tgt\" MUST have a \"getXY\" function\n\n\"src\" and \"tgt\" MAY additionnaly have the \"addWire\", \"removeWire\" methods.\nThose methods are designed to be used through the Y.WiringsDelegate extension,\nwhich provide basic list-handling on wires.",
+            "extends": "Widget",
+            "uses": [
+                "WidgetPosition"
+            ],
+            "params": [
+                {
+                    "name": "oConfigs",
+                    "description": "The user configuration for the instance.",
+                    "type": "Object"
+                }
+            ]
+        },
+        "WiresDelegate": {
+            "name": "WiresDelegate",
+            "shortname": "WiresDelegate",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "ContainerBase",
+                "Layer",
+                "TerminalBase"
+            ],
+            "module": "wires-delegate",
+            "namespace": "",
+            "file": "src/wires-delegate/wires-delegate.js",
+            "line": 6,
+            "description": "WiresDelegate is an extension for Widgets to manipulate a list of wires.\n\nThe WidgetParent/WidgetChild relationship isn't sufficient\nbecause wires have 2 parents, so we use this extension instead of WidgetParent",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "config",
+                    "description": "configuration object",
+                    "type": "Object"
+                }
+            ]
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/bezier-wire/bezier-wire.js",
+            "line": 15,
+            "itemtype": "method",
+            "name": "initializer",
+            "class": "BezierWire",
+            "module": "bezier-wire"
+        },
+        {
+            "file": "src/bezier-wire/bezier-wire.js",
+            "line": 26,
+            "itemtype": "method",
+            "name": "bindUI",
+            "class": "BezierWire",
+            "module": "bezier-wire"
+        },
+        {
+            "file": "src/bezier-wire/bezier-wire.js",
+            "line": 44,
+            "description": "Draw the bezier curve.\nThe canvas is made bigger to contain the curls",
+            "itemtype": "method",
+            "name": "draw",
+            "class": "BezierWire",
+            "module": "bezier-wire"
+        },
+        {
+            "file": "src/bezier-wire/bezier-wire.js",
+            "line": 158,
+            "description": "Norm of the tangeant vector at the endpoints.",
+            "itemtype": "attribute",
+            "name": "bezierTangentNorm",
+            "default": "100",
+            "type": "Integer",
+            "class": "BezierWire",
+            "module": "bezier-wire"
+        },
+        {
+            "file": "src/bezier-wire/bezier-wire.js",
+            "line": 170,
+            "description": "TODO: normalize ?",
+            "itemtype": "attribute",
+            "name": "srcDir",
+            "type": "Array",
+            "default": "[1,0]",
+            "class": "BezierWire",
+            "module": "bezier-wire"
+        },
+        {
+            "file": "src/bezier-wire/bezier-wire.js",
+            "line": 181,
+            "description": "TODO: normalize ?",
+            "itemtype": "attribute",
+            "name": "tgtDir",
+            "type": "Array",
+            "default": "-srcDir",
+            "class": "BezierWire",
+            "module": "bezier-wire"
+        },
+        {
+            "file": "src/canvas-wire/canvas-wire.js",
+            "line": 14,
+            "itemtype": "method",
+            "name": "bindUI",
+            "class": "CanvasWire",
+            "module": "canvas-wire"
+        },
+        {
+            "file": "src/canvas-wire/canvas-wire.js",
+            "line": 27,
+            "itemtype": "method",
+            "name": "renderUI",
+            "class": "CanvasWire",
+            "module": "canvas-wire"
+        },
+        {
+            "file": "src/canvas-wire/canvas-wire.js",
+            "line": 35,
+            "itemtype": "method",
+            "name": "_renderCanvas",
+            "class": "CanvasWire",
+            "module": "canvas-wire"
+        },
+        {
+            "file": "src/canvas-wire/canvas-wire.js",
+            "line": 46,
+            "itemtype": "method",
+            "name": "destructor",
+            "class": "CanvasWire",
+            "module": "canvas-wire"
+        },
+        {
+            "file": "src/canvas-wire/canvas-wire.js",
+            "line": 57,
+            "description": "Y.CanvasNode instance",
+            "itemtype": "attribute",
+            "name": "canvas",
+            "class": "CanvasWire",
+            "module": "canvas-wire"
+        },
+        {
+            "file": "src/canvas-wire/canvas-wire.js",
+            "line": 65,
+            "description": "cap attribute of the line (\"round\",\"butt\", or \"square\")",
+            "itemtype": "attribute",
+            "name": "cap",
+            "type": "String",
+            "default": "\"round\"",
+            "class": "CanvasWire",
+            "module": "canvas-wire"
+        },
+        {
+            "file": "src/canvas-wire/canvas-wire.js",
+            "line": 76,
+            "itemtype": "attribute",
+            "name": "color",
+            "class": "CanvasWire",
+            "module": "canvas-wire"
+        },
+        {
+            "file": "src/canvas-wire/canvas-wire.js",
+            "line": 84,
+            "itemtype": "attribute",
+            "name": "bordercolor",
+            "class": "CanvasWire",
+            "module": "canvas-wire"
+        },
+        {
+            "file": "src/canvas-wire/canvas-wire.js",
+            "line": 92,
+            "itemtype": "attribute",
+            "name": "linewidth",
+            "class": "CanvasWire",
+            "module": "canvas-wire"
+        },
+        {
+            "file": "src/canvas-wire/canvas-wire.js",
+            "line": 102,
+            "itemtype": "attribute",
+            "name": "borderwidth",
+            "class": "CanvasWire",
+            "module": "canvas-wire"
+        },
+        {
+            "file": "src/container-base/container-base.js",
+            "line": 19,
+            "itemtype": "method",
+            "name": "renderUI",
+            "class": "ContainerBase",
+            "module": "container-base"
+        },
+        {
+            "file": "src/container-base/container-base.js",
+            "line": 64,
+            "itemtype": "method",
+            "name": "alignTerminals",
+            "class": "ContainerBase",
+            "module": "container-base"
+        },
+        {
+            "file": "src/container-base/container-base.js",
+            "line": 76,
+            "itemtype": "method",
+            "name": "syncUI",
+            "class": "ContainerBase",
+            "module": "container-base"
+        },
+        {
+            "file": "src/container-base/container-base.js",
+            "line": 102,
+            "description": "Get a terminal by name",
+            "itemtype": "method",
+            "name": "getTerminal",
+            "class": "ContainerBase",
+            "module": "container-base"
+        },
+        {
+            "file": "src/container-base/container-base.js",
+            "line": 118,
+            "itemtype": "attribute",
+            "name": "defaultChildType",
+            "class": "ContainerBase",
+            "module": "container-base"
+        },
+        {
+            "file": "src/container-base/container-base.js",
+            "line": 125,
+            "itemtype": "attribute",
+            "name": "zIndex",
+            "class": "ContainerBase",
+            "module": "container-base"
+        },
+        {
+            "file": "src/container-base/container-base.js",
+            "line": 132,
+            "itemtype": "attribute",
+            "name": "resizable",
+            "class": "ContainerBase",
+            "module": "container-base"
+        },
+        {
+            "file": "src/container-base/container-base.js",
+            "line": 139,
+            "itemtype": "attribute",
+            "name": "fillHeight",
+            "class": "ContainerBase",
+            "module": "container-base"
+        },
+        {
+            "file": "src/excanvas/excanvas.js",
+            "line": 51,
+            "description": "This funtion is assigned to the <canvas> elements as element.getContext().",
+            "this": "{HTMLElement}",
+            "return": {
+                "description": "",
+                "type": "CanvasRenderingContext2D_"
+            },
+            "class": "FormContainer",
+            "module": "container-base"
+        },
+        {
+            "file": "src/excanvas/excanvas.js",
+            "line": 63,
+            "description": "Binds a function to an object. The returned function will always use the\npassed in {@code obj} as {@code this}.\n\nExample:\n\n  g = bind(f, obj, a, b)\n  g(c, d) // will do f.call(obj, a, b, c, d)",
+            "params": [
+                {
+                    "name": "f",
+                    "description": "The function to bind the object to",
+                    "type": "Function"
+                },
+                {
+                    "name": "obj",
+                    "description": "The object that should act as this when the function\n    is called",
+                    "type": "Object"
+                },
+                {
+                    "name": "var_args",
+                    "description": "Rest arguments that will be used as the initial\n    arguments when the function is called",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "A new function that has bound this",
+                "type": "Function"
+            },
+            "class": "FormContainer",
+            "module": "container-base"
+        },
+        {
+            "file": "src/excanvas/excanvas.js",
+            "line": 128,
+            "description": "Public initializes a canvas element so that it can be used as canvas\nelement from now on. This is called automatically before the page is\nloaded but if you are creating elements using createElement you need to\nmake sure this is called on the element.",
+            "params": [
+                {
+                    "name": "el",
+                    "description": "The canvas element to initialize.",
+                    "type": "HTMLElement"
+                }
+            ],
+            "return": {
+                "description": "the element that was created.",
+                "type": "HTMLElement"
+            },
+            "class": "FormContainer",
+            "module": "container-base"
+        },
+        {
+            "file": "src/excanvas/excanvas.js",
+            "line": 282,
+            "description": "This class implements CanvasRenderingContext2D interface as described by\nthe WHATWG.",
+            "params": [
+                {
+                    "name": "surfaceElement",
+                    "description": "The element that the 2D context should\nbe associated with",
+                    "type": "HTMLElement"
+                }
+            ],
+            "class": "FormContainer",
+            "module": "container-base"
+        },
+        {
+            "file": "src/excanvas/excanvas.js",
+            "line": 776,
+            "access": "private",
+            "tagname": "",
+            "class": "FormContainer",
+            "module": "container-base"
+        },
+        {
+            "file": "src/excanvas/excanvas.js",
+            "line": 882,
+            "class": "FormContainer",
+            "module": "container-base"
+        },
+        {
+            "file": "src/form-container/form-container.js",
+            "line": 22,
+            "itemtype": "method",
+            "name": "renderUI",
+            "class": "FormContainer",
+            "module": "form-container"
+        },
+        {
+            "file": "src/form-container/form-container.js",
+            "line": 30,
+            "description": "Render the form in the widget body",
+            "itemtype": "method",
+            "name": "_renderForm",
+            "class": "FormContainer",
+            "module": "form-container"
+        },
+        {
+            "file": "src/form-container/form-container.js",
+            "line": 60,
+            "description": "Value of the form",
+            "itemtype": "attribute",
+            "name": "value",
+            "class": "FormContainer",
+            "module": "form-container"
+        },
+        {
+            "file": "src/form-container/form-container.js",
+            "line": 80,
+            "description": "Keep to render the form",
+            "itemtype": "attribute",
+            "name": "bodyContent",
+            "class": "FormContainer",
+            "module": "form-container"
+        },
+        {
+            "file": "src/form-container/form-container.js",
+            "line": 88,
+            "itemtype": "attribute",
+            "name": "fields",
+            "class": "FormContainer",
+            "module": "form-container"
+        },
+        {
+            "file": "src/form-container/form-container.js",
+            "line": 95,
+            "itemtype": "attribute",
+            "name": "resizable",
+            "class": "FormContainer",
+            "module": "form-container"
+        },
+        {
+            "file": "src/form-container/form-container.js",
+            "line": 106,
+            "itemtype": "attribute",
+            "name": "legend",
+            "description": "Legend",
+            "default": "null",
+            "type": "String",
+            "class": "FormContainer",
+            "module": "form-container"
+        },
+        {
+            "file": "src/form-container/form-container.js",
+            "line": 114,
+            "itemtype": "attribute",
+            "name": "collapsible",
+            "description": "Collapsible",
+            "default": "false",
+            "type": "Boolean",
+            "class": "FormContainer",
+            "module": "form-container"
+        },
+        {
+            "file": "src/form-container/form-container.js",
+            "line": 122,
+            "description": "Render the form",
+            "itemtype": "method",
+            "name": "renderForm",
+            "class": "FormContainer",
+            "module": "form-container"
+        },
+        {
+            "file": "src/image-container/image-container.js",
+            "line": 16,
+            "itemtype": "method",
+            "name": "renderUI",
+            "class": "ImageContainer",
+            "module": "image-container"
+        },
+        {
+            "file": "src/image-container/image-container.js",
+            "line": 77,
+            "description": "Url of the image you want to render (relative to the script's page)",
+            "itemtype": "attribute",
+            "name": "imageUrl",
+            "class": "ImageContainer",
+            "module": "image-container"
+        },
+        {
+            "file": "src/inout-container/inout-container.js",
+            "line": 17,
+            "itemtype": "method",
+            "name": "renderUI",
+            "class": "InOutContainer",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/inout-container/inout-container.js",
+            "line": 25,
+            "itemtype": "method",
+            "name": "_renderInputsOutputs",
+            "class": "InOutContainer",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/inout-container/inout-container.js",
+            "line": 74,
+            "description": "Keep to render the form",
+            "itemtype": "attribute",
+            "name": "bodyContent",
+            "class": "InOutContainer",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/inout-container/inout-container.js",
+            "line": 82,
+            "itemtype": "attribute",
+            "name": "inputs",
+            "description": "Array of strings for which an Input terminal will be created.",
+            "default": "[]",
+            "type": "Array",
+            "class": "InOutContainer",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/inout-container/inout-container.js",
+            "line": 90,
+            "itemtype": "attribute",
+            "name": "outputs",
+            "description": "Array of strings for which an Output terminal will be created.",
+            "default": "[]",
+            "type": "Array",
+            "class": "InOutContainer",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/inputex-wirable/inputex-wirable.js",
+            "line": 22,
+            "description": "Adds a wirable option to every field",
+            "itemtype": "method",
+            "name": "setOptions",
+            "class": "Field",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/inputex-wirable/inputex-wirable.js",
+            "line": 33,
+            "description": "Adds a terminal to each field",
+            "itemtype": "method",
+            "name": "render",
+            "class": "Field",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/inputex-wirable/inputex-wirable.js",
+            "line": 45,
+            "description": "Render the associated input terminal",
+            "itemtype": "method",
+            "name": "renderTerminal",
+            "class": "Field",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/inputex-wirable/inputex-wirable.js",
+            "line": 66,
+            "description": "Set the container for this field",
+            "class": "Field",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/inputex-wirable/inputex-wirable.js",
+            "line": 82,
+            "description": "also change the terminal name when changing the field name",
+            "class": "Field",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/inputex-wirable/inputex-wirable.js",
+            "line": 92,
+            "description": "Remove the input wired state on the",
+            "itemtype": "method",
+            "name": "onAddWire",
+            "class": "Field",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/inputex-wirable/inputex-wirable.js",
+            "line": 103,
+            "description": "Remove the input wired state on the",
+            "itemtype": "method",
+            "name": "onRemoveWire",
+            "class": "Field",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/inputex-wirable-fields/inputex-wirable-fields.js",
+            "line": 7,
+            "description": "setFieldName might change the name of the terminal",
+            "class": "Layer",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/inputex-wirable-fields/inputex-wirable-fields.js",
+            "line": 19,
+            "description": "Groups must set the container recursively",
+            "class": "Layer",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/inputex-wirable-fields/inputex-wirable-fields.js",
+            "line": 36,
+            "description": "List must set the container recursively",
+            "class": "Layer",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/inputex-wirable-fields/inputex-wirable-fields.js",
+            "line": 51,
+            "description": "setContainer must be called on each new element",
+            "class": "Layer",
+            "module": "inout-container"
+        },
+        {
+            "file": "src/layer/layer.js",
+            "line": 15,
+            "description": "Alias method for WidgetParent.removeAll",
+            "itemtype": "method",
+            "name": "clear",
+            "class": "Layer",
+            "module": "layer"
+        },
+        {
+            "file": "src/terminal-base/terminal-base.js",
+            "line": 47,
+            "description": "This function is a temporary test. I added the border width while traversing the DOM and\nI calculated the offset to center the wire in the terminal just after its creation",
+            "itemtype": "method",
+            "name": "getXY",
+            "class": "TerminalBase",
+            "module": "terminal-base"
+        },
+        {
+            "file": "src/terminal-base/terminal-base.js",
+            "line": 64,
+            "description": "Vector direction at the terminal\n(used by BezierWire ou Scissors)",
+            "itemtype": "attribute",
+            "name": "dir",
+            "class": "TerminalBase",
+            "module": "terminal-base"
+        },
+        {
+            "file": "src/terminal-ddgroups/terminal-ddgroups.js",
+            "line": 17,
+            "description": "drag/drop groups : list of supported terminal types\nonly used if editable is set to true",
+            "itemtype": "attribute",
+            "name": "groups",
+            "class": "TerminalDDGroups",
+            "module": "terminal-ddgroups"
+        },
+        {
+            "file": "src/terminal-ddgroups/terminal-ddgroups.js",
+            "line": 40,
+            "description": "create a persisting tooltip with the scissors class\nlisten for click events on the tooltip and call destroyWires",
+            "itemtype": "method",
+            "name": "_renderTooltip",
+            "class": "TerminalDDGroups",
+            "module": "terminal-ddgroups"
+        },
+        {
+            "file": "src/terminal-dragedit/terminal-dragedit.js",
+            "line": 20,
+            "description": "Sets the terminal editable",
+            "itemtype": "attribute",
+            "name": "editable",
+            "class": "TerminalDragEdit",
+            "module": "terminal-dragedit"
+        },
+        {
+            "file": "src/terminal-dragedit/terminal-dragedit.js",
+            "line": 28,
+            "description": "target node to render the wire to (generally set to the layer by the container)",
+            "itemtype": "attribute",
+            "name": "editwire-parent",
+            "class": "TerminalDragEdit",
+            "module": "terminal-dragedit"
+        },
+        {
+            "file": "src/terminal-dragedit/terminal-dragedit.js",
+            "line": 84,
+            "description": "on drag start, create the wire between 2 fake terminals",
+            "itemtype": "method",
+            "name": "_onDragEditStart",
+            "class": "TerminalDragEdit",
+            "module": "terminal-dragedit"
+        },
+        {
+            "file": "src/terminal-input/terminal-input.js",
+            "line": 20,
+            "itemtype": "attribute",
+            "name": "nMaxWires",
+            "description": "maximum number of wires for this terminal",
+            "type": "Integer",
+            "default": "1",
+            "class": "TerminalInput",
+            "module": "terminal-input"
+        },
+        {
+            "file": "src/terminal-input/terminal-input.js",
+            "line": 28,
+            "itemtype": "attribute",
+            "name": "ddConfig",
+            "description": "configuration of the Y.TerminalProxy object",
+            "type": "Object",
+            "default": "{ type: \"input\", allowedTypes: [\"output\"] }",
+            "class": "TerminalInput",
+            "module": "terminal-input"
+        },
+        {
+            "file": "src/terminal-output/terminal-output.js",
+            "line": 20,
+            "itemtype": "attribute",
+            "name": "direction",
+            "description": "direction vector of the wires when connected to this terminal",
+            "type": "Array",
+            "default": "[0,1]",
+            "class": "TerminalOutput",
+            "module": "terminal-output"
+        },
+        {
+            "file": "src/terminal-output/terminal-output.js",
+            "line": 28,
+            "itemtype": "attribute",
+            "name": "fakeDirection",
+            "description": "direction vector of the \"editing\" wire when it started from this terminal",
+            "type": "Array",
+            "default": "[0,-1]",
+            "class": "TerminalOutput",
+            "module": "terminal-output"
+        },
+        {
+            "file": "src/terminal-output/terminal-output.js",
+            "line": 36,
+            "itemtype": "attribute",
+            "name": "ddConfig",
+            "description": "configuration of the Y.TerminalProxy object",
+            "type": "Object",
+            "default": "{ type: \"output\", allowedTypes: [\"input\"] }",
+            "class": "TerminalOutput",
+            "module": "terminal-output"
+        },
+        {
+            "file": "src/terminal-output/terminal-output.js",
+            "line": 44,
+            "itemtype": "attribute",
+            "name": "alwaysSrc",
+            "description": "forces this terminal to be the src terminal in the wire config",
+            "type": "Boolean",
+            "default": "true",
+            "class": "TerminalOutput",
+            "module": "terminal-output"
+        },
+        {
+            "file": "src/textarea-container/textarea-container.js",
+            "line": 21,
+            "itemtype": "method",
+            "name": "renderUI",
+            "class": "Y.WireTextareaContainer",
+            "module": "textarea-container"
+        },
+        {
+            "file": "src/textarea-container/textarea-container.js",
+            "line": 61,
+            "description": "Keep to render the textarea",
+            "itemtype": "attribute",
+            "name": "bodyContent",
+            "class": "Y.WireTextareaContainer",
+            "module": "textarea-container"
+        },
+        {
+            "file": "src/widget-icons/widget-icons.js",
+            "line": 19,
+            "description": "Set of icons",
+            "itemtype": "attribute",
+            "name": "icons",
+            "class": "WidgetIcons",
+            "module": "widget-icons"
+        },
+        {
+            "file": "src/wire-base/wire-base.js",
+            "line": 23,
+            "description": "Notify the WiresDeletates through addWire",
+            "itemtype": "method",
+            "name": "initializer",
+            "class": "WireBase",
+            "module": "wire-base"
+        },
+        {
+            "file": "src/wire-base/wire-base.js",
+            "line": 38,
+            "description": "Listen for src/tgt changes",
+            "itemtype": "method",
+            "name": "bindUI",
+            "class": "WireBase",
+            "module": "wire-base"
+        },
+        {
+            "file": "src/wire-base/wire-base.js",
+            "line": 55,
+            "description": "syncUI just redraws the wire",
+            "itemtype": "method",
+            "name": "syncUI",
+            "class": "WireBase",
+            "module": "wire-base"
+        },
+        {
+            "file": "src/wire-base/wire-base.js",
+            "line": 63,
+            "description": "call removeWire on WiringsDelegate",
+            "itemtype": "method",
+            "name": "destructor",
+            "class": "WireBase",
+            "module": "wire-base"
+        },
+        {
+            "file": "src/wire-base/wire-base.js",
+            "line": 78,
+            "description": "Drawing method. Meant to be overriden by a plugin",
+            "itemtype": "method",
+            "name": "draw",
+            "class": "WireBase",
+            "module": "wire-base"
+        },
+        {
+            "file": "src/wires-delegate/wires-delegate.js",
+            "line": 46,
+            "description": "Add a wire to this terminal.",
+            "itemtype": "method",
+            "name": "addWire",
+            "params": [
+                {
+                    "name": "wire",
+                    "description": "Wire instance to add",
+                    "type": "Wire"
+                }
+            ],
+            "class": "WiresDelegate",
+            "module": "wires-delegate"
+        },
+        {
+            "file": "src/wires-delegate/wires-delegate.js",
+            "line": 59,
+            "description": "When a wire is destroyed",
+            "itemtype": "method",
+            "name": "removeWire",
+            "class": "WiresDelegate",
+            "module": "wires-delegate"
+        },
+        {
+            "file": "src/wires-delegate/wires-delegate.js",
+            "line": 81,
+            "description": "Remove all wires",
+            "itemtype": "method",
+            "name": "destroyWires",
+            "class": "WiresDelegate",
+            "module": "wires-delegate"
+        },
+        {
+            "file": "src/wires-delegate/wires-delegate.js",
+            "line": 93,
+            "description": "Returns a list of all the terminals connected to this terminal through its wires.",
+            "itemtype": "method",
+            "name": "getConnected",
+            "return": {
+                "description": "List of all connected terminals",
+                "type": "Array"
+            },
+            "class": "WiresDelegate",
+            "module": "wires-delegate"
+        },
+        {
+            "file": "src/wires-delegate/wires-delegate.js",
+            "line": 108,
+            "description": "Redraw all the wires connected to this terminal",
+            "itemtype": "method",
+            "name": "redrawAllWires",
+            "class": "WiresDelegate",
+            "module": "wires-delegate"
+        }
+    ]
+}

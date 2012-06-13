@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src&#x2F;bezier-wire&#x2F;bezier-wire.js - WireIt</title>
+    <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.5.1&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
+    <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="..&#x2F;assets/favicon.png">
+    <script src="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;combo?3.5.1&#x2F;build&#x2F;yui&#x2F;yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="..&#x2F;assets/css/logo.png" title="WireIt"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 3.0.0pr1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="..&#x2F;classes/BaseField.html">BaseField</a></li>
+            
+                <li><a href="..&#x2F;classes/BezierWire.html">BezierWire</a></li>
+            
+                <li><a href="..&#x2F;classes/CanvasNode.html">CanvasNode</a></li>
+            
+                <li><a href="..&#x2F;classes/CanvasWire.html">CanvasWire</a></li>
+            
+                <li><a href="..&#x2F;classes/Container.html">Container</a></li>
+            
+                <li><a href="..&#x2F;classes/ContainerBase.html">ContainerBase</a></li>
+            
+                <li><a href="..&#x2F;classes/Field.html">Field</a></li>
+            
+                <li><a href="..&#x2F;classes/FormContainer.html">FormContainer</a></li>
+            
+                <li><a href="..&#x2F;classes/ImageContainer.html">ImageContainer</a></li>
+            
+                <li><a href="..&#x2F;classes/InOutContainer.html">InOutContainer</a></li>
+            
+                <li><a href="..&#x2F;classes/Layer.html">Layer</a></li>
+            
+                <li><a href="..&#x2F;classes/Terminal.html">Terminal</a></li>
+            
+                <li><a href="..&#x2F;classes/TerminalBase.html">TerminalBase</a></li>
+            
+                <li><a href="..&#x2F;classes/TerminalDDGroups.html">TerminalDDGroups</a></li>
+            
+                <li><a href="..&#x2F;classes/TerminalDragEdit.html">TerminalDragEdit</a></li>
+            
+                <li><a href="..&#x2F;classes/TerminalInput.html">TerminalInput</a></li>
+            
+                <li><a href="..&#x2F;classes/TerminalOutput.html">TerminalOutput</a></li>
+            
+                <li><a href="..&#x2F;classes/TerminalScissors.html">TerminalScissors</a></li>
+            
+                <li><a href="..&#x2F;classes/WidgetIcons.html">WidgetIcons</a></li>
+            
+                <li><a href="..&#x2F;classes/WireBase.html">WireBase</a></li>
+            
+                <li><a href="..&#x2F;classes/WiresDelegate.html">WiresDelegate</a></li>
+            
+                <li><a href="..&#x2F;classes/Y.WireTextareaContainer.html">Y.WireTextareaContainer</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="..&#x2F;modules/bezier-wire.html">bezier-wire</a></li>
+            
+                <li><a href="..&#x2F;modules/canvas-node.html">canvas-node</a></li>
+            
+                <li><a href="..&#x2F;modules/canvas-wire.html">canvas-wire</a></li>
+            
+                <li><a href="..&#x2F;modules/container.html">container</a></li>
+            
+                <li><a href="..&#x2F;modules/container-base.html">container-base</a></li>
+            
+                <li><a href="..&#x2F;modules/form-container.html">form-container</a></li>
+            
+                <li><a href="..&#x2F;modules/image-container.html">image-container</a></li>
+            
+                <li><a href="..&#x2F;modules/inout-container.html">inout-container</a></li>
+            
+                <li><a href="..&#x2F;modules/layer.html">layer</a></li>
+            
+                <li><a href="..&#x2F;modules/straight-wire.html">straight-wire</a></li>
+            
+                <li><a href="..&#x2F;modules/terminal.html">terminal</a></li>
+            
+                <li><a href="..&#x2F;modules/terminal-base.html">terminal-base</a></li>
+            
+                <li><a href="..&#x2F;modules/terminal-ddgroups.html">terminal-ddgroups</a></li>
+            
+                <li><a href="..&#x2F;modules/terminal-dragedit.html">terminal-dragedit</a></li>
+            
+                <li><a href="..&#x2F;modules/terminal-input.html">terminal-input</a></li>
+            
+                <li><a href="..&#x2F;modules/terminal-output.html">terminal-output</a></li>
+            
+                <li><a href="..&#x2F;modules/terminal-scissors.html">terminal-scissors</a></li>
+            
+                <li><a href="..&#x2F;modules/textarea-container.html">textarea-container</a></li>
+            
+                <li><a href="..&#x2F;modules/widget-icons.html">widget-icons</a></li>
+            
+                <li><a href="..&#x2F;modules/wire-base.html">wire-base</a></li>
+            
+                <li><a href="..&#x2F;modules/wireit-app.html">wireit-app</a></li>
+            
+                <li><a href="..&#x2F;modules/wires-delegate.html">wires-delegate</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: src&#x2F;bezier-wire&#x2F;bezier-wire.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+&#x2F;**
+ * @module bezier-wire
+ *&#x2F;
+YUI.add(&#x27;bezier-wire&#x27;, function(Y) {
+	
+&#x2F;**
+ * Extend CanvasWire to draw a bezier curve using a canvas
+ * @class BezierWire
+ * @extends CanvasWire
+ * @constructor
+ * @param {Object} config the configuration for the BezierWire attributes
+ *&#x2F;
+Y.BezierWire = Y.Base.create(&quot;bezier-wire&quot;, Y.CanvasWire, [], {
+	
+	&#x2F;**
+	 * @method initializer
+	 *&#x2F;
+	initializer: function() {
+		
+		if(this.get(&#x27;src&#x27;) &amp;&amp; this.get(&#x27;src&#x27;).get)
+			this.set(&#x27;srcDir&#x27;, this.get(&#x27;src&#x27;).get(&#x27;dir&#x27;) );
+		if(this.get(&#x27;tgt&#x27;) &amp;&amp; this.get(&#x27;tgt&#x27;).get)
+			this.set(&#x27;tgtDir&#x27;, this.get(&#x27;src&#x27;).get(&#x27;dir&#x27;) );
+	},
+	
+	&#x2F;**
+	 * @method bindUI
+	 *&#x2F;
+	bindUI: function() {
+		Y.BezierWire.superclass.bindUI.call(this);
+		
+		this.after(&quot;bezierTangentNormChange&quot;, this._afterChangeRedraw, this);
+		
+		this.on(&#x27;srcChange&#x27;, function(e) {
+			this.set(&#x27;srcDir&#x27;, e.newVal.get(&#x27;dir&#x27;) );
+		}, this);
+		
+		this.on(&#x27;tgtChange&#x27;, function(e) {
+			this.set(&#x27;tgtDir&#x27;, e.newVal.get(&#x27;dir&#x27;) );
+		}, this);
+		
+	},
+	
+	&#x2F;**
+	 * Draw the bezier curve.
+	 * The canvas is made bigger to contain the curls
+	 * @method draw
+	 *&#x2F;
+	draw: function() {
+	
+		if(!this.get(&#x27;canvas&#x27;)) {
+			return;
+		}
+		
+		var src = this.get(&#x27;src&#x27;), tgt = this.get(&#x27;tgt&#x27;);
+		if( !src || !tgt) {
+			return;
+		}
+		
+		&#x2F;&#x2F; Get the positions of the terminals
+		var p1 = src.getXY(),
+			p2 = tgt.getXY();
+		
+		&#x2F;&#x2F; Coefficient multiplicateur de direction
+		&#x2F;&#x2F; 100 par defaut, si distance(p1,p2) &lt; 100, on passe en distance&#x2F;2
+		var coeffMulDirection = this.get(&#x27;bezierTangentNorm&#x27;);
+		
+		var distance=Math.sqrt(Math.pow(p1[0]-p2[0],2)+Math.pow(p1[1]-p2[1],2));
+		if(distance &lt; coeffMulDirection){
+			coeffMulDirection = distance&#x2F;2;
+		}
+		
+		&#x2F;&#x2F; Calcul des vecteurs directeurs d1 et d2 :
+		var d1 = [this.get(&#x27;srcDir&#x27;)[0]*coeffMulDirection,
+				this.get(&#x27;srcDir&#x27;)[1]*coeffMulDirection];
+		var d2 = [this.get(&#x27;tgtDir&#x27;)[0]*coeffMulDirection,
+				this.get(&#x27;tgtDir&#x27;)[1]*coeffMulDirection];
+		
+		var bezierPoints=[];
+		bezierPoints[0] = p1;
+		bezierPoints[1] = [p1[0]+d1[0],p1[1]+d1[1]];
+		bezierPoints[2] = [p2[0]+d2[0],p2[1]+d2[1]];
+		bezierPoints[3] = p2;
+		var min = [p1[0],p1[1]];
+		var max = [p1[0],p1[1]];
+		for(var i=1 ; i&lt;bezierPoints.length ; i++){
+			var p = bezierPoints[i];
+			if(p[0] &lt; min[0]){
+				min[0] = p[0];
+			}
+			if(p[1] &lt; min[1]){
+				min[1] = p[1];
+			}
+			if(p[0] &gt; max[0]){
+				max[0] = p[0];
+			}
+			if(p[1] &gt; max[1]){
+				max[1] = p[1];
+			}
+		}
+		
+		&#x2F;&#x2F; New canvas size
+		var margin = [10,10];
+		min[0] = min[0]-margin[0];
+		min[1] = min[1]-margin[1];
+		max[0] = max[0]+margin[0];
+		max[1] = max[1]+margin[1];
+		var lw = Math.abs(max[0]-min[0]);
+		var lh = Math.abs(max[1]-min[1]);
+		
+		&#x2F;&#x2F; Store the min, max positions to display the label later
+		&#x2F;&#x2F; w.min = min;
+		&#x2F;&#x2F; w.max = max;
+		
+		&#x2F;&#x2F;w.SetCanvasRegion(min[0],min[1],lw,lh);
+		
+		this.get(&#x27;canvas&#x27;).resize(lw,lh);
+		this.set(&#x27;xy&#x27;, [ min[0] +15 ,min[1]+15 ]);
+		
+		var ctxt=this.get(&#x27;canvas&#x27;).getContext();
+		
+		&#x2F;&#x2F; TODO: extract: 
+		&#x2F;&#x2F; Server-side
+		&#x2F;*var Canvas = require(&#x27;canvas&#x27;), canvas = new Canvas(300, 300), ctxt = canvas.getContext(&#x27;2d&#x27;);
+		this._ccc = canvas;*&#x2F;
+		
+		for(i = 0 ; i&lt;bezierPoints.length ; i++){
+			bezierPoints[i][0] = bezierPoints[i][0]-min[0];
+			bezierPoints[i][1] = bezierPoints[i][1]-min[1];
+		}
+		
+		&#x2F;&#x2F; Draw the border
+		ctxt.lineCap = this.get(&#x27;cap&#x27;);
+		ctxt.strokeStyle = this.get(&#x27;bordercolor&#x27;);
+		ctxt.lineWidth = this.get(&#x27;linewidth&#x27;)+this.get(&#x27;borderwidth&#x27;)*2;
+		ctxt.beginPath();
+		ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
+		ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]);
+		ctxt.stroke();
+		
+		&#x2F;&#x2F; Draw the inner bezier curve
+		ctxt.lineCap = this.get(&#x27;cap&#x27;);
+		ctxt.strokeStyle = this.get(&#x27;color&#x27;);
+		ctxt.lineWidth = this.get(&#x27;linewidth&#x27;);
+		ctxt.beginPath();
+		ctxt.moveTo(bezierPoints[0][0],bezierPoints[0][1]);
+		ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]);
+		ctxt.stroke();
+		
+	},
+	
+	SERIALIZABLE_ATTRS: [&quot;color&quot;,&quot;width&quot;,&quot;bezierTangentNorm&quot;]
+	
+});
+
+Y.BezierWire.ATTRS = {
+	
+	&#x2F;** 
+	 * Norm of the tangeant vector at the endpoints.
+	 * @attribute bezierTangentNorm
+	 * @default 100
+	 * @type Integer
+	 *&#x2F;
+	bezierTangentNorm: {
+		setter: function(val) {
+			return parseInt(val, 10);
+		},
+		value: 200
+	},
+	&#x2F;**
+	 * TODO: normalize ?
+	 * @attribute srcDir
+	 * @type Array
+	 * @default [1,0]
+	 *&#x2F; 
+	srcDir: {
+		validator: Y.Lang.isArray,
+		value: [1,0]
+	},
+	
+	&#x2F;**
+	 * TODO: normalize ?
+	 * @attribute tgtDir
+	 * @type Array
+	 * @default -srcDir
+	 *&#x2F;
+	tgtDir: {
+		validator: Y.Lang.isArray,
+		valueFn: function() {
+			var d = this.get(&#x27;srcDir&#x27;);
+			return [-d[0],-d[1]];
+		}
+	}
+
+};
+
+}, &#x27;3.5.1&#x27;, {requires: [&#x27;canvas-wire&#x27;]});
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="..&#x2F;assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="..&#x2F;assets/js/yui-prettify.js"></script>
+<script src="..&#x2F;assets/../api.js"></script>
+<script src="..&#x2F;assets/js/api-filter.js"></script>
+<script src="..&#x2F;assets/js/api-list.js"></script>
+<script src="..&#x2F;assets/js/api-search.js"></script>
+<script src="..&#x2F;assets/js/apidocs.js"></script>
+</body>
+</html>

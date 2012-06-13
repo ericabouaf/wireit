@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src&#x2F;wireit-app&#x2F;wireit-app.js - WireIt</title>
+    <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.5.1&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
+    <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="..&#x2F;assets/favicon.png">
+    <script src="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;combo?3.5.1&#x2F;build&#x2F;yui&#x2F;yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="..&#x2F;assets/css/logo.png" title="WireIt"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 3.0.0pr1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="..&#x2F;classes/BaseField.html">BaseField</a></li>
+            
+                <li><a href="..&#x2F;classes/BezierWire.html">BezierWire</a></li>
+            
+                <li><a href="..&#x2F;classes/CanvasNode.html">CanvasNode</a></li>
+            
+                <li><a href="..&#x2F;classes/CanvasWire.html">CanvasWire</a></li>
+            
+                <li><a href="..&#x2F;classes/Container.html">Container</a></li>
+            
+                <li><a href="..&#x2F;classes/ContainerBase.html">ContainerBase</a></li>
+            
+                <li><a href="..&#x2F;classes/Field.html">Field</a></li>
+            
+                <li><a href="..&#x2F;classes/FormContainer.html">FormContainer</a></li>
+            
+                <li><a href="..&#x2F;classes/ImageContainer.html">ImageContainer</a></li>
+            
+                <li><a href="..&#x2F;classes/InOutContainer.html">InOutContainer</a></li>
+            
+                <li><a href="..&#x2F;classes/Layer.html">Layer</a></li>
+            
+                <li><a href="..&#x2F;classes/Terminal.html">Terminal</a></li>
+            
+                <li><a href="..&#x2F;classes/TerminalBase.html">TerminalBase</a></li>
+            
+                <li><a href="..&#x2F;classes/TerminalDDGroups.html">TerminalDDGroups</a></li>
+            
+                <li><a href="..&#x2F;classes/TerminalDragEdit.html">TerminalDragEdit</a></li>
+            
+                <li><a href="..&#x2F;classes/TerminalInput.html">TerminalInput</a></li>
+            
+                <li><a href="..&#x2F;classes/TerminalOutput.html">TerminalOutput</a></li>
+            
+                <li><a href="..&#x2F;classes/TerminalScissors.html">TerminalScissors</a></li>
+            
+                <li><a href="..&#x2F;classes/WidgetIcons.html">WidgetIcons</a></li>
+            
+                <li><a href="..&#x2F;classes/WireBase.html">WireBase</a></li>
+            
+                <li><a href="..&#x2F;classes/WiresDelegate.html">WiresDelegate</a></li>
+            
+                <li><a href="..&#x2F;classes/Y.WireTextareaContainer.html">Y.WireTextareaContainer</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="..&#x2F;modules/bezier-wire.html">bezier-wire</a></li>
+            
+                <li><a href="..&#x2F;modules/canvas-node.html">canvas-node</a></li>
+            
+                <li><a href="..&#x2F;modules/canvas-wire.html">canvas-wire</a></li>
+            
+                <li><a href="..&#x2F;modules/container.html">container</a></li>
+            
+                <li><a href="..&#x2F;modules/container-base.html">container-base</a></li>
+            
+                <li><a href="..&#x2F;modules/form-container.html">form-container</a></li>
+            
+                <li><a href="..&#x2F;modules/image-container.html">image-container</a></li>
+            
+                <li><a href="..&#x2F;modules/inout-container.html">inout-container</a></li>
+            
+                <li><a href="..&#x2F;modules/layer.html">layer</a></li>
+            
+                <li><a href="..&#x2F;modules/straight-wire.html">straight-wire</a></li>
+            
+                <li><a href="..&#x2F;modules/terminal.html">terminal</a></li>
+            
+                <li><a href="..&#x2F;modules/terminal-base.html">terminal-base</a></li>
+            
+                <li><a href="..&#x2F;modules/terminal-ddgroups.html">terminal-ddgroups</a></li>
+            
+                <li><a href="..&#x2F;modules/terminal-dragedit.html">terminal-dragedit</a></li>
+            
+                <li><a href="..&#x2F;modules/terminal-input.html">terminal-input</a></li>
+            
+                <li><a href="..&#x2F;modules/terminal-output.html">terminal-output</a></li>
+            
+                <li><a href="..&#x2F;modules/terminal-scissors.html">terminal-scissors</a></li>
+            
+                <li><a href="..&#x2F;modules/textarea-container.html">textarea-container</a></li>
+            
+                <li><a href="..&#x2F;modules/widget-icons.html">widget-icons</a></li>
+            
+                <li><a href="..&#x2F;modules/wire-base.html">wire-base</a></li>
+            
+                <li><a href="..&#x2F;modules/wireit-app.html">wireit-app</a></li>
+            
+                <li><a href="..&#x2F;modules/wires-delegate.html">wires-delegate</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: src&#x2F;wireit-app&#x2F;wireit-app.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+&#x2F;**
+ * @module wireit-app
+ *&#x2F;
+YUI.add(&#x27;wireit-app&#x27;, function(Y) {
+
+&#x2F;&#x2F; -- LocalStorageSync ---------------------------------------------------------------------
+&#x2F;&#x2F; Saves WiringModel
+function LocalStorageSync(key) {
+    var localStorage;
+
+    if (!key) {
+        Y.error(&#x27;No storage key specified.&#x27;);
+    }
+
+    if (Y.config.win.localStorage) {
+        localStorage = Y.config.win.localStorage;
+    }
+
+    &#x2F;&#x2F; Try to retrieve existing data from localStorage, if there is any.
+    &#x2F;&#x2F; Otherwise, initialize &#x60;data&#x60; to an empty object.
+    var data = Y.JSON.parse((localStorage &amp;&amp; localStorage.getItem(key)) || &#x27;{}&#x27;);
+
+    &#x2F;&#x2F; Delete a model with the specified id.
+    function destroy(id) {
+        var modelHash;
+
+        if ((modelHash = data[id])) {
+            delete data[id];
+            save();
+        }
+
+        return modelHash;
+    }
+
+    &#x2F;&#x2F; Generate a unique id to assign to a newly-created model.
+    function generateId() {
+        var id = &#x27;&#x27;,
+            i  = 4;
+
+        while (i--) {
+            id += (((1 + Math.random()) * 0x10000) | 0)
+                    .toString(16).substring(1);
+        }
+
+        return id;
+    }
+
+    &#x2F;&#x2F; Loads a model with the specified id. This method is a little tricky,
+    &#x2F;&#x2F; since it handles loading for both individual models and for an entire
+    &#x2F;&#x2F; model list.
+    &#x2F;&#x2F;
+    &#x2F;&#x2F; If an id is specified, then it loads a single model. If no id is
+    &#x2F;&#x2F; specified then it loads an array of all models. This allows the same sync
+    &#x2F;&#x2F; layer to be used for both the TodoModel and TodoList classes.
+    function get(id) {
+        return id ? data[id] : Y.Object.values(data);
+    }
+
+    &#x2F;&#x2F; Saves the entire &#x60;data&#x60; object to localStorage.
+    function save() {
+        localStorage &amp;&amp; localStorage.setItem(key, Y.JSON.stringify(data));
+    }
+
+    &#x2F;&#x2F; Sets the id attribute of the specified model (generating a new id if
+    &#x2F;&#x2F; necessary), then saves it to localStorage.
+    function set(model) {
+        var hash        = model.toJSON(),
+            idAttribute = model.idAttribute;
+
+        if (!Y.Lang.isValue(hash[idAttribute])) {
+            hash[idAttribute] = generateId();
+        }
+
+        data[hash[idAttribute]] = hash;
+        save();
+
+        return hash;
+    }
+
+    &#x2F;&#x2F; Returns a &#x60;sync()&#x60; function that can be used with either a Model or a
+    &#x2F;&#x2F; ModelList instance.
+    return function (action, options, callback) {
+        &#x2F;&#x2F; &#x60;this&#x60; refers to the Model or ModelList instance to which this sync
+        &#x2F;&#x2F; method is attached.
+        var isModel = Y.Model &amp;&amp; this instanceof Y.Model;
+
+        switch (action) {
+        case &#x27;create&#x27;: &#x2F;&#x2F; intentional fallthru
+        case &#x27;update&#x27;:
+            callback(null, set(this));
+            return;
+
+        case &#x27;read&#x27;:
+            callback(null, get(isModel &amp;&amp; this.get(&#x27;id&#x27;)));
+            return;
+
+        case &#x27;delete&#x27;:
+            callback(null, destroy(isModel &amp;&amp; this.get(&#x27;id&#x27;)));
+            return;
+        }
+    };
+}
+
+
+&#x2F;&#x2F; -- WiringModel ---------------------------------------------------------------------
+Y.WiringModel = Y.Base.create(&#x27;wiringModel&#x27;, Y.Model, [], {
+	sync: LocalStorageSync(&#x27;wireit-app&#x27;)
+}, {
+	ATTRS: {
+		id: {value: null},
+		name       : {value: &#x27;&#x27;},
+		containers   : {value: []},
+		description: {value: &#x27;&#x27;},
+		wires   : {value: []}
+	}
+});
+
+
+&#x2F;&#x2F; -- WiringModelList ---------------------------------------------------------------------
+
+Y.WiringModelList = Y.Base.create(&#x27;wiringModelList&#x27;, Y.ModelList, [], {
+	sync: LocalStorageSync(&#x27;wireit-app&#x27;),
+    model    : Y.WiringModel
+});
+
+&#x2F;&#x2F; -- WiringList View ------------------------------------------------------------
+
+Y.WiringListView = Y.Base.create(&#x27;wiringListView&#x27;, Y.View, [], {
+	
+	template: Y.Handlebars.compile(Y.one(&#x27;#t-wiring-list&#x27;).getContent()),
+	
+	initializer: function () {
+		
+		&#x2F;&#x2F;console.log(&#x27;WiringListView init&#x27;);
+		
+		&#x2F;*var list = this.get(&#x27;modelList&#x27;);
+		
+		&#x2F;&#x2F; Re-render this view when a model is added to or removed from the model list.
+		list.after([&#x27;add&#x27;, &#x27;remove&#x27;, &#x27;reset&#x27;], this._test, this);
+		
+		&#x2F;&#x2F; We&#x27;ll also re-render the view whenever the data of one of the models in the list changes.
+		list.after(&#x27;*:change&#x27;, this._test, this);*&#x2F;
+	},
+	
+	&#x2F;*_test: function() {
+		console.log(&#x27;_test&#x27;);
+	},*&#x2F;
+	
+	render: function () {
+		
+		&#x2F;&#x2F;console.log(&#x27;WiringListView render&#x27;);
+		
+		var content = this.template({wirings: this.get(&#x27;modelList&#x27;).toJSON() });
+		this.get(&#x27;container&#x27;).setContent(content);
+		return this;
+	}
+});
+
+
+&#x2F;&#x2F; -- ContainerType ---------------------------------------------------------------------
+Y.ContainerType = Y.Base.create(&#x27;containerModel&#x27;, Y.Model, [], {
+	&#x2F;&#x2F; The &#x60;id&#x60; attribute for this Model will be an alias for &#x60;name&#x60;.
+	idAttribute: &#x27;name&#x27;
+}, {
+	ATTRS: {
+		name       : {value: null},
+		description: {value: null},
+		config   : {value: null}
+	}
+});
+
+&#x2F;&#x2F; -- ContainerTypeList -----------------------------------------------------------------
+Y.ContainerTypeList = Y.Base.create(&#x27;containerTypeList&#x27;, Y.ModelList, [], {
+	model: Y.ContainerType
+});
+
+&#x2F;&#x2F; -- Editor View ------------------------------------------------------------
+Y.EditorView = Y.Base.create(&#x27;editorView&#x27;, Y.View, [], {
+	
+	template: Y.Handlebars.compile(Y.one(&#x27;#t-editor&#x27;).getContent()),
+	
+	events: {
+		&#x27;#wiring-save-btn&#x27;: {click: &#x27;saveWiring&#x27;}
+	},
+	
+	render: function () {
+		
+		var content = this.template({
+			containerTypes: this.get(&#x27;containerTypes&#x27;).toJSON()
+		});
+		this.get(&#x27;container&#x27;).setContent(content);
+		
+		
+		&#x2F;&#x2F; Make items draggable to the layer
+		var that = this;
+		this.get(&#x27;container&#x27;).all(&#x27;.containerType-name&#x27;).each(function(node) {
+			
+			var drag = new Y.DD.Drag({ 
+				node: node,
+				groups: [&#x27;containerType&#x27;]
+			}).plug(Y.Plugin.DDProxy, {
+				cloneNode: true,
+				moveOnEnd: false
+			});
+			drag._containerTypeName = node._node.innerHTML;
+			
+			&#x2F;&#x2F; On drom, add it to the layer
+			drag.on(&#x27;drag:drophit&#x27;,  function(ev) {
+				that._addContainerFromName(ev.drag._containerTypeName, {
+					x: ev.drag.lastXY[0],
+					y: ev.drag.lastXY[1]
+				});
+			});
+			
+			
+		});
+		
+		this._renderLayer();
+		
+		return this;
+	},
+	
+	_renderLayer: function() {
+		
+		this.layer = new Y.Layer({
+			&#x2F;&#x2F;width: 900,
+			height: 500
+		});
+		
+		&#x2F;&#x2F; Create the Drop object
+		var drop = new Y.DD.Drop({
+			node: this.layer.get(&#x27;contentBox&#x27;),
+			groups: [&#x27;containerType&#x27;]
+		});
+		&#x2F;&#x2F;drop.layer = this.layer;
+		
+		var wiring = this.get(&#x27;model&#x27;);
+		if(wiring) {
+			this.setWiring( wiring );
+		}
+		
+		this.layer.render( this.get(&#x27;container&#x27;).one(&#x27;#layer-container&#x27;) );
+		
+	},
+	
+	saveWiring: function(e) {
+		var o = {
+			name: Y.one(&#x27;#wiring-name&#x27;).get(&#x27;value&#x27;) || &#x27;Unnamed&#x27;
+		};
+		
+		&#x2F;&#x2F; Children are containers
+		o.containers = [];
+		Y.Array.each(this.layer._items, function(item) {
+			o.containers.push({
+				containerType: item.containerTypeName,
+				config: item.toJSON()
+			});
+		});
+		
+		&#x2F;&#x2F; Wires:
+		o.wires = [];
+		var layer = this.layer;
+		Y.Array.each(this.layer._wires, function(wire) {
+			
+			var src = wire.get(&#x27;src&#x27;);
+			var tgt = wire.get(&#x27;tgt&#x27;);
+			
+			o.wires.push( {
+				src: { container: layer._items.indexOf( src.get(&#x27;parent&#x27;) ), terminal: src.get(&#x27;name&#x27;) },
+				tgt: { container: layer._items.indexOf( tgt.get(&#x27;parent&#x27;) ), terminal: tgt.get(&#x27;name&#x27;) },
+				config: wire.toJSON()
+			});
+		});
+		
+		
+		if( this.get(&#x27;model&#x27;) ) {
+			this.get(&#x27;model&#x27;).setAttrs(o);
+		}
+		else {
+			this.set(&#x27;model&#x27;, new Y.WiringModel(o) );
+		}
+		
+		this.get(&#x27;model&#x27;).save();
+		
+		&#x2F;&#x2F; TODO: add only one message
+		var s = Y.Node.create(&#x27;&lt;div class=&quot;alert-message warning&quot; style=&quot;width: 300px; z-index: 10001;&quot;&gt;&lt;p&gt;Saved !&lt;&#x2F;p&gt;&lt;&#x2F;div&gt;&#x27;).appendTo(document.body);
+		var anim = new Y.Anim({
+		    node: s,
+		    duration: 0.5,
+		    easing: Y.Easing.easeOut,
+			from: { xy: [400, -50] },
+			to: { xy: [400, 2] }
+		});
+		anim.on(&#x27;end&#x27;, function() {
+			Y.later(1000, this, function() {
+				(new Y.Anim({
+				    node: s,
+				    duration: 0.5,
+				    easing: Y.Easing.easeOut,
+					to: { xy: [400, -50] }
+				})).run();
+			});
+		});
+		anim.run();
+		
+		
+	},
+	
+	setWiring: function(wiring) {
+		
+		var that = this;
+		
+		var layer = this.layer;
+		
+		Y.Array.each( wiring.get(&#x27;containers&#x27;), function(container) {
+			
+			that._addContainerFromName(container.containerType,  container.config);
+			
+			Y.on(&#x27;available&#x27;, function(el) {
+				Y.one(&#x27;#wiring-name&#x27;).set(&#x27;value&#x27;, wiring.get(&#x27;name&#x27;) );
+			}, &#x27;#wiring-name&#x27;);
+			
+		});
+		
+		Y.Array.each( wiring.get(&#x27;wires&#x27;), function(wire) {
+			
+			&#x2F;&#x2F; prevent bad configs...
+			if(!wire.src || !wire.tgt) return;
+			
+			var srcContainer = layer.item(wire.src.container);
+			var srcTerminal = srcContainer.getTerminal(wire.src.terminal);
+			
+			var tgtContainer = layer.item(wire.tgt.container);
+			var tgtTerminal = tgtContainer.getTerminal(wire.tgt.terminal);
+			
+			&#x2F;&#x2F; TODO: wire.config;
+			
+			var w = new Y.BezierWire({
+				src: srcTerminal,
+				tgt: tgtTerminal
+			}).render( layer.get(&#x27;contentBox&#x27;) );
+			
+		});
+		
+		&#x2F;&#x2F; TODO: this is awful ! But we need to wait for everything to render &amp; position
+		Y.later(1000, this, function() {
+			layer.redrawAllWires();
+		});
+		
+	},
+	
+	_addContainerFromName: function(containerTypeName, containerConfig) {
+		var containerType = this.get(&#x27;containerTypes&#x27;).getById(containerTypeName);
+		var containerConf = Y.mix({}, containerType.get(&#x27;config&#x27;));
+		containerConf = Y.mix(containerConf, containerConfig);
+		this.layer.add(containerConf);
+		var container =  this.layer.item(this.layer.size()-1);
+		container.containerTypeName = containerTypeName;
+	}
+	
+}, {
+	ATTRS: {
+		containerTypes: {
+			value: null
+		}
+	}
+});
+
+&#x2F;&#x2F; -- WireIt App ---------------------------------------------------------
+Y.WireItApp = new Y.Base.create(&#x27;contributorsApp&#x27;, Y.App, [], {
+	
+	views: {
+		editorPage: {
+			type: Y.EditorView
+		},
+		wiringListPage: {
+			type: Y.WiringListView
+		}
+	},
+	
+	initializer: function () {
+		
+		&#x2F;&#x2F; show indication that the app is busy loading data.
+		this.on(&#x27;navigate&#x27;, this.indicateLoading);
+		
+		this.once(&#x27;ready&#x27;, function (e) {
+			if (this.hasRoute(this.getPath())) {
+				this.dispatch();
+			} else {
+				this.showWiringListPage();
+			}
+		});
+	},
+	
+	&#x2F;&#x2F; -- Event Handlers -------------------------------------------------------
+	
+	indicateLoading: function (e) {
+		this.get(&#x27;activeView&#x27;).get(&#x27;container&#x27;).addClass(&#x27;loading&#x27;);
+	},
+	
+	&#x2F;&#x2F; -- Route Handlers -------------------------------------------------------
+	
+	handleWiring: function (req, res, next) {
+		var wiringId = req.params.wiring,
+			wirings = this.get(&#x27;modelList&#x27;),
+			wiring = wirings.getById(wiringId);
+		
+		this.set(&#x27;wiring&#x27;, wiring);
+		
+		next();
+	},
+
+	showEditorPage: function() {
+		this.showView(&#x27;editorPage&#x27;, {
+			containerTypes: this.get(&#x27;containerTypes&#x27;),
+			wirings: this.get(&#x27;modelList&#x27;),
+			model: this.get(&#x27;wiring&#x27;)
+		});
+	},
+	
+	blankEditorPage: function() {
+		this.showView(&#x27;editorPage&#x27;, {
+			containerTypes: this.get(&#x27;containerTypes&#x27;),
+			wirings: this.get(&#x27;modelList&#x27;),
+			model: null
+		});
+	},
+	
+	showWiringListPage: function() {
+		
+		&#x2F;&#x2F;this.get(&#x27;modelList&#x27;).load();
+		
+		var wirings = new Y.WiringModelList();
+		wirings.load();
+		this.set(&#x27;modelList&#x27;, wirings);
+		
+		this.showView(&#x27;wiringListPage&#x27;, {
+			modelList: this.get(&#x27;modelList&#x27;)
+		});
+	}
+
+}, {
+	ATTRS: {
+		
+		containerTypes: {
+			value: new Y.ContainerTypeList()
+		},
+		
+		modelList: {
+			value: new Y.WiringModelList()
+		},
+		
+		wiring: {
+			value: null
+		},
+		
+		routes: {
+			value: [
+				{path: &#x27;&#x2F;&#x27;, callback: &#x27;showWiringListPage&#x27;},
+				{path: &#x27;&#x2F;wirings&#x2F;:wiring&#x2F;*&#x27;, callback: &#x27;handleWiring&#x27;},
+				{path: &#x27;&#x2F;wirings&#x2F;:wiring&#x2F;edit&#x27;, callback: &#x27;showEditorPage&#x27;},
+				{path: &#x27;&#x2F;wirings&#x2F;new&#x27;, callback: &#x27;blankEditorPage&#x27;}
+			]
+		}
+	}
+});
+
+
+}, &#x27;3.5.1&#x27;, {requires: [&#x27;app&#x27;, &#x27;handlebars&#x27;, &#x27;model&#x27;, &#x27;model-list&#x27;, &#x27;json&#x27;, &#x27;view&#x27;, &#x27;layer&#x27;, &#x27;bezier-wire&#x27;, &#x27;anim&#x27;]});
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="..&#x2F;assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="..&#x2F;assets/js/yui-prettify.js"></script>
+<script src="..&#x2F;assets/../api.js"></script>
+<script src="..&#x2F;assets/js/api-filter.js"></script>
+<script src="..&#x2F;assets/js/api-list.js"></script>
+<script src="..&#x2F;assets/js/api-search.js"></script>
+<script src="..&#x2F;assets/js/apidocs.js"></script>
+</body>
+</html>
