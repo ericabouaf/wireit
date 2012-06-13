@@ -38,7 +38,7 @@ Y.FormContainer = Y.Base.create("form-container", Y.Container, [], {
 			var that = this;
 			this.form = new Y.inputEx.Group({
 			    parentEl: inputExContainer,
-			    fields: Y.Array.map(this.get('fields'), function(i) {
+			    fields: (new Y.Array(this.get('fields') ) ).map(function(i) {
 			       // add the container reference
     		       return Y.mix({container: that}, i);
     		    })
@@ -163,4 +163,4 @@ Y.FormContainer = Y.Base.create("form-container", Y.Container, [], {
    
 //});
 
-}, '3.5.1', {requires: ['container','inputex-wirable-fields']});
+}, '3.5.0pr1', {requires: ['container','inputex-wirable-fields']});
