@@ -1,0 +1,29 @@
+ _                   _   _____        _____ 
+(_)_ __  _ __  _   _| |_| ____|_  __ |___ / 
+| | '_ \| '_ \| | | | __|  _| \ \/ /   |_ \ 		build fields and forms for web applications
+| | | | | |_) | |_| | |_| |___ >  <   ___) |		Distributed under the MIT License (see license.txt)
+|_|_| |_| .__/ \__,_|\__|_____/_/\_\ |____/ 
+        |_|                                 
+
+
+Release Notes:
+==============
+
+3.0.1:  not released yet
+------
+  * features:
+    * email field: add option to exclude emails with disposable domains (@trashmail.net, a.s.o)
+    
+  * bug fixes:
+    * email field: fix several bugs with fixdomain option
+    * color field in a form
+    * form ajax callbacks params
+    * form ajax headers
+    * inputEx.use : using "type" as default module name
+    * css fixes to use unprefixed "border-radius" and "box-shadow" rules (firefox 13)
+
+
+3.0.0a : August, 19th 2011
+--------
+
+  * initial YUI 3.x port

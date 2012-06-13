@@ -1,0 +1,33 @@
+
+
+/**
+ * inputEx-JsonTreeInspector
+ */
+ul.inputEx-JsonTreeInspector li {
+   padding-left: 20px;
+   list-style-type: none;
+}
+ 
+ul.inputEx-JsonTreeInspector li.collapsed {
+   background:transparent url(plus.gif) no-repeat scroll 0 0;
+   cursor: pointer;
+}
+
+ul.inputEx-JsonTreeInspector li.expanded {
+   background:transparent url(minus.gif) no-repeat scroll 0 0;
+   cursor: pointer;
+}
+
+ul.inputEx-JsonTreeInspector li span {
+   padding-left: 20px;
+   color: green;
+}
+
+ul.inputEx-JsonTreeInspector li span.type-number,
+ul.inputEx-JsonTreeInspector li span.type-boolean {
+   color: blue;
+}
+
+ul.inputEx-JsonTreeInspector li span.type-null {
+   color: red;
+}

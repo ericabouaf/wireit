@@ -1,0 +1,50 @@
+
+/**
+ * inputEx-ListField
+ */
+
+/* Buttons */
+img.inputEx-ListField-addButton {
+    background: transparent url(add.png) no-repeat scroll 0%;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+ }
+
+img.inputEx-ListField-delButton {
+   background: transparent url(delete.png) no-repeat scroll 0%;
+   width: 16px;
+   height: 16px;
+   float: left;
+   cursor: pointer;
+}
+
+/* Arrows */
+div.inputEx-ListField-Arrow {
+   width: 16px;
+   height: 16px;
+   float: left;
+   cursor: pointer;
+}
+
+div.inputEx-ListField-ArrowUp {
+   background: transparent url(bullet_arrow_up.png) no-repeat scroll 0%;
+}
+div.inputEx-ListField-ArrowDown {
+   background: transparent url(bullet_arrow_down.png) no-repeat scroll 0%;
+}
+
+div.inputEx-ListField-subFieldEl {
+  float:left;
+  margin-left:4px;
+}
+
+a.inputEx-List-link {
+   color: blue;
+   cursor: pointer;
+   margin-left: 10px;
+}
+
+a.inputEx-List-link:hover {
+   text-decoration: underline;
+}

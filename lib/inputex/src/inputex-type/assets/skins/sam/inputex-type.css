@@ -1,0 +1,33 @@
+
+/**
+ * inputEx.TypeField
+ */
+div.inputEx-TypeField-EditButton {
+   width: 16px;
+   height: 16px;
+   background-image: url(pencil.png);
+   cursor: pointer;
+   float: left;
+   margin-left:4px;
+   position: relative;
+}
+
+div.inputEx-TypeField-EditButton.opened {
+   background-image: url(pencil_delete.png);
+}
+
+div.inputEx-TypeField-FieldValueWrapper {
+   float: left;
+   margin-left: 4px;
+}
+
+div.inputEx-TypeField-PropertiesPanel {
+   border: 1px solid #aaa;
+   padding: 3px;
+   background-color: white;
+   position: absolute;
+   top: 0px;
+   left: 16px;
+   z-index:1;
+   width: 380px;
+}
