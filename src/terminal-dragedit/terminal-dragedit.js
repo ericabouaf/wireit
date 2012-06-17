@@ -25,14 +25,6 @@ Y.TerminalDragEdit.ATTRS = {
 		value: true
 	},
 	
-	/**
-	 * target node to render the wire to (generally set to the layer by the container)
-	 * @attribute editwire-parent
-	 */
-	"editwire-parent": {
-		value: document.body
-	},
-	
 	"editwire-class": {
 		value: Y.BezierWire
 	}
@@ -93,20 +85,29 @@ Y.TerminalDragEdit.prototype = {
 		
 		var dir = this.get('dir');
 		var that = this;
-		this.drag.wire = new Y.BezierWire({
-			
-			src: { 
-				getXY: function() { return [ev.pageX,ev.pageY]; }
-			},
-			tgt: { 
-				getXY: function() { return [that._magnetX || that._editwireX, that._magnetY || that._editwireY]; } 
-			},
-			
-			srcDir: dir,
-			tgtDir: [-dir[0],-dir[1]],
-			
-			render: this.get('root').get('contentBox') /*this.get('editwire-parent')*/
-		});
+		
+		// TODO: console.log( this.get('editwire-class') );
+		
+		this.drag.wire = this.get('root').graphic.addShape({
+           type: Y.BezierWire, //,editwire-class
+           stroke: {
+               weight: 4,
+               color: "rgb(173,216,230)" 
+           },
+           
+           src: { 
+  				getXY: function() { return [ev.pageX,ev.pageY]; }
+  			},
+  			tgt: { 
+  				getXY: function() { return [that._magnetX || that._editwireX, that._magnetY || that._editwireY]; } 
+  			},
+
+  			srcDir: dir,
+  			tgtDir: [-dir[0],-dir[1]]
+
+        });
+		
+		
 	},
 	
 	// Update the position of the fake target and redraw the wire

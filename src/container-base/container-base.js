@@ -157,7 +157,6 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
 			}
 		}
 		
-		
 		/*,
 		
 		width: { value: 250 },

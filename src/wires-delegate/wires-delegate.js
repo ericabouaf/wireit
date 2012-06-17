@@ -83,11 +83,14 @@ Y.WiresDelegate.prototype = {
 	 * @method destroyWires
 	 */
 	destroyWires: function() {
+	   
+	   console.log("TODO: destroy all wires");
+	   
 		// This isn't very nice but...
 		// the method Wire.remove calls Terminal.removeWire to remove the reference
-		while(this._wires.length > 0) {
+		/*while(this._wires.length > 0) {
 			this._wires[0].destroy();
-		}
+		}*/
 	},
 	
 	/**
@@ -110,6 +113,9 @@ Y.WiresDelegate.prototype = {
 	 * @method redrawAllWires
 	 */
 	redrawAllWires: function() {
+	   
+	   //console.log("redrawAllWires", this._wires);
+	   
 		if(this._wires) {
 			Y.Array.each(this._wires, function(w) {
 				w.draw();
