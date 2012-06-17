@@ -21,17 +21,20 @@ YUI({combine: false, filter: 'raw'}).use('bezier-wire', 'form-container', 'input
   window.Y = Y;
 
   var layerEl = Y.one('#layer');
+  var mygraphic = new Y.Graphic({render: "#layer"});
 
   c1 = new Y.FormContainer({
     children: [
       { 
 		align: {points:["tl", "tc"]}, 
 		dir: [0,-1],
-		groups: ['string']
+		groups: ['string'],
+		graphic: mygraphic
 	},
       { 
 		align: {points:["tl", "bc"]}, dir: [0, 1],
-		groups: ['object']
+		groups: ['object'],
+		graphic: mygraphic
 	}
     ],
     

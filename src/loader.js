@@ -25,7 +25,7 @@ YUI().use(function(Y) {
 						requires: ['widget','widget-child','widget-position','widget-position-align','wire-base', 'wires-delegate']
 					},
 					'terminal-dragedit': {
-						requires: ['dd-drop', 'dd-drag','dd-proxy']
+						requires: ['bezier-wire', 'dd-drop', 'dd-drag','dd-proxy']
 					},
 					'terminal-scissors': {
 						requires: ['overlay']

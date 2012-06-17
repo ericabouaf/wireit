@@ -27,6 +27,10 @@ Y.TerminalDragEdit.ATTRS = {
 	
 	"editwire-class": {
 		value: Y.BezierWire
+	},
+	
+	graphic: {
+	   value: null
 	}
 	
 };
@@ -86,13 +90,18 @@ Y.TerminalDragEdit.prototype = {
 		var dir = this.get('dir');
 		var that = this;
 		
-		// TODO: console.log( this.get('editwire-class') );
+		if(!this.get('graphic')) {
+		   this.set('graphic', this.get('root').graphic);
+		}
 		
-		this.drag.wire = this.get('root').graphic.addShape({
-           type: Y.BezierWire, //,editwire-class
-           stroke: {
-               weight: 4,
-               color: "rgb(173,216,230)" 
+		this.drag.wire = this.get('graphic').addShape({
+		   
+		   type: this.get('editwire-class'),
+		   
+		   // TODO: customizable
+		   stroke: {
+		      weight: 4,
+		   color: "rgb(173,216,230)" 
            },
            
            src: { 
@@ -164,4 +173,4 @@ Y.TerminalDragEdit.prototype = {
 	
 };
 
-}, '3.5.1', {requires: ['dd-drop', 'dd-drag', 'dd-proxy']});
+}, '3.5.1', {requires: ['bezier-wire', 'dd-drop', 'dd-drag', 'dd-proxy']});

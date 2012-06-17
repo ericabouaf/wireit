@@ -335,10 +335,18 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
 			
 			// TODO: wire.config;
 			
-			var w = new Y.BezierWire({
-				src: srcTerminal,
+         var w = layer.graphic.addShape({
+            type: Y.BezierWire,
+            stroke: {
+                weight: 4,
+                color: "rgb(173,216,230)" 
+            },
+
+
+            src: srcTerminal,
 				tgt: tgtTerminal
-			}).render( layer.get('contentBox') );
+
+         });
 			
 		});
 		
