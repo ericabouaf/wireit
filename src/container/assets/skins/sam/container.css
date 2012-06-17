@@ -49,6 +49,9 @@
 	background-color: #ccc;
 	font-style: italic;
 	font-size: 80%;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
 }
 
 
