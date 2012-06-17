@@ -46,11 +46,11 @@ Y.extend(WireBase, Y.Path, {
 	
 	/**
 	 * call removeWire on WiringsDelegate
-	 * @method destructor
+	 * @method destroy
 	 */
-	destructor: function() {
+	destroy: function() {
 	   
-	   // TODO: test !
+	   WireBase.superclass.destroy.apply(this, arguments);
 	   
 		var src = this.get('src'), tgt = this.get('tgt');
 		

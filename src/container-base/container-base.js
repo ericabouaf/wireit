@@ -52,6 +52,8 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
 				this.alignTerminals();
 				this.redrawAllWires();
 			}, this);
+			
+			this.resize = resize;
 		}
 		
 		// TODO: this is awful ! But we need to wait for everything to render & position
@@ -109,6 +111,15 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
 				return true;
 			}
 		});
+	},
+	
+	destructor: function() {
+
+	   this.drag.destroy();
+	   
+	   if(this.resize) {
+	      this.resize.destroy();
+      }
 	}
 
 }, {
@@ -157,10 +168,6 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
 			}
 		}
 		
-		/*,
-		
-		width: { value: 250 },
-		height: {value: 100}*/
 	},
 	
 	EIGHT_POINTS: [

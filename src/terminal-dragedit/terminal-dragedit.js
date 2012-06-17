@@ -149,6 +149,17 @@ Y.TerminalDragEdit.prototype = {
 	_onDragEditExit: function(ev) {
 		this._magnetX = null;
 		this._magnetY = null;
+	},
+	
+	
+	destructor: function() {
+
+	   if(this.drag) {
+	      this.drag.destroy();
+	   }
+	   if(this.drop) {
+	      this.drop.destroy();
+	   }
 	}
 	
 };

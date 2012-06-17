@@ -20,10 +20,16 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
 		
 		// For Overlay extensions such as Scissors or DDGroups
 		var show = Y.bind(function() {
-			this.get('boundingBox').addClass( this.getClassName("show-overlay") );
+		   var bb = this.get('boundingBox');
+		   if( bb ) {
+			   bb.addClass( this.getClassName("show-overlay") );
+		   }
 		}, this);
 		var hide = Y.bind(function() {
-			this.get('boundingBox').removeClass( this.getClassName("show-overlay") );
+		   var bb = this.get('boundingBox');
+		   if(bb) {
+		      bb.removeClass( this.getClassName("show-overlay") );
+		   }
 		}, this);
 		this.get('boundingBox').on('mouseover', function() { Y.later(300, this, show); });
 		this.get('boundingBox').on('mouseout', function() { Y.later(300, this, hide); });
