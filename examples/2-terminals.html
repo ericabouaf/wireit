@@ -18,21 +18,39 @@ YUI({combine: false, filter: 'raw'}).use('terminal','bezier-wire',function(Y) {
 
   var layerEl =  Y.one('#layer');
   
-  var t1 = new Y.Terminal({render: layerEl, x: 280, y: 250, showGroups: false});
-  var t2 = new Y.Terminal({render: layerEl, x: 90, y: 120, showGroups: false});
-  var t3 = new Y.Terminal({render: layerEl, x: 260, y: 100, showGroups: false});
-  var t4 = new Y.Terminal({render: layerEl, x: 380, y: 200, showGroups: false});
+  var mygraphic = new Y.Graphic({render: "#layer"}); 
   
-  var t5 = new Y.Terminal({render: layerEl, x: 470, y: 240, groups:["string","url","date"] });
-  var t6 = new Y.Terminal({render: layerEl, x: 660, y: 320, groups:["url"] });
-  var t7 = new Y.Terminal({render: layerEl, x: 680, y: 120, groups:["date"] });
-  var t8 = new Y.Terminal({render: layerEl, x: 780, y: 240, groups:["string","url"] });
+  var t1 = new Y.Terminal({render: layerEl, x: 280, y: 250, showGroups: false, graphic: mygraphic});
+  var t2 = new Y.Terminal({render: layerEl, x: 90, y: 120, showGroups: false, graphic: mygraphic});
+  var t3 = new Y.Terminal({render: layerEl, x: 260, y: 100, showGroups: false, graphic: mygraphic});
+  var t4 = new Y.Terminal({render: layerEl, x: 380, y: 200, showGroups: false, graphic: mygraphic});
+  
+  var t5 = new Y.Terminal({render: layerEl, x: 470, y: 240, groups:["string","url","date"] , graphic: mygraphic});
+  var t6 = new Y.Terminal({render: layerEl, x: 660, y: 320, groups:["url"] , graphic: mygraphic});
+  var t7 = new Y.Terminal({render: layerEl, x: 680, y: 120, groups:["date"] , graphic: mygraphic});
+  var t8 = new Y.Terminal({render: layerEl, x: 780, y: 240, groups:["string","url"], graphic: mygraphic });
   
   // Add a wire
-  new Y.BezierWire({
+  /*new Y.BezierWire({
     src: t1, 
     tgt: t2, 
     render: layerEl
+  });*/
+  
+  
+  var wire = mygraphic.addShape({
+     type: Y.BezierWire,
+     stroke: {
+         weight: 4,
+         color: "rgb(173,216,230)" 
+     },
+     
+     
+     src: t1,
+     tgt: t2,
+     bezierTangentNorm:300
+     
+     
   });
     
 });

@@ -20,16 +20,20 @@ YUI({combine: false, filter: 'raw'}).use('bezier-wire', 'inout-container', funct
 
   var layerEl = Y.one('#layer');
 
+var mygraphic = new Y.Graphic({render: "#layer"});
+
   c1 = new Y.InOutContainer({
     children: [
       { 
 		align: {points:["tl", "lc"]}, 
 		dir: [-1,0],
-		groups: ['string']
+		groups: ['string'],
+		graphic: mygraphic
 	},
       { 
 		align: {points:["tl", "rc"]}, dir: [1, 0],
-		groups: ['object']
+		groups: ['object'],
+		graphic: mygraphic
 	}
     ],
 
@@ -50,11 +54,13 @@ YUI({combine: false, filter: 'raw'}).use('bezier-wire', 'inout-container', funct
       { 
 		align: {points:["tl", "lc"]}, 
 		dir: [-1,0],
-		groups: ['in']
+		groups: ['in'],
+		graphic: mygraphic
 	},
       { 
 		align: {points:["tl", "rc"]}, dir: [1, 0],
-		groups: ['object']
+		groups: ['object'],
+		graphic: mygraphic
 	}
     ],
 

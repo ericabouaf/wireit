@@ -12,6 +12,13 @@ YUI.add('layer', function(Y) {
  */
 Y.Layer = Y.Base.create("layer", Y.Widget, [Y.WidgetParent, Y.WiresDelegate], {
 	
+	initializer: function() {
+	   
+	   this.graphic = new Y.Graphic({render: this.get('contentBox') }); 
+	   
+	},
+	
+	
 	/**
 	 * Alias method for WidgetParent.removeAll
 	 * @method clear

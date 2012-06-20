@@ -42,7 +42,37 @@ YUI_config.groups.wireit.base = '../src/';
 
 YUI({combine: false, filter: 'raw'}).use('bezier-wire', function(Y) {
 
-  w = new Y.BezierWire({
+
+    var mygraphic = new Y.Graphic({render: "#layer"}); 
+    
+        // 
+        var wire = mygraphic.addShape({
+           type: Y.BezierWire,
+           stroke: {
+               weight: 4,
+               color: "rgb(173,216,230)" 
+           },
+           
+           
+           src: {
+             getXY: function() {
+               return [300,50];
+             }
+           },
+           tgt: {
+             getXY: function() {
+               return [700,250];
+             }
+           },
+           bezierTangentNorm:300
+           
+           
+        });
+    
+    
+    
+
+ /* w = new Y.BezierWire({
     render: Y.one('#layer'),
     src: {
       getXY: function() {
@@ -62,7 +92,7 @@ YUI({combine: false, filter: 'raw'}).use('bezier-wire', function(Y) {
     var value = ev.target.get('id');
     w.set(attrName,value);
   });
-  
+  */
 });
 </script>
 </body>

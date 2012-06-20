@@ -14,17 +14,25 @@ YUI.add('wire-base', function(Y) {
  * which provide basic list-handling on wires.
  *
  * @class WireBase
- * @extends Widget
- * @uses WidgetPosition
+ * @extends Path
  * @param {Object} oConfigs The user configuration for the instance.
  */
-var WireBase = Y.Base.create("wire-base", Y.Widget, [Y.WidgetPosition], {
+var WireBase = function(cfg) {
+      WireBase.superclass.constructor.apply(this, arguments);
+};
+
+WireBase.NAME = "wirebase";
+
+Y.extend(WireBase, Y.Path, {
 	
 	/**
 	 * Notify the WiresDeletates through addWire
 	 * @method initializer
 	 */
 	initializer: function() {
+	   
+	   WireBase.superclass.initializer.apply(this, arguments);
+	   
 		var src = this.get('src'), tgt = this.get('tgt');
 		
 		if(src && Y.Lang.isFunction(src.addWire) ) {
@@ -33,38 +41,17 @@ var WireBase = Y.Base.create("wire-base", Y.Widget, [Y.WidgetPosition], {
 		if(tgt && Y.Lang.isFunction(tgt.addWire) ) {
 			tgt.addWire(this);
 		}
-	},
-	
-	/**
-	 * Listen for src/tgt changes
-	 * @method bindUI
-	 */
-	bindUI: function() {
 		
-		this.on("srcChange", this._onSrcChange, this);
-		this.on("tgtChange", this._onTgtChange, this);
-		
-		this.after("srcChange", this._afterChangeRedraw, this);
-		this.after("tgtChange", this._afterChangeRedraw, this);
-	},
-	
-	renderUI: function() {
-		this.draw();
-	},
-	
-	/**
-	 * syncUI just redraws the wire
-	 * @method syncUI
-	 */
-	syncUI: function() {
-		this.draw();
 	},
 	
 	/**
 	 * call removeWire on WiringsDelegate
-	 * @method destructor
+	 * @method destroy
 	 */
-	destructor: function() {
+	destroy: function() {
+	   
+	   WireBase.superclass.destroy.apply(this, arguments);
+	   
 		var src = this.get('src'), tgt = this.get('tgt');
 		
 		if(src && Y.Lang.isFunction(src.removeWire) ) {
@@ -83,38 +70,9 @@ var WireBase = Y.Base.create("wire-base", Y.Widget, [Y.WidgetPosition], {
 		//throw new Error("Y.Wire has no draw method. Consider using a plugin such as 'bezier-wire' in your YUI.use statement");
 	},
 	
-		
-	_onEndpointChange: function(e) {
-		
-		// remove this wire from the list of the previous src/tgt item
-		if(e.prevVal && Y.Lang.isFunction(e.prevVal.removeWire) ) {
-			e.prevVal.removeWire(this);
-		}
-		
-		// add this wire to the list of the new src/tgt item
-		if(e.newVal && Y.Lang.isFunction(e.newVal.addWire)) {
-			e.newVal.addWire(this);
-		}
-	},
-	
-	_onSrcChange: function(e) {
-		this._onEndpointChange(e);
-	},
-	
-	_onTgtChange: function(e) {
-		this._onEndpointChange(e);
-	},
-	
-	_afterChangeRedraw: function() {
-		if( this.get('rendered') ) {
-			this.draw();
-		}
-	},
-	
 	getOtherTerminal: function(term) {
 	   return (term == this.get('src')) ? this.get('tgt') : this.get('src');
 	},
-	
 	
 	// TODO:
 	SERIALIZABLE_ATTRS: ["src","tgt"],
@@ -124,18 +82,51 @@ var WireBase = Y.Base.create("wire-base", Y.Widget, [Y.WidgetPosition], {
 	
 });
 
-WireBase.ATTRS = {
+
+WireBase.ATTRS = Y.merge(Y.Path.ATTRS, {
 
 	src: {
-		value: null
+		value: null,
+		setter: function(val) {
+		   //console.log("src setter", val, this);
+		   
+   		// remove this wire from the list of the previous src/tgt item
+   		// TODO: prev value
+   		/*if(e.prevVal && Y.Lang.isFunction(e.prevVal.removeWire) ) {
+   			e.prevVal.removeWire(this);
+   		}*/
+		   
+   		if(val && Y.Lang.isFunction(val.addWire) ) {
+   			val.addWire(this);
+   		}
+		   
+		   return val;
+		}
 	},
 	
 	tgt: {
-		value: null
+		value: null,
+		setter: function(val) {
+		   //console.log("tgt setter", val, this);
+		   
+		   
+   		// remove this wire from the list of the previous src/tgt item
+   		// TODO: prev value
+   		/*if(e.prevVal && Y.Lang.isFunction(e.prevVal.removeWire) ) {
+   			e.prevVal.removeWire(this);
+   		}*/
+         
+		   
+   		if(val && Y.Lang.isFunction(val.addWire) ) {
+   			val.addWire(this);
+   		}
+   		
+		   return val;
+		}
 	}
 	
-};
+});
 
 Y.WireBase = WireBase;
 
-}, '3.5.1', {requires: ['widget','widget-position']});
+}, '3.5.1', {requires: ['graphics']});

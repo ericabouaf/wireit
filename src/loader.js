@@ -9,20 +9,11 @@ YUI().use(function(Y) {
 					
 					// Wire
 					'wire-base': {
-					    skinnable: true,
-					    requires: ['widget','widget-position']
-					},
-					'canvas-node': {
-					   requires: ['node']
-					},
-					'canvas-wire': {
-					    requires: ['wire-base','canvas-node']
+					      //TODO: skinnable: true,
+					    requires: ['graphics']
 					},
 					'bezier-wire': {
-					    requires: ['canvas-wire']
-					},
-					'wire': {
-						requires: ['canvas-wire']
+					    requires: ['wire-base']
 					},
 					'wires-delegate': {
 					    requires: ['wire-base']
@@ -34,7 +25,7 @@ YUI().use(function(Y) {
 						requires: ['widget','widget-child','widget-position','widget-position-align','wire-base', 'wires-delegate']
 					},
 					'terminal-dragedit': {
-						requires: ['dd-drop', 'dd-drag','dd-proxy']
+						requires: ['bezier-wire', 'dd-drop', 'dd-drag','dd-proxy']
 					},
 					'terminal-scissors': {
 						requires: ['overlay']

@@ -25,16 +25,12 @@ Y.TerminalDragEdit.ATTRS = {
 		value: true
 	},
 	
-	/**
-	 * target node to render the wire to (generally set to the layer by the container)
-	 * @attribute editwire-parent
-	 */
-	"editwire-parent": {
-		value: document.body
-	},
-	
 	"editwire-class": {
 		value: Y.BezierWire
+	},
+	
+	graphic: {
+	   value: null
 	}
 	
 };
@@ -93,20 +89,34 @@ Y.TerminalDragEdit.prototype = {
 		
 		var dir = this.get('dir');
 		var that = this;
-		this.drag.wire = new Y.BezierWire({
-			
-			src: { 
-				getXY: function() { return [ev.pageX,ev.pageY]; }
-			},
-			tgt: { 
-				getXY: function() { return [that._magnetX || that._editwireX, that._magnetY || that._editwireY]; } 
-			},
-			
-			srcDir: dir,
-			tgtDir: [-dir[0],-dir[1]],
-			
-			render: this.get('root').get('contentBox') /*this.get('editwire-parent')*/
-		});
+		
+		if(!this.get('graphic')) {
+		   this.set('graphic', this.get('root').graphic);
+		}
+		
+		this.drag.wire = this.get('graphic').addShape({
+		   
+		   type: this.get('editwire-class'),
+		   
+		   // TODO: customizable
+		   stroke: {
+		      weight: 4,
+		   color: "rgb(173,216,230)" 
+           },
+           
+           src: { 
+  				getXY: function() { return [ev.pageX,ev.pageY]; }
+  			},
+  			tgt: { 
+  				getXY: function() { return [that._magnetX || that._editwireX, that._magnetY || that._editwireY]; } 
+  			},
+
+  			srcDir: dir,
+  			tgtDir: [-dir[0],-dir[1]]
+
+        });
+		
+		
 	},
 	
 	// Update the position of the fake target and redraw the wire
@@ -148,8 +158,19 @@ Y.TerminalDragEdit.prototype = {
 	_onDragEditExit: function(ev) {
 		this._magnetX = null;
 		this._magnetY = null;
+	},
+	
+	
+	destructor: function() {
+
+	   if(this.drag) {
+	      this.drag.destroy();
+	   }
+	   if(this.drop) {
+	      this.drop.destroy();
+	   }
 	}
 	
 };
 
-}, '3.5.1', {requires: ['dd-drop', 'dd-drag', 'dd-proxy']});
+}, '3.5.1', {requires: ['bezier-wire', 'dd-drop', 'dd-drag', 'dd-proxy']});

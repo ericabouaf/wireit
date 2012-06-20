@@ -2,7 +2,8 @@
  * @module bezier-wire
  */
 YUI.add('bezier-wire', function(Y) {
-	
+
+
 /**
  * Extend CanvasWire to draw a bezier curve using a canvas
  * @class BezierWire
@@ -10,12 +11,24 @@ YUI.add('bezier-wire', function(Y) {
  * @constructor
  * @param {Object} config the configuration for the BezierWire attributes
  */
-Y.BezierWire = Y.Base.create("bezier-wire", Y.CanvasWire, [], {
+//Y.BezierWire = Y.Base.create("bezier-wire", Y.CanvasWire, [], {
+   
+
+Y.BezierWire = function(cfg) {
+      Y.BezierWire.superclass.constructor.apply(this, arguments);
+      
+      this.draw();
+  };
+  Y.BezierWire.NAME = "arrow";
+  Y.extend(Y.BezierWire, Y.WireBase, {
+   
 	
 	/**
 	 * @method initializer
 	 */
 	initializer: function() {
+		
+		Y.BezierWire.superclass.initializer.apply(this, arguments);
 		
 		if(this.get('src') && this.get('src').get)
 			this.set('srcDir', this.get('src').get('dir') );
@@ -29,7 +42,7 @@ Y.BezierWire = Y.Base.create("bezier-wire", Y.CanvasWire, [], {
 	bindUI: function() {
 		Y.BezierWire.superclass.bindUI.call(this);
 		
-		this.after("bezierTangentNormChange", this._afterChangeRedraw, this);
+		//this.after("bezierTangentNormChange", this._afterChangeRedraw, this);
 		
 		this.on('srcChange', function(e) {
 			this.set('srcDir', e.newVal.get('dir') );
@@ -41,12 +54,41 @@ Y.BezierWire = Y.Base.create("bezier-wire", Y.CanvasWire, [], {
 		
 	},
 	
+	
+	
+     draw: function() {
+        
+        this.clear();
+        
+        var src = this.get('src').getXY();
+        var tgt = this.get('tgt').getXY();
+        
+        var srcDir = this.get('srcDir');
+        var tgtDir = this.get('tgtDir');
+        var bezierTangentNorm = this.get('bezierTangentNorm');
+         
+         var terminalSize = 14/2;
+         
+        this.moveTo(src[0]+terminalSize,src[1]+terminalSize);
+        
+        this.curveTo(src[0]+terminalSize+srcDir[0]*bezierTangentNorm,
+                     src[1]+terminalSize+srcDir[1]*bezierTangentNorm, 
+                     
+                     tgt[0]+terminalSize+tgtDir[0]*bezierTangentNorm,
+                     tgt[1]+terminalSize+tgtDir[1]*bezierTangentNorm, 
+                     
+                     tgt[0]+terminalSize,
+                     tgt[1]+terminalSize);
+        
+        this.end();
+     },
+	
 	/**
 	 * Draw the bezier curve.
 	 * The canvas is made bigger to contain the curls
 	 * @method draw
 	 */
-	draw: function() {
+	/*draw: function() {
 	
 		if(!this.get('canvas')) {
 			return;
@@ -121,8 +163,6 @@ Y.BezierWire = Y.Base.create("bezier-wire", Y.CanvasWire, [], {
 		
 		// TODO: extract: 
 		// Server-side
-		/*var Canvas = require('canvas'), canvas = new Canvas(300, 300), ctxt = canvas.getContext('2d');
-		this._ccc = canvas;*/
 		
 		for(i = 0 ; i<bezierPoints.length ; i++){
 			bezierPoints[i][0] = bezierPoints[i][0]-min[0];
@@ -147,13 +187,14 @@ Y.BezierWire = Y.Base.create("bezier-wire", Y.CanvasWire, [], {
 		ctxt.bezierCurveTo(bezierPoints[1][0],bezierPoints[1][1],bezierPoints[2][0],bezierPoints[2][1],bezierPoints[3][0],bezierPoints[3][1]);
 		ctxt.stroke();
 		
-	},
+	},*/
 	
 	SERIALIZABLE_ATTRS: ["color","width","bezierTangentNorm"]
 	
 });
 
-Y.BezierWire.ATTRS = {
+Y.BezierWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {
+//Y.BezierWire.ATTRS = {
 	
 	/** 
 	 * Norm of the tangeant vector at the endpoints.
@@ -192,6 +233,6 @@ Y.BezierWire.ATTRS = {
 		}
 	}
 
-};
+});
 
-}, '3.5.1', {requires: ['canvas-wire']});
+}, '3.5.1', {requires: ['wire-base']});

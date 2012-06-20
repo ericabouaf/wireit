@@ -456,5 +456,5 @@ Y.extend(Y.WireWire, Y.WireCanvasElement, {
 });
 
 }, '0.7.0',{
-  requires: ['canvas-node']
+  requires: ['']
 });
