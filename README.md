@@ -48,7 +48,7 @@ http://neyric.github.com/inputex/
 
 It is included in lib/inputex/ so that it easier for people to checkout the project
 
-## Developper
+## Developer
 
 * You should be able to serve those file locally (setup a local http server)
 
