@@ -60,4 +60,4 @@ Y.TerminalDDGroups.prototype = {
 	
 };
 
-}, '3.5.1', {requires: ['terminal-dragedit']});
+}, '3.6.0', {requires: ['terminal-dragedit']});

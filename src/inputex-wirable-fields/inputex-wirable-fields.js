@@ -59,4 +59,4 @@ inputEx.ListField.prototype.addElement = function(value) {
 };
 
 
-}, '3.5.1', {requires: ['inputex-wirable','inputex-group','inputex-string','inputex-list']});
+}, '3.6.0', {requires: ['inputex-wirable','inputex-group','inputex-string','inputex-list']});

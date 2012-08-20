@@ -90,4 +90,4 @@ Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
 });
 
 
-}, '3.5.1', {requires: ['container-base']});
+}, '3.6.0', {requires: ['container-base']});

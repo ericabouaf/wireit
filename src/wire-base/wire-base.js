@@ -129,4 +129,4 @@ WireBase.ATTRS = Y.merge(Y.Path.ATTRS, {
 
 Y.WireBase = WireBase;
 
-}, '3.5.1', {requires: ['graphics']});
+}, '3.6.0', {requires: ['graphics']});

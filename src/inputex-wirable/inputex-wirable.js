@@ -117,4 +117,4 @@ inputEx.Field.groupOptions = inputEx.BaseField.groupOptions.concat([
 	{ type: 'boolean', label: 'Wirable', name: 'wirable', value: false}
 ]);
 
-}, '3.5.1', {requires: ['terminal','inputex-field']});
+}, '3.6.0', {requires: ['terminal','inputex-field']});

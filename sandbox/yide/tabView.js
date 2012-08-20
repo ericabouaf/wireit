@@ -75,4 +75,4 @@ YUI.add('yide-tabview', function(Y) {
 
    Y.ide.register(tabView);
 
-}, '3.5.1', {requires: ['yide','event-delegate','tabview']});
+}, '3.6.0', {requires: ['yide','event-delegate','tabview']});

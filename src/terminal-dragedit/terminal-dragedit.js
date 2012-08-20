@@ -201,4 +201,4 @@ Y.TerminalDragEdit.prototype = {
 	
 };
 
-}, '3.5.1', {requires: ['bezier-wire', 'dd-drop', 'dd-drag', 'dd-proxy']});
+}, '3.6.0', {requires: ['bezier-wire', 'dd-drop', 'dd-drag', 'dd-proxy']});

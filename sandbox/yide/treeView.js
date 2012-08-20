@@ -33,4 +33,4 @@ YUI.add('yide-treeview', function(Y) {
 
    Y.ide.register(treeview);
 
-}, '3.5.1', {requires: ['yide', 'gallery-aui-tree-view']});
+}, '3.6.0', {requires: ['yide', 'gallery-aui-tree-view']});

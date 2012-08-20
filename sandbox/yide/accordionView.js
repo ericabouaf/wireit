@@ -113,4 +113,4 @@ YUI.add('yide-accordionview', function(Y) {
 
    Y.ide.register(accordionview);
 
-}, '3.5.1', {requires: ['yide', 'gallery-accordion-horiz-vert']});
+}, '3.6.0', {requires: ['yide', 'gallery-accordion-horiz-vert']});

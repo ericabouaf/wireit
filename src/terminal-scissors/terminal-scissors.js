@@ -46,4 +46,4 @@ Y.TerminalScissors.prototype = {
 	
 };
 
-}, '3.5.1', {requires: ['overlay']});
+}, '3.6.0', {requires: ['overlay']});

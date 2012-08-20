@@ -163,4 +163,4 @@ Y.FormContainer = Y.Base.create("form-container", Y.Container, [], {
    
 //});
 
-}, '3.5.1', {requires: ['container','inputex-wirable-fields']});
+}, '3.6.0', {requires: ['container','inputex-wirable-fields']});

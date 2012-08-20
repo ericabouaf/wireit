@@ -79,4 +79,4 @@ Y.StraightWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {
 
 });
 
-}, '3.5.1', {requires: ['wire-base']});
+}, '3.6.0', {requires: ['wire-base']});

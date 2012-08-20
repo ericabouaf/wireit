@@ -100,4 +100,4 @@ Y.InOutContainer = Y.Base.create("inout-container", Y.Container, [], {
 
 
 
-}, '3.5.1', { requires: ['container']} );
+}, '3.6.0', { requires: ['container']} );
