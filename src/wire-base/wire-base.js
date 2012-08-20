@@ -35,6 +35,14 @@ Y.extend(WireBase, Y.Path, {
       
       var src = this.get('src'), tgt = this.get('tgt');
       
+      if(src && src.get) {
+         this.set('srcDir', src.get('dir') );
+      }
+      
+      if(tgt && tgt.get) {
+         this.set('tgtDir', tgt.get('dir') );
+      }
+      
       if(src && Y.Lang.isFunction(src.addWire) ) {
          src.addWire(this);
       }
@@ -43,6 +51,26 @@ Y.extend(WireBase, Y.Path, {
       }
       
    },
+   
+   
+   /**
+    * @method bindUI
+    */
+   bindUI: function() {
+      Y.ArrowWire.superclass.bindUI.call(this);
+      
+      //this.after("bezierTangentNormChange", this._afterChangeRedraw, this);
+      
+      this.on('srcChange', function(e) {
+         this.set('srcDir', e.newVal.get('dir') );
+      }, this);
+      
+      this.on('tgtChange', function(e) {
+         this.set('tgtDir', e.newVal.get('dir') );
+      }, this);
+      
+   },
+   
    
    /**
     * call removeWire on WiringsDelegate
@@ -64,9 +92,10 @@ Y.extend(WireBase, Y.Path, {
    
    /**
     * Drawing method. Meant to be overriden by a plugin
-   * @method draw
+    * @method _draw
+    * @private
     */
-   draw: function() {
+   _draw: function() {
       //throw new Error("Y.Wire has no draw method. Consider using a plugin such as 'bezier-wire' in your YUI.use statement");
    },
    
@@ -84,7 +113,10 @@ Y.extend(WireBase, Y.Path, {
 
 
 WireBase.ATTRS = Y.merge(Y.Path.ATTRS, {
-
+   
+   /**
+    * @attribute src
+    */
    src: {
       value: null,
       setter: function(val) {
@@ -104,6 +136,9 @@ WireBase.ATTRS = Y.merge(Y.Path.ATTRS, {
       }
    },
    
+   /**
+    * @attribute tgt
+    */
    tgt: {
       value: null,
       setter: function(val) {
@@ -123,6 +158,33 @@ WireBase.ATTRS = Y.merge(Y.Path.ATTRS, {
          
          return val;
       }
+   },
+   
+   /**
+    * 
+    * @attribute srcDir
+    * @type Array
+    * @default [1,0]
+    */ 
+   srcDir: {
+      validator: Y.Lang.isArray,
+      value: [1,0]
+      // TODO: normalize ?
+   },
+   
+   /**
+    * TODO: normalize ?
+    * @attribute tgtDir
+    * @type Array
+    * @default -srcDir
+    */
+   tgtDir: {
+      validator: Y.Lang.isArray,
+      valueFn: function() {
+         var d = this.get('srcDir');
+         return [-d[0],-d[1]];
+      }
+      // TODO: normalize ?
    }
    
 });

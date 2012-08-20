@@ -19,35 +19,6 @@ Y.ArrowWire.NAME = "arrowwire";
 Y.extend(Y.ArrowWire, Y.WireBase, {
    
    /**
-    * @method initializer
-    */
-   initializer: function() {
-      Y.ArrowWire.superclass.initializer.apply(this, arguments);
-      if(this.get('src') && this.get('src').get)
-         this.set('srcDir', this.get('src').get('dir') );
-      if(this.get('tgt') && this.get('tgt').get)
-         this.set('tgtDir', this.get('src').get('dir') );
-   },
-   
-   /**
-    * @method bindUI
-    */
-   bindUI: function() {
-      Y.ArrowWire.superclass.bindUI.call(this);
-      
-      //this.after("bezierTangentNormChange", this._afterChangeRedraw, this);
-      
-      this.on('srcChange', function(e) {
-         this.set('srcDir', e.newVal.get('dir') );
-      }, this);
-      
-      this.on('tgtChange', function(e) {
-         this.set('tgtDir', e.newVal.get('dir') );
-      }, this);
-      
-   },  
-   
-   /**
     * @method _draw
     * @private
     */
@@ -139,34 +110,6 @@ Y.extend(Y.ArrowWire, Y.WireBase, {
    
 });
 
-Y.ArrowWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {
-   /**
-    * 
-    * @attribute srcDir
-    * @type Array
-    * @default [1,0]
-    */ 
-   srcDir: {
-      validator: Y.Lang.isArray,
-      value: [1,0]
-      // TODO: normalize ?
-   },
-   
-   /**
-    * TODO: normalize ?
-    * @attribute tgtDir
-    * @type Array
-    * @default -srcDir
-    */
-   tgtDir: {
-      validator: Y.Lang.isArray,
-      valueFn: function() {
-         var d = this.get('srcDir');
-         return [-d[0],-d[1]];
-      }
-      // TODO: normalize ?
-   }
-
-});
+Y.ArrowWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {});
 
 }, '3.6.0', {requires: ['wire-base']});

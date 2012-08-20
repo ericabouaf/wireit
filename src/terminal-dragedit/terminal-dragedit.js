@@ -131,7 +131,7 @@ Y.TerminalDragEdit.prototype = {
    _onDragEditDrag: function(ev) {
       this._editwireX = ev.pageX;
       this._editwireY = ev.pageY;
-      this.drag.wire.draw();
+      this.drag.wire._draw();
    },
    
    // on drop hit, set the wire src and tgt terminals

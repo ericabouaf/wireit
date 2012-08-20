@@ -1,3 +1,6 @@
+/**
+ * @module inputex-wirable
+ */
 YUI.add('inputex-wirable', function(Y) {
 
    var inputEx = Y.inputEx;

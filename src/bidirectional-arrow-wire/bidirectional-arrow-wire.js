@@ -3,41 +3,25 @@
  */
 YUI.add('bidirectional-arrow-wire', function(Y) {
 
-
+/**
+ * BidirectionalArrowWire
+ * @class BidirectionalArrowWire
+ * @extends WireBase
+ * @constructor
+ * @param {Object} config the configuration for the BezierWire attributes
+ */
 Y.BidirectionalArrowWire = function(cfg) {
-      Y.BidirectionalArrowWire.superclass.constructor.apply(this, arguments);      
+   Y.BidirectionalArrowWire.superclass.constructor.apply(this, arguments);
 };
- Y.BidirectionalArrowWire.NAME = "bidirectionalarrowwire";
-  Y.extend(Y.BidirectionalArrowWire, Y.WireBase, {
-  
-   /**
-    * @method initializer
-    */
-   initializer: function() {
-      Y.BidirectionalArrowWire.superclass.initializer.apply(this, arguments);
-      if(this.get('src') && this.get('src').get)
-         this.set('srcDir', this.get('src').get('dir') );
-      if(this.get('tgt') && this.get('tgt').get)
-         this.set('tgtDir', this.get('src').get('dir') );
-   },
+
+Y.BidirectionalArrowWire.NAME = "bidirectionalarrowwire";
+
+Y.extend(Y.BidirectionalArrowWire, Y.WireBase, {
    
    /**
-    * @method bindUI
+    * @method _draw
+    * @private
     */
-   bindUI: function() {
-      Y.BidirectionalArrowWire.superclass.bindUI.call(this);
-      
-      //this.after("bezierTangentNormChange", this._afterChangeRedraw, this);
-      
-      this.on('srcChange', function(e) {
-         this.set('srcDir', e.newVal.get('dir') );
-      }, this);
-      
-      this.on('tgtChange', function(e) {
-         this.set('tgtDir', e.newVal.get('dir') );
-      }, this);
-      
-   },     
    _draw: function() {
       
       var d = 7; // arrow width/2
@@ -168,32 +152,6 @@ Y.BidirectionalArrowWire = function(cfg) {
    
 });
 
-Y.BidirectionalArrowWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {
-   /**
-    * TODO: normalize ?
-    * @attribute srcDir
-    * @type Array
-    * @default [1,0]
-    */ 
-   srcDir: {
-      validator: Y.Lang.isArray,
-      value: [1,0]
-   },
-   
-   /**
-    * TODO: normalize ?
-    * @attribute tgtDir
-    * @type Array
-    * @default -srcDir
-    */
-   tgtDir: {
-      validator: Y.Lang.isArray,
-      valueFn: function() {
-         var d = this.get('srcDir');
-         return [-d[0],-d[1]];
-      }
-   }
-
-});
+Y.BidirectionalArrowWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {});
 
 }, '3.6.0', {requires: ['wire-base']});

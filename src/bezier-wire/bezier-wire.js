@@ -12,56 +12,20 @@ YUI.add('bezier-wire', function(Y) {
  * @param {Object} config the configuration for the BezierWire attributes
  */
 Y.BezierWire = function(cfg) {
-   
    Y.BezierWire.superclass.constructor.apply(this, arguments);
-   
-   this.draw();
 };
-
-// TODO: use Base.create
 
 Y.BezierWire.NAME = "bezierwire";
 
 Y.extend(Y.BezierWire, Y.WireBase, {
    
    /**
-    * @method initializer
-    */
-   initializer: function() {
-      
-      Y.BezierWire.superclass.initializer.apply(this, arguments);
-      
-      if(this.get('src') && this.get('src').get)
-         this.set('srcDir', this.get('src').get('dir') );
-      if(this.get('tgt') && this.get('tgt').get)
-         this.set('tgtDir', this.get('src').get('dir') );
-   },
-   
-   /**
-    * @method bindUI
-    */
-   bindUI: function() {
-      Y.BezierWire.superclass.bindUI.call(this);
-      
-      //this.after("bezierTangentNormChange", this._afterChangeRedraw, this);
-      
-      this.on('srcChange', function(e) {
-         this.set('srcDir', e.newVal.get('dir') );
-      }, this);
-      
-      this.on('tgtChange', function(e) {
-         this.set('tgtDir', e.newVal.get('dir') );
-      }, this);
-      
-   },
-   
-   
-   /**
     * Draw the bezier curve.
     * The canvas is made bigger to contain the curls
-    * @method draw
+    * @method _draw
+    * @method private
     */
-     draw: function() {
+    _draw: function() {
         
         this.clear();
         
@@ -95,7 +59,6 @@ Y.extend(Y.BezierWire, Y.WireBase, {
 });
 
 Y.BezierWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {
-//Y.BezierWire.ATTRS = {
    
    /** 
     * Norm of the tangeant vector at the endpoints.
@@ -108,30 +71,6 @@ Y.BezierWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {
          return parseInt(val, 10);
       },
       value: 200
-   },
-   /**
-    * TODO: normalize ?
-    * @attribute srcDir
-    * @type Array
-    * @default [1,0]
-    */ 
-   srcDir: {
-      validator: Y.Lang.isArray,
-      value: [1,0]
-   },
-   
-   /**
-    * TODO: normalize ?
-    * @attribute tgtDir
-    * @type Array
-    * @default -srcDir
-    */
-   tgtDir: {
-      validator: Y.Lang.isArray,
-      valueFn: function() {
-         var d = this.get('srcDir');
-         return [-d[0],-d[1]];
-      }
    }
 
 });

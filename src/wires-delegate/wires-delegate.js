@@ -115,7 +115,7 @@ Y.WiresDelegate.prototype = {
       
       if(this._wires) {
          Y.Array.each(this._wires, function(w) {
-            w.draw();
+            w._draw();
          });
       }
    },
