@@ -98,7 +98,7 @@ Y.Layout = {};
 	
 /** 
  * Spring Layout (TODO: use different eges k)
- * @class Y.Layout.Spring
+ * @class Layout.Spring
  * @constructor
  */
 Y.Layout.Spring = function(layer) {	

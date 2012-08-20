@@ -2,7 +2,7 @@
    
 /**
  * Handles a Group
- * @class Y.Group
+ * @class Group
  */    
 Y.Group = function(grouper, layer, serialisedGroup) {
 	

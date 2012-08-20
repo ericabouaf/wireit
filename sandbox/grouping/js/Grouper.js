@@ -1,7 +1,7 @@
 (function() {
 
 /**
- * @class Y.Grouper
+ * @class Grouper
  */    
 Y.Grouper = function (layer, baseConfigFunction) {
 	

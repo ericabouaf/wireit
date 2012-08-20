@@ -12,23 +12,23 @@ YUI.add('container', function(Y) {
  * @constructor
  */
 Y.Container = Y.Base.create("container", Y.ContainerBase, [Y.WidgetIcons], {
-	
-	_onCloseClick: function() {
-		this.destroy();
-	}
-	
+   
+   _onCloseClick: function() {
+      this.destroy();
+   }
+   
 }, {
-	
-	ATTRS: {
-		
-		icons: {
-			value: [
-			    {title: 'close', click: '_onCloseClick', className: 'ui-silk ui-silk-cancel'}
-			]
-		}
-		
-	}
-	
+   
+   ATTRS: {
+      
+      icons: {
+         value: [
+             {title: 'close', click: '_onCloseClick', className: 'ui-silk ui-silk-cancel'}
+         ]
+      }
+      
+   }
+   
 });
 
 }, '3.6.0', {requires: ['container-base', 'widget-icons']});

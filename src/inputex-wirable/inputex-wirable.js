@@ -63,31 +63,31 @@ Y.extend(inputEx.Field, inputEx.BaseField, {
       
     },
 
-	/**
-	 * Set the container for this field
-	 */
-	setContainer: function(container) {
-	   if(!this.options.container) {
-	      this.renderTerminal();
-	   }
-		this.options.container = container;
-		/*if(this.terminal) {
-			this.terminal.container = container;
-			if( Y.Array.indexOf(container.terminals, this.terminal) == -1 ) {
-				container.terminals.push(this.terminal);
-			}
-		}*/
-	},
+   /**
+    * Set the container for this field
+    */
+   setContainer: function(container) {
+      if(!this.options.container) {
+         this.renderTerminal();
+      }
+      this.options.container = container;
+      /*if(this.terminal) {
+         this.terminal.container = container;
+         if( Y.Array.indexOf(container.terminals, this.terminal) == -1 ) {
+            container.terminals.push(this.terminal);
+         }
+      }*/
+   },
 
-	/**
-	 * also change the terminal name when changing the field name
-	 */
-	setFieldName: function(name) {
-		if(this.terminal) {
-			this.terminal.name = name;
-			this.terminal.el.title = name;
-		}
-	},
+   /**
+    * also change the terminal name when changing the field name
+    */
+   setFieldName: function(name) {
+      if(this.terminal) {
+         this.terminal.name = name;
+         this.terminal.el.title = name;
+      }
+   },
 
     /**
      * Remove the input wired state on the 
@@ -114,7 +114,7 @@ Y.extend(inputEx.Field, inputEx.BaseField, {
 });
 
 inputEx.Field.groupOptions = inputEx.BaseField.groupOptions.concat([
-	{ type: 'boolean', label: 'Wirable', name: 'wirable', value: false}
+   { type: 'boolean', label: 'Wirable', name: 'wirable', value: false}
 ]);
 
 }, '3.6.0', {requires: ['terminal','inputex-field']});

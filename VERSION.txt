@@ -2,9 +2,9 @@
 To get the latest version, please visit http://neyric.github.com/wireit
 ---------------------------------------------------------------------------
 
-Version 3.0.0pr1
+Version 3.0.0pr2
 
 Changeset:
 
- * Complete rewrite of WireIt using YUI 3.5.1
+ * Complete rewrite of WireIt using YUI 3.6.0
 

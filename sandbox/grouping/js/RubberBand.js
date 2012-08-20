@@ -2,7 +2,7 @@
 
 /**
  * A CanvasElement widget to hand-draw a selection
- * @class Y.RubberBand
+ * @class RubberBand
  * @extends CanvasElement
  */
 Y.RubberBand = function(grouper) {

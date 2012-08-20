@@ -11,32 +11,32 @@ YUI.add('layer', function(Y) {
  * @uses WiresDelegate
  */
 Y.Layer = Y.Base.create("layer", Y.Widget, [Y.WidgetParent, Y.WiresDelegate], {
-	
-	initializer: function() {
-	   
-	   this.graphic = new Y.Graphic({render: this.get('contentBox') }); 
-	   
-	},
-	
-	
-	/**
-	 * Alias method for WidgetParent.removeAll
-	 * @method clear
-	 */
-	clear: function() {
-		this.removeAll();
-	}
-	
+   
+   initializer: function() {
+      
+      this.graphic = new Y.Graphic({render: this.get('contentBox') }); 
+      
+   },
+   
+   
+   /**
+    * Alias method for WidgetParent.removeAll
+    * @method clear
+    */
+   clear: function() {
+      this.removeAll();
+   }
+   
 }, {
-	
-	ATTRS: {
-		
-		defaultChildType: {
-			value: 'Container'
-		}
-		
-	}
-	
+   
+   ATTRS: {
+      
+      defaultChildType: {
+         value: 'Container'
+      }
+      
+   }
+   
 });
 
 }, '3.6.0', {requires: ['widget-parent','container','wires-delegate']});

@@ -16,22 +16,22 @@ Y.TerminalInput = function(parentEl, options, container) {
    Y.TerminalInput.superclass.constructor.call(this,parentEl, options, container);
 };
 Y.extend(Y.TerminalInput, Y.Terminal, {
-	
-	/**
-	 * @attribute nMaxWires
-	 * @description maximum number of wires for this terminal
-	 * @type Integer
-	 * @default 1
-	 */
-	nMaxWires: 1,
-	
-	/**
-	 * @attribute ddConfig
-	 * @description configuration of the Y.TerminalProxy object
-	 * @type Object
-	 * @default { type: "input", allowedTypes: ["output"] }
-	 */
-	ddConfig: { type: "input", allowedTypes: ["output"] }
+   
+   /**
+    * @attribute nMaxWires
+    * @description maximum number of wires for this terminal
+    * @type Integer
+    * @default 1
+    */
+   nMaxWires: 1,
+   
+   /**
+    * @attribute ddConfig
+    * @description configuration of the Y.TerminalProxy object
+    * @type Object
+    * @default { type: "input", allowedTypes: ["output"] }
+    */
+   ddConfig: { type: "input", allowedTypes: ["output"] }
 });
 
 }, '0.7.0',{
