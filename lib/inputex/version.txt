@@ -9,10 +9,13 @@
 Release Notes:
 ==============
 
-3.0.1:  not released yet
-------
+3.1.0 : August, 17th 2012
+-------
+
   * features:
     * email field: add option to exclude emails with disposable domains (@trashmail.net, a.s.o)
+    * new image cropper field
+    * new sortable lists with drag and drop
     
   * bug fixes:
     * email field: fix several bugs with fixdomain option
@@ -21,7 +24,25 @@ Release Notes:
     * form ajax headers
     * inputEx.use : using "type" as default module name
     * css fixes to use unprefixed "border-radius" and "box-shadow" rules (firefox 13)
+    * background-position on the ColorField button
+    * treeField : migrate formatValue syntax to visuType: "func" ...
+    * lenses : fix some html parsing errors
+    * panel : favicon now disapear as all others components
+    * JSON schema *: a module wa fix a dead links missing
+    * I18N : fix the example
 
+  * migration of YUI2 to YUI3 3.6.0
+    * id's generation fixed by using Y.guid
+    * string-availability module has been added with example
+    * inputex-linkedcombo (formely inputex-selecttwice) has been added with example
+    * DataTable plugin has been migrated  
+
+  * deleted item(s)
+    * inputex-colorpicker
+
+  * yuidoc update
+  * TinyMCE editor v3.5.6 is now supported
+  * Google Maps api v3 is now supported
 
 3.0.0a : August, 19th 2011
 --------

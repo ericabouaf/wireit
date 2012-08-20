@@ -11,7 +11,7 @@
 div.inputEx-ColorField button {
     background-image: url(palette.png);
     
-   background-position: 3px 0;
+   /*background-position: 3px 0;*/
    background-repeat: no-repeat;
    margin-left: 2px;
 }

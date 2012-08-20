@@ -26,11 +26,11 @@ div.inputEx-fieldWrapper div.availabilityDiv.available div.icon {
 	background: transparent url(tick.gif) no-repeat 0 3px;
 }
 
+div.inputEx-fieldWrapper div.availabilityDiv.fail div.icon,
 div.inputEx-fieldWrapper div.availabilityDiv.unavailable div.icon {
 	display:block;
 	background: transparent url(exclamation.gif) no-repeat 0 3px;
 }
-
 
 div.inputEx-fieldWrapper div.availabilityDiv div.text {
 	float:left;
@@ -40,6 +40,7 @@ div.inputEx-fieldWrapper div.availabilityDiv div.text {
 	font-weight:bold;
 }
 
+div.inputEx-fieldWrapper div.availabilityDiv.fail div.text,
 div.inputEx-fieldWrapper div.availabilityDiv.unavailable div.text,
 div.inputEx-fieldWrapper div.availabilityDiv.required div.text{
 	color:#C00E0C;

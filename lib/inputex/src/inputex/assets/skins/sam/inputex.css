@@ -458,3 +458,27 @@ tbody.yui-dt-data div.inputEx-dtInPlaceEdit-deleteLinkSpinner{
 .yui-dt-editor .yui-dt-button button {
   width: auto;
 }
+
+/* InputEx ImageCropper Field */
+
+.inputEx-ImageCropperField-wrapper {
+  position: relative;
+  line-height: 0;
+}
+
+.inputEx-ImageCropperField-mask {
+  position: absolute;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  opacity: .5;
+  background: #000;
+  cursor: crossHair;
+}
+.inputEx-ImageCropperField-mask-border {
+  border: 1px solid black;
+  box-shadow: 0 0 16px rgba(255,255,255,.5);
+  position: absolute;
+  cursor: move;
+  /* IE doesn't handle event with empty transparent div, adding à transparent gif solves the problem  */
+  background: transparent url(images/space.gif);
+}
