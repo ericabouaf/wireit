@@ -51,6 +51,6 @@ Y.extend(Y.TerminalOutput, Y.Terminal, {
    
 });
 
-}, '0.7.0',{
+}, '3.6.0',{
   requires: ['terminal']
 });

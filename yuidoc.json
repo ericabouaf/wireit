@@ -1,7 +1,7 @@
 {
     "name": "WireIt",
     "description": "WireIt",
-    "version": "3.0.0pr1",
+    "version": "3.0.0pr2",
     "url": "http://neyric.github.com/wireit",
     "options": {
         "linkNatives": "true",

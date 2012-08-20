@@ -7,30 +7,13 @@ YUI.add("textarea-container", function(Y){
  * Form container for a single textarea field which is resizeable. 
  * Important: this class takes the exact same arguments as the FormContainer !
  * You still need to specify the "fields".
- * @class WireTextareaContainer
- * @extends WireFormContainer
+ * @class TextareaContainer
+ * @extends FormContainer
  * @constructor
  * @param {Object}   options  Configuration object (see properties)
- * @param {Layer}   layer The Y.Layer (or subclass) instance that contains this container
  */
 
 Y.TextareaContainer = Y.Base.create("textarea-container", Y.Container, [], {
-   
-   
-   
-   /**
-    * @method renderUI
-    */
-   /*renderUI: function() {
-      Y.TextareaContainer.superclass.renderUI.call(this);
-      this._renderTextarea();
-   },
-   
-   
-   _renderTextarea: function() {
-      
-      
-   },*/
    
    SERIALIZABLE_ATTRS: Y.Container.prototype.SERIALIZABLE_ATTRS.concat(['value'])
    
@@ -48,13 +31,17 @@ Y.TextareaContainer = Y.Base.create("textarea-container", Y.Container, [], {
    
    ATTRS: {
       
+      /**
+       * Value of the textarea
+       * @attribute value
+       */
       value: {
          getter: function() {
             return this.getStdModNode(Y.WidgetStdMod.BODY).one('textarea').get('value');
          },
          
          setter: function(value) {
-            this.set('bodyContent', '<textarea>'+value+'</textarea>')
+            this.set('bodyContent', '<textarea>'+value+'</textarea>');
          }
       },
       
@@ -64,12 +51,8 @@ Y.TextareaContainer = Y.Base.create("textarea-container", Y.Container, [], {
        */
       bodyContent: {
          value: '<textarea />'
-      },
-      
-      
-      resizable: {
-         value: false
       }
+      
    }
    
 });

@@ -1,5 +1,5 @@
 /**
- * @module straight-wire
+ * @module arrow-wire
  */
 YUI.add('arrow-wire', function(Y) {
 

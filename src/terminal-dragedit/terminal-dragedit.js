@@ -4,6 +4,7 @@
 YUI.add('terminal-dragedit', function(Y) {
 
 /**
+ * Extension which makes the wires editable
  * @class TerminalDragEdit
  * @constructor
  * @param {Object} config configuration object
@@ -33,9 +34,16 @@ Y.TerminalDragEdit.ATTRS = {
       value: true
    },
    
+   /**
+    * @attribute graphic
+    */
    graphic: {
       value: null
    },
+   
+   /**
+    * @attribute alwaysSrc
+    */
    alwaysSrc: {
       value: false
    }
@@ -43,6 +51,9 @@ Y.TerminalDragEdit.ATTRS = {
 
 Y.TerminalDragEdit.prototype = {
    
+   /**
+    * @method _renderUIdragedit
+    */
    _renderUIdragedit: function() {
       
       if( this.get('editable') ) {
@@ -71,6 +82,9 @@ Y.TerminalDragEdit.prototype = {
       
    },
    
+   /**
+    * @method _bindUIdragedit
+    */
    _bindUIdragedit: function() {
       var drag = this.drag;
       if(drag) {
@@ -127,14 +141,22 @@ Y.TerminalDragEdit.prototype = {
       
    },
    
-   // Update the position of the fake target and redraw the wire
+   /**
+    * Update the position of the fake target and redraw the wire
+    * @method _onDragEditDrag
+    * @private
+    */
    _onDragEditDrag: function(ev) {
       this._editwireX = ev.pageX;
       this._editwireY = ev.pageY;
       this.drag.wire._draw();
    },
    
-   // on drop hit, set the wire src and tgt terminals
+   /**
+    * on drop hit, set the wire src and tgt terminals
+    * @method _onDragEditDrophit
+    * @private
+    */
    _onDragEditDrophit: function(ev) {
       
       if( this.isValidWireTerminal(ev.drop.terminal) ) {
@@ -157,13 +179,18 @@ Y.TerminalDragEdit.prototype = {
       }
    },
    
-   // on drop miss, destroy the wire
-   
+   /**
+    * on drop miss, destroy the wire
+    * @method _onDragEditDropmiss
+    */
    _onDragEditDropmiss: function(ev) {
       this.drag.wire.destroy();
       this.drag.wire = null;
    },
    
+   /**
+    * @method _onDragEditEnter
+    */
    _onDragEditEnter: function(ev) {
       
          var pos = ev.drop.terminal.getXY();
@@ -175,10 +202,17 @@ Y.TerminalDragEdit.prototype = {
       
    },
    
+   /**
+    * @method _onDragEditExit
+    */
    _onDragEditExit: function(ev) {
       this._magnetX = null;
       this._magnetY = null;
    },
+   
+   /**
+    * @method isValidWireTerminal
+    */
    isValidWireTerminal: function(DDterminal) {
      if(this.get('parent') !== undefined && (this.get('parent').get('preventSelfWiring'))){
         if (DDterminal._parentNode._node == this._parentNode._node) {
@@ -188,9 +222,11 @@ Y.TerminalDragEdit.prototype = {
       return true;
    },
    
-   
+   /**
+    * @method destructor
+    */
    destructor: function() {
-
+      
       if(this.drag) {
          this.drag.destroy();
       }

@@ -4,6 +4,7 @@
 YUI.add('terminal-ddgroups', function(Y) {
 
 /**
+ * Extension to add "groups" labels when hovering the terminal
  * @class TerminalDDGroups
  * @constructor
  * @param {Object} config configuration object

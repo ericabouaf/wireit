@@ -34,6 +34,6 @@ Y.extend(Y.TerminalInput, Y.Terminal, {
    ddConfig: { type: "input", allowedTypes: ["output"] }
 });
 
-}, '0.7.0',{
+}, '3.6.0',{
   requires: ['terminal']
 });
