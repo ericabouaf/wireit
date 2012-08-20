@@ -1,5 +1,4 @@
 YUI().use(function(Y) {
-   
 	var CONFIG = {
 		groups: {
 			'wireit': {
@@ -15,6 +14,15 @@ YUI().use(function(Y) {
 					'bezier-wire': {
 					    requires: ['wire-base']
 					},
+					'straight-wire': {
+					    requires: ['wire-base']
+					},
+					'arrow-wire': {
+					    requires: ['wire-base']
+					},
+					'bidirectional-arrow-wire': {
+					    requires: ['wire-base']
+					},
 					'wires-delegate': {
 					    requires: ['wire-base']
 					},
@@ -25,7 +33,7 @@ YUI().use(function(Y) {
 						requires: ['widget','widget-child','widget-position','widget-position-align','wire-base', 'wires-delegate']
 					},
 					'terminal-dragedit': {
-						requires: ['bezier-wire', 'dd-drop', 'dd-drag','dd-proxy']
+						requires: ['bezier-wire', 'straight-wire','arrow-wire','bidirectional-arrow-wire', 'dd-drop', 'dd-drag','dd-proxy']
 					},
 					'terminal-scissors': {
 						requires: ['overlay']

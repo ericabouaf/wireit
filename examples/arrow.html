@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>Arrow Wire test</title>
+<script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-debug.js"></script>
+<script type="text/javascript" src="../src/loader.js"></script>
+</head>
+<body>
+  
+ 
+<div style="position: relative;" id="layer"></div>
+
+<script>
+
+YUI_config.groups.wireit.base = '../src/';
+
+YUI({combine: false, filter: 'raw'}).use('arrow-wire', function(Y) {
+
+    var mygraphic = new Y.Graphic({render: "#layer"}); 
+        // 
+        var wire = mygraphic.addShape({
+           type: Y.ArrowWire,
+           stroke: {
+               weight: 4,
+               color: "rgb(173,216,230)" 
+           },
+           src: {
+             getXY: function() {
+               return [300,50];
+             }
+           },
+           tgt: {
+             getXY: function() {
+               return [700,250];
+             }
+           }
+        });
+}); 
+
+/* YUI().use('graphics', function (Y) 
+    { 
+
+        var mygraphic = new Y.Graphic({render: "#layer"}),
+            connector = mygraphic.addShape({
+                                type: "path",
+                                stroke: {
+                                        weight: 4,
+                                        color: "red",
+                                }
+            });
+
+        connector.moveTo(450, 60);
+        connector.lineTo(450, 220);
+        connector.end();
+
+    }); */
+</script>
+</body>
+</html>

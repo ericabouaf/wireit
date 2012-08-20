@@ -166,6 +166,10 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
 				var top = this.get('boundingBox').getStyle('top');
 				return parseInt(top.substr(0,top.length-2),10);
 			}
+		},
+		
+		preventSelfWiring: {
+			value: true
 		}
 		
 	},

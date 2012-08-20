@@ -4,69 +4,79 @@
 YUI.add('straight-wire', function(Y) {
 
 
-// TODO: like BezierWire
+//Y.StraightWire = Y.Base.create("straight-wire", Y.CanvasWire, [], {
 
-Y.StraightWire = Y.Base.create("straight-wire", Y.CanvasWire, [], {
+Y.StraightWire = function(cfg) {
+      Y.StraightWire.superclass.constructor.apply(this, arguments);      
+};
+ Y.StraightWire.NAME = "straightwire";
+  Y.extend(Y.StraightWire, Y.WireBase, {
+  
+	/**
+	 * @method initializer
+	 */
+	initializer: function() {
+		Y.StraightWire.superclass.initializer.apply(this, arguments);
+		if(this.get('src') && this.get('src').get)
+			this.set('srcDir', this.get('src').get('dir') );
+		if(this.get('tgt') && this.get('tgt').get)
+			this.set('tgtDir', this.get('src').get('dir') );
+	},
 	
-	draw: function() {
+	/**
+	 * @method bindUI
+	 */
+	bindUI: function() {
+		Y.StraightWire.superclass.bindUI.call(this);
 		
-		var w = this.get('host');
+		//this.after("bezierTangentNormChange", this._afterChangeRedraw, this);
 		
-		//console.log("Straight draw");
-		var src = w.get('src'), tgt = w.get('tgt');
-		if( !src || !tgt) {
-			return;
-		}
+		this.on('srcChange', function(e) {
+			this.set('srcDir', e.newVal.get('dir') );
+		}, this);
 		
-		var margin = [4,4];
+		this.on('tgtChange', function(e) {
+			this.set('tgtDir', e.newVal.get('dir') );
+		}, this);
 		
-		// Get the positions of the terminals
-		var p1 = src.getXY();
-		var p2 = tgt.getXY();
+	},	  
+	_draw: function() {
+		var src = this.get('src').getXY();
+        var tgt = this.get('tgt').getXY();
 		
-		p1[0]+=15;p1[1]+=15;p2[0]+=15;p2[1]+=15;
-		
-		var min=[ Math.min(p1[0],p2[0])-margin[0], Math.min(p1[1],p2[1])-margin[1]];
-		var max=[ Math.max(p1[0],p2[0])+margin[0], Math.max(p1[1],p2[1])+margin[1]];
-		
-		// Store the min, max positions to display the label later
-		w.min = min;
-		w.max = max;      
-		
-		// Redimensionnement du canvas
-		var lw=Math.abs(max[0]-min[0]);
-		var lh=Math.abs(max[1]-min[1]);
-		
-		// Convert points in canvas coordinates
-		p1[0] = p1[0]-min[0];
-		p1[1] = p1[1]-min[1];
-		p2[0] = p2[0]-min[0];
-		p2[1] = p2[1]-min[1];
-		
-		w.set('xy', [ min[0],min[1] ]);
-		this.get('canvas').resize(lw,lh);
-		
-		var ctxt=this.get('canvas').getContext();
-		
-		// Draw the border
-		ctxt.lineCap=this.get('cap');
-		ctxt.strokeStyle=this.get('bordercolor');
-		ctxt.lineWidth=this.get('linewidth')+this.get('borderwidth')*2;
-		ctxt.beginPath();
-		ctxt.moveTo(p1[0],p1[1]);
-		ctxt.lineTo(p2[0],p2[1]);
-		ctxt.stroke();
-		
-		// Draw the inner bezier curve
-		ctxt.lineCap=this.get('cap');
-		ctxt.strokeStyle=this.get('color');
-		ctxt.lineWidth=this.get('linewidth');
-		ctxt.beginPath();
-		ctxt.moveTo(p1[0],p1[1]);
-		ctxt.lineTo(p2[0],p2[1]);
-		ctxt.stroke();
+		this.moveTo((src[0]+6), (src[1]+6));
+        this.lineTo((tgt[0]+6), (tgt[1]+6));
+        this.end();
 	}
 	
+});
+
+Y.StraightWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {
+	/**
+	 * TODO: normalize ?
+	 * @attribute srcDir
+	 * @type Array
+	 * @default [1,0]
+	 */ 
+	srcDir: {
+		validator: Y.Lang.isArray,
+		value: [1,0]
+	},
+	
+	/**
+	 * TODO: normalize ?
+	 * @attribute tgtDir
+	 * @type Array
+	 * @default -srcDir
+	 */
+	tgtDir: {
+		validator: Y.Lang.isArray,
+		valueFn: function() {
+			var d = this.get('srcDir');
+			return [-d[0],-d[1]];
+		}
+	}
+
 });
 
 }, '3.5.1', {requires: ['wire-base']});

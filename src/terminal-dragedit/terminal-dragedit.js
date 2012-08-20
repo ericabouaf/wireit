@@ -12,7 +12,15 @@ Y.TerminalDragEdit = function(config) {
 
 	Y.after(this._renderUIdragedit, this, "renderUI");
 	Y.after(this._bindUIdragedit, this, "bindUI");
-	
+	var attrs = {
+		"color":{value:"rgb(173,216,230)"},
+		"weight":{value:4},
+		"opacity":{value:1},
+		"dashstyle":{value:"none"},
+		"fill":{value:"rgb(255,255,255)"},
+		"editwire-class": {value: Y.BezierWire}
+	};
+	this.addAttrs(attrs, config);	
 };
 
 Y.TerminalDragEdit.ATTRS = {
@@ -25,14 +33,12 @@ Y.TerminalDragEdit.ATTRS = {
 		value: true
 	},
 	
-	"editwire-class": {
-		value: Y.BezierWire
-	},
-	
 	graphic: {
 	   value: null
+	},
+	alwaysSrc: {
+	   value: false
 	}
-	
 };
 
 Y.TerminalDragEdit.prototype = {
@@ -82,7 +88,6 @@ Y.TerminalDragEdit.prototype = {
 	 * @method _onDragEditStart
 	 */
 	_onDragEditStart: function(ev) {
-		
 		// save the position
 		this._editwireX = ev.pageX;
 		this._editwireY = ev.pageY;
@@ -100,8 +105,11 @@ Y.TerminalDragEdit.prototype = {
 		   
 		   // TODO: customizable
 		   stroke: {
-		      weight: 4,
-		   color: "rgb(173,216,230)" 
+		      weight: this.get('weight'),
+			  color: this.get('color'),
+			  opacity:this.get('opacity'),
+			  dashstyle:this.get('dashstyle'),
+			  fill:this.get('fill')
            },
            
            src: { 
@@ -128,15 +136,25 @@ Y.TerminalDragEdit.prototype = {
 	
 	// on drop hit, set the wire src and tgt terminals
 	_onDragEditDrophit: function(ev) {
-		this.drag.wire.set('src', this);
-		this.drag.wire.set('tgt', ev.drop.terminal);
 		
-		// Remove the reference to this wire
-		this.drag.wire = null;
-		
-		// Reset the magnet position
-		this._magnetX = null;
-		this._magnetY = null;
+		if( this.isValidWireTerminal(ev.drop.terminal) ) {
+			if(ev.drop.terminal.alwaysSrc){
+				this.drag.wire.set('src', ev.drop.terminal);
+				this.drag.wire.set('tgt', this);
+			}else{
+				this.drag.wire.set('src', this);
+				this.drag.wire.set('tgt', ev.drop.terminal);
+			}
+			
+			// Remove the reference to this wire
+			this.drag.wire = null;
+			
+			// Reset the magnet position
+			this._magnetX = null;
+			this._magnetY = null;
+		} else {
+			this.drag.wire.destroy();
+		}
 	},
 	
 	// on drop miss, destroy the wire
@@ -147,18 +165,28 @@ Y.TerminalDragEdit.prototype = {
 	},
 	
 	_onDragEditEnter: function(ev) {
-		var pos = ev.drop.terminal.getXY();
-		this._magnetX = pos[0];
-		this._magnetY = pos[1];
 		
-		// TODO: this only works for Bezier...
-		this.drag.wire.set('tgtDir', ev.drop.terminal.get('dir'));
+			var pos = ev.drop.terminal.getXY();
+			this._magnetX = pos[0];
+			this._magnetY = pos[1];
+			
+			// TODO: this only works for Bezier...
+			this.drag.wire.set('tgtDir', ev.drop.terminal.get('dir'));
+		
 	},
 	
 	_onDragEditExit: function(ev) {
 		this._magnetX = null;
 		this._magnetY = null;
 	},
+   isValidWireTerminal: function(DDterminal) {
+	  if(this.get('parent') != undefined && (this.get('parent').get('preventSelfWiring'))){
+		  if (DDterminal._parentNode._node == this._parentNode._node) {
+			return false;
+		  } 
+	  }
+      return true;
+   },
 	
 	
 	destructor: function() {
