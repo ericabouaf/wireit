@@ -1,0 +1,10 @@
+{
+    "name": "layer",
+    "builds": {
+        "layer": {
+            "jsfiles": [
+                "layer.js"
+            ]
+        }
+    }
+}

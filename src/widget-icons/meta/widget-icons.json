@@ -1,0 +1,7 @@
+{
+            "widget-icons": {
+                "requires": [
+                    "silk-sprites"
+                ]
+            }
+         }

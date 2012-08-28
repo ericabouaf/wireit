@@ -1,7 +1,6 @@
 /**
  * @module arrow-wire
  */
-YUI.add('arrow-wire', function(Y) {
 
 /**
  * Extend CanvasWire to draw an arrow wire
@@ -111,5 +110,3 @@ Y.extend(Y.ArrowWire, Y.WireBase, {
 });
 
 Y.ArrowWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {});
-
-}, '3.6.0', {requires: ['wire-base']});

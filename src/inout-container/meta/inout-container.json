@@ -1,0 +1,5 @@
+{
+   "inout-container": {
+      "requires": ["container"]
+   }
+}

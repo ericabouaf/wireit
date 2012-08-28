@@ -1,0 +1,10 @@
+{
+    "name": "straight-wire",
+    "builds": {
+        "straight-wire": {
+            "jsfiles": [
+                "straight-wire.js"
+            ]
+        }
+    }
+}

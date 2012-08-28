@@ -1,0 +1,10 @@
+{
+    "name": "wire-base",
+    "builds": {
+        "wire-base": {
+            "jsfiles": [
+                "wire-base.js"
+            ]
+        }
+    }
+}

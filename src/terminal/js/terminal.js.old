@@ -1,0 +1,481 @@
+YUI.add("terminal", function (Y){
+
+/**
+ * Terminals represent the end points of the "wires"
+ * @class Terminal
+ * @constructor
+ * @param {HTMLElement} parentEl Element that will contain the terminal
+ * @param {Object} options Configuration object
+ * @param {Container} container (Optional) Container containing this terminal
+ */
+Y.Terminal = function (parentEl, options, container) {
+
+	/**
+    * @attribute name
+	 * @description Name of the terminal
+    * @type String
+    * @default null
+    */
+	this.name = null;
+
+   /**
+    * @attribute parentEl
+	 * @description DOM parent element
+    * @type DOMElement
+    */
+   this.parentEl = parentEl;
+   
+   /**
+    * @attribute container
+	 * @description Container (optional). Parent container of this terminal
+    * @type Y.Container
+    */
+   this.container = container;
+   
+   /**
+    * @attribute wires
+	 * @description List of the associated wires
+    * @type Array
+    */
+    this.wires = [];
+   
+   
+   this.setOptions(options);
+   
+   /**
+    * Event that is fired when a wire is added
+    * You can register this event with myTerminal.on('eventAddWire',function (e,params) { var wire=params[0];}, scope);
+    * @event eventAddWire
+    */
+   this.publish('eventAddWire');
+   
+   /**
+    * Event that is fired when a wire is removed
+    * You can register this event with myTerminal.on('eventRemoveWire', function (e,params) { var wire=params[0];}, scope);
+    * @event eventRemoveWire
+    */
+   this.publish('eventRemoveWire');
+   
+   /**
+    * DIV dom element that will display the Terminal
+    * @attribute el
+    * @type {HTMLElement}
+    */
+   this.el = null;
+   
+   
+   this.render();
+   
+   // Create the TerminalProxy object to make the terminal editable
+   if(this.editable) {
+      
+      // Make this terminal a drop target
+      /*var drop = new Y.DD.Drop({ node: this.el });
+      
+      //this.dd = new Y.TerminalProxy(this, this.ddConfig);
+      */
+      
+      this._makeEditable();
+      
+      this.scissors = new Y.WireScissors(this);
+   }
+};
+
+Y.Terminal.prototype = {
+
+   
+	_makeEditable: function () {
+		
+		// Make the contentBox draggable with a DDProxy
+		var drag = new Y.DD.Drag({ 
+			node: this.el, //this.get('contentBox'),
+         groups: ['terminal'] // TODO: this.get('groups')
+		}).plug(Y.Plugin.DDProxy, {
+			cloneNode: true,
+			moveOnEnd: false
+		});
+		
+		var that = this, x, y, magnetX, magnetY;
+		
+		// on drag start, create the wire between 2 fake terminals
+		drag.on('drag:start', function (ev) {
+			// save the position
+			x = ev.pageX;	y = ev.pageY;
+			//console.log("drag:start");
+			
+			drag.wire = new Y.BezierWire(
+			   { 
+			      getXY: function () {	return [ev.pageX,ev.pageY]; }, 
+			      addWire: function () {},
+			      direction: this.direction
+			   } ,
+		    	{ 
+		    	   getXY: function () {	return [magnetX || x, magnetY || y]; }, 
+		    	   addWire: function () {} ,
+			      direction: [0,1] // TODO
+		    	}, 
+		    	document.body 
+		    	
+		    	/*,
+				plugins: [ 
+		        {fn: Y.WireBezierPlugin, cfg:{bezierTangentNorm:300} }
+		    	]*/
+		  	);
+			
+			// Render the wire into the layer contentBox
+			//drag.wire.render( document.body ); // that.get('parent').get('parent').get('contentBox')
+			
+		}, this);
+		
+		// on drag, redraw the wire
+		drag.on('drag:drag', function (ev) {
+			x = ev.pageX;
+			y = ev.pageY;
+			drag.wire.draw();
+		});
+		// on drop hit, set the wire src and tgt terminals
+		drag.on('drag:drophit', function (ev) {
+			//drag.wire.set('src', that);
+			//drag.wire.set('tgt', ev.drop.terminal);
+			drag.wire.terminal1 = that;
+			drag.wire.terminal2 = ev.drop.terminal;
+		});
+		// on drop miss, destroy the wire
+		drag.on('drag:dropmiss', function (ev) {
+			drag.wire.destroy();
+			drag.wire = null;
+		});
+		drag.on('drag:enter', function (ev) {
+			var pos = ev.drop.terminal.getXY();
+			magnetX = pos[0];
+			magnetY = pos[1];
+		});
+		drag.on('drag:exit', function (ev) {
+			magnetX = null;
+			magnetY = null;
+		});
+		
+		this.drag = drag;
+		
+		
+		// Create the Drop object
+		var drop = new Y.DD.Drop({
+			node: this.el, //this.get('contentBox'),
+			groups: ['terminal'] // TODO: this.get('groups')
+		});
+		drop.terminal = this;
+		this.drop = drop;
+	},
+
+	/** 
+    * @attribute xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.Terminal"
+    * @type String
+    */
+   xtype: "Y.Terminal",
+
+	/**
+    * @attribute direction
+	 * @description direction vector of the wires when connected to this terminal
+    * @type Array
+    * @default [0,1]
+    */
+	direction: [0,1],
+	
+	/**
+    * @attribute fakeDirection
+	 * @description direction vector of the "editing" wire when it started from this terminal
+    * @type Array
+    * @default [0,-1]
+    */
+	fakeDirection: [0,-1],
+
+	/**
+    * @attribute editable
+	 * @description boolean that makes the terminal editable
+    * @type Boolean
+    * @default true
+    */
+	editable: true,
+	
+	/**
+    * @attribute nMaxWires
+	 * @description maximum number of wires for this terminal
+    * @type Integer
+    * @default Infinity
+    */
+	nMaxWires: Infinity,
+
+	/**
+    * @attribute wireConfig
+	 * @description Options for the wires connected to this terminal
+    * @type Object
+    * @default {}
+    */
+	wireConfig: {},
+	
+	/**
+    * @attribute editingWireConfig
+	 * @description Options for the wires connected to this terminal
+    * @type Object
+    * @default {}
+    */
+	editingWireConfig: {},
+	
+	/** 
+    * @attribute className
+    * @description CSS class name for the terminal element
+    * @default "WireIt-Terminal"
+    * @type String
+    */
+	className: "WireIt-Terminal",
+	
+	/** 
+    * @attribute connectedClassName
+    * @description CSS class added to the terminal when it is connected
+    * @default "WireIt-connected"
+    * @type String
+    */
+	connectedClassName: "WireIt-Terminal-connected",
+	
+	/** 
+    * @attribute dropinviteClassName
+    * @description CSS class added for drop invitation
+    * @default "WireIt-dropinvite"
+    * @type String
+    */
+	dropinviteClassName: "WireIt-Terminal-dropinvite",
+
+	/** 
+    * @attribute offsetPosition
+    * @description offset position from the parentEl position. Can be an array [top,left] or an object {left: 100, bottom: 20} or {right: 10, top: 5} etc...
+    * @default null
+    * @type Array
+    */
+	offsetPosition: null,
+	
+	/**
+    * @attribute alwaysSrc
+	 * @description forces this terminal to be the src terminal in the wire config
+    * @type Boolean
+    * @default false
+    */
+	alwaysSrc: false,
+	
+	/**
+    * @attribute ddConfig
+	 * @description configuration of the Y.TerminalProxy object
+    * @type Object
+    * @default {}
+    */
+	ddConfig: false,
+
+
+   /**
+    * Set the options by putting them in this (so it overrides the prototype default)
+    * @method setOptions
+    */
+   setOptions: function (options) {
+      for(var k in options) {
+			if( options.hasOwnProperty(k) ) {
+				this[k] = options[k];
+			}
+		}
+		
+		// Set fakeDirection to the opposite of direction
+		if(options.direction && !options.fakeDirection) {
+			this.fakeDirection = [ -options.direction[0], -options.direction[1] ];
+		}
+		
+		// Set the editingWireConfig to the wireConfig if specified
+		if(options.wireConfig && !options.editingWireConfig) {
+			this.editingWireConfig = this.wireConfig;
+		}
+   },
+
+   /**
+    * Show or hide the drop invitation. (by adding/removing this.options.dropinviteClassName CSS class)
+    * @method setDropInvitation
+    * @param {Boolean} display Show the invitation if true, hide it otherwise
+    */
+   setDropInvitation: function (display) {
+      if(display) {
+         Y.one(this.el).addClass(this.dropinviteClassName);
+      }
+      else {
+         Y.one(this.el).removeClass(this.dropinviteClassName);
+      }
+   },
+
+   /**
+    * Render the DOM of the terminal
+    * @method render
+    */
+   render: function () {
+   
+      // Create the DIV element
+      this.el = Y.WireIt.cn('div', {className: this.className} );
+      if(this.name) { this.el.title = this.name; }
+
+      // Set the offset position
+      this.setPosition(this.offsetPosition);
+   
+      // Append the element to the parent
+      this.parentEl.appendChild(this.el);
+   },
+
+	/**
+	 * Set the position of the terminal with the given pos
+	 * @param {Object | Array} pos The position. It can be used in two ways: setPosition({left: 10, top: 10}) or setPosition([10, 10]) or setPosition({bottom: 10, right: 10})
+	 */
+   setPosition: function (pos) {
+		if(pos) {
+			// Clear the current position
+			this.el.style.left = "";
+			this.el.style.top = "";
+			this.el.style.right = "";
+			this.el.style.bottom = "";
+	    
+			// Kept old version [x,y] for retro-compatibility
+			if( Y.Lang.isArray(pos) ) {
+				this.el.style.left = pos[0]+"px";
+				this.el.style.top = pos[1]+"px";
+			}
+			// New version: {top: 32, left: 23}
+			else if( Y.Lang.isObject(pos) ) {
+				for(var key in pos) {
+					if(pos.hasOwnProperty(key) && pos[key] !== ""){ //This will ignore the number 0 since 0 == "" in javascript (firefox 3.0
+						this.el.style[key] = pos[key]+"px";
+					}
+				}
+			}
+		}
+	},
+    
+   /**
+    * Add a wire to this terminal.
+    * @method addWire
+    * @param {Wire} wire Wire instance to add
+    */
+   addWire: function (wire) {
+   
+      this.wires.push(wire);
+   
+      Y.one(this.el).addClass(this.connectedClassName);
+   
+      this.fire('eventAddWire', wire);
+   },
+
+   /**
+    * Remove a wire
+    * @method removeWire
+    * @param {Wire} wire Wire instance to remove
+    */
+   removeWire: function (wire) {
+      var index = Y.Array.indexOf(this.wires, wire);
+      if( index != -1 ) {
+         
+         this.wires[index].destroy();
+         
+         this.wires[index] = null;
+         this.wires = Y.Wirecompact(this.wires);
+      
+         // Remove the connected class if it has no more wires:
+         if(this.wires.length === 0) {
+            Y.one(this.el).removeClass(this.connectedClassName);
+         }
+      
+         // Fire the event
+         this.fire('eventRemoveWire', wire);
+      }
+   },
+
+   /**
+    * This function is a temporary test. I added the border width while traversing the DOM and
+    * I calculated the offset to center the wire in the terminal just after its creation
+    * @method getXY
+    */
+   getXY: function () {
+   
+      var layerEl = this.container && this.container.layer ? this.container.layer.el : document.body;
+
+      var obj = this.el;
+		var curleft = 0, curtop = 0;
+		if (obj.offsetParent) {
+			do {
+				curleft += obj.offsetLeft;
+				curtop += obj.offsetTop;
+				obj = obj.offsetParent;
+		  } while ( !!obj && obj != layerEl && !Y.one(obj).hasClass("WireIt-Layer"));
+		}
+
+		return [curleft+15,curtop+15];
+   },
+
+   /**
+    * Remove the terminal from the DOM
+    * @method remove
+    */
+   remove: function () {
+      // This isn't very nice but...
+      // the method Wire.remove calls Terminal.removeWire to remove the reference
+      while(this.wires.length > 0) {
+         this.wires[0].remove();
+      }
+      this.parentEl.removeChild(this.el);
+      
+      // Remove all event listeners
+      // TODO: YAHOO.util.Event.purgeElement(this.el);
+      
+      // Remove scissors widget
+      if(this.scissors) {
+         // TODO: YAHOO.util.Event.purgeElement(this.scissors.get('element'));
+      }
+      
+   },
+
+   /**
+    * Returns a list of all the terminals connecter to this terminal through its wires.
+    * @method getConnectedTerminals
+    * @return  {Array}  List of all connected terminals
+    */
+   getConnectedTerminals: function () {
+      var terminalList = [];
+      if(this.wires) {
+         for(var i = 0 ; i < this.wires.length ; i++) {
+            terminalList.push(this.wires[i].getOtherTerminal(this));
+         }
+      }
+      return terminalList;
+   },
+
+   /**
+    * Redraw all the wires connected to this terminal
+    * @method redrawAllWires
+    */
+   redrawAllWires: function () {
+      if(this.wires) {
+         for(var i = 0 ; i < this.wires.length ; i++) {
+            this.wires[i].redraw();
+         }
+      }
+   },
+   
+   /** 
+    * Remove all wires
+    * @method removeAllWires
+    */
+   removeAllWires: function () {
+      while(this.wires.length > 0) {
+         this.wires[0].remove();
+      }
+   }
+
+};
+
+Y.augment(Y.Terminal, Y.EventTarget);
+
+}, '0.7.0',{
+  requires: ['dd-drop','wire-base','terminal-proxy','scissors']
+});

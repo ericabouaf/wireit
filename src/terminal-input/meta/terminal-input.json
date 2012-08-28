@@ -1,0 +1,7 @@
+{
+            "terminal-input": {
+                "requires": [
+                    "terminal"
+                ]
+            }
+         }

@@ -1,0 +1,5 @@
+{
+   "image-container": {
+      "requires": ["container-base"]
+   }
+}

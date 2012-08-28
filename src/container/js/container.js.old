@@ -1,0 +1,631 @@
+YUI.add("container", function (Y){
+
+   var CSS_PREFIX = "WireIt-";
+   
+/**
+ * Visual module that contains terminals. The wires are updated when the module is dragged around.
+ * @class Container
+ * @constructor
+ * @param {Object}   options      Configuration object (see options property)
+ * @param {Layer}   layer The Y.Layer (or subclass) instance that contains this container
+ */
+Y.Container = function (options, layer) {
+   
+   // Set the options
+   this.setOptions(options);
+   
+   /**
+    * the Y.Layer object that schould contain this container
+    * @attribute layer
+    * @type {WireIt.Layer}
+    */
+   this.layer = layer;
+   
+   /**
+    * List of the terminals 
+    * @attribute terminals
+    * @type {Array}
+    */
+   this.terminals = [];
+   
+   /**
+    * List of all the wires connected to this container terminals
+    * @attribute wires
+    * @type {Array}
+    */
+   this.wires = [];
+   
+   /**
+    * Container DOM element
+    * @attribute el
+    * @type {HTMLElement}
+    */
+   this.el = null;
+   
+   /**
+    * Body element
+    * @attribute bodyEl
+    * @type {HTMLElement}
+    */
+   this.bodyEl = null;
+   
+   /**
+    * Event that is fired when a wire is added
+    * You can register this event with myContainer.on('eventAddWire', function (e,params) { var wire=params[0];}, scope);
+    * @event eventAddWire
+    */
+   //this.publish('eventAddWire');
+   this.eventAddWire = {fire: function () {}};
+   
+   /**
+    * Event that is fired when a wire is removed
+    * You can register this event with myContainer.on('eventRemoveWire', function (e,params) { var wire=params[0];}, scope);
+    * @event eventRemoveWire
+    */
+   //this.publish('eventRemoveWire');
+    this.eventRemoveWire = {fire: function () {}};
+   
+	/**
+    * Event that is fired when the container is focused
+    * You can register this event with myContainer.on('eventFocus', function (e,params) { }, scope);
+    * @event eventFocus
+    */
+   //this.publish('eventFocus');
+     this.eventFocus = {fire: function () {}};
+   
+	/**
+    * Event that is fired when the container loses focus
+    * You can register this event with myContainer.on('eventBlur', function (e,params) { }, scope);
+    * @event eventBlur
+    */
+   //this.publish('eventBlur');
+      this.eventBlur = {fire: function () {}};
+   
+   // Render the div object
+   this.render();
+   
+   // Init the terminals
+	if( options.terminals ) {
+		this.initTerminals( options.terminals);
+	}
+
+	// Make the container resizable
+	if(this.resizable) {
+		this.makeResizable();
+	}   
+
+	// Make the container draggable
+	if(this.draggable) {
+		this.makeDraggable();
+   }
+   
+};
+
+
+Y.Container.prototype = {
+
+	/** 
+    * @attribute xtype
+    * @description String representing this class for exporting as JSON
+    * @default "WireIt.Container"
+    * @type String
+    */
+   xtype: "Y.Container",
+
+	/** 
+    * @attribute draggable
+    * @description boolean that enables drag'n drop on this container
+    * @default true
+    * @type Boolean
+    */
+	draggable: true,
+	
+	/** 
+    * @attribute position
+    * @description initial position of the container
+    * @default [100,100]
+    * @type Array
+    */
+	position: [100,100],
+
+	/** 
+    * @attribute className
+    * @description CSS class name for the container element
+    * @default "WireIt-Container"
+    * @type String
+    */
+	className: CSS_PREFIX+"Container",
+
+	/** 
+    * @attribute ddHandle
+    * @description (only if draggable) boolean indicating we use a handle for drag'n drop
+    * @default true
+    * @type Boolean
+    */
+	ddHandle: true,
+	
+	/** 
+    * @attribute ddHandleClassName
+    * @description CSS class name for the drag'n drop handle
+    * @default "WireIt-Container-ddhandle"
+    * @type String
+    */
+	ddHandleClassName: CSS_PREFIX+"Container-ddhandle",
+
+	/** 
+    * @attribute resizable
+    * @description boolean that makes the container resizable
+    * @default true
+    * @type Boolean
+    */
+	resizable: true,
+
+	/** 
+    * @attribute resizeHandleClassName
+    * @description CSS class name for the resize handle
+    * @default "WireIt-Container-resizehandle"
+    * @type String
+    */
+	resizeHandleClassName: CSS_PREFIX+"Container-resizehandle",
+
+	/** 
+    * @attribute close
+    * @description display a button to close the container
+    * @default true
+    * @type Boolean
+    */
+	close: true,
+	
+	/** 
+    * @attribute closeButtonClassName
+    * @description CSS class name for the close button
+    * @default "WireIt-Container-closebutton"
+    * @type String
+    */
+	closeButtonClassName: CSS_PREFIX+"Container-closebutton",
+	
+	/** 
+    * @attribute groupable
+    * @description option to add the grouping button
+    * @default true
+    * @type Boolean
+    */
+	groupable: true,
+	
+	/** 
+    * @attribute preventSelfWiring
+    * @description option to prevent connections between terminals of this same container
+    * @default true
+    * @type Boolean
+    */
+   preventSelfWiring: true,
+
+	/** 
+    * @attribute title
+    * @description text that will appear in the module header
+    * @default null
+    * @type String
+    */
+	title: null,
+
+	/** 
+    * @attribute icon
+    * @description image url to be displayed in the module header
+    * @default null
+    * @type String
+    */
+	icon: null,
+
+	/** 
+    * @attribute width
+    * @description initial width of the container
+    * @default null
+    * @type Integer
+    */
+	width: null,
+	
+	/** 
+    * @attribute height
+    * @description initial height of the container
+    * @default null
+    * @type Integer
+    */
+	height: null,
+	
+
+   /**
+    * Set the options by putting them in this (so it overrides the prototype default)
+    * @method setOptions
+    */
+   setOptions: function (options) {
+      for(var k in options) {
+			if( options.hasOwnProperty(k) ) {
+				this[k] = options[k];
+			}
+		}
+   },
+
+	/**
+	 * Use the DDResize utility to make container resizable while redrawing the connected wires
+	 */
+	makeResizable: function () {
+		// TODO: this.ddResize = new Y.Wireutil.DDResize(this);
+		//this.ddResize.on('eventResize', this.onResize, this, true);
+	},
+	
+  /**
+   * Adjust XY constraints
+   */
+  setXYContraints: function () {
+      if(this.layer) {
+          var layerPos = Y.one(this.layer.el).getXY();
+          var pos = Y.one(this.el).getXY();
+          // remove the layer position to the container position            
+          this.dd.setXConstraint(pos[0] - layerPos[0]);
+          this.dd.setYConstraint(pos[1] - layerPos[1]);
+      }
+      // FIXME: what if there's no layer?
+  },
+
+  // TODO !!
+  on: function () {},
+
+	/**
+	 * Use the DD utility to make container draggable while redrawing the connected wires
+	 */
+	makeDraggable: function () {
+	   // TODO !
+		// Use the drag'n drop utility to make the container draggable
+	   /*this.dd = new Y.Wireutil.DD(this.terminals,this.el);
+
+     // set the XY constraints that limit the drag area      
+     Y.on('windowresize', this.setXYContraints, this, true);   
+     this.setXYContraints();
+	
+		// Set minimum constraint on Drag Drop to the top left corner of the layer (minimum position is 0,0)
+		this.dd.setXConstraint(this.position[0]);
+		this.dd.setYConstraint(this.position[1]);
+	   
+	   // Sets ddHandle as the drag'n drop handle
+	   if(this.ddHandle) {
+			this.dd.setHandleElId(this.ddHandle);
+	   }
+	   
+	   // Mark the resize handle as an invalid drag'n drop handle and vice versa
+	   if(this.resizable) {
+			this.dd.addInvalidHandleId(this.ddResizeHandle);
+			this.ddResize.addInvalidHandleId(this.ddHandle);
+	   }*/
+	},
+
+   /**
+    * Function called when the container is being resized.
+    * It sets the size of the body element of the container
+    * @method onResize
+    */
+   onResize: function (event, args) {
+      var size = args[0];
+		// TODO: do not hardcode those sizes !!
+      Y.Wiresn(this.bodyEl, null, {width: (size[0]-14)+"px", height: (size[1]-( this.ddHandle ? 44 : 14) )+"px"});
+   },
+
+   /**
+    * Render the dom of the container
+    * @method render
+    */
+   render: function () {
+   
+      // Create the element
+      this.el = Y.WireIt.cn('div', {className: this.className});
+   
+      if(this.width) {
+         this.el.style.width = this.width+"px";
+      }
+      if(this.height) {
+         this.el.style.height = this.height+"px";
+      }
+   
+      // Adds a handler for mousedown so we can notice the layer
+      Y.one(this.el).on("mousedown", this.onMouseDown, this, true);
+   
+      if(this.ddHandle) {
+         // Create the drag/drop handle
+			this.ddHandle = Y.WireIt.cn('div', {className: this.ddHandleClassName});
+			this.el.appendChild(this.ddHandle);
+
+         // Icon
+         if (this.icon) {
+            var iconCn = Y.WireIt.cn('img', {src: this.icon, className: 'WireIt-Container-icon'});
+            this.ddHandle.appendChild(iconCn);
+         }
+
+         // Set title
+         if(this.title) {
+            this.ddHandle.appendChild( Y.WireIt.cn('span', {className: 'floatleft'}, null, this.title) );
+         }
+         
+      }
+   
+      // Create the body element
+      this.bodyEl = Y.WireIt.cn('div', {className: "body"});
+      this.el.appendChild(this.bodyEl);
+   
+      if(this.resizable) {
+         // Create the resize handle
+			this.ddResizeHandle = Y.WireIt.cn('div', {className: this.resizeHandleClassName} );
+			this.el.appendChild(this.ddResizeHandle);
+      }
+
+      if(this.close) {
+         // Close button
+         this.closeButton = Y.WireIt.cn('div', {className: this.closeButtonClassName} );
+			if (this.ddHandle) {
+				this.ddHandle.appendChild(this.closeButton);
+			}
+			else {
+				this.el.appendChild(this.closeButton);
+			}
+         Y.one(this.closeButton).on("click", this.onCloseButton, this, true);
+      }
+      
+      if(this.groupable && this.ddHandle) {
+         this.groupButton = Y.WireIt.cn('div', {className: 'WireIt-Container-groupbutton'} );
+			this.ddHandle.appendChild(this.groupButton);
+         Y.one(this.groupButton).on("click", this.onGroupButton, this, true);
+      }   
+      // Append to the layer element
+      this.layer.el.appendChild(this.el);
+   
+		// Set the position
+		this.el.style.left = this.position[0]+"px";
+		this.el.style.top = this.position[1]+"px";
+   },
+
+   /**
+    * Sets the content of the body element
+    * @method setBody
+    * @param {String or HTMLElement} content
+    */
+   setBody: function (content) {
+      if(typeof content == "string") {
+         this.bodyEl.innerHTML = content;
+      }
+      else {
+         this.bodyEl.innerHTML = "";
+         this.bodyEl.appendChild(content);
+      }
+   },
+
+   /**
+    * Called when the user made a mouse down on the container and sets the focus to this container (only if within a Layer)
+    * @method onMouseDown
+    */
+   onMouseDown: function (event) {
+      if(this.layer) {
+         if(this.layer.focusedContainer && this.layer.focusedContainer != this) {
+            this.layer.focusedContainer.removeFocus();
+         }
+         this.setFocus();
+         this.layer.focusedContainer = this;
+      }
+   },
+
+   /**
+    * Adds the class that shows the container as "focused"
+    * @method setFocus
+    */
+   setFocus: function () {
+      Y.one(this.el).addClass(CSS_PREFIX+"Container-focused");
+      
+      this.eventFocus.fire(this);
+   },
+
+   /**
+    * Remove the class that shows the container as "focused"
+    * @method removeFocus
+    */
+   removeFocus: function () {
+      Y.one(this.el).removeClass(CSS_PREFIX+"Container-focused");
+      
+      this.eventBlur.fire(this);
+   },
+
+   /**
+    * Called when the user clicked on the close button
+    * @method onCloseButton
+    */
+   onCloseButton: function (e, args) {
+      e.stop();
+      this.layer.removeContainer(this);
+   },
+
+	/**
+	 * TODO
+	 */
+   highlight: function () {
+		this.el.style.border = "2px solid blue";
+   },
+
+	/**
+	 * TODO
+	 */
+   dehighlight: function () {
+		this.el.style.border = "";
+   },
+   
+ 	/**
+ 	 * TODO
+    */
+   superHighlight: function () {
+		this.el.style.border = "4px outset blue";
+    },
+  
+
+   /**
+    * Remove this container from the dom
+    * @method remove
+    */
+   remove: function () {
+      // Remove the terminals (and thus remove the wires)
+      this.removeAllTerminals();
+   
+      // Remove from the dom
+      this.layer.el.removeChild(this.el);
+      
+      // Remove all event listeners
+      // TODO: YAHOO.util.Event.purgeElement(this.el);
+   },
+
+   /**
+    * Call the addTerminal method for each terminal configuration.
+    * @method initTerminals
+    */
+   initTerminals: function (terminalConfigs) {
+      for(var i = 0 ; i < terminalConfigs.length ; i++) {
+         this.addTerminal(terminalConfigs[i]);
+      }
+   },
+
+
+   /**
+    * Instanciate the terminal from the class pointer "xtype" (default Y.Terminal)
+    * @method addTerminal
+    * @return {WireIt.Terminal}  terminal Created terminal
+    */
+   addTerminal: function (terminalConfig) {
+
+   	var klass = Y.WireterminalClassFromXtype(terminalConfig.xtype);
+
+      // Instanciate the terminal
+      var term = new klass(this.el, terminalConfig, this);
+   
+      // Add the terminal to the list
+      this.terminals.push( term );
+   
+      // Event listeners
+      term.on('eventAddWire', this.onAddWire, this, true);
+      term.on('eventRemoveWire', this.onRemoveWire, this, true);
+   
+      return term;
+   },
+
+   /**
+    * This method is called when a wire is added to one of the terminals
+    * @method onAddWire
+    * @param {Event} event The eventAddWire event fired by the terminal
+    * @param {Array} args This array contains a single element args[0] which is the added Wire instance
+    */
+   onAddWire: function (event, args) {
+      var wire = args[0];
+      // add the wire to the list if it isn't in
+      if( Y.Array.indexOf(this.wires, wire) == -1 ) {
+         this.wires.push(wire);
+         this.eventAddWire.fire(wire);
+      } 
+   },
+
+   /**
+    * This method is called when a wire is removed from one of the terminals
+    * @method onRemoveWire
+    * @param {Event} event The eventRemoveWire event fired by the terminal
+    * @param {Array} args This array contains a single element args[0] which is the removed Wire instance
+    */
+   onRemoveWire: function (event, args) {
+      var wire = args[0];
+      var index = Y.Array.indexOf(this.wires, wire);
+      if( index != -1 ) {
+         this.eventRemoveWire.fire(wire);
+         this.wires[index] = null;
+      }
+      this.wires = Y.Wirecompact(this.wires);
+   },
+
+   /**
+    * Remove all terminals
+    * @method removeAllTerminals
+    */
+   removeAllTerminals: function () {
+      for(var i = 0 ; i < this.terminals.length ; i++) {
+         this.terminals[i].remove();
+      }
+      this.terminals = [];
+   },
+
+   /**
+    * Redraw all the wires connected to the terminals of this container
+    * @method redrawAllTerminals
+    */
+   redrawAllWires: function () {
+      for(var i = 0 ; i < this.terminals.length ; i++) {
+         this.terminals[i].redrawAllWires();
+      }
+   },
+
+	/**
+	 * Get the position relative to the layer (if any)
+	 * @method getXY
+	 * @return Array position
+	 */
+	getXY: function () {
+		var position = Y.one(this.el).getXY();
+      if(this.layer) {
+         // remove the layer position to the container position
+         var layerPos = Y.one(this.layer.el).getXY();
+         position[0] -= layerPos[0];
+         position[1] -= layerPos[1];
+         // add the scroll position of the layer to the container position
+         position[0] += this.layer.el.scrollLeft;
+         position[1] += this.layer.el.scrollTop;
+      }
+
+		return position;
+	},
+
+   /**
+    * Return the config of this container.
+    * @method getConfig
+    */
+   getConfig: function () {   
+      return {
+			position: this.getXY(),
+			xtype: this.xtype
+		};
+   },
+   
+   /**
+    * Subclasses should override this method.
+    * @method getValue
+    * @return {Object} value
+    */
+   getValue: function () {
+      return {};
+   },
+
+   /**
+    * Subclasses should override this method.
+    * @method setValue
+    * @param {Any} val Value 
+    */
+   setValue: function (val) {
+   },
+   
+   
+   /**
+    * @method getTerminal
+    */
+   getTerminal: function (name) {
+      var term;
+      for(var i = 0 ; i < this.terminals.length ; i++) {
+         term = this.terminals[i];
+         if(term.name == name) {
+            return term;
+         }
+      }
+      return null;
+   }
+
+};
+
+}, '0.7.0',{
+  requires: ['terminal']
+});

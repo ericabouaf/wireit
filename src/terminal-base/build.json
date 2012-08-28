@@ -1,0 +1,10 @@
+{
+    "name": "terminal-base",
+    "builds": {
+        "terminal-base": {
+            "jsfiles": [
+                "terminal-base.js"
+            ]
+        }
+    }
+}

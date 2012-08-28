@@ -1,0 +1,10 @@
+{
+    "name": "wireit-app",
+    "builds": {
+        "wireit-app": {
+            "jsfiles": [
+                "wireit-app.js"
+            ]
+        }
+    }
+}

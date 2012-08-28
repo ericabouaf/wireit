@@ -1,0 +1,10 @@
+{
+    "name": "terminal-input",
+    "builds": {
+        "terminal-input": {
+            "jsfiles": [
+                "terminal-input.js"
+            ]
+        }
+    }
+}

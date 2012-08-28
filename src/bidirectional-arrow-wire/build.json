@@ -1,0 +1,10 @@
+{
+    "name": "bidirectional-arrow-wire",
+    "builds": {
+        "bidirectional-arrow-wire": {
+            "jsfiles": [
+                "./js/bidirectional-arrow-wire.js"
+            ]
+        }
+    }
+}

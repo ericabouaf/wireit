@@ -1,0 +1,10 @@
+{
+    "name": "terminal-scissors",
+    "builds": {
+        "terminal-scissors": {
+            "jsfiles": [
+                "terminal-scissors.js"
+            ]
+        }
+    }
+}

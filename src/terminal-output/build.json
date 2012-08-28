@@ -1,0 +1,10 @@
+{
+    "name": "terminal-output",
+    "builds": {
+        "terminal-output": {
+            "jsfiles": [
+                "terminal-output.js"
+            ]
+        }
+    }
+}
