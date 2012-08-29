@@ -1,19 +1,28 @@
 {
     "name"       : "bezier-wire",
     "displayName": "BezierWire",
-    "description": "A bezier Wire",
+    "description": "A curvy Wire",
     "author"     : "neyric",
 
-    "tags": ["widget", "icons"],
+    "tags": ["wire", "bezier"],
     "use" : ["bezier-wire"],
 
     "examples": [
         {
-            "name"       : "example",
-            "displayName": "Basic Local Data",
-            "description": "How to provide autocomplete suggestions from a local array.",
-            "modules"    : ["autocomplete"],
-            "tags"       : ["autocomplete"],
+            "name"       : "bezier-basic",
+            "displayName": "Basic BezierWire usage",
+            "description": "How to instantiate a BezierWire.",
+            "modules"    : ["bezier-wire"],
+            "tags"       : ["wire"],
+
+            "hideTableOfContents": true
+        },
+        {
+            "name"       : "bezier-styling",
+            "displayName": "Styling BezierWire",
+            "description": "How to set the styles of a BezierWire.",
+            "modules"    : ["bezier-wire"],
+            "tags"       : ["wire"],
 
             "hideTableOfContents": true
         }

@@ -28,7 +28,7 @@
             "widget-child",
             "dd",
             "resize",
-            "terminal-base",
+            "terminal",
             "wires-delegate"
         ]
     },

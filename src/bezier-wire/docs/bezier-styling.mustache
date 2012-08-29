@@ -1,0 +1,77 @@
+<div class="intro">
+<p>
+This example demonstrates how to style an {{displayName}}.
+</p>
+</div>
+
+<div class="example">
+    
+<div id="attributes">
+ 
+   <p id="color">
+     color: <button id="red">red</button> <button id="yellow">yellow</button> <button id="blue">blue</button> <button id="rgb(173,216,230)">rgb(173,216,230)</button>
+   </p>
+
+   <p id="weight">
+     weight: <button id="1">1</button> <button id="2">2</button> <button id="3">3</button> <button id="4">4</button> <button id="5">5</button>
+   </p>
+
+   <p id="opacity">
+     opacity: <button id="1">1</button> <button id="0.8">0.8</button> <button id="0.6">0.6</button> <button id="0.4">0.4</button> <button id="0.2">0.2</button> <button id="0">0</button>
+   </p>
+  
+   <p id="dashstyle">
+     dashstyle: <button id="none">none</button> <button id="[{0:'5',1:'4'}]">Dashed [5,4]</button><button id="[{0:'1',1:'3'}]">Dashed [1,3]</button>
+   </p>
+
+   <p id="fillcolor">
+     fill color: <button id="none">none</button> <button id="red">red</button> <button id="yellow">yellow</button> <button id="blue">blue</button> <button id="rgb(173,216,230)">rgb(173,216,230)</button>
+   </p>
+
+</div>
+  
+<div style="position: relative; width: 500px; height: 277px;" id="layer"></div>
+
+    <script>
+{{>bezier-styling-code}}
+    </script>
+</div>
+
+<h2>HTML</h2>
+
+```
+<div id="attributes">
+ 
+   <p id="color">
+     color: <button id="red">red</button> <button id="yellow">yellow</button> <button id="blue">blue</button> <button id="rgb(173,216,230)">rgb(173,216,230)</button>
+   </p>
+
+   <p id="weight">
+     weight: <button id="1">1</button> <button id="2">2</button> <button id="3">3</button> <button id="4">4</button> <button id="5">5</button>
+   </p>
+
+   <p id="opacity">
+     opacity: <button id="1">1</button> <button id="0.8">0.8</button> <button id="0.6">0.6</button> <button id="0.4">0.4</button> <button id="0.2">0.2</button> <button id="0">0</button>
+   </p>
+  
+   <p id="dashstyle">
+     dashstyle: <button id="none">none</button> <button id="[{0:'5',1:'4'}]">Dashed [5,4]</button><button id="[{0:'1',1:'3'}]">Dashed [1,3]</button>
+   </p>
+
+   <p id="fillcolor">
+     fill color: <button id="none">none</button> <button id="red">red</button> <button id="yellow">yellow</button> <button id="blue">blue</button> <button id="rgb(173,216,230)">rgb(173,216,230)</button>
+   </p>
+
+</div>
+  
+<div style="position: relative; width: 500px; height: 277px;" id="layer"></div>
+```
+
+<h2>JavaScript</h2>
+
+
+<h3>Implementation</h3>
+
+```
+{{>bezier-styling-code}}
+```

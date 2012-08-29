@@ -1,0 +1,86 @@
+<h2>Getting Started</h2>
+
+<p>WireIt is a library, so it is meant to be used by developers. Here are some of the prerequisites before starting to use the library :</p>
+
+<ul>
+   <li>You should be able to serve the files locally (setup a local HTTP server or embed into your application)</li>
+   <li>Have a good knowledge of Javascript</li>
+   <li>Have a good knowledge of the <a href="http://yuilibrary.com/">YUI library</a></li>
+   <li>It is strongly recommanded to have Node.js installed</li>
+</ul>
+
+
+<h3>Building components</h3>
+
+<p>We use <a href="http://davglass.github.com/shifter/">shifter</a> to build WireIt's modules.</p>
+
+<p>To install shifter :</p>
+
+```terminal
+$ [sudo] npm install -g shifter
+```
+
+<p>To build the 'container' module :</p>
+
+```terminal
+$ cd src/container
+$ shifter
+```
+
+<p>To build all modules at once :</p>
+
+```terminal
+$ cd src
+$ shifter --walk
+```
+
+<p>WARNING: to build the wireit-loader module, you will need to use the --no-jsstamp option :</p>
+
+```terminal
+$ cd src/wireit-loader
+$ shifter --no-jsstamp
+```
+
+<h3>Building user guides and examples pages</h3>
+
+<p>We are using <a href="http://rgrove.github.com/selleck/">selleck</a> to build the examples and user guide pages.</p>
+
+
+<p>To install shifter :</p>
+
+```terminal
+$ [sudo] npm install -g selleck
+```
+
+<p>To build all docs :</p>
+
+```terminal
+$ selleck --out docs
+```
+
+<h3>Building the API documentation</h3>
+
+<p>The API documentation is build using <a href="https://github.com/yui/yuidoc">YUIDocJS</a>.</p>
+
+
+<p>To install YUIDocJS :</p>
+
+```terminal
+$ [sudo] npm install -g yuidocjs
+```
+
+<p>From the main directory, type :</p>
+
+```terminal
+$ yuidoc src
+```
+
+<p>It should generate the doc in the api/ folder.</p>
+
+
+<h3>inputEx</h3>
+
+<p>The <a href="http://neyric.github.com/inputex/">inputEx library</a> is a form and field library for YUI.</p>
+
+<p>It is included in lib/inputex/ so that it easier for people to checkout the project</p>
+

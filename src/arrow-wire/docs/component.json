@@ -9,12 +9,11 @@
 
     "examples": [
         {
-            "name"       : "example",
-            "displayName": "Basic Local Data",
-            "description": "How to provide autocomplete suggestions from a local array.",
-            "modules"    : ["autocomplete"],
-            "tags"       : ["autocomplete"],
-
+            "name"       : "arrow-basic",
+            "displayName": "Basic arrow wire creation",
+            "description": "How to create an arrow wire.",
+            "modules"    : ["arrow-wire"],
+            "tags"       : ["arrow", "wire"],
             "hideTableOfContents": true
         }
     ]

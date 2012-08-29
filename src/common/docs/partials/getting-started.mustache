@@ -2,11 +2,13 @@
 
 <p>
 To include the source files for {{displayName}} and its dependencies, first load
-the YUI seed file if you haven't already loaded it.
+the YUI seed file, the WireIt seed file, and set the path to the WireIt <i>build</i> directory.
 </p>
 
 ```
 <script src="http://yui.yahooapis.com/{{{yuiVersion}}}/build/yui/yui-min.js"></script>
+<script src="../../build/wireit-loader/wireit-loader.js"></script>
+<script>YUI_config.groups.wireit.base = '../../build/';</script>
 ```
 
 <p>
@@ -26,8 +28,8 @@ YUI().use({{{useParams}}}, function (Y) {
 </script>
 ```
 
-<p>
+<!--p>
 For more information on creating YUI instances and on the
 <a href="{{apiDocs}}/classes/YUI.html#method_use">`use()` method</a>, see the
 documentation for the <a href="../yui/index.html">YUI Global Object</a>.
-</p>
+</p-->

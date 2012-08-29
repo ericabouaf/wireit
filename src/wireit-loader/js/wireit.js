@@ -36,7 +36,7 @@ YUI().use(function(Y) {
             "widget-child",
             "dd",
             "resize",
-            "terminal-base",
+            "terminal",
             "wires-delegate"
         ]
     },

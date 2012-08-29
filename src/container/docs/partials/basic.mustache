@@ -1,8 +1,7 @@
-<div style="position: relative;" id="layer"></div>
+<div style="position: relative; width: 300px; height: 300px;" id="layer"></div>
 
 <script>
-YUI_config.groups.wireit.base = '../../build/';
-YUI({combine: false, filter: 'raw'}).use('bezier-wire', 'container','image-container',function(Y) {
+YUI().use('bezier-wire', 'container', 'image-container', function(Y) {
 
   window.Y = Y;
 
@@ -58,19 +57,14 @@ YUI({combine: false, filter: 'raw'}).use('bezier-wire', 'container','image-conta
   });
 
 
-  
-  
   var wire = mygraphic.addShape({
      type: Y.BezierWire,
      stroke: {
          weight: 4,
          color: "rgb(173,216,230)" 
      },
-     
-     
      src: c1.item(1),
      tgt: c2.item(0)
-     
   });
 
   

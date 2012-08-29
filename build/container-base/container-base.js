@@ -206,4 +206,4 @@ Y.ContainerBase = ContainerBase;
 
 
 
-}, '@VERSION@', {"requires": ["overlay", "widget-parent", "widget-child", "dd", "resize", "terminal-base", "wires-delegate"]});
+}, '@VERSION@', {"requires": ["overlay", "widget-parent", "widget-child", "dd", "resize", "terminal", "wires-delegate"]});
