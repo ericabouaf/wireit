@@ -1,0 +1,21 @@
+{
+    "name"       : "container",
+    "displayName": "Container",
+    "description": "WireIt containers",
+    "author"     : "neyric",
+
+    "tags": ["widget", "icons"],
+    "use" : ["container"],
+
+    "examples": [
+        {
+            "name"       : "example",
+            "displayName": "Basic Local Data",
+            "description": "How to provide autocomplete suggestions from a local array.",
+            "modules"    : ["autocomplete"],
+            "tags"       : ["autocomplete"],
+
+            "hideTableOfContents": true
+        }
+    ]
+}

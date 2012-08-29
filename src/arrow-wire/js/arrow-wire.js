@@ -50,6 +50,9 @@
          var W = t1[0] - t2[0];
          var Wa = t1[1] - t2[1];
          var Wb = t1[0]*t2[1] - t1[1]*t2[0];
+         
+         var a,b, aProst, bProst;
+         
          if (W !== 0) {
             a = Wa/W;
             b = Wb/W;

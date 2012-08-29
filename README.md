@@ -4,9 +4,6 @@ WireIt is an open-source javascript library to create web wirable interfaces for
 
  * Project home page
    <http://neyric.github.com/wireit/>
-
- * WireIt guide
-    <http://neyric.github.com/wireit/guide.html>
     
  * Source code
    <http://github.com/neyric/wireit>
@@ -23,12 +20,23 @@ Wireit is distributed under a MIT license
 ## Content
 
  * api : the API documentation generated with yuidoc
- * assets : wireit's assets (css & images)
- * examples : well, examples...
+ * build : Built components
  * lib : containing external libraries
- * res : assets for WireIt's website
  * sandbox : legacy code or features ideas. Expect code in this directory to be broken
  * src : WireIt's source code
+
+
+## Building components
+
+http://davglass.github.com/shifter/
+
+    shifter --walk
+
+## Building Doc
+
+http://rgrove.github.com/selleck/
+
+    selleck --out docs
 
 ## API doc
 

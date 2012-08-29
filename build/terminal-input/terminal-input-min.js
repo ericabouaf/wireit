@@ -1,0 +1,1 @@
+YUI.add("terminal-input",function(b,a){b.TerminalInput=function(e,d,c){b.TerminalInput.superclass.constructor.call(this,e,d,c);};b.extend(b.TerminalInput,b.Terminal,{nMaxWires:1,ddConfig:{type:"input",allowedTypes:["output"]}});},"@VERSION@",{"requires":["terminal"]});

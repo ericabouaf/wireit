@@ -1,0 +1,30 @@
+<div style="position: relative; width: 300px; height: 300px;" id="layer"></div>
+
+<script>
+
+YUI_config.groups.wireit.base = '../../build/';
+
+YUI({combine: false, filter: 'raw'}).use('bidirectional-arrow-wire', function(Y) {
+
+    var mygraphic = new Y.Graphic({render: "#layer"}); 
+        // 
+        var wire = mygraphic.addShape({
+           type: Y.BidirectionalArrowWire,
+           stroke: {
+               weight: 4,
+               color: "rgb(173,216,230)" 
+           },
+           src: {
+             getXY: function() {
+               return [300,50];
+             }
+           },
+           tgt: {
+             getXY: function() {
+               return [700,250];
+             }
+           }
+        });
+}); 
+
+</script>

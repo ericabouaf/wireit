@@ -1,7 +1,7 @@
 {
-            "inputex-wirable-fields": {
-                "use": [
-                    "inputex-wirable","inputex-group","inputex-string","inputex-list"
-                ]
-            }
-         }
+    "inputex-wirable-fields": {
+        "requires": [
+            "inputex-wirable","inputex-group","inputex-string","inputex-list"
+        ]
+    }
+}

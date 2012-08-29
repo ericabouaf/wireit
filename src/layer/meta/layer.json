@@ -1,7 +1,8 @@
 {
-            "layer": {
-                "requires": [
-                    "widget-parent","container","wires-delegate"
-                ]
-            }
+    "layer": {
+        "requires": [
+            "widget-parent","container","wires-delegate"
+        ],
+        "skinnable": "true"
+    }
 }

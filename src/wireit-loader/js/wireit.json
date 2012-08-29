@@ -36,7 +36,8 @@
         "requires": [
             "container",
             "inputex-wirable-fields"
-        ]
+        ],
+        "skinnable": true
     },
     "image-container": {
         "requires": [
@@ -55,7 +56,7 @@
         ]
     },
     "inputex-wirable-fields": {
-        "use": [
+        "requires": [
             "inputex-wirable",
             "inputex-group",
             "inputex-string",
@@ -67,11 +68,8 @@
             "widget-parent",
             "container",
             "wires-delegate"
-        ]
-    },
-    "silk-sprites": {
-        "skinnable": true,
-        "type": "css"
+        ],
+        "skinnable": "true"
     },
     "straight-wire": {
         "requires": [
@@ -84,7 +82,8 @@
             "terminal-dragedit",
             "terminal-scissors",
             "terminal-ddgroups"
-        ]
+        ],
+        "skinnable": true
     },
     "terminal-base": {
         "requires": [
@@ -102,7 +101,7 @@
         ]
     },
     "terminal-dragedit": {
-        "use": [
+        "requires": [
             "bezier-wire",
             "dd-drop",
             "dd-drag",
@@ -130,9 +129,8 @@
         ]
     },
     "widget-icons": {
-        "requires": [
-            "silk-sprites"
-        ]
+        "requires": [],
+        "skinnable": true
     },
     "wire-base": {
         "requires": [

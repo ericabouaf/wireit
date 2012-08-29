@@ -1,8 +1,6 @@
 {
     "wire-base": {
-        "requires": [
-            "graphics"
-        ], 
+        "requires": ["graphics"],
         "skinnable": true
     }
 }

@@ -1,7 +1,6 @@
 {
-            "widget-icons": {
-                "requires": [
-                    "silk-sprites"
-                ]
-            }
-         }
+    "widget-icons": {
+        "requires": [],
+        "skinnable": true
+    }
+}

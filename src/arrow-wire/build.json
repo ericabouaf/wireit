@@ -3,7 +3,7 @@
     "builds": {
         "arrow-wire": {
             "jsfiles": [
-                "./js/arrow-wire.js"
+                "arrow-wire.js"
             ]
         }
     }

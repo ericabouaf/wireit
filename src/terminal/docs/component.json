@@ -1,0 +1,21 @@
+{
+    "name"       : "terminal",
+    "displayName": "Terminal",
+    "description": "WireIt terminals",
+    "author"     : "neyric",
+
+    "tags": ["widget", "icons"],
+    "use" : ["terminal"],
+
+    "examples": [
+        {
+            "name"       : "example",
+            "displayName": "Basic Local Data",
+            "description": "How to provide autocomplete suggestions from a local array.",
+            "modules"    : ["autocomplete"],
+            "tags"       : ["autocomplete"],
+
+            "hideTableOfContents": true
+        }
+    ]
+}

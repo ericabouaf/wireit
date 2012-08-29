@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * @module terminal-base
  */

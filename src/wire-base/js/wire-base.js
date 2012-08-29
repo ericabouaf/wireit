@@ -16,13 +16,13 @@
  * @extends Path
  * @param {Object} oConfigs The user configuration for the instance.
  */
-var WireBase = function (cfg) {
-      WireBase.superclass.constructor.apply(this, arguments);
+Y.WireBase = function (cfg) {
+   Y.WireBase.superclass.constructor.apply(this, arguments);
 };
 
-WireBase.NAME = "wirebase";
+Y.WireBase.NAME = "wirebase";
 
-Y.extend(WireBase, Y.Path, {
+Y.extend(Y.WireBase, Y.Path, {
    
    /**
     * Notify the WiresDeletates through addWire
@@ -30,7 +30,7 @@ Y.extend(WireBase, Y.Path, {
     */
    initializer: function () {
       
-      WireBase.superclass.initializer.apply(this, arguments);
+      Y.WireBase.superclass.initializer.apply(this, arguments);
       
       var src = this.get('src'), tgt = this.get('tgt');
       
@@ -42,10 +42,10 @@ Y.extend(WireBase, Y.Path, {
          this.set('tgtDir', tgt.get('dir') );
       }
       
-      if(src && Y.Lang.isfunction (src.addWire) ) {
+      if(src && Y.Lang.isFunction (src.addWire) ) {
          src.addWire(this);
       }
-      if(tgt && Y.Lang.isfunction (tgt.addWire) ) {
+      if(tgt && Y.Lang.isFunction (tgt.addWire) ) {
          tgt.addWire(this);
       }
       
@@ -77,14 +77,14 @@ Y.extend(WireBase, Y.Path, {
     */
    destroy: function () {
       
-      WireBase.superclass.destroy.apply(this, arguments);
+      Y.WireBase.superclass.destroy.apply(this, arguments);
       
       var src = this.get('src'), tgt = this.get('tgt');
       
-      if(src && Y.Lang.isfunction (src.removeWire) ) {
+      if(src && Y.Lang.isFunction (src.removeWire) ) {
          src.removeWire(this);
       }
-      if(tgt && Y.Lang.isfunction (tgt.removeWire) ) {
+      if(tgt && Y.Lang.isFunction (tgt.removeWire) ) {
          tgt.removeWire(this);
       }
    },
@@ -111,7 +111,7 @@ Y.extend(WireBase, Y.Path, {
 });
 
 
-WireBase.ATTRS = Y.merge(Y.Path.ATTRS, {
+Y.WireBase.ATTRS = Y.merge(Y.Path.ATTRS, {
    
    /**
     * @attribute src
@@ -123,11 +123,11 @@ WireBase.ATTRS = Y.merge(Y.Path.ATTRS, {
          
          // remove this wire from the list of the previous src/tgt item
          // TODO: prev value
-         /*if(e.prevVal && Y.Lang.isfunction (e.prevVal.removeWire) ) {
+         /*if(e.prevVal && Y.Lang.isFunction (e.prevVal.removeWire) ) {
             e.prevVal.removeWire(this);
          }*/
          
-         if(val && Y.Lang.isfunction (val.addWire) ) {
+         if(val && Y.Lang.isFunction (val.addWire) ) {
             val.addWire(this);
          }
          
@@ -146,12 +146,12 @@ WireBase.ATTRS = Y.merge(Y.Path.ATTRS, {
          
          // remove this wire from the list of the previous src/tgt item
          // TODO: prev value
-         /*if(e.prevVal && Y.Lang.isfunction (e.prevVal.removeWire) ) {
+         /*if(e.prevVal && Y.Lang.isFunction (e.prevVal.removeWire) ) {
             e.prevVal.removeWire(this);
          }*/
          
          
-         if(val && Y.Lang.isfunction (val.addWire) ) {
+         if(val && Y.Lang.isFunction (val.addWire) ) {
             val.addWire(this);
          }
          
@@ -187,5 +187,3 @@ WireBase.ATTRS = Y.merge(Y.Path.ATTRS, {
    }
    
 });
-
-Y.WireBase = WireBase;

@@ -1,0 +1,8 @@
+
+.yui3-layer-content {
+   background-color: white;
+   overflow: scroll;
+
+   /* This is required for position elements within the layer*/
+   position: relative;
+}
