@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Example: Basic Form Container</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.4.1/build/cssgrids/grids-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/3.6.0/build/yui/yui-min.js"></script>
+    <script src="../../build/wireit-loader/wireit-loader.js"></script>
+    <script>YUI_config.groups.wireit.base = '../../build/';</script>
+    
+</head>
+<body class="yui3-skin-sam">
+
+<a href="https://github.com/neyric/wireit"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+<div id="doc">
+    <div id="hd">
+        <h1><img src="http://yuilibrary.com/img/yui-logo.png"> Example: Basic Form Container</h1>
+    </div>
+    
+
+    <div class="yui3-g">
+        <div class="yui3-u-3-4">
+            <div id="main">
+                <div class="content"><div class="intro">
+<p>
+This example demonstrates how to create a FormContainer.
+</p>
+</div>
+
+<div class="example">
+
+    <script type="text/javascript" src="../../lib/inputex/src/loader.js"></script>
+    <script>YUI_config.groups.inputex.base = '../../lib/inputex/src/';</script>
+    <div style="position: relative; width: 300px; height: 200px;" id="layer"></div>
+
+    <script>
+YUI({filter: 'raw'}).use('bezier-wire', 'form-container', 'inputex-group', 'inputex-email', 'inputex-select', 'inputex-checkbox', 'inputex-radio', 'inputex-list', 'inputex-url', 'json', function(Y) {
+    
+  var layerEl = Y.one('#layer');
+  
+  var mygraphic = new Y.Graphic({render: "#layer"});
+  
+  c1 = new Y.FormContainer({
+    children: [
+        { 
+            align: {points:["tl", "tc"]}, 
+            dir: [0,-1],
+            groups: ['string'],
+            graphic: mygraphic
+        },
+        {
+            align: {points:["tl", "bc"]}, dir: [0, 1],
+            groups: ['object'],
+            graphic: mygraphic
+        }
+    ],
+    
+    render: layerEl,
+    xy: [200,100],
+    headerContent: 'Awesome Module',
+    footerContent: 'not executed',
+
+    fields: [
+        {type: 'select', label: 'Title', name: 'title', choices: [{ value: 'Mr' }, { value: 'Mrs' }, { value: 'Ms' }]},
+        {label: 'Firstname', name: 'firstname', required: true},
+        {label: 'Lastname', name: 'lastname', value:'Dupont'},
+        {type:'email', label: 'Email', name: 'email', required: true, showMsg: true},
+        {type:'radio', label: 'Happy to be there ?', name: 'happy', display:'vertically', choices:[{value: "y", label:"yes"}, {value:"n", label:"no"}]},
+        {type:'boolean', label: 'Favorite colors ?', name: 'yellow', rightLabel:"yellow"},
+        {type:'boolean', label: ' ', name: 'blue', rightLabel:"blue"},
+        {type:'boolean', label: ' ', name: 'red', rightLabel:"red"}
+    ]
+    
+  });
+  
+});
+    </script>
+</div>
+
+<h2>HTML</h2>
+
+<pre class="code prettyprint">&lt;script type=&quot;text&#x2F;javascript&quot; src=&quot;..&#x2F;..&#x2F;lib&#x2F;inputex&#x2F;src&#x2F;loader.js&quot;&gt;&lt;&#x2F;script&gt;
+&lt;script&gt;YUI_config.groups.inputex.base = &#x27;..&#x2F;..&#x2F;lib&#x2F;inputex&#x2F;src&#x2F;&#x27;;&lt;&#x2F;script&gt;
+
+&lt;div style=&quot;position: relative; width: 300px; height: 200px;&quot; id=&quot;layer&quot;&gt;&lt;&#x2F;div&gt;</pre>
+
+
+<h2>JavaScript</h2>
+
+
+<h3>Implementation</h3>
+
+<pre class="code prettyprint">YUI({filter: &#x27;raw&#x27;}).use(&#x27;bezier-wire&#x27;, &#x27;form-container&#x27;, &#x27;inputex-group&#x27;, &#x27;inputex-email&#x27;, &#x27;inputex-select&#x27;, &#x27;inputex-checkbox&#x27;, &#x27;inputex-radio&#x27;, &#x27;inputex-list&#x27;, &#x27;inputex-url&#x27;, &#x27;json&#x27;, function(Y) {
+    
+  var layerEl = Y.one(&#x27;#layer&#x27;);
+  
+  var mygraphic = new Y.Graphic({render: &quot;#layer&quot;});
+  
+  c1 = new Y.FormContainer({
+    children: [
+        { 
+            align: {points:[&quot;tl&quot;, &quot;tc&quot;]}, 
+            dir: [0,-1],
+            groups: [&#x27;string&#x27;],
+            graphic: mygraphic
+        },
+        {
+            align: {points:[&quot;tl&quot;, &quot;bc&quot;]}, dir: [0, 1],
+            groups: [&#x27;object&#x27;],
+            graphic: mygraphic
+        }
+    ],
+    
+    render: layerEl,
+    xy: [200,100],
+    headerContent: &#x27;Awesome Module&#x27;,
+    footerContent: &#x27;not executed&#x27;,
+
+    fields: [
+        {type: &#x27;select&#x27;, label: &#x27;Title&#x27;, name: &#x27;title&#x27;, choices: [{ value: &#x27;Mr&#x27; }, { value: &#x27;Mrs&#x27; }, { value: &#x27;Ms&#x27; }]},
+        {label: &#x27;Firstname&#x27;, name: &#x27;firstname&#x27;, required: true},
+        {label: &#x27;Lastname&#x27;, name: &#x27;lastname&#x27;, value:&#x27;Dupont&#x27;},
+        {type:&#x27;email&#x27;, label: &#x27;Email&#x27;, name: &#x27;email&#x27;, required: true, showMsg: true},
+        {type:&#x27;radio&#x27;, label: &#x27;Happy to be there ?&#x27;, name: &#x27;happy&#x27;, display:&#x27;vertically&#x27;, choices:[{value: &quot;y&quot;, label:&quot;yes&quot;}, {value:&quot;n&quot;, label:&quot;no&quot;}]},
+        {type:&#x27;boolean&#x27;, label: &#x27;Favorite colors ?&#x27;, name: &#x27;yellow&#x27;, rightLabel:&quot;yellow&quot;},
+        {type:&#x27;boolean&#x27;, label: &#x27; &#x27;, name: &#x27;blue&#x27;, rightLabel:&quot;blue&quot;},
+        {type:&#x27;boolean&#x27;, label: &#x27; &#x27;, name: &#x27;red&#x27;, rightLabel:&quot;red&quot;}
+    ]
+    
+  });
+  
+});</pre>
+
+</div>
+            </div>
+        </div>
+
+        <div class="yui3-u-1-4">
+            <div class="sidebar">
+                
+
+                
+                    <div class="sidebox">
+                        <div class="hd">
+                            <h2 class="no-toc">Examples</h2>
+                        </div>
+
+                        <div class="bd">
+                            <ul class="examples">
+                                
+                                    
+                                        <li data-description="Create a simple form container">
+                                            <a href="basic-form-container.html">Basic Form Container</a>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </div>
+                    </div>
+                
+
+                
+
+
+                    <div id="links-sidebox" class="sidebox">
+                        <div class="hd">
+                            <h2 class="no-toc">Links</h2>
+                        </div>
+
+                        <div class="bd">
+<ul>
+    <li><a href="../assets/../index.html">Home</a></li>
+    <li><a href="../assets/../index.html#examples">All Examples</a></li>
+    <li><a href="../assets/../getting-started.html">Getting Started</a></li>
+    <li><a href="../assets/../contribute.html">How to Contribute</a></li>
+    <li><a href="../assets/../../api/index.html">API Documentation</a></li>
+</ul>
+
+<ul>
+    <li><a href="http://github.com/neyric/wireit">Fork/Follow on GitHub</a></li>
+    <li><a href="http://github.com/neyric/wireit/issues">GitHub Issues</a></li>
+    <li><a href="http://neyric.com/category/wireit/">Blog</a></li>
+    <li><a href="http://groups.google.com/group/wireit/">Forums</a></li>
+    <li><a href="../assets/../../license.txt">License</a></li>
+</ul>
+
+                        </div>
+                    </div>
+
+
+            <div>
+                <center>
+                <img src="http://www.twitter.com/favicon.ico" alt="twitter"> follow <a href="http://twitter.com/wireit"> on Twitter</a><br>
+                <img src="http://github.com/favicon.ico" alt="GitHub"> fork <a href="http://github.com/neyric/wireit"> on GitHub</a><br><br>
+                <a href="http://www.pledgie.com/campaigns/13031"><img alt="Click here to lend your support to: wireit and make a donation at www.pledgie.com !" src="http://www.pledgie.com/campaigns/13031.png?skin_name=chrome" border="0"></a>
+                <br /><br />
+            </center>
+            </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+
+<script>
+YUI.Env.Tests = {
+    examples: [],
+    project: '../assets',
+    assets: '../assets/form-container',
+    name: 'basic-form-container',
+    title: 'Basic Form Container',
+    newWindow: '',
+    auto:  true 
+};
+YUI.Env.Tests.examples.push('basic-form-container');
+
+</script>
+<!--script src="../assets/yui/test-runner.js"></script-->
+
+
+
+</body>
+</html>
