@@ -1,0 +1,23 @@
+YUI().use('straight-wire', function(Y) {
+    
+    var mygraphic = new Y.Graphic({render: "#layer"});
+    
+    var wire = mygraphic.addShape({
+       type: Y.StraightWire,
+       stroke: {
+           weight: 4,
+           color: "rgb(173,216,230)" 
+       },
+       src: {
+         getXY: function() {
+           return [50,50];
+         }
+       },
+       tgt: {
+         getXY: function() {
+           return [400,150];
+         }
+       }
+    });
+    
+}); 

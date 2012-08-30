@@ -3,7 +3,7 @@
     "builds": {
         "bezier-wire": {
             "jsfiles": [
-                "./js/bezier-wire.js"
+                "bezier-wire.js"
             ]
         }
     }

@@ -4,16 +4,16 @@
     "description": "An arrow Wire",
     "author"     : "neyric",
 
-    "tags": ["widget", "icons"],
-    "use" : ["arrow-wire"],
+    "tags": ["wire"],
+    "use" : ["straight-wire"],
 
     "examples": [
         {
-            "name"       : "example",
-            "displayName": "Basic Local Data",
+            "name"       : "wire-basic",
+            "displayName": "Basic wire",
             "description": "How to provide autocomplete suggestions from a local array.",
-            "modules"    : ["autocomplete"],
-            "tags"       : ["autocomplete"],
+            "modules"    : ["straight-wire"],
+            "tags"       : ["straight-wire"],
 
             "hideTableOfContents": true
         }

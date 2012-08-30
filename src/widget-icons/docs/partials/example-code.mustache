@@ -1,0 +1,30 @@
+YUI().use('widget', 'widget-stdmod', 'widget-icons', function(Y) {
+
+    Y.MyWidget = Y.Base.create("my-widget", Y.Widget, [Y.WidgetStdMod, Y.WidgetIcons], {
+
+        _onCloseClick: function () {
+            this.destroy();
+        }
+
+    }, {
+
+        ATTRS: {
+    
+            icons: {
+                value: [
+                    {title: 'close', click: '_onCloseClick', className: 'ui-silk ui-silk-cancel', selector: '.yui3-widget-hd' }
+                ]
+            }
+        }
+    });
+
+
+    new Y.MyWidget({
+        render: '#layer',
+        headerContent: 'Hello world',
+        bodyContent: 'Body Here...',
+        footerContent: 'copyright...'
+    });
+
+
+});

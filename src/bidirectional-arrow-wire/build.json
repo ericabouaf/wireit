@@ -3,7 +3,7 @@
     "builds": {
         "bidirectional-arrow-wire": {
             "jsfiles": [
-                "./js/bidirectional-arrow-wire.js"
+                "bidirectional-arrow-wire.js"
             ]
         }
     }

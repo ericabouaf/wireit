@@ -1,19 +1,19 @@
 {
     "name"       : "bidirectional-arrow-wire",
     "displayName": "BidirectionalArrowWire",
-    "description": "An arrow Wire",
+    "description": "An bidirectional arrow Wire",
     "author"     : "neyric",
 
     "tags": ["widget", "icons"],
-    "use" : ["arrow-wire"],
+    "use" : ["bidirectional-arrow-wire"],
 
     "examples": [
         {
-            "name"       : "example",
-            "displayName": "Basic Local Data",
-            "description": "How to provide autocomplete suggestions from a local array.",
-            "modules"    : ["autocomplete"],
-            "tags"       : ["autocomplete"],
+            "name"       : "bidirectional-arrow-basic",
+            "displayName": "Basic bidirectional arrow wire creation",
+            "description": "How to create a bidirectional arrow wire.",
+            "modules"    : ["bidirectional-arrow-wire"],
+            "tags"       : ["arrow"],
 
             "hideTableOfContents": true
         }

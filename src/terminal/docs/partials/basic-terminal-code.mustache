@@ -1,0 +1,15 @@
+YUI().use('terminal', 'straight-wire', 'bezier-wire',function(Y) {
+
+  var layerEl =  Y.one('#layer');
+  
+  var mygraphic = new Y.Graphic({render: "#layer"}); 
+  
+  var t1 = new Y.Terminal({render: layerEl, x: 280, y: 250, showGroups: false, graphic: mygraphic});
+  t1.set("editwire-class",Y.StraightWire);
+  t1.set("color","red");
+  var t2 = new Y.Terminal({render: layerEl, x: 90, y: 120, showGroups: false, graphic: mygraphic,alwaysSrc: true,dir:[0,0]});
+  var t3 = new Y.Terminal({render: layerEl, x: 260, y: 100, showGroups: false, graphic: mygraphic});
+  var t4 = new Y.Terminal({render: layerEl, x: 380, y: 200, showGroups: false, graphic: mygraphic});
+  
+
+});

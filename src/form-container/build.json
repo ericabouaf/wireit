@@ -3,7 +3,7 @@
     "builds": {
         "form-container": {
             "jsfiles": [
-                "./js/form-container.js"
+                "form-container.js"
             ]
         }
     }

@@ -3,7 +3,7 @@
     "builds": {
         "inputex-wirable": {
             "jsfiles": [
-                "./js/inputex-wirable.js"
+                "inputex-wirable.js"
             ]
         }
     }

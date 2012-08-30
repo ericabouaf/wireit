@@ -1,13 +1,9 @@
 
-<div style="position: relative;" id="layer"></div>
-
-<script>
-YUI_config.groups.wireit.base = '../../build/';
-YUI({combine: false, filter: 'raw'}).use('layer', 'bezier-wire', 'container', 'image-container', 'json', function(Y) {
+YUI().use('layer', 'bezier-wire', 'container', 'image-container', 'json', function(Y) {
 
   l = new Y.Layer({
-        width: 1200,
-        height: 600,
+        width: 800,
+        height: 500,
         render: Y.one('#layer'),
         // first container : 
         children: [
@@ -39,7 +35,4 @@ YUI({combine: false, filter: 'raw'}).use('layer', 'bezier-wire', 'container', 'i
         ]
   });
 
-  window.l=l;
-  window.Y = Y;
 });
-</script>

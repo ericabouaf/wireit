@@ -5,15 +5,15 @@
     "author"     : "neyric",
 
     "tags": ["widget", "icons"],
-    "use" : ["container"],
+    "use" : ["layer"],
 
     "examples": [
         {
-            "name"       : "example",
-            "displayName": "Basic Local Data",
-            "description": "How to provide autocomplete suggestions from a local array.",
-            "modules"    : ["autocomplete"],
-            "tags"       : ["autocomplete"],
+            "name"       : "layer-example",
+            "displayName": "Using a Layer",
+            "description": "Layer",
+            "modules"    : ["layer"],
+            "tags"       : ["layer"],
 
             "hideTableOfContents": true
         }

@@ -9,9 +9,9 @@
 
     "examples": [
         {
-            "name"       : "example",
-            "displayName": "Basic Local Data",
-            "description": "How to provide autocomplete suggestions from a local array.",
+            "name"       : "basic-form-container",
+            "displayName": "Basic Form Container",
+            "description": "Create a simple form container",
             "modules"    : ["autocomplete"],
             "tags"       : ["autocomplete"],
 

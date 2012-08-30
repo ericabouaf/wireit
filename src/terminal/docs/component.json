@@ -4,16 +4,25 @@
     "description": "WireIt terminals",
     "author"     : "neyric",
 
-    "tags": ["widget", "icons"],
+    "tags": ["terminal"],
     "use" : ["terminal"],
 
     "examples": [
         {
-            "name"       : "example",
-            "displayName": "Basic Local Data",
-            "description": "How to provide autocomplete suggestions from a local array.",
-            "modules"    : ["autocomplete"],
-            "tags"       : ["autocomplete"],
+            "name"       : "basic-terminal",
+            "displayName": "Basic terminal",
+            "description": "Basic Terminal Instantiation",
+            "modules"    : ["terminal"],
+            "tags"       : ["terminal"],
+
+            "hideTableOfContents": true
+        },
+        {
+            "name"       : "terminal-groups",
+            "displayName": "Using terminal groups",
+            "description": "Terminals groups",
+            "modules"    : ["terminal"],
+            "tags"       : ["terminal"],
 
             "hideTableOfContents": true
         }

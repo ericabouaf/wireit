@@ -3,7 +3,7 @@
     "builds": {
         "inout-container": {
             "jsfiles": [
-                "./js/inout-container.js"
+                "inout-container.js"
             ]
         }
     }

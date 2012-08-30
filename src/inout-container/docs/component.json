@@ -4,16 +4,16 @@
     "description": "Using the form container",
     "author"     : "neyric",
 
-    "tags": ["widget", "icons"],
-    "use" : ["bezier-wire"],
+    "tags": ["container", "inout-container"],
+    "use" : ["inout-container"],
 
     "examples": [
         {
-            "name"       : "example",
-            "displayName": "Basic Local Data",
-            "description": "How to provide autocomplete suggestions from a local array.",
-            "modules"    : ["autocomplete"],
-            "tags"       : ["autocomplete"],
+            "name"       : "basic-inout-container",
+            "displayName": "Basic InOut containers",
+            "description": "How to instantiate InOut containers",
+            "modules"    : ["inout-container"],
+            "tags"       : ["inout-container"],
 
             "hideTableOfContents": true
         }
