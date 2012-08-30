@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WireIt javascript library for YUI3</title>
+    
+    <meta name="author" content="Eric Abouaf" />
+      <meta name="copyright" content="Copyright 2006-2012 Eric Abouaf" />
+      <meta name="keywords" content="wireit,javascript,library,pipes,visualization,yui,programming,canvas,wire,wires,framework,webdev,ajax,ui,web,graphics,graph,graphs,opensource,tools" />
+      <meta name="description" content="WireIt is an open-source javascript library to create web wirable interfaces for dataflow applications, visual programming languages or graphical modeling." />
+      <link rel="alternate" type="application/rss+xml" title="WireIt blog" href="http://neyric.com/feed/" />
+      <link rel="shortcut icon" type="images/x-icon" href="res/favicon.ico" />
+      
+    
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="res/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+      .page-header {
+        padding-top: 60px;
+      }
+      .current-version, .current-version a {
+        text-align: center;
+        color: #999999;
+      }
+      #featured .span4 {
+          text-align: center;
+      }
+    </style>
+
+    <link rel="shortcut icon" href="res/favicon.ico">
+    <!--link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"-->
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="#">WireIt library</a>
+          <ul class="nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="guide.html">Guide</a></li>
+            <li><a href="api/index.html">API Documentation</a></li>
+            <li><a href="http://github.com/neyric/wireit/">GitHub</a></li>
+            <li><a href="http://github.com/neyric/wireit/issues">Issues</a></li>
+            <li><a href="http://neyric.com/category/wireit/">Blog</a></li>
+            <li><a href="http://groups.google.com/group/wireit/">Forums</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit" style="background-image: url(res/logo-wireit.jpg); background-position: 560px 0; padding-bottom: 32px; position:relative;">
+        <h1>WireIt 3</h1>
+        <p>WireIt is an open-source javascript library, built with YUI3,<br /> 
+          to create full-web graph editors.</p>
+          
+          <div style="position: absolute; top: 67px; left: 547px; font-size: 90%; line-height: 30px;">
+                <img src='http://www.twitter.com/favicon.ico' alt="twitter" /> follow <a href="http://twitter.com/wireit"> on Twitter</a><br />
+                <img src='http://github.com/favicon.ico' alt="GitHub" /> fork <a href="http://github.com/neyric/wireit"> on GitHub</a><br /><br />
+                <a href='http://www.pledgie.com/campaigns/13031'><img alt='Click here to lend your support to: wireit and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/13031.png?skin_name=chrome' border='0' /></a>
+
+            </div>
+          
+      </div>
+
+      <!-- First row -->
+      <div class="row">
+        <div class="span-one-third">
+          <h2>What's new ?</h2>
+          <p>WireIt 3 is a <strong>complete rewrite</strong> of the previous versions of the library, using the <strong>YUI3 framework</strong>. It makes the library much more robust, flexible and customizable.</p>
+          <p><a class="btn" href="#rewrite">View details &raquo;</a></p>
+        </div>
+        <div class="span-one-third">
+          <h2>Guide</h2>
+           <p>Learn everything necessary to work with the library.<br />
+              A previous experience with the YUI3 library is highly recommanded. <i>The guide is a work in progress. Please Help.</i></p>
+          <p><a class="btn" href="guide.html">View the guide &raquo;</a></p>
+       </div>
+        <div class="span-one-third">
+          <h2>Fork on GitHub</h2>
+          <p>Download, fork, pull, file issues, and more with the official WireIt repo on Github. You can still download the <a href="https://github.com/neyric/wireit/downloads">old 0.5.0 version</a>.</p>
+          
+          <p class="current-version">Currently <a href="VERSION.txt">v3.0.0pr2</a></p>
+          
+          <p style="text-align: center;"><a class="btn primary" href="http://github.com/neyric/wireit/">Download &raquo;</a></p>
+          
+        </div>
+      </div>
+
+      <!-- Second row -->
+      <!--div class="row" id="featured">
+        <div class="span16">
+          <div class="page-header">
+            <h1>Featured examples</h1>
+          </div>
+        </div>
+        
+        <div class="span4">
+          <h3>Planar Game</h3>
+          <a href="examples/planar-game/planar-game.html">
+            <img src="res/planar.gif" class="reflect" border="0" alt="Click to play now !" width="107" height="81" />
+            <p><span>Play the</span><br/><span class="big">Planar Game</span></p>
+          </a>
+        </div>
+        <div class="span4">
+          <h3>JsBox</h3>
+          <a href="plugins/composable/examples/jsBox/jsBox.html">
+            <img src="res/jsBox.gif" class="reflect" border="0" alt="Click to try jsBox !"  width="107" height="81" />
+            <p><span>visual javascript demo</span><br/><span class="big">jsBox</span></p>
+          </a>
+        </div>
+        <div class="span4">
+          <h3>Logic Gates</h3>
+          <a href="examples/editor-examples/logicGates/index.html">
+            <img src="res/logicGates.png" class="reflect" border="0" alt="Click to try logicGates"  width="107" height="81" />
+            <p><span>WiringEditor demo</span><br/><span class="big">Logic Gates</span></p>
+          </a>
+        </div>
+        <div class="span4">
+          <h3>Editor</h3>
+          <a href="examples/editor-examples/WiringEditor/">
+            <img src="res/wiringEditor.png" class="reflect" border="0" alt="Learn Containers, WiringEditor" width="107" height="81" />
+            <p><span>learn</span><br/><span class="big">Containers, WiringEditor</span></p>
+          </a>
+        </div>
+      </div-->
+      
+      
+      
+      <!-- Third row -->
+      <a name="rewrite"></a>
+      <div class="row">
+        <div class="span16">
+          <div class="page-header">
+            <h1>Why a complete rewrite ?</h1>
+          </div>
+          
+          <h4>Was a complete rewrite of the library really necessary ?</h4>
+          
+          <p>Yes, and the new code speaks for itself. YUI3 has much more to offer than its predecessor. The goal of this rewrite was to build on the strong foundations YUI3 provides. Furthermore, version 3.5.0 of YUI includes a MVC-ish infrastructure, which is a perfect replacement for the old <i>WiringEditor</i>.</p>
+          
+          <h4>Why did you not just port the YUI 2.x code to its YUI 3.x equivalent ?</h4>
+          
+          <p>Simply because we were doing things badly... This was the perfect occasion to get rid of them. For example, our components were not using the AttributeProvider/EventProvider infrastructure. All the options handling had to be done manually, and was not simple to extend.</p>
+          
+          
+          <h4>Is my WireIt 0.x code compatible ?</h4>
+          
+          <p>No ! WireIt 3 completely changes the API, although we tried to keep the same terminology for WireIt specific components.</p>
+          
+          <h4>Is it production ready ?</h4>
+          
+          <p>Not yet... We still have major issues on our core components and the API is not finalized yet. <i>Your help is welcome !</i></p>
+          
+          <h4>What took you so long ?</h4>
+          
+          <p>Firstly, WireIt is a side project for me. So I only work on it in my free time. Secondly, we had an important dependency on the inputEx form library, which itself migrated to YUI3 pretty recently. Finally, I started this project to scratch my own itch, and I took time to look other similar projects as a replacement. I almost dropped the project, but finally made up my mind since no other projects had the features I wanted.</p>
+          
+          
+          <h3>Benefits of the new architecture</h3>
+          
+          <ul>
+            <li>Support for gestures events (drag'n drop now works on smartphone and tablets)</li>
+            <li>Configurations now uses AttributeProvider</li>
+            <li>Widget infrastructure : less code, comprehensible for YUI users</li>
+            <li>Extensions: leveraging WidgetParent/WidgetChild/WidgetStdMod/Stackable/Positionning and so on...</li>
+            <li>Making core components abstract: not limited to the canvas renderer ! (SVG coming soon ?)</li>
+            <li>Modularity: We split the core modules into several pieces that can be removed or replaced with your owns.</li>
+          </ul>
+          
+        </div>
+      </div>
+      
+      
+      
+      <div class="row">
+
+          <div class="span16">
+            <div class="page-header">
+              <h1>All examples</h1>
+            </div>
+          </div>
+
+          <div class="span4">
+                  <h5>Core components examples</h5>
+
+                      <ul>
+                            <li><a href="examples/1-wire.html">Wire</a></li>
+                            <li><a href="examples/2-terminals.html">Terminal</a></li>
+                            <li><a href="examples/3-container.html">Container</a></li>
+                            <li><a href="examples/4-layer.html">Layer</a></li>
+                      </ul>
+              </div>
+
+          <div class="span4">
+                  <h5>Containers</h5>
+                  <ul>
+                        <li><a href="examples/6-form-container.html">Form Container</a></li>
+                        <li><a href="examples/7-inout-container.html">In/Out Container</a></li>
+                  </ul>
+              </div>
+
+          <div class="span4">
+                      <h5>App examples</h5>
+                      <ul>
+                          <li><a href="examples/5-app.html">App</a></li>
+                      </ul>
+
+              </div>
+
+          <div class="span4">
+                  <h5>WireIt-based projects</h5>
+                  <ul>
+                      <li><a href="http://neyric.github.com/webhookit">WebhookIt</a> - visual http programming</li>
+                      <li><a href="http://tarpipe.com">Tarpipe</a> - share content across social applications</li>
+                      <li><a href="http://github.com/LeifW/pipescape">Pipescape</a> - a <a href="http://www.w3.org/TR/xproc/">XProc</a> UI</li>
+                      <li><a href="http://www.talk-map.com/">TalkMap</a> - Online debating</li>
+                  </ul>
+
+
+          </div>
+        </div>
+      
+      
+      <div class="row">
+        <div class="span8">
+          <script src="http://pipes.yahoo.com/js/listbadge.js">{"pipe_id":"LobH_yRv3hGeK14sIDfpSg","_btype":"list"}</script>
+        </div>
+        <div class="span8">
+          <script src="http://pipes.yahoo.com/js/listbadge.js">{"pipe_id":"9rzgvyVv3hG33WbbU1y0Jw","_btype":"list"}</script>
+        </div>
+      </div>
+
+      <footer>
+        <p>&copy; Eric Abouaf 2012</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <script type="text/javascript">
+    document.write(unescape("%3Cscript src='http://www.google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-567557-2");
+    pageTracker._trackPageview();
+    </script>
+
+  </body>
+</html>

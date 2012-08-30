@@ -1,0 +1,30 @@
+{
+    "name"       : "bezier-wire",
+    "displayName": "BezierWire",
+    "description": "A curvy Wire",
+    "author"     : "neyric",
+
+    "tags": ["wire", "bezier"],
+    "use" : ["bezier-wire"],
+
+    "examples": [
+        {
+            "name"       : "bezier-basic",
+            "displayName": "Basic BezierWire usage",
+            "description": "How to instantiate a BezierWire.",
+            "modules"    : ["bezier-wire"],
+            "tags"       : ["wire"],
+
+            "hideTableOfContents": true
+        },
+        {
+            "name"       : "bezier-styling",
+            "displayName": "Styling BezierWire",
+            "description": "How to set the styles of a BezierWire.",
+            "modules"    : ["bezier-wire"],
+            "tags"       : ["wire"],
+
+            "hideTableOfContents": true
+        }
+    ]
+}

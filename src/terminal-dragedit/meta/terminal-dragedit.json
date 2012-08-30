@@ -1,0 +1,7 @@
+{
+    "terminal-dragedit": {
+        "requires": [
+            "bezier-wire","dd-drop","dd-drag","dd-proxy"
+        ]
+    }
+}

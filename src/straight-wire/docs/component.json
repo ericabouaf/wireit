@@ -1,0 +1,21 @@
+{
+    "name"       : "straight-wire",
+    "displayName": "StraightWire",
+    "description": "An arrow Wire",
+    "author"     : "neyric",
+
+    "tags": ["wire"],
+    "use" : ["straight-wire"],
+
+    "examples": [
+        {
+            "name"       : "wire-basic",
+            "displayName": "Basic wire",
+            "description": "How to provide autocomplete suggestions from a local array.",
+            "modules"    : ["straight-wire"],
+            "tags"       : ["straight-wire"],
+
+            "hideTableOfContents": true
+        }
+    ]
+}

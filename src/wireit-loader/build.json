@@ -1,0 +1,13 @@
+{
+    "name": "wireit-loader",
+    "builds": {
+        "wireit-loader": {
+            "exec": [
+                "./scripts/meta_join.js"
+            ],
+            "jsfiles": [
+                "wireit.js"
+            ]
+        }
+    }
+}

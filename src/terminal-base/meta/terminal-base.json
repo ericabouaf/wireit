@@ -1,0 +1,7 @@
+{
+            "terminal-base": {
+                "requires": [
+                    "widget","widget-child","widget-position","widget-position-align","wire-base","wires-delegate"
+                ]
+            }
+         }

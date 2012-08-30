@@ -1,0 +1,10 @@
+{
+    "name": "arrow-wire",
+    "builds": {
+        "arrow-wire": {
+            "jsfiles": [
+                "arrow-wire.js"
+            ]
+        }
+    }
+}

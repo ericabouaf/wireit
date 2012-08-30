@@ -1,0 +1,54 @@
+YUI().use('bezier-wire', function(Y) {
+
+    var mygraphic = new Y.Graphic({render: "#layer"}); 
+
+    var wire = mygraphic.addShape({
+      type: Y.BezierWire,
+      stroke: {
+        weight: 4,
+        color: "rgb(173,216,230)" 
+      },
+      src: {
+        getXY: function() {
+          return [300,50];
+        }
+      },
+      tgt: {
+        getXY: function() {
+          return [700,250];
+        }
+      },
+      bezierTangentNorm:300
+    });
+        
+    Y.all('#attributes button').on('click',function(ev) {
+      
+      var attrName = ev.target.get('parentNode').get('id');
+      var value = ev.target.get('id');
+
+      switch (attrName) {
+        case "color":
+            wire.set("stroke",{color:value});
+            break;
+        case "weight":
+            wire.set("stroke",{weight:value});
+            break;
+        case "opacity":
+            wire.set("stroke",{opacity:value});
+            break;
+        case "dashstyle":
+            if(value == 'none') {
+                wire.set("stroke",{dashstyle:'none'});
+            }
+            else{
+                var dashedArray = eval(value);
+                wire.set("stroke",{dashstyle:[dashedArray[0][0],dashedArray[0][1]]});
+            }
+            break;
+        case "fillcolor":
+            wire.set("fill",{color:value});
+            break;
+      }
+  });
+
+});

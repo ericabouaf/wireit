@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{htmlTitle}}</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic">
+    <link rel="stylesheet" href="{{yuiGridsUrl}}">
+    <link rel="stylesheet" href="{{projectAssets}}/css/main.css">
+    <link rel="stylesheet" href="{{projectAssets}}/vendor/prettify/prettify-min.css">
+    <link rel="shortcut icon" type="image/png" href="{{projectAssets}}/favicon.png">
+    <script src="{{yuiSeedUrl}}"></script>
+    <script src="{{wireitSeedUrl}}"></script>
+    <script>YUI_config.groups.wireit.base = '../../build/';</script>
+    {{>selleck-head}}
+</head>
+<body class="yui3-skin-sam">
+
+<a href="https://github.com/neyric/wireit"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+<div id="doc">
+    <div id="hd">
+        <h1><img src="http://yuilibrary.com/img/yui-logo.png"> {{title}}</h1>
+    </div>
+    {{^hideTableOfContents}}
+        <a href="#toc" class="jump">Jump to Table of Contents</a>
+    {{/hideTableOfContents}}
+
+    <div class="yui3-g">
+        <div class="yui3-u-3-4">
+            <div id="main">
+                <div class="content">{{>layout_content}}</div>
+            </div>
+        </div>
+
+        <div class="yui3-u-1-4">
+            <div class="sidebar">
+                {{^hideTableOfContents}}
+                    <div id="toc" class="sidebox">
+                        <div class="hd">
+                            <h2 class="no-toc">Table of Contents</h2>
+                        </div>
+
+                        <div class="bd">
+                            {{toc}}
+                        </div>
+                    </div>
+                {{/hideTableOfContents}}
+
+                {{#if hasOwnExamples}}
+                    <div class="sidebox">
+                        <div class="hd">
+                            <h2 class="no-toc">Examples</h2>
+                        </div>
+
+                        <div class="bd">
+                            <ul class="examples">
+                                {{#examples}}
+                                    {{#unless inherited}}
+                                        <li data-description="{{description}}">
+                                            <a href="{{name}}.html">{{displayName}}</a>
+                                        </li>
+                                    {{/unless}}
+                                {{/examples}}
+                            </ul>
+                        </div>
+                    </div>
+                {{/if}}
+
+                {{#if hasInheritedExamples}}
+                    <div class="sidebox">
+                        <div class="hd">
+                            <h2 class="no-toc">Examples That Use This Component</h2>
+                        </div>
+
+                        <div class="bd">
+                            <ul class="examples">
+                                {{#examples}}
+                                    {{#if inherited}}
+                                        <li data-description="{{description}}">
+                                            <a href="../{{componentName}}/{{name}}.html">{{displayName}}</a>
+                                        </li>
+                                    {{/if}}
+                                {{/examples}}
+                            </ul>
+                        </div>
+                    </div>
+                {{/if}}
+
+
+                    <div id="links-sidebox" class="sidebox">
+                        <div class="hd">
+                            <h2 class="no-toc">Links</h2>
+                        </div>
+
+                        <div class="bd">
+<ul>
+    <li><a href="{{projectAssets}}/../index.html">Home</a></li>
+    <li><a href="{{projectAssets}}/../index.html#examples">All Examples</a></li>
+    <li><a href="{{projectAssets}}/../getting-started.html">Getting Started</a></li>
+    <li><a href="{{projectAssets}}/../contribute.html">How to Contribute</a></li>
+    <li><a href="{{projectAssets}}/../../api/index.html">API Documentation</a></li>
+</ul>
+
+<ul>
+    <li><a href="http://github.com/neyric/wireit">Fork/Follow on GitHub</a></li>
+    <li><a href="http://github.com/neyric/wireit/issues">GitHub Issues</a></li>
+    <li><a href="http://neyric.com/category/wireit/">Blog</a></li>
+    <li><a href="http://groups.google.com/group/wireit/">Forums</a></li>
+    <li><a href="{{projectAssets}}/../../license.txt">License</a></li>
+</ul>
+
+                        </div>
+                    </div>
+
+
+            <div>
+                <center>
+                <img src="http://www.twitter.com/favicon.ico" alt="twitter"> follow <a href="http://twitter.com/wireit"> on Twitter</a><br>
+                <img src="http://github.com/favicon.ico" alt="GitHub"> fork <a href="http://github.com/neyric/wireit"> on GitHub</a><br><br>
+                <a href="http://www.pledgie.com/campaigns/13031"><img alt="Click here to lend your support to: wireit and make a donation at www.pledgie.com !" src="http://www.pledgie.com/campaigns/13031.png?skin_name=chrome" border="0"></a>
+                <br /><br />
+            </center>
+            </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{projectAssets}}/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+{{>selleck-foot}}
+</body>
+</html>

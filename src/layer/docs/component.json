@@ -1,0 +1,21 @@
+{
+    "name"       : "layer",
+    "displayName": "Layer",
+    "description": "WireIt layer",
+    "author"     : "neyric",
+
+    "tags": ["widget", "icons"],
+    "use" : ["layer"],
+
+    "examples": [
+        {
+            "name"       : "layer-example",
+            "displayName": "Using a Layer",
+            "description": "Layer",
+            "modules"    : ["layer"],
+            "tags"       : ["layer"],
+
+            "hideTableOfContents": true
+        }
+    ]
+}

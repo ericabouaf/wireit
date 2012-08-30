@@ -1,0 +1,10 @@
+{
+    "name": "image-container",
+    "builds": {
+        "image-container": {
+            "jsfiles": [
+                "image-container.js"
+            ]
+        }
+    }
+}

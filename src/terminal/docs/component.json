@@ -1,0 +1,30 @@
+{
+    "name"       : "terminal",
+    "displayName": "Terminal",
+    "description": "WireIt terminals",
+    "author"     : "neyric",
+
+    "tags": ["terminal"],
+    "use" : ["terminal"],
+
+    "examples": [
+        {
+            "name"       : "basic-terminal",
+            "displayName": "Basic terminal",
+            "description": "Basic Terminal Instantiation",
+            "modules"    : ["terminal"],
+            "tags"       : ["terminal"],
+
+            "hideTableOfContents": true
+        },
+        {
+            "name"       : "terminal-groups",
+            "displayName": "Using terminal groups",
+            "description": "Terminals groups",
+            "modules"    : ["terminal"],
+            "tags"       : ["terminal"],
+
+            "hideTableOfContents": true
+        }
+    ]
+}

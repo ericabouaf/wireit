@@ -1,0 +1,5 @@
+{
+   "container-base": {
+      "requires": ["overlay","widget-parent","widget-child","dd","resize","terminal","wires-delegate"]
+   }
+}

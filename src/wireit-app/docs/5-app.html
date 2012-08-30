@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WireIt App demo</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../res/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+
+	#wireit-app h1 {
+	    padding: 0;
+	}
+
+	#wireit-app .loading {
+	    opacity: 0.5;
+	    -webkit-transition: opacity 0.15s;
+	}
+	
+	.yui3-layer-content {
+		border: 1px solid black;
+		overflow: scroll;
+	}
+	
+	ul.containerTypes {
+		list-style: none;
+		margin: 0;
+	}
+	ul.containerTypes li {
+		margin: 2px;
+		padding: 2px;
+		border-radius: 3px;
+		border: 1px solid #ccc;
+		background-color: #ddd;
+		cursor: move;
+	}
+    </style>
+
+	<script src="http://yui.yahooapis.com/3.6.0/build/yui/yui.js"></script>
+	<script type="text/javascript" src="../src/loader.js"></script>
+
+  </head>
+
+  <body class="yui3-skin-sam">
+
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="container-fluid">
+          <a class="brand" href="#">WireIt App example</a>
+          <p class="pull-right">Logged in as <a href="#">username</a></p>
+        </div>
+      </div>
+    </div>
+
+
+<script id="t-editor" type="text/x-handlebars-template">
+    <div class="container-fluid">
+      <div class="sidebar">
+        <div class="well">
+
+		<a href="#/" class="btn">&lt;&lt; Wirings List</a>
+
+          <h5 class="no-toc">Container Types</h5>
+
+	    <ul class="containerTypes">
+	    {{#each containerTypes}}
+	        <li class="containerType yui3-g">
+	            <div class="containerType-name yui3-u-2-3">{{name}}</div>
+	        </li>
+	    {{/each}}
+	    </ul>
+
+        </div>
+      </div>
+
+      <div class="content">
+        
+        <div class="row" id="wireit-app">
+			<div class="span16">
+				Name: <input id="wiring-name" />
+				<a class="btn primary" id="wiring-save-btn">Save</a>
+			</div>
+			<div class="span16" id="layer-container">
+			</div>
+        </div>
+
+      </div>
+
+    </div>
+</script>
+
+<script id="t-wiring-list" type="text/x-handlebars-template">
+	<div class="container">
+  		<div class="hero-unit">
+
+	    <h2 class="no-toc">Wirings</h2>
+
+		<p>Open an existing wiring :</p>
+
+	    <ul class="wiring">
+	    {{#each wirings}}
+	        <li class="wiring yui3-g">
+	            <div class="wiring-name yui3-u-2-3"><a href="#/wirings/{{id}}/edit">{{name}}</a></div>
+	        </li>
+	    {{/each}}
+	    </ul>
+	
+	    <a id="wiring-add-link" href="#/wirings/new" class="btn primary">or create a new one</a>
+	
+		</div>
+	</div>
+</script>
+
+<script>
+YUI_config.groups.wireit.base = '../build/';
+YUI({filter: 'raw', combine: false}).use('wireit-app', 'image-container', function (Y) {
+	window.Y = Y; //debug
+	var containerTypes = new Y.ContainerTypeList();
+	
+	containerTypes.add({
+		name: "Fetch",
+		icon: "super.png",
+		config: {
+			type: 'ImageContainer',
+			children: Y.ContainerBase.FOUR_EDGES,
+			imageUrl: 'http://www.google.fr/images/logos/ps_logo2.png'
+		}
+	});
+	containerTypes.add({
+		name: "Loop",
+		icon: "super.png",
+		config: {
+			children: Y.ContainerBase.EIGHT_POINTS,
+			type: 'Container',
+			headerContent: 'Loop',
+			bodyContent: 'This is a much longer body content'
+		}
+	});
+	
+	var wirings = new Y.WiringModelList();
+	wirings.load();
+	
+	Y.wireitApp = new Y.WireItApp({
+		// We force this to false for this example app because there is no server.
+		serverRouting: false,
+		containerTypes: containerTypes,
+		modelList: wirings
+	});
+
+	Y.wireitApp.render();
+
+});
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{
+    "name"       : "widget-icons",
+    "displayName": "WidgetIcons",
+    "description": "Add icons to any widget",
+    "author"     : "neyric",
+
+    "tags": ["widget", "icons"],
+    "use" : ["widget-icons"],
+
+    "examples": [
+        {
+            "name"       : "example",
+            "displayName": "Adding icons to a widget",
+            "description": "How to use WidgetIcons extension",
+            "modules"    : ["widget-icons"],
+            "tags"       : ["widget-icons"],
+
+            "hideTableOfContents": true
+        }
+    ]
+}

@@ -1,0 +1,1 @@
+YUI.add("terminal-output",function(b,a){b.TerminalOutput=function(e,d,c){b.TerminalOutput.superclass.constructor.call(this,e,d,c);};b.extend(b.TerminalOutput,b.Terminal,{direction:[0,1],fakeDirection:[0,-1],ddConfig:{type:"output",allowedTypes:["input"]},alwaysSrc:true});},"@VERSION@",{"requires":["terminal"]});

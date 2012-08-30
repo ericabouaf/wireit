@@ -1,0 +1,7 @@
+{
+            "wireit-app": {
+                "requires": [
+                    "app", "handlebars", "model", "model-list", "json", "view", "layer", "bezier-wire", "anim"
+                ]
+            }
+         }

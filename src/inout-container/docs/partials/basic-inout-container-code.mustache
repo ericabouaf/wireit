@@ -1,0 +1,61 @@
+YUI().use('bezier-wire', 'inout-container', function(Y) {
+
+  var layerEl = Y.one('#layer');
+  
+  var mygraphic = new Y.Graphic({render: "#layer"});
+  
+  c1 = new Y.InOutContainer({
+    children: [
+      { 
+      align: {points:["tl", "lc"]}, 
+      dir: [-1,0],
+      groups: ['string'],
+      graphic: mygraphic
+   },
+      { 
+      align: {points:["tl", "rc"]}, dir: [1, 0],
+      groups: ['object'],
+      graphic: mygraphic
+   }
+    ],
+
+   inputs: ['alright','sound in'],
+   
+   ouputs: ['result','error'],
+    
+    render: layerEl,
+    xy: [200,100],
+    headerContent: 'Awesome Module',
+    footerContent: 'not executed'
+   
+  });
+
+
+  c2 = new Y.InOutContainer({
+    children: [
+      { 
+      align: {points:["tl", "lc"]}, 
+      dir: [-1,0],
+      groups: ['in'],
+      graphic: mygraphic
+   },
+      { 
+      align: {points:["tl", "rc"]}, dir: [1, 0],
+      groups: ['object'],
+      graphic: mygraphic
+   }
+    ],
+
+   inputs: ['alright','sound in'],
+   
+   ouputs: ['result','error'],
+    
+    render: layerEl,
+    xy: [300,150],
+    headerContent: 'Awesome Module',
+
+   resizable: false
+   
+  });
+  
+});

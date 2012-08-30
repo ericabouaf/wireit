@@ -1,0 +1,7 @@
+{
+            "terminal-ddgroups": {
+                "requires": [
+                    "terminal-dragedit"
+                ]
+            }
+         }

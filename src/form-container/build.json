@@ -1,0 +1,10 @@
+{
+    "name": "form-container",
+    "builds": {
+        "form-container": {
+            "jsfiles": [
+                "form-container.js"
+            ]
+        }
+    }
+}

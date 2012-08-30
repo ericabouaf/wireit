@@ -1,0 +1,21 @@
+{
+    "name"       : "container",
+    "displayName": "Container",
+    "description": "WireIt containers",
+    "author"     : "neyric",
+
+    "tags": ["container"],
+    "use" : ["container"],
+
+    "examples": [
+        {
+            "name"       : "creating-containers",
+            "displayName": "Creating containers",
+            "description": "How to instantiate containers",
+            "modules"    : ["container"],
+            "tags"       : ["container"],
+
+            "hideTableOfContents": true
+        }
+    ]
+}

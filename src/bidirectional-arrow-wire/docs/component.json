@@ -1,0 +1,21 @@
+{
+    "name"       : "bidirectional-arrow-wire",
+    "displayName": "BidirectionalArrowWire",
+    "description": "An bidirectional arrow Wire",
+    "author"     : "neyric",
+
+    "tags": ["widget", "icons"],
+    "use" : ["bidirectional-arrow-wire"],
+
+    "examples": [
+        {
+            "name"       : "bidirectional-arrow-basic",
+            "displayName": "Basic bidirectional arrow wire creation",
+            "description": "How to create a bidirectional arrow wire.",
+            "modules"    : ["bidirectional-arrow-wire"],
+            "tags"       : ["arrow"],
+
+            "hideTableOfContents": true
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+
+.yui3-wire-base {
+   position: absolute;
+   border: 0;
+   z-index: 5;
+}
+
+.yui3-wire-editing {
+   z-index: 10;
+}
+

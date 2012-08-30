@@ -1,0 +1,8 @@
+{
+    "terminal": {
+        "requires": [
+            "terminal-base","terminal-dragedit","terminal-scissors","terminal-ddgroups"
+        ],
+        "skinnable": true
+    }
+}

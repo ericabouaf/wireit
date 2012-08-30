@@ -1,0 +1,10 @@
+{
+    "name": "terminal",
+    "builds": {
+        "terminal": {
+            "jsfiles": [
+                "terminal.js"
+            ]
+        }
+    }
+}

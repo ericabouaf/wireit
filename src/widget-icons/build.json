@@ -1,0 +1,10 @@
+{
+    "name": "widget-icons",
+    "builds": {
+        "widget-icons": {
+            "jsfiles": [
+                "widget-icons.js"
+            ]
+        }
+    }
+}

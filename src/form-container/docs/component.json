@@ -1,0 +1,21 @@
+{
+    "name"       : "form-container",
+    "displayName": "FormContainer",
+    "description": "Using the form container",
+    "author"     : "neyric",
+
+    "tags": ["widget", "icons"],
+    "use" : ["bezier-wire"],
+
+    "examples": [
+        {
+            "name"       : "basic-form-container",
+            "displayName": "Basic Form Container",
+            "description": "Create a simple form container",
+            "modules"    : ["autocomplete"],
+            "tags"       : ["autocomplete"],
+
+            "hideTableOfContents": true
+        }
+    ]
+}

@@ -1,0 +1,79 @@
+
+/**
+ * Terminal 
+ */
+.yui3-terminal {
+	position: absolute;
+   z-index: 6;
+}
+
+.yui3-terminal-content {
+   width: 30px;
+   height: 30px;
+
+   position: relative;
+	left: -15px;
+   top: -15px;
+}
+
+.yui3-terminal-editable {
+   background: transparent url(terminals.png) no-repeat scroll 0 0;
+   cursor: pointer; 
+}
+
+.yui3-terminal-connected .yui3-terminal-content {
+	background-position: 0 -30px;
+}
+
+.yui3-dd-drop-active-valid, 
+.yui3-terminal-connected .yui3-dd-drop-active-valid {
+   background-position: 0 -60px;
+}
+
+.yui3-dd-drop-over,
+.yui3-terminal-connected .yui3-dd-drop-over {
+   background-position: 0 -90px;
+}
+
+/** 
+ * Overlays 
+ */
+
+/* terminal overlays hidden by default */
+.yui3-terminal .yui3-overlay {
+	visibility: hidden;
+}
+
+/* visible with the show-overlay class */
+.yui3-terminal-show-overlay .yui3-overlay {
+	visibility: inherit;
+}
+
+/**
+ * dd groups
+ */
+.yui3-terminal-dd-groups {
+	border: 1px solid #CCC;
+	font-size: 80%;
+	font-style: italic;
+	background-color: white;
+}
+
+/**
+ * Scissors
+ */
+
+.yui3-terminal-scissors {
+   visibility: hidden;
+   border: 0;
+   z-index: 7;
+   width: 16px;
+   height: 16px;
+   background-color: transparent;
+   background-image: url(cut.png);
+   cursor: pointer;
+}
+/* connected terminal: show scissors */
+.yui3-terminal-connected .yui3-terminal-scissors {
+	visibility: inherit;
+}

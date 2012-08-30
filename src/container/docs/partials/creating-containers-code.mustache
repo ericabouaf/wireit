@@ -1,0 +1,65 @@
+YUI().use('bezier-wire', 'container', 'image-container', function(Y) {
+
+  var layerEl = Y.one('#layer');
+  
+  var mygraphic = new Y.Graphic({render: "#layer"});
+  
+  c1 = new Y.Container({
+    children: [
+      { align: {points:["tl", "tl"]} },
+      { align: {points:["tl", "bc"]} }
+    ],
+    
+    render: layerEl,
+    xy: [200,100],
+    width: 200,
+    height: 100,
+    headerContent: 'headerContent',
+    bodyContent: 'bodyContent',
+    footerContent: 'footerContent'
+  });
+  
+  c2 = new Y.Container({
+    children: [
+      {
+        align: {points:["tl", "tl"]},
+        dir: [-1,-1]
+      }
+    ],
+    render: layerEl,
+    xy: [350,200],
+    headerContent: 'sample container',
+    bodyContent: 'bodyContent'
+  });
+  
+  c3 = new Y.Container({
+    children: Y.ContainerBase.EIGHT_POINTS,
+    render: layerEl,
+    width: 200,
+    height: 100,
+    xy: [500,200],
+    headerContent: '9 terminals',
+    bodyContent: 'bodyContent',
+    footerContent: 'footerContent'
+  });
+  
+  c5 = new Y.ImageContainer({
+    children: Y.ContainerBase.EIGHT_POINTS,
+    render: layerEl,
+    xy: [700,30],
+    imageUrl: 'http://www.google.fr/images/logos/ps_logo2.png'
+  });
+
+
+  var wire = mygraphic.addShape({
+     type: Y.BezierWire,
+     stroke: {
+         weight: 4,
+         color: "rgb(173,216,230)" 
+     },
+     src: c1.item(1),
+     tgt: c2.item(0)
+  });
+
+  
+});

@@ -1,0 +1,12 @@
+YUI().use('terminal', 'bezier-wire',function(Y) {
+
+  var layerEl =  Y.one('#layer');
+  
+  var mygraphic = new Y.Graphic({render: "#layer"}); 
+  
+  var t5 = new Y.Terminal({render: layerEl, x: 470, y: 240, groups:["string","url","date"] , graphic: mygraphic});
+  var t6 = new Y.Terminal({render: layerEl, x: 660, y: 320, groups:["url"] , graphic: mygraphic});
+  var t7 = new Y.Terminal({render: layerEl, x: 680, y: 120, groups:["date"] , graphic: mygraphic});
+  var t8 = new Y.Terminal({render: layerEl, x: 780, y: 240, groups:["string","url"], graphic: mygraphic });
+
+});

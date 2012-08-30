@@ -1,0 +1,10 @@
+{
+    "name": "inputex-wirable",
+    "builds": {
+        "inputex-wirable": {
+            "jsfiles": [
+                "inputex-wirable.js"
+            ]
+        }
+    }
+}

@@ -1,0 +1,75 @@
+<h2>Welcome to WireIt {{wireitVersion}} !</h2>
+
+<p>WireIt is an open-source javascript library, to create full-web graph editors for dataflow applications, visual programming languages, graphical modeling, or graph editors.</p>
+
+<p>It is built on top of the <a href="http://yuilibrary.com">YUI3 library</a>.</p>
+
+<p>It is available under a <a href="../license.txt">MIT License</a> and is free for all uses.</p>
+
+<p>This is the static documentation for WireIt {{wireitVersion}}. For the most up-to-date, searchable docs, please visit the <a href="http://neyric.github.com/wireit/">WireIt website</a>.</p>
+
+<h2>Resources</h2>
+
+<ul>
+    <li><a href="getting-started.html">Getting Started</a></li>
+    <li><a href="../api/index.html">API Documentation</a></li>
+    <li><a href="contribute.html">How to Contribute</a></li>
+</ul>
+
+<h2>Directory Contents</h2>
+
+<p>
+This package contains the following directories:
+</p>
+
+<ul>
+  <li><p><code>api</code> Generated API docs for the entire library in HTML format.</p></li>
+
+  <li><p><code>build</code> Built WireIt source files. This is what you should load on your web pages. The built files are generated at development time from the contents of the <code>src</code> directory. The build step generates debug files (unminified and with full comments and logging), raw files (unminified, but without debug logging), and minified files (suitable for production deployment and use).</p></li>
+
+  <li><p><code>docs</code> User guides and examples for WireIt components</p></li>
+
+  <li><p><code>lib</code> External dependencies (only inputEx for now)</p></li>
+
+  <li><p><code>sandbox</code> Legacy code or work in progress</p></li>
+
+  <li><p><code>src</code> Raw unbuilt source code (JavaScript, CSS, image assets, etc.) for the library. The individual component directories under the <code>src</code> directory contain build.json files  which can be used to build individual modules using the shifter Builder. (learn more on how to build components)</a>
+  </p></li>
+</ul>
+
+
+<div class="yui3-g">
+    <div class="yui3-u-1-2">
+        <h2>Component User Guides</h2>
+
+        <ul>
+          {{#components}}
+            {{#meta}}
+                <li><a href="{{name}}/index.html">{{displayName}}</a></li>
+            {{/meta}}
+          {{/components}}
+        </ul>
+    </div>
+    <div class="yui3-u-1-2">
+        <h2 id="examples">Examples list</h2>
+        <ul>
+            {{#components}}
+                {{#meta}}
+                <li><a href="{{name}}/index.html">{{displayName}}</a>
+                    <ul>
+                        {{#examples}}
+                            <li><a href="{{componentName}}/{{name}}.html" title="{{description}}">{{displayName}}</a>
+                            {{#if inherited}}
+                                <small>*</small>
+                            {{/if}}
+                            </li>
+                        {{/examples}}
+                    </ul>
+                </li>
+                {{/meta}}
+            {{/components}}
+        </ul>
+        <!--small>* Example inherited from another component.</small-->
+   </div>
+</div>
+

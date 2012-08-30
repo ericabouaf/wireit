@@ -1,0 +1,20 @@
+{
+    "name"       : "arrow-wire",
+    "displayName": "ArrowWire",
+    "description": "An arrow Wire",
+    "author"     : "neyric",
+
+    "tags": ["widget", "icons"],
+    "use" : ["arrow-wire"],
+
+    "examples": [
+        {
+            "name"       : "arrow-basic",
+            "displayName": "Basic arrow wire creation",
+            "description": "How to create an arrow wire.",
+            "modules"    : ["arrow-wire"],
+            "tags"       : ["arrow", "wire"],
+            "hideTableOfContents": true
+        }
+    ]
+}

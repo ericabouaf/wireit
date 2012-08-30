@@ -1,0 +1,24 @@
+YUI().use('bezier-wire', function(Y) {
+
+    var mygraphic = new Y.Graphic({render: "#layer"}); 
+
+    var wire = mygraphic.addShape({
+      type: Y.BezierWire,
+      stroke: {
+        weight: 4,
+        color: "rgb(173,216,230)" 
+      },
+      src: {
+        getXY: function() {
+          return [300,50];
+        }
+      },
+      tgt: {
+        getXY: function() {
+          return [700,250];
+        }
+      },
+      bezierTangentNorm:300
+    });
+        
+});

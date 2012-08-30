@@ -1,0 +1,21 @@
+{
+    "name"       : "inout-container",
+    "displayName": "InOutContainer",
+    "description": "Using the form container",
+    "author"     : "neyric",
+
+    "tags": ["container", "inout-container"],
+    "use" : ["inout-container"],
+
+    "examples": [
+        {
+            "name"       : "basic-inout-container",
+            "displayName": "Basic InOut containers",
+            "description": "How to instantiate InOut containers",
+            "modules"    : ["inout-container"],
+            "tags"       : ["inout-container"],
+
+            "hideTableOfContents": true
+        }
+    ]
+}

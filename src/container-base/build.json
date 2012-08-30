@@ -1,0 +1,10 @@
+{
+    "name": "container-base",
+    "builds": {
+        "container-base": {
+            "jsfiles": [
+                "container-base.js"
+            ]
+        }
+    }
+}

@@ -1,0 +1,40 @@
+YUI({filter: 'raw'}).use('bezier-wire', 'form-container', 'inputex-group', 'inputex-email', 'inputex-select', 'inputex-checkbox', 'inputex-radio', 'inputex-list', 'inputex-url', 'json', function(Y) {
+    
+  var layerEl = Y.one('#layer');
+  
+  var mygraphic = new Y.Graphic({render: "#layer"});
+  
+  c1 = new Y.FormContainer({
+    children: [
+        { 
+            align: {points:["tl", "tc"]}, 
+            dir: [0,-1],
+            groups: ['string'],
+            graphic: mygraphic
+        },
+        {
+            align: {points:["tl", "bc"]}, dir: [0, 1],
+            groups: ['object'],
+            graphic: mygraphic
+        }
+    ],
+    
+    render: layerEl,
+    xy: [200,100],
+    headerContent: 'Awesome Module',
+    footerContent: 'not executed',
+
+    fields: [
+        {type: 'select', label: 'Title', name: 'title', choices: [{ value: 'Mr' }, { value: 'Mrs' }, { value: 'Ms' }]},
+        {label: 'Firstname', name: 'firstname', required: true},
+        {label: 'Lastname', name: 'lastname', value:'Dupont'},
+        {type:'email', label: 'Email', name: 'email', required: true, showMsg: true},
+        {type:'radio', label: 'Happy to be there ?', name: 'happy', display:'vertically', choices:[{value: "y", label:"yes"}, {value:"n", label:"no"}]},
+        {type:'boolean', label: 'Favorite colors ?', name: 'yellow', rightLabel:"yellow"},
+        {type:'boolean', label: ' ', name: 'blue', rightLabel:"blue"},
+        {type:'boolean', label: ' ', name: 'red', rightLabel:"red"}
+    ]
+    
+  });
+  
+});

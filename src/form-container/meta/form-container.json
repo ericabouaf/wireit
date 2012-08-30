@@ -1,0 +1,6 @@
+{
+   "form-container": {
+      "requires": ["container","inputex-wirable-fields"],
+      "skinnable": true
+   }
+}
