@@ -9,5 +9,8 @@
                 "wireit.js"
             ]
         }
-    }
+    },
+	"shifter": {
+		"jsstamp": false
+	}
 }
