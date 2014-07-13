@@ -1,8 +1,5 @@
 YUI.add('wireit-app', function (Y, NAME) {
 
-/**
- * @module wireit-app
- */
 
 // -- LocalStorageSync ---------------------------------------------------------------------
 // Saves WiringModel
@@ -102,6 +99,9 @@ function LocalStorageSync(key) {
     };
 }
 
+/**
+ * @module wireit-app
+ */
 
 // -- WiringModel ---------------------------------------------------------------------
 Y.WiringModel = Y.Base.create('wiringModel', Y.Model, [], {
@@ -284,7 +284,7 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
       this.get('model').save();
       
       // TODO: add only one message
-      var s = Y.Node.create('<div class="alert-message warning" style="width: 300px; z-index: 10001;"><p>Saved !</p></div>').appendTo(document.body);
+      var s = Y.Node.create('<div class="alert-message bg-warning" style="width: 300px; z-index: 10001;"><p>Saved !</p></div>').appendTo(document.body);
       var anim = new Y.Anim({
           node: s,
           duration: 0.5,

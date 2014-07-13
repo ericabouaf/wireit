@@ -3,6 +3,7 @@
     "builds": {
         "wireit-app": {
             "jsfiles": [
+            	"local-storage-sync.js",
                 "wireit-app.js"
             ]
         }

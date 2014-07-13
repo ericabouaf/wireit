@@ -12,12 +12,9 @@
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="../res/bootstrap.min.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
-      body {
-        padding-top: 60px;
-      }
-
+      
 	#wireit-app h1 {
 	    padding: 0;
 	}
@@ -47,25 +44,25 @@
     </style>
 
 	<script src="http://yui.yahooapis.com/3.6.0/build/yui/yui.js"></script>
-	<script type="text/javascript" src="../src/loader.js"></script>
+	<script type="text/javascript" src="../../../build/wireit-loader/wireit-loader-min.js"></script>
 
   </head>
 
   <body class="yui3-skin-sam">
 
-    <div class="topbar">
-      <div class="topbar-inner">
-        <div class="container-fluid">
-          <a class="brand" href="#">WireIt App example</a>
+    <div class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="#">WireIt App example</a>
           <p class="pull-right">Logged in as <a href="#">username</a></p>
-        </div>
       </div>
     </div>
 
 
 <script id="t-editor" type="text/x-handlebars-template">
+
     <div class="container-fluid">
-      <div class="sidebar">
+
+      <div class="sidebar col-md-3">
         <div class="well">
 
 		<a href="#/" class="btn">&lt;&lt; Wirings List</a>
@@ -83,7 +80,7 @@
         </div>
       </div>
 
-      <div class="content">
+      <div class="content col-md-9">
         
         <div class="row" id="wireit-app">
 			<div class="span16">
@@ -122,7 +119,9 @@
 </script>
 
 <script>
-YUI_config.groups.wireit.base = '../build/';
+//YUI_config.groups.wireit.base = '../build/';
+YUI_config.groups.wireit.base = '../../../build/';
+
 YUI({filter: 'raw', combine: false}).use('wireit-app', 'image-container', function (Y) {
 	window.Y = Y; //debug
 	var containerTypes = new Y.ContainerTypeList();

@@ -1,10 +1,12 @@
 YUI().use('bezier-wire', 'container', 'image-container', function(Y) {
 
-  var layerEl = Y.Layer('#layer');
+  var layerEl = new Y.Layer({
+    render: Y.one('#layer')
+  });
   
   //var mygraphic = new Y.Graphic({render: "#layer"});
   
-  c1 = new Y.Container({
+  c1 = layerEl.add(new Y.Container({
     children: [
       { align: {points:["tl", "tl"]} },
       { align: {points:["tl", "bc"]} }
@@ -17,7 +19,7 @@ YUI().use('bezier-wire', 'container', 'image-container', function(Y) {
     headerContent: 'headerContent',
     bodyContent: 'bodyContent',
     footerContent: 'footerContent'
-  });
+  }));
   
   c2 = new Y.Container({
     children: [
