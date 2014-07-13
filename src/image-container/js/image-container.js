@@ -21,6 +21,12 @@ Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
       var image = Y.Node.create('<img src="'+this.get('imageUrl')+'" width="'+this.get('width')+'"  height="'+this.get('height')+'"/>');
       image.appendTo( this.get('contentBox') );
       this.image = image;
+
+      this.image.once('load', function() {
+        //console.log("loaded !!!");
+        this.alignTerminals();
+        this.redrawAllWires();
+      }, this);
       
       //console.log( Y.WidgetStdMod.BODY, this._getStdModContent(Y.WidgetStdMod.BODY) );
             
