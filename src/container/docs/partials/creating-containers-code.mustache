@@ -1,8 +1,8 @@
 YUI().use('bezier-wire', 'container', 'image-container', function(Y) {
 
-  var layerEl = Y.one('#layer');
+  var layerEl = Y.Layer('#layer');
   
-  var mygraphic = new Y.Graphic({render: "#layer"});
+  //var mygraphic = new Y.Graphic({render: "#layer"});
   
   c1 = new Y.Container({
     children: [
@@ -50,7 +50,7 @@ YUI().use('bezier-wire', 'container', 'image-container', function(Y) {
     imageUrl: 'http://www.google.fr/images/logos/ps_logo2.png'
   });
 
-
+  /*
   var wire = mygraphic.addShape({
      type: Y.BezierWire,
      stroke: {
@@ -60,6 +60,6 @@ YUI().use('bezier-wire', 'container', 'image-container', function(Y) {
      src: c1.item(1),
      tgt: c2.item(0)
   });
-
+ */
   
 });
