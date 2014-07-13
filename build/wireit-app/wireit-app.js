@@ -99,9 +99,6 @@ function LocalStorageSync(key) {
     };
 }
 
-/**
- * @module wireit-app
- */
 
 // -- WiringModel ---------------------------------------------------------------------
 Y.WiringModel = Y.Base.create('wiringModel', Y.Model, [], {
@@ -374,6 +371,11 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
       }
    }
 });
+/**
+ * @module wireit-app
+ */
+
+
 
 // -- WireIt App ---------------------------------------------------------
 Y.WireItApp = new Y.Base.create('contributorsApp', Y.App, [], {

@@ -4,6 +4,10 @@
         "wireit-app": {
             "jsfiles": [
             	"local-storage-sync.js",
+            	"wiring-model.js",
+            	"wiring-list-view.js",
+            	"container-type.js",
+            	"editor-view.js",
                 "wireit-app.js"
             ]
         }

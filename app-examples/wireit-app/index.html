@@ -3,26 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>WireIt App demo</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="An Example for the WireIt">
+    <meta name="author" content="Eric Abouaf">
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le styles -->
+    <!-- Bootstrap -->
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style type="text/css">
       
-	#wireit-app h1 {
-	    padding: 0;
-	}
-
-	#wireit-app .loading {
-	    opacity: 0.5;
-	    -webkit-transition: opacity 0.15s;
-	}
+      body {
+      	margin-top: 60px;
+      }
 	
 	.yui3-layer-content {
 		border: 1px solid black;
@@ -43,17 +34,16 @@
 	}
     </style>
 
-	<script src="http://yui.yahooapis.com/3.6.0/build/yui/yui.js"></script>
-	<script type="text/javascript" src="../../../build/wireit-loader/wireit-loader-min.js"></script>
+	<script src="http://yui.yahooapis.com/3.17.2/build/yui/yui.js"></script>
+	<script type="text/javascript" src="../../build/wireit-all/wireit-all-min.js"></script>
 
   </head>
 
   <body class="yui3-skin-sam">
 
-    <div class="navbar navbar-default" role="navigation">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container-fluid">
-          <a class="navbar-brand" href="#">WireIt App example</a>
-          <p class="pull-right">Logged in as <a href="#">username</a></p>
+          <span class="navbar-brand">WireIt App example</span>
       </div>
     </div>
 
@@ -112,47 +102,50 @@
 	    {{/each}}
 	    </ul>
 	
-	    <a id="wiring-add-link" href="#/wirings/new" class="btn primary">or create a new one</a>
+	    <a id="wiring-add-link" href="#/wirings/new" class="btn btn-primary">or create a new one</a>
 	
 		</div>
 	</div>
 </script>
 
 <script>
-//YUI_config.groups.wireit.base = '../build/';
-YUI_config.groups.wireit.base = '../../../build/';
+YUI_config.groups.wireit.base = '../../build/';
 
-YUI({filter: 'raw', combine: false}).use('wireit-app', 'image-container', function (Y) {
+YUI().use('wireit-app', 'image-container', function (Y) {
+
 	window.Y = Y; //debug
-	var containerTypes = new Y.ContainerTypeList();
-	
-	containerTypes.add({
-		name: "Fetch",
-		icon: "super.png",
-		config: {
-			type: 'ImageContainer',
-			children: Y.ContainerBase.FOUR_EDGES,
-			imageUrl: 'http://www.google.fr/images/logos/ps_logo2.png'
-		}
-	});
-	containerTypes.add({
-		name: "Loop",
-		icon: "super.png",
-		config: {
-			children: Y.ContainerBase.EIGHT_POINTS,
-			type: 'Container',
-			headerContent: 'Loop',
-			bodyContent: 'This is a much longer body content'
-		}
-	});
-	
+
+	var containers_definitions = [
+			{
+				name: "Fetch",
+				icon: "super.png",
+				config: {
+					type: 'ImageContainer',
+					children: Y.ContainerBase.FOUR_EDGES,
+					imageUrl: 'http://www.google.fr/images/logos/ps_logo2.png'
+				}
+			},
+			{
+				name: "Loop",
+				icon: "super.png",
+				config: {
+					children: Y.ContainerBase.EIGHT_POINTS,
+					type: 'Container',
+					headerContent: 'Loop',
+					bodyContent: 'This is a much longer body content'
+				}
+			}
+		];
+
 	var wirings = new Y.WiringModelList();
 	wirings.load();
 	
 	Y.wireitApp = new Y.WireItApp({
 		// We force this to false for this example app because there is no server.
 		serverRouting: false,
-		containerTypes: containerTypes,
+		containerTypes: new Y.ContainerTypeList({
+			items: containers_definitions
+		}),
 		modelList: wirings
 	});
 
