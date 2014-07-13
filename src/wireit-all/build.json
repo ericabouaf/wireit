@@ -1,0 +1,40 @@
+{
+    "name": "wireit-all",
+    "builds": {},
+    "rollups": {
+        "wireit-all": {
+            "name": "wireit-all",
+            "config": {
+                "skinnable": true
+            },
+            "skinnable": true,
+            "files": [
+                "wireit-loader",
+                "arrow-wire",
+                "bezier-wire",
+                "bidirectional-arrow-wire",
+                "container",
+                "container-base",
+                "form-container",
+                "image-container",
+                "inout-container",
+                "inputex-wirable",
+                "inputex-wirable-fields",
+                "layer",
+                "straight-wire",
+                "terminal",
+                "terminal-base",
+                "terminal-ddgroups",
+                "terminal-dragedit",
+                "terminal-input",
+                "terminal-output",
+                "terminal-scissors",
+                "textarea-container",
+                "widget-icons",
+                "wire-base",
+                "wireit-app",
+                "wires-delegate"
+            ]
+        }
+    }
+}
