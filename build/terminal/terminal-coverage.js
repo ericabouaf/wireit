@@ -1,62 +1,6 @@
-if (typeof _yuitest_coverage == "undefined"){
-    _yuitest_coverage = {};
-    _yuitest_coverline = function(src, line){
-        var coverage = _yuitest_coverage[src];
-        if (!coverage.lines[line]){
-            coverage.calledLines++;
-        }
-        coverage.lines[line]++;
-    };
-    _yuitest_coverfunc = function(src, name, line){
-        var coverage = _yuitest_coverage[src],
-            funcId = name + ":" + line;
-        if (!coverage.functions[funcId]){
-            coverage.calledFunctions++;
-        }
-        coverage.functions[funcId]++;
-    };
+if (typeof __coverage__ === 'undefined') { __coverage__ = {}; }
+if (!__coverage__['build/terminal/terminal.js']) {
+   __coverage__['build/terminal/terminal.js'] = {"path":"build/terminal/terminal.js","s":{"1":0,"2":0},"b":{},"f":{"1":0},"fnMap":{"1":{"name":"(anonymous_1)","line":1,"loc":{"start":{"line":1,"column":20},"end":{"line":1,"column":39}}}},"statementMap":{"1":{"start":{"line":1,"column":0},"end":{"line":33,"column":3}},"2":{"start":{"line":20,"column":4},"end":{"line":20,"column":121}}},"branchMap":{},"code":["(function () { YUI.add('terminal', function (Y, NAME) {","","/**"," * @module terminal"," */","","    'use strict';","","/**"," * Terminal is responsible for wire edition"," * "," * @class Terminal"," * @extends TerminalBase"," * @uses TerminalDragEdit"," * @uses TerminalScissors"," * @uses TerminalDDGroups"," * @constructor"," * @param {Object} oConfigs The user configuration for the instance."," */","    Y.Terminal = Y.Base.create(\"terminal\", Y.TerminalBase, [Y.TerminalDragEdit, Y.TerminalScissors, Y.TerminalDDGroups]);","","","","","}, '@VERSION@', {","    \"requires\": [","        \"terminal-base\",","        \"terminal-dragedit\",","        \"terminal-scissors\",","        \"terminal-ddgroups\"","    ],","    \"skinnable\": true","});","","}());"]};
 }
-_yuitest_coverage["build/terminal/terminal.js"] = {
-    lines: {},
-    functions: {},
-    coveredLines: 0,
-    calledLines: 0,
-    coveredFunctions: 0,
-    calledFunctions: 0,
-    path: "build/terminal/terminal.js",
-    code: []
-};
-_yuitest_coverage["build/terminal/terminal.js"].code=["YUI.add('terminal', function (Y, NAME) {","","/**"," * @module terminal"," */","","    'use strict';","","/**"," * Terminal is responsible for wire edition"," * "," * @class Terminal"," * @extends TerminalBase"," * @uses TerminalDragEdit"," * @uses TerminalScissors"," * @uses TerminalDDGroups"," * @constructor"," * @param {Object} oConfigs The user configuration for the instance."," */","    Y.Terminal = Y.Base.create(\"terminal\", Y.TerminalBase, [Y.TerminalDragEdit, Y.TerminalScissors, Y.TerminalDDGroups]);","","","","","}, '@VERSION@', {\"requires\": [\"terminal-base\", \"terminal-dragedit\", \"terminal-scissors\", \"terminal-ddgroups\"], \"skinnable\": true});"];
-_yuitest_coverage["build/terminal/terminal.js"].lines = {"1":0,"7":0,"20":0};
-_yuitest_coverage["build/terminal/terminal.js"].functions = {"(anonymous 1):1":0};
-_yuitest_coverage["build/terminal/terminal.js"].coveredLines = 3;
-_yuitest_coverage["build/terminal/terminal.js"].coveredFunctions = 1;
-_yuitest_coverline("build/terminal/terminal.js", 1);
-YUI.add('terminal', function (Y, NAME) {
-
-/**
- * @module terminal
- */
-
-    _yuitest_coverfunc("build/terminal/terminal.js", "(anonymous 1)", 1);
-_yuitest_coverline("build/terminal/terminal.js", 7);
-'use strict';
-
-/**
- * Terminal is responsible for wire edition
- * 
- * @class Terminal
- * @extends TerminalBase
- * @uses TerminalDragEdit
- * @uses TerminalScissors
- * @uses TerminalDDGroups
- * @constructor
- * @param {Object} oConfigs The user configuration for the instance.
- */
-    _yuitest_coverline("build/terminal/terminal.js", 20);
-Y.Terminal = Y.Base.create("terminal", Y.TerminalBase, [Y.TerminalDragEdit, Y.TerminalScissors, Y.TerminalDDGroups]);
-
-
-
-
-}, '@VERSION@', {"requires": ["terminal-base", "terminal-dragedit", "terminal-scissors", "terminal-ddgroups"], "skinnable": true});
+var __cov_m91W1Rmd0Ek$IpWZt$In0Q = __coverage__['build/terminal/terminal.js'];
+__cov_m91W1Rmd0Ek$IpWZt$In0Q.s['1']++;YUI.add('terminal',function(Y,NAME){'use strict';__cov_m91W1Rmd0Ek$IpWZt$In0Q.f['1']++;__cov_m91W1Rmd0Ek$IpWZt$In0Q.s['2']++;Y.Terminal=Y.Base.create('terminal',Y.TerminalBase,[Y.TerminalDragEdit,Y.TerminalScissors,Y.TerminalDDGroups]);},'@VERSION@',{'requires':['terminal-base','terminal-dragedit','terminal-scissors','terminal-ddgroups'],'skinnable':true});

@@ -28,6 +28,10 @@
 	background-color: white;
 }
 
+.yui3-image-container-content {
+	position: relative;
+}
+
 .yui3-container-content .yui3-widget-hd,
 .yui3-form-container-content .yui3-widget-hd,
 .yui3-inout-container-content .yui3-widget-hd,

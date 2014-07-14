@@ -735,7 +735,7 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
          value: true
       },
       
-      x: {
+      /*x: {
          getter: function () {
             var left = this.get('boundingBox').getStyle('left');
             return parseInt(left.substr(0,left.length-2),10);
@@ -747,7 +747,7 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
             var top = this.get('boundingBox').getStyle('top');
             return parseInt(top.substr(0,top.length-2),10);
          }
-      },
+      },*/
       
       preventSelfWiring: {
          value: true
@@ -1002,37 +1002,39 @@ Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
    
    
       // Make the overlay resizable
-      var contentBox = this.get('contentBox');
-      var resize = new Y.Resize({ 
-         node: contentBox,
-         handles: 'br'
-      });
-      /*resize.plug(Y.Plugin.ResizeConstrained, {
-         preserveRatio: true
-       });*/
-      // On resize, fillHeight, & align terminals & wires
-      resize.on('resize:resize', function (e) {
-         // TODO: fillHeight
-         this._fillHeight();
-         
-         //console.log(e.details[0].info);
-         var p = e.details[0].info;
-         var w = p.right-p.left;
-         var h = p.bottom-p.top;
-         //console.log(w+"x"+h);
-         
-         // WARNING !!!
-         this.image.set('width',w);
-         this.image.set('height',h);
-         
-         this.each(function (term) {
-            if(term.get('align')) {   
-               term.align( contentBox, ["tl",term.get('align').points[1]]);
-            }
-         }, this);
-         
-         this.redrawAllWires();
-      }, this);
+      if(this.get('resizable')) {
+        var contentBox = this.get('contentBox');
+        var resize = new Y.Resize({ 
+           node: contentBox,
+           handles: 'br'
+        });
+        /*resize.plug(Y.Plugin.ResizeConstrained, {
+           preserveRatio: true
+         });*/
+        // On resize, fillHeight, & align terminals & wires
+        resize.on('resize:resize', function (e) {
+           // TODO: fillHeight
+           this._fillHeight();
+           
+           //console.log(e.details[0].info);
+           var p = e.details[0].info;
+           var w = p.right-p.left;
+           var h = p.bottom-p.top;
+           //console.log(w+"x"+h);
+           
+           // WARNING !!!
+           this.image.set('width',w);
+           this.image.set('height',h);
+           
+           this.each(function (term) {
+              if(term.get('align')) {   
+                 term.align( contentBox, ["tl",term.get('align').points[1]]);
+              }
+           }, this);
+           
+           this.redrawAllWires();
+        }, this);
+      }
       
    }
    
@@ -1044,7 +1046,12 @@ Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
        * @attribute imageUrl
        */
       imageUrl: {
-         value: ''
+         value: '',
+         setter: function(url) {
+            if(this.image) {
+              this.image.set('src', url);
+            }
+         }
       },
       
       zIndex: {
@@ -1461,7 +1468,15 @@ YUI.add('terminal', function (Y, NAME) {
 
 
 
-}, '@VERSION@', {"requires": ["terminal-base", "terminal-dragedit", "terminal-scissors", "terminal-ddgroups"], "skinnable": true});
+}, '@VERSION@', {
+    "requires": [
+        "terminal-base",
+        "terminal-dragedit",
+        "terminal-scissors",
+        "terminal-ddgroups"
+    ],
+    "skinnable": true
+});
 YUI.add('terminal-base', function (Y, NAME) {
 
 'use strict';
@@ -1500,7 +1515,15 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
       }, this);
       this.get('boundingBox').on('mouseover', function () { Y.later(300, this, show); });
       this.get('boundingBox').on('mouseout', function () { Y.later(300, this, hide); });
-      
+     
+
+      var containerXY = this.get('parent').get('boundingBox').getXY();
+      //var xy = this.get('xy');
+      var offset = this.get('offset');
+
+      this.set('xy', [containerXY[0]+offset[0], containerXY[1]+offset[1]]);
+      //console.log(containerXY, xy, );
+
    },
    
    // override the WiresDelegate behavior which re-fires the event
@@ -1523,7 +1546,15 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
     * @method getXY
     */
    getXY: function () {
-      return this.get('contentBox').getXY();
+      var container = this.get('parent');
+      var layer = container.get('parent');
+      var layerXY = layer.get('boundingBox').getXY();
+      //console.log( "layerXY", layerXY );
+
+      var absXY = this.get('contentBox').getXY();
+      //console.log( "absXY", absXY );
+
+      return [absXY[0]-layerXY[0] + 15/2 , absXY[1]-layerXY[1] + 15/2];
    }
    
 }, {
@@ -1545,7 +1576,20 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
       
       alignNode: {
          value: null
+      },
+
+      offset: {
+        setter: function(val) {
+          //this._setX(val);
+          var containerXY = this.get('parent').get('boundingBox').getXY();
+
+          var xy = this.get('xy');
+
+          console.log(containerXY, xy, val);
+        },
+        value: [0,0]
       }
+      
    }
    
 });
@@ -1553,7 +1597,16 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
 
 
 
-}, '@VERSION@', {"requires": ["widget", "widget-child", "widget-position", "widget-position-align", "wire-base", "wires-delegate"]});
+}, '@VERSION@', {
+    "requires": [
+        "widget",
+        "widget-child",
+        "widget-position",
+        "widget-position-align",
+        "wire-base",
+        "wires-delegate"
+    ]
+});
 YUI.add('terminal-ddgroups', function (Y, NAME) {
 
 /**
@@ -1736,6 +1789,11 @@ Y.TerminalDragEdit.prototype = {
       if(!this.get('graphic')) {
          this.set('graphic', this.get('root').graphic);
       }
+
+
+      var container = this.get('parent');
+      var layer = container.get('parent');
+      var offset = layer.get('boundingBox').getXY();
       
       this.drag.wire = this.get('graphic').addShape({
          
@@ -1751,10 +1809,11 @@ Y.TerminalDragEdit.prototype = {
            },
            
            src: { 
-              getXY: function () { return [ev.pageX,ev.pageY]; }
+              getXY: function () { return [ev.pageX - offset[0]  + 15 / 2, ev.pageY - offset[1] + 15 / 2]; }
            },
            tgt: { 
-              getXY: function () { return [that._magnetX || that._editwireX, that._magnetY || that._editwireY]; } 
+              getXY: function () { return [that._magnetX || (that._editwireX - offset[0] + 15 / 2),
+                                           that._magnetY || (that._editwireY - offset[1] + 15 / 2)]; } 
            },
 
            srcDir: dir,
@@ -2533,7 +2592,7 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
             cloneNode: true,
             moveOnEnd: false
          });
-         drag._containerTypeName = node._node.innerHTML;
+         drag._containerTypeName = node._node.attributes["app-container-name"].value; //node._node.innerHTML;
          
          // On drom, add it to the layer
          drag.on('drag:drophit',  function (ev) {

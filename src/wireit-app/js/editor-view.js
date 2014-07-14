@@ -28,7 +28,7 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
             cloneNode: true,
             moveOnEnd: false
          });
-         drag._containerTypeName = node._node.innerHTML;
+         drag._containerTypeName = node._node.attributes["app-container-name"].value; //node._node.innerHTML;
          
          // On drom, add it to the layer
          drag.on('drag:drophit',  function (ev) {

@@ -111,6 +111,11 @@ Y.TerminalDragEdit.prototype = {
       if(!this.get('graphic')) {
          this.set('graphic', this.get('root').graphic);
       }
+
+
+      var container = this.get('parent');
+      var layer = container.get('parent');
+      var offset = layer.get('boundingBox').getXY();
       
       this.drag.wire = this.get('graphic').addShape({
          
@@ -126,10 +131,11 @@ Y.TerminalDragEdit.prototype = {
            },
            
            src: { 
-              getXY: function () { return [ev.pageX,ev.pageY]; }
+              getXY: function () { return [ev.pageX - offset[0]  + 15 / 2, ev.pageY - offset[1] + 15 / 2]; }
            },
            tgt: { 
-              getXY: function () { return [that._magnetX || that._editwireX, that._magnetY || that._editwireY]; } 
+              getXY: function () { return [that._magnetX || (that._editwireX - offset[0] + 15 / 2),
+                                           that._magnetY || (that._editwireY - offset[1] + 15 / 2)]; } 
            },
 
            srcDir: dir,

@@ -1,362 +1,121 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>WireIt - LogicGates example</title>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WireIt App demo</title>
+    <meta name="description" content="An Example for the WireIt">
+    <meta name="author" content="Eric Abouaf">
 
-<!-- YUI -->
-<link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.6.0/build/cssreset/reset-min.css&3.6.0/build/cssfonts/fonts-min.css">
-<script src="http://yui.yahooapis.com/3.6.0/build/yui/yui.js"></script>
+    <!-- Bootstrap -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- InputEx CSS -->
-<link type='text/css' rel='stylesheet' href='../../../inputex/lib/inputex/css/inputEx.css' />
-
-<!-- YUI-accordion CSS -->
-<link rel="stylesheet" type="text/css" href="../../lib/accordionview/assets/skins/sam/accordionview.css" />
-
-<!-- WireIt CSS -->
-<link rel="stylesheet" type="text/css" href="../../../../assets/WireIt.css" />
-<link rel="stylesheet" type="text/css" href="../../assets/WireItEditor.css" />
-
-<style>
-div.WireIt-Container-closebutton { top: -16px; }
-div.WireIt-ImageContainer div.body { width: 85px; }
-
-div.WiringEditor-module-Lightbulb { height:100px; width:55px; }
-div.WiringEditor-module-Lightbulb div.body {	height:70px; width:50px; }
-
-div.WiringEditor-module-Clock { height:100px; width:80px; }
-div.WiringEditor-module-Clock div.body { height:70px; width:50px; }
-
-div.WiringEditor-module-Switch { height:60px; width:74px; }
-div.WiringEditor-module-Switch div.body { height:45px; width:80px; }
-
-.WiringEditor-module span { display: none; }
-.WiringEditor-module { float: left; }
-</style>
-
-
-
-<!-- Libs -->
-<script src="../../lib/accordionview/accordionview-min.js"  type='text/javascript'></script>
-<script type="text/javascript" src="../../../../lib/excanvas.js"></script>
-
-
-<!-- WireIt -->
-<script type="text/javascript" src="../../../../build/wireit-inputex-editor-min.js"></script>
-<script type="text/javascript" src="../../js/adapters/json-rpc.js"></script>
-
-
-</head>
-
-<body class="yui-skin-sam">
-
-	<div id="top">
-		<div class="logo">WireIt WiringEditor - logic gates demo</a></div>
-		<div id="toolbar"></div>
-		<div class="topright">
-			<span>Hello there !</span> | 
-			<a href="../..">back to WireIt</a>
-		</div>
-	</div>
-
-	<!-- Left panel-->
-	<div id="left">
-		
-		<!-- Accordion for module categories-->
-		 <ul id="modulesAccordionView">
-			<li>
-				<h2>Input Controls</h2>
-				<div>
-					<div id='module-category-input'></div>
-				</div>
-			</li>
-			<li>
-				<h2>Output Controls</h2>
-				<div>
-					<div id='module-category-output'></div>
-				</div>
-			</li>
-			<li>
-				<h2>Gates</h2>
-				<div>
-					<div id='module-category-gate'></div>
-				</div>
-			</li>			
-		</ul>
-		
-	</div>	
+    <style type="text/css">
+      
+      body {
+      	margin-top: 60px;
+      }
 	
-	<div id="right">
-		<ul id="accordionView">
-			<li>
-				<h2>Properties</h2>
-				<div>
-					<div id="propertiesForm"></div>
-				</div>
-			</li>
-			<li>
-				<h2>Minimap</h2>
-				<div style='position: relative;'>
-					<div id="layerMap"></div>
-				</div>
-			</li>
-			<li>
-				<h2>Infos</h2>
-				<div>
-				  <div style="padding: 10px;">
-					<p>This example uses <i>ImageContainers</i> to represent logic gates.</p>
-						<br />
-						<p><b>Drag and drop modules from the Module list</b> on the left to the working layer in the middle.</p>
-						<br />
-						<p><a href="logicGates.js" target="_new">Click here to view the language definition for this editor.</a></p>
-				  </div>
-				</div>
-			</li>
-	</div>
-	
-	<div id="center">
-	</div>
-
-	<div id="helpPanel">
-	    <div class="hd">logicGates (WiringEditor example)</div>
-	    <div class="bd" style="text-align: left;">
-	        <p>This example uses <i>ImageContainers</i> to represent logic gates.</p>
-			<br />
-			<p><b>Drag and drop modules from the Module list</b> on the left to the working layer in the middle.</p>
-			<br />
-			<p><a href="logicGates.js" target="_new">Click here to view the language definition for this editor.</a></p>
-	    </div>
-	</div>
-
-
-<script type="text/javascript">
-var logicGatesLang = {	
-	languageName: "logicGates",
-	modules: [
-		{
-			"name": "AND",
-			"category": "gate",
-			"description": "AND Gate with 2 inputs",
-			"container" : {
-				"xtype":"LogicContainer", 
-				"icon": "../logicGates/images/gate_and.png",
-				"image": "../logicGates/images/gate_and.png",
-  				"terminals": [
-  					{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": {"left": -16, "top": -2 },"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
-  					{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": {"left": -16, "top": 25 },"ddConfig": {"type": "input","allowedTypes": ["output"]}},
-  					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": {"left": 65, "top": 12 },"ddConfig": {"type": "output","allowedTypes": ["input"]}}
-  				]
-			}
-		},
-		{
-		  "name": "OR",	
-			"category": "gate",
-			"description": "OR Gate with 2 inputs",
-			"container": {
-		   		"xtype":"LogicContainer", 
-		   		"icon": "../logicGates/images/gate_or.png",
-		   		"image": "../logicGates/images/gate_or.png",
-					"terminals": [
-						{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": {"left": -16, "top": -2 },"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
-						{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": {"left": -16, "top": 25 },"ddConfig": {"type": "input","allowedTypes": ["output"]}},
-						{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": {"left": 65, "top": 12 },"ddConfig": {"type": "output","allowedTypes": ["input"]}}
-					]
-			}
-		},
-		{
-		  "name": "NOT",	
-			"category": "gate",
-			"description": "NOT Gate with 1 input",
-		  "container": {
-				"xtype":"LogicContainer", 
-			   "icon": "../logicGates/images/gate_not.png",
-			   "image": "../logicGates/images/gate_not.png",
-				"terminals": [
-					{"name": "_INPUT", "direction": [-1,0], "offsetPosition": {"left": -21, "top": 12 },"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
-					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": {"left": 70, "top": 12 },"ddConfig": {"type": "output","allowedTypes": ["input"]}}
-				]
-			}
-		},
-		{
-		   "name": "NAND",
-			"category": "gate",
-			"description": "NAND Gate with 2 inputs",
-		   "container": {
-			   "xtype":"LogicContainer", 
-			   "icon": "../logicGates/images/gate_nand.png",
-			   "image": "../logicGates/images/gate_nand.png",
-				"terminals": [
-					{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": {"left": -16, "top": -2 },"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
-					{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": {"left": -16, "top": 25 },"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
-					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": {"left": 65, "top": 12 }, "ddConfig": {"type": "output","allowedTypes": ["input"]}}
-				]
-			}
-		},
-		{
-		   "name": "XOR",
-			"category": "gate",
-			"description": "XOR Gate with 2 inputs",
-		   "container": {
-		   	"xtype":"LogicContainer", 
-		   	"icon": "../logicGates/images/gate_xor.png",
-		   	"image": "../logicGates/images/gate_xor.png",
-				"terminals": [
-					{"name": "_INPUT1", "direction": [-1,0], "offsetPosition": {"left": -16, "top": -2 },"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
-					{"name": "_INPUT2", "direction": [-1,0], "offsetPosition": {"left": -16, "top": 25 },"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 },
-					{"name": "_OUTPUT", "direction": [1,0], "offsetPosition": {"left": 65, "top": 12 },"ddConfig": {"type": "output","allowedTypes": ["input"]}}
-				]
-			}
-		},
-		{
-			"name": "Lightbulb",
-			"category": "output",
-			"description": "Lamp display",
-			"container" : {
-				"xtype":"LightbulbContainer", 
-				"icon": "../logicGates/images/lightbulb_off.png",
-				"image": "../logicGates/images/lightbulb_off.png",
-  				"terminals": [ {"name": "_INPUT", "direction": [0,1], "offsetPosition": {"left": 5, "bottom": 20 },"ddConfig": {"type": "input","allowedTypes": ["output"]}, "nMaxWires": 1 } ]
-			}
-		},
-		{
-			"name": "Switch",
-			"category": "input",
-			"description": "Switch",
-			"container" : {
-				"xtype":"SwitchContainer", 
-				"icon": "../logicGates/images/switch_off.png",
-				"image": "../logicGates/images/switch_off.png",
-  				"terminals": [ {"name": "_OUTPUT", "direction": [1,0], "offsetPosition": {"right": 6, "top": 11 },"ddConfig": {"type": "output","allowedTypes": ["input"]}} ]
-			}
-		},
-		{
-			"name": "Clock",
-			"category": "input",
-			"description": "Clock",
-			"container" : {
-				"xtype":"ClockContainer", 
-				"icon": "../logicGates/images/clock_off.png",
-				"image": "../logicGates/images/clock_off.png",
-  				"terminals": [ {"name": "_OUTPUT", "direction": [1,0], "offsetPosition": {"right": 7, "top": 5 },"ddConfig": {"type": "output","allowedTypes": ["input"]}} ]
-			}
-		}
-	]
-};
-
-
-/********
- * CODE
- ********/
-
-// General logic container
-LogicContainer = function(opts, layer) {
-	LogicContainer.superclass.constructor.call(this, opts, layer);
-	this.logicInputValues = [];
-};
-Y.extend(LogicContainer, Y.ImageContainer, {
-
-	/** 
-    * @attribute xtype
-    * @description String representing this class for exporting as JSON
-    * @default "WireIt.LogicContainer"
-    * @type String
-    */
-   xtype: "LogicContainer",
-	
-	setInput: function(bStatus,term) {
-		this.logicInputValues[term.name] = bStatus;
-		
-		if(this.title == "AND") {
-			this.setLogic( this.logicInputValues["_INPUT1"] && this.logicInputValues["_INPUT2"]  );
-		}
-		else if (this.title == "OR") {
-			this.setLogic( this.logicInputValues["_INPUT1"] || this.logicInputValues["_INPUT2"]  );
-		}
-		else if (this.title == "NOT") {
-			this.setLogic(!this.logicInputValues["_INPUT"]);
-		}
-		else if (this.title == "NAND") {
-			this.setLogic( !(this.logicInputValues["_INPUT1"] && this.logicInputValues["_INPUT2"])  );
-		}
-		else if (this.title == "XOR") {
-			this.setLogic( (!this.logicInputValues["_INPUT1"] && this.logicInputValues["_INPUT2"]) ||
-			  					(this.logicInputValues["_INPUT1"] && !this.logicInputValues["_INPUT2"]) );
-		}
-	},
-	
-	setLogic: function(bStatus) {
-		this.status = bStatus;
-		
-		// Set the image
-		if(this.imageName) {
-			var image = this.imageName+"_"+(bStatus ? "on" : "off")+".png";
-			Y.one(this.bodyEl).setStyle("backgroundImage", "url(images/"+image+")");
-		}
-		
-		// trigger the output wires !
-		for(var i = 0 ; i < this.terminals.length ; i++) {
-			var term = this.terminals[i];
-			if(term.name == "_OUTPUT") {
-				for(var j = 0 ; j < term.wires.length ; j++) {
-					var wire = term.wires[j];
-					var otherTerm = wire.getOtherTerminal(term);
-					if(otherTerm.container) {
-						otherTerm.container.setInput(bStatus, otherTerm);
-					}
-					wire.color = bStatus ? "rgb(173,216,230)" : "rgb(255,255,255)";
-					wire.redraw();
-				}
-			}
-		}
-	},
-	switchStatus: function() {
-		this.setLogic(!this.status);
-	}
-});
-
-
-ClockContainer = function(opts, layer) {
-	ClockContainer.superclass.constructor.call(this, opts, layer);
-	this.imageName = "clock";	
-	var that = this;
-	setInterval(function() { that.switchStatus();	}, 800);
-};
-Y.extend(ClockContainer, LogicContainer, {
-	xtype: "ClockContainer"
-});
-
-SwitchContainer = function(opts, layer) {
-	SwitchContainer.superclass.constructor.call(this, opts, layer);
-	this.imageName = "switch";
-	Y.one(this.bodyEl).on("click", this.switchStatus, this, true);
-};
-Y.extend(SwitchContainer, LogicContainer, {
-	xtype: "SwitchContainer"
-});
-
-LightbulbContainer = function(opts, layer) {
-	LightbulbContainer.superclass.constructor.call(this, opts, layer);
-	this.imageName = "lightbulb";
-};
-Y.extend(LightbulbContainer, LogicContainer, {
-	xtype: "LightbulbContainer",
-	
-	setInput: function(bStatus,term) {
-		this.setLogic(bStatus);
+	.yui3-layer-content {
+		border: 1px solid black;
+		overflow: scroll;
 	}
 	
-});
-
-YUI_config.groups.wireit.base = '../src/';
-YUI({filter: 'raw'}).use('wire', 'bezier-wire', 'terminal', function(Y) {
-	try {
-		logicGates = new Y.WiringEditor(logicGatesLang); 
-	}catch(ex) {
-		alert(ex);
+	ul.containerTypes {
+		list-style: none;
+		margin: 0;
 	}
-});
+	ul.containerTypes li {
+		margin: 2px;
+		padding: 2px;
+		border-radius: 3px;
+		border: 1px solid #ccc;
+		background-color: #ddd;
+		cursor: move;
+		float: left;
+	}
+    </style>
+
+	<script src="http://yui.yahooapis.com/3.17.2/build/yui/yui.js"></script>
+
+	<script type="text/javascript" src="../../build/wireit-all/wireit-all-min.js"></script>
+	<!-- The loader is recommanded if you're debugging WireIt (comment the line before) -->
+	<!--script type="text/javascript" src="../../build/wireit-loader/wireit-loader-min.js"></script-->
+
+	<script type="text/javascript" src="logic-gates.js"></script>
+
+  </head>
+
+  <body class="yui3-skin-sam">
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+          <span class="navbar-brand">WireIt App example</span>
+      </div>
+    </div>
+
+
+<script id="t-editor" type="text/x-handlebars-template">
+
+    <div class="container-fluid">
+
+      <div class="sidebar col-md-3">
+        <div class="well">
+
+		<a href="#/" class="btn">&lt;&lt; Wirings List</a>
+
+          <h5 class="no-toc">Container Types</h5>
+
+	    <ul class="containerTypes">
+	    {{#each containerTypes}}
+	        <li class="containerType yui3-g">
+	            <div class="containerType-name yui3-u-2-3" app-container-name="{{name}}">
+	            	<img src="{{config.imageUrl}}" alt="{{name}}" />
+	            </div>
+	        </li>
+	    {{/each}}
+	    </ul>
+	    <div style="clear: both;"></div>
+
+        </div>
+      </div>
+
+      <div class="content col-md-9">
+        
+        <div class="row" id="wireit-app">
+			<div class="span16">
+				Name: <input id="wiring-name" />
+				<a class="btn primary" id="wiring-save-btn">Save</a>
+			</div>
+			<div class="span16" id="layer-container">
+			</div>
+        </div>
+
+      </div>
+
+    </div>
 </script>
 
-</body>
+<script id="t-wiring-list" type="text/x-handlebars-template">
+	<div class="container">
+  		<div class="hero-unit">
+
+	    <h2 class="no-toc">Wirings</h2>
+
+		<p>Open an existing wiring :</p>
+
+	    <ul class="wiring">
+	    {{#each wirings}}
+	        <li class="wiring yui3-g">
+	            <div class="wiring-name yui3-u-2-3"><a href="#/wirings/{{id}}/edit">{{name}}</a></div>
+	        </li>
+	    {{/each}}
+	    </ul>
+	
+	    <a id="wiring-add-link" href="#/wirings/new" class="btn btn-primary">or create a new one</a>
+	
+		</div>
+	</div>
+</script>
+
+  </body>
 </html>

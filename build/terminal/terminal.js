@@ -22,4 +22,12 @@ YUI.add('terminal', function (Y, NAME) {
 
 
 
-}, '@VERSION@', {"requires": ["terminal-base", "terminal-dragedit", "terminal-scissors", "terminal-ddgroups"], "skinnable": true});
+}, '@VERSION@', {
+    "requires": [
+        "terminal-base",
+        "terminal-dragedit",
+        "terminal-scissors",
+        "terminal-ddgroups"
+    ],
+    "skinnable": true
+});

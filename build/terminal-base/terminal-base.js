@@ -36,7 +36,15 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
       }, this);
       this.get('boundingBox').on('mouseover', function () { Y.later(300, this, show); });
       this.get('boundingBox').on('mouseout', function () { Y.later(300, this, hide); });
-      
+     
+
+      var containerXY = this.get('parent').get('boundingBox').getXY();
+      //var xy = this.get('xy');
+      var offset = this.get('offset');
+
+      this.set('xy', [containerXY[0]+offset[0], containerXY[1]+offset[1]]);
+      //console.log(containerXY, xy, );
+
    },
    
    // override the WiresDelegate behavior which re-fires the event
@@ -59,7 +67,15 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
     * @method getXY
     */
    getXY: function () {
-      return this.get('contentBox').getXY();
+      var container = this.get('parent');
+      var layer = container.get('parent');
+      var layerXY = layer.get('boundingBox').getXY();
+      //console.log( "layerXY", layerXY );
+
+      var absXY = this.get('contentBox').getXY();
+      //console.log( "absXY", absXY );
+
+      return [absXY[0]-layerXY[0] + 15/2 , absXY[1]-layerXY[1] + 15/2];
    }
    
 }, {
@@ -81,7 +97,20 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
       
       alignNode: {
          value: null
+      },
+
+      offset: {
+        setter: function(val) {
+          //this._setX(val);
+          var containerXY = this.get('parent').get('boundingBox').getXY();
+
+          var xy = this.get('xy');
+
+          console.log(containerXY, xy, val);
+        },
+        value: [0,0]
       }
+      
    }
    
 });
@@ -89,4 +118,13 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
 
 
 
-}, '@VERSION@', {"requires": ["widget", "widget-child", "widget-position", "widget-position-align", "wire-base", "wires-delegate"]});
+}, '@VERSION@', {
+    "requires": [
+        "widget",
+        "widget-child",
+        "widget-position",
+        "widget-position-align",
+        "wire-base",
+        "wires-delegate"
+    ]
+});

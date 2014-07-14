@@ -42,37 +42,39 @@ Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
    
    
       // Make the overlay resizable
-      var contentBox = this.get('contentBox');
-      var resize = new Y.Resize({ 
-         node: contentBox,
-         handles: 'br'
-      });
-      /*resize.plug(Y.Plugin.ResizeConstrained, {
-         preserveRatio: true
-       });*/
-      // On resize, fillHeight, & align terminals & wires
-      resize.on('resize:resize', function (e) {
-         // TODO: fillHeight
-         this._fillHeight();
-         
-         //console.log(e.details[0].info);
-         var p = e.details[0].info;
-         var w = p.right-p.left;
-         var h = p.bottom-p.top;
-         //console.log(w+"x"+h);
-         
-         // WARNING !!!
-         this.image.set('width',w);
-         this.image.set('height',h);
-         
-         this.each(function (term) {
-            if(term.get('align')) {   
-               term.align( contentBox, ["tl",term.get('align').points[1]]);
-            }
-         }, this);
-         
-         this.redrawAllWires();
-      }, this);
+      if(this.get('resizable')) {
+        var contentBox = this.get('contentBox');
+        var resize = new Y.Resize({ 
+           node: contentBox,
+           handles: 'br'
+        });
+        /*resize.plug(Y.Plugin.ResizeConstrained, {
+           preserveRatio: true
+         });*/
+        // On resize, fillHeight, & align terminals & wires
+        resize.on('resize:resize', function (e) {
+           // TODO: fillHeight
+           this._fillHeight();
+           
+           //console.log(e.details[0].info);
+           var p = e.details[0].info;
+           var w = p.right-p.left;
+           var h = p.bottom-p.top;
+           //console.log(w+"x"+h);
+           
+           // WARNING !!!
+           this.image.set('width',w);
+           this.image.set('height',h);
+           
+           this.each(function (term) {
+              if(term.get('align')) {   
+                 term.align( contentBox, ["tl",term.get('align').points[1]]);
+              }
+           }, this);
+           
+           this.redrawAllWires();
+        }, this);
+      }
       
    }
    
@@ -84,7 +86,12 @@ Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
        * @attribute imageUrl
        */
       imageUrl: {
-         value: ''
+         value: '',
+         setter: function(url) {
+            if(this.image) {
+              this.image.set('src', url);
+            }
+         }
       },
       
       zIndex: {

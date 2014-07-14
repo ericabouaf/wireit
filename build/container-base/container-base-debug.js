@@ -155,7 +155,7 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
          value: true
       },
       
-      x: {
+      /*x: {
          getter: function () {
             var left = this.get('boundingBox').getStyle('left');
             return parseInt(left.substr(0,left.length-2),10);
@@ -167,7 +167,7 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
             var top = this.get('boundingBox').getStyle('top');
             return parseInt(top.substr(0,top.length-2),10);
          }
-      },
+      },*/
       
       preventSelfWiring: {
          value: true
