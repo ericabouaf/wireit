@@ -1585,7 +1585,7 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
 
           var xy = this.get('xy');
 
-          console.log(containerXY, xy, val);
+          //console.log(containerXY, xy, val);
         },
         value: [0,0]
       }
