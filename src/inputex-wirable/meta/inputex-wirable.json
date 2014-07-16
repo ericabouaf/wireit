@@ -1,7 +1,0 @@
-{
-            "inputex-wirable": {
-                "requires": [
-                    "terminal","inputex-field"
-                ]
-            }
-         }

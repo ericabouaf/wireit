@@ -53,7 +53,6 @@ Y.TerminalScissors.prototype = {
 
       // Position the scissors using 'dir'
       var dir = this.get('dir');
-      console.log(dir);
 
       this._scissorsOverlay.set('x', refXY[0]+dir[0]*40);
       this._scissorsOverlay.set('y', refXY[1]+dir[1]*40);
