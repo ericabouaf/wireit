@@ -47,10 +47,14 @@ Y.TerminalScissors.prototype = {
       
       this._scissorsOverlay.get('contentBox').addClass( this.getClassName("scissors") );
       
+      var refXY = this.get('xy');
+
       // Position the scissors using 'dir'
       var dir = this.get('dir');
-      this._scissorsOverlay.set('x', dir[0]*40);
-      this._scissorsOverlay.set('y', dir[1]*40);
+      console.log(dir);
+
+      this._scissorsOverlay.set('x', refXY[0]+dir[0]*40);
+      this._scissorsOverlay.set('y', refXY[1]+dir[1]*40);
       
       this._scissorsOverlay.render( this.get('boundingBox') );
    }

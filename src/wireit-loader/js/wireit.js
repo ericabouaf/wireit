@@ -49,8 +49,9 @@ YUI().use(function(Y) {
     },
     "image-container": {
         "requires": [
-            "container-base"
-        ]
+            "container"
+        ],
+        "skinnable": true
     },
     "inout-container": {
         "requires": [
@@ -129,7 +130,8 @@ YUI().use(function(Y) {
     "terminal-scissors": {
         "requires": [
             "overlay"
-        ]
+        ],
+        "skinnable": true
     },
     "textarea-container": {
         "requires": [

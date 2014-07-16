@@ -1,0 +1,15 @@
+
+.yui3-image-container img {
+	cursor: move;
+}
+
+.yui3-image-container .yui3-widget-icons-icon {
+	display: none;
+	position: absolute;
+	top: -8px;
+	right: -8px;
+}
+
+.yui3-image-container:hover .yui3-widget-icons-icon {
+	display: block;
+}

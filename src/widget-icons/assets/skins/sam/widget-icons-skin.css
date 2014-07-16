@@ -1,42 +1,48 @@
 
+
+.yui3-widget-icons-icon {
+	cursor: pointer;
+}
+
+
 .ui-silk { width: 16px; height: 16px; display:block; background: transparent url(silk-sprite.png) no-repeat; text-indent: -99999px; overflow: hidden; }
 .ui-silk.gray, .ui-silk.gray, .ui-silk.hover { background-image: url(silk-sprite-gray.png); }
 *.ui-silk.inline{ display: inline-block; vertical-align: middle; border: 0; outline: 0; }
 .ui-silk.hover:hover{background-image: url(silk-sprite.png);}
 
-.ui-silk-accept { background-position: -0px -0px }
-.ui-silk-add { background-position: -16px -0px }
-.ui-silk-anchor { background-position: -32px -0px }
-.ui-silk-application { background-position: -48px -0px }
-.ui-silk-application-add { background-position: -64px -0px }
-.ui-silk-application-cascade { background-position: -80px -0px }
-.ui-silk-application-delete { background-position: -96px -0px }
-.ui-silk-application-double { background-position: -112px -0px }
-.ui-silk-application-edit { background-position: -128px -0px }
-.ui-silk-application-error { background-position: -144px -0px }
-.ui-silk-application-form { background-position: -160px -0px }
-.ui-silk-application-form-add { background-position: -176px -0px }
-.ui-silk-application-form-delete { background-position: -192px -0px }
-.ui-silk-application-form-edit { background-position: -208px -0px }
-.ui-silk-application-form-magnify { background-position: -224px -0px }
-.ui-silk-application-get { background-position: -240px -0px }
-.ui-silk-application-go { background-position: -256px -0px }
-.ui-silk-application-home { background-position: -272px -0px }
-.ui-silk-application-key { background-position: -288px -0px }
-.ui-silk-application-lightning { background-position: -304px -0px }
-.ui-silk-application-link { background-position: -320px -0px }
-.ui-silk-application-osx { background-position: -336px -0px }
-.ui-silk-application-osx-terminal { background-position: -352px -0px }
-.ui-silk-application-put { background-position: -368px -0px }
-.ui-silk-application-side-boxes { background-position: -384px -0px }
-.ui-silk-application-side-contract { background-position: -400px -0px }
-.ui-silk-application-side-expand { background-position: -416px -0px }
-.ui-silk-application-side-list { background-position: -432px -0px }
-.ui-silk-application-side-tree { background-position: -448px -0px }
-.ui-silk-application-split { background-position: -464px -0px }
-.ui-silk-application-tile-horizontal { background-position: -480px -0px }
-.ui-silk-application-tile-vertical { background-position: -496px -0px }
-.ui-silk-application-view-columns { background-position: -0px -16px }
+.ui-silk-accept { background-position: 0 0 }
+.ui-silk-add { background-position: -16px 0 }
+.ui-silk-anchor { background-position: -32px 0 }
+.ui-silk-application { background-position: -48px 0 }
+.ui-silk-application-add { background-position: -64px 0 }
+.ui-silk-application-cascade { background-position: -80px 0 }
+.ui-silk-application-delete { background-position: -96px 0 }
+.ui-silk-application-double { background-position: -112px 0 }
+.ui-silk-application-edit { background-position: -128px 0 }
+.ui-silk-application-error { background-position: -144px 0 }
+.ui-silk-application-form { background-position: -160px 0 }
+.ui-silk-application-form-add { background-position: -176px 0 }
+.ui-silk-application-form-delete { background-position: -192px 0 }
+.ui-silk-application-form-edit { background-position: -208px 0 }
+.ui-silk-application-form-magnify { background-position: -224px 0 }
+.ui-silk-application-get { background-position: -240px 0 }
+.ui-silk-application-go { background-position: -256px 0 }
+.ui-silk-application-home { background-position: -272px 0 }
+.ui-silk-application-key { background-position: -288px 0 }
+.ui-silk-application-lightning { background-position: -304px 0 }
+.ui-silk-application-link { background-position: -320px 0 }
+.ui-silk-application-osx { background-position: -336px 0 }
+.ui-silk-application-osx-terminal { background-position: -352px 0 }
+.ui-silk-application-put { background-position: -368px 0 }
+.ui-silk-application-side-boxes { background-position: -384px 0 }
+.ui-silk-application-side-contract { background-position: -400px 0 }
+.ui-silk-application-side-expand { background-position: -416px 0 }
+.ui-silk-application-side-list { background-position: -432px 0 }
+.ui-silk-application-side-tree { background-position: -448px 0 }
+.ui-silk-application-split { background-position: -464px 0 }
+.ui-silk-application-tile-horizontal { background-position: -480px 0 }
+.ui-silk-application-tile-vertical { background-position: -496px 0 }
+.ui-silk-application-view-columns { background-position: 0 -16px }
 .ui-silk-application-view-detail { background-position: -16px -16px }
 .ui-silk-application-view-gallery { background-position: -32px -16px }
 .ui-silk-application-view-icons { background-position: -48px -16px }
@@ -68,7 +74,7 @@
 .ui-silk-asterisk-yellow { background-position: -464px -16px }
 .ui-silk-attach { background-position: -480px -16px }
 .ui-silk-award-star-add { background-position: -496px -16px }
-.ui-silk-award-star-bronze-1 { background-position: -0px -32px }
+.ui-silk-award-star-bronze-1 { background-position: 0 -32px }
 .ui-silk-award-star-bronze-2 { background-position: -16px -32px }
 .ui-silk-award-star-bronze-3 { background-position: -32px -32px }
 .ui-silk-award-star-delete { background-position: -48px -32px }
@@ -100,7 +106,7 @@
 .ui-silk-book-add { background-position: -464px -32px }
 .ui-silk-book-addresses { background-position: -480px -32px }
 .ui-silk-book-delete { background-position: -496px -32px }
-.ui-silk-book-edit { background-position: -0px -48px }
+.ui-silk-book-edit { background-position: 0 -48px }
 .ui-silk-book-error { background-position: -16px -48px }
 .ui-silk-book-go { background-position: -32px -48px }
 .ui-silk-book-key { background-position: -48px -48px }
@@ -132,7 +138,7 @@
 .ui-silk-building-error { background-position: -464px -48px }
 .ui-silk-building-go { background-position: -480px -48px }
 .ui-silk-building-key { background-position: -496px -48px }
-.ui-silk-building-link { background-position: -0px -64px }
+.ui-silk-building-link { background-position: 0 -64px }
 .ui-silk-bullet-add { background-position: -16px -64px }
 .ui-silk-bullet-arrow-bottom { background-position: -32px -64px }
 .ui-silk-bullet-arrow-down { background-position: -48px -64px }
@@ -164,7 +170,7 @@
 .ui-silk-calculator-delete { background-position: -464px -64px }
 .ui-silk-calculator-edit { background-position: -480px -64px }
 .ui-silk-calculator-error { background-position: -496px -64px }
-.ui-silk-calculator-link { background-position: -0px -80px }
+.ui-silk-calculator-link { background-position: 0 -80px }
 .ui-silk-calendar { background-position: -16px -80px }
 .ui-silk-calendar-add { background-position: -32px -80px }
 .ui-silk-calendar-delete { background-position: -48px -80px }
@@ -196,7 +202,7 @@
 .ui-silk-cd { background-position: -464px -80px }
 .ui-silk-cd-add { background-position: -480px -80px }
 .ui-silk-cd-burn { background-position: -496px -80px }
-.ui-silk-cd-delete { background-position: -0px -96px }
+.ui-silk-cd-delete { background-position: 0 -96px }
 .ui-silk-cd-edit { background-position: -16px -96px }
 .ui-silk-cd-eject { background-position: -32px -96px }
 .ui-silk-cd-go { background-position: -48px -96px }
@@ -228,7 +234,7 @@
 .ui-silk-chart-pie-edit { background-position: -464px -96px }
 .ui-silk-chart-pie-error { background-position: -480px -96px }
 .ui-silk-chart-pie-link { background-position: -496px -96px }
-.ui-silk-clock { background-position: -0px -112px }
+.ui-silk-clock { background-position: 0 -112px }
 .ui-silk-clock-add { background-position: -16px -112px }
 .ui-silk-clock-delete { background-position: -32px -112px }
 .ui-silk-clock-edit { background-position: -48px -112px }
@@ -260,7 +266,7 @@
 .ui-silk-compress { background-position: -464px -112px }
 .ui-silk-computer { background-position: -480px -112px }
 .ui-silk-computer-add { background-position: -496px -112px }
-.ui-silk-computer-delete { background-position: -0px -128px }
+.ui-silk-computer-delete { background-position: 0 -128px }
 .ui-silk-computer-edit { background-position: -16px -128px }
 .ui-silk-computer-error { background-position: -32px -128px }
 .ui-silk-computer-go { background-position: -48px -128px }
@@ -292,7 +298,7 @@
 .ui-silk-control-repeat-blue { background-position: -464px -128px }
 .ui-silk-control-rewind { background-position: -480px -128px }
 .ui-silk-control-rewind-blue { background-position: -496px -128px }
-.ui-silk-control-start { background-position: -0px -144px }
+.ui-silk-control-start { background-position: 0 -144px }
 .ui-silk-control-start-blue { background-position: -16px -144px }
 .ui-silk-control-stop { background-position: -32px -144px }
 .ui-silk-control-stop-blue { background-position: -48px -144px }
@@ -324,7 +330,7 @@
 .ui-silk-database-go { background-position: -464px -144px }
 .ui-silk-database-key { background-position: -480px -144px }
 .ui-silk-database-lightning { background-position: -496px -144px }
-.ui-silk-database-link { background-position: -0px -160px }
+.ui-silk-database-link { background-position: 0 -160px }
 .ui-silk-database-refresh { background-position: -16px -160px }
 .ui-silk-database-save { background-position: -32px -160px }
 .ui-silk-database-table { background-position: -48px -160px }
@@ -356,7 +362,7 @@
 .ui-silk-drive-delete { background-position: -464px -160px }
 .ui-silk-drive-disk { background-position: -480px -160px }
 .ui-silk-drive-edit { background-position: -496px -160px }
-.ui-silk-drive-error { background-position: -0px -176px }
+.ui-silk-drive-error { background-position: 0 -176px }
 .ui-silk-drive-go { background-position: -16px -176px }
 .ui-silk-drive-key { background-position: -32px -176px }
 .ui-silk-drive-link { background-position: -48px -176px }
@@ -388,7 +394,7 @@
 .ui-silk-emoticon-happy { background-position: -464px -176px }
 .ui-silk-emoticon-smile { background-position: -480px -176px }
 .ui-silk-emoticon-surprised { background-position: -496px -176px }
-.ui-silk-emoticon-tongue { background-position: -0px -192px }
+.ui-silk-emoticon-tongue { background-position: 0 -192px }
 .ui-silk-emoticon-unhappy { background-position: -16px -192px }
 .ui-silk-emoticon-waii { background-position: -32px -192px }
 .ui-silk-emoticon-wink { background-position: -48px -192px }
@@ -420,7 +426,7 @@
 .ui-silk-film-save { background-position: -464px -192px }
 .ui-silk-find { background-position: -480px -192px }
 .ui-silk-flag-blue { background-position: -496px -192px }
-.ui-silk-flag-green { background-position: -0px -208px }
+.ui-silk-flag-green { background-position: 0 -208px }
 .ui-silk-flag-orange { background-position: -16px -208px }
 .ui-silk-flag-pink { background-position: -32px -208px }
 .ui-silk-flag-purple { background-position: -48px -208px }
@@ -452,7 +458,7 @@
 .ui-silk-folder-picture { background-position: -464px -208px }
 .ui-silk-folder-star { background-position: -480px -208px }
 .ui-silk-folder-table { background-position: -496px -208px }
-.ui-silk-folder-user { background-position: -0px -224px }
+.ui-silk-folder-user { background-position: 0 -224px }
 .ui-silk-folder-wrench { background-position: -16px -224px }
 .ui-silk-font { background-position: -32px -224px }
 .ui-silk-font-add { background-position: -48px -224px }
@@ -484,7 +490,7 @@
 .ui-silk-html-delete { background-position: -464px -224px }
 .ui-silk-html-go { background-position: -480px -224px }
 .ui-silk-html-valid { background-position: -496px -224px }
-.ui-silk-image { background-position: -0px -240px }
+.ui-silk-image { background-position: 0 -240px }
 .ui-silk-images { background-position: -16px -240px }
 .ui-silk-image-add { background-position: -32px -240px }
 .ui-silk-image-delete { background-position: -48px -240px }
@@ -516,7 +522,7 @@
 .ui-silk-layout-edit { background-position: -464px -240px }
 .ui-silk-layout-error { background-position: -480px -240px }
 .ui-silk-layout-header { background-position: -496px -240px }
-.ui-silk-layout-link { background-position: -0px -256px }
+.ui-silk-layout-link { background-position: 0 -256px }
 .ui-silk-layout-sidebar { background-position: -16px -256px }
 .ui-silk-lightbulb { background-position: -32px -256px }
 .ui-silk-lightbulb-add { background-position: -48px -256px }
@@ -548,7 +554,7 @@
 .ui-silk-lorry-go { background-position: -464px -256px }
 .ui-silk-lorry-link { background-position: -480px -256px }
 .ui-silk-magifier-zoom-out { background-position: -496px -256px }
-.ui-silk-magnifier { background-position: -0px -272px }
+.ui-silk-magnifier { background-position: 0 -272px }
 .ui-silk-magnifier-zoom-in { background-position: -16px -272px }
 .ui-silk-male { background-position: -32px -272px }
 .ui-silk-map { background-position: -48px -272px }
@@ -580,7 +586,7 @@
 .ui-silk-money-pound { background-position: -464px -272px }
 .ui-silk-money-yen { background-position: -480px -272px }
 .ui-silk-monitor { background-position: -496px -272px }
-.ui-silk-monitor-add { background-position: -0px -288px }
+.ui-silk-monitor-add { background-position: 0 -288px }
 .ui-silk-monitor-delete { background-position: -16px -288px }
 .ui-silk-monitor-edit { background-position: -32px -288px }
 .ui-silk-monitor-error { background-position: -48px -288px }
@@ -612,7 +618,7 @@
 .ui-silk-package-green { background-position: -464px -288px }
 .ui-silk-package-link { background-position: -480px -288px }
 .ui-silk-page { background-position: -496px -288px }
-.ui-silk-page-add { background-position: -0px -304px }
+.ui-silk-page-add { background-position: 0 -304px }
 .ui-silk-page-attach { background-position: -16px -304px }
 .ui-silk-page-code { background-position: -32px -304px }
 .ui-silk-page-copy { background-position: -48px -304px }
@@ -644,7 +650,7 @@
 .ui-silk-page-white-coldfusion { background-position: -464px -304px }
 .ui-silk-page-white-compressed { background-position: -480px -304px }
 .ui-silk-page-white-copy { background-position: -496px -304px }
-.ui-silk-page-white-cplusplus { background-position: -0px -320px }
+.ui-silk-page-white-cplusplus { background-position: 0 -320px }
 .ui-silk-page-white-csharp { background-position: -16px -320px }
 .ui-silk-page-white-cup { background-position: -32px -320px }
 .ui-silk-page-white-database { background-position: -48px -320px }
@@ -676,7 +682,7 @@
 .ui-silk-page-white-put { background-position: -464px -320px }
 .ui-silk-page-white-ruby { background-position: -480px -320px }
 .ui-silk-page-white-stack { background-position: -496px -320px }
-.ui-silk-page-white-star { background-position: -0px -336px }
+.ui-silk-page-white-star { background-position: 0 -336px }
 .ui-silk-page-white-swoosh { background-position: -16px -336px }
 .ui-silk-page-white-text { background-position: -32px -336px }
 .ui-silk-page-white-text-width { background-position: -48px -336px }
@@ -708,7 +714,7 @@
 .ui-silk-photo-add { background-position: -464px -336px }
 .ui-silk-photo-delete { background-position: -480px -336px }
 .ui-silk-photo-link { background-position: -496px -336px }
-.ui-silk-picture { background-position: -0px -352px }
+.ui-silk-picture { background-position: 0 -352px }
 .ui-silk-pictures { background-position: -16px -352px }
 .ui-silk-picture-add { background-position: -32px -352px }
 .ui-silk-picture-delete { background-position: -48px -352px }
@@ -740,7 +746,7 @@
 .ui-silk-rainbow { background-position: -464px -352px }
 .ui-silk-report { background-position: -480px -352px }
 .ui-silk-report-add { background-position: -496px -352px }
-.ui-silk-report-delete { background-position: -0px -368px }
+.ui-silk-report-delete { background-position: 0 -368px }
 .ui-silk-report-disk { background-position: -16px -368px }
 .ui-silk-report-edit { background-position: -32px -368px }
 .ui-silk-report-go { background-position: -48px -368px }
@@ -772,7 +778,7 @@
 .ui-silk-script { background-position: -464px -368px }
 .ui-silk-script-add { background-position: -480px -368px }
 .ui-silk-script-code { background-position: -496px -368px }
-.ui-silk-script-code-red { background-position: -0px -384px }
+.ui-silk-script-code-red { background-position: 0 -384px }
 .ui-silk-script-delete { background-position: -16px -384px }
 .ui-silk-script-edit { background-position: -32px -384px }
 .ui-silk-script-error { background-position: -48px -384px }
@@ -804,7 +810,7 @@
 .ui-silk-shape-align-middle { background-position: -464px -384px }
 .ui-silk-shape-align-right { background-position: -480px -384px }
 .ui-silk-shape-align-top { background-position: -496px -384px }
-.ui-silk-shape-flip-horizontal { background-position: -0px -400px }
+.ui-silk-shape-flip-horizontal { background-position: 0 -400px }
 .ui-silk-shape-flip-vertical { background-position: -16px -400px }
 .ui-silk-shape-group { background-position: -32px -400px }
 .ui-silk-shape-handles { background-position: -48px -400px }
@@ -836,7 +842,7 @@
 .ui-silk-sound-mute { background-position: -464px -400px }
 .ui-silk-sound-none { background-position: -480px -400px }
 .ui-silk-spellcheck { background-position: -496px -400px }
-.ui-silk-sport-8ball { background-position: -0px -416px }
+.ui-silk-sport-8ball { background-position: 0 -416px }
 .ui-silk-sport-basketball { background-position: -16px -416px }
 .ui-silk-sport-football { background-position: -32px -416px }
 .ui-silk-sport-golf { background-position: -48px -416px }
@@ -868,7 +874,7 @@
 .ui-silk-table-lightning { background-position: -464px -416px }
 .ui-silk-table-link { background-position: -480px -416px }
 .ui-silk-table-multiple { background-position: -496px -416px }
-.ui-silk-table-refresh { background-position: -0px -432px }
+.ui-silk-table-refresh { background-position: 0 -432px }
 .ui-silk-table-relationship { background-position: -16px -432px }
 .ui-silk-table-row-delete { background-position: -32px -432px }
 .ui-silk-table-row-insert { background-position: -48px -432px }
@@ -900,7 +906,7 @@
 .ui-silk-television { background-position: -464px -432px }
 .ui-silk-television-add { background-position: -480px -432px }
 .ui-silk-television-delete { background-position: -496px -432px }
-.ui-silk-textfield { background-position: -0px -448px }
+.ui-silk-textfield { background-position: 0 -448px }
 .ui-silk-textfield-add { background-position: -16px -448px }
 .ui-silk-textfield-delete { background-position: -32px -448px }
 .ui-silk-textfield-key { background-position: -48px -448px }
@@ -932,7 +938,7 @@
 .ui-silk-text-lowercase { background-position: -464px -448px }
 .ui-silk-text-padding-bottom { background-position: -480px -448px }
 .ui-silk-text-padding-left { background-position: -496px -448px }
-.ui-silk-text-padding-right { background-position: -0px -464px }
+.ui-silk-text-padding-right { background-position: 0 -464px }
 .ui-silk-text-padding-top { background-position: -16px -464px }
 .ui-silk-text-replace { background-position: -32px -464px }
 .ui-silk-text-signature { background-position: -48px -464px }
@@ -964,7 +970,7 @@
 .ui-silk-user-delete { background-position: -464px -464px }
 .ui-silk-user-edit { background-position: -480px -464px }
 .ui-silk-user-female { background-position: -496px -464px }
-.ui-silk-user-go { background-position: -0px -480px }
+.ui-silk-user-go { background-position: 0 -480px }
 .ui-silk-user-gray { background-position: -16px -480px }
 .ui-silk-user-green { background-position: -32px -480px }
 .ui-silk-user-orange { background-position: -48px -480px }
@@ -996,7 +1002,7 @@
 .ui-silk-world-link { background-position: -464px -480px }
 .ui-silk-wrench { background-position: -480px -480px }
 .ui-silk-wrench-orange { background-position: -496px -480px }
-.ui-silk-xhtml { background-position: -0px -496px }
+.ui-silk-xhtml { background-position: 0 -496px }
 .ui-silk-xhtml-add { background-position: -16px -496px }
 .ui-silk-xhtml-delete { background-position: -32px -496px }
 .ui-silk-xhtml-go { background-position: -48px -496px }

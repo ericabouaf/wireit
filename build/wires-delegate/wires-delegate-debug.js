@@ -23,8 +23,8 @@ Y.WiresDelegate = function (config) {
    this.publish('removeWire');
    
    // Bubble events from terminals
-   this.on('terminal:addWire', this._onAddWire, this);
-   this.on('terminal:removeWire', this._onRemoveWire, this);
+   this.on('*:addWire', this._onAddWire, this);
+   this.on('*:removeWire', this._onRemoveWire, this);
    
 };
 

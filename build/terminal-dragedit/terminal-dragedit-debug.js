@@ -26,7 +26,7 @@ Y.TerminalDragEdit = function (config) {
 };
 
 Y.TerminalDragEdit.ATTRS = {
-   
+
    /**
     * Sets the terminal editable
     * @attribute editable
@@ -47,7 +47,17 @@ Y.TerminalDragEdit.ATTRS = {
     */
    alwaysSrc: {
       value: false
+   },
+
+
+   ddGroupsDrag: {
+      value: ['terminal']
+   },
+
+   ddGroupsDrop: {
+    value: ['terminal']
    }
+   
 };
 
 Y.TerminalDragEdit.prototype = {
@@ -63,7 +73,7 @@ Y.TerminalDragEdit.prototype = {
          // Make the contentBox draggable with a DDProxy
          var drag = new Y.DD.Drag({ 
             node: this.get('contentBox'),
-               groups: this.get('groups')
+            groups: this.get('ddGroupsDrag') //this.get('groups')
          }).plug(Y.Plugin.DDProxy, {
             cloneNode: true,
             moveOnEnd: false
@@ -74,7 +84,7 @@ Y.TerminalDragEdit.prototype = {
          // Create the Drop object
          var drop = new Y.DD.Drop({
             node: this.get('contentBox'),
-            groups: this.get('groups')
+            groups: this.get('ddGroupsDrop') //this.get('groups')
          });
          drop.terminal = this;
          this.drop = drop;
@@ -165,12 +175,12 @@ Y.TerminalDragEdit.prototype = {
     * @private
     */
    _onDragEditDrophit: function (ev) {
-      
+
       if( this.isValidWireTerminal(ev.drop.terminal) ) {
-         if(ev.drop.terminal.alwaysSrc){
+         if(ev.drop.terminal.alwaysSrc) {
             this.drag.wire.set('src', ev.drop.terminal);
             this.drag.wire.set('tgt', this);
-         }else{
+         } else {
             this.drag.wire.set('src', this);
             this.drag.wire.set('tgt', ev.drop.terminal);
          }

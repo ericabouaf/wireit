@@ -2,34 +2,38 @@
  * @module terminal-input
  */
 
+'use strict';
+
 /**
  * Class that extends Terminal to differenciate Input/Output terminals
  * @class TerminalInput
  * @extends Terminal
  * @constructor
- * @param {HTMLElement} parentEl Parent dom element
- * @param {Object} options configuration object
- * @param {Container} container (Optional) Container containing this terminal
+ * @param {Object} oConfigs The user configuration for the instance.
  */
-Y.TerminalInput = function (parentEl, options, container) {
-   Y.TerminalInput.superclass.constructor.call(this,parentEl, options, container);
-};
-Y.extend(Y.TerminalInput, Y.Terminal, {
-   
-   /**
-    * @attribute nMaxWires
-    * @description maximum number of wires for this terminal
-    * @type Integer
-    * @default 1
-    */
-   nMaxWires: 1,
-   
-   /**
-    * @attribute ddConfig
-    * @description configuration of the Y.TerminalProxy object
-    * @type Object
-    * @default { type: "input", allowedTypes: ["output"] }
-    */
-   ddConfig: { type: "input", allowedTypes: ["output"] }
-});
+Y.TerminalInput = Y.Base.create("terminal-input", Y.Terminal, [], {
 
+  getClassName: function(n) {
+    return "yui3-terminal-"+n;
+  }
+
+}, {
+  ATTRS: {
+
+    dir: {
+      value: [-0.3, 0]
+    },
+
+    ddGroupsDrag: {
+      value: ['input']
+    },
+
+    ddGroupsDrop: {
+      value: ['output']
+    }
+
+    // TODO
+    // nMaxWires: 1,
+
+  }
+});

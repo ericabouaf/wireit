@@ -1,1 +1,1 @@
-YUI.add("terminal-input",function(e,t){e.TerminalInput=function(t,n,r){e.TerminalInput.superclass.constructor.call(this,t,n,r)},e.extend(e.TerminalInput,e.Terminal,{nMaxWires:1,ddConfig:{type:"input",allowedTypes:["output"]}})},"@VERSION@",{requires:["terminal"]});
+YUI.add("terminal-input",function(e,t){"use strict";e.TerminalInput=e.Base.create("terminal-input",e.Terminal,[],{getClassName:function(e){return"yui3-terminal-"+e}},{ATTRS:{dir:{value:[-0.3,0]},ddGroupsDrag:{value:["input"]},ddGroupsDrop:{value:["output"]}}})},"@VERSION@",{requires:["terminal"]});

@@ -41,8 +41,9 @@
     },
     "image-container": {
         "requires": [
-            "container-base"
-        ]
+            "container"
+        ],
+        "skinnable": true
     },
     "inout-container": {
         "requires": [
@@ -121,7 +122,8 @@
     "terminal-scissors": {
         "requires": [
             "overlay"
-        ]
+        ],
+        "skinnable": true
     },
     "textarea-container": {
         "requires": [

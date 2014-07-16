@@ -49,8 +49,9 @@ YUI().use(function(Y) {
     },
     "image-container": {
         "requires": [
-            "container-base"
-        ]
+            "container"
+        ],
+        "skinnable": true
     },
     "inout-container": {
         "requires": [
@@ -129,7 +130,8 @@ YUI().use(function(Y) {
     "terminal-scissors": {
         "requires": [
             "overlay"
-        ]
+        ],
+        "skinnable": true
     },
     "textarea-container": {
         "requires": [
@@ -970,7 +972,7 @@ YUI.add('image-container', function (Y, NAME) {
  * @extends ContainerBase
  * @constructor
  */
-Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
+Y.ImageContainer = Y.Base.create("image-container", Y.Container, [], {
    
    /**
     * @method renderUI
@@ -1062,7 +1064,7 @@ Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
 });
 
 
-}, '@VERSION@', {"requires": ["container-base"]});
+}, '@VERSION@', {"requires": ["container"], "skinnable": true});
 YUI.add('inout-container', function (Y, NAME) {
 
 /**
@@ -1373,7 +1375,7 @@ Y.Layer = Y.Base.create("layer", Y.Widget, [Y.WidgetParent, Y.WiresDelegate], {
    
    initializer: function () {
       
-      this.graphic = new Y.Graphic({render: this.get('contentBox') }); 
+      this.graphic = new Y.Graphic({render: this.get('contentBox') });
       
    },
    
@@ -1450,11 +1452,11 @@ YUI.add('terminal', function (Y, NAME) {
  * @module terminal
  */
 
-    'use strict';
+'use strict';
 
 /**
  * Terminal is responsible for wire edition
- * 
+ *
  * @class Terminal
  * @extends TerminalBase
  * @uses TerminalDragEdit
@@ -1463,9 +1465,7 @@ YUI.add('terminal', function (Y, NAME) {
  * @constructor
  * @param {Object} oConfigs The user configuration for the instance.
  */
-    Y.Terminal = Y.Base.create("terminal", Y.TerminalBase, [Y.TerminalDragEdit, Y.TerminalScissors, Y.TerminalDDGroups]);
-
-
+Y.Terminal = Y.Base.create("terminal", Y.TerminalBase, [Y.TerminalDragEdit, Y.TerminalScissors, Y.TerminalDDGroups]);
 
 
 }, '@VERSION@', {
@@ -1625,15 +1625,6 @@ Y.TerminalDDGroups = function (config) {
 
 Y.TerminalDDGroups.ATTRS = {
    
-   /**
-    * drag/drop groups : list of supported terminal types
-    * only used if editable is set to true
-    * @attribute groups
-    */
-   groups: {
-      value: ['terminal']
-   },
-   
    showGroups: {
       value: true
    }
@@ -1659,7 +1650,7 @@ Y.TerminalDDGroups.prototype = {
          
          var ddGroupsOverlay = new Y.Overlay({
             render: this.get('boundingBox'),
-            bodyContent: this.get('groups').join(',')
+            bodyContent: this.get('ddGroupsDrag').join(',')
          });
          ddGroupsOverlay.set("align", {node: this.get('contentBox'), 
                                points:[Y.WidgetPositionAlign.TC, Y.WidgetPositionAlign.BC]});
@@ -1702,7 +1693,7 @@ Y.TerminalDragEdit = function (config) {
 };
 
 Y.TerminalDragEdit.ATTRS = {
-   
+
    /**
     * Sets the terminal editable
     * @attribute editable
@@ -1723,7 +1714,17 @@ Y.TerminalDragEdit.ATTRS = {
     */
    alwaysSrc: {
       value: false
+   },
+
+
+   ddGroupsDrag: {
+      value: ['terminal']
+   },
+
+   ddGroupsDrop: {
+    value: ['terminal']
    }
+   
 };
 
 Y.TerminalDragEdit.prototype = {
@@ -1739,7 +1740,7 @@ Y.TerminalDragEdit.prototype = {
          // Make the contentBox draggable with a DDProxy
          var drag = new Y.DD.Drag({ 
             node: this.get('contentBox'),
-               groups: this.get('groups')
+            groups: this.get('ddGroupsDrag') //this.get('groups')
          }).plug(Y.Plugin.DDProxy, {
             cloneNode: true,
             moveOnEnd: false
@@ -1750,7 +1751,7 @@ Y.TerminalDragEdit.prototype = {
          // Create the Drop object
          var drop = new Y.DD.Drop({
             node: this.get('contentBox'),
-            groups: this.get('groups')
+            groups: this.get('ddGroupsDrop') //this.get('groups')
          });
          drop.terminal = this;
          this.drop = drop;
@@ -1841,12 +1842,12 @@ Y.TerminalDragEdit.prototype = {
     * @private
     */
    _onDragEditDrophit: function (ev) {
-      
+
       if( this.isValidWireTerminal(ev.drop.terminal) ) {
-         if(ev.drop.terminal.alwaysSrc){
+         if(ev.drop.terminal.alwaysSrc) {
             this.drag.wire.set('src', ev.drop.terminal);
             this.drag.wire.set('tgt', this);
-         }else{
+         } else {
             this.drag.wire.set('src', this);
             this.drag.wire.set('tgt', ev.drop.terminal);
          }
@@ -1929,37 +1930,41 @@ YUI.add('terminal-input', function (Y, NAME) {
  * @module terminal-input
  */
 
+'use strict';
+
 /**
  * Class that extends Terminal to differenciate Input/Output terminals
  * @class TerminalInput
  * @extends Terminal
  * @constructor
- * @param {HTMLElement} parentEl Parent dom element
- * @param {Object} options configuration object
- * @param {Container} container (Optional) Container containing this terminal
+ * @param {Object} oConfigs The user configuration for the instance.
  */
-Y.TerminalInput = function (parentEl, options, container) {
-   Y.TerminalInput.superclass.constructor.call(this,parentEl, options, container);
-};
-Y.extend(Y.TerminalInput, Y.Terminal, {
-   
-   /**
-    * @attribute nMaxWires
-    * @description maximum number of wires for this terminal
-    * @type Integer
-    * @default 1
-    */
-   nMaxWires: 1,
-   
-   /**
-    * @attribute ddConfig
-    * @description configuration of the Y.TerminalProxy object
-    * @type Object
-    * @default { type: "input", allowedTypes: ["output"] }
-    */
-   ddConfig: { type: "input", allowedTypes: ["output"] }
-});
+Y.TerminalInput = Y.Base.create("terminal-input", Y.Terminal, [], {
 
+  getClassName: function(n) {
+    return "yui3-terminal-"+n;
+  }
+
+}, {
+  ATTRS: {
+
+    dir: {
+      value: [-0.3, 0]
+    },
+
+    ddGroupsDrag: {
+      value: ['input']
+    },
+
+    ddGroupsDrop: {
+      value: ['output']
+    }
+
+    // TODO
+    // nMaxWires: 1,
+
+  }
+});
 
 
 }, '@VERSION@', {"requires": ["terminal"]});
@@ -1969,54 +1974,41 @@ YUI.add('terminal-output', function (Y, NAME) {
  * @module terminal-output
  */
 
+'use strict';
+
 /**
  * Class that extends Terminal to differenciate Input/Output terminals
  * @class TerminalOutput
  * @extends Terminal
  * @constructor
- * @param {HTMLElement} parentEl Parent dom element
- * @param {Object} options configuration object
- * @param {Container} container (Optional) Container containing this terminal
+ * @param {Object} oConfigs The user configuration for the instance.
  */
-Y.TerminalOutput = function (parentEl, options, container) {
-   Y.TerminalOutput.superclass.constructor.call(this,parentEl, options, container);
-};
-Y.extend(Y.TerminalOutput, Y.Terminal, {
-   
-   /**
-    * @attribute direction
-    * @description direction vector of the wires when connected to this terminal
-    * @type Array
-    * @default [0,1]
-    */
-   direction: [0,1],
-   
-   /**
-    * @attribute fakeDirection
-    * @description direction vector of the "editing" wire when it started from this terminal
-    * @type Array
-    * @default [0,-1]
-    */
-   fakeDirection: [0,-1],
-   
-   /**
-    * @attribute ddConfig
-    * @description configuration of the Y.TerminalProxy object
-    * @type Object
-    * @default  { type: "output", allowedTypes: ["input"] }   
-    */
-   ddConfig: { type: "output", allowedTypes: ["input"] }   ,
-   
-   /**
-    * @attribute alwaysSrc
-    * @description forces this terminal to be the src terminal in the wire config
-    * @type Boolean
-    * @default true
-    */
-   alwaysSrc: true
-   
-});
+Y.TerminalOutput = Y.Base.create("terminal-output", Y.Terminal, [], {
 
+  getClassName: function(n) {
+    return "yui3-terminal-"+n;
+  }
+
+}, {
+  ATTRS: {
+
+    dir: {
+      value: [0.3, 0]
+    },
+
+    ddGroupsDrag: {
+      value: ['output']
+    },
+
+    ddGroupsDrop: {
+      value: ['input']
+    }
+
+    // TODO
+    // alwaysSrc: true
+
+  }
+});
 
 }, '@VERSION@', {"requires": ["terminal"]});
 YUI.add('terminal-scissors', function (Y, NAME) {
@@ -2070,10 +2062,14 @@ Y.TerminalScissors.prototype = {
       
       this._scissorsOverlay.get('contentBox').addClass( this.getClassName("scissors") );
       
+      var refXY = this.get('xy');
+
       // Position the scissors using 'dir'
       var dir = this.get('dir');
-      this._scissorsOverlay.set('x', dir[0]*40);
-      this._scissorsOverlay.set('y', dir[1]*40);
+      console.log(dir);
+
+      this._scissorsOverlay.set('x', refXY[0]+dir[0]*40);
+      this._scissorsOverlay.set('y', refXY[1]+dir[1]*40);
       
       this._scissorsOverlay.render( this.get('boundingBox') );
    }
@@ -2082,7 +2078,7 @@ Y.TerminalScissors.prototype = {
 
 
 
-}, '@VERSION@', {"requires": ["overlay"]});
+}, '@VERSION@', {"requires": ["overlay"], "skinnable": true});
 YUI.add('textarea-container', function (Y, NAME) {
 
 /**
@@ -2158,9 +2154,7 @@ YUI.add('widget-icons', function (Y, NAME) {
  * @param {Object} config configuration object
  */
 Y.WidgetIcons = function (config) {
-
    Y.after(this._renderUIicons, this, "renderUI");
-   
 };
 
 Y.WidgetIcons.ATTRS = {
@@ -2179,16 +2173,17 @@ Y.WidgetIcons.prototype = {
    
    _renderUIicons: function () {
       
-      var p = this.get('contentBox'),
-          that= this;
+      /*var p = this.get('contentBox'),
+          that = this;*/
           
-      Y.Array.each( this.get('icons'), function (icon) {
-         var i = Y.Node.create('<span class="'+that.getClassName('icon')+' '+icon.className+'" title="'+icon.title+'"></span>');
-         i.on('click', Y.bind(that[icon.click], that) );
-         i.appendTo( p );
-         //p.insertBefore(i, p.get('children').item(0) );
-      });
+      Y.Array.each( this.get('icons'), Y.bind(this._renderUIicon, this));
       
+   },
+
+   _renderUIicon: function(icon) {
+      var i = Y.Node.create('<span class="yui3-widget-icons-icon '+this.getClassName('icon')+' '+icon.className+'" title="'+icon.title+'"></span>');
+      i.on('click', Y.bind(this[icon.click], this) );
+      i.appendTo( this.get('contentBox') );
    }
    
 };
@@ -2216,7 +2211,7 @@ YUI.add('wire-base', function (Y, NAME) {
  * @extends Path
  * @param {Object} oConfigs The user configuration for the instance.
  */
-Y.WireBase = function (cfg) {
+Y.WireBase = function (config) {
    Y.WireBase.superclass.constructor.apply(this, arguments);
 };
 
@@ -2299,7 +2294,7 @@ Y.extend(Y.WireBase, Y.Path, {
    },
    
    getOtherTerminal: function (term) {
-      return (term == this.get('src')) ? this.get('tgt') : this.get('src');
+      return (term === this.get('src')) ? this.get('tgt') : this.get('src');
    },
    
    // TODO:
@@ -2360,11 +2355,10 @@ Y.WireBase.ATTRS = Y.merge(Y.Path.ATTRS, {
    },
    
    /**
-    * 
     * @attribute srcDir
     * @type Array
     * @default [1,0]
-    */ 
+    */
    srcDir: {
       validator: Y.Lang.isArray,
       value: [1,0]
@@ -2896,8 +2890,8 @@ Y.WiresDelegate = function (config) {
    this.publish('removeWire');
    
    // Bubble events from terminals
-   this.on('terminal:addWire', this._onAddWire, this);
-   this.on('terminal:removeWire', this._onRemoveWire, this);
+   this.on('*:addWire', this._onAddWire, this);
+   this.on('*:removeWire', this._onRemoveWire, this);
    
 };
 

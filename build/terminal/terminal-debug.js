@@ -4,11 +4,11 @@ YUI.add('terminal', function (Y, NAME) {
  * @module terminal
  */
 
-    'use strict';
+'use strict';
 
 /**
  * Terminal is responsible for wire edition
- * 
+ *
  * @class Terminal
  * @extends TerminalBase
  * @uses TerminalDragEdit
@@ -17,9 +17,7 @@ YUI.add('terminal', function (Y, NAME) {
  * @constructor
  * @param {Object} oConfigs The user configuration for the instance.
  */
-    Y.Terminal = Y.Base.create("terminal", Y.TerminalBase, [Y.TerminalDragEdit, Y.TerminalScissors, Y.TerminalDDGroups]);
-
-
+Y.Terminal = Y.Base.create("terminal", Y.TerminalBase, [Y.TerminalDragEdit, Y.TerminalScissors, Y.TerminalDDGroups]);
 
 
 }, '@VERSION@', {

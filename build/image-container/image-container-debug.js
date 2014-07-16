@@ -12,7 +12,7 @@ YUI.add('image-container', function (Y, NAME) {
  * @extends ContainerBase
  * @constructor
  */
-Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
+Y.ImageContainer = Y.Base.create("image-container", Y.Container, [], {
    
    /**
     * @method renderUI
@@ -104,4 +104,4 @@ Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
 });
 
 
-}, '@VERSION@', {"requires": ["container-base"]});
+}, '@VERSION@', {"requires": ["container"], "skinnable": true});

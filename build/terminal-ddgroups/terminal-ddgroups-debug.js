@@ -16,15 +16,6 @@ Y.TerminalDDGroups = function (config) {
 
 Y.TerminalDDGroups.ATTRS = {
    
-   /**
-    * drag/drop groups : list of supported terminal types
-    * only used if editable is set to true
-    * @attribute groups
-    */
-   groups: {
-      value: ['terminal']
-   },
-   
    showGroups: {
       value: true
    }
@@ -50,7 +41,7 @@ Y.TerminalDDGroups.prototype = {
          
          var ddGroupsOverlay = new Y.Overlay({
             render: this.get('boundingBox'),
-            bodyContent: this.get('groups').join(',')
+            bodyContent: this.get('ddGroupsDrag').join(',')
          });
          ddGroupsOverlay.set("align", {node: this.get('contentBox'), 
                                points:[Y.WidgetPositionAlign.TC, Y.WidgetPositionAlign.BC]});

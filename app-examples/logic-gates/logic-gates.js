@@ -3,7 +3,7 @@ YUI_config.groups.wireit.base = '../../build/';
 YUI({
 	// Uncomment this line in debug mode
 	// filter: 'raw'
-}).use('wireit-app', 'image-container', function (Y) {
+}).use('wireit-app', 'image-container', 'terminal-input', 'terminal-output', function (Y) {
 
 	var containers_definitions = [
 			{
@@ -12,9 +12,9 @@ YUI({
 					type: "AndGate",
 					imageUrl: "images/gate_and.png",
 					children: [
-						{ offset: [-2, 13], dir: [-0.3, 0], name: '_INPUT1' },
-						{ offset: [-2, 40], dir: [-0.3, 0], name: '_INPUT2' },
-						{ offset: [80, 26], dir: [0.3, 0], name: '_OUTPUT' }
+						{ offset: [-2, 13], name: '_INPUT1', type: 'TerminalInput' },
+						{ offset: [-2, 40], name: '_INPUT2', type: 'TerminalInput' },
+						{ offset: [80, 26], name: '_OUTPUT', type: 'TerminalOutput' }
 					]
 				}
 			},
@@ -24,9 +24,9 @@ YUI({
 					type: "OrGate",
 					imageUrl: 'images/gate_or.png',
 					children: [
-						{ offset: [-2, 13], dir: [-0.3, 0], name: '_INPUT1' },
-						{ offset: [-2, 40], dir: [-0.3, 0], name: '_INPUT2' },
-						{ offset: [80, 26], dir: [0.3, 0], name: '_OUTPUT' }
+						{ offset: [-2, 13], name: '_INPUT1', type: 'TerminalInput' },
+						{ offset: [-2, 40], name: '_INPUT2', type: 'TerminalInput' },
+						{ offset: [80, 26], name: '_OUTPUT', type: 'TerminalOutput' }
 					]
 				}
 			},
@@ -36,8 +36,8 @@ YUI({
 					type: "NotGate", 
 			   		imageUrl: "images/gate_not.png",
 					children: [
-						{ offset: [-5, 27], dir: [-0.3, 0], name: '_INPUT' },
-						{ offset: [85, 27], dir: [0.3, 0], name: '_OUTPUT' }
+						{ offset: [-5, 27], name: '_INPUT', type: 'TerminalInput' },
+						{ offset: [85, 27], name: '_OUTPUT', type: 'TerminalOutput' }
 					]
 				}
 			},
@@ -47,9 +47,9 @@ YUI({
 			   		type: "NandGate", 
 			   		imageUrl: "images/gate_nand.png",
 					children: [
-						{ offset: [-2, 13], dir: [-0.3, 0], name: '_INPUT1' },
-						{ offset: [-2, 40], dir: [-0.3, 0], name: '_INPUT2' },
-						{ offset: [80, 26], dir: [0.3, 0], name: '_OUTPUT' }
+						{ offset: [-2, 13], name: '_INPUT1', type: 'TerminalInput' },
+						{ offset: [-2, 40], name: '_INPUT2', type: 'TerminalInput' },
+						{ offset: [80, 26], name: '_OUTPUT', type: 'TerminalOutput' }
 					]
 				}
 			},
@@ -59,9 +59,9 @@ YUI({
 		   			type: "XorGate", 
 		   			imageUrl: "images/gate_xor.png",
 					children: [
-						{ offset: [-2, 13], dir: [-0.3, 0], name: '_INPUT1' },
-						{ offset: [-2, 40], dir: [-0.3, 0], name: '_INPUT2' },
-						{ offset: [80, 26], dir: [0.3, 0], name: '_OUTPUT' }
+						{ offset: [-2, 13], name: '_INPUT1', type: 'TerminalInput' },
+						{ offset: [-2, 40], name: '_INPUT2', type: 'TerminalInput' },
+						{ offset: [80, 26], name: '_OUTPUT', type: 'TerminalOutput' }
 					]
 				}
 			},
@@ -71,7 +71,7 @@ YUI({
 					type: "Lightbulb", 
 					imageUrl: "images/lightbulb_off.png",
   					children: [
-  						{ offset: [20, 65], dir: [0, 0.3], name: '_INPUT' }
+  						{ offset: [20, 65], dir: [0, 0.3], name: '_INPUT', type: 'TerminalInput' }
   					]
 				}
 			},
@@ -81,7 +81,7 @@ YUI({
 					type:"Switch", 
 					imageUrl: "images/switch_off.png",
 	  				children: [
-  						{ offset: [54, 26], dir: [0.3, 0], name: '_OUTPUT' }
+  						{ offset: [54, 26], dir: [0.3, 0], name: '_OUTPUT', type: 'TerminalOutput' }
   					]
 				}
 			},
@@ -91,7 +91,7 @@ YUI({
 					type: "ClockContainer", 
 					imageUrl: "images/clock_off.png",
   					children: [
-  						{ offset: [58, 19], dir: [0.3, 0], name: '_OUTPUT' }
+  						{ offset: [58, 19], dir: [0.3, 0], name: '_OUTPUT', type: 'TerminalOutput' }
   					]
 				}
 			}

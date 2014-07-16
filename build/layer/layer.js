@@ -15,7 +15,7 @@ Y.Layer = Y.Base.create("layer", Y.Widget, [Y.WidgetParent, Y.WiresDelegate], {
    
    initializer: function () {
       
-      this.graphic = new Y.Graphic({render: this.get('contentBox') }); 
+      this.graphic = new Y.Graphic({render: this.get('contentBox') });
       
    },
    

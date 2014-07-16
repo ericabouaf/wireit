@@ -10,7 +10,7 @@
  * @extends ContainerBase
  * @constructor
  */
-Y.ImageContainer = Y.Base.create("image-container", Y.ContainerBase, [], {
+Y.ImageContainer = Y.Base.create("image-container", Y.Container, [], {
    
    /**
     * @method renderUI
