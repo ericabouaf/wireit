@@ -83,6 +83,8 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
          });
       });
       
+      console.log(o.containers);
+
       // Wires:
       o.wires = [];
       var layer = this.layer;

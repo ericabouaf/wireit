@@ -4,17 +4,12 @@
     "rollups": {
         "wireit-all": {
             "name": "wireit-all",
-            "config": {
-                "skinnable": true
-            },
-            "skinnable": true,
             "files": [
                 "wireit-loader",
                 "arrow-wire",
                 "bezier-wire",
                 "bidirectional-arrow-wire",
                 "container",
-                "container-base",
                 "image-container",
                 "inout-container",
                 "layer",

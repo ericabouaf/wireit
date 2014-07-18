@@ -35,7 +35,7 @@ YUI().use('bezier-wire', 'container', 'image-container', function(Y) {
   });
   
   c3 = new Y.Container({
-    children: Y.ContainerBase.EIGHT_POINTS,
+    children: Y.WidgetTerminals.EIGHT_POINTS,
     render: layerEl,
     width: 200,
     height: 100,
@@ -46,7 +46,7 @@ YUI().use('bezier-wire', 'container', 'image-container', function(Y) {
   });
   
   c5 = new Y.ImageContainer({
-    children: Y.ContainerBase.EIGHT_POINTS,
+    children: Y.WidgetTerminals.EIGHT_POINTS,
     render: layerEl,
     xy: [700,30],
     imageUrl: 'http://www.google.fr/images/logos/ps_logo2.png'

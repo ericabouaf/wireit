@@ -100,14 +100,14 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
       },
 
       offset: {
-        setter: function(val) {
+        /*setter: function(val) {
           //this._setX(val);
           var containerXY = this.get('parent').get('boundingBox').getXY();
 
           var xy = this.get('xy');
 
           //console.log(containerXY, xy, val);
-        },
+        },*/
         value: [0,0]
       }
       

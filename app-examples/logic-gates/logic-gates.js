@@ -2,8 +2,10 @@ YUI_config.groups.wireit.base = '../../build/';
 
 YUI({
 	// Uncomment this line in debug mode
-	// filter: 'raw'
+	filter: 'raw'
 }).use('wireit-app', 'image-container', 'terminal-input', 'terminal-output', function (Y) {
+
+	window.Y = Y; // debug
 
 	var containers_definitions = [
 			{

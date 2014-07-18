@@ -24,21 +24,17 @@ YUI().use(function(Y) {
     },
     "container": {
         "requires": [
-            "container-base",
-            "widget-icons"
-        ],
-        "skinnable": true
-    },
-    "container-base": {
-        "requires": [
             "overlay",
             "widget-parent",
             "widget-child",
             "dd",
             "resize",
-            "terminal",
-            "wires-delegate"
-        ]
+            "wires-delegate",
+            "widget-position-relative",
+            "widget-terminals",
+            "widget-icons"
+        ],
+        "skinnable": true
     },
     "image-container": {
         "requires": [
@@ -120,6 +116,14 @@ YUI().use(function(Y) {
     "widget-icons": {
         "requires": [],
         "skinnable": true
+    },
+    "widget-position-relative": {
+        "requires": []
+    },
+    "widget-terminals": {
+        "requires": [
+            "terminal"
+        ]
     },
     "wire-base": {
         "requires": [

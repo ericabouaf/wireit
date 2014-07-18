@@ -24,21 +24,17 @@ YUI().use(function(Y) {
     },
     "container": {
         "requires": [
-            "container-base",
-            "widget-icons"
-        ],
-        "skinnable": true
-    },
-    "container-base": {
-        "requires": [
             "overlay",
             "widget-parent",
             "widget-child",
             "dd",
             "resize",
-            "terminal",
-            "wires-delegate"
-        ]
+            "wires-delegate",
+            "widget-position-relative",
+            "widget-terminals",
+            "widget-icons"
+        ],
+        "skinnable": true
     },
     "image-container": {
         "requires": [
@@ -121,6 +117,14 @@ YUI().use(function(Y) {
         "requires": [],
         "skinnable": true
     },
+    "widget-position-relative": {
+        "requires": []
+    },
+    "widget-terminals": {
+        "requires": [
+            "terminal"
+        ]
+    },
     "wire-base": {
         "requires": [
             "graphics"
@@ -160,104 +164,104 @@ YUI().use(function(Y) {
 
 YUI.add('arrow-wire', function (Y, NAME) {
 
-    'use strict';
+'use strict';
 
+/**
+ * @module arrow-wire
+ */
+
+/**
+ * Extend CanvasWire to draw an arrow wire
+ * @class ArrowWire
+ * @extends WireBase
+ * @constructor
+ * @param {Object} cfg the configuration for the ArrowWire attributes
+ */
+Y.ArrowWire = function (cfg) {
+    Y.ArrowWire.superclass.constructor.apply(this, arguments);
+};
+
+Y.ArrowWire.NAME = "arrowwire";
+
+Y.extend(Y.ArrowWire, Y.WireBase, {
     /**
-     * @module arrow-wire
+     * @method _draw
+     * @private
      */
+    _draw: function () {
 
-    /**
-     * Extend CanvasWire to draw an arrow wire
-     * @class ArrowWire
-     * @extends WireBase
-     * @constructor
-     * @param {Object} cfg the configuration for the ArrowWire attributes
-     */
-    Y.ArrowWire = function (cfg) {
-        Y.ArrowWire.superclass.constructor.apply(this, arguments);
-    };
+        var d = 7, // arrow width/2
+            redim = d + 3, //we have to make the canvas a little bigger because of arrows
+            margin=[4 + redim,4 + redim],
 
-    Y.ArrowWire.NAME = "arrowwire";
+            src = this.get('src').getXY(),
+            tgt = this.get('tgt').getXY(),
 
-    Y.extend(Y.ArrowWire, Y.WireBase, {
-        /**
-         * @method _draw
-         * @private
-         */
-        _draw: function () {
+            distance=Math.sqrt(Math.pow(src[0]-tgt[0],2) + Math.pow(src[1]-tgt[1],2));
 
-            var d = 7, // arrow width/2
-                redim = d + 3, //we have to make the canvas a little bigger because of arrows
-                margin=[4 + redim,4 + redim],
+        this.moveTo((src[0] + 6), (src[1] + 6));
+        this.lineTo((tgt[0] + 6), (tgt[1] + 6));
 
-                src = this.get('src').getXY(),
-                tgt = this.get('tgt').getXY(),
+        // start drawing arrows
 
-                distance=Math.sqrt(Math.pow(src[0]-tgt[0],2) + Math.pow(src[1]-tgt[1],2));
+        var z = [0,0], //point on the wire with constant distance (dlug) from terminal2
+            dlug = 20, //arrow length
+            t = (distance === 0) ? 0 : 1 - (dlug/distance);
 
-            this.moveTo((src[0] + 6), (src[1] + 6));
-            this.lineTo((tgt[0] + 6), (tgt[1] + 6));
+        z[0] = Math.abs( src[0] + t * (tgt[0] - src[0]) );
+        z[1] = Math.abs( src[1] + t * (tgt[1] - src[1]) );
 
-            // start drawing arrows
-
-            var z = [0,0], //point on the wire with constant distance (dlug) from terminal2
-                dlug = 20, //arrow length
-                t = (distance === 0) ? 0 : 1 - (dlug/distance);
-
-            z[0] = Math.abs( src[0] + t * (tgt[0] - src[0]) );
-            z[1] = Math.abs( src[1] + t * (tgt[1] - src[1]) );
-
-            //line which connects the terminals: y=ax+b
-            var W = src[0] - tgt[0],
-                Wa = src[1] - tgt[1],
-                Wb = src[0] * tgt[1] - src[1] * tgt[0],
-                a, b, aProst, bProst;
-         
-            if (W !== 0) {
-                a = Wa / W;
-                b = Wb / W;
-            } else {
-                a = 0;
-            }
-            //line perpendicular to the main line: y = aProst*x + b
-            if (a === 0) {
-                aProst = 0;
-            } else {
-                aProst = -1 / a;
-            }
-            bProst = z[1] - aProst * z[0]; //point z lays on this line
-            
-            // we have to calculate coordinates of 2 points, which lay on perpendicular line and have the same distance (d) from point z
-            var A = 1 + Math.pow(aProst, 2),
-                B = 2 * aProst * bProst - 2 * z[0] - 2 * z[1] * aProst,
-                C = -2 * z[1] * bProst + Math.pow(z[0], 2) + Math.pow(z[1], 2) - Math.pow(d, 2) + Math.pow(bProst, 2);
-
-            var delta = Math.pow(B, 2) - 4 * A * C;
-            if (delta < 0) { return; }
-            
-            var x1 = (-B + Math.sqrt(delta)) / (2 * A),
-                x2 = (-B - Math.sqrt(delta)) / (2 * A),
-                y1 = aProst * x1 + bProst,
-                y2 = aProst * x2 + bProst;
-            
-            if (src[1] === tgt[1]) {
-                var o = (src[0] > tgt[0]) ? 1 : -1;
-                x1 = tgt[0] + o * dlug;
-                x2 = x1;
-                y1 -= d;
-                y2 += d;
-            }
-
-            //triangle border
-            this.moveTo(tgt[0] + 6, tgt[1] + 6);
-            this.lineTo(x1 + 6, y1 + 6);
-            this.moveTo(tgt[0] + 6, tgt[1] + 6);
-            this.lineTo(x2 + 6, y2 + 6);
-            this.end();
+        //line which connects the terminals: y=ax+b
+        var W = src[0] - tgt[0],
+            Wa = src[1] - tgt[1],
+            Wb = src[0] * tgt[1] - src[1] * tgt[0],
+            a, b, aProst, bProst;
+     
+        if (W !== 0) {
+            a = Wa / W;
+            b = Wb / W;
+        } else {
+            a = 0;
         }
-    });
+        //line perpendicular to the main line: y = aProst*x + b
+        if (a === 0) {
+            aProst = 0;
+        } else {
+            aProst = -1 / a;
+        }
+        bProst = z[1] - aProst * z[0]; //point z lays on this line
+        
+        // we have to calculate coordinates of 2 points, which lay on perpendicular line and have the same distance (d) from point z
+        var A = 1 + Math.pow(aProst, 2),
+            B = 2 * aProst * bProst - 2 * z[0] - 2 * z[1] * aProst,
+            C = -2 * z[1] * bProst + Math.pow(z[0], 2) + Math.pow(z[1], 2) - Math.pow(d, 2) + Math.pow(bProst, 2);
 
-    Y.ArrowWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {});
+        var delta = Math.pow(B, 2) - 4 * A * C;
+        if (delta < 0) { return; }
+        
+        var x1 = (-B + Math.sqrt(delta)) / (2 * A),
+            x2 = (-B - Math.sqrt(delta)) / (2 * A),
+            y1 = aProst * x1 + bProst,
+            y2 = aProst * x2 + bProst;
+        
+        if (src[1] === tgt[1]) {
+            var o = (src[0] > tgt[0]) ? 1 : -1;
+            x1 = tgt[0] + o * dlug;
+            x2 = x1;
+            y1 -= d;
+            y2 += d;
+        }
+
+        //triangle border
+        this.moveTo(tgt[0] + 6, tgt[1] + 6);
+        this.lineTo(x1 + 6, y1 + 6);
+        this.moveTo(tgt[0] + 6, tgt[1] + 6);
+        this.lineTo(x2 + 6, y2 + 6);
+        this.end();
+    }
+});
+
+Y.ArrowWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {});
 
 
 }, '@VERSION@', {"requires": ["wire-base"]});
@@ -502,7 +506,7 @@ Y.BidirectionalArrowWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {});
 }, '@VERSION@', {"requires": ["wire-base"]});
 YUI.add('container', function (Y, NAME) {
 
-    'use strict';
+'use strict';
 
 /**
  * @module container
@@ -513,130 +517,84 @@ YUI.add('container', function (Y, NAME) {
  * It is a WidgetChild (belongs to Layer)
  * It is also a WidgetParent (has many terminals)
  * @class Container
- * @extends ContainerBase
- */
-    Y.Container = Y.Base.create("container", Y.ContainerBase, [Y.WidgetIcons], {
-        /**
-         * Click handler for the close icon
-         * @method _onCloseClick
-         * @private
-         */
-        _onCloseClick: function () {
-            this.destroy();
-        }
-
-    }, {
-
-        ATTRS: {
-            /**
-             * Override the default value of WidgetIcons to add the close button
-             * @attribute icons
-             */
-            icons: {
-                value: [
-                    {title: 'close', click: '_onCloseClick', className: 'ui-silk ui-silk-cancel'}
-                ]
-            }
-        }
-    });
-
-
-
-}, '@VERSION@', {"requires": ["container-base", "widget-icons"], "skinnable": true});
-YUI.add('container-base', function (Y, NAME) {
-
-/**
- * @module container-base
- */
-
-/**
- * ContainerBase is an Overlay (XY positioning)
- * It is a WidgetChild (belongs to Layer)
- * It is also a WidgetParent (has many terminals)
- * @class ContainerBase
- * @extends Overlay
  * @uses WidgetParent
  * @uses WidgetChild
  * @uses WiresDelegate
+ * @uses WidgetPositionRelative
+ * @uses WidgetTerminals
  * @constructor
  */
-var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, Y.WidgetChild, Y.WiresDelegate], {
-   
+Y.Container = Y.Base.create("container", Y.Overlay, [
+   Y.WidgetParent,
+   Y.WidgetChild,
+   Y.WiresDelegate,
+   Y.WidgetPositionRelative,
+   Y.WidgetTerminals,
+   Y.WidgetIcons
+], {
+
+
    /**
     * @method renderUI
     */
    renderUI: function () {
-      
-      // make the overlay draggable
-      this.drag = new Y.DD.Drag({
-         node: this.get('boundingBox'), 
-         handles : [ this._findStdModSection(Y.WidgetStdMod.HEADER) ]
-      });
-      
+      this._renderDrag();    
+      this._renderResize();
+   },
+
+   bindUI: function() {
+
+      if(this.resize) {
+         this.resize.on('resize:resize', this._onResize, this);
+      }
+
       this.drag.on('drag:drag', function () {
          this.redrawAllWires();
       }, this);
-      
+
+   },
+
+   _renderDrag: function() {
+      // make the overlay draggable
+      this.drag = new Y.DD.Drag({
+         node: this.get('boundingBox'),
+         handles : [ this._findStdModSection(Y.WidgetStdMod.HEADER) ]
+      });
+   },
+
+   _renderResize: function() {
+
       // Make the overlay resizable
-      if(this.get('resizable')) {
-         var contentBox = this.get('contentBox');
-         var resize = new Y.Resize({ 
-            node: contentBox,
-            handles: 'br'
-         });
-         /*resize.plug(Y.Plugin.ResizeConstrained, {
-            minWidth: 50,
-            minHeight: 50,
-            maxWidth: 300,
-            maxHeight: 300
-            //preserveRatio: true
-          });*/
-         // On resize, fillHeight, & align terminals & wires
-         resize.on('resize:resize', function () {
-            // TODO: fillHeight
-            this._fillHeight();
-            this.alignTerminals();
-            this.redrawAllWires();
-         }, this);
-         
-         this.resize = resize;
+      if(!this.get('resizable')) {
+         return;
       }
-      
-      // TODO: this is awful ! But we need to wait for everything to render & position
-      Y.later(200, this, function () {
-         this.alignTerminals();
+
+      this.resize = new Y.Resize({
+         node: this.get('contentBox'),
+         handles: 'br' // bottom-right
       });
-      
+       
    },
-   
+
+   _onResize: function() {
+      // On resize, fillHeight, & align terminals & wires
+      this._fillHeight();
+      this.alignTerminals();
+      //this.redrawAllWires();
+   },
+
+
    /**
-    * @method alignTerminals
+    * Click handler for the close icon
+    * @method _onCloseClick
+    * @private
     */
-   alignTerminals: function () {
-      var contentBox = this.get('contentBox');
-      this.each(function (term) {
-         if(term.get('align')) {
-            term.align( term.get('alignNode') || contentBox, ['tl',term.get('align').points[1]]);
-         }
-      }, this);
+   _onCloseClick: function () {
+      this.destroy();
    },
    
-   /**
-    * @method syncUI
-    */
-   syncUI: function () {
-      
-      // Align terminals
-      var c = this;
-      this.each(function (term) {
-         if(term.get('align')) {   
-            term.align( c.get('contentBox') , ['tl',term.get('align').points[1]]);
-         }
-      });
-      
-   },
    
-   SERIALIZABLE_ATTRS: ['x','y'],
+   SERIALIZABLE_ATTRS: [ 'relative_x', 'relative_y'],
    
    toJSON: function () {
       var o = {}, a = this;
@@ -645,18 +603,6 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
       });
       
       return o;
-   },
-   
-   /**
-    * Get a terminal by name
-    * @method getTerminal
-    */
-   getTerminal: function (name) {
-      return Y.Array.find(this._items, function (item) {
-         if(item.get('name') == name) {
-            return true;
-         }
-      });
    },
    
    destructor: function () {
@@ -671,14 +617,8 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
 }, {
 
    ATTRS: {
-      
-      /**
-       * @attribute defaultChildType
-       */
-      defaultChildType: {
-         value: 'Terminal'
-      },
-      
+
+
       /**
        * @attribute zIndex
        */
@@ -700,58 +640,39 @@ var ContainerBase = Y.Base.create('container-base', Y.Overlay, [Y.WidgetParent, 
          value: true
       },
       
-      /*x: {
-         getter: function () {
-            var left = this.get('boundingBox').getStyle('left');
-            return parseInt(left.substr(0,left.length-2),10);
-         }
-      },
-      
-      y: {
-         getter: function () {
-            var top = this.get('boundingBox').getStyle('top');
-            return parseInt(top.substr(0,top.length-2),10);
-         }
-      },*/
-      
       preventSelfWiring: {
          value: true
+      },
+
+      /**
+       * Override the default value of WidgetIcons to add the close button
+       * @attribute icons
+       */
+      icons: {
+         value: [
+            {title: 'close', click: '_onCloseClick', className: 'ui-silk ui-silk-cancel'}
+         ]
       }
-      
-   },
-   
-   EIGHT_POINTS: [
-      { align: {points:['tl', 'tl']}, dir: [-0.5, -0.5], name: 'tl' },
-      { align: {points:['tl', 'tc']}, dir: [0, -1], name: 'tc' },
-      { align: {points:['tl', 'tr']}, dir: [0.5, -0.5], name: 'tr' },
-      { align: {points:['tl', 'lc']}, dir: [-1, 0], name: 'lc' },
-      { align: {points:['tl', 'rc']}, dir: [1, 0], name: 'rc' },
-      { align: {points:['tl', 'br']}, dir: [0.5, 0.5], name: 'br' },
-      { align: {points:['tl', 'bc']}, dir: [0,1], name: 'bc' },
-      { align: {points:['tl', 'bl']}, dir: [-0.5, 0.5], name: 'bl' }
-   ],
-
-   FOUR_CORNERS: [
-      { align: {points:['tl', 'tl']}, dir: [-0.5, -0.5], name: 'tl' },
-      { align: {points:['tl', 'tr']}, dir: [0.5, -0.5], name: 'tr' },
-      { align: {points:['tl', 'br']}, dir: [0.5, 0.5], name: 'br' },
-      { align: {points:['tl', 'bl']}, dir: [-0.5, 0.5], name: 'bl' }
-   ],
-
-   FOUR_EDGES: [
-      { align: {points:['tl', 'tc']}, dir: [0, -1], name: 'tc' },
-      { align: {points:['tl', 'lc']}, dir: [-1, 0], name: 'lc' },
-      { align: {points:['tl', 'rc']}, dir: [1, 0], name: 'rc' },
-      { align: {points:['tl', 'bc']}, dir: [0,1], name: 'bc' }
-   ]
+   }
    
 });
 
-Y.ContainerBase = ContainerBase;
 
 
-
-}, '@VERSION@', {"requires": ["overlay", "widget-parent", "widget-child", "dd", "resize", "terminal", "wires-delegate"]});
+}, '@VERSION@', {
+    "requires": [
+        "overlay",
+        "widget-parent",
+        "widget-child",
+        "dd",
+        "resize",
+        "wires-delegate",
+        "widget-position-relative",
+        "widget-terminals",
+        "widget-icons"
+    ],
+    "skinnable": true
+});
 YUI.add('image-container', function (Y, NAME) {
 
 /**
@@ -763,7 +684,7 @@ YUI.add('image-container', function (Y, NAME) {
  * It is a WidgetChild (belongs to Layer)
  * It is also a WidgetParent (has many terminals)
  * @class ImageContainer
- * @extends ContainerBase
+ * @extends Container
  * @constructor
  */
 Y.ImageContainer = Y.Base.create("image-container", Y.Container, [], {
@@ -772,71 +693,46 @@ Y.ImageContainer = Y.Base.create("image-container", Y.Container, [], {
     * @method renderUI
     */
    renderUI: function () {
-      
-      // TODO: 
-      var image = Y.Node.create('<img src="'+this.get('imageUrl')+'" width="'+this.get('width')+'"  height="'+this.get('height')+'"/>');
-      image.appendTo( this.get('contentBox') );
-      this.image = image;
 
-      this.image.once('load', function() {
-        //console.log("loaded !!!");
-        this.alignTerminals();
-        this.redrawAllWires();
-      }, this);
+      this.image = Y.Node.create('<img src="'+this.get('imageUrl')+'" width="'+this.get('width')+'"  height="'+this.get('height')+'"/>');
+      this.image.appendTo( this.get('contentBox') );
       
-      //console.log( Y.WidgetStdMod.BODY, this._getStdModContent(Y.WidgetStdMod.BODY) );
-            
-        // make the overlay draggable
-      this.drag = new Y.DD.Drag({
-           node: this.get('boundingBox'), 
-         handles : [ image ]
-        });
-   
-      this.drag.on('drag:drag', function () {
-         this.redrawAllWires();
-      }, this);
-   
-   
-      // Make the overlay resizable
-      if(this.get('resizable')) {
-        var contentBox = this.get('contentBox');
-        var resize = new Y.Resize({ 
-           node: contentBox,
-           handles: 'br'
-        });
-        /*resize.plug(Y.Plugin.ResizeConstrained, {
-           preserveRatio: true
-         });*/
-        // On resize, fillHeight, & align terminals & wires
-        resize.on('resize:resize', function (e) {
-           // TODO: fillHeight
-           this._fillHeight();
-           
-           //console.log(e.details[0].info);
-           var p = e.details[0].info;
-           var w = p.right-p.left;
-           var h = p.bottom-p.top;
-           //console.log(w+"x"+h);
-           
-           // WARNING !!!
-           this.image.set('width',w);
-           this.image.set('height',h);
-           
-           this.each(function (term) {
-              if(term.get('align')) {   
-                 term.align( contentBox, ["tl",term.get('align').points[1]]);
-              }
-           }, this);
-           
-           this.redrawAllWires();
-        }, this);
+      Y.ImageContainer.superclass.renderUI.apply(this);
+
+      if(this.resize && this.get('resizePreserveRatio') ) {
+         this.resize.plug(Y.Plugin.ResizeConstrained, {
+            preserveRatio: true
+         });
       }
-      
+
+   },
+
+   /**
+    * @method bindUI
+    */
+   bindUI: function() {
+
+      this.image.after('load', this.alignTerminals, this);
+
+      if(this.resize) {
+         this.resize.after('resize:resize', this._onResizeImage, this);
+      }
+
+      this.drag.set('handles', [this.image]);
+
+      Y.ImageContainer.superclass.bindUI.apply(this);
+   },
+
+   _onResizeImage: function(e) {
+      var p = e.details[0].info;
+      this.image.set('width',  p.right-p.left);
+      this.image.set('height', p.bottom-p.top);
    }
    
 }, {
 
    ATTRS: {
+
       /**
        * Url of the image you want to render (relative to the script's page)
        * @attribute imageUrl
@@ -849,10 +745,15 @@ Y.ImageContainer = Y.Base.create("image-container", Y.Container, [], {
             }
          }
       },
-      
-      zIndex: {
-         value: 5
+
+      /**
+       * Preserve ratio when resized (only if resizable)
+       * @attribute resizePreserveRatio
+       */
+      resizePreserveRatio: {
+         value: true
       }
+
    }
    
 });
@@ -1183,14 +1084,14 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
       },
 
       offset: {
-        setter: function(val) {
+        /*setter: function(val) {
           //this._setX(val);
           var containerXY = this.get('parent').get('boundingBox').getXY();
 
           var xy = this.get('xy');
 
           //console.log(containerXY, xy, val);
-        },
+        },*/
         value: [0,0]
       }
       
@@ -2244,6 +2145,8 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
          });
       });
       
+      console.log(o.containers);
+
       // Wires:
       o.wires = [];
       var layer = this.layer;
@@ -2600,4 +2503,4 @@ Y.WiresDelegate.prototype = {
 
 
 }, '@VERSION@', {"requires": ["wire-base"]});
-YUI.add('wireit-all', function (Y, NAME) {}, '@VERSION@', {"skinnable": true});
+YUI.add('wireit-all', function (Y, NAME) {}, '@VERSION@');

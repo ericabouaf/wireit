@@ -1,0 +1,10 @@
+{
+    "name": "widget-position-relative",
+    "builds": {
+        "widget-position-relative": {
+            "jsfiles": [
+                "widget-position-relative.js"
+            ]
+        }
+    }
+}
