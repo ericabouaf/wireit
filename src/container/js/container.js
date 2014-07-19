@@ -29,7 +29,6 @@ Y.Container = Y.Base.create("container", Y.Widget, [
    Y.WidgetIcons
 ], {
 
-
    /**
     * @method renderUI
     */
@@ -51,7 +50,10 @@ Y.Container = Y.Base.create("container", Y.Widget, [
    },
 
    syncUI: function() {
-      this.alignTerminals();
+      // waiting for the next tick to align the terminals
+      Y.later(0, this, function() {
+         this.alignTerminals();         
+      });
    },
 
    _renderDrag: function() {
@@ -117,7 +119,10 @@ Y.Container = Y.Base.create("container", Y.Widget, [
 
    ATTRS: {
 
-
+      /**
+       * Relative left position (in the layer referential)
+       * @attribute x
+       */
       x: {
          lazyAdd: false,
          getter: function() {
@@ -131,6 +136,10 @@ Y.Container = Y.Base.create("container", Y.Widget, [
          }
       },
 
+      /**
+       * Relative top position (in the layer referential)
+       * @attribute y
+       */
       y: {
          lazyAdd: false,
          getter: function() {

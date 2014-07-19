@@ -185,6 +185,9 @@ YUI({
 
 	Y.Switch = Y.Base.create("switch-container", Y.LogicContainer, [], {
 		bindUI: function() {
+         
+         Y.Switch.superclass.bindUI.apply(this);
+
 			this.image.on('click', function() {
 				this.switchLogicOutput();
 				this.set('imageUrl', "images/switch_"+(this.get('logicOutput') ? "on" : "off")+".png");

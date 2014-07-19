@@ -44,8 +44,11 @@ YUI().use(function(Y) {
     },
     "inout-container": {
         "requires": [
-            "container"
-        ]
+            "container",
+            "terminal-input",
+            "terminal-output"
+        ],
+        "skinnable": true
     },
     "layer": {
         "requires": [

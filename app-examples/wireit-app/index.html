@@ -114,14 +114,15 @@
 <script>
 YUI_config.groups.wireit.base = '../../build/';
 
-YUI().use('wireit-app', 'image-container', function (Y) {
+YUI({
+	filter: 'raw' // debug
+}).use('wireit-app', 'image-container', 'inout-container', function (Y) {
 
 	window.Y = Y; //debug
 
 	var containers_definitions = [
 			{
 				name: "Fetch",
-				icon: "super.png",
 				config: {
 					type: 'ImageContainer',
 					children: Y.WidgetTerminals.FOUR_EDGES,
@@ -130,12 +131,38 @@ YUI().use('wireit-app', 'image-container', function (Y) {
 			},
 			{
 				name: "Loop",
-				icon: "super.png",
 				config: {
 					children: Y.WidgetTerminals.EIGHT_POINTS,
 					type: 'Container',
 					headerContent: 'Loop',
 					bodyContent: 'This is a much longer body content'
+				}
+			},
+			{
+				name: "InOutDemo",
+				config: {
+					type: 'InOutContainer',
+					headerContent: 'In/Out',
+					inputs: [
+						{
+							label: 'Input A',
+							name: 'A'
+						},
+						{
+							label: 'Input B',
+							name: 'B'
+						}
+					],
+					outputs: [
+						{
+							label: 'Output C',
+							name: 'C'
+						},
+						{
+							label: 'Output D',
+							name: 'D'
+						}
+					]
 				}
 			}
 		];

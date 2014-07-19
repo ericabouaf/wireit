@@ -1,5 +1,10 @@
 {
    "inout-container": {
-      "requires": ["container"]
+      "requires": [
+         "container",
+         "terminal-input",
+         "terminal-output"
+      ],
+      "skinnable": true
    }
 }

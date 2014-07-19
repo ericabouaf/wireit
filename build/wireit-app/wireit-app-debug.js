@@ -222,7 +222,6 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
    _renderLayer: function () {
       
       this.layer = new Y.Layer({
-         //width: 900,
          height: 500
       });
       
@@ -231,14 +230,13 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
          node: this.layer.get('contentBox'),
          groups: ['containerType']
       });
-      //drop.layer = this.layer;
       
+      this.layer.render( this.get('container').one('#layer-container') );
+
       var wiring = this.get('model');
       if(wiring) {
          this.setWiring( wiring );
       }
-      
-      this.layer.render( this.get('container').one('#layer-container') );
       
    },
    
@@ -255,8 +253,6 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
             config: item.toJSON()
          });
       });
-      
-      console.log(o.containers);
 
       // Wires:
       o.wires = [];
@@ -310,10 +306,7 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
    setWiring: function (wiring) {
       
       var that = this;
-      
       var layer = this.layer;
-      
-      console.log(wiring.get('containers'));
 
       Y.Array.each( wiring.get('containers'), function (container) {
          
@@ -324,9 +317,10 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
          }, '#wiring-name');
          
       });
-      
+
+
       Y.Array.each( wiring.get('wires'), function (wire) {
-         
+
          // prevent bad configs...
          if(!wire.src || !wire.tgt) return;
          
@@ -337,14 +331,12 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
          var tgtTerminal = tgtContainer.getTerminal(wire.tgt.terminal);
          
          // TODO: wire.config;
-         
          var w = layer.graphic.addShape({
             type: Y.BezierWire,
             stroke: {
                 weight: 4,
                 color: "rgb(173,216,230)" 
             },
-
 
             src: srcTerminal,
             tgt: tgtTerminal
@@ -354,7 +346,7 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
       });
       
       // TODO: this is awful ! But we need to wait for everything to render & position
-      Y.later(1000, this, function () {
+      Y.later(200, this, function () {
          layer.redrawAllWires();
       });
       

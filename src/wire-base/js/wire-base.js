@@ -167,11 +167,9 @@ Y.WireBase.ATTRS = Y.merge(Y.Path.ATTRS, {
    srcDir: {
       validator: Y.Lang.isArray,
       value: [1,0]
-      // TODO: normalize ?
    },
    
    /**
-    * TODO: normalize ?
     * @attribute tgtDir
     * @type Array
     * @default -srcDir
@@ -182,7 +180,6 @@ Y.WireBase.ATTRS = Y.merge(Y.Path.ATTRS, {
          var d = this.get('srcDir');
          return [-d[0],-d[1]];
       }
-      // TODO: normalize ?
    }
    
 });
