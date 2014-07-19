@@ -50,8 +50,8 @@ Y.WiresDelegate.prototype = {
     * @param {Wire} wire Wire instance to add
     */
    addWire: function (wire) {
-      var index = Y.Array.indexOf(this._wires, wire); 
-      if(index == -1) {
+      var index = Y.Array.indexOf(this._wires, wire);
+      if(index === -1) {
          this._wires.push(wire);
          this.fire('addWire', wire);
       }
@@ -63,15 +63,16 @@ Y.WiresDelegate.prototype = {
     */
    removeWire: function (wire) {
       
-      var index = Y.Array.indexOf(this._wires, wire); 
+      var index = Y.Array.indexOf(this._wires, wire),
+          w, v;
       
-      if( index != -1 ) {
+      if( index !== -1 ) {
          
          // Compact the array
-         var w = this._wires;
+         w = this._wires;
          this._wires = [];
-         var v = this._wires;
-         Y.Array.each(w,function (i) { if(i != wire){ v.push(i); } });
+         v = this._wires;
+         Y.Array.each(w,function (i) { if(i !== wire){ v.push(i); } });
          
          // Fire the event
          this.fire('removeWire', wire);
@@ -79,7 +80,7 @@ Y.WiresDelegate.prototype = {
       
    },
    
-   /** 
+   /**
     * Remove all wires
     * @method destroyWires
     */
@@ -99,9 +100,9 @@ Y.WiresDelegate.prototype = {
     * @return  {Array}  List of all connected terminals
     */
    getConnected: function () {
-      var list = [];
+      var list = [], i, n;
       if(this._wires) {
-         for(var i = 0, n = this._wires.length ; i < n ; i++) {
+         for(i = 0, n = this._wires.length ; i < n ; i++) {
             list.push(this._wires[i].getOtherTerminal(this));
          }
       }

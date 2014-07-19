@@ -87,13 +87,10 @@ Y.Terminal = Y.Base.create("terminal", Y.Widget, [
     * @method getXY
     */
    getXY: function () {
-      var container = this.get('parent');
-      var layer = container.get('parent');
-      var layerXY = layer.get('boundingBox').getXY();
-      //console.log( "layerXY", layerXY );
-
-      var absXY = this.get('contentBox').getXY();
-      //console.log( "absXY", absXY );
+      var container = this.get('parent'),
+          layer = container.get('parent'),
+          layerXY = layer.get('boundingBox').getXY(),
+          absXY = this.get('contentBox').getXY();
 
       return [absXY[0]-layerXY[0] + 15/2 , absXY[1]-layerXY[1] + 15/2];
    }
@@ -102,6 +99,9 @@ Y.Terminal = Y.Base.create("terminal", Y.Widget, [
    
    ATTRS: {
       
+      /**
+       * @attribute name
+       */
       name: {
          value: null
       },
@@ -119,6 +119,9 @@ Y.Terminal = Y.Base.create("terminal", Y.Widget, [
          value: null
       },
 
+      /**
+       * @attribute offset
+       */
       offset: {
          value: null,
          validator: function(val) {
