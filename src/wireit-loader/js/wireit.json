@@ -48,7 +48,7 @@
             "container",
             "wires-delegate"
         ],
-        "skinnable": "true"
+        "skinnable": true
     },
     "straight-wire": {
         "requires": [

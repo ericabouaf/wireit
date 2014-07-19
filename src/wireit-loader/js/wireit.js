@@ -56,7 +56,7 @@ YUI().use(function(Y) {
             "container",
             "wires-delegate"
         ],
-        "skinnable": "true"
+        "skinnable": true
     },
     "straight-wire": {
         "requires": [
@@ -149,11 +149,10 @@ YUI().use(function(Y) {
       }
    };
 
-   if(typeof YUI_config === 'undefined') { 
-      YUI_config = {groups: {}}; 
+   if(typeof YUI_config === 'undefined') {
+      YUI_config = {groups: {}};
    }
-   
+
    Y.mix(YUI_config.groups, CONFIG.groups);
 
 });
-

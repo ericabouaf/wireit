@@ -1,5 +1,7 @@
 {
    "arrow-wire": {
-      "requires": [ "wire-base"]
+      "requires": [
+         "wire-base"
+      ]
    }
 }

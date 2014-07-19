@@ -12,7 +12,7 @@
  * @constructor
  * @param {Object} config configuration object
  */
-Y.WiresDelegate = function (config) {
+Y.WiresDelegate = function () {
    
    this._wires = [];
    

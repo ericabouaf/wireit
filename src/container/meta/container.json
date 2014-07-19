@@ -1,16 +1,16 @@
 {
-    "container": {
-        "requires": [
-            "widget-stdmod",
-            "widget-stack",
-            "widget-parent",
-            "widget-child",
-            "dd",
-            "resize",
-            "wires-delegate",
-            "widget-terminals",
-            "widget-icons"
-        ], 
-        "skinnable": true
-    }
+   "container": {
+      "requires": [
+         "widget-stdmod",
+         "widget-stack",
+         "widget-parent",
+         "widget-child",
+         "dd",
+         "resize",
+         "wires-delegate",
+         "widget-terminals",
+         "widget-icons"
+      ], 
+      "skinnable": true
+   }
 }

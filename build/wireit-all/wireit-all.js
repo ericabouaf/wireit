@@ -56,7 +56,7 @@ YUI().use(function(Y) {
             "container",
             "wires-delegate"
         ],
-        "skinnable": "true"
+        "skinnable": true
     },
     "straight-wire": {
         "requires": [
@@ -149,14 +149,13 @@ YUI().use(function(Y) {
       }
    };
 
-   if(typeof YUI_config === 'undefined') { 
-      YUI_config = {groups: {}}; 
+   if(typeof YUI_config === 'undefined') {
+      YUI_config = {groups: {}};
    }
-   
+
    Y.mix(YUI_config.groups, CONFIG.groups);
 
 });
-
 YUI.add('arrow-wire', function (Y, NAME) {
 
 'use strict';
@@ -173,87 +172,90 @@ YUI.add('arrow-wire', function (Y, NAME) {
  * @param {Object} cfg the configuration for the ArrowWire attributes
  */
 Y.ArrowWire = function (cfg) {
-    Y.ArrowWire.superclass.constructor.apply(this, arguments);
+   Y.ArrowWire.superclass.constructor.apply(this, arguments);
 };
 
 Y.ArrowWire.NAME = "arrowwire";
 
 Y.extend(Y.ArrowWire, Y.WireBase, {
-    /**
-     * @method _draw
-     * @private
-     */
-    _draw: function () {
+   /**
+    * @method _draw
+    * @private
+    */
+   _draw: function () {
 
-        var d = 7, // arrow width/2
-            redim = d + 3, //we have to make the canvas a little bigger because of arrows
-            margin=[4 + redim,4 + redim],
+      var d = 7, // arrow width/2
+          redim = d + 3, //we have to make the canvas a little bigger because of arrows
+          margin=[4 + redim,4 + redim],
 
-            src = this.get('src').getXY(),
-            tgt = this.get('tgt').getXY(),
+      src = this.get('src').getXY(),
+      tgt = this.get('tgt').getXY(),
 
-            distance=Math.sqrt(Math.pow(src[0]-tgt[0],2) + Math.pow(src[1]-tgt[1],2));
+      distance=Math.sqrt(Math.pow(src[0]-tgt[0],2) + Math.pow(src[1]-tgt[1],2));
 
-        this.moveTo((src[0] + 6), (src[1] + 6));
-        this.lineTo((tgt[0] + 6), (tgt[1] + 6));
+      this.moveTo((src[0] + 6), (src[1] + 6));
+      this.lineTo((tgt[0] + 6), (tgt[1] + 6));
 
-        // start drawing arrows
+      // start drawing arrows
 
-        var z = [0,0], //point on the wire with constant distance (dlug) from terminal2
-            dlug = 20, //arrow length
-            t = (distance === 0) ? 0 : 1 - (dlug/distance);
+      var z = [0,0], //point on the wire with constant distance (dlug) from terminal2
+          dlug = 20, //arrow length
+          t = (distance === 0) ? 0 : 1 - (dlug/distance);
 
-        z[0] = Math.abs( src[0] + t * (tgt[0] - src[0]) );
-        z[1] = Math.abs( src[1] + t * (tgt[1] - src[1]) );
+      z[0] = Math.abs( src[0] + t * (tgt[0] - src[0]) );
+      z[1] = Math.abs( src[1] + t * (tgt[1] - src[1]) );
 
-        //line which connects the terminals: y=ax+b
-        var W = src[0] - tgt[0],
-            Wa = src[1] - tgt[1],
-            Wb = src[0] * tgt[1] - src[1] * tgt[0],
-            a, b, aProst, bProst;
+      // line which connects the terminals: y=ax+b
+      var W = src[0] - tgt[0],
+          Wa = src[1] - tgt[1],
+          Wb = src[0] * tgt[1] - src[1] * tgt[0],
+          a, b, aProst, bProst;
      
-        if (W !== 0) {
-            a = Wa / W;
-            b = Wb / W;
-        } else {
-            a = 0;
-        }
-        //line perpendicular to the main line: y = aProst*x + b
-        if (a === 0) {
-            aProst = 0;
-        } else {
-            aProst = -1 / a;
-        }
-        bProst = z[1] - aProst * z[0]; //point z lays on this line
+      if (W !== 0) {
+         a = Wa / W;
+         b = Wb / W;
+      }
+      else {
+         a = 0;
+      }
+      
+      // line perpendicular to the main line: y = aProst*x + b
+      if (a === 0) {
+         aProst = 0;
+      }
+      else {
+         aProst = -1 / a;
+      }
+      bProst = z[1] - aProst * z[0]; //point z lays on this line
         
-        // we have to calculate coordinates of 2 points, which lay on perpendicular line and have the same distance (d) from point z
-        var A = 1 + Math.pow(aProst, 2),
-            B = 2 * aProst * bProst - 2 * z[0] - 2 * z[1] * aProst,
-            C = -2 * z[1] * bProst + Math.pow(z[0], 2) + Math.pow(z[1], 2) - Math.pow(d, 2) + Math.pow(bProst, 2);
+      // we have to calculate coordinates of 2 points, which lay on perpendicular line and have the same distance (d) from point z
+      var A = 1 + Math.pow(aProst, 2),
+          B = 2 * aProst * bProst - 2 * z[0] - 2 * z[1] * aProst,
+          C = -2 * z[1] * bProst + Math.pow(z[0], 2) + Math.pow(z[1], 2) - Math.pow(d, 2) + Math.pow(bProst, 2);
 
-        var delta = Math.pow(B, 2) - 4 * A * C;
-        if (delta < 0) { return; }
+      var delta = Math.pow(B, 2) - 4 * A * C;
+      if (delta < 0) { return; }
         
-        var x1 = (-B + Math.sqrt(delta)) / (2 * A),
-            x2 = (-B - Math.sqrt(delta)) / (2 * A),
-            y1 = aProst * x1 + bProst,
-            y2 = aProst * x2 + bProst;
+      var x1 = (-B + Math.sqrt(delta)) / (2 * A),
+          x2 = (-B - Math.sqrt(delta)) / (2 * A),
+          y1 = aProst * x1 + bProst,
+          y2 = aProst * x2 + bProst;
         
-        if (src[1] === tgt[1]) {
-            var o = (src[0] > tgt[0]) ? 1 : -1;
-            x1 = tgt[0] + o * dlug;
-            x2 = x1;
-            y1 -= d;
-            y2 += d;
-        }
+      if (src[1] === tgt[1]) {
+         var o = (src[0] > tgt[0]) ? 1 : -1;
+         x1 = tgt[0] + o * dlug;
+         x2 = x1;
+         y1 -= d;
+         y2 += d;
+      }
 
-        //triangle border
-        this.moveTo(tgt[0] + 6, tgt[1] + 6);
-        this.lineTo(x1 + 6, y1 + 6);
-        this.moveTo(tgt[0] + 6, tgt[1] + 6);
-        this.lineTo(x2 + 6, y2 + 6);
-        this.end();
-    }
+      // triangle border
+      this.moveTo(tgt[0] + 6, tgt[1] + 6);
+      this.lineTo(x1 + 6, y1 + 6);
+      this.moveTo(tgt[0] + 6, tgt[1] + 6);
+      this.lineTo(x2 + 6, y2 + 6);
+      this.end();
+   }
 });
 
 Y.ArrowWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {});
@@ -291,14 +293,14 @@ Y.extend(Y.BezierWire, Y.WireBase, {
         
         this.clear();
         
-        var src = this.get('src').getXY();
-        var tgt = this.get('tgt').getXY();
-        
-        var srcDir = this.get('srcDir');
-        var tgtDir = this.get('tgtDir');
-        var bezierTangentNorm = this.get('bezierTangentNorm');
+        var src = this.get('src').getXY(),
+            tgt = this.get('tgt').getXY(),
+      
+            srcDir = this.get('srcDir'),
+            tgtDir = this.get('tgtDir'),
+            bezierTangentNorm = this.get('bezierTangentNorm'),
          
-         var terminalSize = 14/2;
+            terminalSize = 14/2;
          
         this.moveTo(src[0]+terminalSize,src[1]+terminalSize);
         
@@ -332,7 +334,7 @@ Y.BezierWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {
       setter: function (val) {
          return parseInt(val, 10);
       },
-      value: 200
+      value: 100
    }
 
 });
@@ -947,7 +949,7 @@ Y.Layer = Y.Base.create("layer", Y.Widget, [Y.WidgetParent, Y.WiresDelegate], {
 
 
 
-}, '@VERSION@', {"requires": ["widget-parent", "container", "wires-delegate"], "skinnable": "true"});
+}, '@VERSION@', {"requires": ["widget-parent", "container", "wires-delegate"], "skinnable": true});
 YUI.add('straight-wire', function (Y, NAME) {
 
 /**
@@ -977,8 +979,8 @@ Y.extend(Y.StraightWire, Y.WireBase, {
       
       this.clear();
       
-      var src = this.get('src').getXY();
-      var tgt = this.get('tgt').getXY();
+      var src = this.get('src').getXY(),
+          tgt = this.get('tgt').getXY();
       
       this.moveTo((src[0]+6), (src[1]+6));
       this.lineTo((tgt[0]+6), (tgt[1]+6));
@@ -1080,13 +1082,10 @@ Y.Terminal = Y.Base.create("terminal", Y.Widget, [
     * @method getXY
     */
    getXY: function () {
-      var container = this.get('parent');
-      var layer = container.get('parent');
-      var layerXY = layer.get('boundingBox').getXY();
-      //console.log( "layerXY", layerXY );
-
-      var absXY = this.get('contentBox').getXY();
-      //console.log( "absXY", absXY );
+      var container = this.get('parent'),
+          layer = container.get('parent'),
+          layerXY = layer.get('boundingBox').getXY(),
+          absXY = this.get('contentBox').getXY();
 
       return [absXY[0]-layerXY[0] + 15/2 , absXY[1]-layerXY[1] + 15/2];
    }
@@ -1095,6 +1094,9 @@ Y.Terminal = Y.Base.create("terminal", Y.Widget, [
    
    ATTRS: {
       
+      /**
+       * @attribute name
+       */
       name: {
          value: null
       },
@@ -1112,6 +1114,9 @@ Y.Terminal = Y.Base.create("terminal", Y.Widget, [
          value: null
       },
 
+      /**
+       * @attribute offset
+       */
       offset: {
          value: null,
          validator: function(val) {
@@ -2059,38 +2064,20 @@ Y.WiringModelList = Y.Base.create('wiringModelList', Y.ModelList, [], {
     model    : Y.WiringModel
 });
 
-// -- WiringList View ------------------------------------------------------------
-
 Y.WiringListView = Y.Base.create('wiringListView', Y.View, [], {
    
    template: Y.Handlebars.compile(Y.one('#t-wiring-list').getContent()),
    
-   initializer: function () {
-      
-      //console.log('WiringListView init');
-      
-      /*var list = this.get('modelList');
-      
-      // Re-render this view when a model is added to or removed from the model list.
-      list.after(['add', 'remove', 'reset'], this._test, this);
-      
-      // We'll also re-render the view whenever the data of one of the models in the list changes.
-      list.after('*:change', this._test, this);*/
-   },
-   
-   /*_test: function () {
-      console.log('_test');
+   /*initializer: function () {
    },*/
    
    render: function () {
-      
-      //console.log('WiringListView render');
-      
       var content = this.template({wirings: this.get('modelList').toJSON() });
       this.get('container').setContent(content);
       return this;
    }
 });
+
 
 
 // -- ContainerType ---------------------------------------------------------------------
@@ -2430,7 +2417,7 @@ YUI.add('wires-delegate', function (Y, NAME) {
  * @constructor
  * @param {Object} config configuration object
  */
-Y.WiresDelegate = function (config) {
+Y.WiresDelegate = function () {
    
    this._wires = [];
    

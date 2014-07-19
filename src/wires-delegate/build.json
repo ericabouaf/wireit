@@ -1,10 +1,10 @@
 {
-    "name": "wires-delegate",
-    "builds": {
-        "wires-delegate": {
-            "jsfiles": [
-                "wires-delegate.js"
-            ]
-        }
-    }
+   "name": "wires-delegate",
+   "builds": {
+      "wires-delegate": {
+         "jsfiles": [
+            "wires-delegate.js"
+         ]
+      }
+   }
 }

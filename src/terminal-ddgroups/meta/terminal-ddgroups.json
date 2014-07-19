@@ -1,7 +1,7 @@
 {
-            "terminal-ddgroups": {
-                "requires": [
-                    "terminal-dragedit"
-                ]
-            }
-         }
+   "terminal-ddgroups": {
+      "requires": [
+         "terminal-dragedit"
+      ]
+   }
+}

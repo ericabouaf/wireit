@@ -1,10 +1,10 @@
 {
-    "name": "terminal-dragedit",
-    "builds": {
-        "terminal-dragedit": {
-            "jsfiles": [
-                "terminal-dragedit.js"
-            ]
-        }
-    }
+   "name": "terminal-dragedit",
+   "builds": {
+      "terminal-dragedit": {
+         "jsfiles": [
+            "terminal-dragedit.js"
+         ]
+      }
+   }
 }

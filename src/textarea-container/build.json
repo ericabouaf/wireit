@@ -1,10 +1,10 @@
 {
-    "name": "textarea-container",
-    "builds": {
-        "textarea-container": {
-            "jsfiles": [
-                "textarea-container.js"
-            ]
-        }
-    }
+   "name": "textarea-container",
+   "builds": {
+      "textarea-container": {
+         "jsfiles": [
+            "textarea-container.js"
+         ]
+      }
+   }
 }

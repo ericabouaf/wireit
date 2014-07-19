@@ -1,10 +1,10 @@
 {
-    "name": "inout-container",
-    "builds": {
-        "inout-container": {
-            "jsfiles": [
-                "inout-container.js"
-            ]
-        }
-    }
+   "name": "inout-container",
+   "builds": {
+      "inout-container": {
+         "jsfiles": [
+            "inout-container.js"
+         ]
+      }
+   }
 }

@@ -25,8 +25,8 @@ Y.extend(Y.StraightWire, Y.WireBase, {
       
       this.clear();
       
-      var src = this.get('src').getXY();
-      var tgt = this.get('tgt').getXY();
+      var src = this.get('src').getXY(),
+          tgt = this.get('tgt').getXY();
       
       this.moveTo((src[0]+6), (src[1]+6));
       this.lineTo((tgt[0]+6), (tgt[1]+6));

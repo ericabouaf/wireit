@@ -1,10 +1,10 @@
 {
-    "name": "container",
-    "builds": {
-        "container": {
-            "jsfiles": [
-                "container.js"
-            ]
-        }
-    }
+   "name": "container",
+   "builds": {
+      "container": {
+         "jsfiles": [
+            "container.js"
+         ]
+      }
+   }
 }

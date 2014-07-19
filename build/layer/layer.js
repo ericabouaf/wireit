@@ -42,4 +42,4 @@ Y.Layer = Y.Base.create("layer", Y.Widget, [Y.WidgetParent, Y.WiresDelegate], {
 
 
 
-}, '@VERSION@', {"requires": ["widget-parent", "container", "wires-delegate"], "skinnable": "true"});
+}, '@VERSION@', {"requires": ["widget-parent", "container", "wires-delegate"], "skinnable": true});
