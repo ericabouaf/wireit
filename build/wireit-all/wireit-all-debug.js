@@ -24,13 +24,13 @@ YUI().use(function(Y) {
     },
     "container": {
         "requires": [
-            "overlay",
+            "widget-stdmod",
+            "widget-stack",
             "widget-parent",
             "widget-child",
             "dd",
             "resize",
             "wires-delegate",
-            "widget-position-relative",
             "widget-terminals",
             "widget-icons"
         ],
@@ -62,22 +62,17 @@ YUI().use(function(Y) {
     },
     "terminal": {
         "requires": [
-            "terminal-base",
-            "terminal-dragedit",
-            "terminal-scissors",
-            "terminal-ddgroups"
-        ],
-        "skinnable": true
-    },
-    "terminal-base": {
-        "requires": [
             "widget",
             "widget-child",
             "widget-position",
             "widget-position-align",
             "wire-base",
-            "wires-delegate"
-        ]
+            "wires-delegate",
+            "terminal-dragedit",
+            "terminal-scissors",
+            "terminal-ddgroups"
+        ],
+        "skinnable": true
     },
     "terminal-ddgroups": {
         "requires": [
@@ -116,9 +111,6 @@ YUI().use(function(Y) {
     "widget-icons": {
         "requires": [],
         "skinnable": true
-    },
-    "widget-position-relative": {
-        "requires": []
     },
     "widget-terminals": {
         "requires": [
@@ -517,18 +509,22 @@ YUI.add('container', function (Y, NAME) {
  * It is a WidgetChild (belongs to Layer)
  * It is also a WidgetParent (has many terminals)
  * @class Container
+ * @extends Widget
+ * @uses WidgetStdMod
+ * @uses WidgetStack
  * @uses WidgetParent
  * @uses WidgetChild
  * @uses WiresDelegate
- * @uses WidgetPositionRelative
  * @uses WidgetTerminals
+ * @uses WidgetIcons
  * @constructor
  */
-Y.Container = Y.Base.create("container", Y.Overlay, [
+Y.Container = Y.Base.create("container", Y.Widget, [
+   Y.WidgetStdMod,
+   Y.WidgetStack,
    Y.WidgetParent,
    Y.WidgetChild,
    Y.WiresDelegate,
-   Y.WidgetPositionRelative,
    Y.WidgetTerminals,
    Y.WidgetIcons
 ], {
@@ -552,6 +548,10 @@ Y.Container = Y.Base.create("container", Y.Overlay, [
          this.redrawAllWires();
       }, this);
 
+   },
+
+   syncUI: function() {
+      this.alignTerminals();
    },
 
    _renderDrag: function() {
@@ -580,7 +580,6 @@ Y.Container = Y.Base.create("container", Y.Overlay, [
       // On resize, fillHeight, & align terminals & wires
       this._fillHeight();
       this.alignTerminals();
-      //this.redrawAllWires();
    },
 
 
@@ -594,7 +593,7 @@ Y.Container = Y.Base.create("container", Y.Overlay, [
    },
    
    
-   SERIALIZABLE_ATTRS: [ 'relative_x', 'relative_y'],
+   SERIALIZABLE_ATTRS: [ 'x', 'y'],
    
    toJSON: function () {
       var o = {}, a = this;
@@ -618,6 +617,32 @@ Y.Container = Y.Base.create("container", Y.Overlay, [
 
    ATTRS: {
 
+
+      x: {
+         lazyAdd: false,
+         getter: function() {
+            return parseInt(this.get('boundingBox').getStyle('left'),10);
+         },
+         setter: function(val) {
+            this.get('boundingBox').setStyle('left', val);
+         },
+         validator: function(val) {
+            return Y.Lang.isNumber(val);
+         }
+      },
+
+      y: {
+         lazyAdd: false,
+         getter: function() {
+            return parseInt(this.get('boundingBox').getStyle('top'),10);
+         },
+         setter: function(val) {
+            this.get('boundingBox').setStyle('top', val);
+         },
+         validator: function(val) {
+            return Y.Lang.isNumber(val);
+         }
+      },
 
       /**
        * @attribute zIndex
@@ -661,13 +686,13 @@ Y.Container = Y.Base.create("container", Y.Overlay, [
 
 }, '@VERSION@', {
     "requires": [
-        "overlay",
+        "widget-stdmod",
+        "widget-stack",
         "widget-parent",
         "widget-child",
         "dd",
         "resize",
         "wires-delegate",
-        "widget-position-relative",
         "widget-terminals",
         "widget-icons"
     ],
@@ -963,72 +988,61 @@ YUI.add('terminal', function (Y, NAME) {
  * Terminal is responsible for wire edition
  *
  * @class Terminal
- * @extends TerminalBase
+ * @extends Widget
+ * @uses WidgetChild
+ * @uses WidgetPosition
+ * @uses WidgetPositionAlign
+ * @uses WiresDelegate
  * @uses TerminalDragEdit
  * @uses TerminalScissors
  * @uses TerminalDDGroups
  * @constructor
  * @param {Object} oConfigs The user configuration for the instance.
  */
-Y.Terminal = Y.Base.create("terminal", Y.TerminalBase, [Y.TerminalDragEdit, Y.TerminalScissors, Y.TerminalDDGroups]);
+Y.Terminal = Y.Base.create("terminal", Y.Widget, [
+   Y.WidgetChild,
+   Y.WidgetPosition,
+   Y.WidgetPositionAlign,
+   Y.WiresDelegate,
+   Y.TerminalDragEdit,
+   Y.TerminalScissors,
+   Y.TerminalDDGroups
+], {
 
 
-}, '@VERSION@', {
-    "requires": [
-        "terminal-base",
-        "terminal-dragedit",
-        "terminal-scissors",
-        "terminal-ddgroups"
-    ],
-    "skinnable": true
-});
-YUI.add('terminal-base', function (Y, NAME) {
+   syncUI: function () {
+      this._syncOffset();
+   },
 
-'use strict';
-
-/**
- * @module terminal-base
- */
-
-/**
- * Terminal is responsible for wire edition
- * @class TerminalBase
- * @constructor
- * @extends Widget
- * @uses WidgetChild
- * @uses WidgetPosition
- * @uses WidgetPositionAlign
- * @uses WiresDelegate
- * @param {Object} oConfigs The user configuration for the instance.
- */
-Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.WidgetPosition, Y.WidgetPositionAlign, Y.WiresDelegate], {
-   
-   renderUI: function () {
-      
-      // For Overlay extensions such as Scissors or DDGroups
-      var show = Y.bind(function () {
-         var bb = this.get('boundingBox');
-         if( bb ) {
-            bb.addClass( this.getClassName("show-overlay") );
-         }
-      }, this);
-      var hide = Y.bind(function () {
-         var bb = this.get('boundingBox');
-         if(bb) {
-            bb.removeClass( this.getClassName("show-overlay") );
-         }
-      }, this);
-      this.get('boundingBox').on('mouseover', function () { Y.later(300, this, show); });
-      this.get('boundingBox').on('mouseout', function () { Y.later(300, this, hide); });
-     
-
-      var containerXY = this.get('parent').get('boundingBox').getXY();
-      //var xy = this.get('xy');
+   _syncOffset: function() {
       var offset = this.get('offset');
+      if(offset) {
+         this._posNode.setStyle('left', offset[0]);
+         this._posNode.setStyle('top',  offset[1]);
+         this.syncXY();
+      }
+   },
 
-      this.set('xy', [containerXY[0]+offset[0], containerXY[1]+offset[1]]);
-      //console.log(containerXY, xy, );
+   bindUI: function() {
+      var bb = this.get('boundingBox');
+      bb.on('mouseover', this._onMouseOver, this);
+      bb.on('mouseout', this._onMouseOut, this);
+   },
 
+   _onMouseOver: function() {
+      Y.later(300, this, this._showOverlay);
+   },
+
+   _showOverlay: function() {
+      this.get('boundingBox').addClass( this.getClassName("show-overlay") );
+   },
+
+   _onMouseOut: function() {
+      Y.later(300, this, this._hideOverlay);
+   },
+
+   _hideOverlay: function() {
+      this.get('boundingBox').removeClass( this.getClassName("show-overlay") );
    },
    
    // override the WiresDelegate behavior which re-fires the event
@@ -1061,7 +1075,7 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
 
       return [absXY[0]-layerXY[0] + 15/2 , absXY[1]-layerXY[1] + 15/2];
    }
-   
+
 }, {
    
    ATTRS: {
@@ -1084,22 +1098,15 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
       },
 
       offset: {
-        /*setter: function(val) {
-          //this._setX(val);
-          var containerXY = this.get('parent').get('boundingBox').getXY();
-
-          var xy = this.get('xy');
-
-          //console.log(containerXY, xy, val);
-        },*/
-        value: [0,0]
+         value: null,
+         validator: function(val) {
+            return this._validateXY(val);
+         }
       }
       
    }
    
 });
-
-
 
 
 }, '@VERSION@', {
@@ -1109,8 +1116,12 @@ Y.TerminalBase = Y.Base.create("terminal-base", Y.Widget, [Y.WidgetChild, Y.Widg
         "widget-position",
         "widget-position-align",
         "wire-base",
-        "wires-delegate"
-    ]
+        "wires-delegate",
+        "terminal-dragedit",
+        "terminal-scissors",
+        "terminal-ddgroups"
+    ],
+    "skinnable": true
 });
 YUI.add('terminal-ddgroups', function (Y, NAME) {
 
@@ -1126,6 +1137,7 @@ YUI.add('terminal-ddgroups', function (Y, NAME) {
  */
 Y.TerminalDDGroups = function (config) {
    Y.after(this._renderUIgroups, this, "renderUI");
+   Y.after(this._showOverlayDDGroups, this, "_showOverlay");
 };
 
 Y.TerminalDDGroups.ATTRS = {
@@ -1145,24 +1157,26 @@ Y.TerminalDDGroups.prototype = {
    },
    
    /**
-    * create a persisting tooltip with the scissors class
-    * listen for click events on the tooltip and call destroyWires
+    * create a persisting tooltip with the dd-groups class
     * @method _renderTooltip
     */
    _renderTooltip: function () {
       
       if(this.get('showGroups')) {
          
-         var ddGroupsOverlay = new Y.Overlay({
+         this._ddGroupsOverlay = new Y.Overlay({
             render: this.get('boundingBox'),
             bodyContent: this.get('ddGroupsDrag').join(',')
          });
-         ddGroupsOverlay.set("align", {node: this.get('contentBox'), 
-                               points:[Y.WidgetPositionAlign.TC, Y.WidgetPositionAlign.BC]});
 
-         ddGroupsOverlay.get('contentBox').addClass( this.getClassName("dd-groups") );
+         this._ddGroupsOverlay.get('contentBox').addClass( this.getClassName("dd-groups") );
+
       }
       
+   },
+
+   _showOverlayDDGroups: function() {
+      this._ddGroupsOverlay.align( this.get('contentBox'), [Y.WidgetPositionAlign.TC, Y.WidgetPositionAlign.BC] );
    }
    
 };
@@ -1534,7 +1548,29 @@ Y.TerminalScissors = function (config) {
    
 };
 
-Y.TerminalScissors.ATTRS = {};
+Y.TerminalScissors.ATTRS = {
+
+   /**
+    * @attribute dirNormed
+    */
+   dirNormed: {
+      getter: function() {
+         var dir = this.get('dir'),
+             a = dir[0],
+             b = dir[1],
+             norm = Math.sqrt(a*a+b*b);
+         return [dir[0]/norm, dir[1]/norm];
+      }
+   },
+
+   /**
+    * @attribute scissorsDistance
+    */
+   scissorsDistance: {
+      value: 30
+   }
+
+};
 
 Y.TerminalScissors.prototype = {
    
@@ -1567,18 +1603,18 @@ Y.TerminalScissors.prototype = {
       
       this._scissorsOverlay.get('contentBox').addClass( this.getClassName("scissors") );
       
-      var refXY = this.get('xy');
+      var refXY = this.get('xy'),
+          normed_dir = this.get('dirNormed'),
+          distance = this.get('scissorsDistance');
 
-      // Position the scissors using 'dir'
-      var dir = this.get('dir');
-
-      this._scissorsOverlay.set('x', refXY[0]+dir[0]*40);
-      this._scissorsOverlay.set('y', refXY[1]+dir[1]*40);
+      this._scissorsOverlay.set('x', refXY[0]+normed_dir[0]*distance-8);
+      this._scissorsOverlay.set('y', refXY[1]+normed_dir[1]*distance-8);
       
       this._scissorsOverlay.render( this.get('boundingBox') );
    }
    
 };
+
 
 
 
@@ -2094,11 +2130,12 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
          
          // On drom, add it to the layer
          drag.on('drag:drophit',  function (ev) {
+            var p = that.layer.get('boundingBox').getXY();
             that._addContainerFromName(ev.drag._containerTypeName, {
-               x: ev.drag.lastXY[0],
-               y: ev.drag.lastXY[1]
+               x: ev.drag.lastXY[0] - p[0],
+               y: ev.drag.lastXY[1] - p[1]
             });
-         });
+         }, this);
          
          
       });
@@ -2202,6 +2239,8 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
       
       var layer = this.layer;
       
+      console.log(wiring.get('containers'));
+
       Y.Array.each( wiring.get('containers'), function (container) {
          
          that._addContainerFromName(container.containerType,  container.config);

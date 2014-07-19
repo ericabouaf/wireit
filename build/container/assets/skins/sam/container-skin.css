@@ -9,6 +9,8 @@
 .yui3-image-container,
 .yui3-inout-container {
 	z-index: 5;
+
+	position: absolute;
 }
 
 .yui3-container-focused {

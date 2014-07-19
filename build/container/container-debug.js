@@ -11,18 +11,22 @@ YUI.add('container', function (Y, NAME) {
  * It is a WidgetChild (belongs to Layer)
  * It is also a WidgetParent (has many terminals)
  * @class Container
+ * @extends Widget
+ * @uses WidgetStdMod
+ * @uses WidgetStack
  * @uses WidgetParent
  * @uses WidgetChild
  * @uses WiresDelegate
- * @uses WidgetPositionRelative
  * @uses WidgetTerminals
+ * @uses WidgetIcons
  * @constructor
  */
-Y.Container = Y.Base.create("container", Y.Overlay, [
+Y.Container = Y.Base.create("container", Y.Widget, [
+   Y.WidgetStdMod,
+   Y.WidgetStack,
    Y.WidgetParent,
    Y.WidgetChild,
    Y.WiresDelegate,
-   Y.WidgetPositionRelative,
    Y.WidgetTerminals,
    Y.WidgetIcons
 ], {
@@ -46,6 +50,10 @@ Y.Container = Y.Base.create("container", Y.Overlay, [
          this.redrawAllWires();
       }, this);
 
+   },
+
+   syncUI: function() {
+      this.alignTerminals();
    },
 
    _renderDrag: function() {
@@ -74,7 +82,6 @@ Y.Container = Y.Base.create("container", Y.Overlay, [
       // On resize, fillHeight, & align terminals & wires
       this._fillHeight();
       this.alignTerminals();
-      //this.redrawAllWires();
    },
 
 
@@ -88,7 +95,7 @@ Y.Container = Y.Base.create("container", Y.Overlay, [
    },
    
    
-   SERIALIZABLE_ATTRS: [ 'relative_x', 'relative_y'],
+   SERIALIZABLE_ATTRS: [ 'x', 'y'],
    
    toJSON: function () {
       var o = {}, a = this;
@@ -112,6 +119,32 @@ Y.Container = Y.Base.create("container", Y.Overlay, [
 
    ATTRS: {
 
+
+      x: {
+         lazyAdd: false,
+         getter: function() {
+            return parseInt(this.get('boundingBox').getStyle('left'),10);
+         },
+         setter: function(val) {
+            this.get('boundingBox').setStyle('left', val);
+         },
+         validator: function(val) {
+            return Y.Lang.isNumber(val);
+         }
+      },
+
+      y: {
+         lazyAdd: false,
+         getter: function() {
+            return parseInt(this.get('boundingBox').getStyle('top'),10);
+         },
+         setter: function(val) {
+            this.get('boundingBox').setStyle('top', val);
+         },
+         validator: function(val) {
+            return Y.Lang.isNumber(val);
+         }
+      },
 
       /**
        * @attribute zIndex
@@ -155,13 +188,13 @@ Y.Container = Y.Base.create("container", Y.Overlay, [
 
 }, '@VERSION@', {
     "requires": [
-        "overlay",
+        "widget-stdmod",
+        "widget-stack",
         "widget-parent",
         "widget-child",
         "dd",
         "resize",
         "wires-delegate",
-        "widget-position-relative",
         "widget-terminals",
         "widget-icons"
     ],

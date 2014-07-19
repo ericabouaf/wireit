@@ -204,11 +204,12 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
          
          // On drom, add it to the layer
          drag.on('drag:drophit',  function (ev) {
+            var p = that.layer.get('boundingBox').getXY();
             that._addContainerFromName(ev.drag._containerTypeName, {
-               x: ev.drag.lastXY[0],
-               y: ev.drag.lastXY[1]
+               x: ev.drag.lastXY[0] - p[0],
+               y: ev.drag.lastXY[1] - p[1]
             });
-         });
+         }, this);
          
          
       });
@@ -312,6 +313,8 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
       
       var layer = this.layer;
       
+      console.log(wiring.get('containers'));
+
       Y.Array.each( wiring.get('containers'), function (container) {
          
          that._addContainerFromName(container.containerType,  container.config);

@@ -1,13 +1,13 @@
 {
     "container": {
         "requires": [
-            "overlay",
+            "widget-stdmod",
+            "widget-stack",
             "widget-parent",
             "widget-child",
             "dd",
             "resize",
             "wires-delegate",
-            "widget-position-relative",
             "widget-terminals",
             "widget-icons"
         ], 

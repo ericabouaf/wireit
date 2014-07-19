@@ -24,13 +24,13 @@ YUI().use(function(Y) {
     },
     "container": {
         "requires": [
-            "overlay",
+            "widget-stdmod",
+            "widget-stack",
             "widget-parent",
             "widget-child",
             "dd",
             "resize",
             "wires-delegate",
-            "widget-position-relative",
             "widget-terminals",
             "widget-icons"
         ],
@@ -62,22 +62,17 @@ YUI().use(function(Y) {
     },
     "terminal": {
         "requires": [
-            "terminal-base",
-            "terminal-dragedit",
-            "terminal-scissors",
-            "terminal-ddgroups"
-        ],
-        "skinnable": true
-    },
-    "terminal-base": {
-        "requires": [
             "widget",
             "widget-child",
             "widget-position",
             "widget-position-align",
             "wire-base",
-            "wires-delegate"
-        ]
+            "wires-delegate",
+            "terminal-dragedit",
+            "terminal-scissors",
+            "terminal-ddgroups"
+        ],
+        "skinnable": true
     },
     "terminal-ddgroups": {
         "requires": [
@@ -116,9 +111,6 @@ YUI().use(function(Y) {
     "widget-icons": {
         "requires": [],
         "skinnable": true
-    },
-    "widget-position-relative": {
-        "requires": []
     },
     "widget-terminals": {
         "requires": [

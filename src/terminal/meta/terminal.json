@@ -1,8 +1,16 @@
 {
-    "terminal": {
-        "requires": [
-            "terminal-base","terminal-dragedit","terminal-scissors","terminal-ddgroups"
-        ],
-        "skinnable": true
+   "terminal": {
+      "requires": [
+         "widget",
+         "widget-child",
+         "widget-position",
+         "widget-position-align",
+         "wire-base",
+         "wires-delegate",
+         "terminal-dragedit",
+         "terminal-scissors",
+         "terminal-ddgroups"
+      ],
+      "skinnable": true
     }
 }
