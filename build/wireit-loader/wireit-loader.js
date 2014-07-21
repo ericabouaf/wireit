@@ -19,7 +19,7 @@ YUI().use(function(Y) {
     },
     "bidirectional-arrow-wire": {
         "requires": [
-            "wire-base"
+            "arrow-wire"
         ]
     },
     "container": {
