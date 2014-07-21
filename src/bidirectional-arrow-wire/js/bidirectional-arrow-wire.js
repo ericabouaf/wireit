@@ -1,5 +1,5 @@
 /**
- * @module straight-wire
+ * @module bidirectional-arrow-wire
  */
 
 /**
@@ -13,7 +13,7 @@ Y.BidirectionalArrowWire = function (config) {
    Y.BidirectionalArrowWire.superclass.constructor.apply(this, arguments);
 };
 
-Y.BidirectionalArrowWire.NAME = "bidirectionalarrowwire";
+Y.BidirectionalArrowWire.NAME = 'bidirectionalarrowwire';
 
 Y.extend(Y.BidirectionalArrowWire, Y.ArrowWire, {
    

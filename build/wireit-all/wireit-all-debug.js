@@ -175,7 +175,7 @@ Y.ArrowWire = function (config) {
    Y.ArrowWire.superclass.constructor.apply(this, arguments);
 };
 
-Y.ArrowWire.NAME = "arrowwire";
+Y.ArrowWire.NAME = 'arrowwire';
 
 Y.extend(Y.ArrowWire, Y.WireBase, {
 
@@ -359,7 +359,7 @@ Y.BezierWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {
 YUI.add('bidirectional-arrow-wire', function (Y, NAME) {
 
 /**
- * @module straight-wire
+ * @module bidirectional-arrow-wire
  */
 
 /**
@@ -373,7 +373,7 @@ Y.BidirectionalArrowWire = function (config) {
    Y.BidirectionalArrowWire.superclass.constructor.apply(this, arguments);
 };
 
-Y.BidirectionalArrowWire.NAME = "bidirectionalarrowwire";
+Y.BidirectionalArrowWire.NAME = 'bidirectionalarrowwire';
 
 Y.extend(Y.BidirectionalArrowWire, Y.ArrowWire, {
    
@@ -2333,16 +2333,18 @@ Y.WiresDelegate.ATTRS = {};
 
 Y.WiresDelegate.prototype = {
    
-   _onAddWire: function (e) {
+   _wireFromEvent: function(e) {
       var w = e;
       while(!!w._event) { w = w.details[0]; }
-      this.addWire(w);
+      return w;
+   },
+
+   _onAddWire: function (e) {
+      this.addWire( this._wireFromEvent(e) );
    },
    
    _onRemoveWire: function (e) {
-      var w = e;
-      while(!!w._event) { w = w.details[0]; }
-      this.removeWire(w);
+      this.removeWire( this._wireFromEvent(e) );
    },
    
    /**

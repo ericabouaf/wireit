@@ -32,16 +32,18 @@ Y.WiresDelegate.ATTRS = {};
 
 Y.WiresDelegate.prototype = {
    
-   _onAddWire: function (e) {
+   _wireFromEvent: function(e) {
       var w = e;
       while(!!w._event) { w = w.details[0]; }
-      this.addWire(w);
+      return w;
+   },
+
+   _onAddWire: function (e) {
+      this.addWire( this._wireFromEvent(e) );
    },
    
    _onRemoveWire: function (e) {
-      var w = e;
-      while(!!w._event) { w = w.details[0]; }
-      this.removeWire(w);
+      this.removeWire( this._wireFromEvent(e) );
    },
    
    /**
