@@ -17,7 +17,7 @@ Y.ArrowWire = function (config) {
    Y.ArrowWire.superclass.constructor.apply(this, arguments);
 };
 
-Y.ArrowWire.NAME = "arrowwire";
+Y.ArrowWire.NAME = 'arrowwire';
 
 Y.extend(Y.ArrowWire, Y.WireBase, {
 
