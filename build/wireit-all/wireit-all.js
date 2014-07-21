@@ -332,7 +332,9 @@ Y.extend(Y.BezierWire, Y.WireBase, {
    
    
    
-   SERIALIZABLE_ATTRS: ["color","width","bezierTangentNorm"]
+   SERIALIZABLE_ATTRS: function() {
+      return ["color","width","bezierTangentNorm"];
+   }
    
 });
 
@@ -436,7 +438,7 @@ Y.Container = Y.Base.create("container", Y.Widget, [
     * @method renderUI
     */
    renderUI: function () {
-      this._renderDrag();    
+      this._renderDrag();
       this._renderResize();
    },
 
@@ -455,7 +457,7 @@ Y.Container = Y.Base.create("container", Y.Widget, [
    syncUI: function() {
       // waiting for the next tick to align the terminals
       Y.later(0, this, function() {
-         this.alignTerminals();         
+         this.alignTerminals();
       });
    },
 
@@ -481,10 +483,15 @@ Y.Container = Y.Base.create("container", Y.Widget, [
        
    },
 
-   _onResize: function() {
+   _onResize: function(e) {
       // On resize, fillHeight, & align terminals & wires
       this._fillHeight();
       this.alignTerminals();
+
+      // Set width & height
+      var region = this.get('boundingBox').get('region');
+      this.set('width', e.details[0].info.offsetWidth);
+      this.set('height', e.details[0].info.offsetHeight);
    },
 
 
@@ -498,14 +505,21 @@ Y.Container = Y.Base.create("container", Y.Widget, [
    },
    
    
-   SERIALIZABLE_ATTRS: [ 'x', 'y'],
+   SERIALIZABLE_ATTRS: function() {
+      var attrs = ['x', 'y'];
+      if(this.get('resizable')) {
+         attrs.push('width');
+         attrs.push('height');
+      }
+      return attrs;
+   },
    
    toJSON: function () {
-      var o = {}, a = this;
-      Y.Array.each(this.SERIALIZABLE_ATTRS, function (attr) {
+      var o = {},
+          a = this;
+      Y.Array.each(this.SERIALIZABLE_ATTRS(), function (attr) {
          o[attr] = a.get(attr);
       });
-      
       return o;
    },
    
@@ -957,7 +971,11 @@ Y.Terminal = Y.Base.create("terminal", Y.Widget, [
    },
 
    _hideOverlay: function() {
-      this.get('boundingBox').removeClass( this.getClassName("show-overlay") );
+      var bb = this.get('boundingBox');
+      // because of the timer, the widget may have been destroyed
+      if(bb) {
+         bb.removeClass( this.getClassName("show-overlay") );
+      }
    },
    
    // override the WiresDelegate behavior which re-fires the event
@@ -1544,28 +1562,61 @@ YUI.add('textarea-container', function (Y, NAME) {
  */
 
 /**
- * Form container for a single textarea field which is resizeable. 
- * Important: this class takes the exact same arguments as the FormContainer !
+ * Form container for a single textarea field which is resizeable.
  * You still need to specify the "fields".
  * @class TextareaContainer
- * @extends FormContainer
+ * @extends Container
  * @constructor
  * @param {Object}   options  Configuration object (see properties)
  */
 
 Y.TextareaContainer = Y.Base.create("textarea-container", Y.Container, [], {
    
-   SERIALIZABLE_ATTRS: Y.Container.prototype.SERIALIZABLE_ATTRS.concat(['value'])
+
+   SERIALIZABLE_ATTRS: function() {
+      return Y.TextareaContainer.superclass.SERIALIZABLE_ATTRS.call(this).concat(['value']);
+   },
    
-   
-   /*
-   
-   this.ddResize.on('eventResize', function (e, args) {
-      var el = this.form.inputs[0].el;
-      Y.one(el).setStyle("height", (args[0][1]-48)+"px");
-      Y.one(el).setStyle(el, "width", (args[0][0]-17)+"px");
-   }, this, true);
-*/
+   renderUI: function() {
+      Y.TextareaContainer.superclass.renderUI.call(this);
+
+      this.setStdModContent(Y.WidgetStdMod.BODY, "<textarea></textarea>");
+
+      this._bodyNode = this.getStdModNode(Y.WidgetStdMod.BODY);
+      this._textarea = this._bodyNode.one('textarea');
+   },
+
+   bindUI: function() {
+
+      Y.TextareaContainer.superclass.bindUI.call(this);
+
+      if(this.resize) {
+         this.resize.after('resize:resize', this._afterResizeTextarea, this);
+      }
+   },
+
+   _fillTextareaSize: function() {
+      this.fillHeight(this._bodyNode);
+
+      var region = this._bodyNode.get('region');
+
+      this._textarea.setStyle('height', region.height);
+      this._textarea.setStyle('width', region.width);
+   },
+
+   _afterResizeTextarea: function(e) {
+      this._fillTextareaSize();
+   },
+
+   syncUI: function() {
+      Y.TextareaContainer.superclass.syncUI.call(this);
+
+      this.getStdModNode(Y.WidgetStdMod.BODY).one('textarea').set( this.get('value') );
+
+      Y.later(0, this, function() {
+         this._fillTextareaSize();
+      });
+   }
    
 }, {
    
@@ -1576,21 +1627,14 @@ Y.TextareaContainer = Y.Base.create("textarea-container", Y.Container, [], {
        * @attribute value
        */
       value: {
+
          getter: function () {
             return this.getStdModNode(Y.WidgetStdMod.BODY).one('textarea').get('value');
          },
          
          setter: function (value) {
-            this.set('bodyContent', '<textarea>'+value+'</textarea>');
+            this.getStdModNode(Y.WidgetStdMod.BODY).one('textarea').set('value', value);
          }
-      },
-      
-      /**
-       * Keep to render the textarea
-       * @attribute bodyContent
-       */
-      bodyContent: {
-         value: '<textarea />'
       }
       
    }
@@ -1756,7 +1800,8 @@ Y.extend(Y.WireBase, Y.Path, {
    },
    
    // TODO:
-   SERIALIZABLE_ATTRS: ["src","tgt"],
+   //SERIALIZABLE_ATTRS: ["src","tgt"],
+
    toJSON: function () {
       return {};
    }
@@ -2128,8 +2173,8 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
    
    setWiring: function (wiring) {
       
-      var that = this;
-      var layer = this.layer;
+      var that = this,
+          layer = this.layer;
 
       Y.Array.each( wiring.get('containers'), function (container) {
          
@@ -2147,11 +2192,11 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
          // prevent bad configs...
          if(!wire.src || !wire.tgt) return;
          
-         var srcContainer = layer.item(wire.src.container);
-         var srcTerminal = srcContainer.getTerminal(wire.src.terminal);
+         var srcContainer = layer.item(wire.src.container),
+             srcTerminal = srcContainer.getTerminal(wire.src.terminal),
          
-         var tgtContainer = layer.item(wire.tgt.container);
-         var tgtTerminal = tgtContainer.getTerminal(wire.tgt.terminal);
+             tgtContainer = layer.item(wire.tgt.container),
+             tgtTerminal = tgtContainer.getTerminal(wire.tgt.terminal);
          
          // TODO: wire.config;
          var w = layer.graphic.addShape({

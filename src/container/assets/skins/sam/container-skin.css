@@ -7,7 +7,8 @@
 .yui3-container,
 .yui3-form-container,
 .yui3-image-container,
-.yui3-inout-container {
+.yui3-inout-container,
+.yui3-textarea-container {
 	z-index: 5;
 
 	position: absolute;
@@ -20,7 +21,8 @@
 .yui3-container-content,
 .yui3-form-container-content,
 /*.yui3-image-container-content,*/
-.yui3-inout-container-content {
+.yui3-inout-container-content,
+.yui3-textarea-container-content {
 	border: 2px solid #3366CC;
 
 	-moz-border-radius-topleft: 5px;
@@ -39,7 +41,8 @@
 .yui3-container-content .yui3-widget-hd,
 .yui3-form-container-content .yui3-widget-hd,
 .yui3-inout-container-content .yui3-widget-hd,
-.yui3-image-container-content .yui3-widget-hd {
+.yui3-image-container-content .yui3-widget-hd,
+.yui3-textarea-container-content .yui3-widget-hd {
 	/*-moz-border-radius-topleft: 5px;
 	-moz-border-radius-topright: 5px;
 	-webkit-border-top-left-radius: 5px;
@@ -53,7 +56,8 @@
 .yui3-container-content .yui3-widget-ft,
 .yui3-form-container-content .yui3-widget-ft,
 .yui3-inout-container-content .yui3-widget-ft,
-.yui3-image-container-content .yui3-widget-ft {
+.yui3-image-container-content .yui3-widget-ft,
+.yui3-textarea-container-content .yui3-widget-ft {
 	background-color: #ccc;
 	font-style: italic;
 	font-size: 80%;
@@ -64,7 +68,8 @@
 
 
 .yui3-container-icon,
-.yui3-inout-container-icon {
+.yui3-inout-container-icon,
+.yui3-textarea-container-icon {
 	cursor: pointer;
 	position: absolute;
 	right: 10px;

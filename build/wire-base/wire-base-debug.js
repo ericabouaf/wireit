@@ -105,7 +105,8 @@ Y.extend(Y.WireBase, Y.Path, {
    },
    
    // TODO:
-   SERIALIZABLE_ATTRS: ["src","tgt"],
+   //SERIALIZABLE_ATTRS: ["src","tgt"],
+
    toJSON: function () {
       return {};
    }

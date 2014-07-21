@@ -116,7 +116,7 @@ YUI_config.groups.wireit.base = '../../build/';
 
 YUI({
 	filter: 'raw' // debug
-}).use('wireit-app', 'image-container', 'inout-container', function (Y) {
+}).use('wireit-app', 'image-container', 'inout-container', 'textarea-container', function (Y) {
 
 	window.Y = Y; //debug
 
@@ -163,6 +163,14 @@ YUI({
 							name: 'D'
 						}
 					]
+				}
+			},
+			{
+				name: "TextArea Demo",
+				config: {
+					children: Y.WidgetTerminals.FOUR_EDGES,
+					type: 'TextareaContainer',
+					headerContent: 'Textarea'
 				}
 			}
 		];
