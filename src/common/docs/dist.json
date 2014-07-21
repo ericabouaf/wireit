@@ -6,13 +6,13 @@
     "yuiLocalBuildUrl": "../build",
     "wireitVersion" : "3.0.0pr2",
     "yuiVersion"      : "@VERSION@",
-    "yuiSeedUrl"      : "http://yui.yahooapis.com/3.6.0/build/yui/yui-min.js",
+    "yuiSeedUrl"      : "http://yui.yahooapis.com/3.17.2/build/yui/yui-min.js",
     "yuiGridsUrl"     : "../build/cssgrids/grids-min.css",
 
     "componentDefaults": {
         "yuiBuildUrl"     : "../../build",
         "yuiGridsUrl"     : "../../build/cssgrids/grids-min.css",
         "yuiLocalBuildUrl": "../../build",
-        "yuiSeedUrl"      : "http://yui.yahooapis.com/3.6.0/build/yui/yui-min.js"
+        "yuiSeedUrl"      : "http://yui.yahooapis.com/3.17.2/build/yui/yui-min.js"
     }
 }

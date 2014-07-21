@@ -1,8 +1,5 @@
 YUI.add('wireit-app', function (Y, NAME) {
 
-/**
- * @module wireit-app
- */
 
 // -- LocalStorageSync ---------------------------------------------------------------------
 // Saves WiringModel
@@ -124,38 +121,20 @@ Y.WiringModelList = Y.Base.create('wiringModelList', Y.ModelList, [], {
     model    : Y.WiringModel
 });
 
-// -- WiringList View ------------------------------------------------------------
-
 Y.WiringListView = Y.Base.create('wiringListView', Y.View, [], {
    
    template: Y.Handlebars.compile(Y.one('#t-wiring-list').getContent()),
    
-   initializer: function () {
-      
-      //console.log('WiringListView init');
-      
-      /*var list = this.get('modelList');
-      
-      // Re-render this view when a model is added to or removed from the model list.
-      list.after(['add', 'remove', 'reset'], this._test, this);
-      
-      // We'll also re-render the view whenever the data of one of the models in the list changes.
-      list.after('*:change', this._test, this);*/
-   },
-   
-   /*_test: function () {
-      console.log('_test');
+   /*initializer: function () {
    },*/
    
    render: function () {
-      
-      //console.log('WiringListView render');
-      
       var content = this.template({wirings: this.get('modelList').toJSON() });
       this.get('container').setContent(content);
       return this;
    }
 });
+
 
 
 // -- ContainerType ---------------------------------------------------------------------
@@ -203,15 +182,16 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
             cloneNode: true,
             moveOnEnd: false
          });
-         drag._containerTypeName = node._node.innerHTML;
+         drag._containerTypeName = node._node.attributes["app-container-name"].value; //node._node.innerHTML;
          
          // On drom, add it to the layer
          drag.on('drag:drophit',  function (ev) {
+            var p = that.layer.get('boundingBox').getXY();
             that._addContainerFromName(ev.drag._containerTypeName, {
-               x: ev.drag.lastXY[0],
-               y: ev.drag.lastXY[1]
+               x: ev.drag.lastXY[0] - p[0],
+               y: ev.drag.lastXY[1] - p[1]
             });
-         });
+         }, this);
          
          
       });
@@ -224,7 +204,6 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
    _renderLayer: function () {
       
       this.layer = new Y.Layer({
-         //width: 900,
          height: 500
       });
       
@@ -233,14 +212,13 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
          node: this.layer.get('contentBox'),
          groups: ['containerType']
       });
-      //drop.layer = this.layer;
       
+      this.layer.render( this.get('container').one('#layer-container') );
+
       var wiring = this.get('model');
       if(wiring) {
          this.setWiring( wiring );
       }
-      
-      this.layer.render( this.get('container').one('#layer-container') );
       
    },
    
@@ -257,7 +235,7 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
             config: item.toJSON()
          });
       });
-      
+
       // Wires:
       o.wires = [];
       var layer = this.layer;
@@ -284,7 +262,7 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
       this.get('model').save();
       
       // TODO: add only one message
-      var s = Y.Node.create('<div class="alert-message warning" style="width: 300px; z-index: 10001;"><p>Saved !</p></div>').appendTo(document.body);
+      var s = Y.Node.create('<div class="alert-message bg-warning" style="width: 300px; z-index: 10001;"><p>Saved !</p></div>').appendTo(document.body);
       var anim = new Y.Anim({
           node: s,
           duration: 0.5,
@@ -310,9 +288,8 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
    setWiring: function (wiring) {
       
       var that = this;
-      
       var layer = this.layer;
-      
+
       Y.Array.each( wiring.get('containers'), function (container) {
          
          that._addContainerFromName(container.containerType,  container.config);
@@ -322,9 +299,10 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
          }, '#wiring-name');
          
       });
-      
+
+
       Y.Array.each( wiring.get('wires'), function (wire) {
-         
+
          // prevent bad configs...
          if(!wire.src || !wire.tgt) return;
          
@@ -335,14 +313,12 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
          var tgtTerminal = tgtContainer.getTerminal(wire.tgt.terminal);
          
          // TODO: wire.config;
-         
          var w = layer.graphic.addShape({
             type: Y.BezierWire,
             stroke: {
                 weight: 4,
                 color: "rgb(173,216,230)" 
             },
-
 
             src: srcTerminal,
             tgt: tgtTerminal
@@ -352,7 +328,7 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
       });
       
       // TODO: this is awful ! But we need to wait for everything to render & position
-      Y.later(1000, this, function () {
+      Y.later(200, this, function () {
          layer.redrawAllWires();
       });
       
@@ -374,6 +350,11 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
       }
    }
 });
+/**
+ * @module wireit-app
+ */
+
+
 
 // -- WireIt App ---------------------------------------------------------
 Y.WireItApp = new Y.Base.create('contributorsApp', Y.App, [], {

@@ -1,5 +1,8 @@
 {
    "image-container": {
-      "requires": ["container-base"]
+      "requires": [
+         "container"
+      ],
+      "skinnable": true
    }
 }

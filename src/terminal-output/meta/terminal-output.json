@@ -1,7 +1,7 @@
 {
-            "terminal-output": {
-                "requires": [
-                    "terminal"
-                ]
-            }
-         }
+   "terminal-output": {
+      "requires": [
+         "terminal"
+      ]
+   }
+}

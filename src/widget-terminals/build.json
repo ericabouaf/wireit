@@ -1,0 +1,10 @@
+{
+   "name": "widget-terminals",
+   "builds": {
+      "widget-terminals": {
+         "jsfiles": [
+            "widget-terminals.js"
+         ]
+      }
+   }
+}

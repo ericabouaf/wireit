@@ -11,27 +11,10 @@ YUI().use(function(Y) {
       }
    };
 
-   if(typeof YUI_config === 'undefined') { 
-      YUI_config = {groups: {}}; 
+   if(typeof YUI_config === 'undefined') {
+      YUI_config = {groups: {}};
    }
-   else if(YUI_config.groups.inputex) {
-      
-      // inputex-wirable trick
-      // replace all 'inputex-field' dependencies in inputEx by 'inputex-wirable'
-      for(var k in YUI_config.groups.inputex.modules) {
-         if(YUI_config.groups.inputex.modules.hasOwnProperty(k)) {
-            var m = YUI_config.groups.inputex.modules[k];
-            if(m.requires) {
-               var index = m.requires.indexOf('inputex-field');
-               if(index != -1) {
-                  m.requires[index] = 'inputex-wirable';
-               }
-            }
-         }
-      }
-      
-   }
+
    Y.mix(YUI_config.groups, CONFIG.groups);
 
 });
-

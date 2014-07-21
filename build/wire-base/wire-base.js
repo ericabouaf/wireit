@@ -18,7 +18,7 @@ YUI.add('wire-base', function (Y, NAME) {
  * @extends Path
  * @param {Object} oConfigs The user configuration for the instance.
  */
-Y.WireBase = function (cfg) {
+Y.WireBase = function (config) {
    Y.WireBase.superclass.constructor.apply(this, arguments);
 };
 
@@ -101,7 +101,7 @@ Y.extend(Y.WireBase, Y.Path, {
    },
    
    getOtherTerminal: function (term) {
-      return (term == this.get('src')) ? this.get('tgt') : this.get('src');
+      return (term === this.get('src')) ? this.get('tgt') : this.get('src');
    },
    
    // TODO:
@@ -162,19 +162,16 @@ Y.WireBase.ATTRS = Y.merge(Y.Path.ATTRS, {
    },
    
    /**
-    * 
     * @attribute srcDir
     * @type Array
     * @default [1,0]
-    */ 
+    */
    srcDir: {
       validator: Y.Lang.isArray,
       value: [1,0]
-      // TODO: normalize ?
    },
    
    /**
-    * TODO: normalize ?
     * @attribute tgtDir
     * @type Array
     * @default -srcDir
@@ -185,7 +182,6 @@ Y.WireBase.ATTRS = Y.merge(Y.Path.ATTRS, {
          var d = this.get('srcDir');
          return [-d[0],-d[1]];
       }
-      // TODO: normalize ?
    }
    
 });

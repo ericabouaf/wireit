@@ -1,7 +1,7 @@
 {
-    "bezier-wire": {
-        "requires": [
-            "wire-base"
-        ]
-    }
+   "bezier-wire": {
+      "requires": [
+         "wire-base"
+      ]
+   }
 }

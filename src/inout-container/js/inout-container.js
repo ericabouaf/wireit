@@ -8,7 +8,6 @@
  * @extends Container
  * @constructor
  * @param {Object} options
- * @param {Layer} layer
  */
 
 Y.InOutContainer = Y.Base.create("inout-container", Y.Container, [], {
@@ -25,43 +24,52 @@ Y.InOutContainer = Y.Base.create("inout-container", Y.Container, [], {
     * @method _renderInputsOutputs
     */
    _renderInputsOutputs: function () {
-      
-      var that = this;
-      Y.on('available', function () {
-         
-         /*
-            for(var i = 0 ; i < this.inputs.length ; i++) {
-               var input = this.inputs[i];
-               this.addTerminal({
-                  "name": input, 
-                  "direction": [-1,0], 
-                  "offsetPosition": {"left": -14, "top": 3+30*(i+1) }, 
-                  "ddConfig": {
-                     "type": "input",
-                     "allowedTypes": ["output"]
-                  }
-               });
-               this.bodyEl.appendChild(Y.WireIt.cn('div', null, {lineHeight: "30px"}, input));
-            }
 
-            for(i = 0 ; i < this.outputs.length ; i++) {
-               var output = this.outputs[i];
-               this.addTerminal({
-                  "name": output, 
-                  "direction": [1,0], 
-                  "offsetPosition": {"right": -14, "top": 3+30*(i+1+this.inputs.length) }, 
-                  "ddConfig": {
-                     "type": "output",
-                     "allowedTypes": ["input"]
-                  },
-                  "alwaysSrc": true
-               });
-               this.bodyEl.appendChild(Y.WireIt.cn('div', null, {lineHeight: "30px", textAlign: "right"}, output));
-            }
-            */
-         
-         
-      }, '#body-container');
+      this.setStdModContent(Y.WidgetStdMod.BODY, "<ul class='inputs'></ul><ul class='outputs'></ul>");
+
+      var bb = this.get('boundingBox'),
+          inputsUl = bb.one('ul.inputs'),
+          outputsUl = bb.one('ul.outputs'),
+          inputs = this.get('inputs'),
+          outputs = this.get('outputs'),
+          i, n;
+
+
+      for(i = 0, n = inputs.length ; i < n ; i++) {
+
+         Y.Node.create('<li>'+inputs[i].label+'</li>').appendTo(inputsUl);
+
+         this.add({
+            type: 'TerminalInput',
+            name: inputs[i].name,
+            dir: [-0.3, 0]
+         });
+      }
+
+      for(i = 0, n = outputs.length; i < n ; i++) {
+
+         Y.Node.create('<li>'+outputs[i].label+'</li>').appendTo(outputsUl);
+
+         this.add({
+            type: 'TerminalOutput',
+            name: outputs[i].name,
+            dir: [0.3, 0]
+         });
+      }
+
+      Y.later(100, this, function() {
+
+         var i, term;
+
+         for(i = 0 ; i < inputs.length ; i++) {
+            this.item(i).align( inputsUl.all('li').item(i) , [Y.WidgetPositionAlign.TC, Y.WidgetPositionAlign.LC] );
+         }
+         for(i = 0 ; i < outputs.length ; i++) {
+            term = this.item(inputs.length + i);
+            term.align( outputsUl.all('li').item(i) , [Y.WidgetPositionAlign.TL, Y.WidgetPositionAlign.RC] );
+            term.set('x', term.get('x')+11);
+         }
+      });
       
    }
    
@@ -69,13 +77,8 @@ Y.InOutContainer = Y.Base.create("inout-container", Y.Container, [], {
 
    ATTRS: {
       
-      
-      /**
-       * Keep to render the form
-       * @attribute bodyContent
-       */
-      bodyContent: {
-         value: '<div id="body-container" />'
+      resizable: {
+         value: false
       },
       
       /**

@@ -24,52 +24,31 @@ YUI().use(function(Y) {
     },
     "container": {
         "requires": [
-            "container-base",
-            "widget-icons"
-        ],
-        "skinnable": true
-    },
-    "container-base": {
-        "requires": [
-            "overlay",
+            "widget-stdmod",
+            "widget-stack",
             "widget-parent",
             "widget-child",
             "dd",
             "resize",
-            "terminal",
-            "wires-delegate"
-        ]
-    },
-    "form-container": {
-        "requires": [
-            "container",
-            "inputex-wirable-fields"
+            "wires-delegate",
+            "widget-terminals",
+            "widget-icons"
         ],
         "skinnable": true
     },
     "image-container": {
         "requires": [
-            "container-base"
-        ]
+            "container"
+        ],
+        "skinnable": true
     },
     "inout-container": {
         "requires": [
-            "container"
-        ]
-    },
-    "inputex-wirable": {
-        "requires": [
-            "terminal",
-            "inputex-field"
-        ]
-    },
-    "inputex-wirable-fields": {
-        "requires": [
-            "inputex-wirable",
-            "inputex-group",
-            "inputex-string",
-            "inputex-list"
-        ]
+            "container",
+            "terminal-input",
+            "terminal-output"
+        ],
+        "skinnable": true
     },
     "layer": {
         "requires": [
@@ -77,7 +56,7 @@ YUI().use(function(Y) {
             "container",
             "wires-delegate"
         ],
-        "skinnable": "true"
+        "skinnable": true
     },
     "straight-wire": {
         "requires": [
@@ -86,22 +65,17 @@ YUI().use(function(Y) {
     },
     "terminal": {
         "requires": [
-            "terminal-base",
-            "terminal-dragedit",
-            "terminal-scissors",
-            "terminal-ddgroups"
-        ],
-        "skinnable": true
-    },
-    "terminal-base": {
-        "requires": [
             "widget",
             "widget-child",
             "widget-position",
             "widget-position-align",
             "wire-base",
-            "wires-delegate"
-        ]
+            "wires-delegate",
+            "terminal-dragedit",
+            "terminal-scissors",
+            "terminal-ddgroups"
+        ],
+        "skinnable": true
     },
     "terminal-ddgroups": {
         "requires": [
@@ -129,7 +103,8 @@ YUI().use(function(Y) {
     "terminal-scissors": {
         "requires": [
             "overlay"
-        ]
+        ],
+        "skinnable": true
     },
     "textarea-container": {
         "requires": [
@@ -139,6 +114,11 @@ YUI().use(function(Y) {
     "widget-icons": {
         "requires": [],
         "skinnable": true
+    },
+    "widget-terminals": {
+        "requires": [
+            "terminal"
+        ]
     },
     "wire-base": {
         "requires": [
@@ -169,27 +149,10 @@ YUI().use(function(Y) {
       }
    };
 
-   if(typeof YUI_config === 'undefined') { 
-      YUI_config = {groups: {}}; 
+   if(typeof YUI_config === 'undefined') {
+      YUI_config = {groups: {}};
    }
-   else if(YUI_config.groups.inputex) {
-      
-      // inputex-wirable trick
-      // replace all 'inputex-field' dependencies in inputEx by 'inputex-wirable'
-      for(var k in YUI_config.groups.inputex.modules) {
-         if(YUI_config.groups.inputex.modules.hasOwnProperty(k)) {
-            var m = YUI_config.groups.inputex.modules[k];
-            if(m.requires) {
-               var index = m.requires.indexOf('inputex-field');
-               if(index != -1) {
-                  m.requires[index] = 'inputex-wirable';
-               }
-            }
-         }
-      }
-      
-   }
+
    Y.mix(YUI_config.groups, CONFIG.groups);
 
 });
-

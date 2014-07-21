@@ -38,5 +38,5 @@ Y.extend(WireLabelPlugin, Y.Plugin.Base, {
 
 Y.WireLabelPlugin = WireLabelPlugin;
 
-}, '3.6.0', {requires: ['wire']});
+}, '3.17.2', {requires: ['wire']});
 

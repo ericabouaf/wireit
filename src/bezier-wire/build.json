@@ -1,10 +1,10 @@
 {
-    "name": "bezier-wire",
-    "builds": {
-        "bezier-wire": {
-            "jsfiles": [
-                "bezier-wire.js"
-            ]
-        }
-    }
+   "name": "bezier-wire",
+   "builds": {
+      "bezier-wire": {
+         "jsfiles": [
+            "bezier-wire.js"
+         ]
+      }
+   }
 }

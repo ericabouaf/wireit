@@ -10,18 +10,10 @@
  */
 Y.TerminalDDGroups = function (config) {
    Y.after(this._renderUIgroups, this, "renderUI");
+   Y.after(this._showOverlayDDGroups, this, "_showOverlay");
 };
 
 Y.TerminalDDGroups.ATTRS = {
-   
-   /**
-    * drag/drop groups : list of supported terminal types
-    * only used if editable is set to true
-    * @attribute groups
-    */
-   groups: {
-      value: ['terminal']
-   },
    
    showGroups: {
       value: true
@@ -38,24 +30,26 @@ Y.TerminalDDGroups.prototype = {
    },
    
    /**
-    * create a persisting tooltip with the scissors class
-    * listen for click events on the tooltip and call destroyWires
+    * create a persisting tooltip with the dd-groups class
     * @method _renderTooltip
     */
    _renderTooltip: function () {
       
       if(this.get('showGroups')) {
          
-         var ddGroupsOverlay = new Y.Overlay({
+         this._ddGroupsOverlay = new Y.Overlay({
             render: this.get('boundingBox'),
-            bodyContent: this.get('groups').join(',')
+            bodyContent: this.get('ddGroupsDrag').join(',')
          });
-         ddGroupsOverlay.set("align", {node: this.get('contentBox'), 
-                               points:[Y.WidgetPositionAlign.TC, Y.WidgetPositionAlign.BC]});
 
-         ddGroupsOverlay.get('contentBox').addClass( this.getClassName("dd-groups") );
+         this._ddGroupsOverlay.get('contentBox').addClass( this.getClassName("dd-groups") );
+
       }
       
+   },
+
+   _showOverlayDDGroups: function() {
+      this._ddGroupsOverlay.align( this.get('contentBox'), [Y.WidgetPositionAlign.TC, Y.WidgetPositionAlign.BC] );
    }
    
 };

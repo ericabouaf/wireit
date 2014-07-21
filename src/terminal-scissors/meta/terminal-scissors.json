@@ -1,7 +1,8 @@
 {
-            "terminal-scissors": {
-                "requires": [
-                    "overlay"
-                ]
-            }
-         }
+   "terminal-scissors": {
+      "requires": [
+         "overlay"
+      ],
+      "skinnable": true
+   }
+}

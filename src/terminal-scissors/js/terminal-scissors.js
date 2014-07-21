@@ -14,7 +14,29 @@ Y.TerminalScissors = function (config) {
    
 };
 
-Y.TerminalScissors.ATTRS = {};
+Y.TerminalScissors.ATTRS = {
+
+   /**
+    * @attribute dirNormed
+    */
+   dirNormed: {
+      getter: function() {
+         var dir = this.get('dir'),
+             a = dir[0],
+             b = dir[1],
+             norm = Math.sqrt(a*a+b*b);
+         return [dir[0]/norm, dir[1]/norm];
+      }
+   },
+
+   /**
+    * @attribute scissorsDistance
+    */
+   scissorsDistance: {
+      value: 30
+   }
+
+};
 
 Y.TerminalScissors.prototype = {
    
@@ -47,13 +69,16 @@ Y.TerminalScissors.prototype = {
       
       this._scissorsOverlay.get('contentBox').addClass( this.getClassName("scissors") );
       
-      // Position the scissors using 'dir'
-      var dir = this.get('dir');
-      this._scissorsOverlay.set('x', dir[0]*40);
-      this._scissorsOverlay.set('y', dir[1]*40);
+      var refXY = this.get('xy'),
+          normed_dir = this.get('dirNormed'),
+          distance = this.get('scissorsDistance');
+
+      this._scissorsOverlay.set('x', refXY[0]+normed_dir[0]*distance-8);
+      this._scissorsOverlay.set('y', refXY[1]+normed_dir[1]*distance-8);
       
       this._scissorsOverlay.render( this.get('boundingBox') );
    }
    
 };
+
 

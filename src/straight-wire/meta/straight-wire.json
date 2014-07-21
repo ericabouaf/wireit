@@ -1,7 +1,7 @@
 {
-            "straight-wire": {
-                "requires": [
-                    "wire-base"
-                ]
-            }
-         }
+   "straight-wire": {
+      "requires": [
+         "wire-base"
+      ]
+   }
+}

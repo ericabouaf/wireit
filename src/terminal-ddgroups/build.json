@@ -1,10 +1,10 @@
 {
-    "name": "terminal-ddgroups",
-    "builds": {
-        "terminal-ddgroups": {
-            "jsfiles": [
-                "terminal-ddgroups.js"
-            ]
-        }
-    }
+   "name": "terminal-ddgroups",
+   "builds": {
+      "terminal-ddgroups": {
+         "jsfiles": [
+            "terminal-ddgroups.js"
+         ]
+      }
+   }
 }

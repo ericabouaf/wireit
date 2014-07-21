@@ -1,0 +1,7 @@
+{
+   "widget-terminals": {
+      "requires": [
+         "terminal"
+      ]
+   }
+}

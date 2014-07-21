@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WireIt App demo</title>
+    <meta name="description" content="An Example for the WireIt">
+    <meta name="author" content="Eric Abouaf">
+
+    <!-- Bootstrap -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style type="text/css">
+      
+      body {
+      	margin-top: 60px;
+      }
+	
+	.yui3-layer-content {
+		border: 1px solid black;
+		overflow: scroll;
+	}
+	
+	ul.containerTypes {
+		list-style: none;
+		margin: 0;
+	}
+	ul.containerTypes li {
+		margin: 2px;
+		padding: 2px;
+		border-radius: 3px;
+		border: 1px solid #ccc;
+		background-color: #ddd;
+		cursor: move;
+		float: left;
+	}
+    </style>
+
+	<script src="http://yui.yahooapis.com/3.17.2/build/yui/yui.js"></script>
+
+	<!--script type="text/javascript" src="../../build/wireit-all/wireit-all-min.js"></script-->
+	<!-- The loader is recommanded if you're debugging WireIt (comment the line before) -->
+	<script type="text/javascript" src="../../build/wireit-loader/wireit-loader-min.js"></script>
+
+	<script type="text/javascript" src="logic-gates.js"></script>
+
+  </head>
+
+  <body class="yui3-skin-sam">
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+          <span class="navbar-brand">WireIt App example</span>
+      </div>
+    </div>
+
+
+<script id="t-editor" type="text/x-handlebars-template">
+
+    <div class="container-fluid">
+
+      <div class="sidebar col-md-3">
+        <div class="well">
+
+		<a href="#/" class="btn">&lt;&lt; Wirings List</a>
+
+          <h5 class="no-toc">Container Types</h5>
+
+	    <ul class="containerTypes">
+	    {{#each containerTypes}}
+	        <li class="containerType yui3-g">
+	            <div class="containerType-name yui3-u-2-3" app-container-name="{{name}}">
+	            	<img src="{{config.imageUrl}}" alt="{{name}}" />
+	            </div>
+	        </li>
+	    {{/each}}
+	    </ul>
+	    <div style="clear: both;"></div>
+
+        </div>
+      </div>
+
+      <div class="content col-md-9">
+        
+        <div class="row" id="wireit-app">
+			<div class="span16">
+				Name: <input id="wiring-name" />
+				<a class="btn primary" id="wiring-save-btn">Save</a>
+			</div>
+			<div class="span16" id="layer-container">
+			</div>
+        </div>
+
+      </div>
+
+    </div>
+</script>
+
+<script id="t-wiring-list" type="text/x-handlebars-template">
+	<div class="container">
+  		<div class="hero-unit">
+
+	    <h2 class="no-toc">Wirings</h2>
+
+		<p>Open an existing wiring :</p>
+
+	    <ul class="wiring">
+	    {{#each wirings}}
+	        <li class="wiring yui3-g">
+	            <div class="wiring-name yui3-u-2-3"><a href="#/wirings/{{id}}/edit">{{name}}</a></div>
+	        </li>
+	    {{/each}}
+	    </ul>
+	
+	    <a id="wiring-add-link" href="#/wirings/new" class="btn btn-primary">or create a new one</a>
+	
+		</div>
+	</div>
+</script>
+
+  </body>
+</html>

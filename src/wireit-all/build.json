@@ -1,0 +1,31 @@
+{
+   "name": "wireit-all",
+   "builds": {},
+   "rollups": {
+      "wireit-all": {
+         "name": "wireit-all",
+         "files": [
+            "wireit-loader",
+            "arrow-wire",
+            "bezier-wire",
+            "bidirectional-arrow-wire",
+            "container",
+            "image-container",
+            "inout-container",
+            "layer",
+            "straight-wire",
+            "terminal",
+            "terminal-ddgroups",
+            "terminal-dragedit",
+            "terminal-input",
+            "terminal-output",
+            "terminal-scissors",
+            "textarea-container",
+            "widget-icons",
+            "wire-base",
+            "wireit-app",
+            "wires-delegate"
+         ]
+      }
+   }
+}

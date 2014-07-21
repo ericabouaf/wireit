@@ -27,14 +27,14 @@ Y.extend(Y.BezierWire, Y.WireBase, {
         
         this.clear();
         
-        var src = this.get('src').getXY();
-        var tgt = this.get('tgt').getXY();
-        
-        var srcDir = this.get('srcDir');
-        var tgtDir = this.get('tgtDir');
-        var bezierTangentNorm = this.get('bezierTangentNorm');
+        var src = this.get('src').getXY(),
+            tgt = this.get('tgt').getXY(),
+      
+            srcDir = this.get('srcDir'),
+            tgtDir = this.get('tgtDir'),
+            bezierTangentNorm = this.get('bezierTangentNorm'),
          
-         var terminalSize = 14/2;
+            terminalSize = 14/2;
          
         this.moveTo(src[0]+terminalSize,src[1]+terminalSize);
         
@@ -68,7 +68,7 @@ Y.BezierWire.ATTRS = Y.merge(Y.WireBase.ATTRS, {
       setter: function (val) {
          return parseInt(val, 10);
       },
-      value: 200
+      value: 100
    }
 
 });

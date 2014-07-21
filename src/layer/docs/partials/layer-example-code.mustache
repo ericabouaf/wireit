@@ -8,7 +8,7 @@ YUI().use('layer', 'bezier-wire', 'container', 'image-container', 'json', functi
         // first container : 
         children: [
           {
-            children: Y.ContainerBase.EIGHT_POINTS,  // terminals
+            children: Y.WidgetTerminals.EIGHT_POINTS,  // terminals
             type: 'Container',
             width: 200,
             height: 100,
@@ -18,7 +18,7 @@ YUI().use('layer', 'bezier-wire', 'container', 'image-container', 'json', functi
             footerContent: 'footerContent'
          },
          {
-            children: Y.ContainerBase.FOUR_CORNERS,
+            children: Y.WidgetTerminals.FOUR_CORNERS,
             type: 'Container',
             width: 200,
             height: 200,
@@ -28,7 +28,7 @@ YUI().use('layer', 'bezier-wire', 'container', 'image-container', 'json', functi
           },
           {
             type: 'ImageContainer',
-            children: Y.ContainerBase.FOUR_EDGES,
+            children: Y.WidgetTerminals.FOUR_EDGES,
             imageUrl: 'http://www.google.fr/images/logos/ps_logo2.png',
             xy: [700,30]
           }
