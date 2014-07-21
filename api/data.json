@@ -55,28 +55,6 @@
             "fors": {},
             "namespaces": {}
         },
-        "src/container-base/js/container-base.js": {
-            "name": "src/container-base/js/container-base.js",
-            "modules": {
-                "container-base": 1
-            },
-            "classes": {
-                "ContainerBase": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "src/form-container/js/form-container.js": {
-            "name": "src/form-container/js/form-container.js",
-            "modules": {
-                "form-container": 1
-            },
-            "classes": {
-                "FormContainer": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
         "src/image-container/js/image-container.js": {
             "name": "src/image-container/js/image-container.js",
             "modules": {
@@ -96,25 +74,6 @@
             "classes": {
                 "InOutContainer": 1
             },
-            "fors": {},
-            "namespaces": {}
-        },
-        "src/inputex-wirable/js/inputex-wirable.js": {
-            "name": "src/inputex-wirable/js/inputex-wirable.js",
-            "modules": {
-                "inputex-wirable": 1
-            },
-            "classes": {
-                "BaseField": 1,
-                "Field": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "src/inputex-wirable-fields/js/inputex-wirable-fields.js": {
-            "name": "src/inputex-wirable-fields/js/inputex-wirable-fields.js",
-            "modules": {},
-            "classes": {},
             "fors": {},
             "namespaces": {}
         },
@@ -147,17 +106,6 @@
             },
             "classes": {
                 "Terminal": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "src/terminal-base/js/terminal-base.js": {
-            "name": "src/terminal-base/js/terminal-base.js",
-            "modules": {
-                "terminal-base": 1
-            },
-            "classes": {
-                "TerminalBase": 1
             },
             "fors": {},
             "namespaces": {}
@@ -236,6 +184,13 @@
             "classes": {
                 "WidgetIcons": 1
             },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/widget-terminals/js/widget-terminals.js": {
+            "name": "src/widget-terminals/js/widget-terminals.js",
+            "modules": {},
+            "classes": {},
             "fors": {},
             "namespaces": {}
         },
@@ -321,30 +276,6 @@
             "file": "src/container/js/container.js",
             "line": 7
         },
-        "container-base": {
-            "name": "container-base",
-            "submodules": {},
-            "classes": {
-                "ContainerBase": 1
-            },
-            "fors": {},
-            "namespaces": {},
-            "tag": "module",
-            "file": "src/container-base/js/container-base.js",
-            "line": 5
-        },
-        "form-container": {
-            "name": "form-container",
-            "submodules": {},
-            "classes": {
-                "FormContainer": 1
-            },
-            "fors": {},
-            "namespaces": {},
-            "tag": "module",
-            "file": "src/form-container/js/form-container.js",
-            "line": 5
-        },
         "image-container": {
             "name": "image-container",
             "submodules": {},
@@ -369,19 +300,6 @@
             "file": "src/inout-container/js/inout-container.js",
             "line": 5
         },
-        "inputex-wirable": {
-            "name": "inputex-wirable",
-            "submodules": {},
-            "classes": {
-                "BaseField": 1,
-                "Field": 1
-            },
-            "fors": {},
-            "namespaces": {},
-            "tag": "module",
-            "file": "src/inputex-wirable/js/inputex-wirable.js",
-            "line": 13
-        },
         "layer": {
             "name": "layer",
             "submodules": {},
@@ -404,18 +322,6 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/terminal/js/terminal.js",
-            "line": 7
-        },
-        "terminal-base": {
-            "name": "terminal-base",
-            "submodules": {},
-            "classes": {
-                "TerminalBase": 1
-            },
-            "fors": {},
-            "namespaces": {},
-            "tag": "module",
-            "file": "src/terminal-base/js/terminal-base.js",
             "line": 7
         },
         "terminal-ddgroups": {
@@ -452,7 +358,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/terminal-input/js/terminal-input.js",
-            "line": 5
+            "line": 7
         },
         "terminal-output": {
             "name": "terminal-output",
@@ -464,7 +370,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/terminal-output/js/terminal-output.js",
-            "line": 5
+            "line": 7
         },
         "terminal-scissors": {
             "name": "terminal-scissors",
@@ -620,56 +526,17 @@
             "file": "src/container/js/container.js",
             "line": 7,
             "description": "Container is an Overlay (XY positioning)\nIt is a WidgetChild (belongs to Layer)\nIt is also a WidgetParent (has many terminals)",
-            "extends": "ContainerBase"
-        },
-        "ContainerBase": {
-            "name": "ContainerBase",
-            "shortname": "ContainerBase",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "container-base",
-            "namespace": "",
-            "file": "src/container-base/js/container-base.js",
-            "line": 5,
-            "description": "ContainerBase is an Overlay (XY positioning)\nIt is a WidgetChild (belongs to Layer)\nIt is also a WidgetParent (has many terminals)",
-            "extends": "Overlay",
+            "extends": "Widget",
             "uses": [
+                "WidgetStdMod",
+                "WidgetStack",
                 "WidgetParent",
                 "WidgetChild",
-                "WiresDelegate"
+                "WiresDelegate",
+                "WidgetTerminals",
+                "WidgetIcons"
             ],
             "is_constructor": 1
-        },
-        "FormContainer": {
-            "name": "FormContainer",
-            "shortname": "FormContainer",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "form-container",
-            "namespace": "",
-            "file": "src/form-container/js/form-container.js",
-            "line": 5,
-            "description": "Include the form library inputEx + WirableField + FormContainer<br />\n<br />\n<b>WARNING</b>: The \"WirableField.js\" file MUST be loaded AFTER \"inputEx/field.js\" and BEFORE all other inputEx fields !<br />\n<br />\nSee the inputEx website for documentation of the fields & forms: <a href='http://neyric.github.com/inputex'>http://neyric.github.com/inputex</a><br />\n\nClass used to build a container with inputEx forms",
-            "extends": "Container",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "options",
-                    "description": "Configuration object (see properties)",
-                    "type": "Object"
-                },
-                {
-                    "name": "layer",
-                    "description": "The Y.Layer (or subclass) instance that contains this container",
-                    "type": "Layer"
-                }
-            ]
         },
         "ImageContainer": {
             "name": "ImageContainer",
@@ -684,7 +551,7 @@
             "file": "src/image-container/js/image-container.js",
             "line": 5,
             "description": "ImageContainer is an Overlay (XY positioning)\nIt is a WidgetChild (belongs to Layer)\nIt is also a WidgetParent (has many terminals)",
-            "extends": "ContainerBase",
+            "extends": "Container",
             "is_constructor": 1
         },
         "InOutContainer": {
@@ -707,42 +574,8 @@
                     "name": "options",
                     "description": "",
                     "type": "Object"
-                },
-                {
-                    "name": "layer",
-                    "description": "",
-                    "type": "Layer"
                 }
             ]
-        },
-        "BaseField": {
-            "name": "BaseField",
-            "shortname": "BaseField",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "inputex-wirable",
-            "namespace": "",
-            "file": "src/inputex-wirable/js/inputex-wirable.js",
-            "line": 7,
-            "description": "Copy of the original inputEx.Field class that we're gonna override to extend it."
-        },
-        "Field": {
-            "name": "Field",
-            "shortname": "Field",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "inputex-wirable",
-            "namespace": "",
-            "file": "src/inputex-wirable/js/inputex-wirable.js",
-            "line": 13,
-            "description": "Class to make inputEx Fields \"wirable\".Re-create inputEx.Field adding the wirable properties",
-            "extends": "inputEx.BaseField"
         },
         "Layer": {
             "name": "Layer",
@@ -799,42 +632,17 @@
             "file": "src/terminal/js/terminal.js",
             "line": 7,
             "description": "Terminal is responsible for wire edition",
-            "extends": "TerminalBase",
-            "uses": [
-                "TerminalDragEdit",
-                "TerminalScissors",
-                "TerminalDDGroups"
-            ],
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "oConfigs",
-                    "description": "The user configuration for the instance.",
-                    "type": "Object"
-                }
-            ]
-        },
-        "TerminalBase": {
-            "name": "TerminalBase",
-            "shortname": "TerminalBase",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "terminal-base",
-            "namespace": "",
-            "file": "src/terminal-base/js/terminal-base.js",
-            "line": 7,
-            "description": "Terminal is responsible for wire edition",
-            "is_constructor": 1,
             "extends": "Widget",
             "uses": [
                 "WidgetChild",
                 "WidgetPosition",
                 "WidgetPositionAlign",
-                "WiresDelegate"
+                "WiresDelegate",
+                "TerminalDragEdit",
+                "TerminalScissors",
+                "TerminalDDGroups"
             ],
+            "is_constructor": 1,
             "params": [
                 {
                     "name": "oConfigs",
@@ -902,25 +710,15 @@
             "module": "terminal-input",
             "namespace": "",
             "file": "src/terminal-input/js/terminal-input.js",
-            "line": 5,
+            "line": 7,
             "description": "Class that extends Terminal to differenciate Input/Output terminals",
             "extends": "Terminal",
             "is_constructor": 1,
             "params": [
                 {
-                    "name": "parentEl",
-                    "description": "Parent dom element",
-                    "type": "HTMLElement"
-                },
-                {
-                    "name": "options",
-                    "description": "configuration object",
+                    "name": "oConfigs",
+                    "description": "The user configuration for the instance.",
                     "type": "Object"
-                },
-                {
-                    "name": "container",
-                    "description": "(Optional) Container containing this terminal",
-                    "type": "Container"
                 }
             ]
         },
@@ -935,25 +733,15 @@
             "module": "terminal-output",
             "namespace": "",
             "file": "src/terminal-output/js/terminal-output.js",
-            "line": 5,
+            "line": 7,
             "description": "Class that extends Terminal to differenciate Input/Output terminals",
             "extends": "Terminal",
             "is_constructor": 1,
             "params": [
                 {
-                    "name": "parentEl",
-                    "description": "Parent dom element",
-                    "type": "HTMLElement"
-                },
-                {
-                    "name": "options",
-                    "description": "configuration object",
+                    "name": "oConfigs",
+                    "description": "The user configuration for the instance.",
                     "type": "Object"
-                },
-                {
-                    "name": "container",
-                    "description": "(Optional) Container containing this terminal",
-                    "type": "Container"
                 }
             ]
         },
@@ -1010,7 +798,9 @@
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
-            "extension_for": [],
+            "extension_for": [
+                "Container"
+            ],
             "module": "widget-icons",
             "namespace": "",
             "file": "src/widget-icons/js/widget-icons.js",
@@ -1054,9 +844,9 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [
-                "ContainerBase",
+                "Container",
                 "Layer",
-                "TerminalBase"
+                "Terminal"
             ],
             "module": "wires-delegate",
             "namespace": "",
@@ -1543,7 +1333,15 @@
         },
         {
             "file": "src/container/js/container.js",
-            "line": 15,
+            "line": 32,
+            "itemtype": "method",
+            "name": "renderUI",
+            "class": "Container",
+            "module": "container"
+        },
+        {
+            "file": "src/container/js/container.js",
+            "line": 88,
             "description": "Click handler for the close icon",
             "itemtype": "method",
             "name": "_onCloseClick",
@@ -1554,159 +1352,54 @@
         },
         {
             "file": "src/container/js/container.js",
-            "line": 27,
+            "line": 122,
+            "description": "Relative left position (in the layer referential)",
+            "itemtype": "attribute",
+            "name": "x",
+            "class": "Container",
+            "module": "container"
+        },
+        {
+            "file": "src/container/js/container.js",
+            "line": 139,
+            "description": "Relative top position (in the layer referential)",
+            "itemtype": "attribute",
+            "name": "y",
+            "class": "Container",
+            "module": "container"
+        },
+        {
+            "file": "src/container/js/container.js",
+            "line": 156,
+            "itemtype": "attribute",
+            "name": "zIndex",
+            "class": "Container",
+            "module": "container"
+        },
+        {
+            "file": "src/container/js/container.js",
+            "line": 163,
+            "itemtype": "attribute",
+            "name": "resizable",
+            "class": "Container",
+            "module": "container"
+        },
+        {
+            "file": "src/container/js/container.js",
+            "line": 170,
+            "itemtype": "attribute",
+            "name": "fillHeight",
+            "class": "Container",
+            "module": "container"
+        },
+        {
+            "file": "src/container/js/container.js",
+            "line": 181,
             "description": "Override the default value of WidgetIcons to add the close button",
             "itemtype": "attribute",
             "name": "icons",
             "class": "Container",
             "module": "container"
-        },
-        {
-            "file": "src/container-base/js/container-base.js",
-            "line": 18,
-            "itemtype": "method",
-            "name": "renderUI",
-            "class": "ContainerBase",
-            "module": "container-base"
-        },
-        {
-            "file": "src/container-base/js/container-base.js",
-            "line": 65,
-            "itemtype": "method",
-            "name": "alignTerminals",
-            "class": "ContainerBase",
-            "module": "container-base"
-        },
-        {
-            "file": "src/container-base/js/container-base.js",
-            "line": 77,
-            "itemtype": "method",
-            "name": "syncUI",
-            "class": "ContainerBase",
-            "module": "container-base"
-        },
-        {
-            "file": "src/container-base/js/container-base.js",
-            "line": 103,
-            "description": "Get a terminal by name",
-            "itemtype": "method",
-            "name": "getTerminal",
-            "class": "ContainerBase",
-            "module": "container-base"
-        },
-        {
-            "file": "src/container-base/js/container-base.js",
-            "line": 128,
-            "itemtype": "attribute",
-            "name": "defaultChildType",
-            "class": "ContainerBase",
-            "module": "container-base"
-        },
-        {
-            "file": "src/container-base/js/container-base.js",
-            "line": 135,
-            "itemtype": "attribute",
-            "name": "zIndex",
-            "class": "ContainerBase",
-            "module": "container-base"
-        },
-        {
-            "file": "src/container-base/js/container-base.js",
-            "line": 142,
-            "itemtype": "attribute",
-            "name": "resizable",
-            "class": "ContainerBase",
-            "module": "container-base"
-        },
-        {
-            "file": "src/container-base/js/container-base.js",
-            "line": 149,
-            "itemtype": "attribute",
-            "name": "fillHeight",
-            "class": "ContainerBase",
-            "module": "container-base"
-        },
-        {
-            "file": "src/form-container/js/form-container.js",
-            "line": 21,
-            "itemtype": "method",
-            "name": "renderUI",
-            "class": "FormContainer",
-            "module": "form-container"
-        },
-        {
-            "file": "src/form-container/js/form-container.js",
-            "line": 29,
-            "description": "Render the form in the widget body",
-            "itemtype": "method",
-            "name": "_renderForm",
-            "class": "FormContainer",
-            "module": "form-container"
-        },
-        {
-            "file": "src/form-container/js/form-container.js",
-            "line": 59,
-            "description": "Value of the form",
-            "itemtype": "attribute",
-            "name": "value",
-            "class": "FormContainer",
-            "module": "form-container"
-        },
-        {
-            "file": "src/form-container/js/form-container.js",
-            "line": 79,
-            "description": "Keep to render the form",
-            "itemtype": "attribute",
-            "name": "bodyContent",
-            "class": "FormContainer",
-            "module": "form-container"
-        },
-        {
-            "file": "src/form-container/js/form-container.js",
-            "line": 87,
-            "itemtype": "attribute",
-            "name": "fields",
-            "class": "FormContainer",
-            "module": "form-container"
-        },
-        {
-            "file": "src/form-container/js/form-container.js",
-            "line": 94,
-            "itemtype": "attribute",
-            "name": "resizable",
-            "class": "FormContainer",
-            "module": "form-container"
-        },
-        {
-            "file": "src/form-container/js/form-container.js",
-            "line": 105,
-            "itemtype": "attribute",
-            "name": "legend",
-            "description": "Legend",
-            "default": "null",
-            "type": "String",
-            "class": "FormContainer",
-            "module": "form-container"
-        },
-        {
-            "file": "src/form-container/js/form-container.js",
-            "line": 113,
-            "itemtype": "attribute",
-            "name": "collapsible",
-            "description": "Collapsible",
-            "default": "false",
-            "type": "Boolean",
-            "class": "FormContainer",
-            "module": "form-container"
-        },
-        {
-            "file": "src/form-container/js/form-container.js",
-            "line": 121,
-            "description": "Render the form",
-            "itemtype": "method",
-            "name": "renderForm",
-            "class": "FormContainer",
-            "module": "form-container"
         },
         {
             "file": "src/image-container/js/image-container.js",
@@ -1718,7 +1411,15 @@
         },
         {
             "file": "src/image-container/js/image-container.js",
-            "line": 76,
+            "line": 33,
+            "itemtype": "method",
+            "name": "bindUI",
+            "class": "ImageContainer",
+            "module": "image-container"
+        },
+        {
+            "file": "src/image-container/js/image-container.js",
+            "line": 59,
             "description": "Url of the image you want to render (relative to the script's page)",
             "itemtype": "attribute",
             "name": "imageUrl",
@@ -1726,8 +1427,17 @@
             "module": "image-container"
         },
         {
+            "file": "src/image-container/js/image-container.js",
+            "line": 72,
+            "description": "Preserve ratio when resized (only if resizable)",
+            "itemtype": "attribute",
+            "name": "resizePreserveRatio",
+            "class": "ImageContainer",
+            "module": "image-container"
+        },
+        {
             "file": "src/inout-container/js/inout-container.js",
-            "line": 16,
+            "line": 15,
             "itemtype": "method",
             "name": "renderUI",
             "class": "InOutContainer",
@@ -1735,7 +1445,7 @@
         },
         {
             "file": "src/inout-container/js/inout-container.js",
-            "line": 24,
+            "line": 23,
             "itemtype": "method",
             "name": "_renderInputsOutputs",
             "class": "InOutContainer",
@@ -1743,16 +1453,7 @@
         },
         {
             "file": "src/inout-container/js/inout-container.js",
-            "line": 73,
-            "description": "Keep to render the form",
-            "itemtype": "attribute",
-            "name": "bodyContent",
-            "class": "InOutContainer",
-            "module": "inout-container"
-        },
-        {
-            "file": "src/inout-container/js/inout-container.js",
-            "line": 81,
+            "line": 84,
             "itemtype": "attribute",
             "name": "inputs",
             "description": "Array of strings for which an Input terminal will be created.",
@@ -1763,7 +1464,7 @@
         },
         {
             "file": "src/inout-container/js/inout-container.js",
-            "line": 89,
+            "line": 92,
             "itemtype": "attribute",
             "name": "outputs",
             "description": "Array of strings for which an Output terminal will be created.",
@@ -1771,93 +1472,6 @@
             "type": "Array",
             "class": "InOutContainer",
             "module": "inout-container"
-        },
-        {
-            "file": "src/inputex-wirable/js/inputex-wirable.js",
-            "line": 24,
-            "description": "Adds a wirable option to every field",
-            "itemtype": "method",
-            "name": "setOptions",
-            "class": "Field",
-            "module": "inputex-wirable"
-        },
-        {
-            "file": "src/inputex-wirable/js/inputex-wirable.js",
-            "line": 35,
-            "description": "Adds a terminal to each field",
-            "itemtype": "method",
-            "name": "render",
-            "class": "Field",
-            "module": "inputex-wirable"
-        },
-        {
-            "file": "src/inputex-wirable/js/inputex-wirable.js",
-            "line": 47,
-            "description": "Render the associated input terminal",
-            "itemtype": "method",
-            "name": "renderTerminal",
-            "class": "Field",
-            "module": "inputex-wirable"
-        },
-        {
-            "file": "src/inputex-wirable/js/inputex-wirable.js",
-            "line": 68,
-            "description": "Set the container for this field",
-            "class": "Field",
-            "module": "inputex-wirable"
-        },
-        {
-            "file": "src/inputex-wirable/js/inputex-wirable.js",
-            "line": 84,
-            "description": "also change the terminal name when changing the field name",
-            "class": "Field",
-            "module": "inputex-wirable"
-        },
-        {
-            "file": "src/inputex-wirable/js/inputex-wirable.js",
-            "line": 94,
-            "description": "Remove the input wired state on the",
-            "itemtype": "method",
-            "name": "onAddWire",
-            "class": "Field",
-            "module": "inputex-wirable"
-        },
-        {
-            "file": "src/inputex-wirable/js/inputex-wirable.js",
-            "line": 105,
-            "description": "Remove the input wired state on the",
-            "itemtype": "method",
-            "name": "onRemoveWire",
-            "class": "Field",
-            "module": "inputex-wirable"
-        },
-        {
-            "file": "src/inputex-wirable-fields/js/inputex-wirable-fields.js",
-            "line": 6,
-            "description": "setFieldName might change the name of the terminal",
-            "class": "Layer",
-            "module": "inputex-wirable"
-        },
-        {
-            "file": "src/inputex-wirable-fields/js/inputex-wirable-fields.js",
-            "line": 18,
-            "description": "Groups must set the container recursively",
-            "class": "Layer",
-            "module": "inputex-wirable"
-        },
-        {
-            "file": "src/inputex-wirable-fields/js/inputex-wirable-fields.js",
-            "line": 35,
-            "description": "List must set the container recursively",
-            "class": "Layer",
-            "module": "inputex-wirable"
-        },
-        {
-            "file": "src/inputex-wirable-fields/js/inputex-wirable-fields.js",
-            "line": 50,
-            "description": "setContainer must be called on each new element",
-            "class": "Layer",
-            "module": "inputex-wirable"
         },
         {
             "file": "src/layer/js/layer.js",
@@ -1879,36 +1493,43 @@
             "module": "straight-wire"
         },
         {
-            "file": "src/terminal-base/js/terminal-base.js",
-            "line": 54,
+            "file": "src/terminal/js/terminal.js",
+            "line": 82,
             "description": "This function is a temporary test. I added the border width while traversing the DOM and\nI calculated the offset to center the wire in the terminal just after its creation",
             "itemtype": "method",
             "name": "getXY",
-            "class": "TerminalBase",
-            "module": "terminal-base"
+            "class": "Terminal",
+            "module": "terminal"
         },
         {
-            "file": "src/terminal-base/js/terminal-base.js",
-            "line": 71,
+            "file": "src/terminal/js/terminal.js",
+            "line": 100,
+            "itemtype": "attribute",
+            "name": "name",
+            "class": "Terminal",
+            "module": "terminal"
+        },
+        {
+            "file": "src/terminal/js/terminal.js",
+            "line": 107,
             "description": "Vector direction at the terminal\n(used by BezierWire ou Scissors)",
             "itemtype": "attribute",
             "name": "dir",
-            "class": "TerminalBase",
-            "module": "terminal-base"
+            "class": "Terminal",
+            "module": "terminal"
         },
         {
-            "file": "src/terminal-ddgroups/js/terminal-ddgroups.js",
-            "line": 17,
-            "description": "drag/drop groups : list of supported terminal types\nonly used if editable is set to true",
+            "file": "src/terminal/js/terminal.js",
+            "line": 120,
             "itemtype": "attribute",
-            "name": "groups",
-            "class": "TerminalDDGroups",
-            "module": "terminal-ddgroups"
+            "name": "offset",
+            "class": "Terminal",
+            "module": "terminal"
         },
         {
             "file": "src/terminal-ddgroups/js/terminal-ddgroups.js",
-            "line": 40,
-            "description": "create a persisting tooltip with the scissors class\nlisten for click events on the tooltip and call destroyWires",
+            "line": 32,
+            "description": "create a persisting tooltip with the dd-groups class",
             "itemtype": "method",
             "name": "_renderTooltip",
             "class": "TerminalDDGroups",
@@ -1941,7 +1562,7 @@
         },
         {
             "file": "src/terminal-dragedit/js/terminal-dragedit.js",
-            "line": 53,
+            "line": 63,
             "itemtype": "method",
             "name": "_renderUIdragedit",
             "class": "TerminalDragEdit",
@@ -1949,7 +1570,7 @@
         },
         {
             "file": "src/terminal-dragedit/js/terminal-dragedit.js",
-            "line": 84,
+            "line": 94,
             "itemtype": "method",
             "name": "_bindUIdragedit",
             "class": "TerminalDragEdit",
@@ -1957,7 +1578,7 @@
         },
         {
             "file": "src/terminal-dragedit/js/terminal-dragedit.js",
-            "line": 99,
+            "line": 109,
             "description": "on drag start, create the wire between 2 fake terminals",
             "itemtype": "method",
             "name": "_onDragEditStart",
@@ -1966,7 +1587,7 @@
         },
         {
             "file": "src/terminal-dragedit/js/terminal-dragedit.js",
-            "line": 143,
+            "line": 159,
             "description": "Update the position of the fake target and redraw the wire",
             "itemtype": "method",
             "name": "_onDragEditDrag",
@@ -1977,7 +1598,7 @@
         },
         {
             "file": "src/terminal-dragedit/js/terminal-dragedit.js",
-            "line": 154,
+            "line": 170,
             "description": "on drop hit, set the wire src and tgt terminals",
             "itemtype": "method",
             "name": "_onDragEditDrophit",
@@ -1988,7 +1609,7 @@
         },
         {
             "file": "src/terminal-dragedit/js/terminal-dragedit.js",
-            "line": 181,
+            "line": 197,
             "description": "on drop miss, destroy the wire",
             "itemtype": "method",
             "name": "_onDragEditDropmiss",
@@ -1997,7 +1618,7 @@
         },
         {
             "file": "src/terminal-dragedit/js/terminal-dragedit.js",
-            "line": 190,
+            "line": 206,
             "itemtype": "method",
             "name": "_onDragEditEnter",
             "class": "TerminalDragEdit",
@@ -2005,7 +1626,7 @@
         },
         {
             "file": "src/terminal-dragedit/js/terminal-dragedit.js",
-            "line": 204,
+            "line": 220,
             "itemtype": "method",
             "name": "_onDragEditExit",
             "class": "TerminalDragEdit",
@@ -2013,7 +1634,7 @@
         },
         {
             "file": "src/terminal-dragedit/js/terminal-dragedit.js",
-            "line": 212,
+            "line": 228,
             "itemtype": "method",
             "name": "isValidWireTerminal",
             "class": "TerminalDragEdit",
@@ -2021,81 +1642,31 @@
         },
         {
             "file": "src/terminal-dragedit/js/terminal-dragedit.js",
-            "line": 224,
+            "line": 240,
             "itemtype": "method",
             "name": "destructor",
             "class": "TerminalDragEdit",
             "module": "terminal-dragedit"
         },
         {
-            "file": "src/terminal-input/js/terminal-input.js",
+            "file": "src/terminal-scissors/js/terminal-scissors.js",
             "line": 19,
             "itemtype": "attribute",
-            "name": "nMaxWires",
-            "description": "maximum number of wires for this terminal",
-            "type": "Integer",
-            "default": "1",
-            "class": "TerminalInput",
-            "module": "terminal-input"
-        },
-        {
-            "file": "src/terminal-input/js/terminal-input.js",
-            "line": 27,
-            "itemtype": "attribute",
-            "name": "ddConfig",
-            "description": "configuration of the Y.TerminalProxy object",
-            "type": "Object",
-            "default": "{ type: \"input\", allowedTypes: [\"output\"] }",
-            "class": "TerminalInput",
-            "module": "terminal-input"
-        },
-        {
-            "file": "src/terminal-output/js/terminal-output.js",
-            "line": 19,
-            "itemtype": "attribute",
-            "name": "direction",
-            "description": "direction vector of the wires when connected to this terminal",
-            "type": "Array",
-            "default": "[0,1]",
-            "class": "TerminalOutput",
-            "module": "terminal-output"
-        },
-        {
-            "file": "src/terminal-output/js/terminal-output.js",
-            "line": 27,
-            "itemtype": "attribute",
-            "name": "fakeDirection",
-            "description": "direction vector of the \"editing\" wire when it started from this terminal",
-            "type": "Array",
-            "default": "[0,-1]",
-            "class": "TerminalOutput",
-            "module": "terminal-output"
-        },
-        {
-            "file": "src/terminal-output/js/terminal-output.js",
-            "line": 35,
-            "itemtype": "attribute",
-            "name": "ddConfig",
-            "description": "configuration of the Y.TerminalProxy object",
-            "type": "Object",
-            "default": "{ type: \"output\", allowedTypes: [\"input\"] }",
-            "class": "TerminalOutput",
-            "module": "terminal-output"
-        },
-        {
-            "file": "src/terminal-output/js/terminal-output.js",
-            "line": 43,
-            "itemtype": "attribute",
-            "name": "alwaysSrc",
-            "description": "forces this terminal to be the src terminal in the wire config",
-            "type": "Boolean",
-            "default": "true",
-            "class": "TerminalOutput",
-            "module": "terminal-output"
+            "name": "dirNormed",
+            "class": "TerminalScissors",
+            "module": "terminal-scissors"
         },
         {
             "file": "src/terminal-scissors/js/terminal-scissors.js",
-            "line": 21,
+            "line": 32,
+            "itemtype": "attribute",
+            "name": "scissorsDistance",
+            "class": "TerminalScissors",
+            "module": "terminal-scissors"
+        },
+        {
+            "file": "src/terminal-scissors/js/terminal-scissors.js",
+            "line": 43,
             "itemtype": "method",
             "name": "_renderUIScissors",
             "access": "private",
@@ -2105,7 +1676,7 @@
         },
         {
             "file": "src/terminal-scissors/js/terminal-scissors.js",
-            "line": 31,
+            "line": 53,
             "itemtype": "method",
             "name": "_bindUIScissors",
             "access": "private",
@@ -2115,7 +1686,7 @@
         },
         {
             "file": "src/terminal-scissors/js/terminal-scissors.js",
-            "line": 41,
+            "line": 63,
             "itemtype": "method",
             "name": "_renderScissors",
             "access": "private",
@@ -2143,11 +1714,43 @@
         },
         {
             "file": "src/widget-icons/js/widget-icons.js",
-            "line": 18,
+            "line": 16,
             "description": "Set of icons",
             "itemtype": "attribute",
             "name": "icons",
             "class": "WidgetIcons",
+            "module": "widget-icons"
+        },
+        {
+            "file": "src/widget-terminals/js/widget-terminals.js",
+            "line": 1,
+            "description": "WidgetTerminals: manages child terminals.\n\nThe host must use WidgetParent and WiresDelegate",
+            "class": "WireBase",
+            "module": "widget-icons"
+        },
+        {
+            "file": "src/widget-terminals/js/widget-terminals.js",
+            "line": 13,
+            "itemtype": "attribute",
+            "name": "defaultChildType",
+            "class": "WireBase",
+            "module": "widget-icons"
+        },
+        {
+            "file": "src/widget-terminals/js/widget-terminals.js",
+            "line": 28,
+            "itemtype": "method",
+            "name": "alignTerminals",
+            "class": "WireBase",
+            "module": "widget-icons"
+        },
+        {
+            "file": "src/widget-terminals/js/widget-terminals.js",
+            "line": 43,
+            "description": "Get a terminal by name",
+            "itemtype": "method",
+            "name": "getTerminal",
+            "class": "WireBase",
             "module": "widget-icons"
         },
         {
@@ -2215,8 +1818,7 @@
         },
         {
             "file": "src/wire-base/js/wire-base.js",
-            "line": 174,
-            "description": "TODO: normalize ?",
+            "line": 172,
             "itemtype": "attribute",
             "name": "tgtDir",
             "type": "Array",
@@ -2251,7 +1853,7 @@
         },
         {
             "file": "src/wires-delegate/js/wires-delegate.js",
-            "line": 80,
+            "line": 81,
             "description": "Remove all wires",
             "itemtype": "method",
             "name": "destroyWires",
@@ -2260,7 +1862,7 @@
         },
         {
             "file": "src/wires-delegate/js/wires-delegate.js",
-            "line": 94,
+            "line": 95,
             "description": "Returns a list of all the terminals connected to this terminal through its wires.",
             "itemtype": "method",
             "name": "getConnected",
@@ -2273,12 +1875,114 @@
         },
         {
             "file": "src/wires-delegate/js/wires-delegate.js",
-            "line": 109,
+            "line": 110,
             "description": "Redraw all the wires connected to this terminal",
             "itemtype": "method",
             "name": "redrawAllWires",
             "class": "WiresDelegate",
             "module": "wires-delegate"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "unknown tag: fileoverview",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:19"
+        },
+        {
+            "message": "unknown tag: fileoverview",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:1484"
+        },
+        {
+            "message": "unknown tag: fileoverview",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:1546"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:19"
+        },
+        {
+            "message": "Missing item type\nSplit {@code prettyPrint} into multiple timeouts so as not to interfere with\nUI events.\nIf set to {@code false}, {@code prettyPrint()} is synchronous.",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:61"
+        },
+        {
+            "message": "Missing item type\nGiven a group of {@link RegExp}s, returns a {@code RegExp} that globally\nmatches the union of the sets of strings matched by the input RegExp.\nSince it matches globally, if the input strings have a start-of-input\nanchor (/^.../), it is ignored for the purposes of unioning.",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:216"
+        },
+        {
+            "message": "Missing item type\nSplit markup into a string of source code and an array mapping ranges in\nthat string to the text nodes in which they appear.\n\n<p>\nThe HTML DOM structure:</p>\n<pre>\n(Element   \"p\"\n  (Element \"b\"\n    (Text  \"print \"))       ; #1\n  (Text    \"'Hello '\")      ; #2\n  (Element \"br\")            ; #3\n  (Text    \"  + 'World';\")) ; #4\n</pre>\n<p>\ncorresponds to the HTML\n{@code <p><b>print </b>'Hello '<br>  + 'World';</p>}.</p>\n\n<p>\nIt will produce the output:</p>\n<pre>\n{\n  sourceCode: \"print 'Hello '\\n  + 'World';\",\n  //                 1         2\n  //       012345678901234 5678901234567\n  spans: [0, #1, 6, #2, 14, #3, 15, #4]\n}\n</pre>\n<p>\nwhere #1 is a reference to the {@code \"print \"} text node above, and so\non for the other text nodes.\n</p>\n\n<p>\nThe {@code} spans array is an array of pairs.  Even elements are the start\nindices of substrings, and odd elements are the text nodes (or BR elements)\nthat contain the text for those substrings.\nSubstrings continue until the next index or the end of the source.\n</p>",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:453"
+        },
+        {
+            "message": "Missing item type\nApply the given language handler to sourceCode and add the resulting\ndecorations to out.",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:554"
+        },
+        {
+            "message": "Missing item type\nGiven an element, if it contains only one child element and any text nodes\nit contains contain only space characters, return the sole child element.\nOtherwise returns undefined.\n<p>\nThis is meant to return the CODE element in {@code <pre><code ...>} when\nthere is a single child element that contains all the non-space textual\ncontent, but not to return anything where there are multiple child elements\nas in {@code <pre><code>...</code><code>...</code></pre>} or when there\nis textual content.",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:572"
+        },
+        {
+            "message": "Missing item type\nThe lexing function interprets the patterns to find token boundaries and\nreturns a decoration list of the form\n[index_0, style_0, index_1, style_1, ..., index_n, style_n]\nwhere index_n is an index into the sourceCode, and style_n is a style\nconstant like PR_PLAIN.  index_n-1 <= index_n, and style_n-1 applies to\nall characters in sourceCode[index_n-1:index_n].\n\nThe stylePatterns is a list whose elements have the form\n[style : string, pattern : RegExp, DEPRECATED, shortcut : string].\n\nStyle is a style constant like PR_PLAIN, or can be a string of the\nform 'lang-FOO', where FOO is a language extension describing the\nlanguage of the portion of the token in $1 after pattern executes.\nE.g., if style is 'lang-lisp', and group 1 contains the text\n'(hello (world))', then that portion of the token will be passed to the\nregistered lisp handler for formatting.\nThe text before and after group 1 will be restyled using this decorator\nso decorators should take care that this doesn't result in infinite\nrecursion.  For example, the HTML lexer rule for SCRIPT elements looks\nsomething like ['lang-js', /<[s]cript>(.+?)<\\/script>/].  This may match\n'<script>foo()<\\/script>', which would cause the current decorator to\nbe called with '<script>' which would not match the same rule since\ngroup 1 must not be empty, so it would be instead styled as PR_TAG by\nthe generic tag rule.  The handler registered for the 'js' extension would\nthen be called with 'foo()', and finally, the current decorator would\nbe called with '<\\/script>' which would not match the original rule and\nso the generic tag rule would identify it as a tag.\n\nPattern must only match prefixes, and if it matches a prefix, then that\nmatch is considered a token with the same style.\n\nContext is applied to the last non-whitespace, non-comment token\nrecognized.\n\nShortcut is an optional string of characters, any of which, if the first\ncharacter, gurantee that this pattern and only this pattern matches.",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:596"
+        },
+        {
+            "message": "Missing item type\nLexes job.sourceCode and produces an output array job.decorations of\nstyle classes preceded by the position at which they start in\njob.sourceCode in order.",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:670"
+        },
+        {
+            "message": "Missing item type\nare style markers (e.g., PR_COMMENT) that run from that position until\nthe end.",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:683"
+        },
+        {
+            "message": "Missing item type\nThis code treats \", ', and ` as string delimiters, and \\ as a string\n escape.  It does not recognize perl's qq() style strings.\n It has no special handling for double delimiter escapes as in basic, or\n the tripled delimiters used in python, but should work on those regardless\n although in those cases a single string literal may be broken up into\n multiple adjacent string literals.\nIt recognizes C, C++, and shell style comments.",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:770"
+        },
+        {
+            "message": "Missing item type\nGiven a DOM subtree, wraps it in a list, and puts each line into its own\nlist item.",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:904"
+        },
+        {
+            "message": "Missing item type\nBreaks {@code job.sourceCode} around style boundaries in\n{@code job.decorations} and modifies {@code job.sourceNode} in place.",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:1052"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:1162"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:1164"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:1305"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:1324"
+        },
+        {
+            "message": "Missing item type\nFind all the {@code <pre>} and {@code <code>} tags in the DOM with\n{@code class=prettyprint} and prettify them.",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:1443"
+        },
+        {
+            "message": "Missing item type\nPretty print a chunk of code.",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:1451"
+        },
+        {
+            "message": "Missing item type\nContains functions for creating and registering new language handlers.",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:1458"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:1484"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/common/docs/assets/vendor/prettify/prettify.js:1546"
+        },
+        {
+            "message": "Missing item type\nWidgetTerminals: manages child terminals.\n\nThe host must use WidgetParent and WiresDelegate",
+            "line": " src/widget-terminals/js/widget-terminals.js:1"
         }
     ]
 }

@@ -2,19 +2,14 @@ YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
         "ArrowWire",
-        "BaseField",
         "BezierWire",
         "BidirectionalArrowWire",
         "Container",
-        "ContainerBase",
-        "Field",
-        "FormContainer",
         "ImageContainer",
         "InOutContainer",
         "Layer",
         "StraightWire",
         "Terminal",
-        "TerminalBase",
         "TerminalDDGroups",
         "TerminalDragEdit",
         "TerminalInput",
@@ -29,15 +24,11 @@ YUI.add("yuidoc-meta", function(Y) {
         "arrow-wire",
         "bezier-wire",
         "container",
-        "container-base",
-        "form-container",
         "image-container",
         "inout-container",
-        "inputex-wirable",
         "layer",
         "straight-wire",
         "terminal",
-        "terminal-base",
         "terminal-ddgroups",
         "terminal-dragedit",
         "terminal-input",
@@ -63,24 +54,12 @@ YUI.add("yuidoc-meta", function(Y) {
             "name": "container"
         },
         {
-            "displayName": "container-base",
-            "name": "container-base"
-        },
-        {
-            "displayName": "form-container",
-            "name": "form-container"
-        },
-        {
             "displayName": "image-container",
             "name": "image-container"
         },
         {
             "displayName": "inout-container",
             "name": "inout-container"
-        },
-        {
-            "displayName": "inputex-wirable",
-            "name": "inputex-wirable"
         },
         {
             "displayName": "layer",
@@ -93,10 +72,6 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "terminal",
             "name": "terminal"
-        },
-        {
-            "displayName": "terminal-base",
-            "name": "terminal-base"
         },
         {
             "displayName": "terminal-ddgroups",

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/inout-container/js/inout-container.js - WireIt</title>
+    <title>src/widget-terminals/js/widget-terminals.js - WireIt</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -152,111 +152,93 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: src/inout-container/js/inout-container.js</h1>
+                        <h1 class="file-heading">File: src/widget-terminals/js/widget-terminals.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
- * @module inout-container
+ * WidgetTerminals: manages child terminals.
+ *
+ * The host must use WidgetParent and WiresDelegate
+ *
  */
+Y.WidgetTerminals = function(config) {
+  Y.after(this._syncUITerminals, this, &quot;syncUI&quot;);
+};
 
-/**
- * Container with left inputs and right outputs
- * @class InOutContainer
- * @extends Container
- * @constructor
- * @param {Object} options
- */
+Y.WidgetTerminals.ATTRS = {
 
-Y.InOutContainer = Y.Base.create(&quot;inout-container&quot;, Y.Container, [], {
+	/**
+     * @attribute defaultChildType
+     */
+    defaultChildType: {
+        value: &#x27;Terminal&#x27;
+    }
+
+};
+
+Y.WidgetTerminals.prototype = {
+
+  _syncUITerminals: function() {
+    this.alignTerminals();
+  },
 
    /**
-    * @method renderUI
+    * @method alignTerminals
     */
-   renderUI: function () {
-      Y.InOutContainer.superclass.renderUI.call(this);
-      this._renderInputsOutputs();
-   },
-   
-   /**
-    * @method _renderInputsOutputs
-    */
-   _renderInputsOutputs: function () {
-
-      this.setStdModContent(Y.WidgetStdMod.BODY, &quot;&lt;ul class=&#x27;inputs&#x27;&gt;&lt;/ul&gt;&lt;ul class=&#x27;outputs&#x27;&gt;&lt;/ul&gt;&quot;);
-
-      var bb = this.get(&#x27;boundingBox&#x27;),
-          inputsUl = bb.one(&#x27;ul.inputs&#x27;),
-          outputsUl = bb.one(&#x27;ul.outputs&#x27;),
-          inputs = this.get(&#x27;inputs&#x27;),
-          outputs = this.get(&#x27;outputs&#x27;),
-          i, n;
-
-
-      for(i = 0, n = inputs.length ; i &lt; n ; i++) {
-
-         Y.Node.create(&#x27;&lt;li&gt;&#x27;+inputs[i].label+&#x27;&lt;/li&gt;&#x27;).appendTo(inputsUl);
-
-         this.add({
-            type: &#x27;TerminalInput&#x27;,
-            name: inputs[i].name,
-            dir: [-0.3, 0]
-         });
-      }
-
-      for(i = 0, n = outputs.length; i &lt; n ; i++) {
-
-         Y.Node.create(&#x27;&lt;li&gt;&#x27;+outputs[i].label+&#x27;&lt;/li&gt;&#x27;).appendTo(outputsUl);
-
-         this.add({
-            type: &#x27;TerminalOutput&#x27;,
-            name: outputs[i].name,
-            dir: [0.3, 0]
-         });
-      }
-
-      Y.later(100, this, function() {
-
-         var i, term;
-
-         for(i = 0 ; i &lt; inputs.length ; i++) {
-            this.item(i).align( inputsUl.all(&#x27;li&#x27;).item(i) , [Y.WidgetPositionAlign.TC, Y.WidgetPositionAlign.LC] );
+   alignTerminals: function () {
+      var contentBox = this.get(&#x27;contentBox&#x27;);
+      this.each(function (term) {
+         if(term.get(&#x27;align&#x27;)) {
+            term.align( term.get(&#x27;alignNode&#x27;) || contentBox, [&#x27;tl&#x27;,term.get(&#x27;align&#x27;).points[1]]);
          }
-         for(i = 0 ; i &lt; outputs.length ; i++) {
-            term = this.item(inputs.length + i);
-            term.align( outputsUl.all(&#x27;li&#x27;).item(i) , [Y.WidgetPositionAlign.TL, Y.WidgetPositionAlign.RC] );
-            term.set(&#x27;x&#x27;, term.get(&#x27;x&#x27;)+11);
+      }, this);
+
+      this.redrawAllWires();
+   },
+
+
+   /**
+    * Get a terminal by name
+    * @method getTerminal
+    */
+   getTerminal: function (name) {
+      return Y.Array.find(this._items, function (item) {
+         if(item.get(&#x27;name&#x27;) === name) {
+            return true;
          }
       });
-      
    }
-   
-}, {
 
-   ATTRS: {
-      
-      resizable: {
-         value: false
-      },
-      
-      /**
-       * @attribute inputs
-       * @description Array of strings for which an Input terminal will be created.
-       * @default []
-       * @type Array
-       */
-      inputs: [],
+};
 
-      /**
-       * @attribute outputs
-       * @description Array of strings for which an Output terminal will be created.
-       * @default []
-       * @type Array
-       */
-      outputs: []
-   }
-   
-});
+
+
+Y.WidgetTerminals.EIGHT_POINTS = [
+    { align: {points:[&#x27;tl&#x27;, &#x27;tl&#x27;]}, dir: [-0.5, -0.5], name: &#x27;tl&#x27; },
+    { align: {points:[&#x27;tl&#x27;, &#x27;tc&#x27;]}, dir: [0, -1], name: &#x27;tc&#x27; },
+    { align: {points:[&#x27;tl&#x27;, &#x27;tr&#x27;]}, dir: [0.5, -0.5], name: &#x27;tr&#x27; },
+    { align: {points:[&#x27;tl&#x27;, &#x27;lc&#x27;]}, dir: [-1, 0], name: &#x27;lc&#x27; },
+    { align: {points:[&#x27;tl&#x27;, &#x27;rc&#x27;]}, dir: [1, 0], name: &#x27;rc&#x27; },
+    { align: {points:[&#x27;tl&#x27;, &#x27;br&#x27;]}, dir: [0.5, 0.5], name: &#x27;br&#x27; },
+    { align: {points:[&#x27;tl&#x27;, &#x27;bc&#x27;]}, dir: [0,1], name: &#x27;bc&#x27; },
+    { align: {points:[&#x27;tl&#x27;, &#x27;bl&#x27;]}, dir: [-0.5, 0.5], name: &#x27;bl&#x27; }
+ ];
+
+Y.WidgetTerminals.FOUR_CORNERS = [
+    { align: {points:[&#x27;tl&#x27;, &#x27;tl&#x27;]}, dir: [-0.5, -0.5], name: &#x27;tl&#x27; },
+    { align: {points:[&#x27;tl&#x27;, &#x27;tr&#x27;]}, dir: [0.5, -0.5], name: &#x27;tr&#x27; },
+    { align: {points:[&#x27;tl&#x27;, &#x27;br&#x27;]}, dir: [0.5, 0.5], name: &#x27;br&#x27; },
+    { align: {points:[&#x27;tl&#x27;, &#x27;bl&#x27;]}, dir: [-0.5, 0.5], name: &#x27;bl&#x27; }
+ ];
+
+Y.WidgetTerminals.FOUR_EDGES = [
+    { align: {points:[&#x27;tl&#x27;, &#x27;tc&#x27;]}, dir: [0, -1], name: &#x27;tc&#x27; },
+    { align: {points:[&#x27;tl&#x27;, &#x27;lc&#x27;]}, dir: [-1, 0], name: &#x27;lc&#x27; },
+    { align: {points:[&#x27;tl&#x27;, &#x27;rc&#x27;]}, dir: [1, 0], name: &#x27;rc&#x27; },
+    { align: {points:[&#x27;tl&#x27;, &#x27;bc&#x27;]}, dir: [0,1], name: &#x27;bc&#x27; }
+ ];
+ 
 
     </pre>
 </div>
