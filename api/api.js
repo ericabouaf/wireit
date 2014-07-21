@@ -23,6 +23,7 @@ YUI.add("yuidoc-meta", function(Y) {
     "modules": [
         "arrow-wire",
         "bezier-wire",
+        "bidirectional-arrow-wire",
         "container",
         "image-container",
         "inout-container",
@@ -48,6 +49,10 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "bezier-wire",
             "name": "bezier-wire"
+        },
+        {
+            "displayName": "bidirectional-arrow-wire",
+            "name": "bidirectional-arrow-wire"
         },
         {
             "displayName": "container",

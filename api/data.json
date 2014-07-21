@@ -30,7 +30,9 @@
         },
         "src/bidirectional-arrow-wire/js/bidirectional-arrow-wire.js": {
             "name": "src/bidirectional-arrow-wire/js/bidirectional-arrow-wire.js",
-            "modules": {},
+            "modules": {
+                "bidirectional-arrow-wire": 1
+            },
             "classes": {
                 "BidirectionalArrowWire": 1
             },
@@ -251,17 +253,16 @@
             "file": "src/bezier-wire/js/bezier-wire.js",
             "line": 5
         },
-        "straight-wire": {
-            "name": "straight-wire",
+        "bidirectional-arrow-wire": {
+            "name": "bidirectional-arrow-wire",
             "submodules": {},
             "classes": {
-                "BidirectionalArrowWire": 1,
-                "StraightWire": 1
+                "BidirectionalArrowWire": 1
             },
             "fors": {},
             "namespaces": {},
             "tag": "module",
-            "file": "src/straight-wire/js/straight-wire.js",
+            "file": "src/bidirectional-arrow-wire/js/bidirectional-arrow-wire.js",
             "line": 5
         },
         "container": {
@@ -310,6 +311,18 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/layer/js/layer.js",
+            "line": 5
+        },
+        "straight-wire": {
+            "name": "straight-wire",
+            "submodules": {},
+            "classes": {
+                "StraightWire": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/straight-wire/js/straight-wire.js",
             "line": 5
         },
         "terminal": {
@@ -498,7 +511,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "straight-wire",
+            "module": "bidirectional-arrow-wire",
             "namespace": "",
             "file": "src/bidirectional-arrow-wire/js/bidirectional-arrow-wire.js",
             "line": 5,
@@ -902,14 +915,14 @@
                 "console"
             ],
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
             "line": 61,
             "description": "Split {@code prettyPrint} into multiple timeouts so as not to interfere with\nUI events.\nIf set to {@code false}, {@code prettyPrint()} is synchronous.",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -919,7 +932,7 @@
             "name": "",
             "final": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -929,7 +942,7 @@
             "name": "",
             "final": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -939,7 +952,7 @@
             "name": "",
             "final": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -949,7 +962,7 @@
             "name": "",
             "final": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -959,7 +972,7 @@
             "name": "",
             "final": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -969,7 +982,7 @@
             "name": "",
             "final": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -979,7 +992,7 @@
             "name": "",
             "final": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -989,7 +1002,7 @@
             "name": "",
             "final": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -999,7 +1012,7 @@
             "name": "",
             "final": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1009,7 +1022,7 @@
             "name": "",
             "final": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1019,7 +1032,7 @@
             "name": "",
             "final": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1029,7 +1042,7 @@
             "name": "",
             "final": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1039,7 +1052,7 @@
             "name": "",
             "final": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1051,7 +1064,7 @@
             "name": "",
             "final": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1069,7 +1082,7 @@
                 "type": "RegExp"
             },
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1087,7 +1100,7 @@
                 "type": "Object"
             },
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1101,14 +1114,14 @@
                 }
             ],
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
             "line": 572,
             "description": "Given an element, if it contains only one child element and any text nodes\nit contains contain only space characters, return the sole child element.\nOtherwise returns undefined.\n<p>\nThis is meant to return the CODE element in {@code <pre><code ...>} when\nthere is a single child element that contains all the non-space textual\ncontent, but not to return anything where there are multiple child elements\nas in {@code <pre><code>...</code><code>...</code></pre>} or when there\nis textual content.",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1131,7 +1144,7 @@
                 "type": "Function (Object)"
             },
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1145,7 +1158,7 @@
                 }
             ],
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1153,7 +1166,7 @@
             "description": "are style markers (e.g., PR_COMMENT) that run from that position until\nthe end.",
             "type": "{Array.<number|string>}",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1171,7 +1184,7 @@
                 "type": "Function (Object)"
             },
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1180,7 +1193,7 @@
             "name": "",
             "final": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1194,7 +1207,7 @@
                 }
             ],
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1210,13 +1223,13 @@
             "access": "private",
             "tagname": "",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
             "line": 1162,
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1234,13 +1247,13 @@
                 }
             ],
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
             "line": 1305,
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1263,7 +1276,7 @@
                 }
             ],
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1277,7 +1290,7 @@
                 }
             ],
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1295,7 +1308,7 @@
                 "type": "String"
             },
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1303,7 +1316,7 @@
             "description": "Contains functions for creating and registering new language handlers.",
             "type": "{Object}",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1311,7 +1324,7 @@
             "fileoverview": "Registers a language handler for Handlebars.",
             "author": "Ryan Grove <ryan@wonko.com>",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
@@ -1319,7 +1332,7 @@
             "fileoverview": "Registers a language handler for CSS.\n\n\nTo use, include prettify.js and this file in your HTML page.\nThen put your code in an HTML tag like\n     <pre class=\"prettyprint lang-css\"></pre>\n\n\nhttp://www.w3.org/TR/CSS21/grammar.html Section G2 defines the lexical\ngrammar.  This scheme does not recognize keywords containing escapes.",
             "author": "mikesamuel@gmail.com",
             "class": "Container",
-            "module": "straight-wire"
+            "module": "bidirectional-arrow-wire"
         },
         {
             "file": "src/container/js/container.js",
@@ -1818,7 +1831,7 @@
         },
         {
             "file": "src/wires-delegate/js/wires-delegate.js",
-            "line": 45,
+            "line": 47,
             "description": "Add a wire to this terminal.",
             "itemtype": "method",
             "name": "addWire",
@@ -1834,7 +1847,7 @@
         },
         {
             "file": "src/wires-delegate/js/wires-delegate.js",
-            "line": 58,
+            "line": 60,
             "description": "When a wire is destroyed",
             "itemtype": "method",
             "name": "removeWire",
@@ -1843,7 +1856,7 @@
         },
         {
             "file": "src/wires-delegate/js/wires-delegate.js",
-            "line": 81,
+            "line": 83,
             "description": "Remove all wires",
             "itemtype": "method",
             "name": "destroyWires",
@@ -1852,7 +1865,7 @@
         },
         {
             "file": "src/wires-delegate/js/wires-delegate.js",
-            "line": 95,
+            "line": 97,
             "description": "Returns a list of all the terminals connected to this terminal through its wires.",
             "itemtype": "method",
             "name": "getConnected",
@@ -1865,7 +1878,7 @@
         },
         {
             "file": "src/wires-delegate/js/wires-delegate.js",
-            "line": 110,
+            "line": 112,
             "description": "Redraw all the wires connected to this terminal",
             "itemtype": "method",
             "name": "redrawAllWires",
