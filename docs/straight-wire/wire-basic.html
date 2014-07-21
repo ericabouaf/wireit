@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Example: Basic wire</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.4.1/build/cssgrids/grids-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/3.17.2/build/yui/yui-min.js"></script>
+    <script src="../../build/wireit-loader/wireit-loader.js"></script>
+    <script>YUI_config.groups.wireit.base = '../../build/';</script>
+    
+</head>
+<body class="yui3-skin-sam">
+
+<a href="https://github.com/neyric/wireit"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+<div id="doc">
+    <div id="hd">
+        <h1><img src="http://yuilibrary.com/img/yui-logo.png"> Example: Basic wire</h1>
+    </div>
+    
+
+    <div class="yui3-g">
+        <div class="yui3-u-3-4">
+            <div id="main">
+                <div class="content"><div class="intro">
+<p>
+This example demonstrates how to create an Basic wire.
+</p>
+</div>
+
+<div class="example">
+    <div style="position: relative; width: 300px; height: 200px;" id="layer"></div>
+
+    <script>
+YUI().use('straight-wire', function(Y) {
+    
+    var mygraphic = new Y.Graphic({render: "#layer"});
+    
+    var wire = mygraphic.addShape({
+       type: Y.StraightWire,
+       stroke: {
+           weight: 4,
+           color: "rgb(173,216,230)" 
+       },
+       src: {
+         getXY: function() {
+           return [50,50];
+         }
+       },
+       tgt: {
+         getXY: function() {
+           return [400,150];
+         }
+       }
+    });
+    
+}); 
+
+    </script>
+</div>
+
+<h2>HTML</h2>
+
+<pre class="code prettyprint">&lt;div style=&quot;position: relative; width: 300px; height: 200px;&quot; id=&quot;layer&quot;&gt;&lt;&#x2F;div&gt;</pre>
+
+
+<h2>JavaScript</h2>
+
+
+<h3>Implementation</h3>
+
+<pre class="code prettyprint">YUI().use(&#x27;straight-wire&#x27;, function(Y) {
+    
+    var mygraphic = new Y.Graphic({render: &quot;#layer&quot;});
+    
+    var wire = mygraphic.addShape({
+       type: Y.StraightWire,
+       stroke: {
+           weight: 4,
+           color: &quot;rgb(173,216,230)&quot; 
+       },
+       src: {
+         getXY: function() {
+           return [50,50];
+         }
+       },
+       tgt: {
+         getXY: function() {
+           return [400,150];
+         }
+       }
+    });
+    
+});</pre>
+
+</div>
+            </div>
+        </div>
+
+        <div class="yui3-u-1-4">
+            <div class="sidebar">
+                
+
+                
+                    <div class="sidebox">
+                        <div class="hd">
+                            <h2 class="no-toc">Examples</h2>
+                        </div>
+
+                        <div class="bd">
+                            <ul class="examples">
+                                
+                                    
+                                        <li data-description="How to provide autocomplete suggestions from a local array.">
+                                            <a href="wire-basic.html">Basic wire</a>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </div>
+                    </div>
+                
+
+                
+
+
+                    <div id="links-sidebox" class="sidebox">
+                        <div class="hd">
+                            <h2 class="no-toc">Links</h2>
+                        </div>
+
+                        <div class="bd">
+<ul>
+    <li><a href="../assets/../index.html">Home</a></li>
+    <li><a href="../assets/../index.html#examples">All Examples</a></li>
+    <li><a href="../assets/../getting-started.html">Getting Started</a></li>
+    <li><a href="../assets/../contribute.html">How to Contribute</a></li>
+    <li><a href="../assets/../../api/index.html">API Documentation</a></li>
+</ul>
+
+<ul>
+    <li><a href="http://github.com/neyric/wireit">Fork/Follow on GitHub</a></li>
+    <li><a href="http://github.com/neyric/wireit/issues">GitHub Issues</a></li>
+    <li><a href="http://neyric.com/category/wireit/">Blog</a></li>
+    <li><a href="http://groups.google.com/group/wireit/">Forums</a></li>
+    <li><a href="../assets/../../license.txt">License</a></li>
+</ul>
+
+                        </div>
+                    </div>
+
+
+            <div>
+                <center>
+                <img src="http://www.twitter.com/favicon.ico" alt="twitter"> follow <a href="http://twitter.com/wireit"> on Twitter</a><br>
+                <img src="http://github.com/favicon.ico" alt="GitHub"> fork <a href="http://github.com/neyric/wireit"> on GitHub</a><br><br>
+                <a href="http://www.pledgie.com/campaigns/13031"><img alt="Click here to lend your support to: wireit and make a donation at www.pledgie.com !" src="http://www.pledgie.com/campaigns/13031.png?skin_name=chrome" border="0"></a>
+                <br /><br />
+            </center>
+            </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+
+<script>
+YUI.Env.Tests = {
+    examples: [],
+    project: '../assets',
+    assets: '../assets/straight-wire',
+    name: 'wire-basic',
+    title: 'Basic wire',
+    newWindow: '',
+    auto:  true 
+};
+YUI.Env.Tests.examples.push('wire-basic');
+
+</script>
+<!--script src="../assets/yui/test-runner.js"></script-->
+
+
+
+</body>
+</html>
