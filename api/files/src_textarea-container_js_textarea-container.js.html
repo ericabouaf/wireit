@@ -163,28 +163,61 @@
  */
 
 /**
- * Form container for a single textarea field which is resizeable. 
- * Important: this class takes the exact same arguments as the FormContainer !
+ * Form container for a single textarea field which is resizeable.
  * You still need to specify the &quot;fields&quot;.
  * @class TextareaContainer
- * @extends FormContainer
+ * @extends Container
  * @constructor
  * @param {Object}   options  Configuration object (see properties)
  */
 
 Y.TextareaContainer = Y.Base.create(&quot;textarea-container&quot;, Y.Container, [], {
    
-   SERIALIZABLE_ATTRS: Y.Container.prototype.SERIALIZABLE_ATTRS.concat([&#x27;value&#x27;])
+
+   SERIALIZABLE_ATTRS: function() {
+      return Y.TextareaContainer.superclass.SERIALIZABLE_ATTRS.call(this).concat([&#x27;value&#x27;]);
+   },
    
-   
-   /*
-   
-   this.ddResize.on(&#x27;eventResize&#x27;, function (e, args) {
-      var el = this.form.inputs[0].el;
-      Y.one(el).setStyle(&quot;height&quot;, (args[0][1]-48)+&quot;px&quot;);
-      Y.one(el).setStyle(el, &quot;width&quot;, (args[0][0]-17)+&quot;px&quot;);
-   }, this, true);
-*/
+   renderUI: function() {
+      Y.TextareaContainer.superclass.renderUI.call(this);
+
+      this.setStdModContent(Y.WidgetStdMod.BODY, &quot;&lt;textarea&gt;&lt;/textarea&gt;&quot;);
+
+      this._bodyNode = this.getStdModNode(Y.WidgetStdMod.BODY);
+      this._textarea = this._bodyNode.one(&#x27;textarea&#x27;);
+   },
+
+   bindUI: function() {
+
+      Y.TextareaContainer.superclass.bindUI.call(this);
+
+      if(this.resize) {
+         this.resize.after(&#x27;resize:resize&#x27;, this._afterResizeTextarea, this);
+      }
+   },
+
+   _fillTextareaSize: function() {
+      this.fillHeight(this._bodyNode);
+
+      var region = this._bodyNode.get(&#x27;region&#x27;);
+
+      this._textarea.setStyle(&#x27;height&#x27;, region.height);
+      this._textarea.setStyle(&#x27;width&#x27;, region.width);
+   },
+
+   _afterResizeTextarea: function(e) {
+      this._fillTextareaSize();
+   },
+
+   syncUI: function() {
+      Y.TextareaContainer.superclass.syncUI.call(this);
+
+      this.getStdModNode(Y.WidgetStdMod.BODY).one(&#x27;textarea&#x27;).set( this.get(&#x27;value&#x27;) );
+
+      Y.later(0, this, function() {
+         this._fillTextareaSize();
+      });
+   }
    
 }, {
    
@@ -195,21 +228,14 @@ Y.TextareaContainer = Y.Base.create(&quot;textarea-container&quot;, Y.Container,
        * @attribute value
        */
       value: {
+
          getter: function () {
             return this.getStdModNode(Y.WidgetStdMod.BODY).one(&#x27;textarea&#x27;).get(&#x27;value&#x27;);
          },
          
          setter: function (value) {
-            this.set(&#x27;bodyContent&#x27;, &#x27;&lt;textarea&gt;&#x27;+value+&#x27;&lt;/textarea&gt;&#x27;);
+            this.getStdModNode(Y.WidgetStdMod.BODY).one(&#x27;textarea&#x27;).set(&#x27;value&#x27;, value);
          }
-      },
-      
-      /**
-       * Keep to render the textarea
-       * @attribute bodyContent
-       */
-      bodyContent: {
-         value: &#x27;&lt;textarea /&gt;&#x27;
       }
       
    }

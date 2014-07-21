@@ -793,8 +793,8 @@
             "namespace": "",
             "file": "src/textarea-container/js/textarea-container.js",
             "line": 5,
-            "description": "Form container for a single textarea field which is resizeable. \nImportant: this class takes the exact same arguments as the FormContainer !\nYou still need to specify the \"fields\".",
-            "extends": "FormContainer",
+            "description": "Form container for a single textarea field which is resizeable.\nYou still need to specify the \"fields\".",
+            "extends": "Container",
             "is_constructor": 1,
             "params": [
                 {
@@ -898,7 +898,7 @@
         },
         {
             "file": "src/bezier-wire/js/bezier-wire.js",
-            "line": 61,
+            "line": 63,
             "description": "Norm of the tangeant vector at the endpoints.",
             "itemtype": "attribute",
             "name": "bezierTangentNorm",
@@ -1344,7 +1344,7 @@
         },
         {
             "file": "src/container/js/container.js",
-            "line": 88,
+            "line": 93,
             "description": "Click handler for the close icon",
             "itemtype": "method",
             "name": "_onCloseClick",
@@ -1355,7 +1355,7 @@
         },
         {
             "file": "src/container/js/container.js",
-            "line": 122,
+            "line": 134,
             "description": "Relative left position (in the layer referential)",
             "itemtype": "attribute",
             "name": "x",
@@ -1364,7 +1364,7 @@
         },
         {
             "file": "src/container/js/container.js",
-            "line": 139,
+            "line": 151,
             "description": "Relative top position (in the layer referential)",
             "itemtype": "attribute",
             "name": "y",
@@ -1373,7 +1373,7 @@
         },
         {
             "file": "src/container/js/container.js",
-            "line": 156,
+            "line": 168,
             "itemtype": "attribute",
             "name": "zIndex",
             "class": "Container",
@@ -1381,7 +1381,7 @@
         },
         {
             "file": "src/container/js/container.js",
-            "line": 163,
+            "line": 175,
             "itemtype": "attribute",
             "name": "resizable",
             "class": "Container",
@@ -1389,7 +1389,7 @@
         },
         {
             "file": "src/container/js/container.js",
-            "line": 170,
+            "line": 182,
             "itemtype": "attribute",
             "name": "fillHeight",
             "class": "Container",
@@ -1397,7 +1397,7 @@
         },
         {
             "file": "src/container/js/container.js",
-            "line": 181,
+            "line": 193,
             "description": "Override the default value of WidgetIcons to add the close button",
             "itemtype": "attribute",
             "name": "icons",
@@ -1497,7 +1497,7 @@
         },
         {
             "file": "src/terminal/js/terminal.js",
-            "line": 82,
+            "line": 86,
             "description": "This function is a temporary test. I added the border width while traversing the DOM and\nI calculated the offset to center the wire in the terminal just after its creation",
             "itemtype": "method",
             "name": "getXY",
@@ -1506,7 +1506,7 @@
         },
         {
             "file": "src/terminal/js/terminal.js",
-            "line": 100,
+            "line": 104,
             "itemtype": "attribute",
             "name": "name",
             "class": "Terminal",
@@ -1514,7 +1514,7 @@
         },
         {
             "file": "src/terminal/js/terminal.js",
-            "line": 107,
+            "line": 111,
             "description": "Vector direction at the terminal\n(used by BezierWire ou Scissors)",
             "itemtype": "attribute",
             "name": "dir",
@@ -1523,7 +1523,7 @@
         },
         {
             "file": "src/terminal/js/terminal.js",
-            "line": 120,
+            "line": 124,
             "itemtype": "attribute",
             "name": "offset",
             "class": "Terminal",
@@ -1699,19 +1699,10 @@
         },
         {
             "file": "src/textarea-container/js/textarea-container.js",
-            "line": 33,
+            "line": 66,
             "description": "Value of the textarea",
             "itemtype": "attribute",
             "name": "value",
-            "class": "TextareaContainer",
-            "module": "textarea-container"
-        },
-        {
-            "file": "src/textarea-container/js/textarea-container.js",
-            "line": 47,
-            "description": "Keep to render the textarea",
-            "itemtype": "attribute",
-            "name": "bodyContent",
             "class": "TextareaContainer",
             "module": "textarea-container"
         },
@@ -1795,7 +1786,7 @@
         },
         {
             "file": "src/wire-base/js/wire-base.js",
-            "line": 116,
+            "line": 117,
             "itemtype": "attribute",
             "name": "src",
             "class": "WireBase",
@@ -1803,7 +1794,7 @@
         },
         {
             "file": "src/wire-base/js/wire-base.js",
-            "line": 138,
+            "line": 139,
             "itemtype": "attribute",
             "name": "tgt",
             "class": "WireBase",
@@ -1811,7 +1802,7 @@
         },
         {
             "file": "src/wire-base/js/wire-base.js",
-            "line": 162,
+            "line": 163,
             "itemtype": "attribute",
             "name": "srcDir",
             "type": "Array",
@@ -1821,7 +1812,7 @@
         },
         {
             "file": "src/wire-base/js/wire-base.js",
-            "line": 172,
+            "line": 173,
             "itemtype": "attribute",
             "name": "tgtDir",
             "type": "Array",

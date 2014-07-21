@@ -222,7 +222,11 @@ Y.Terminal = Y.Base.create(&quot;terminal&quot;, Y.Widget, [
    },
 
    _hideOverlay: function() {
-      this.get(&#x27;boundingBox&#x27;).removeClass( this.getClassName(&quot;show-overlay&quot;) );
+      var bb = this.get(&#x27;boundingBox&#x27;);
+      // because of the timer, the widget may have been destroyed
+      if(bb) {
+         bb.removeClass( this.getClassName(&quot;show-overlay&quot;) );
+      }
    },
    
    // override the WiresDelegate behavior which re-fires the event
