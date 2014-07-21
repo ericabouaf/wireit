@@ -33,7 +33,7 @@ Y.Container = Y.Base.create("container", Y.Widget, [
     * @method renderUI
     */
    renderUI: function () {
-      this._renderDrag();    
+      this._renderDrag();
       this._renderResize();
    },
 
@@ -52,7 +52,7 @@ Y.Container = Y.Base.create("container", Y.Widget, [
    syncUI: function() {
       // waiting for the next tick to align the terminals
       Y.later(0, this, function() {
-         this.alignTerminals();         
+         this.alignTerminals();
       });
    },
 
@@ -78,10 +78,15 @@ Y.Container = Y.Base.create("container", Y.Widget, [
        
    },
 
-   _onResize: function() {
+   _onResize: function(e) {
       // On resize, fillHeight, & align terminals & wires
       this._fillHeight();
       this.alignTerminals();
+
+      // Set width & height
+      var region = this.get('boundingBox').get('region');
+      this.set('width', e.details[0].info.offsetWidth);
+      this.set('height', e.details[0].info.offsetHeight);
    },
 
 
@@ -95,14 +100,21 @@ Y.Container = Y.Base.create("container", Y.Widget, [
    },
    
    
-   SERIALIZABLE_ATTRS: [ 'x', 'y'],
+   SERIALIZABLE_ATTRS: function() {
+      var attrs = ['x', 'y'];
+      if(this.get('resizable')) {
+         attrs.push('width');
+         attrs.push('height');
+      }
+      return attrs;
+   },
    
    toJSON: function () {
-      var o = {}, a = this;
-      Y.Array.each(this.SERIALIZABLE_ATTRS, function (attr) {
+      var o = {},
+          a = this;
+      Y.Array.each(this.SERIALIZABLE_ATTRS(), function (attr) {
          o[attr] = a.get(attr);
       });
-      
       return o;
    },
    

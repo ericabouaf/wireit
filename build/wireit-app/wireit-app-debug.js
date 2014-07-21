@@ -287,8 +287,8 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
    
    setWiring: function (wiring) {
       
-      var that = this;
-      var layer = this.layer;
+      var that = this,
+          layer = this.layer;
 
       Y.Array.each( wiring.get('containers'), function (container) {
          
@@ -306,11 +306,11 @@ Y.EditorView = Y.Base.create('editorView', Y.View, [], {
          // prevent bad configs...
          if(!wire.src || !wire.tgt) return;
          
-         var srcContainer = layer.item(wire.src.container);
-         var srcTerminal = srcContainer.getTerminal(wire.src.terminal);
+         var srcContainer = layer.item(wire.src.container),
+             srcTerminal = srcContainer.getTerminal(wire.src.terminal),
          
-         var tgtContainer = layer.item(wire.tgt.container);
-         var tgtTerminal = tgtContainer.getTerminal(wire.tgt.terminal);
+             tgtContainer = layer.item(wire.tgt.container),
+             tgtTerminal = tgtContainer.getTerminal(wire.tgt.terminal);
          
          // TODO: wire.config;
          var w = layer.graphic.addShape({

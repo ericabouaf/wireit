@@ -54,7 +54,9 @@ Y.extend(Y.BezierWire, Y.WireBase, {
    
    
    
-   SERIALIZABLE_ATTRS: ["color","width","bezierTangentNorm"]
+   SERIALIZABLE_ATTRS: function() {
+      return ["color","width","bezierTangentNorm"];
+   }
    
 });
 
