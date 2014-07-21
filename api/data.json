@@ -461,7 +461,7 @@
             "is_constructor": 1,
             "params": [
                 {
-                    "name": "cfg",
+                    "name": "config",
                     "description": "the configuration for the ArrowWire attributes",
                     "type": "Object"
                 }
@@ -503,7 +503,7 @@
             "file": "src/bidirectional-arrow-wire/js/bidirectional-arrow-wire.js",
             "line": 5,
             "description": "BidirectionalArrowWire",
-            "extends": "WireBase",
+            "extends": "ArrowWire",
             "is_constructor": 1,
             "params": [
                 {
@@ -866,7 +866,7 @@
     "classitems": [
         {
             "file": "src/arrow-wire/js/arrow-wire.js",
-            "line": 21,
+            "line": 94,
             "itemtype": "method",
             "name": "_draw",
             "access": "private",
@@ -893,16 +893,6 @@
             "type": "Integer",
             "class": "BezierWire",
             "module": "bezier-wire"
-        },
-        {
-            "file": "src/bidirectional-arrow-wire/js/bidirectional-arrow-wire.js",
-            "line": 20,
-            "itemtype": "method",
-            "name": "_draw",
-            "access": "private",
-            "tagname": "",
-            "class": "BidirectionalArrowWire",
-            "module": "straight-wire"
         },
         {
             "file": "src/common/docs/assets/vendor/prettify/prettify.js",
