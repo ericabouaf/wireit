@@ -10,7 +10,7 @@
         "outdir": "./api",
         
         "external": {
-             "data": "http://yuilibrary.com/yui/docs/api/data.json"
+             "data": "https://yuilibrary.com/yui/docs/api/data.json"
          }
     }
 }
