@@ -148,7 +148,7 @@ Y.TerminalProxy.prototype = {
       if(this.terminal.container) {
          var obj = this.terminal.container.layer.el;
          var curleft = 0;
-         // Applied patch from http://github.com/neyric/wireit/issues/#issue/27
+         // Applied patch from https://github.com/neyric/wireit/issues/#issue/27
          // Fixes issue with Wire arrow being drawn offset to the mouse pointer
          var curtop = 0;
          if (obj.offsetParent) {

@@ -8,10 +8,10 @@ WireIt is an open-source javascript library to create web wirable interfaces for
 Please visit the project home page : <http://neyric.github.io/wireit/docs/>
     
  * Source code
-   <http://github.com/neyric/wireit>
+   <https://github.com/neyric/wireit>
 
  * Issue tracker & Feature requests
- <http://github.com/neyric/wireit/issues>
+ <https://github.com/neyric/wireit/issues>
 
  * Blog
    <http://neyric.com/category/wireit/>

@@ -7,14 +7,14 @@
     "yuiLocalBuildUrl": "build",
     "yuiVersion"      : "3.17.2",
     "wireitVersion"   : "3.0.0pr2",
-    "yuiSeedUrl"      : "http://yui.yahooapis.com/3.17.2/build/yui/yui-min.js",
+    "yuiSeedUrl"      : "https://yui-s.yahooapis.com/3.17.2/build/yui/yui-min.js",
     
     "wireitSeedUrl" : "../build/wireit-loader/wireit-loader.js",
 
     "componentDefaults": {
         "yuiBuildUrl"     : "../build",
         "yuiLocalBuildUrl": "../build",
-        "yuiSeedUrl"      : "http://yui.yahooapis.com/3.17.2/build/yui/yui-min.js",
+        "yuiSeedUrl"      : "https://yui-s.yahooapis.com/3.17.2/build/yui/yui-min.js",
         "wireitSeedUrl" : "../../build/wireit-loader/wireit-loader.js"
     },
 
