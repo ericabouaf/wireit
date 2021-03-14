@@ -5,16 +5,12 @@
 
 WireIt is an open-source javascript library to create web wirable interfaces for dataflow applications, visual programming languages, graphical modeling, or graph editors.
 
-Please visit the project home page : <http://neyric.github.io/wireit/docs/>
+Please visit the project home page : http://ericabouaf.github.io/wireit/docs/
     
- * Source code
-   <https://github.com/neyric/wireit>
+ * Source code https://github.com/ericabouaf/wireit
 
- * Issue tracker & Feature requests
- <https://github.com/neyric/wireit/issues>
+ * Issue tracker & Feature requests https://github.com/ericabouaf/wireit/issues
 
- * Blog
-   <http://neyric.com/category/wireit/>
+ * Blog http://neyric.com/tags/WireIt/
 
-Wireit is distributed under a MIT license
-<http://neyric.github.io/wireit/license.txt>
+Wireit is distributed under the MIT license http://ericabouaf.github.io/wireit/license.txt
